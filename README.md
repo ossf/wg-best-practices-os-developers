@@ -30,9 +30,10 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 
 ## Communications
 
-* [Meeting Minutes](https://docs.google.com/document/d/1uXQI1vI5_HyOvxHMexrnTY_ruBrynbPl5yOd1UM4g3A/edit#heading=h.yworp6sxzb6g)
-* TODO email list, github discussion
+* [Meeting Minutes](https://github.com/ossf/wg-best-practices-os-developers/tree/main/meeting-minutes)
+* [Discussions](https://github.com/ossf/wg-best-practices-os-developers/discussions)
+* TODO email list
 
 ## Meeting times
 
-<link to calendar>
+<TODO link to calendar>
