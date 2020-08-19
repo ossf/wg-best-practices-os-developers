@@ -30,10 +30,10 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 
 ## Communications
 
-* [Meeting Minutes](https://github.com/ossf/wg-best-practices-os-developers/tree/main/meeting-minutes)
+* [Meeting Minutes](./meeting-minutes.md)
 * [Discussions](https://github.com/ossf/wg-best-practices-os-developers/discussions)
 * TODO email list
 
 ## Meeting times
 
-<TODO link to calendar>
+Every 2 weeks, Monday 8am PST
