@@ -32,7 +32,7 @@
         - Referencing the SKF project on the OSSF page?
 
 ## Actions
- - [ ] Raise these questions to the TAC (Maya)
+ - [x] Raise these questions to the TAC (Maya) https://github.com/ossf/tac/issues/19
 </details>
 
 <details>
