@@ -48,7 +48,7 @@
 
 ## Platform Vision
 
-[![Learning Platform Architecture Draft](img/Learning-Platform-Architecture_Draft.png)](docs/Learning-Platform-Architecture_Draft.pptx)
+[![Learning Platform Architecture Draft](../img/Learning-Platform-Architecture_Draft.png)](docs/Learning-Platform-Architecture_Draft.pptx)
 
 ## Solution Webhook
 
