@@ -32,7 +32,7 @@
   send me feedback in order to encourage me to come back to me for more
   exercises and lessons in the future
 
-### Learning Platform Provider
+### Learning Platform Provider (edX or Coursera)
 
 * As a learner I want the learning platform to offer me achievement
   collections in order to be motivated to complete learning paths
