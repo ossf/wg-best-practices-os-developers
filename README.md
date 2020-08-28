@@ -34,6 +34,6 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 * [Discussions](https://github.com/ossf/wg-best-practices-os-developers/discussions)
 * TODO email list
 
-## Meeting times
+## Meeting times and invite
 
-Every 2 weeks, Monday 8am PST
+Every 2 weeks, Monday 8am PST. The meeting invite is available on the public [OSSF calendar](https://calendar.google.com/calendar?cid=czYzdm9lZmhwNWk5cGZsdGI1cTY3bmdwZXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)
