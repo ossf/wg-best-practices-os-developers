@@ -1,6 +1,38 @@
 # Best Practices for Open Source developers Working Group - Meeting Minutes
 
 <details>
+ <summary>Regular meeting - August 31th, 2020</summary>
+ 
+ ## Round table
+ We welcomed new members and made a quick round of introductions
+ Attendees: Bjoern Kimminich, Crob, Dave Russo, David Wheeler, Glenn Ten Cate, Riccardo Ten Cate, Dan Lorenc, Pavel Malinov, Xavier René-Corail 
+ 
+ ## Presentation of the working group
+ - Overview of the mission
+ - Overview of the 3 initial projects, and status
+   - Inventory and community paused
+   - Learning platform
+   
+ ## Presentation of the learning platform / SKF
+ Glenn and Riccardo presented the learning platform, the vision around it, the current status and the upcoming planned features.
+ We decided to run a 30min demo and Q&A during next meeting
+ 
+ ## CII Best practices badge
+ David gave a presentation of the [CII Best practices badge](https://github.com/coreinfrastructure/best-practices-badge/blob/master/doc/cii-bp-badge-intro.pptx)
+ 
+ ## Course draft
+ David is working on a course to be published on edx. Freeze date is middle of next month. Should be ready for Nov 3rd for an announcement of new releases from the OSSF. 
+ Feedback welcome, send him an email to get access. 
+ 
+ ## Actions
+ - Glenn / Riccardo: Prepare a demo + walk through SKF (please no demo while driving the car Glenn)
+ - Glenn / David: Think about how the edx course (or similar others) can be "integrated" into the learning platform, contribute to the learning path, etc.
+ - All: reflect about the CII best practices badge and how it could help our projects. It was not originally in our vision to score the projects, but a badge could obviously contribute to the community effort. Another idea could be that the criteria could link to the respective entries in the learning platform?
+ - All: propose other ideas for next meeting's agenda
+
+</details>
+
+<details>
  <summary>Regular meeting - August 17th, 2020</summary>
 
 ## What happened since last meeting?
