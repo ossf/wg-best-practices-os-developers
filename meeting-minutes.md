@@ -1,5 +1,50 @@
 # Best Practices for Open Source developers Working Group - Meeting Minutes
 
+
+<details>
+ <summary>Regular meeting - August 31th, 2020</summary>
+
+ ## (Discussion of) proposal from David A. Wheeler
+   David A. Wheeler made the following proposal:
+   
+   The OpenSSF is expected to have a press release at the end of October.
+   It would be very good to have a few concrete results to announce then.
+   If we want to meet that deadline, some things must happen quickly!
+   
+   Several people have reviewed the course “Fundamentals of Developing Secure Software”,
+   with generally very positive comments. I have tried to respond to all
+   feedback (e.g., there's more about privacy, CORS, etc.).
+   If this course is to be released by the end of October,
+   the course content has to be frozen Sep 15, and this WG needs to
+   approve it as an OpenSSF result within a few days (final approval must
+   be known by the end of September, and the TAC and GB may need/want to weigh in).
+   
+   On 2020-09-11 Glenn Ten Cate & David A. Wheeler spent considerable time discussing
+   OWASP SKF & the "Fundamentals..." course. They are very different;
+   the "Fundamentals" course covers basic fundamentals, while OWASP SKF includes
+   mechanisms to identify requirements & a set of labs. We discussed options for
+   integrating them more closely in the future, and have some ideas for doing that
+   long-term, but it would be risky to try to integrate them into a single
+   by the end of October. However, Glenn Ten Cate believes they can have a useful
+   capability by the end of October. Both agreed that the SKF labs, for example,
+   are an excellent complement to the "Fundamentals" material.
+
+   I propose that:
+   * This WG vote whether or not to approve releasing the
+     “Fundamentals of Developing Secure Software” course as an OpenSSF course.
+     The vote can be electronic; if desired here's a Doodle poll to do it:
+     <https://doodle.com/poll/wkwgpzmbhmmgdy3f> . I propose a deadline of
+     2020-09-17 23:00 Eastern Time (this upcoming Thursday).
+     
+   I also propose that:
+   * The OWASP SKF work be encouraged to be developed so that there will be
+     a releasable version at the end of October (e.g., with enough
+     labs that people can clearly see its utility).  The WG would vote later
+     (say in early October) on whether or not it's ready at that time.
+     Of course this work could continue to be refined after that time.
+
+</details>
+   
 <details>
  <summary>Regular meeting - August 31th, 2020</summary>
  
