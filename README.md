@@ -32,7 +32,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 
 * [Meeting Minutes](./meeting-minutes.md)
 * [Discussions](https://github.com/ossf/wg-best-practices-os-developers/discussions)
-* TODO email list
+* [Mailing list](https://lists.openssf.org/g/openssf-wg-best-practices). [Manage your subscriptions to Open SSF mailing lists](https://lists.openssf.org/g/main/subgroups).
 
 ## Meeting times and invite
 
