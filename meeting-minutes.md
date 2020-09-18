@@ -2,8 +2,23 @@
 
 
 <details>
- <summary>Regular meeting - August 31th, 2020</summary>
+ <summary>Regular meeting - September 14th, 2020</summary>
 
+ ## Introduction of newcomers
+ 
+ ## OWASP SKF Demo
+ Glenn made a demo of the Security Knowledge Framework. Comments and questions:
+ * The framework is open to external contributions. One can create new design patterns and enrich the framework
+ * **Can the entries be mapped to other requirements than ASVS / MASVS?** This working group intended to also deliver a unified requirements definition (The *Inventory* project). Once done, this unified list would have been used for the mapping. This project has been paused because of lack of resources.
+ * Demo of the upcoming version available at https://beta.securityknowledgeframework.org/. Credentials are the same as for the current demo version
+ * **Do you have plans to add compliance requirements (e.g. NIST)** No plan, but the platform makes it easy to add requirements, and we want people to contribute.
+ * **Concrete next steps**: 
+  * Login with ID providers (GitHub, GitLab, Google, Facebook, Twitter ...)
+  * Infrastructure for public instance
+    * Remarks: this is not blocking the next release. We can release it with the current local deployment solution
+ * For the OSSF public announcement: Announce release, and announce plan to provide a public, community-powered instance.
+    
+ 
  ## (Discussion of) proposal from David A. Wheeler
    David A. Wheeler made the following proposal:
    
@@ -42,6 +57,10 @@
      labs that people can clearly see its utility).  The WG would vote later
      (say in early October) on whether or not it's ready at that time.
      Of course this work could continue to be refined after that time.
+
+## Actions
+- [ ] All: Vote on the course
+- [ ] Glenn: Cost estimation for the SKF public infra
 
 </details>
    
