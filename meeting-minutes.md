@@ -4,17 +4,56 @@
  <summary>Regular meeting - September 28th, 2020</summary>
  
  ## Intro
+ * Rob Cuddy, from Humane Computer Labs
+ 
  ## Quick status on in-flight projects
  ### Fundamentals course
+ Things are on track. Content is frozen, conversion to EDX is in progress.
+ ETA is still end of October, it would be awesome, though November is more realistic.
+ We should have the sign up by the end of October.
+ 
+ **Early access possible?**
+ 
+ Certainly possible, David will ask: Yes, beta access 1w before the release.
+ 
+ **Cost?**
+ 
+ Free for taking the course. Fee for the certification? David will ask
+ 
  ### SKF
+ 
+ * UI: All the pages done.
+ * TODO: Design patterns
+ * TODO: CodeQL queries - Xavier to touch base with Glenn / Riccardo 
+ 
  ## CII Best Practices badge project: which working group of the OSSF?
  
  See https://github.com/ossf/wg-best-practices-oss-developers/issues/23
  
+ It doesn't easily fit into just one group. Focused on measuring projects, which fits perhaps better into the "Security threat" group. There should be one home, as a working group, but it's important to set up a collaboration between the 2 groups. Whichever WG is the home, both groups should be involved.
+
+* Crob: feels strongly that it should be part of this group, to focus all developer-focused activities in one group.
+* Bjorn agrees with Crob. It's def about the best practices. Fair point that the name confusion couldbe a problem if the CII Best Practices goes into another group than the Best Practices WG
+* Dave + Pavel + Rob Cuddy votes for this group
+* Xavier: Not a strong opinion but thinks it should belong to the other group. This WG is focused on the individual, that other is focused on the projects.
+* Rob: Anything that can bring visibility on best practices to individuals is valuable
+
+David will bring that to the other WG, and eventually bring it to the TAC
+ 
  ## Organization: Nominate new lead / co-lead?
+ CRob is volunteeering
+ 
  ## Inventory project: Should we start?
  
  https://github.com/ossf/wg-best-practices-oss-developers/blob/main/docs/inventory.md
+ 
+ * CRob: This group should have these resources. The integration part will def be more challenging and could come in a later phase.
+ * Rob: Connection to other tooling and categorization make a big difference. About ranking: loves that it comes from the actual user's perspective. 
+ * When the inventory integrates with SAST tools within the IDE, do you get remediation advices associated? Depends on the tool itself, but yes. 
+ * SKF intended also to consume the inventory. In the meantime, SKF can add other sources, waiting for the inventory to be live.
+ 
+ ## Other subjects
+ * Xavier's zoom virtual background is from [Miyazakis's Spirited away](https://en.wikipedia.org/wiki/Spirited_Away), awesome movie highly recommended by this group.
 
 </details>
 
