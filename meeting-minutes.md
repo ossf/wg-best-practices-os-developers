@@ -4,7 +4,7 @@
  <summary>Regular meeting - September 28th, 2020</summary>
  
  ## Intro
- * Rob Cuddy, from Humane Computer Labs
+ * Rob Cuddy, from HCL Technologies
  
  ## Quick status on in-flight projects
  ### Fundamentals course
