@@ -5,7 +5,7 @@ repository:
   name: wg-best-practices-os-developers
 
   # A short description of the repository that will show up on GitHub
-  description: OSSF Working group: secure code best practices for open source developers
+  description: This working group provides secure code best practices to open source developers. We want them to be community-sourced, easy to learn and to apply.
 
   # A URL with more information about the repository
   homepage: https://openssf.org
