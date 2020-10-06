@@ -5,7 +5,7 @@ repository:
   name: wg-best-practices-os-developers
 
   # A short description of the repository that will show up on GitHub
-  description: Dedicated to raising awareness and education of secure code best practices for open source developers
+  description: The Best Practices for OSS Developers working group is dedicated to raising awareness and education of secure code best practices for open source developers.
 
   # A URL with more information about the repository
   homepage: https://openssf.org
