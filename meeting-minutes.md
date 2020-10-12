@@ -1,6 +1,55 @@
 # Best Practices for Open Source developers Working Group - Meeting Minutes
 
 <details>
+ <summary>Regular meeting - October 12th, 2020</summary>
+ 
+ ## Intro
+ * No new members on the call this week
+ 
+ ## Quick status on in-flight projects
+ ### Fundamentals course
+* 3 classes have been converted to Edix (content being broken up to smaller pieces)
+* David reviewing & has taken all 3 classes
+-- minor formatting/typo changes being corrected
+* Email david to get into beta test (goes live in one week)
+* Could create github repo to collect feedback on future classes & submit issues
+* Desire not to have constant stream of new content, desire for some form of period updates/review
+  
+  
+ ### SKF
+* Mmet with xavier on codeql integrations & how to coordinate requirements & how to add codeql into labs.  Xavier hope to have an update on status later today
+* Team is fixing last bugs. can use skf as an anonymous user, now working on pollishing
+* Planning on release later this week (has generic codeql template or if xav's efforts get integrated)
+* Feedback, questions, gitter channel for feedback
+* For RFEs - create fork (all content is in markdown) & pr
+-- now that app is decoupled, even easier/fasater for updates (if WG wants to add prior to big release, look at dev branch) [currently big blacklog, but going forward will be a smaller delta]
+* Badging/scoring will be in future sprints
+* Labs fixing vulns in editor & testing against labs, in-browser http-interceptor
+  
+ ### CII Best Practices badge project: which working group of the OSSF?
+* David gave preso to TAC last week(since there are two groups interested in badges)
+* WG's need to refine scope & present to TAC that hopefully will make things more clear.
+ 
+ ### Inventory project 
+* Common Requirement Emnumertor (CRE)
+* OWASP has already been active in promoting it
+* OWASP is working on MVP on structure of MVP
+* Will add/replace with skf dataset
+* Looking for requirements coverate (ASF, PCI, FedRAMP, etc)
+* Gibson can report back with progress next WG call
+
+
+ ## Other subjects
+ * Gibson - what timing shouold they consider for their release?
+-- Conversation about how end-user could actually get adn deploy update
+-- David - would this be good to get into the press release that is coming out this week?
+---David, Xavier, CRob agree this would be good to add in
+--- Press release shoul dbe frozen by oct15 (note to lindsay) to go out on oct28
+---- @CRob contact lindsay to see if we can get into press release.  @ Gibson to propose a few sentences for the release & provide access links
+
+</details>
+
+<details>
  <summary>Regular meeting - September 28th, 2020</summary>
  
  ## Intro
