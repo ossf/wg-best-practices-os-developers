@@ -47,6 +47,8 @@
 --- Press release shoul dbe frozen by oct15 (note to lindsay) to go out on oct28
 ---- @CRob contact lindsay to see if we can get into press release.  @ Gibson to propose a few sentences for the release & provide access links
 
+## Recording
+[Meeting recording](https://github.zoom.us/rec/play/ryLKINNE83bMavNA_mYNfAjkQFcWUyNNk_D-Yc-Oh7EPchxxedABvHzNyL55KiVfS3Ry4R-jwwkABWsA.tCGvkrb6HeGiKoNK?continueMode=true&_x_zm_rtaid=adj_Bf8bSz2PFTsAxn_qbg.1603127971136.cef4507fbbd7e934ff492b003b76eeca&_x_zm_rhtaid=116)
 </details>
 
 <details>
