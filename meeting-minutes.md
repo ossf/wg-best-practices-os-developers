@@ -8,7 +8,7 @@
  
  ## Quick status on in-flight projects
  ### Fundamentals course
-* 3 classes have been converted to Edix (content being broken up to smaller pieces)
+* 3 classes have been converted to EdX (content being broken up to smaller pieces)
 * David reviewing & has taken all 3 classes
 -- minor formatting/typo changes being corrected
 * Email david to get into beta test (goes live in one week)
@@ -17,7 +17,7 @@
   
   
  ### SKF
-* Mmet with xavier on codeql integrations & how to coordinate requirements & how to add codeql into labs.  Xavier hope to have an update on status later today
+* Met with xavier on codeql integrations & how to coordinate requirements & how to add codeql into labs.  Xavier hope to have an update on status later today
 * Team is fixing last bugs. can use skf as an anonymous user, now working on pollishing
 * Planning on release later this week (has generic codeql template or if xav's efforts get integrated)
 * Feedback, questions, gitter channel for feedback
@@ -31,7 +31,7 @@
 * WG's need to refine scope & present to TAC that hopefully will make things more clear.
  
  ### Inventory project 
-* Common Requirement Emnumertor (CRE)
+* Common Requirement Enumerator (CRE)
 * OWASP has already been active in promoting it
 * OWASP is working on MVP on structure of MVP
 * Will add/replace with skf dataset
@@ -40,8 +40,8 @@
 
 
  ## Other subjects
- * Gibson - what timing shouold they consider for their release?
--- Conversation about how end-user could actually get adn deploy update
+ * Gibson - what timing should they consider for their release?
+-- Conversation about how end-user could actually get and deploy update
 -- David - would this be good to get into the press release that is coming out this week?
 ---David, Xavier, CRob agree this would be good to add in
 --- Press release shoul dbe frozen by oct15 (note to lindsay) to go out on oct28
