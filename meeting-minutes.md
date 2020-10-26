@@ -1,6 +1,38 @@
 # Best Practices for Open Source developers Working Group - Meeting Minutes
 
 <details>
+ <summary>Regular meeting - October 26th, 2020</summary>
+ 
+ ## Intro
+ * New members on the call this week?
+ 
+ ## Quick status on in-flight projects
+ ### Fundamentals course
+*  
+  
+  
+ ### SKF
+*  
+  
+ ### CII Best Practices badge project: which working group of the OSSF?
+*  
+ 
+ ### Inventory project 
+* Common Requirement Enumerator (CRE)
+* Gibson can report back with progress next WG call
+
+
+
+ ## Other subjects
+ * Dan Lorenc to present on [Open Source Scorecards](https://github.com/dlorenc/scorecard) if it makes sense to work on as part of this group.
+ * other topics
+ 
+ 
+## Recording
+FORTHCOMING - [Meeting recording]( )
+</details>
+ 
+ <details>
  <summary>Regular meeting - October 12th, 2020</summary>
  
  ## Intro
