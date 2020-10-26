@@ -5,31 +5,58 @@
  
  ## Intro
  * New members on the call this week?
+  Rob, Spyros, & Dan stopped by to talk about their projects
  
  ## Quick status on in-flight projects
  ### Fundamentals course
-*  
-  
+* in-flight for public release - STAY TUNED!
+* wants to move to github in markdown post-release
+
   
  ### SKF
-*  
+* major release out now! (yay!)
+* glenn will be adding more network/compute capacity
+* labs improvement in-flight (design secure coding function)
+* needs help with github how it can ingest scoring data
   
  ### CII Best Practices badge project: which working group of the OSSF?
-*  
+* no decision from TAC yet
+* more projects getting badges
+* some capactity issues around folks downloading data, implementing rate limit to help manage
+* assurance case in badge app - why do we think this is secure - MITRE has reviewed recently and posted comments; they'd like the app to swap to MITRE notation 
  
  ### Inventory project 
 * Common Requirement Enumerator (CRE)
-* Gibson can report back with progress next WG call
+ https://owasp.org/www-project-integration-standards/ 
+* david expressed interest
+* glenn invited them to our call - Rob & Spyros
+* OWASP integration stanard project - -cvreate inventory to link standards together
+* Setup meeting next week to talk about data formats (SKF & CRE has mutual interest). envision a service/url that can be used to route content linked to particular topic
+* Spryos working on POC 
+* Currently maintaining links in spreadsheet & using python script to convert to YAML to validate vs. JSON schema & puts valid items into github.  github action links PR & provides basic REST API
+* David W ? - what about standard overlap/relations but not exactly the same?  how will that be handled?  DW - we should asume they are related, but not subsets/supersets of each other.  Rob - want to learn about requirements at this point & provide data - future item to work on
 
-
+(Rob is colead of this and also works on SAMM)
 
  ## Other subjects
  * Dan Lorenc to present on [Open Source Scorecards](https://github.com/dlorenc/scorecard) if it makes sense to work on as part of this group.
- * other topics
- 
+ https://github.com/dlorenc/scorecard
+
+* wants to distill CII best practices & dashboards project to find requirements that can be defined and automated
+* understands some items are not automatable
+* using cii api to check/validate data
+* desires a place to talk about what best practice are & discuss (sounds like Dan found the place!)
+* Glenn ? - where can this be run - cli for now, can be run ...daily..and save results or done on the fly
+* Daveid W ? - are querries in parallel - yes & caches github querries for rate limiting
+* Daveid W ? - badges has some tools and are collecting some of this info, think about where best places to run checks would be
+* Dan L -wants to make it finer-grain in the future and focus on specific languages
+* David W ? - we should setup a subset meeting to go over checking/tests of each tools to see overlap & opportunities
+* David W ? - is this gtihub only? gitlab, etc? - Dan L- is open to the idea in the future
+* David W ? - suggests talking to the Chaos folks...they have some tooling in this space too.  He can help broker convo
+
  
 ## Recording
-FORTHCOMING - [Meeting recording]( )
+FORTHCOMING - [Meeting recording](https://github.zoom.us/rec/play/Dw-FA9xZotcX09hSBp-EfLCna3Yi5raNgHThv6VmSXISmsJlBSXjyE2FGN1XgmEx0FBAWoXVonL21aG3.CRLFuuL-NQeO9STQ?continueMode=true)
 </details>
  
  <details>
