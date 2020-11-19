@@ -1,6 +1,41 @@
 # Best Practices for Open Source developers Working Group - Meeting Minutes
 
 <details>
+ <summary>Regular meeting - November 23rd, 2020</summary>
+ 
+ ## Intro
+ * New members on the call this week?
+
+ 
+ ## Quick status on in-flight projects
+  ### Fundamentals course
+ * 
+ ### SKF
+ *
+ ### CII Best Practices badge project: which working group of the OSSF?
+ * TAC met and agreed with discussion between leads ofr Metrics & this working group.  Dev Best Practices working group is cleared to assist curating/augmmenting/improving the current CII Best Practices Badge project best practices.  We'll corrdinate with the Metrics team as they are ready to start advertising the badges as part of their reporting.
+ * Group discussion:
+
+ ### Inventory project 
+ *
+
+ ## Synchronizing Group Efforts
+  * How do we want to move forward participating in the currently listed projects?
+ * How best can we serve the OSS developer community? 
+ -- Awareness of these projects?
+ -- Synching of standards/requirements between projects?
+ -- Documenting persons/user stories
+ -- Other thoughts
+ 
+ ## Other subjects
+ *
+ *
+ 
+## Recording
+FORTHCOMING -
+</details>
+
+<details>
  <summary>Regular meeting - October 26th, 2020</summary>
  
  ## Intro
@@ -56,7 +91,7 @@
 
  
 ## Recording
-FORTHCOMING - [Meeting recording](https://github.zoom.us/rec/play/Dw-FA9xZotcX09hSBp-EfLCna3Yi5raNgHThv6VmSXISmsJlBSXjyE2FGN1XgmEx0FBAWoXVonL21aG3.CRLFuuL-NQeO9STQ?continueMode=true)
+[Meeting recording](https://github.zoom.us/rec/play/Dw-FA9xZotcX09hSBp-EfLCna3Yi5raNgHThv6VmSXISmsJlBSXjyE2FGN1XgmEx0FBAWoXVonL21aG3.CRLFuuL-NQeO9STQ?continueMode=true)
 </details>
  
  <details>
