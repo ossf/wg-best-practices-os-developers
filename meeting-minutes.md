@@ -5,22 +5,51 @@
  
  ## Intro
  * New members on the call this week?
-
+- Frederico De Meo
+- Rob van der Veer (CRE project)
+- Sylvan Rigal (CRE project)
  
  ## Quick status on in-flight projects
   ### Fundamentals course
- * 
+ * Lots of interest & sign ups (100s of folks).  DW will get #s for next time.
+ * DW can give access to the source google docs for anyone interested in "audting" the class and seeing the materials
+ 
  ### SKF
- *
+ * Improving labs (with help from a collegue).  Trimming size down in size to make them quicker and more reliable.
+ * Working on github integration (next year task)
+ * Adding MOAR raspberry pis to improve capacity/performance.  Curious to see Foundation's ability to finance tasks like this @CRob talk to TAC.
+ * * Dan L - plan for quarterly press releases.  PR team locks doc ~2wks ahead.  @Glenn get "press release" text prepped and over to CRob to pass to PR team
+ * Ricco working on mapping user stories to SKF.  Making a machine-learning model to perform the mapping & reccomend requirements for ASGS reqs.  Looking at 30-50 most used user stories for ASGS reqs.
+ 
  ### CII Best Practices badge project: which working group of the OSSF?
  * TAC met and agreed with discussion between leads ofr Metrics & this working group.  Dev Best Practices working group is cleared to assist curating/augmmenting/improving the current CII Best Practices Badge project best practices.  We'll corrdinate with the Metrics team as they are ready to start advertising the badges as part of their reporting.
  * Group discussion:
 
  ### Inventory project 
- *
+ * Working towards further integration with CRE & SKF.  Has design that supports it.  Will extend curretn SKF mappings with new standard. 
+ * What is a good technical control to use (in email suggested PCI-DSS?) - NIST SSDF (https://csrc.nist.gov/publications/detail/white-paper/2020/04/23/mitigating-risk-of-software-vulnerabilities-with-ssdf/final), OWASP ASVS (https://csrc.nist.gov/publications/detail/white-paper/2020/04/23/mitigating-risk-of-software-vulnerabilities-with-ssdf/final), OWASP Project Proactive Controls (https://owasp.org/www-project-proactive-controls/), NIST 800-53 (   , NIST CSF (
+ * What are priority use cases for for interactions with database (ex url with cre id and get links to sources) DW - if I met criteria X, what otehr critera might I also meet?
+ * hope to demonstrate to group next meeting
+
+### Scorecards
+ * https://github.com/ossf/scorecard 
+ * makes pass/fail binary decisions across these projects o assist in automation.
+ * setup to run cron jobs across an assortment of rpojects to watch trneds over time (suggestions for additional projects or better deterctions welcome)
+ * hitting a boggle with githib rate-limiting (would welcome suggestions to improve performance) - DW suggests splitting up jobs to run serially
+
 
  ## Synchronizing Group Efforts
-  * How do we want to move forward participating in the currently listed projects?
+ * How do we want to move forward participating in the currently listed projects?
+ -- DW what is missing in the best practices badge?  would love feedback.  how can we integrate the Scorecard with Badges?
+ -- @CRob setup brainstorming doc to collect ideas on increasing awareness
+ -- Attending calls with projects to walk throug SFK/CRE/Badges
+ -- assemble Conference list & assemble stock deck for presenting
+ ---https://docs.google.com/spreadsheets/d/1L_wvZlwgr3vEiaHDG31U4NnUq6IeIGDVrkIzhGlL0FQ/edit#gid=0 
+ -- get Fredrico access to Slack
+ -- Federico - have we considered approaching academia/researchers. how can we map human factors or computer functions to a mathmatical function? (google "Science of Security" to see if this lines up with possibilities).  There are some things that can be mathmatically proven.
+ -- how can this group help in looking at resaech/the cbk to assist in improving that research off 
+ 
+ 
  * How best can we serve the OSS developer community? 
  -- Awareness of these projects?
  -- Synching of standards/requirements between projects?
@@ -28,11 +57,11 @@
  -- Other thoughts
  
  ## Other subjects
- *
+ * DW met with Hyperledger Avalon project last week.  They are in good shape and got a badge!!  They will be providing some git issues for improvement
  *
  
 ## Recording
-FORTHCOMING -
+Sadly, no one on call had perms to allow it - @CRob get that fixed for DW & myself
 </details>
 
 <details>
