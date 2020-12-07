@@ -1,6 +1,58 @@
 # Best Practices for Open Source developers Working Group - Meeting Minutes
 
 <details>
+ <summary>Regular meeting - December 7, 2020</summary>
+ 
+ ## Intro
+ * New members on the call this week?
+-  
+ 
+ ## Quick status on in-flight projects - (~2min each)
+  ### Fundamentals course
+  https://courses.edx.org/courses/course-v1:LinuxFoundationX+LFD106x+3T2020/course/
+ *  
+ 
+ ### SKF
+ https://www.securityknowledgeframework.org/
+ *  
+  
+ ### CII Best Practices badge project 
+ https://bestpractices.coreinfrastructure.org/en
+ *  
+ 
+ ### Inventory project 
+ 
+  * Possible demo to WG
+  *
+
+### Scorecards
+https://github.com/ossf/scorecard 
+ *
+
+
+ ## Synchronizing Group Efforts
+ * Group "Walking Around" Deck aka the Elevator Pitch
+  https://docs.google.com/presentation/d/16R84qeu9Lvvt4lrSG0dymHgTjqAEzB2XJIsDi4JCHr4/
+  
+ * Group Brainstorm on Connectivity of projects
+ Diagram on current slide 13 of Deck above
+ 
+ * How best can we serve the OSS developer community? 
+ -- Awareness of these projects?
+ -- Synching of standards/requirements between projects?
+ -- Documenting persons/user stories
+ -- Other thoughts
+ 
+ ## Other subjects
+ *  
+ *
+ 
+## Recording
+TBD
+</details>
+
+
+<details>
  <summary>Regular meeting - November 23rd, 2020</summary>
  
  ## Intro
