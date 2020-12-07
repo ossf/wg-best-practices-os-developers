@@ -5,50 +5,63 @@
  
  ## Intro
  * New members on the call this week?
--  
+- avalani (Altaz Valani)
+- Magnus
+- Todd Collum (Red Hat)
+- Mark Bestavros (Red Hat)
+- Ryan Ware (Intel)
  
  ## Quick status on in-flight projects - (~2min each)
   ### Fundamentals course
   https://courses.edx.org/courses/course-v1:LinuxFoundationX+LFD106x+3T2020/course/
- *  
+*   Stats for Fundamentals of Developing Secure Software (as of 12/01) Courses:
+*   Secure Software Development: Requirements, Design, and Reuse (LFD104x) 508 registrants
+*   Secure Software Development: Implementation (LFD105x) 279 registrants
+*   Secure Software Development: Verification and More Specialized Topics (LFD106x) 253 registrants 
  
  ### SKF
  https://www.securityknowledgeframework.org/
- *  
+ *  busy upgrading Docker environment - projects perhaps up to 200 simultaneous users spinning up labs
+ *  using machine learning to automatically generate security requirements
+ *  looking to work on editing next - "easy editor" mode to practice exploits & implementation of controls within labs
+ *  Dan L asks if there are any estimates on potential on-going costs (Glenn is/will investigate
   
  ### CII Best Practices badge project 
  https://bestpractices.coreinfrastructure.org/en
- *  
+ *  CII Best Practices Badge: 3526 Projects are now enrolled. For stats over time, see: https://bestpractices.coreinfrastructure.org/en/project_stats 
+
+
  
  ### Inventory project 
- 
+ https://docs.google.com/presentation/d/16R84qeu9Lvvt4lrSG0dymHgTjqAEzB2XJIsDi4JCHr4/edit#slide=id.p
   * Possible demo to WG
   *
 
 ### Scorecards
 https://github.com/ossf/scorecard 
- *
+ *  daily cron file running each night with results published in json format.  
 
 
  ## Synchronizing Group Efforts
- * Group "Walking Around" Deck aka the Elevator Pitch
+ * Group "Walking Around" Deck aka the Elevator Pitch (Slide 13 for diagram)
   https://docs.google.com/presentation/d/16R84qeu9Lvvt4lrSG0dymHgTjqAEzB2XJIsDi4JCHr4/
-  
- * Group Brainstorm on Connectivity of projects
- Diagram on current slide 13 of Deck above
+   Dan's Diagram - 
+   https://docs.google.com/presentation/d/17ByjVMRWLg5_d3ICRLNC6bqQEkFX8_7xpQVkl7D8Q-0/edit#slide=id.p
  
- * How best can we serve the OSS developer community? 
- -- Awareness of these projects?
- -- Synching of standards/requirements between projects?
- -- Documenting persons/user stories
- -- Other thoughts
+ * Group Brainstorm on Connectivity of projects
+ -- Altaz - how can we automate regs/frameworks
+ -- DW - looking at badges/fundatmentals do offer assurance/certiifcation of practices
+ -- SKF - can "attest" project/person completed labs
+ -- DW - add to flow diagram (what is/should be moving between the elements)..not only add the WHAT, but add the HOW to it
+ -- Glenn - "You are the whole circus, but it is only one clown"  - would be good it ID where data is best hosted/created and source from there - reduces redundancy, allows focus on 
+ -- will create WG Reference Architecture - Dave W, Altaz, Dan L, CRob, and others to start to put the picture together of how all our parts interact
  
  ## Other subjects
  *  
  *
  
 ## Recording
-TBD
+https://github.zoom.us/recording/detail?meeting_id=32ZBQPHQShGrbxmmsX4uvg%3D%3D
 </details>
 
 
