@@ -4,10 +4,10 @@
  <summary>Special meeting - December 15, 2020</summary>
 
 Whiteboard diagram - http://people.redhat.com/crrobins/DevBestPractice-RefArch.pdf 
-Gmeet - -https://meet.google.com/cpv-rfdd-hmw?authuser=0&hs=122 
-Attendees: CRob, David, Xav, Altaz
 
-Meeting Notes:
+## Attendees: CRob, David, Xav, Altaz
+
+## Meeting Notes:
 Hit the record button? -- YUP
 WG purpose - educate people, give training (hands on/how-to apply), consistent community-curated requirements list, leverage community initiatives to achieve these goals
 Xav notes that reporting helps with adoption
