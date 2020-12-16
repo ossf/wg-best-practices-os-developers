@@ -1,6 +1,29 @@
 # Best Practices for Open Source developers Working Group - Meeting Minutes
 
 <details>
+ <summary>Special meeting - December 15, 2020</summary>
+
+Whiteboard diagram - http://people.redhat.com/crrobins/DevBestPractice-RefArch.pdf 
+Gmeet - -https://meet.google.com/cpv-rfdd-hmw?authuser=0&hs=122 
+Attendees: CRob, David, Xav, Altaz
+
+Meeting Notes:
+Hit the record button? -- YUP
+WG purpose - educate people, give training (hands on/how-to apply), consistent community-curated requirements list, leverage community initiatives to achieve these goals
+Xav notes that reporting helps with adoption
+WG README - https://github.com/ossf/wg-best-practices-os-developers/blob/main/README.md 
+Identify (CRE, standards), Learn (Fundamentals, OWASP SKF), Adopt (Badge (+Identify), Scorecards)
+Next steps - gap assessment - what are we missing to hit our mission/vision, what technical gaps do we have, what requirement/standards are we missing?
+
+## Recording
+http://people.redhat.com/crrobins/OpenSSF%20Dev%20Best%20Practices%20Reference%20Architecture%20JAD%20(2020-12-15%20at%2011_33%20GMT-8).mp4
+</details>
+
+
+<details>
+ <summary>Regular meeting - November 23rd, 2020</summary>
+
+<details>
  <summary>Regular meeting - December 7, 2020</summary>
  
  ## Intro
