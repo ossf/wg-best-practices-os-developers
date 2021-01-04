@@ -1,6 +1,53 @@
 # Best Practices for Open Source developers Working Group - Meeting Minutes
 
 <details>
+ 
+ <summary>Regular meeting - January 4, 2021</summary>
+ 
+ ## Intro
+ * New members on the call this week?
+- 
+ 
+ ## Quick status on in-flight projects - (~2min each)
+  ### Fundamentals course
+  https://courses.edx.org/courses/course-v1:LinuxFoundationX+LFD106x+3T2020/course/
+*    
+ 
+ ### SKF
+ https://www.securityknowledgeframework.org/
+ *  
+  
+ ### CII Best Practices badge project 
+ https://bestpractices.coreinfrastructure.org/en
+ *  
+
+
+ 
+ ### Inventory project 
+ https://docs.google.com/presentation/d/16R84qeu9Lvvt4lrSG0dymHgTjqAEzB2XJIsDi4JCHr4/edit#slide=id.p
+  * 
+  *
+
+### Scorecards
+https://github.com/ossf/scorecard 
+ *   
+
+
+ ## Synchronizing Group Efforts
+ http://people.redhat.com/crrobins/DevBestPractice-RefArch.pdf 
+ * Review first draft of RefArch with whole WG
+ *  
+ 
+ ## Other subjects
+ *  
+ *
+ 
+## Recording
+TBD
+</details>
+
+
+<details>
  <summary>Special meeting - December 15, 2020</summary>
 
 Whiteboard diagram - http://people.redhat.com/crrobins/DevBestPractice-RefArch.pdf 
@@ -21,7 +68,7 @@ http://people.redhat.com/crrobins/OpenSSF%20Dev%20Best%20Practices%20Reference%2
 
 
 <details>
- <summary>Regular meeting - November 23rd, 2020</summary>
+ <summary>Special meeting - November 23rd, 2020</summary>
 
 <details>
  <summary>Regular meeting - December 7, 2020</summary>
