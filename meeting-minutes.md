@@ -48,7 +48,7 @@ TBD
 
 
 <details>
- <summary>Special meeting - December 15, 2020</summary>
+<summary>Special meeting - December 15, 2020</summary>
 
 Whiteboard diagram - http://people.redhat.com/crrobins/DevBestPractice-RefArch.pdf 
 
@@ -65,10 +65,6 @@ Next steps - gap assessment - what are we missing to hit our mission/vision, wha
 ## Recording
 http://people.redhat.com/crrobins/OpenSSF%20Dev%20Best%20Practices%20Reference%20Architecture%20JAD%20(2020-12-15%20at%2011_33%20GMT-8).mp4
 </details>
-
-
-<details>
- <summary>Special meeting - November 23rd, 2020</summary>
 
 <details>
  <summary>Regular meeting - December 7, 2020</summary>
