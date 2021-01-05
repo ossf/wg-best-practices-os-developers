@@ -6,7 +6,7 @@
  
  ## Intro
  * New members on the call this week?
-- 
+- Jon Zeolla
  
  ## Quick status on in-flight projects - (~2min each)
   ### Fundamentals course
@@ -15,28 +15,35 @@
  
  ### SKF
  https://www.securityknowledgeframework.org/
- *  
-  
+ * up to 18 pis running the lab environment
+ * toying with idea of adding code reading skill to SKF (wants to check with CodeQL guys) - provide snippet, have learner ID vuln/coding flaw.  doesn't seem hard to integrate. (Xav will check to see what is available)
+ Glenn will be updated site cert laster this week
+ 
  ### CII Best Practices badge project 
  https://bestpractices.coreinfrastructure.org/en
- *  
+ *  Updated stack (docker updates, etc)
+ added small tweeks to criteria that were proposed ~Dec8; any last minuute comments, please speak up now so they can be merged Thursday   
+ rebranding from CII to OpenSSF Best Practices Badge (costs involved)?  If we do it, we'd like to do it just once. - https://github.com/coreinfrastructure/best-practices-badge/issues/1515
 
 
  
- ### Inventory project 
+ ### Inventory project (CRE)
  https://docs.google.com/presentation/d/16R84qeu9Lvvt4lrSG0dymHgTjqAEzB2XJIsDi4JCHr4/edit#slide=id.p
-  * 
-  *
+  * Working on NIST 800-53 mappings
+  * OWASP testing guide up next
+  Working with SKF to import to work to build the 1st use case
+  DW - CRE needs a homepage (CRob agrees!!)
 
-### Scorecards
-https://github.com/ossf/scorecard 
- *   
+ ### Scorecards
+ https://github.com/ossf/scorecard 
+  *   
 
 
  ## Synchronizing Group Efforts
  http://people.redhat.com/crrobins/DevBestPractice-RefArch.pdf 
+ https://jamboard.google.com/d/1rpCIykiwrjFG-wvvyVg4YyMwP4RZI6txOWu3ociTOXo/viewer?f=0
  * Review first draft of RefArch with whole WG
- *  
+ *  Good round of comments, will continue to add information to diagram and refine.  Artifact will be useful in explaining our group to ourselves and outsiders to help encourage participation in our projects and help deveopers get vaule out of our output.
  
  ## Other subjects
  *  
