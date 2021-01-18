@@ -28,9 +28,24 @@
 
  
  ### Inventory project (CRE)
- https://docs.google.com/presentation/d/16R84qeu9Lvvt4lrSG0dymHgTjqAEzB2XJIsDi4JCHr4/edit#slide=id.p
-  * Working on NIST 800-53 mappings
-  *  
+https://owasp.org/www-project-integration-standards/
+https://docs.google.com/presentation/d/16R84qeu9Lvvt4lrSG0dymHgTjqAEzB2XJIsDi4JCHr4/edit#slide=id.p
+  *Instantiated the first batch of low level common requirements, based on the ASVS checks
+• Linked these to the OWASP top 10
+•85% Linking these to NIST SP800-53 rev.5. – as a donation to the community by the Software Improvement Group
+We regard this NIST publication as a good source as it is authoritative and provides useful additional content, like optional countermeasures
+such as purging a mobile device in case of a lockout. Approach:
+• Starting with ASVS since it generally is most detailed, then tracing the most relevant paragraphs in NIST-800-53.
+• Ignoring second-order relations (Related controls in NIST), as it creates a jungle of (circular) references that we are trying to simplify.
+• Starting up: Mapping WSTG - self maintaining!
+We are in the process of making the CRE-links with the OWASP Web Security Testing Guide the first self-maintaining mapping. The plan is to
+add tags to the WSTG sources that our parse will use to keep the CRE mapping up to date all the time.
+• Soon: importing in SKF and building first use case: Show CRE page based on CRE-ID.
+• After that:
+• Adding intelligence to the CRE parser that finds new (cross-) relations if new data is added by the community.
+• More use cases, e.g. search, coverage mapping from standard to standard
+• Setting up structure for native CRE browsing, using perspectives
+  
 
  ### Scorecards
  https://github.com/ossf/scorecard 
