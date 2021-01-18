@@ -3,7 +3,7 @@
 
 <details>
  
- <summary>Regular meeting - January 18, 2021</summary>
+ <summary>Regular meeting - January 18, 2021 - Meeting Canceled</summary>
  
  ## Intro
  * New members on the call this week?
@@ -12,14 +12,17 @@
  ## Quick status on in-flight projects - (~2min each)
   ### Fundamentals course
   https://courses.edx.org/courses/course-v1:LinuxFoundationX+LFD106x+3T2020/course/
+  
 *    
  
  ### SKF
  https://www.securityknowledgeframework.org/
+ 
  * 
  
  ### CII Best Practices badge project 
  https://bestpractices.coreinfrastructure.org/en
+ 
  *  
 
 
@@ -35,8 +38,9 @@
 
 
  ## Synchronizing Group Efforts
- http://people.redhat.com/crrobins/DevBestPractice-RefArch.pdf 
- https://jamboard.google.com/d/1rpCIykiwrjFG-wvvyVg4YyMwP4RZI6txOWu3ociTOXo/viewer?f=0
+Resources - 
+ *  http://people.redhat.com/crrobins/DevBestPractice-RefArch.pdf 
+ *  https://jamboard.google.com/d/1rpCIykiwrjFG-wvvyVg4YyMwP4RZI6txOWu3ociTOXo/viewer?f=0
  *  http://people.redhat.com/crrobins/Dev_Best_Practices_Drawings.pdf
  
  ## Other subjects
