@@ -2,41 +2,45 @@
 
 
 <details>
- 
- 
  <summary>Regular meeting - February 1, 2021</summary>
  
- ## Intro
+  ## Intro
  * New members on the call this week?
--  
+-  Vinnod Anadan
  
  ## Quick status on in-flight projects - (~2min each)
   ### Fundamentals course
   https://courses.edx.org/courses/course-v1:LinuxFoundationX+LFD106x+3T2020/course/
   
-*    
+* need to convert google docs to markdown format....someday
+* Seeking to do annual update/every year and a half
+* @CRob talk to david w about RH training (and any others that have interesting materials)
  
  ### SKF
  https://www.securityknowledgeframework.org/
  
- * 
+ * building feature for secure code review (CVEs, code snippets, etc). will have real examples in the near future.  Xav will ping Glen to continue collaborating. 
  
  ### CII Best Practices badge project 
  https://bestpractices.coreinfrastructure.org/en
  
- *  
+ *  David posted email about longer-term project.  Website runs on Rails5 due to libary incompatibilities with Rails6.  Working on conversion.  Testing framework currently does not work (but most of the rest does).
+ *  David notes "making updates hard is a security problem.  how do we fix this?"
+ *  We may want to pick this up as a future work item (simpler updates).  We can provide advice, tooling, etc to help devs avoid getting in this spot. Dependabot and other tricks, guidance docs per language maybe?  How do we address this from an SCA-perspective
+ *   Dan L has two recent posts two posts  https://medium.com/swlh/the-dependency-jungle-841bd1c7bce0 &   https://dlorenc.medium.com/zombie-dependencies-77c34740a7a8 
  
  ### Inventory project (CRE)
 https://owasp.org/www-project-integration-standards/
 https://docs.google.com/presentation/d/16R84qeu9Lvvt4lrSG0dymHgTjqAEzB2XJIsDi4JCHr4/edit#slide=id.p
  
-  Update from CRE team - -"We just finished mapping the CREs (based on ASVS checks) to NIST SP800-53!
+Update from CRE team - -"We just finished mapping the CREs (based on ASVS checks) to NIST SP800-53!
 After analysing the result we concluded we need an intermediate layer of concepts to make mapping and maintenance easier, but also to make the inventory more organized. See the slides for details and examples. We also specified the mapping data model, as promised. 
 Currently we are adding the conceptual layers to the CRE mapping and then we can work with Glenn and Riccardo on importing and frontend work. In case we won't have a working demo next time we definitely can show you examples in the data of what it will look like using source data and mockups. We look forward to that."
 
  ### Scorecards
  https://github.com/ossf/scorecard 
-  *   
+  *  working with Envoy project to eval dependencies.
+  *  questions on how to address best practices have come up..."how we we do crypto validation?", for example
 
 
  ## Synchronizing Group Efforts
@@ -45,14 +49,20 @@ Resources -
  *  https://jamboard.google.com/d/1rpCIykiwrjFG-wvvyVg4YyMwP4RZI6txOWu3ociTOXo/viewer?f=0
  *  http://people.redhat.com/crrobins/Dev_Best_Practices_Drawings.pdf
  
- ## Other subjects
- *  
- *
+ Conversation around diagrams
+  *  Page 3 - Move SKF & CII into Venn overlap fully
+  *  @CRob to test out a few colours for diagram
+  *  Page 2 - remove Inputs/Output for now and ask project leads to flesh out project info for publication to WG landing page
+  *  Future Work Item - review desired requirements to endorse for OSS Devs with group.  Provide guidance for MFA/2FA for deves
+  *  Page 5 - Personas - @CRob share Vuln. Disclosure person PPT with group for review.  
+  *  @ALL - review page 5 androvide notes on personas relevant to this WG, make suggestions for items to combine/not focus on, and personas to expand
+ 
  
 ## Recording
 TBD
 </details>
  
+ <details>
  <summary>Regular meeting - January 18, 2021 - Meeting Canceled</summary>
  
  ## Intro
