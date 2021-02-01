@@ -73,7 +73,7 @@ TBD
  ### CII Best Practices badge project 
  https://bestpractices.coreinfrastructure.org/en
  
- *  
+ *  Rails 5->6 update. "Making updates hard is a security problem"
 
 
  
