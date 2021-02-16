@@ -32,15 +32,15 @@ Supply a Learning platform
 
    ## Prior Work
 Our work is organized into several discrete-yet-related projects that help us achieve our goals:
-- Common Requirement Enumeration (CRE) Project - https://github.com/OWASP/www-project-integration-standards  
+- *Common Requirement Enumeration (CRE) Project* - https://github.com/OWASP/www-project-integration-standards  
   - Purpose - (Identify) Identify similar requirements in different specifications
-- Secure Software Development Fundamentals (edX course) - https://www.edx.org/professional-certificate/linuxfoundationx-secure-software-development-fundamentals 
+- *Secure Software Development Fundamentals* (edX course) - https://www.edx.org/professional-certificate/linuxfoundationx-secure-software-development-fundamentals 
   - Purpose - (Learn) Teach software developers fundamentals of developing secure software
-- SKF - Security Knowledge Framework - https://www.securityknowledgeframework.org/ 
+- *SKF - Security Knowledge Framework* - https://www.securityknowledgeframework.org/ 
   - Purpose - (Identify/Adopt/Learn) Learn to integrate security by design in your web application
-- CII Best Practices Badges -https://bestpractices.coreinfrastructure.org/  
+- *CII Best Practices Badges* -https://bestpractices.coreinfrastructure.org/  
   - Purpose  - (Identify/Adopt) Identifies FLOSS best practices & implements a badging system for those practices,
-- Scorecards Project - https://github.com/ossf/scorecard 
+- *Scorecards Project* - https://github.com/ossf/scorecard 
   - Purpose - (Adopt) Automate analysis and trust decisions on the security posture of open source projects.
   ## Get Involved
 Anyone is welcome to join our open discussions related to the group's mission and charter.
