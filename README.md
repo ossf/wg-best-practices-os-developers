@@ -46,6 +46,7 @@ Our work is organized into several discrete-yet-related projects that help us ac
 Anyone is welcome to join our open discussions related to the group's mission and charter.
 
 - [Meeting Minutes](https://github.com/ossf/wg-best-practices-oss-developers/blob/main/meeting-minutes.md)
+    - [Notes Template](https://docs.google.com/document/d/1pQUPsAdNte1Pt6SNvmFbVpJq3m1VusBzZxc9yWF-3m0/)
 - [Discussions](https://github.com/ossf/wg-best-practices-os-developers/discussions)
 - Official communications occur on the Best Practices [mailing list](https://lists.openssf.org/g/openssf-wg-best-practices)
 - [Manage your subscriptions to Open SSF mailing lists](https://lists.openssf.org/g/main/subgroups)
