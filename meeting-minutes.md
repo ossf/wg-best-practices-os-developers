@@ -2,6 +2,56 @@
 
 
 <details>
+ <summary>Regular meeting - March 15, 2021 </summary>
+ 
+ ## Live Meeting Notes
+ 
+
+ 
+  ## Intro
+ * New members on the call this week?
+
+ 
+ ## Quick status on in-flight projects - (~2min each)
+  ### Fundamentals course
+  https://courses.edx.org/courses/course-v1:LinuxFoundationX+LFD106x+3T2020/course/
+  
+* course updates desired annually to 1.5 years
+* desire to convert from gdoc to markdown (having some opportunities
+ 
+ ### SKF
+ https://www.securityknowledgeframework.org/
+ 
+ 
+ ### CII Best Practices badge project 
+ https://bestpractices.coreinfrastructure.org/en
+ 
+ 
+ ### Inventory project (CRE)
+https://owasp.org/www-project-integration-standards/
+https://docs.google.com/presentation/d/16R84qeu9Lvvt4lrSG0dymHgTjqAEzB2XJIsDi4JCHr4/edit#slide=id.p
+  * 
+
+ ### Scorecards
+ https://github.com/ossf/scorecard 
+ 
+
+ ## Synchronizing Group Efforts
+Resources - 
+ *  http://people.redhat.com/crrobins/DevBestPractice-RefArch.pdf 
+ *  https://jamboard.google.com/d/1rpCIykiwrjFG-wvvyVg4YyMwP4RZI6txOWu3ociTOXo/viewer?f=0
+ *  http://people.redhat.com/crrobins/Dev_Best_Practices_Drawings.pdf
+ 
+ Conversation around next projects
+  *  Talked through desire of group to craft some actionable good practices
+  *  How can we provide advise to Maintainers on how to make upgrades easier
+  *  Could we take "Top X" from Stack Overflow and work on guidance to correct those things?
+ 
+## Recording
+TBD
+</details>
+
+<details>
  <summary>Regular meeting - March 1, 2021 </summary>
  
  ## Live Meeting Notes
