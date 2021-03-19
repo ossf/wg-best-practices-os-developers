@@ -1,8 +1,8 @@
 # Best Practices for Open Source developers Working Group - Meeting Minutes
 
 
-<detail>
- <summary>Regular meeting - March 29, 2021 </summary>
+<details>
+<summary>Regular meeting - March 29, 2021</summary>
  
  ## Live Meeting Notes
  https://docs.google.com/document/d/1yNd8n5edZARxZ2dRWSG-0Z03dEOKdLruiIJSvgMTou4/edit#heading=h.f4s78jj8txih
