@@ -9,12 +9,14 @@ Our objective is to provide open source developers with best practices recommend
 Unlike other existing best practices list, we want it to be widely distributed to open source developers and community-sourced. And we want these practices to stick, thanks to an effective learning platform.
 
 ## Vision
-<img align="right" src="https://github.com/ossf/wg-best-practices-os-developers/blob/main/img/OpenSSF%20Dev%20Best%20Practices%20Projects%20Relations.png">
+
 Our vision is to make it easy for developers to adopt these best practices, thanks to:
 - *Identifying* good practices, requirements, and tools that help open source developers create and maintain more secure software
 - Helping maintainers *Learn* to write secure software
 - Provide tools to help developers *Adopt* these good practices into their daily work
-    
+
+<img align="right" src="https://github.com/ossf/wg-best-practices-os-developers/blob/main/img/OpenSSF%20Dev%20Best%20Practices%20Projects%20Relations.png">
+
    ## Scope
 The Developer Best Practices group wants to help identfy and curate an accessible [inventory](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/inventory.md) of best practices
   - Prioritized according to ROI for open source developers
