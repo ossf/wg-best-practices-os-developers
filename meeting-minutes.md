@@ -148,7 +148,7 @@ Resources -
   *  Could we take "Top X" from Stack Overflow and work on guidance to correct those things?
  
 ## Recording
-TBD
+https://zoom.us/rec/share/jGRUSBtJ1Jv7IE8Vvn8xRjAtMzfHjUHUZjaDH2k_TTWzeXXRXZpK6J1UPpy0hdzF.v5AMc6yj9XNpHD-T?startTime=1614614696000
 </details>
 
 
