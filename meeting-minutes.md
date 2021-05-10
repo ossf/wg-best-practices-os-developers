@@ -11,7 +11,7 @@
  * New members on the call this week?
 
  ## Please Vote ##
- Seeking to move meeting to a better time, please vote: https://doodle.com/poll/6tpinbvdck67zxku
+ Seeking to move meeting to a better time, please vote: https://doodle.com/poll/xxh6ykwx23icqzrc
   
  ## Quick status on in-flight projects - (~2min each)
   ### Fundamentals course
