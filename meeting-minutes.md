@@ -1,6 +1,54 @@
 # Best Practices for Open Source developers Working Group - Meeting Minutes
 
 
+
+<details>
+<summary>Regular meeting - June 7, 2021</summary>
+ 
+ ## Live Meeting Notes
+https://docs.google.com/document/d/1uadzULCR-l9JGVPeFM8uGK0AMsAimBnlC9CGfA9s4Ww/edit
+ 
+  ## Intro
+ * New members on the call this week?
+
+## New Meeting Day & time!
+We now meet every other Tuesday at 10 AM ET (2PM UTC) starting May 25, 2021.  The calendar invite has been updated to reflect the new day/time.
+  
+ ## Quick status on in-flight projects - (~2min each)
+  ### Fundamentals course
+  https://courses.edx.org/courses/course-v1:LinuxFoundationX+LFD106x+3T2020/course/
+  
+* course updates desired annually to 1.5 years
+* desire to convert from gdoc to markdown (having some opportunities
+ 
+ ### SKF
+ https://www.securityknowledgeframework.org/
+ 
+ 
+ ### CII Best Practices badge project 
+ https://bestpractices.coreinfrastructure.org/en
+ 
+ 
+ ### Inventory project (CRE)
+https://owasp.org/www-project-integration-standards/
+https://docs.google.com/presentation/d/16R84qeu9Lvvt4lrSG0dymHgTjqAEzB2XJIsDi4JCHr4/edit#slide=id.p
+  * 
+
+ ### Scorecards
+ https://github.com/ossf/scorecard 
+ 
+
+ ## Synchronizing Group Efforts
+ 
+ Conversation around next projects
+  * Our opinionated list of good practices and tools for devs
+  *  How can we provide advise to Maintainers on how to make upgrades easier
+ 
+## Recording
+TBD
+</details>
+
+
 <details>
 <summary>Regular meeting - May 25, 2021</summary>
  
