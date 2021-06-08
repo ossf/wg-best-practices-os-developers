@@ -3,7 +3,7 @@
 
 
 <details>
-<summary>Regular meeting - June 7, 2021</summary>
+<summary>Regular meeting - June 8, 2021</summary>
  
  ## Live Meeting Notes
 https://docs.google.com/document/d/1uadzULCR-l9JGVPeFM8uGK0AMsAimBnlC9CGfA9s4Ww/edit
