@@ -2,7 +2,7 @@
 
 Starting in June of 2021 the working group decided that we  will move our meeting notes at one rolling gdoc that will be updated at each call.  This should avoid document sprawl and let folks have one consistent spot to look at/update our notes.
 
-[2021 Dev Best Practices WG Meeting Notes](https://docs.google.com/document/d/10_i0Krxdcq5AUWmdAbMDqvrKmxGSZCAFc15PKpE2j04/edit)
+[2021 Dev Best Practices WG Meeting Notes](https://docs.google.com/document/d/1sJhaZxG_9Wb2Sg6a4KxqnIvo_to5OkhMkbBk_7UqtEc/edit#)
 
 <details>
 Archived Notes
