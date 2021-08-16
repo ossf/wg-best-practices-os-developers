@@ -44,7 +44,13 @@ Our work is organized into several discrete-yet-related projects that help us ac
   - Purpose  - (Identify/Adopt) Identifies FLOSS best practices & implements a badging system for those practices,
 - *Scorecards Project* - https://github.com/ossf/scorecard 
   - Purpose - (Adopt) Automate analysis and trust decisions on the security posture of open source projects.
-  ## Get Involved
+   
+   ## Related Activities
+There are many great projects both within and outside the Foundation that compliment and intersect our work here.  Some other great projects/resources to explore:
+- *SLSA Supply-chain Levels for Software Artifacts* - https://github.com/slsa-framework/slsa
+   - Purpose - A security framework from source to service, giving anyone working with software a common language for increasing levels of software security and supply chain integrity   
+
+## Get Involved
 Anyone is welcome to join our open discussions related to the group's mission and charter.
 
 - [Meeting Minutes](https://github.com/ossf/wg-best-practices-oss-developers/blob/main/meeting-minutes.md)
