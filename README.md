@@ -32,19 +32,23 @@ Supply a Learning platform
   - A suite of exercises are available for each best practice of the inventory
 
 
-   ## Prior Work
+   ## Current Work
 Our work is organized into several discrete-yet-related projects that help us achieve our goals:
-- *Common Requirement Enumeration (CRE) Project* - https://github.com/OWASP/www-project-integration-standards  
+- *Common Requirement Enumeration (CRE) Project* - (incubating) https://github.com/OWASP/www-project-integration-standards  
   - Purpose - (Identify) Identify similar requirements in different specifications
-- *Secure Software Development Fundamentals* (edX course) - https://www.edx.org/professional-certificate/linuxfoundationx-secure-software-development-fundamentals 
+- *Secure Software Development Fundamentals* (edX course) - https://openssf.org/training/courses/ and https://github.com/ossf/secure-sw-dev-fundamentals
   - Purpose - (Learn) Teach software developers fundamentals of developing secure software
 - *SKF - Security Knowledge Framework* - https://www.securityknowledgeframework.org/ 
   - Purpose - (Identify/Adopt/Learn) Learn to integrate security by design in your web application
-- *CII Best Practices Badges* -https://bestpractices.coreinfrastructure.org/  
+- *CII Best Practices Badges* - https://bestpractices.coreinfrastructure.org/ and https://github.com/coreinfrastructure/best-practices-badge
   - Purpose  - (Identify/Adopt) Identifies FLOSS best practices & implements a badging system for those practices,
 - *Scorecards Project* - https://github.com/ossf/scorecard 
   - Purpose - (Adopt) Automate analysis and trust decisions on the security posture of open source projects.
-   
+- *Great MFA Distribution Project* - (incubating) https://github.com/ossf/great-mfa-project
+  - Distribute MFA tokens to OSS developers and best practices on how to easily use them
+- [Recommended compiler option flags for C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b) (incubating)
+  - Recommended compiler option flags for C/C++ programs, especially warning and hardening flags, for developers & distributions
+
    ## Related Activities
 There are many great projects both within and outside the Foundation that compliment and intersect our work here.  Some other great projects/resources to explore:
 - *SLSA Supply-chain Levels for Software Artifacts* - https://github.com/slsa-framework/slsa
