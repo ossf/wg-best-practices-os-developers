@@ -48,6 +48,8 @@ Our work is organized into several discrete-yet-related projects that help us ac
   - Distribute MFA tokens to OSS developers and best practices on how to easily use them
 - [Recommended compiler option flags for C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b) (incubating)
   - Recommended compiler option flags for C/C++ programs, especially warning and hardening flags, for developers & distributions
+- *Interactive artwork* - (incubating) https://github.com/blabla1337/wg-best-practices-os-developers/tree/main/infinity2
+  - Place where we want to guide developers in what stage they can use what type of tooling or approach. We have tons of great tools and materials but hard to find for devs, using this page and interactive loop we want to guide them to find the right stuff.
 
    ## Related Activities
 There are many great projects both within and outside the Foundation that compliment and intersect our work here.  Some other great projects/resources to explore:
