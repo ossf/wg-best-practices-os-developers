@@ -57,8 +57,9 @@ There are many great projects both within and outside the Foundation that compli
 ## Get Involved
 Anyone is welcome to join our open discussions related to the group's mission and charter.
 
-- [Meeting Minutes](https://github.com/ossf/wg-best-practices-oss-developers/blob/main/meeting-minutes.md)
-    - [Notes Template](https://docs.google.com/document/d/1pQUPsAdNte1Pt6SNvmFbVpJq3m1VusBzZxc9yWF-3m0/)
+- [2022 Meeting Minutes](https://docs.google.com/document/d/1ttqkcYPmYZyqvtkaHs92bx2UeVUiXDhuzP-0WbP11Fw/edit#)
+- [Historic Group Notes 1](https://github.com/ossf/wg-best-practices-oss-developers/blob/main/meeting-minutes.md)
+- [Historic Notes 2021](https://docs.google.com/document/d/1sJhaZxG_9Wb2Sg6a4KxqnIvo_to5OkhMkbBk_7UqtEc/edit#heading=h.cbmnhvjm63mj)
 - [Discussions](https://github.com/ossf/wg-best-practices-os-developers/discussions)
 - Official communications occur on the Best Practices [mailing list](https://lists.openssf.org/g/openssf-wg-best-practices)
 - [Manage your subscriptions to Open SSF mailing lists](https://lists.openssf.org/g/main/subgroups)
