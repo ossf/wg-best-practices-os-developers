@@ -49,7 +49,7 @@ Our work is organized into several discrete-yet-related projects that help us ac
 - [Recommended compiler option flags for C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b) (incubating)
   - Recommended compiler option flags for C/C++ programs, especially warning and hardening flags, for developers & distributions
 - *Existing Guidelines for Developing and Distributing Secure Software* [GitHub Repo](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Existing%20Guidelines%20for%20Developing%20and%20Distributing%20Secure%20Software.md)
-- Purpose - (Identify) - Highlight documenation and training materials that educate OSS developers on goo dsecure coding practices
+   - Purpose - (Identify) - Highlight documenation and training materials that educate OSS developers on goo dsecure coding practices
  
    ## Related Activities
 There are many great projects both within and outside the Foundation that compliment and intersect our work here.  Some other great projects/resources to explore:
