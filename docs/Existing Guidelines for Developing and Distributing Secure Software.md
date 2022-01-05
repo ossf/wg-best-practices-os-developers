@@ -129,14 +129,22 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
   <li>Kubernetes team - [Securing a Cluster](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)</li>
   <li>IBM - Basics of Kubernetes Security [blog](https://developer.ibm.com/blogs/basics-of-kubernetes-security/)</li>
   <li>OWASP - Kubernetes Security [Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html)</li>
-  <li>Red Hat - [What is DevSecOps?](https://www.redhat.com/en/topics/devops/what-is-devsecops)</li>
-  <li>Synk - [Kubernetes Security: Common Issues and Best Practices](https://snyk.io/learn/kubernetes-security/)</li>
-  <li>CISA & NSA - [Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF)</li>
+  <li>Red Hat - [What is DevSecOps?](https://www.redhat.com/en/topics/devops/what-is-devsecops) </li>
+  <li>Synk - [Kubernetes Security: Common Issues and Best Practices](https://snyk.io/learn/kubernetes-security/) </li>
+  <li>CISA & NSA - [Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF) </li>
   </ul>
     
 ### Web applications ###
 <ul>
-  <li>[OWASP TG] OWASP, [OWASP Testing Guide v4.0](https://owasp.org/www-pdf-archive/OTGv4.pdf)</li>
+  <li>[OWASP TG] OWASP, [OWASP Testing Guide v4.0](https://owasp.org/www-pdf-archive/OTGv4.pdf) </li>
  </ul>
 
-
+## Other materials ##
+This section includes materials that cover cybersecurity, or security more broadly, but while they may briefly discuss it, they do not focus on developing or distributing secure software. That doesn’t mean they’re bad materials (far from it!), they’re just somewhat less focused on the issues this document is focusing on. That said, many are highly useful for providing broader and related context. Here are some of them.
+<ul>
+  <li>[Anderson 2020] Anderson, Ross, Security Engineering, 2020, Wiley. This book covers many broader security-related areas.</li>
+  <li>[Bishop 2019] Bishop, Matt. Computer Security: Art and Science, 2019, Addison-Wesley.</li>
+<li>[Hoglund] Hoglund, Greg, and Gary McGraw, Exploiting Software: How to Break Code, Addison-Wesley.</li>
+  <li>http://www.devopsbookmarks.com/](http://www.devopsbookmarks.com/)</li>
+  <li>[Schneier 2000] Schneier, Bruce, Secrets & Lies, 2000, Wiley</li>
+</ul>
