@@ -40,7 +40,7 @@ Our work is organized into several discrete-yet-related projects that help us ac
   - Purpose - (Learn) Teach software developers fundamentals of developing secure software
 - *SKF - Security Knowledge Framework* - https://www.securityknowledgeframework.org/ 
   - Purpose - (Identify/Adopt/Learn) Learn to integrate security by design in your web application
-- *CII Best Practices Badges* - https://bestpractices.coreinfrastructure.org/ and https://github.com/coreinfrastructure/best-practices-badge
+- *OpenSSF Best Practices Badge* (formerly CII Best Practices badge) - https://bestpractices.coreinfrastructure.org/ and https://github.com/coreinfrastructure/best-practices-badge
   - Purpose  - (Identify/Adopt) Identifies FLOSS best practices & implements a badging system for those practices,
 - *Scorecards Project* - https://github.com/ossf/scorecard 
   - Purpose - (Adopt) Automate analysis and trust decisions on the security posture of open source projects.
@@ -50,7 +50,9 @@ Our work is organized into several discrete-yet-related projects that help us ac
   - Recommended compiler option flags for C/C++ programs, especially warning and hardening flags, for developers & distributions
 - *Interactive artwork* - (incubating) https://github.com/blabla1337/wg-best-practices-os-developers/tree/main/infinity2
   - Place where we want to guide developers in what stage they can use what type of tooling or approach. We have tons of great tools and materials but hard to find for devs, using this page and interactive loop we want to guide them to find the right stuff.
-
+- *Existing Guidelines for Developing and Distributing Secure Software* [GitHub Repo](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Existing%20Guidelines%20for%20Developing%20and%20Distributing%20Secure%20Software.md)
+   - Purpose - (Identify) - Highlight documenation and training materials that educate OSS developers on goo dsecure coding practices
+ 
    ## Related Activities
 There are many great projects both within and outside the Foundation that compliment and intersect our work here.  Some other great projects/resources to explore:
 - *SLSA Supply-chain Levels for Software Artifacts* - https://github.com/slsa-framework/slsa
@@ -59,8 +61,9 @@ There are many great projects both within and outside the Foundation that compli
 ## Get Involved
 Anyone is welcome to join our open discussions related to the group's mission and charter.
 
-- [Meeting Minutes](https://github.com/ossf/wg-best-practices-oss-developers/blob/main/meeting-minutes.md)
-    - [Notes Template](https://docs.google.com/document/d/1pQUPsAdNte1Pt6SNvmFbVpJq3m1VusBzZxc9yWF-3m0/)
+- [2022 Meeting Minutes](https://docs.google.com/document/d/1ttqkcYPmYZyqvtkaHs92bx2UeVUiXDhuzP-0WbP11Fw/edit#)
+- [Historic Group Notes 1](https://github.com/ossf/wg-best-practices-oss-developers/blob/main/meeting-minutes.md)
+- [Historic Notes 2021](https://docs.google.com/document/d/1sJhaZxG_9Wb2Sg6a4KxqnIvo_to5OkhMkbBk_7UqtEc/edit#heading=h.cbmnhvjm63mj)
 - [Discussions](https://github.com/ossf/wg-best-practices-os-developers/discussions)
 - Official communications occur on the Best Practices [mailing list](https://lists.openssf.org/g/openssf-wg-best-practices)
 - [Manage your subscriptions to Open SSF mailing lists](https://lists.openssf.org/g/main/subgroups)
@@ -76,6 +79,12 @@ Etc.
 ## Meeting times
 
 Every 2 weeks, Tuesday 10am EST. The meeting invite is available on the [public OSSF calendar](https://calendar.google.com/calendar?cid=czYzdm9lZmhwNWk5cGZsdGI1cTY3bmdwZXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)
+
+## Antitrust Policy Notice
+
+Linux Foundation meetings involve participation by industry competitors, and it is the intention of the Linux Foundation to conduct all of its activities in accordance with applicable antitrust and competition laws. It is therefore extremely important that attendees adhere to meeting agendas, and be aware of, and not participate in, any activities that are prohibited under applicable US state, federal or foreign antitrust and competition laws.
+
+Examples of types of actions that are prohibited at Linux Foundation meetings and in connection with Linux Foundation activities are described in the Linux Foundation Antitrust Policy available at <http://www.linuxfoundation.org/antitrust-policy>. If you have questions about these matters, please contact your company counsel, or if you are a member of the Linux Foundation, feel free to contact Andrew Updegrove of the firm of Gesmer Updegrove LLP, which provides legal counsel to the Linux Foundation.
 
 ## Governance
 The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group activities.
