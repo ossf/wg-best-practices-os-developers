@@ -1,0 +1,75 @@
+/* Little fix to make icons appear on IE8 */
+
+@font-face {
+  font-family: 'fontello';
+  src: url('../../Fonts/fontello/fontello.eot');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Now all other browsers */
+
+@font-face {
+  font-family: 'fontello';
+  src: url('../../Fonts/fontello/fontello.eot?60600827');
+  src: url('../../Fonts/fontello/fontello.eot?60600827#iefix') format('embedded-opentype'),
+       url('../../Fonts/fontello/fontello.woff?60600827') format('woff'),
+       url('../../Fonts/fontello/fontello.ttf?60600827') format('truetype'),
+       url('../../Fonts/fontello/fontello.svg?60600827#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* open-sans-condensed-300 - latin */
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../../Fonts/opensans-condensed/open-sans-condensed-v15-latin-300.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('../../Fonts/opensans-condensed/open-sans-condensed-v15-latin-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../../Fonts/opensans-condensed/open-sans-condensed-v15-latin-300.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../../Fonts/opensans-condensed/open-sans-condensed-v15-latin-300.woff') format('woff'), /* Modern Browsers */
+       url('../../Fonts/opensans-condensed/open-sans-condensed-v15-latin-300.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../../Fonts/opensans-condensed/open-sans-condensed-v15-latin-300.svg#OpenSansCondensed') format('svg'); /* Legacy iOS */
+}
+/* open-sans-condensed-700 - latin */
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../Fonts/opensans-condensed/open-sans-condensed-v15-latin-700.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('../../Fonts/opensans-condensed/open-sans-condensed-v15-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../../Fonts/opensans-condensed/open-sans-condensed-v15-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../../Fonts/opensans-condensed/open-sans-condensed-v15-latin-700.woff') format('woff'), /* Modern Browsers */
+       url('../../Fonts/opensans-condensed/open-sans-condensed-v15-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../../Fonts/opensans-condensed/open-sans-condensed-v15-latin-700.svg#OpenSansCondensed') format('svg'); /* Legacy iOS */
+}
+
+/* open-sans-regular - latin */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../Fonts/opensans/open-sans-v20-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('../../Fonts/opensans/open-sans-v20-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../../Fonts/opensans/open-sans-v20-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../../Fonts/opensans/open-sans-v20-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('../../Fonts/opensans/open-sans-v20-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../../Fonts/opensans/open-sans-v20-latin-regular.svg#OpenSans') format('svg'); /* Legacy iOS */
+}
+/* open-sans-700 - latin */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../Fonts/opensans/open-sans-v20-latin-700.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('../../Fonts/opensans/open-sans-v20-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../../Fonts/opensans/open-sans-v20-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../../Fonts/opensans/open-sans-v20-latin-700.woff') format('woff'), /* Modern Browsers */
+       url('../../Fonts/opensans/open-sans-v20-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../../Fonts/opensans/open-sans-v20-latin-700.svg#OpenSans') format('svg'); /* Legacy iOS */
+}
