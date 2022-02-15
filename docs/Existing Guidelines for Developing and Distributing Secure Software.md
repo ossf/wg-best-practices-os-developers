@@ -31,27 +31,25 @@ Note that [NIST 2020](https://csrc.nist.gov/publications/detail/white-paper/2020
 - [OpenSSF SSDF 2021] OpenSSF, [Secure Software Development Fundamentals](https://openssf.org/edx-courses/): “The Open Source Security Foundation (OpenSSF) has developed a trio of free courses on how to develop secure software. These courses are part of the Secure Software Development Fundamentals Professional Certificate program.  There’s a fee if you want to try to earn a certificate (to prove that you learned the material), but not for the courses themselves. All are available on the edX platform. The courses included in the program are: Secure Software Development: Requirements, Design, and Reuse (LFD104x); Secure Software Development: Implementation (LFD105x); [and] Secure Software Development: Verification and More Specialized Topics (LFD106x).” The [course materials are available in Markdown format on GitHub](https://github.com/ossf/secure-sw-dev-fundamentals) under the CC-BY license.
 - [OWASP ASVS] OWASP, [OWASP Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/): “The primary aim of the OWASP Application Security Verification Standard (ASVS) Project is to normalize the range in the coverage and level of rigor available in the market when it comes to performing Web application security verification using a commercially-workable open standard. The standard provides a basis for testing application technical security controls, as well as any technical security controls in the environment, that are relied on to protect against vulnerabilities such as Cross-Site Scripting (XSS) and SQL injection. This standard can be used to establish a level of confidence in the security of Web applications.” Note that it focuses on web applications, not on other kinds of software.
 - [OWASP SAMM] OWASP, [Open SAMM  Software Assurance Maturity Model, v2.0](https://owasp.org/www-project-samm/), 2020: the model’s goal is to provide “an effective and measurable way for all types of organizations to analyze and improve their software security posture. OWASP SAMM supports the complete software lifecycle, including development and acquisition, and is technology and process agnostic. It is intentionally built to be evolutive and risk-driven in nature.” The model includes the following categories:
-<ul>
-  <li>Governance</li>
-  <li>Design</li>
-  <li>Implementation</li>
-  <li>Verification</li>
-  <li>Operations</li>
-</ul>
+   - Governance
+   - Design
+   - Implementation
+   - Verification
+   - Operations
+
 - [PCI 2021] Payment Card Industry(PCI) Standards Council, [Software Security Framework, Secure Software Requirements and Assessment Procedures, Version 1.1](https://www.pcisecuritystandards.org/document_library?category=sware_sec#results), 2021: BEWARE: This document is not a publicly available standard; it has a specific licence.
 - [SAFECode 2018] SAFECode, [Fundamental Practices for Secure Software Development: Essential Elements of a Secure Development Lifecycle Program](https://safecode.org/wp-content/uploads/2018/03/SAFECode_Fundamental_Practices_for_Secure_Software_Development_March_2018.pdf), 2018: the guide includes elements of a Secure Development Lifecycle (SDL) including secure design, coding practices, managing third party components, testing and validation, security findings and their management, vulnerability response and disclosure. It also has a chapter on implementing the practices in an organization.
 - [SAFECode 2012] SAFECode, [Practical Security Stories and Security Tasks for Agile Development Environments](http://safecode.org/publication/SAFECode_Agile_Dev_Security0712.pdf), 2012: gives examples of defining tasks related to secure coding in Agile environments.
 - [Saltzer 1975] Saltzer, Jerome, and Michael Schroeder, [The Protection of Information in Computer Systems](https://www.cs.virginia.edu/~evans/cs551/saltzer/), 1975: The eight design principles listed in this paper are still widely cited and applied today. These are:
-<ul>
-  <li>Economy of mechanism: Keep the design as simple and small as possible.</li>
-  <li>Fail-safe defaults: Base access decisions on permission rather than exclusion.</li>
-  <li>Complete mediation: Every access to every object must be checked for authority.</li>
-  <li>Open design: The design should not be secret.</li>
-  <li>Separation of privilege: Where feasible, a protection mechanism that requires two keys to unlock it is more robust and flexible than one that allows access to the presenter of only a single key.</li>
-  <li>Least privilege: Every program and every user of the system should operate using the least set of privileges necessary to complete the job.</li>
-  <li>Least common mechanism: Minimize the amount of mechanism common to more than one user and depended on by all users.</li>
-  <li>Psychological acceptability: It is essential that the human interface be designed for ease of use, so that users routinely and automatically apply the protection mechanisms correctly.</li>
-</ul>
+   - Economy of mechanism: Keep the design as simple and small as possible.
+   - Fail-safe defaults: Base access decisions on permission rather than exclusion.
+   - Complete mediation: Every access to every object must be checked for authority.
+   - Open design: The design should not be secret.
+   - Separation of privilege: Where feasible, a protection mechanism that requires two keys to unlock it is more robust and flexible than one that allows access to the presenter of only a single key.
+   - Least privilege: Every program and every user of the system should operate using the least set of privileges necessary to complete the job.
+   - Least common mechanism: Minimize the amount of mechanism common to more than one user and depended on by all users.
+   - Psychological acceptability: It is essential that the human interface be designed for ease of use, so that users routinely and automatically apply the protection mechanisms correctly.
+
 - [Wheeler 2015] Wheeler, David A., [Secure Programming HOWTO](https://dwheeler.com/secure-programs), 1999-2015, book available online.
 - [Wheeler 2016] Wheeler, David A. and Henninger, Amy E. State-of-the-Art Resources (SOAR) for Software Vulnerability Detection, Test, and Evaluation 2016, Institute for Defense Analyses (Note: Ken Hongfong is not an author)
 - [Viega 2002] Viega, John, and Gary McGraw, Building Secure Software, 2002, Addison-Wesley. This book includes a number of recommendations on securing software, including chapter 5, “guiding principles for software security” along with specific sections on topics such as buffer overflows and race conditions.
@@ -59,17 +57,36 @@ Note that [NIST 2020](https://csrc.nist.gov/publications/detail/white-paper/2020
 
 
 ## Guidance for specific languages or ecosystems ##
+
 This list only includes guidance that includes or is focused on developing secure software not general coding style guidelines.
 
 Some organizations provide several guidance documents, e.g., [SEI CERT Coding Standards and Google Style Guides](https://wiki.sei.cmu.edu/confluence/display/seccode).
 
 ### Apex and Visualforce ###
-<ul>
-  <li>[Salesforce] [Secure Coding Guidelines for Salesforce Lightning Platform](https://developer.salesforce.com/docs/atlas.en-us.secure_coding_guide.meta/secure_coding_guide/secure_coding_guidelines.htm)</li>
-  <li>[Salesforce] [Apex Security and Sharing Guide](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_security_sharing_chapter.htm)</li>
-</ul>
+
+- [Salesforce] [Secure Coding Guidelines for Salesforce Lightning Platform](https://developer.salesforce.com/docs/atlas.en-us.secure_coding_guide.meta/secure_coding_guide/secure_coding_guidelines.htm)
+- [Salesforce] [Apex Security and Sharing Guide](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_security_sharing_chapter.htm)
 
 ### C and/or C++ ###
+
+- [Seacord 2006] Seacord, Robert C., Secure Coding in C and C++, 2006, Addison-Wesley. See the more recent SEI material.
+- [SEI C 2016] Software Engineering Institute (SEI), [SEI CERT C Coding Standard: Rules for Developing Safe, Reliable, and Secure Systems (2016 Edition)](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=454220), June 2016.
+- [SEI C++] SEI, [SEI CERT C++ Coding Standard](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=494932). See also the online [in-progress update](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682).
+- [Viega 2003] Viega, John, and Matt Messier, Secure Programming Cookbook for C and C++, 2003, O’Reilly.
+- [Recommended GCC and clang option flags for compiling C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b)
+
+### Linux ###
+
+- [KSP] [Kernel Self-Protection](https://www.kernel.org/doc/html/latest/security/self-protection.html) guidelines show techniques recommended to Linux kernel developers
+
+### Go ###
+
+- [OWASP Go] OWASP, [OWASP Go Secure Coding Practices Guide](https://owasp.org/www-project-go-secure-coding-practices-guide/)
+
+### Java ###
+
+- [SEI Java] SEI, [SEI CERT Oracle Coding Standard for Java.](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)
+=======
 <ul>
   <li>[Seacord 2006] Seacord, Robert C., Secure Coding in C and C++, 2006, Addison-Wesley. See the more recent SEI material.</li>
   <li>[SEI C 2016] Software Engineering Institute (SEI), [SEI CERT C Coding Standard: Rules for Developing Safe, Reliable, and Secure Systems (2016 Edition)](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=454220), June 2016.</li>
@@ -99,22 +116,29 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
  </ul>
 
 ### Ruby / Rails ###
-[Rails] Rails project, [Securing Rails Applications](https://guides.rubyonrails.org/security.html): “This manual describes common security problems in web applications and how to avoid them with Rails [a widely-used web application framework].”
+
+- [Rails] Rails project, [Securing Rails Applications](https://guides.rubyonrails.org/security.html): “This manual describes common security problems in web applications and how to avoid them with Rails [a widely-used web application framework].”
 
 ### Rust ###
-<ul>
-  <li>[Rust Secure Code Working Group ](https://github.com/rust-secure-code)</li>
-  <li>[RustSec - advisories etc. for Rust](https://github.com/RustSec) ([Homepage](https://rustsec.org/)) ([Github action](https://github.com/marketplace/actions/rust-audit-check))</li>
-</ul>
+
+- [Rust Secure Code Working Group ](https://github.com/rust-secure-code)
+- [RustSec - advisories etc. for Rust](https://github.com/RustSec) ([Homepage](https://rustsec.org/)) ([Github action](https://github.com/marketplace/actions/rust-audit-check))
 
 ### JavaScript ###
-<ul>
-  <li>[OWASP NodeJS security cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html)</li>
-  <li>{eslint-plugin-security](https://www.npmjs.com/package/eslint-plugin-security)</li>
-  <li>[eslint-plugin-security-node](https://www.npmjs.com/package/eslint-plugin-security-node)</li>
-</ul>
+
+- [OWASP NodeJS security cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html)
+- [eslint-plugin-security](https://www.npmjs.com/package/eslint-plugin-security)
+- [eslint-plugin-security-node](https://www.npmjs.com/package/eslint-plugin-security-node)
 
 ### Python ###
+
+- [Bandit](https://github.com/PyCQA/bandit), a tool to find common issues in Python programs
+- [Python security best practices cheat sheet](https://snyk.io/blog/python-security-best-practices-cheat-sheet/)
+- [Common Python security pitfalls](https://deepsource.io/blog/python-security-pitfalls/)
+- [Pipenv](https://pipenv.pypa.io/en/latest/), a tool to manage dependencies securely
+- [Pyre](https://pyre-check.org/) is a type checker for Python programs. On top of Pyre, [Pysa](https://pyre-check.org/docs/pysa-basics/) provides static analysis to help finding potential security vulnerabilities.
+- [Pyup.io Safety] [Pyup.io Safety](https://github.com/pyupio/safety) checks Python dependencies for known security vulnerabilities.
+=======
 <ul>
   <li>[Bandit] [Bandit](https://github.com/PyCQA/bandit), a tool to find common issues in Python programs</li>
   <li>[Python BestPractices] [Python security best practices cheat sheet](https://snyk.io/blog/python-security-best-practices-cheat-sheet/)</li>
@@ -126,14 +150,24 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 </ul>
   
 ### PHP ###
-<ul>
-  <li>PHP Security manual - [https://www.php.net/manual/en/security.php](https://www.php.net/manual/en/security.php)</li>
-  <li>Survive The Deep End: PHP Security - [https://phpsecurity.readthedocs.io/en/latest/](https://phpsecurity.readthedocs.io/en/latest/) </li>
-  <li>Symfony Framework - [https://symfony.com/doc/current/security.html](https://symfony.com/doc/current/security.html) </li>
-  <li>Laravel Framework - [https://laravel.com/docs/5.6/validation](https://laravel.com/docs/5.6/validation) </li>
-</ul>
-  
+
+- PHP Security manual - [https://www.php.net/manual/en/security.php](https://www.php.net/manual/en/security.php)
+- Survive The Deep End: PHP Security - [https://phpsecurity.readthedocs.io/en/latest/](https://phpsecurity.readthedocs.io/en/latest/)
+- Symfony Framework - [https://symfony.com/doc/current/security.html](https://symfony.com/doc/current/security.html)
+- Laravel Framework - [https://laravel.com/docs/5.6/validation](https://laravel.com/docs/5.6/validation)
+
 ### Kubes ###
+
+- Kubernetes team - [tutorials](https://kubernetes.io/docs/tutorials/)
+- [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
+- Learning Kubernetes basics ([Red Hat](https://www.redhat.com/en/topics/containers/learning-kubernetes-tutorial))
+- Kubernetes team - [Securing a Cluster](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)
+- IBM - Basics of Kubernetes Security [blog](https://developer.ibm.com/blogs/basics-of-kubernetes-security/)
+- OWASP - Kubernetes Security [Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html)
+- Red Hat - [What is DevSecOps?](https://www.redhat.com/en/topics/devops/what-is-devsecops)
+- Synk - [Kubernetes Security: Common Issues and Best Practices](https://snyk.io/learn/kubernetes-security/)
+- CISA & NSA - [Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF)
+=======
 <ul>
   <li>Kubernetes team - [tutorials](https://kubernetes.io/docs/tutorials/)</li>
   <li>[Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)</li>
@@ -150,16 +184,15 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 [Fedora Project Defensive Coding Guide - The Vala Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Vala/)
     
 ### Web applications ###
-<ul>
-  <li>[OWASP TG] OWASP, [OWASP Testing Guide v4.0](https://owasp.org/www-pdf-archive/OTGv4.pdf) </li>
- </ul>
+
+- [OWASP TG] OWASP, [OWASP Testing Guide v4.0](https://owasp.org/www-pdf-archive/OTGv4.pdf)
 
 ## Other materials ##
+
 This section includes materials that cover cybersecurity, or security more broadly, but while they may briefly discuss it, they do not focus on developing or distributing secure software. That doesn’t mean they’re bad materials (far from it!), they’re just somewhat less focused on the issues this document is focusing on. That said, many are highly useful for providing broader and related context. Here are some of them.
-<ul>
-  <li>[Anderson 2020] Anderson, Ross, Security Engineering, 2020, Wiley. This book covers many broader security-related areas.</li>
-  <li>[Bishop 2019] Bishop, Matt. Computer Security: Art and Science, 2019, Addison-Wesley.</li>
-<li>[Hoglund] Hoglund, Greg, and Gary McGraw, Exploiting Software: How to Break Code, Addison-Wesley.</li>
-  <li>http://www.devopsbookmarks.com/](http://www.devopsbookmarks.com/)</li>
-  <li>[Schneier 2000] Schneier, Bruce, Secrets & Lies, 2000, Wiley</li>
-</ul>
+
+- [Anderson 2020] Anderson, Ross, Security Engineering, 2020, Wiley. This book covers many broader security-related areas
+- [Bishop 2019] Bishop, Matt. Computer Security: Art and Science, 2019, Addison-Wesley
+- [Hoglund] Hoglund, Greg, and Gary McGraw, Exploiting Software: How to Break Code, Addison-Wesley
+- http://www.devopsbookmarks.com/](http://www.devopsbookmarks.com/)
+- [Schneier 2000] Schneier, Bruce, Secrets & Lies, 2000, Wiley
