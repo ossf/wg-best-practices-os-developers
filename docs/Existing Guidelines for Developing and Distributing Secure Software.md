@@ -76,16 +76,27 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
   <li>[SEI C++] SEI, [SEI CERT C++ Coding Standard](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=494932). See also the online [in-progress update](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682).</li>
   <li>[Viega 2003] Viega, John, and Matt Messier, Secure Programming Cookbook for C and C++, 2003, O’Reilly.</li>
   <li>[Recommended GCC and clang option flags for compiling C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b)</li>
+   <li>[Fedora Project Defensive Coding Guide - The C Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/C/)</li>
+   <li>[Fedora Project Defensive Coding Guide - The C++ Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/CXX/)</li>
 </ul>
     
 ### Linux ###
-[KSP] [Kernel Self-Protection](https://www.kernel.org/doc/html/latest/security/self-protection.html) guidelines show techniques recommended to Linux kernel developers
+<ul>
+<li>[KSP] [Kernel Self-Protection](https://www.kernel.org/doc/html/latest/security/self-protection.html) guidelines show techniques recommended to Linux kernel developers</li>
+<li>[Fedora Project Defensive Coding Guide - Shell Programming and bash](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Shell/)</li>
+</ul>
 
 ### Go ###
-[OWASP Go] OWASP, [OWASP Go Secure Coding Practices Guide](https://owasp.org/www-project-go-secure-coding-practices-guide/)
-
+<ul>
+ <li>[OWASP Go] OWASP, [OWASP Go Secure Coding Practices Guide](https://owasp.org/www-project-go-secure-coding-practices-guide/)</li>
+ <li>[Fedora Project Defensive Coding Guide - The Go Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Go/)</li>
+ </ul>
+ 
 ### Java ###
-[SEI Java] SEI, [SEI CERT Oracle Coding Standard for Java.](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)
+<ul>
+ <li>[SEI Java] SEI, [SEI CERT Oracle Coding Standard for Java.](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)</li>
+ <li>[Fedora Project Defensive Coding Guide - The Java Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Java/)</li>
+ </ul>
 
 ### Ruby / Rails ###
 [Rails] Rails project, [Securing Rails Applications](https://guides.rubyonrails.org/security.html): “This manual describes common security problems in web applications and how to avoid them with Rails [a widely-used web application framework].”
@@ -111,6 +122,7 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
   <li>[Pipenv] [Pipenv](https://pipenv.pypa.io/en/latest/), a tool to manage dependencies securely</li>
   <li>[Pyre]  [Pyre](https://pyre-check.org/) is a type checker for Python programs. On top of Pyre, [Pysa](https://pyre-check.org/docs/pysa-basics/) provides static analysis to help finding potential security vulnerabilities.</li>
   <li>[Pyup.io Safety] [Pyup.io Safety](https://github.com/pyupio/safety) checks Python dependencies for known security vulnerabilities.</li>
+  <li>[Fedora Project Defensive Coding Guide - The Phyton Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Python/)</li>
 </ul>
   
 ### PHP ###
@@ -133,6 +145,9 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
   <li>Synk - [Kubernetes Security: Common Issues and Best Practices](https://snyk.io/learn/kubernetes-security/) </li>
   <li>CISA & NSA - [Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF) </li>
   </ul>
+  
+### Vala ###
+[Fedora Project Defensive Coding Guide - The Vala Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Vala/)
     
 ### Web applications ###
 <ul>
