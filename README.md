@@ -34,7 +34,8 @@ Supply a Learning platform
 
    ## Current Work
 Our work is organized into several discrete-yet-related projects that help us achieve our goals:
-- *Common Requirement Enumeration (CRE) Project* - (incubating) https://github.com/OWASP/www-project-integration-standards  
+- *Common Requirement Enumeration (CRE) Project* - (incubating) https://www.opencre.org/
+ 
   - Purpose - (Identify) Identify similar requirements in different specifications
 - *Secure Software Development Fundamentals* (edX course) - https://openssf.org/training/courses/ and https://github.com/ossf/secure-sw-dev-fundamentals
   - Purpose - (Learn) Teach software developers fundamentals of developing secure software
