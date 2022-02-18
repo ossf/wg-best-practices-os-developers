@@ -52,7 +52,7 @@ Our work is organized into several discrete-yet-related projects that help us ac
 - *Interactive artwork* - (incubating) https://github.com/blabla1337/wg-best-practices-os-developers/tree/main/infinity2
   - Place where we want to guide developers in what stage they can use what type of tooling or approach. We have tons of great tools and materials but hard to find for devs, using this page and interactive loop we want to guide them to find the right stuff.
 - *Existing Guidelines for Developing and Distributing Secure Software* [GitHub Repo](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Existing%20Guidelines%20for%20Developing%20and%20Distributing%20Secure%20Software.md)
-   - Purpose - (Identify) - Highlight documenation and training materials that educate OSS developers on good secure coding practices
+   - Purpose - (Identify) - Highlight documentation and training materials that educate OSS developers on good secure coding practices
 - *Package Manager Best Practices* - (incubating) - https://github.com/ossf/package-manager-best-practices
    - Purpose - (Identify/Learn) Collect and document security best practices for projects using various package managers.
 
