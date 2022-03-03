@@ -1,4 +1,4 @@
-# Existing Guidelines for Developing and Distributing Secure Software #
+# Existing Guidelines for Developing and Distributing Secure Software
 
 A product of the OpenSSF Best Practices Working Group
 
@@ -6,7 +6,8 @@ This document is a summary of various guidelines for developing and distributing
 
 Note that many materials are focused on specific situations that may not apply to others. For example, some guidance materials are focused on developing software within large organizations, and in many cases on developing proprietary software; such materials can be challenging to apply to smaller projects and/or open source software projects. Similarly, materials for web applications may not always apply to other kinds of software.
 
-## Guidance material not specific to a particular language or ecosystem ##
+## Guidance material not specific to a particular language or ecosystem
+
 If you’re just starting out trying to make first steps in security of an open source software project, have it try to get an [OpenSSF CII Best Practices Badge](https://bestpractices.coreinfrastructure.org/), take the OpenSSF Secure Software Development Fundamentals course [OpenSSF SSDF 2021](https://openssf.org/edx-courses/), and work to improve their scorecard ranking. (Note: At the time of this writing, scorecard can only measure projects on GitHub, though we hope to fix that in the future.)
 
 Note that [NIST 2020](https://csrc.nist.gov/publications/detail/white-paper/2020/04/23/mitigating-risk-of-software-vulnerabilities-with-ssdf/final) does a cross-examination of several materials and creates a set of best practices.
@@ -31,43 +32,42 @@ Note that [NIST 2020](https://csrc.nist.gov/publications/detail/white-paper/2020
 - [OpenSSF SSDF 2021] OpenSSF, [Secure Software Development Fundamentals](https://openssf.org/edx-courses/): “The Open Source Security Foundation (OpenSSF) has developed a trio of free courses on how to develop secure software. These courses are part of the Secure Software Development Fundamentals Professional Certificate program.  There’s a fee if you want to try to earn a certificate (to prove that you learned the material), but not for the courses themselves. All are available on the edX platform. The courses included in the program are: Secure Software Development: Requirements, Design, and Reuse (LFD104x); Secure Software Development: Implementation (LFD105x); [and] Secure Software Development: Verification and More Specialized Topics (LFD106x).” The [course materials are available in Markdown format on GitHub](https://github.com/ossf/secure-sw-dev-fundamentals) under the CC-BY license.
 - [OWASP ASVS] OWASP, [OWASP Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/): “The primary aim of the OWASP Application Security Verification Standard (ASVS) Project is to normalize the range in the coverage and level of rigor available in the market when it comes to performing Web application security verification using a commercially-workable open standard. The standard provides a basis for testing application technical security controls, as well as any technical security controls in the environment, that are relied on to protect against vulnerabilities such as Cross-Site Scripting (XSS) and SQL injection. This standard can be used to establish a level of confidence in the security of Web applications.” Note that it focuses on web applications, not on other kinds of software.
 - [OWASP SAMM] OWASP, [Open SAMM  Software Assurance Maturity Model, v2.0](https://owasp.org/www-project-samm/), 2020: the model’s goal is to provide “an effective and measurable way for all types of organizations to analyze and improve their software security posture. OWASP SAMM supports the complete software lifecycle, including development and acquisition, and is technology and process agnostic. It is intentionally built to be evolutive and risk-driven in nature.” The model includes the following categories:
-   - Governance
-   - Design
-   - Implementation
-   - Verification
-   - Operations
+  - Governance
+  - Design
+  - Implementation
+  - Verification
+  - Operations
 
 - [PCI 2021] Payment Card Industry(PCI) Standards Council, [Software Security Framework, Secure Software Requirements and Assessment Procedures, Version 1.1](https://www.pcisecuritystandards.org/document_library?category=sware_sec#results), 2021: BEWARE: This document is not a publicly available standard; it has a specific licence.
 - [SAFECode 2018] SAFECode, [Fundamental Practices for Secure Software Development: Essential Elements of a Secure Development Lifecycle Program](https://safecode.org/wp-content/uploads/2018/03/SAFECode_Fundamental_Practices_for_Secure_Software_Development_March_2018.pdf), 2018: the guide includes elements of a Secure Development Lifecycle (SDL) including secure design, coding practices, managing third party components, testing and validation, security findings and their management, vulnerability response and disclosure. It also has a chapter on implementing the practices in an organization.
 - [SAFECode 2012] SAFECode, [Practical Security Stories and Security Tasks for Agile Development Environments](http://safecode.org/publication/SAFECode_Agile_Dev_Security0712.pdf), 2012: gives examples of defining tasks related to secure coding in Agile environments.
 - [Saltzer 1975] Saltzer, Jerome, and Michael Schroeder, [The Protection of Information in Computer Systems](https://www.cs.virginia.edu/~evans/cs551/saltzer/), 1975: The eight design principles listed in this paper are still widely cited and applied today. These are:
-   - Economy of mechanism: Keep the design as simple and small as possible.
-   - Fail-safe defaults: Base access decisions on permission rather than exclusion.
-   - Complete mediation: Every access to every object must be checked for authority.
-   - Open design: The design should not be secret.
-   - Separation of privilege: Where feasible, a protection mechanism that requires two keys to unlock it is more robust and flexible than one that allows access to the presenter of only a single key.
-   - Least privilege: Every program and every user of the system should operate using the least set of privileges necessary to complete the job.
-   - Least common mechanism: Minimize the amount of mechanism common to more than one user and depended on by all users.
-   - Psychological acceptability: It is essential that the human interface be designed for ease of use, so that users routinely and automatically apply the protection mechanisms correctly.
+  - Economy of mechanism: Keep the design as simple and small as possible.
+  - Fail-safe defaults: Base access decisions on permission rather than exclusion.
+  - Complete mediation: Every access to every object must be checked for authority.
+  - Open design: The design should not be secret.
+  - Separation of privilege: Where feasible, a protection mechanism that requires two keys to unlock it is more robust and flexible than one that allows access to the presenter of only a single key.
+  - Least privilege: Every program and every user of the system should operate using the least set of privileges necessary to complete the job.
+  - Least common mechanism: Minimize the amount of mechanism common to more than one user and depended on by all users.
+  - Psychological acceptability: It is essential that the human interface be designed for ease of use, so that users routinely and automatically apply the protection mechanisms correctly.
 
 - [Wheeler 2015] Wheeler, David A., [Secure Programming HOWTO](https://dwheeler.com/secure-programs), 1999-2015, book available online.
 - [Wheeler 2016] Wheeler, David A. and Henninger, Amy E. State-of-the-Art Resources (SOAR) for Software Vulnerability Detection, Test, and Evaluation 2016, Institute for Defense Analyses (Note: Ken Hongfong is not an author)
 - [Viega 2002] Viega, John, and Gary McGraw, Building Secure Software, 2002, Addison-Wesley. This book includes a number of recommendations on securing software, including chapter 5, “guiding principles for software security” along with specific sections on topics such as buffer overflows and race conditions.
 - [Zalewski 2012] Zalewski, Michal, The Tangled Web: A Guide to Securing Modern Web Applications, 2012, No Starch Press
 
-
-## Guidance for specific languages or ecosystems ##
+## Guidance for specific languages or ecosystems
 
 This list only includes guidance that includes or is focused on developing secure software not general coding style guidelines.
 
 Some organizations provide several guidance documents, e.g., [SEI CERT Coding Standards and Google Style Guides](https://wiki.sei.cmu.edu/confluence/display/seccode).
 
-### Apex and Visualforce ###
+### Apex and Visualforce
 
 - [Salesforce] [Secure Coding Guidelines for Salesforce Lightning Platform](https://developer.salesforce.com/docs/atlas.en-us.secure_coding_guide.meta/secure_coding_guide/secure_coding_guidelines.htm)
 - [Salesforce] [Apex Security and Sharing Guide](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_security_sharing_chapter.htm)
 
-### C and/or C++ ###
+### C and/or C++
 
 - [Seacord 2006] Seacord, Robert C., Secure Coding in C and C++, 2006, Addison-Wesley. See the more recent SEI material.
 - [SEI C 2016] Software Engineering Institute (SEI), [SEI CERT C Coding Standard: Rules for Developing Safe, Reliable, and Secure Systems (2016 Edition)](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=454220), June 2016.
@@ -75,15 +75,15 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 - [Viega 2003] Viega, John, and Matt Messier, Secure Programming Cookbook for C and C++, 2003, O’Reilly.
 - [Recommended GCC and clang option flags for compiling C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b)
 
-### Linux ###
+### Linux
 
 - [KSP] [Kernel Self-Protection](https://www.kernel.org/doc/html/latest/security/self-protection.html) guidelines show techniques recommended to Linux kernel developers
 
-### Go ###
+### Go
 
 - [OWASP Go] OWASP, [OWASP Go Secure Coding Practices Guide](https://owasp.org/www-project-go-secure-coding-practices-guide/)
 
-### Java ###
+### Java
 
 - [SEI Java] SEI, [SEI CERT Oracle Coding Standard for Java.](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)
 =======
@@ -96,41 +96,44 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
    <li>[Fedora Project Defensive Coding Guide - The C Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/C/)</li>
    <li>[Fedora Project Defensive Coding Guide - The C++ Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/CXX/)</li>
 </ul>
-    
-### Linux ###
+
+### Linux
+
 <ul>
 <li>[KSP] [Kernel Self-Protection](https://www.kernel.org/doc/html/latest/security/self-protection.html) guidelines show techniques recommended to Linux kernel developers</li>
 <li>[Fedora Project Defensive Coding Guide - Shell Programming and bash](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Shell/)</li>
 </ul>
 
-### Go ###
+### Go
+
 <ul>
  <li>[OWASP Go] OWASP, [OWASP Go Secure Coding Practices Guide](https://owasp.org/www-project-go-secure-coding-practices-guide/)</li>
  <li>[Fedora Project Defensive Coding Guide - The Go Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Go/)</li>
  </ul>
  
-### Java ###
+### Java
+
 <ul>
  <li>[SEI Java] SEI, [SEI CERT Oracle Coding Standard for Java.](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)</li>
  <li>[Fedora Project Defensive Coding Guide - The Java Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Java/)</li>
  </ul>
 
-### Ruby / Rails ###
+### Ruby / Rails
 
 - [Rails] Rails project, [Securing Rails Applications](https://guides.rubyonrails.org/security.html): “This manual describes common security problems in web applications and how to avoid them with Rails [a widely-used web application framework].”
 
-### Rust ###
+### Rust
 
-- [Rust Secure Code Working Group ](https://github.com/rust-secure-code)
+- [Rust Secure Code Working Group](https://github.com/rust-secure-code)
 - [RustSec - advisories etc. for Rust](https://github.com/RustSec) ([Homepage](https://rustsec.org/)) ([Github action](https://github.com/marketplace/actions/rust-audit-check))
 
-### JavaScript ###
+### JavaScript
 
 - [OWASP NodeJS security cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html)
 - [eslint-plugin-security](https://www.npmjs.com/package/eslint-plugin-security)
 - [eslint-plugin-security-node](https://www.npmjs.com/package/eslint-plugin-security-node)
 
-### Python ###
+### Python
 
 - [Bandit](https://github.com/PyCQA/bandit), a tool to find common issues in Python programs
 - [Python security best practices cheat sheet](https://snyk.io/blog/python-security-best-practices-cheat-sheet/)
@@ -156,7 +159,7 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 - Symfony Framework - [https://symfony.com/doc/current/security.html](https://symfony.com/doc/current/security.html)
 - Laravel Framework - [https://laravel.com/docs/5.6/validation](https://laravel.com/docs/5.6/validation)
 
-### Kubes ###
+### Kubes
 
 - Kubernetes team - [tutorials](https://kubernetes.io/docs/tutorials/)
 - [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
@@ -180,19 +183,20 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
   <li>CISA & NSA - [Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF) </li>
   </ul>
   
-### Vala ###
+### Vala
+
 [Fedora Project Defensive Coding Guide - The Vala Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Vala/)
-    
-### Web applications ###
+
+### Web applications
 
 - [OWASP TG] OWASP, [OWASP Testing Guide v4.0](https://owasp.org/www-pdf-archive/OTGv4.pdf)
 
-## Other materials ##
+## Other materials
 
 This section includes materials that cover cybersecurity, or security more broadly, but while they may briefly discuss it, they do not focus on developing or distributing secure software. That doesn’t mean they’re bad materials (far from it!), they’re just somewhat less focused on the issues this document is focusing on. That said, many are highly useful for providing broader and related context. Here are some of them.
 
 - [Anderson 2020] Anderson, Ross, Security Engineering, 2020, Wiley. This book covers many broader security-related areas
 - [Bishop 2019] Bishop, Matt. Computer Security: Art and Science, 2019, Addison-Wesley
 - [Hoglund] Hoglund, Greg, and Gary McGraw, Exploiting Software: How to Break Code, Addison-Wesley
-- http://www.devopsbookmarks.com/](http://www.devopsbookmarks.com/)
+- [http://www.devopsbookmarks.com/](http://www.devopsbookmarks.com/)
 - [Schneier 2000] Schneier, Bruce, Secrets & Lies, 2000, Wiley
