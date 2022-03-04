@@ -74,61 +74,62 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 - [SEI C++] SEI, [SEI CERT C++ Coding Standard](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=494932). See also the online [in-progress update](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682).
 - [Viega 2003] Viega, John, and Matt Messier, Secure Programming Cookbook for C and C++, 2003, O’Reilly.
 - [Recommended GCC and clang option flags for compiling C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b)
-
-### Linux ###
-
-- [KSP] [Kernel Self-Protection](https://www.kernel.org/doc/html/latest/security/self-protection.html) guidelines show techniques recommended to Linux kernel developers
+- [Fedora Project Defensive Coding Guide - The C Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/C/)
+- [Fedora Project Defensive Coding Guide - The C++ Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/CXX/)
 
 ### Go ###
 
 - [OWASP Go] OWASP, [OWASP Go Secure Coding Practices Guide](https://owasp.org/www-project-go-secure-coding-practices-guide/)
+- [Fedora Project Defensive Coding Guide - The Go Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Go/)
 
 ### Java ###
 
+- [Seacord 2006] Seacord, Robert C., Secure Coding in C and C++, 2006, Addison-Wesley. See the more recent SEI material.
+- [SEI C 2016] Software Engineering Institute (SEI), [SEI CERT C Coding Standard: Rules for Developing Safe, Reliable, and Secure Systems (2016 Edition)](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=454220), June 2016.
+- [SEI C++] SEI, [SEI CERT C++ Coding Standard](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=494932). See also the online [in-progress update](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682).
+- [Viega 2003] Viega, John, and Matt Messier, Secure Programming Cookbook for C and C++, 2003, O’Reilly.
+- [Recommended GCC and clang option flags for compiling C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b)
 - [SEI Java] SEI, [SEI CERT Oracle Coding Standard for Java.](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)
-=======
-<ul>
-  <li>[Seacord 2006] Seacord, Robert C., Secure Coding in C and C++, 2006, Addison-Wesley. See the more recent SEI material.</li>
-  <li>[SEI C 2016] Software Engineering Institute (SEI), [SEI CERT C Coding Standard: Rules for Developing Safe, Reliable, and Secure Systems (2016 Edition)](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=454220), June 2016.</li>
-  <li>[SEI C++] SEI, [SEI CERT C++ Coding Standard](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=494932). See also the online [in-progress update](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682).</li>
-  <li>[Viega 2003] Viega, John, and Matt Messier, Secure Programming Cookbook for C and C++, 2003, O’Reilly.</li>
-  <li>[Recommended GCC and clang option flags for compiling C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b)</li>
-   <li>[Fedora Project Defensive Coding Guide - The C Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/C/)</li>
-   <li>[Fedora Project Defensive Coding Guide - The C++ Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/CXX/)</li>
-</ul>
-    
-### Linux ###
-<ul>
-<li>[KSP] [Kernel Self-Protection](https://www.kernel.org/doc/html/latest/security/self-protection.html) guidelines show techniques recommended to Linux kernel developers</li>
-<li>[Fedora Project Defensive Coding Guide - Shell Programming and bash](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Shell/)</li>
-</ul>
-
-### Go ###
-<ul>
- <li>[OWASP Go] OWASP, [OWASP Go Secure Coding Practices Guide](https://owasp.org/www-project-go-secure-coding-practices-guide/)</li>
- <li>[Fedora Project Defensive Coding Guide - The Go Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Go/)</li>
- </ul>
- 
-### Java ###
-<ul>
- <li>[SEI Java] SEI, [SEI CERT Oracle Coding Standard for Java.](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)</li>
- <li>[Fedora Project Defensive Coding Guide - The Java Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Java/)</li>
- </ul>
-
-### Ruby / Rails ###
-
-- [Rails] Rails project, [Securing Rails Applications](https://guides.rubyonrails.org/security.html): “This manual describes common security problems in web applications and how to avoid them with Rails [a widely-used web application framework].”
-
-### Rust ###
-
-- [Rust Secure Code Working Group ](https://github.com/rust-secure-code)
-- [RustSec - advisories etc. for Rust](https://github.com/RustSec) ([Homepage](https://rustsec.org/)) ([Github action](https://github.com/marketplace/actions/rust-audit-check))
+- [Fedora Project Defensive Coding Guide - The Java Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Java/)
 
 ### JavaScript ###
 
-- [OWASP NodeJS security cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html)
-- [eslint-plugin-security](https://www.npmjs.com/package/eslint-plugin-security)
-- [eslint-plugin-security-node](https://www.npmjs.com/package/eslint-plugin-security-node)
+- [OWASP][OWASP NodeJS security cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html)
+- [eslint-plugin-security](https://www.npmjs.com/package/eslint-plugin-security)>[eslint-plugin-security](https://www.npmjs.com/package/eslint-plugin-security)
+- [eslint-plugin-security-node](https://www.npmjs.com/package/eslint-plugin-security-node)>[eslint-plugin-security-node](https://www.npmjs.com/package/eslint-plugin-security-node)
+
+### Kubernetes ###
+- Kubernetes team - [tutorials](https://kubernetes.io/docs/tutorials/)
+- [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
+- Learning Kubernetes basics ([Red Hat](https://www.redhat.com/en/topics/containers/learning-kubernetes-tutorial)) 
+- Kubernetes team - [Securing a Cluster](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)
+- IBM - Basics of Kubernetes Security [blog](https://developer.ibm.com/blogs/basics-of-kubernetes-security/)
+- OWASP - Kubernetes Security [Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html)
+- Red Hat - [What is DevSecOps?](https://www.redhat.com/en/topics/devops/what-is-devsecops)
+- Synk - [Kubernetes Security: Common Issues and Best Practices](https://snyk.io/learn/kubernetes-security/)
+- CISA & NSA - [Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF)
+- Kubernetes team - [tutorials](https://kubernetes.io/docs/tutorials/)
+- [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
+- Learning Kubernetes basics ([Red Hat](https://www.redhat.com/en/topics/containers/learning-kubernetes-tutorial))
+- Kubernetes team - [Securing a Cluster](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)
+- IBM - Basics of Kubernetes Security [blog](https://developer.ibm.com/blogs/basics-of-kubernetes-security/)
+- OWASP - Kubernetes Security [Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html)
+- Red Hat - [What is DevSecOps?](https://www.redhat.com/en/topics/devops/what-is-devsecops)
+- Synk - [Kubernetes Security: Common Issues and Best Practices](https://snyk.io/learn/kubernetes-security/) 
+- CISA & NSA - [Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF) 
+
+
+### Linux ###
+
+- [KSP] [Kernel Self-Protection](https://www.kernel.org/doc/html/latest/security/self-protection.html) guidelines show techniques recommended to Linux kernel developers
+- [Fedora Project Defensive Coding Guide - Shell Programming and bash](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Shell/)
+
+### PHP ###
+
+- [PHP Security manual](https://www.php.net/manual/en/security.php)
+- [Survive The Deep End: PHP Security ](https://phpsecurity.readthedocs.io/en/latest/)
+- [Symfony Framework](https://symfony.com/doc/current/security.html)
+- [Laravel Framework](https://laravel.com/docs/5.6/validation)
 
 ### Python ###
 
@@ -138,51 +139,27 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 - [Pipenv](https://pipenv.pypa.io/en/latest/), a tool to manage dependencies securely
 - [Pyre](https://pyre-check.org/) is a type checker for Python programs. On top of Pyre, [Pysa](https://pyre-check.org/docs/pysa-basics/) provides static analysis to help finding potential security vulnerabilities.
 - [Pyup.io Safety] [Pyup.io Safety](https://github.com/pyupio/safety) checks Python dependencies for known security vulnerabilities.
-=======
-<ul>
-  <li>[Bandit] [Bandit](https://github.com/PyCQA/bandit), a tool to find common issues in Python programs</li>
-  <li>[Python BestPractices] [Python security best practices cheat sheet](https://snyk.io/blog/python-security-best-practices-cheat-sheet/)</li>
-  <li>[Python pitfalls] [Common Python security pitfalls](https://deepsource.io/blog/python-security-pitfalls/)</li>
-  <li>[Pipenv] [Pipenv](https://pipenv.pypa.io/en/latest/), a tool to manage dependencies securely</li>
-  <li>[Pyre]  [Pyre](https://pyre-check.org/) is a type checker for Python programs. On top of Pyre, [Pysa](https://pyre-check.org/docs/pysa-basics/) provides static analysis to help finding potential security vulnerabilities.</li>
-  <li>[Pyup.io Safety] [Pyup.io Safety](https://github.com/pyupio/safety) checks Python dependencies for known security vulnerabilities.</li>
-  <li>[Fedora Project Defensive Coding Guide - The Phyton Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Python/)</li>
-</ul>
-  
-### PHP ###
+- Bandit] [Bandit](https://github.com/PyCQA/bandit), a tool to find common issues in Python programs
+- [Python BestPractices] [Python security best practices cheat sheet](https://snyk.io/blog/python-security-best-practices-cheat-sheet/)
+- [Python pitfalls] [Common Python security pitfalls](https://deepsource.io/blog/python-security-pitfalls/)
+- [Pipenv] [Pipenv](https://pipenv.pypa.io/en/latest/), a tool to manage dependencies securely
+- [Pyre]  [Pyre](https://pyre-check.org/) is a type checker for Python programs. On top of Pyre, [Pysa](https://pyre-check.org/docs/pysa-basics/) provides static analysis to help finding potential security vulnerabilities.
+- [Pyup.io Safety] [Pyup.io Safety](https://github.com/pyupio/safety) checks Python dependencies for known security vulnerabilities.
+- [Fedora Project Defensive Coding Guide - The Phyton Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Python/)
 
-- PHP Security manual - [https://www.php.net/manual/en/security.php](https://www.php.net/manual/en/security.php)
-- Survive The Deep End: PHP Security - [https://phpsecurity.readthedocs.io/en/latest/](https://phpsecurity.readthedocs.io/en/latest/)
-- Symfony Framework - [https://symfony.com/doc/current/security.html](https://symfony.com/doc/current/security.html)
-- Laravel Framework - [https://laravel.com/docs/5.6/validation](https://laravel.com/docs/5.6/validation)
+### Ruby / Rails ###
 
-### Kubes ###
+- [Rails][Rails] Rails project, [Securing Rails Applications](https://guides.rubyonrails.org/security.html): “This manual describes common security problems in web applications and how to avoid them with Rails [a widely-used web application framework].”
 
-- Kubernetes team - [tutorials](https://kubernetes.io/docs/tutorials/)
-- [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
-- Learning Kubernetes basics ([Red Hat](https://www.redhat.com/en/topics/containers/learning-kubernetes-tutorial))
-- Kubernetes team - [Securing a Cluster](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)
-- IBM - Basics of Kubernetes Security [blog](https://developer.ibm.com/blogs/basics-of-kubernetes-security/)
-- OWASP - Kubernetes Security [Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html)
-- Red Hat - [What is DevSecOps?](https://www.redhat.com/en/topics/devops/what-is-devsecops)
-- Synk - [Kubernetes Security: Common Issues and Best Practices](https://snyk.io/learn/kubernetes-security/)
-- CISA & NSA - [Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF)
-=======
-<ul>
-  <li>Kubernetes team - [tutorials](https://kubernetes.io/docs/tutorials/)</li>
-  <li>[Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)</li>
-  <li>Learning Kubernetes basics ([Red Hat](https://www.redhat.com/en/topics/containers/learning-kubernetes-tutorial))</li>
-  <li>Kubernetes team - [Securing a Cluster](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)</li>
-  <li>IBM - Basics of Kubernetes Security [blog](https://developer.ibm.com/blogs/basics-of-kubernetes-security/)</li>
-  <li>OWASP - Kubernetes Security [Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html)</li>
-  <li>Red Hat - [What is DevSecOps?](https://www.redhat.com/en/topics/devops/what-is-devsecops) </li>
-  <li>Synk - [Kubernetes Security: Common Issues and Best Practices](https://snyk.io/learn/kubernetes-security/) </li>
-  <li>CISA & NSA - [Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF) </li>
-  </ul>
-  
+### Rust ###
+
+- [Rust Secure Code Working Group ](https://github.com/rust-secure-code)
+- [RustSec - advisories etc. for Rust](https://github.com/RustSec) ([Homepage](https://rustsec.org/)) ([Github action](https://github.com/marketplace/actions/rust-audit-check))
+
 ### Vala ###
-[Fedora Project Defensive Coding Guide - The Vala Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Vala/)
-    
+
+- [Fedora Project Defensive Coding Guide - The Vala Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Vala/)
+
 ### Web applications ###
 
 - [OWASP TG] OWASP, [OWASP Testing Guide v4.0](https://owasp.org/www-pdf-archive/OTGv4.pdf)
