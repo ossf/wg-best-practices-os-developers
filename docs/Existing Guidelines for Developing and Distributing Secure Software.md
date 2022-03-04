@@ -126,6 +126,12 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 - [KSP] [Kernel Self-Protection](https://www.kernel.org/doc/html/latest/security/self-protection.html) guidelines show techniques recommended to Linux kernel developers
 - [Fedora Project Defensive Coding Guide - Shell Programming and bash](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Shell/)
 
+### Mobile applications
+
+- [OWASP MASVS] OWASP, [OWASP Mobile Application Security Verification Standard (MASVS)](https://github.com/OWASP/owasp-masvs/)
+- [OWASP MSTG] OWASP, [OWASP Mobile Security Testing Guide (MSTG)](https://github.com/OWASP/owasp-mstg/)
+
+
 ### PHP ###
 
 - [PHP Security manual](https://www.php.net/manual/en/security.php)
@@ -161,17 +167,13 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 ### Vala ###
 
 - [Fedora Project Defensive Coding Guide - The Vala Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Vala/)
-[Fedora Project Defensive Coding Guide - The Vala Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Vala/)
-    
+[Fedora Project Defensive Coding Guide - The Vala Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Vala/
 
-### Mobile applications
-
-- [OWASP MASVS] OWASP, [OWASP Mobile Application Security Verification Standard (MASVS)](https://github.com/OWASP/owasp-masvs/)
-- [OWASP MSTG] OWASP, [OWASP Mobile Security Testing Guide (MSTG)](https://github.com/OWASP/owasp-mstg/)
 
 ### Web applications ###
 
 - [OWASP TG] OWASP, [OWASP Testing Guide v4.0](https://owasp.org/www-pdf-archive/OTGv4.pdf)
+
 
 ## Other materials ##
 
