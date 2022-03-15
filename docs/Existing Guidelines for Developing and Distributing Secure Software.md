@@ -110,16 +110,6 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 - Red Hat - [What is DevSecOps?](https://www.redhat.com/en/topics/devops/what-is-devsecops)
 - Synk - [Kubernetes Security: Common Issues and Best Practices](https://snyk.io/learn/kubernetes-security/)
 - CISA & NSA - [Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF)
-- Kubernetes team - [tutorials](https://kubernetes.io/docs/tutorials/)
-- [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
-- Learning Kubernetes basics ([Red Hat](https://www.redhat.com/en/topics/containers/learning-kubernetes-tutorial))
-- Kubernetes team - [Securing a Cluster](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)
-- IBM - Basics of Kubernetes Security [blog](https://developer.ibm.com/blogs/basics-of-kubernetes-security/)
-- OWASP - Kubernetes Security [Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html)
-- Red Hat - [What is DevSecOps?](https://www.redhat.com/en/topics/devops/what-is-devsecops)
-- Synk - [Kubernetes Security: Common Issues and Best Practices](https://snyk.io/learn/kubernetes-security/) 
-- CISA & NSA - [Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF) 
-
 
 ### Linux ###
 
@@ -141,13 +131,7 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 - [Pipenv](https://pipenv.pypa.io/en/latest/), a tool to manage dependencies securely
 - [Pyre](https://pyre-check.org/) is a type checker for Python programs. On top of Pyre, [Pysa](https://pyre-check.org/docs/pysa-basics/) provides static analysis to help finding potential security vulnerabilities.
 - [Pyup.io Safety] [Pyup.io Safety](https://github.com/pyupio/safety) checks Python dependencies for known security vulnerabilities.
-- Bandit] [Bandit](https://github.com/PyCQA/bandit), a tool to find common issues in Python programs
-- [Python BestPractices] [Python security best practices cheat sheet](https://snyk.io/blog/python-security-best-practices-cheat-sheet/)
-- [Python pitfalls] [Common Python security pitfalls](https://deepsource.io/blog/python-security-pitfalls/)
-- [Pipenv] [Pipenv](https://pipenv.pypa.io/en/latest/), a tool to manage dependencies securely
-- [Pyre]  [Pyre](https://pyre-check.org/) is a type checker for Python programs. On top of Pyre, [Pysa](https://pyre-check.org/docs/pysa-basics/) provides static analysis to help finding potential security vulnerabilities.
-- [Pyup.io Safety] [Pyup.io Safety](https://github.com/pyupio/safety) checks Python dependencies for known security vulnerabilities.
-- [Fedora Project Defensive Coding Guide - The Phyton Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Python/)
+- [Fedora Project Defensive Coding Guide - The Python Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Python/)
 
 ### Ruby / Rails ###
 
