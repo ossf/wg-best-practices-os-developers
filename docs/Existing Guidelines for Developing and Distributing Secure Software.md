@@ -64,10 +64,14 @@ This list only includes guidance that includes or is focused on developing secur
 
 Some organizations provide several guidance documents, e.g., [SEI CERT Coding Standards and Google Style Guides](https://wiki.sei.cmu.edu/confluence/display/seccode).
 
+### Angular ###
+
 ### Apex and Visualforce ###
 
 - [Salesforce] [Secure Coding Guidelines for Salesforce Lightning Platform](https://developer.salesforce.com/docs/atlas.en-us.secure_coding_guide.meta/secure_coding_guide/secure_coding_guidelines.htm)
 - [Salesforce] [Apex Security and Sharing Guide](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_security_sharing_chapter.htm)
+
+### COBOL ###
 
 ### C and/or C++ ###
 
@@ -78,6 +82,13 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 - [Recommended GCC and clang option flags for compiling C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b)
 - [Fedora Project Defensive Coding Guide - The C Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/C/)
 - [Fedora Project Defensive Coding Guide - The C++ Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/CXX/)
+
+### C# ###
+
+## Docker ###
+
+- Docker team - [Docker engine security](https://docs.docker.com/engine/security/), the official project documentation with link to other resources
+- OWASP - [Docker Security Chear Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html), a guide with detailed procedures to follow
 
 ### Go ###
 
@@ -151,7 +162,7 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 
 ### Ruby / Rails ###
 
-- [Rails][Rails] Rails project, [Securing Rails Applications](https://guides.rubyonrails.org/security.html): “This manual describes common security problems in web applications and how to avoid them with Rails [a widely-used web application framework].”
+- [Rails] Rails project, [Securing Rails Applications](https://guides.rubyonrails.org/security.html): “This manual describes common security problems in web applications and how to avoid them with Rails [a widely-used web application framework].”
 
 ### Rust ###
 
