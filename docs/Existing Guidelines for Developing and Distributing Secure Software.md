@@ -31,6 +31,8 @@ Note that [NIST 2020](https://csrc.nist.gov/publications/detail/white-paper/2020
 - [OpenSSF CII Best Practices Badge] [OpenSSF/CII, Core Infrastructure Initiative (CII) Best Practices Badge](https://bestpractices.coreinfrastructure.org): This is “a way for Free/Libre and Open Source Software (FLOSS) projects to show that they follow best practices. Projects can voluntarily self-certify, at no cost, by using this web application to explain how they follow each best practice… Consumers of the badge can quickly assess which FLOSS projects are following best practices and as a result are more likely to produce higher-quality secure software.” There are 3 badge levels: passing, silver, and gold. You can view the passing criteria or [all the criteria](https://bestpractices.coreinfrastructure.org/criteria). Many criteria have “[details](https://bestpractices.coreinfrastructure.org/criteria?details=true&rationale=true)” that provide suggestions on how to implement the criteria.
 - [OpenSSF SSDF 2021] OpenSSF, [Secure Software Development Fundamentals](https://openssf.org/edx-courses/): “The Open Source Security Foundation (OpenSSF) has developed a trio of free courses on how to develop secure software. These courses are part of the Secure Software Development Fundamentals Professional Certificate program.  There’s a fee if you want to try to earn a certificate (to prove that you learned the material), but not for the courses themselves. All are available on the edX platform. The courses included in the program are: Secure Software Development: Requirements, Design, and Reuse (LFD104x); Secure Software Development: Implementation (LFD105x); [and] Secure Software Development: Verification and More Specialized Topics (LFD106x).” The [course materials are available in Markdown format on GitHub](https://github.com/ossf/secure-sw-dev-fundamentals) under the CC-BY license.
 - [OWASP ASVS] OWASP, [OWASP Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/): “The primary aim of the OWASP Application Security Verification Standard (ASVS) Project is to normalize the range in the coverage and level of rigor available in the market when it comes to performing Web application security verification using a commercially-workable open standard. The standard provides a basis for testing application technical security controls, as well as any technical security controls in the environment, that are relied on to protect against vulnerabilities such as Cross-Site Scripting (XSS) and SQL injection. This standard can be used to establish a level of confidence in the security of Web applications.” Note that it focuses on web applications, not on other kinds of software.
+- [OWASP MASVS] OWASP, [OWASP Mobile Application Security Verification Standard (MASVS)](https://github.com/OWASP/owasp-masvs/), 2022: The OWASP Mobile Application Security Verification Standard (MASVS) is a standard that establishes the security requirements for mobile app security.
+- [OWASP MSTG] OWASP, [OWASP Mobile Security Testing Guide (MSTG)](https://github.com/OWASP/owasp-mstg/), 2022: The OWASP Mobile Security Testing Guide (MSTG) is a comprehensive manual for mobile app security testing and reverse engineering. It describes technical processes for verifying the controls listed in the OWASP MASVS.
 - [OWASP SAMM] OWASP, [Open SAMM  Software Assurance Maturity Model, v2.0](https://owasp.org/www-project-samm/), 2020: the model’s goal is to provide “an effective and measurable way for all types of organizations to analyze and improve their software security posture. OWASP SAMM supports the complete software lifecycle, including development and acquisition, and is technology and process agnostic. It is intentionally built to be evolutive and risk-driven in nature.” The model includes the following categories:
   - Governance
   - Design
@@ -63,29 +65,43 @@ This list only includes guidance that includes or is focused on developing secur
 Some organizations provide several guidance documents, e.g., [SEI CERT Coding Standards and Google Style Guides](https://wiki.sei.cmu.edu/confluence/display/seccode).
 
 ### Apex and Visualforce
+=======
+### Angular ###
+
+### Apex and Visualforce ###
 
 - [Salesforce] [Secure Coding Guidelines for Salesforce Lightning Platform](https://developer.salesforce.com/docs/atlas.en-us.secure_coding_guide.meta/secure_coding_guide/secure_coding_guidelines.htm)
 - [Salesforce] [Apex Security and Sharing Guide](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_security_sharing_chapter.htm)
 
 ### C and/or C++
+=======
+### COBOL ###
+
+### C and/or C++ ###
 
 - [Seacord 2006] Seacord, Robert C., Secure Coding in C and C++, 2006, Addison-Wesley. See the more recent SEI material.
 - [SEI C 2016] Software Engineering Institute (SEI), [SEI CERT C Coding Standard: Rules for Developing Safe, Reliable, and Secure Systems (2016 Edition)](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=454220), June 2016.
 - [SEI C++] SEI, [SEI CERT C++ Coding Standard](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=494932). See also the online [in-progress update](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682).
 - [Viega 2003] Viega, John, and Matt Messier, Secure Programming Cookbook for C and C++, 2003, O’Reilly.
 - [Recommended GCC and clang option flags for compiling C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b)
+- [Fedora Project Defensive Coding Guide - The C Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/C/)
+- [Fedora Project Defensive Coding Guide - The C++ Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/CXX/)
 
 ### Linux
+=======
+### C# ###
 
-- [KSP] [Kernel Self-Protection](https://www.kernel.org/doc/html/latest/security/self-protection.html) guidelines show techniques recommended to Linux kernel developers
+## Docker ###
+
+- Docker team - [Docker engine security](https://docs.docker.com/engine/security/), the official project documentation with link to other resources
+- OWASP - [Docker Security Chear Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html), a guide with detailed procedures to follow
 
 ### Go
 
 - [OWASP Go] OWASP, [OWASP Go Secure Coding Practices Guide](https://owasp.org/www-project-go-secure-coding-practices-guide/)
+- [Fedora Project Defensive Coding Guide - The Go Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Go/)
 
 ### Java
-
-- [SEI Java] SEI, [SEI CERT Oracle Coding Standard for Java.](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)
 =======
 <ul>
   <li>[Seacord 2006] Seacord, Robert C., Secure Coding in C and C++, 2006, Addison-Wesley. See the more recent SEI material.</li>
@@ -119,8 +135,25 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
  </ul>
 
 ### Ruby / Rails
+=======
+- [Fedora Project Defensive Coding Guide - The Java Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Java/)
 
-- [Rails] Rails project, [Securing Rails Applications](https://guides.rubyonrails.org/security.html): “This manual describes common security problems in web applications and how to avoid them with Rails [a widely-used web application framework].”
+### JavaScript ###
+
+- [OWASP][OWASP NodeJS security cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html)
+- [eslint-plugin-security](https://www.npmjs.com/package/eslint-plugin-security)>[eslint-plugin-security](https://www.npmjs.com/package/eslint-plugin-security)
+- [eslint-plugin-security-node](https://www.npmjs.com/package/eslint-plugin-security-node)>[eslint-plugin-security-node](https://www.npmjs.com/package/eslint-plugin-security-node)
+
+### Kubernetes ###
+- Kubernetes team - [tutorials](https://kubernetes.io/docs/tutorials/)
+- [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
+- Learning Kubernetes basics ([Red Hat](https://www.redhat.com/en/topics/containers/learning-kubernetes-tutorial)) 
+- Kubernetes team - [Securing a Cluster](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)
+- IBM - Basics of Kubernetes Security [blog](https://developer.ibm.com/blogs/basics-of-kubernetes-security/)
+- OWASP - Kubernetes Security [Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html)
+- Red Hat - [What is DevSecOps?](https://www.redhat.com/en/topics/devops/what-is-devsecops)
+- Synk - [Kubernetes Security: Common Issues and Best Practices](https://snyk.io/learn/kubernetes-security/)
+- CISA & NSA - [Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF)
 
 ### Rust
 
@@ -128,10 +161,24 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 - [RustSec - advisories etc. for Rust](https://github.com/RustSec) ([Homepage](https://rustsec.org/)) ([Github action](https://github.com/marketplace/actions/rust-audit-check))
 
 ### JavaScript
+=======
+### Linux ###
 
-- [OWASP NodeJS security cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html)
-- [eslint-plugin-security](https://www.npmjs.com/package/eslint-plugin-security)
-- [eslint-plugin-security-node](https://www.npmjs.com/package/eslint-plugin-security-node)
+- [KSP] [Kernel Self-Protection](https://www.kernel.org/doc/html/latest/security/self-protection.html) guidelines show techniques recommended to Linux kernel developers
+- [Fedora Project Defensive Coding Guide - Shell Programming and bash](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Shell/)
+
+### Mobile applications
+
+- [OWASP MASVS] OWASP, [OWASP Mobile Application Security Verification Standard (MASVS)](https://github.com/OWASP/owasp-masvs/)
+- [OWASP MSTG] OWASP, [OWASP Mobile Security Testing Guide (MSTG)](https://github.com/OWASP/owasp-mstg/)
+
+
+### PHP ###
+
+- [PHP Security manual](https://www.php.net/manual/en/security.php)
+- [Survive The Deep End: PHP Security ](https://phpsecurity.readthedocs.io/en/latest/)
+- [Symfony Framework](https://symfony.com/doc/current/security.html)
+- [Laravel Framework](https://laravel.com/docs/5.6/validation)
 
 ### Python
 
@@ -141,47 +188,10 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 - [Pipenv](https://pipenv.pypa.io/en/latest/), a tool to manage dependencies securely
 - [Pyre](https://pyre-check.org/) is a type checker for Python programs. On top of Pyre, [Pysa](https://pyre-check.org/docs/pysa-basics/) provides static analysis to help finding potential security vulnerabilities.
 - [Pyup.io Safety] [Pyup.io Safety](https://github.com/pyupio/safety) checks Python dependencies for known security vulnerabilities.
-=======
-<ul>
-  <li>[Bandit] [Bandit](https://github.com/PyCQA/bandit), a tool to find common issues in Python programs</li>
-  <li>[Python BestPractices] [Python security best practices cheat sheet](https://snyk.io/blog/python-security-best-practices-cheat-sheet/)</li>
-  <li>[Python pitfalls] [Common Python security pitfalls](https://deepsource.io/blog/python-security-pitfalls/)</li>
-  <li>[Pipenv] [Pipenv](https://pipenv.pypa.io/en/latest/), a tool to manage dependencies securely</li>
-  <li>[Pyre]  [Pyre](https://pyre-check.org/) is a type checker for Python programs. On top of Pyre, [Pysa](https://pyre-check.org/docs/pysa-basics/) provides static analysis to help finding potential security vulnerabilities.</li>
-  <li>[Pyup.io Safety] [Pyup.io Safety](https://github.com/pyupio/safety) checks Python dependencies for known security vulnerabilities.</li>
-  <li>[Fedora Project Defensive Coding Guide - The Phyton Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Python/)</li>
-</ul>
-  
-### PHP ###
+- [Fedora Project Defensive Coding Guide - The Python Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Python/)
 
-- PHP Security manual - [https://www.php.net/manual/en/security.php](https://www.php.net/manual/en/security.php)
-- Survive The Deep End: PHP Security - [https://phpsecurity.readthedocs.io/en/latest/](https://phpsecurity.readthedocs.io/en/latest/)
-- Symfony Framework - [https://symfony.com/doc/current/security.html](https://symfony.com/doc/current/security.html)
-- Laravel Framework - [https://laravel.com/docs/5.6/validation](https://laravel.com/docs/5.6/validation)
+### Ruby / Rails ###
 
-### Kubes
-
-- Kubernetes team - [tutorials](https://kubernetes.io/docs/tutorials/)
-- [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
-- Learning Kubernetes basics ([Red Hat](https://www.redhat.com/en/topics/containers/learning-kubernetes-tutorial))
-- Kubernetes team - [Securing a Cluster](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)
-- IBM - Basics of Kubernetes Security [blog](https://developer.ibm.com/blogs/basics-of-kubernetes-security/)
-- OWASP - Kubernetes Security [Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html)
-- Red Hat - [What is DevSecOps?](https://www.redhat.com/en/topics/devops/what-is-devsecops)
-- Synk - [Kubernetes Security: Common Issues and Best Practices](https://snyk.io/learn/kubernetes-security/)
-- CISA & NSA - [Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF)
-=======
-<ul>
-  <li>Kubernetes team - [tutorials](https://kubernetes.io/docs/tutorials/)</li>
-  <li>[Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)</li>
-  <li>Learning Kubernetes basics ([Red Hat](https://www.redhat.com/en/topics/containers/learning-kubernetes-tutorial))</li>
-  <li>Kubernetes team - [Securing a Cluster](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)</li>
-  <li>IBM - Basics of Kubernetes Security [blog](https://developer.ibm.com/blogs/basics-of-kubernetes-security/)</li>
-  <li>OWASP - Kubernetes Security [Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html)</li>
-  <li>Red Hat - [What is DevSecOps?](https://www.redhat.com/en/topics/devops/what-is-devsecops) </li>
-  <li>Synk - [Kubernetes Security: Common Issues and Best Practices](https://snyk.io/learn/kubernetes-security/) </li>
-  <li>CISA & NSA - [Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF) </li>
-  </ul>
   
 ### Vala
 
@@ -192,6 +202,26 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 - [OWASP TG] OWASP, [OWASP Testing Guide v4.0](https://owasp.org/www-pdf-archive/OTGv4.pdf)
 
 ## Other materials
+=======
+- [Rails] Rails project, [Securing Rails Applications](https://guides.rubyonrails.org/security.html): “This manual describes common security problems in web applications and how to avoid them with Rails [a widely-used web application framework].”
+
+### Rust ###
+
+- [Rust Secure Code Working Group ](https://github.com/rust-secure-code)
+- [RustSec - advisories etc. for Rust](https://github.com/RustSec) ([Homepage](https://rustsec.org/)) ([Github action](https://github.com/marketplace/actions/rust-audit-check))
+
+### Vala ###
+
+- [Fedora Project Defensive Coding Guide - The Vala Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Vala/)
+[Fedora Project Defensive Coding Guide - The Vala Programming Language](https://docs.fedoraproject.org/en-US/defensive-coding/programming-languages/Vala/
+
+
+### Web applications ###
+
+- [OWASP TG] OWASP, [OWASP Testing Guide v4.0](https://owasp.org/www-pdf-archive/OTGv4.pdf)
+
+
+## Other materials ##
 
 This section includes materials that cover cybersecurity, or security more broadly, but while they may briefly discuss it, they do not focus on developing or distributing secure software. That doesn’t mean they’re bad materials (far from it!), they’re just somewhat less focused on the issues this document is focusing on. That said, many are highly useful for providing broader and related context. Here are some of them.
 
