@@ -85,7 +85,7 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 
 ### C# ###
 
-## Docker ###
+### Docker ###
 
 - Docker team - [Docker engine security](https://docs.docker.com/engine/security/), the official project documentation with link to other resources
 - OWASP - [Docker Security Chear Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html), a guide with detailed procedures to follow
