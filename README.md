@@ -18,7 +18,7 @@ Our vision is to make it easy for developers to adopt these best practices, than
 <img align="right" src="https://github.com/ossf/wg-best-practices-os-developers/blob/main/img/OpenSSF%20Dev%20Best%20Practices%20Projects%20Relations.png">
 
    ## Scope
-The Developer Best Practices group wants to help identfy and curate an accessible [inventory](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/inventory.md) of best practices
+The Developer Best Practices group wants to help identify and curate an accessible [inventory](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/inventory.md) of best practices
   - Prioritized according to ROI for open source developers
   - Categorized per technology, language, framework
   - Community-curated
