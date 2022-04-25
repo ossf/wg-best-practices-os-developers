@@ -34,6 +34,13 @@ Supply a Learning platform
 
    ## Current Work
 Our work is organized into several discrete-yet-related projects that help us achieve our goals:
+
+- Short guides for (1) developing software and (2) evaluating software (Sandbox)
+  - Purpose - Identify short guides, notionally 1 page each, for developing software and for evaluating software, that will primarily serve as pointers to other materials.
+  - [Early draft draft for the developer guide](https://docs.google.com/document/d/16jUqTEFG-wscZUGR-NGa_3a81GF3YILtH9XgOSkLCTM/edit)
+  - [Early Draft for evaluation guide](https://docs.google.com/document/d/19015o63pA-sZPBN5-R7I7Cg8ICPxo6fXH8vOI1RgBYM/edit)
+  - The current plan is to develop the early draft on Google docs, then transition it to Markdown format on GitHub
+
 - *Common Requirement Enumeration (CRE) Project* - (incubating) https://www.opencre.org/
  
   - Purpose - (Identify) Identify similar requirements in different specifications
