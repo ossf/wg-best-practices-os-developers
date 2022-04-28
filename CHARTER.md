@@ -49,6 +49,12 @@ The Best Practices for OSS Developers working group is dedicated to
    - ii. coordinating any communications regarding the Technical Initiative.
   
    - iii. approving and implementing policies and processes for contributing (to be published in the Technical Initiative repository) and coordinating with the Linux Foundation to resolve matters or concerns that may arise as set forth in Section 6 of this Technical Charter;
+ 
+ - g. The Technical Initiative co-lead is supporting the lead in their duties. In the absence of the lead, they can
+
+    - i. facilite discussions, seek consensus, and where necessary, vote on technical matters relating to the Technical Initiative; and
+ 
+    - ii. coordinate any communications regarding the Technical Initiative.
 
 #### 3. Voting
 
