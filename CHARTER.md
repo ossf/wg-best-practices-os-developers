@@ -15,9 +15,9 @@ The Best Practices for OSS Developers working group is dedicated to
 
 #### 2. Technical initiative roles
 
-- a. The primary points of contact are the lead and co-lead of the working group, who are listed in the [README](https://github.com/ossf/wg-best-practices-os-developers/tree/xcorail-patch-1#governance)
+- a. The primary points of contact are the lead and co-lead of the Technical Initiative, who are listed in the [README](https://github.com/ossf/wg-best-practices-os-developers/tree/xcorail-patch-1#governance)
 
-- b. The Technical Initiative generally will involve Collaborators and Contributors. The working group may adopt or modify additional roles so long as the roles are documented in the Technical Initiative’s repository. Unless otherwise documented: 
+- b. The Technical Initiative generally will involve Collaborators and Contributors. The Technical Initiative may adopt or modify additional roles so long as the roles are documented in the Technical Initiative’s repository. Unless otherwise documented: 
 
    - i. Contributors include anyone in the technical community that contributes effort, ideas, code, documentation, or other artifacts to the Technical Initiative; 
 
@@ -29,7 +29,7 @@ The Best Practices for OSS Developers working group is dedicated to
 
 - d. Participation in the Technical Initiative through becoming a Contributor, Collaborator, or Maintainer is open to anyone, whether a OpenSSF member or not, so long as they abide by the terms of this Technical Charter. 
 
-- e. The working group collaboratively manages all aspects of oversight relating to the Technical Initiative, which may include:
+- e. The Technical Initiative collaboratively manages all aspects of oversight relating to the Technical Initiative, which may include:
 
    - i. coordinating the direction of the Technical Initiative;
 
@@ -42,7 +42,7 @@ The Best Practices for OSS Developers working group is dedicated to
    - v. appointing representatives to work with other open source or open standards communities;
 
 
- - f. The working group lead is responsible for
+ - f. The Technical Initiative lead is responsible for
 
    - i. facilitating discussions, seeking consensus, and where necessary, voting on technical matters relating to the Technical Initiative; and
 
@@ -52,13 +52,13 @@ The Best Practices for OSS Developers working group is dedicated to
 
 #### 3. Voting
 
-- a. While the Technical Initiative aims to operate as a consensus-based community, if any decision requires a vote to move the Technical Initiative forward, the working group will vote on a one vote per member basis.
+- a. While the Technical Initiative aims to operate as a consensus-based community, if any decision requires a vote to move the Technical Initiative forward, the Technical Initiative will vote on a one vote per member basis.
 
-- b. Quorum for working group meetings requires at least fifty percent of Collaborators to be present. 
+- b. Quorum for Technical Initiative meetings requires at least fifty percent of Collaborators to be present. 
 
 - c. Except as provided in Section 7.c. and 8.a, decisions by vote at a meeting require a majority vote of those in attendance, provided quorum is met. Decisions made by electronic vote without a meeting require a majority vote of Collaborators.
 
-- d. In the event a vote cannot be resolved by the working group, the group lead may refer the matter to the TAC for assistance in reaching a resolution.
+- d. In the event a vote cannot be resolved by the Technical Initiative, the group lead may refer the matter to the TAC for assistance in reaching a resolution.
 
 #### 4. Compliance with Policies
 
@@ -96,11 +96,11 @@ The Best Practices for OSS Developers working group is dedicated to
 
   - vi. The Technical Initiative may seek to integrate and contribute back to other open source projects ("Upstream Projects"). In such cases, the Technical Initiative will conform to all license requirements of the Upstream Projects, including dependencies, leveraged by the Technical Initiative.  Upstream Project code contributions not stored within the Technical Initiative’s main code repository will comply with the contribution process and license terms for the applicable Upstream Project.
 
-- c. The working group may approve the use of an alternative license or licenses for inbound or outbound contributions on an exception basis. To request an exception, please describe the contribution, the alternative open source license(s), and the justification for using an alternative open source license for the Technical Initiative. License exceptions must be approved by a two-thirds vote of the entire Governing Board. 
+- c. The Technical Initiative may approve the use of an alternative license or licenses for inbound or outbound contributions on an exception basis. To request an exception, please describe the contribution, the alternative open source license(s), and the justification for using an alternative open source license for the Technical Initiative. License exceptions must be approved by a two-thirds vote of the entire Governing Board. 
 
 - d. Contributed files should contain license information, such as SPDX short form identifiers, indicating the open source license or licenses pertaining to the file.
 
 #### 7. Amendments
 
-- a. This charter may be amended by a two-thirds vote of the entire working group and is subject to approval by the TAC.
+- a. This charter may be amended by a two-thirds vote of Collaborators and is subject to approval by the TAC.
 
