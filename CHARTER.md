@@ -15,9 +15,7 @@ The Best Practices for OSS Developers working group is dedicated to
 
 #### 2. Technical initiative roles
 
-- a. The primary points of contact are:
-  - Working group lead: [Christopher "CRob" Robinson](https://github.com/RedHatCRob)
-  - Working group co-lead: [Xavier René-Corail](https://github.com/xcorail)
+- a. The primary points of contact are the lead and co-lead of the working group, who are listed in the [README](https://github.com/ossf/wg-best-practices-os-developers/tree/xcorail-patch-1#governance)
 
 - b. The Technical Initiative generally will involve Collaborators and Contributors. The working group may adopt or modify additional roles so long as the roles are documented in the Technical Initiative’s repository. Unless otherwise documented: 
 
@@ -44,7 +42,7 @@ The Best Practices for OSS Developers working group is dedicated to
    - v. appointing representatives to work with other open source or open standards communities;
 
 
- - f. The working group lead is responsible of
+ - f. The working group lead is responsible for
 
    - i. facilitating discussions, seeking consensus, and where necessary, voting on technical matters relating to the Technical Initiative; and
 
@@ -56,9 +54,9 @@ The Best Practices for OSS Developers working group is dedicated to
 
 - a. While the Technical Initiative aims to operate as a consensus-based community, if any decision requires a vote to move the Technical Initiative forward, the working group will vote on a one vote per member basis.
 
-- b. Quorum for working group meetings requires at least fifty percent of the average attendance of the working group to be present. 
+- b. Quorum for working group meetings requires at least fifty percent of Collaborators to be present. 
 
-- c. Except as provided in Section 7.c. and 8.a, decisions by vote at a meeting require a majority vote of those in attendance, provided quorum is met. Decisions made by electronic vote without a meeting require a majority vote of all voting members of the working group.
+- c. Except as provided in Section 7.c. and 8.a, decisions by vote at a meeting require a majority vote of those in attendance, provided quorum is met. Decisions made by electronic vote without a meeting require a majority vote of Collaborators.
 
 - d. In the event a vote cannot be resolved by the working group, the group lead may refer the matter to the TAC for assistance in reaching a resolution.
 
