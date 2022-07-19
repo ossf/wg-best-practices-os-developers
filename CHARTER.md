@@ -8,17 +8,16 @@ This Technical Charter sets forth the responsibilities and procedures for techni
 
 #### 1. Mission and Scope of the Technical Initiative
 
-- a. The mission of the Technical Initiative is to provide open source developers with best practices recommendations, and with an easy way to learn and apply them.
+The Best Practices for OSS Developers working group is dedicated to 
+- helping identify and curating an accessible inventory of best practices; 
+- raising awareness; 
+- and education of secure code best practices for open source developers.
 
-- b. The scope of the Technical Initiative includes collaborative development under the Technical Initiative License (as defined herein) supporting the mission, including organizing collaboration activities, defining best practices, documentation, testing, integration, and the creation of other artifacts that support the mission.
+#### 2. Technical initiative roles
 
-#### 2. Technical Steering Committee
+- a. The primary points of contact are the lead and co-lead of the Technical Initiative, who are listed in the [README](https://github.com/ossf/wg-best-practices-os-developers/tree/xcorail-patch-1#governance)
 
-- a. The Technical Steering Committee (the "TSC") will be responsible for all oversight of the Technical Initiative. 
-
-- b. The TSC voting members are initially the Technical Initiative’s Maintainers. The Maintainers will be documented in the Technical Initiative repository. The TSC is responsible for determining the future process for defining voting members of the TSC, and any such alternative approach will also be documented appropriately.  Any meetings of the Technical Steering Committee are intended to be open to the public, and can be conducted electronically, via teleconference, or in person. 
-
-- c. The Technical Initiative generally will involve Collaborators and Contributors. The TSC may adopt or modify additional roles so long as the roles are documented in the Technical Initiative’s repository. Unless otherwise documented: 
+- b. The Technical Initiative generally will involve Collaborators and Contributors. The Technical Initiative may adopt or modify additional roles so long as the roles are documented in the Technical Initiative’s repository. Unless otherwise documented: 
 
    - i. Contributors include anyone in the technical community that contributes effort, ideas, code, documentation, or other artifacts to the Technical Initiative; 
 
@@ -30,11 +29,7 @@ This Technical Charter sets forth the responsibilities and procedures for techni
 
 - d. Participation in the Technical Initiative through becoming a Contributor, Collaborator, or Maintainer is open to anyone, whether a OpenSSF member or not, so long as they abide by the terms of this Technical Charter. 
 
-- e. The TSC may create, change, modify, or remove roles or their definitions, so long as the definitions of roles for the Technical Initiative are publicly available in the Technical Initiative repository.
-
-- f. The TSC may elect a TSC Chair, who will preside over meetings of the TSC and will serve until their resignation or replacement by the TSC.  **The TSC Chair, or any other TSC member so designated by the TSC, will serve as the Technical Initiative’s voting representative on the OpenSSF’s Technical Advisory Council (the "TAC").
-
-- g. Responsibilities: The TSC will be responsible for all aspects of oversight relating to the Technical Initiative, which may include:
+- e. The Technical Initiative collaboratively manages all aspects of oversight relating to the Technical Initiative, which may include:
 
    - i. coordinating the direction of the Technical Initiative;
 
@@ -46,21 +41,30 @@ This Technical Charter sets forth the responsibilities and procedures for techni
 
    - v. appointing representatives to work with other open source or open standards communities;
 
-   - vi. approving and implementing policies and processes for contributing (to be published in the Technical Initiative repository) and coordinating with the Linux Foundation to resolve matters or concerns that may arise as set forth in Section 6 of this Technical Charter;
 
-   - vii. facilitating discussions, seeking consensus, and where necessary, voting on technical matters relating to the Technical Initiative; and
+ - f. The Technical Initiative lead is responsible for
 
-   - viii. coordinating any communications regarding the Technical Initiative.
+   - i. facilitating discussions, seeking consensus, and where necessary, voting on technical matters relating to the Technical Initiative; and
 
-#### 3. TSC Voting
+   - ii. coordinating any communications regarding the Technical Initiative.
+  
+   - iii. approving and implementing policies and processes for contributing (to be published in the Technical Initiative repository) and coordinating with the Linux Foundation to resolve matters or concerns that may arise as set forth in Section 6 of this Technical Charter;
+ 
+ - g. The Technical Initiative co-lead is supporting the lead in their duties. In the absence of the lead, they can
 
-- a. While the Technical Initiative aims to operate as a consensus-based community, if any TSC decision requires a vote to move the Technical Initiative forward, the voting members of the TSC will vote on a one vote per voting member basis.
+    - i. facilite discussions, seek consensus, and where necessary, vote on technical matters relating to the Technical Initiative; and
+ 
+    - ii. coordinate any communications regarding the Technical Initiative.
 
-- b. Quorum for TSC meetings requires at least fifty percent of all voting members of the TSC to be present. The TSC may continue to meet if quorum is not met but will be prevented from making any decisions at the meeting.
+#### 3. Voting
 
-- c. Except as provided in Section 7.c. and 8.a, decisions by vote at a meeting require a majority vote of those in attendance, provided quorum is met. Decisions made by electronic vote without a meeting require a majority vote of all voting members of the TSC.
+- a. While the Technical Initiative aims to operate as a consensus-based community, if any decision requires a vote to move the Technical Initiative forward, the Technical Initiative will vote on a one vote per member basis.
 
-- d. In the event a vote cannot be resolved by the TSC, any voting member of the TSC may refer the matter to the TAC for assistance in reaching a resolution.
+- b. Quorum for Technical Initiative meetings requires at least fifty percent of Collaborators to be present. 
+
+- c. Except as provided in Section 7.c. and 8.a, decisions by vote at a meeting require a majority vote of those in attendance, provided quorum is met. Decisions made by electronic vote without a meeting require a majority vote of Collaborators.
+
+- d. In the event a vote cannot be resolved by the Technical Initiative, the group lead may refer the matter to the TAC for assistance in reaching a resolution.
 
 #### 4. Compliance with Policies
 
@@ -98,11 +102,11 @@ This Technical Charter sets forth the responsibilities and procedures for techni
 
   - vi. The Technical Initiative may seek to integrate and contribute back to other open source projects ("Upstream Projects"). In such cases, the Technical Initiative will conform to all license requirements of the Upstream Projects, including dependencies, leveraged by the Technical Initiative.  Upstream Project code contributions not stored within the Technical Initiative’s main code repository will comply with the contribution process and license terms for the applicable Upstream Project.
 
-- c. The TSC may approve the use of an alternative license or licenses for inbound or outbound contributions on an exception basis. To request an exception, please describe the contribution, the alternative open source license(s), and the justification for using an alternative open source license for the Technical Initiative. License exceptions must be approved by a two-thirds vote of the entire Governing Board. 
+- c. The Technical Initiative may approve the use of an alternative license or licenses for inbound or outbound contributions on an exception basis. To request an exception, please describe the contribution, the alternative open source license(s), and the justification for using an alternative open source license for the Technical Initiative. License exceptions must be approved by a two-thirds vote of the entire Governing Board. 
 
 - d. Contributed files should contain license information, such as SPDX short form identifiers, indicating the open source license or licenses pertaining to the file.
 
 #### 7. Amendments
 
-- a. This charter may be amended by a two-thirds vote of the entire TSC and is subject to approval by the TAC.
+- a. This charter may be amended by a two-thirds vote of Collaborators and is subject to approval by the TAC.
 
