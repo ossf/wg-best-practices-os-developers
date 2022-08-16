@@ -99,43 +99,43 @@ Examples of types of actions that are prohibited at Linux Foundation meetings an
 ## Governance
 The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group activities.
 
-Lead - [Christopher "CRob" Robinson](https://github.com/SecurityCRob)
-Co-Lead - [Xavier René-Corail](https://github.com/xcorail)
+- Lead - [Christopher "CRob" Robinson](https://github.com/SecurityCRob)
+- Co-Lead - [Xavier René-Corail](https://github.com/xcorail)
 
 ### Project Maintainers ###
-[Christopher "CRob" Robinson, Intel](https://github.com/SecurityCRob)
-[Xavier René-Corail, GitHub](https://github.com/xcorail)
-[David A Wheeler, LF/OSSF]((https://github.com/david-a-wheeler)
-[Dave Russo, Red Hat](https://github.com/drusso-rh)
+- [Christopher "CRob" Robinson, Intel](https://github.com/SecurityCRob)
+- [Xavier René-Corail, GitHub](https://github.com/xcorail)
+- [David A Wheeler, LF/OSSF]((https://github.com/david-a-wheeler)
+- [Dave Russo, Red Hat](https://github.com/drusso-rh)
 
 ### Project Collaborators ###
-[Marta Rybczynska, OSTC](https://github.com/)
-[VM Brasseur, WiPro](https://github.com/)
-[Eric Tice, WiPro](https://github.com/)
-[Judy Kelly, Red Hat](https://github.com/) 
-[Arnaud J Le Hor, IBMs](https://github.com/) 
-[Matt Rutkowski, IBM](https://github.com/)
-[Glenn ten Cate, OWASP/SKF](https://github.com/)
-[Jeff Borek, IBM](https://github.com/)
+- [Marta Rybczynska, OSTC](https://github.com/)
+- [VM Brasseur, WiPro](https://github.com/)
+- [Eric Tice, WiPro](https://github.com/)
+- [Judy Kelly, Red Hat](https://github.com/) 
+- [Arnaud J Le Hor, IBMs](https://github.com/) 
+- [Matt Rutkowski, IBM](https://github.com/)
+- [Glenn ten Cate, OWASP/SKF](https://github.com/)
+- [Jeff Borek, IBM](https://github.com/)
 
 
 ### Project Contributors ###
-Azeem Shaikh, Google/Scorecard
-Spyros Gasteratos, OWASP/CRE
-Yotam Perkal,Rezilion
-Georg Kunz,Ericsson
-Harimohan Rajamohanan, Wipro
-Aeva Black, Microsoft
-Patricia Tarro, Dell
-Sami Guirguis, TELUS
-Avishay Balter, Microsoft
-Christine Abernathy, F5
-Jeff Mendoza, Google
-Jonathan Leitschuh, Dan Kaminsky Fellowship @ Human Security
-Jory Burson, Linux Foundation
-Randall T. Vasquez, Gentoo/Homebrew
-Ixchel Ruiz, jfrog
-Kara Olive, Google
-Laurent Simon, Google/Scorecard
+- Azeem Shaikh, Google/Scorecard
+- Spyros Gasteratos, OWASP/CRE
+- Yotam Perkal,Rezilion
+- Georg Kunz,Ericsson
+- Harimohan Rajamohanan, Wipro
+- Aeva Black, Microsoft
+- Patricia Tarro, Dell
+- Sami Guirguis, TELUS
+- Avishay Balter, Microsoft
+- Christine Abernathy, F5
+-Jeff Mendoza, Google
+- Jonathan Leitschuh, Dan Kaminsky Fellowship @ Human Security
+- Jory Burson, Linux Foundation
+- Randall T. Vasquez, Gentoo/Homebrew
+- Ixchel Ruiz, jfrog
+- Kara Olive, Google
+- Laurent Simon, Google/Scorecard
 
 
