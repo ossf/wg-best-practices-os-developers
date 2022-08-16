@@ -105,7 +105,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 ### Project Maintainers ###
 - [Christopher "CRob" Robinson, Intel](https://github.com/SecurityCRob)
 - [Xavier René-Corail, GitHub](https://github.com/xcorail)
-- [David A Wheeler, LF/OSSF]((https://github.com/david-a-wheeler)
+- [David A Wheeler, LF/OSSF](https://github.com/david-a-wheeler)
 - [Dave Russo, Red Hat](https://github.com/drusso-rh)
 
 ### Project Collaborators ###
@@ -130,7 +130,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - Sami Guirguis, TELUS
 - Avishay Balter, Microsoft
 - Christine Abernathy, F5
--Jeff Mendoza, Google
+- Jeff Mendoza, Google
 - Jonathan Leitschuh, Dan Kaminsky Fellowship @ Human Security
 - Jory Burson, Linux Foundation
 - Randall T. Vasquez, Gentoo/Homebrew
