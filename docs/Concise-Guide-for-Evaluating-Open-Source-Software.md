@@ -6,9 +6,9 @@ As a software developer, before using open source software (OSS) dependencies or
 2. **Are you evaluating the intended version?** Ensure you are evaluating the intended version of the software, not a personal fork nor an attacker-controlled fork. These techniques help to counter the common “typosquatting” attack (where an attacker creates an “almost-correct” name).
     1. Check its name and the project website for the link.
     2. Verify the fork relation on GitHub/GitLab.
-    3. Check if the project is affiliated with a foundation (in this case, you should be able to access the official source from the foundation's website).
+    3. Check if the project is affiliated with a foundation (in this case, you should be able to access the official source from the foundation’s website).
     4. Check its creation time, and check its popularity.
-3. **Is it maintained?** Unmaintained software is a risk; most software needs continuous maintenance. If it's unmaintained, it's also likely to be insecure.
+3. **Is it maintained?** Unmaintained software is a risk; most software needs continuous maintenance. If it’s unmaintained, it’s also likely to be insecure.
     1. Has significant recent activity (e.g., commits) occurred within the last year?
     2. When was its last release (was it less than a year ago)?
     3. Is there more than one maintainer, ideally from different organizations?
@@ -18,12 +18,12 @@ As a software developer, before using open source software (OSS) dependencies or
     1. Determine whether the project has earned (or is well on the way to) an [Open Source Security Foundation (OpenSSF) Best Practices badge](https://bestpractices.coreinfrastructure.org/).
     2. Examine information on [https://deps.dev](https://deps.dev/), including its [OpenSSF Scorecards](https://github.com/ossf/scorecard) score and any known vulnerabilities.
     3. Determine whether the package dependencies are (relatively) up to date.
-    4. Determine whether there is documentation explaining why it's secure (aka an “assurance case”).
+    4. Determine whether there is documentation explaining why it’s secure (aka an “assurance case”).
     5. Are there automated tests included in its CI pipeline? What is its test coverage?
     6. Does the project fix bugs (especially security bugs) in a timely manner? Do they release security fixes for older releases? Do they have an LTS (Long Time Support) version?
-    7. Do the developers use code hosting security features where applicable (e.g., if they're on GitHub or GitLab, do they use branch protection)?
-    8. Identify security audits and whether any problems found were fixed. Security audits are relatively uncommon, but see OpenSSF's "[Security Reviews](https://github.com/ossf/security-reviews)".
-    9. Use [SAFECode's guide](https://safecode.org/resource-managing-software-security/principles-of-software-assurance-assessment/)[_Principles for Software Assurance Assessment_](https://safecode.org/resource-managing-software-security/principles-of-software-assurance-assessment/) (2019), a multi-tiered approach for examining the software's security.
+    7. Do the developers use code hosting security features where applicable (e.g., if they’re on GitHub or GitLab, do they use branch protection)?
+    8. Identify security audits and whether any problems found were fixed. Security audits are relatively uncommon, but see OpenSSF’s “[Security Reviews](https://github.com/ossf/security-reviews)”.
+    9. Use [SAFECode’s guide](https://safecode.org/resource-managing-software-security/principles-of-software-assurance-assessment/)[_Principles for Software Assurance Assessment_](https://safecode.org/resource-managing-software-security/principles-of-software-assurance-assessment/) (2019), a multi-tiered approach for examining the software’s security.
     10. How do they fare per the [OpenChain](https://www.openchainproject.org/) Security Assurance Reference Guide (the [August 2021 guide](https://www.openchainproject.org/security-guide) and [more recent draft](https://github.com/OpenChain-Project/SecurityAssuranceGuide/tree/main/Guide/2.0) are available)?
     11. Do they apply many practices in the [Concise Guide for Developing More Secure Software](https://docs.google.com/document/d/16jUqTEFG-wscZUGR-NGa_3a81GF3YILtH9XgOSkLCTM/edit#)?
 5. **Is it easy to use securely?**
@@ -34,12 +34,12 @@ As a software developer, before using open source software (OSS) dependencies or
 
 6. **Are there instructions on how to report vulnerabilities?​​** See the [Guide to implementing a coordinated vulnerability disclosure process for open source projects](https://github.com/ossf/oss-vulnerability-guide/blob/main/guide.md) for guidance to OSS projects.,
 7. **Does it have significant use?** Software with many users or large users may be inappropriate for your use. However, widely used software is more likely to offer useful information on how to use it securely, and more people will care about its security. Check if a similar name is more popular - that could indicate a typosquatting attack.
-8. **What is the software's license?** Licenses are technically not security, but licenses can have a significant impact on security and sustainability. Ensure every component has a license, that it's a widely-used [OSI license](https://opensource.org/licenses) if it's OSS, and that it's consistent with your intended use. Projects that won't provide clear license information are less likely to follow other good practices that lead to secure software.
+8. **What is the software’s license?** Licenses are technically not security, but licenses can have a significant impact on security and sustainability. Ensure every component has a license, that it’s a widely-used [OSI license](https://opensource.org/licenses) if it’s OSS, and that it’s consistent with your intended use. Projects that won’t provide clear license information are less likely to follow other good practices that lead to secure software.
 9. **What is your evaluation of its code?** Even a brief review of software source code, and its changes over time, can give you some insight. Here are things to consider:
     1. When you review its source code, is there evidence in the code that the developers were trying to develop secure software (such as rigorous input validation of untrusted input and the use of parameterized statements)?
     2. Is there evidence of insecure/ incomplete software (e.g., many TODO statements)?
     3. What are the “top” problems reported by static analysis tools?
-    4. Is there evidence that the software is malicious? Per [_Backstabber's Knife Collection_](https://arxiv.org/abs/2005.09535), check the installation scripts/routines for maliciousness, check for data exfiltration from **~/.ssh** and environment variables, and look for encoded/ obfuscated values that are executed. Examine the most recent commits for suspicious code (an attacker may have added them recently).
+    4. Is there evidence that the software is malicious? Per [_Backstabber’s Knife Collection_](https://arxiv.org/abs/2005.09535), check the installation scripts/routines for maliciousness, check for data exfiltration from **~/.ssh** and environment variables, and look for encoded/ obfuscated values that are executed. Examine the most recent commits for suspicious code (an attacker may have added them recently).
     5. Consider running the software in a sandbox to attempt to trigger and detect malicious code.
     6. Consider running all defined test cases to ensure the software passes them.
 
