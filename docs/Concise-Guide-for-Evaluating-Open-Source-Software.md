@@ -25,7 +25,7 @@ As a software developer, before using open source software (OSS) dependencies or
     8. Identify security audits and whether any problems found were fixed. Security audits are relatively uncommon, but see OpenSSF’s “[Security Reviews](https://github.com/ossf/security-reviews)”.
     9. Use [SAFECode’s guide](https://safecode.org/resource-managing-software-security/principles-of-software-assurance-assessment/)[_Principles for Software Assurance Assessment_](https://safecode.org/resource-managing-software-security/principles-of-software-assurance-assessment/) (2019), a multi-tiered approach for examining the software’s security.
     10. How do they fare per the [OpenChain](https://www.openchainproject.org/) Security Assurance Reference Guide (the [August 2021 guide](https://www.openchainproject.org/security-guide) and [more recent draft](https://github.com/OpenChain-Project/SecurityAssuranceGuide/tree/main/Guide/2.0) are available)?
-    11. Do they apply many practices in the [Concise Guide for Developing More Secure Software](https://docs.google.com/document/d/16jUqTEFG-wscZUGR-NGa_3a81GF3YILtH9XgOSkLCTM/edit#)?
+    11. Do they apply many practices in the [Concise Guide for Developing More Secure Software](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Concise-Guide-for-Evaluating-Open-Source-Software.md)?
 5. **Is it easy to use securely?**
 
     1. Are the default configuration and “simple examples” secure (e.g., encryption turned on by default in network protocols)? If not, avoid it.
