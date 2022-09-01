@@ -1,4 +1,4 @@
-# Concise Guide for Developing More Secure Software 2022-08-26
+# Concise Guide for Developing More Secure Software 2022-09-01
 
 Here is a concise guide for all software developers for software development, building, and distribution. All tools or services listed are merely examples.
 
