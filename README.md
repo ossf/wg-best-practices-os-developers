@@ -62,6 +62,7 @@ Our work is organized into several discrete-yet-related projects that help us ac
    - Purpose - (Identify) - Highlight documentation and training materials that educate OSS developers on good secure coding practices
 - *Package Manager Best Practices* - (incubating) - https://github.com/ossf/package-manager-best-practices
    - Purpose - (Identify/Learn) Collect and document security best practices for projects using various package managers.
+-- [npm Best Practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md) - This document aims to be a one-time stop explaining the security supply-chain best practices when using npm's package manager.
 
    ## Related Activities
 There are many great projects both within and outside the Foundation that compliment and intersect our work here.  Some other great projects/resources to explore:
