@@ -1,6 +1,6 @@
 # Concise Guide for Evaluating Open Source Software 2022-08-26
 
-As a software developer, before using open source software (OSS) dependencies or tools, identify candidates and evaluate the leading ones against your needs. To evaluate a potential OSS dependency for security and sustainability, consider these questions:
+As a software developer, before using open source software (OSS) dependencies or tools, identify candidates and evaluate the leading ones against your needs. To evaluate a potential OSS dependency for security and sustainability, consider these questions (all tools or services listed are merely examples):
 
 1. **Can you avoid adding it?** Can you use an existing (possibly indirect) dependency instead? Every new dependency increases the attack surface (a subversion of the new dependency, or its transitive dependencies, may subvert the system).
 2. **Are you evaluating the intended version?** Ensure you are evaluating the intended version of the software, not a personal fork nor an attacker-controlled fork. These techniques help to counter the common “typosquatting” attack (where an attacker creates an “almost-correct” name).
