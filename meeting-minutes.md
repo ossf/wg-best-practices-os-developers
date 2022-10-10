@@ -427,7 +427,7 @@ N/A
  ### CII Best Practices badge project 
  https://bestpractices.coreinfrastructure.org/en
  
- *  David posted email about longer-term project.  Website runs on Rails5 due to libary incompatibilities with Rails6.  Working on conversion.  Testing framework currently does not work (but most of the rest does).
+ *  David posted email about longer-term project.  Website runs on Rails5 due to library incompatibilities with Rails6.  Working on conversion.  Testing framework currently does not work (but most of the rest does).
  *  David notes "making updates hard is a security problem.  how do we fix this?"
  *  We may want to pick this up as a future work item (simpler updates).  We can provide advice, tooling, etc to help devs avoid getting in this spot. Dependabot and other tricks, guidance docs per language maybe?  How do we address this from an SCA-perspective
  *   Dan L has two recent posts two posts  https://medium.com/swlh/the-dependency-jungle-841bd1c7bce0 &   https://dlorenc.medium.com/zombie-dependencies-77c34740a7a8 
@@ -456,7 +456,7 @@ Resources -
   *  Page 3 - Move SKF & CII into Venn overlap fully
   *  @CRob to test out a few colours for diagram
   *  Page 2 - remove Inputs/Output for now and ask project leads to flesh out project info for publication to WG landing page
-  *  Future Work Item - review desired requirements to endorse for OSS Devs with group.  Provide guidance for MFA/2FA for deves
+  *  Future Work Item - review desired requirements to endorse for OSS Devs with group.  Provide guidance for MFA/2FA for Devs
   *  Page 5 - Personas - @CRob share Vuln. Disclosure person PPT with group for review.  
   *  @ALL - review page 5 androvide notes on personas relevant to this WG, make suggestions for items to combine/not focus on, and personas to expand
  
@@ -552,7 +552,7 @@ TBD
  ### CII Best Practices badge project 
  https://bestpractices.coreinfrastructure.org/en
  *  Updated stack (docker updates, etc)
- added small tweeks to criteria that were proposed ~Dec8; any last minuute comments, please speak up now so they can be merged Thursday   
+ added small tweaks to criteria that were proposed ~Dec8; any last minute comments, please speak up now so they can be merged Thursday   
  rebranding from CII to OpenSSF Best Practices Badge (costs involved)?  If we do it, we'd like to do it just once. - https://github.com/coreinfrastructure/best-practices-badge/issues/1515
 
 
@@ -573,7 +573,7 @@ TBD
  http://people.redhat.com/crrobins/DevBestPractice-RefArch.pdf 
  https://jamboard.google.com/d/1rpCIykiwrjFG-wvvyVg4YyMwP4RZI6txOWu3ociTOXo/viewer?f=0
  * Review first draft of RefArch with whole WG
- *  Good round of comments, will continue to add information to diagram and refine.  Artifact will be useful in explaining our group to ourselves and outsiders to help encourage participation in our projects and help deveopers get vaule out of our output.
+ *  Good round of comments, will continue to add information to diagram and refine.  Artifact will be useful in explaining our group to ourselves and outsiders to help encourage participation in our projects and help developers get value out of our output.
  
  ## Other subjects
  *  
@@ -653,7 +653,7 @@ https://github.com/ossf/scorecard
  
  * Group Brainstorm on Connectivity of projects
  -- Altaz - how can we automate regs/frameworks
- -- DW - looking at badges/fundatmentals do offer assurance/certiifcation of practices
+ -- DW - looking at badges/fundamentals do offer assurance/certification of practices
  -- SKF - can "attest" project/person completed labs
  -- DW - add to flow diagram (what is/should be moving between the elements)..not only add the WHAT, but add the HOW to it
  -- Glenn - "You are the whole circus, but it is only one clown"  - would be good it ID where data is best hosted/created and source from there - reduces redundancy, allows focus on 
@@ -680,42 +680,42 @@ https://github.zoom.us/recording/detail?meeting_id=32ZBQPHQShGrbxmmsX4uvg%3D%3D
  ## Quick status on in-flight projects
   ### Fundamentals course
  * Lots of interest & sign ups (100s of folks).  DW will get #s for next time.
- * DW can give access to the source google docs for anyone interested in "audting" the class and seeing the materials
+ * DW can give access to the source google docs for anyone interested in "auditing" the class and seeing the materials
  
  ### SKF
- * Improving labs (with help from a collegue).  Trimming size down in size to make them quicker and more reliable.
+ * Improving labs (with help from a colleague).  Trimming size down in size to make them quicker and more reliable.
  * Working on github integration (next year task)
  * Adding MOAR raspberry pis to improve capacity/performance.  Curious to see Foundation's ability to finance tasks like this @CRob talk to TAC.
  * * Dan L - plan for quarterly press releases.  PR team locks doc ~2wks ahead.  @Glenn get "press release" text prepped and over to CRob to pass to PR team
  * Ricco working on mapping user stories to SKF.  Making a machine-learning model to perform the mapping & reccomend requirements for ASGS reqs.  Looking at 30-50 most used user stories for ASGS reqs.
  
  ### CII Best Practices badge project: which working group of the OSSF?
- * TAC met and agreed with discussion between leads ofr Metrics & this working group.  Dev Best Practices working group is cleared to assist curating/augmmenting/improving the current CII Best Practices Badge project best practices.  We'll corrdinate with the Metrics team as they are ready to start advertising the badges as part of their reporting.
+ * TAC met and agreed with discussion between leads ofr Metrics & this working group.  Dev Best Practices working group is cleared to assist curating/augmenting/improving the current CII Best Practices Badge project best practices.  We'll coordinate with the Metrics team as they are ready to start advertising the badges as part of their reporting.
  * Group discussion:
 
  ### Inventory project 
- * Working towards further integration with CRE & SKF.  Has design that supports it.  Will extend curretn SKF mappings with new standard. 
+ * Working towards further integration with CRE & SKF.  Has design that supports it.  Will extend current SKF mappings with new standard. 
  * What is a good technical control to use (in email suggested PCI-DSS?) - NIST SSDF (https://csrc.nist.gov/publications/detail/white-paper/2020/04/23/mitigating-risk-of-software-vulnerabilities-with-ssdf/final), OWASP ASVS (https://csrc.nist.gov/publications/detail/white-paper/2020/04/23/mitigating-risk-of-software-vulnerabilities-with-ssdf/final), OWASP Project Proactive Controls (https://owasp.org/www-project-proactive-controls/), NIST 800-53 (   , NIST CSF (
- * What are priority use cases for for interactions with database (ex url with cre id and get links to sources) DW - if I met criteria X, what otehr critera might I also meet?
+ * What are priority use cases for for interactions with database (ex url with cre id and get links to sources) DW - if I met criteria X, what other criteria might I also meet?
  * hope to demonstrate to group next meeting
 
 ### Scorecards
  * https://github.com/ossf/scorecard 
  * makes pass/fail binary decisions across these projects o assist in automation.
- * setup to run cron jobs across an assortment of rpojects to watch trneds over time (suggestions for additional projects or better deterctions welcome)
- * hitting a boggle with githib rate-limiting (would welcome suggestions to improve performance) - DW suggests splitting up jobs to run serially
+ * setup to run cron jobs across an assortment of projects to watch trends over time (suggestions for additional projects or better detections welcome)
+ * hitting a boggle with github rate-limiting (would welcome suggestions to improve performance) - DW suggests splitting up jobs to run serially
 
 
  ## Synchronizing Group Efforts
  * How do we want to move forward participating in the currently listed projects?
  -- DW what is missing in the best practices badge?  would love feedback.  how can we integrate the Scorecard with Badges?
  -- @CRob setup brainstorming doc to collect ideas on increasing awareness
- -- Attending calls with projects to walk throug SFK/CRE/Badges
+ -- Attending calls with projects to walk through SFK/CRE/Badges
  -- assemble Conference list & assemble stock deck for presenting
  ---https://docs.google.com/spreadsheets/d/1L_wvZlwgr3vEiaHDG31U4NnUq6IeIGDVrkIzhGlL0FQ/edit#gid=0 
  -- get Fredrico access to Slack
- -- Federico - have we considered approaching academia/researchers. how can we map human factors or computer functions to a mathmatical function? (google "Science of Security" to see if this lines up with possibilities).  There are some things that can be mathmatically proven.
- -- how can this group help in looking at resaech/the cbk to assist in improving that research off 
+ -- Federico - have we considered approaching academia/researchers. how can we map human factors or computer functions to a mathematical function? (google "Science of Security" to see if this lines up with possibilities).  There are some things that can be mathematically proven.
+ -- how can this group help in looking at research/the cbk to assist in improving that research off 
  
  
  * How best can we serve the OSS developer community? 
@@ -754,7 +754,7 @@ Sadly, no one on call had perms to allow it - @CRob get that fixed for DW & myse
  ### CII Best Practices badge project: which working group of the OSSF?
 * no decision from TAC yet
 * more projects getting badges
-* some capactity issues around folks downloading data, implementing rate limit to help manage
+* some capacity issues around folks downloading data, implementing rate limit to help manage
 * assurance case in badge app - why do we think this is secure - MITRE has reviewed recently and posted comments; they'd like the app to swap to MITRE notation 
  
  ### Inventory project 
@@ -762,13 +762,13 @@ Sadly, no one on call had perms to allow it - @CRob get that fixed for DW & myse
  https://owasp.org/www-project-integration-standards/ 
 * david expressed interest
 * glenn invited them to our call - Rob & Spyros
-* OWASP integration stanard project - -cvreate inventory to link standards together
+* OWASP integration standard project - -create inventory to link standards together
 * Setup meeting next week to talk about data formats (SKF & CRE has mutual interest). envision a service/url that can be used to route content linked to particular topic
 * Spryos working on POC 
 * Currently maintaining links in spreadsheet & using python script to convert to YAML to validate vs. JSON schema & puts valid items into github.  github action links PR & provides basic REST API
-* David W ? - what about standard overlap/relations but not exactly the same?  how will that be handled?  DW - we should asume they are related, but not subsets/supersets of each other.  Rob - want to learn about requirements at this point & provide data - future item to work on
+* David W ? - what about standard overlap/relations but not exactly the same?  how will that be handled?  DW - we should assume they are related, but not subsets/supersets of each other.  Rob - want to learn about requirements at this point & provide data - future item to work on
 
-(Rob is colead of this and also works on SAMM)
+(Rob is co-lead of this and also works on SAMM)
 
  ## Other subjects
  * Dan Lorenc to present on [Open Source Scorecards](https://github.com/dlorenc/scorecard) if it makes sense to work on as part of this group.
@@ -779,11 +779,11 @@ Sadly, no one on call had perms to allow it - @CRob get that fixed for DW & myse
 * using cii api to check/validate data
 * desires a place to talk about what best practice are & discuss (sounds like Dan found the place!)
 * Glenn ? - where can this be run - cli for now, can be run ...daily..and save results or done on the fly
-* Daveid W ? - are querries in parallel - yes & caches github querries for rate limiting
+* Daveid W ? - are queries in parallel - yes & caches github queries for rate limiting
 * Daveid W ? - badges has some tools and are collecting some of this info, think about where best places to run checks would be
 * Dan L -wants to make it finer-grain in the future and focus on specific languages
 * David W ? - we should setup a subset meeting to go over checking/tests of each tools to see overlap & opportunities
-* David W ? - is this gtihub only? gitlab, etc? - Dan L- is open to the idea in the future
+* David W ? - is this github only? gitlab, etc? - Dan L- is open to the idea in the future
 * David W ? - suggests talking to the Chaos folks...they have some tooling in this space too.  He can help broker convo
 
  
@@ -809,11 +809,11 @@ Sadly, no one on call had perms to allow it - @CRob get that fixed for DW & myse
   
  ### SKF
 * Met with xavier on codeql integrations & how to coordinate requirements & how to add codeql into labs.  Xavier hope to have an update on status later today
-* Team is fixing last bugs. can use skf as an anonymous user, now working on pollishing
+* Team is fixing last bugs. can use skf as an anonymous user, now working on polishing
 * Planning on release later this week (has generic codeql template or if xav's efforts get integrated)
 * Feedback, questions, gitter channel for feedback
 * For RFEs - create fork (all content is in markdown) & pr
--- now that app is decoupled, even easier/fasater for updates (if WG wants to add prior to big release, look at dev branch) [currently big blacklog, but going forward will be a smaller delta]
+-- now that app is decoupled, even easier/fasater for updates (if WG wants to add prior to big release, look at dev branch) [currently big backlog, but going forward will be a smaller delta]
 * Badging/scoring will be in future sprints
 * Labs fixing vulns in editor & testing against labs, in-browser http-interceptor
   
@@ -835,7 +835,7 @@ Sadly, no one on call had perms to allow it - @CRob get that fixed for DW & myse
 -- Conversation about how end-user could actually get and deploy update
 -- David - would this be good to get into the press release that is coming out this week?
 ---David, Xavier, CRob agree this would be good to add in
---- Press release shoul dbe frozen by oct15 (note to lindsay) to go out on oct28
+--- Press release should be frozen by oct15 (note to lindsay) to go out on oct28
 ---- @CRob contact lindsay to see if we can get into press release.  @ Gibson to propose a few sentences for the release & provide access links
 
 ## Recording
@@ -875,7 +875,7 @@ Sadly, no one on call had perms to allow it - @CRob get that fixed for DW & myse
  It doesn't easily fit into just one group. Focused on measuring projects, which fits perhaps better into the "Security threat" group. There should be one home, as a working group, but it's important to set up a collaboration between the 2 groups. Whichever WG is the home, both groups should be involved.
 
 * Crob: feels strongly that it should be part of this group, to focus all developer-focused activities in one group.
-* Bjorn agrees with Crob. It's def about the best practices. Fair point that the name confusion couldbe a problem if the CII Best Practices goes into another group than the Best Practices WG
+* Bjorn agrees with Crob. It's def about the best practices. Fair point that the name confusion could be a problem if the CII Best Practices goes into another group than the Best Practices WG
 * Dave + Pavel + Rob Cuddy votes for this group
 * Xavier: Not a strong opinion but thinks it should belong to the other group. This WG is focused on the individual, that other is focused on the projects.
 * Rob: Anything that can bring visibility on best practices to individuals is valuable
@@ -883,7 +883,7 @@ Sadly, no one on call had perms to allow it - @CRob get that fixed for DW & myse
 David will bring that to the other WG, and eventually bring it to the TAC
  
  ## Organization: Nominate new lead / co-lead?
- CRob is volunteeering
+ CRob is volunteering
  
  ## Inventory project: Should we start?
  
@@ -1146,7 +1146,7 @@ Discuss the User stories proposed by Elie
 ## Concerns 
 
 * **Working group leadership**. With the current COVID-19 situation, we are all struggling to sustain our normal productivity level, and it can be difficult to work on this group in addition to our normal duties. I recommend a more flexible approach than relying on a unique "leader / co-pilot" pair, for example at each meeting, the members who feel comfortable to lead the group during the 2 coming weeks volunteer. 
-- On the other hand, the group is acually delivering, and working well. Others are more interested in content, not in admin stuff. Proposal: Xavier and Elie are pilot / co-pilot for the time being.
+- On the other hand, the group is actually delivering, and working well. Others are more interested in content, not in admin stuff. Proposal: Xavier and Elie are pilot / co-pilot for the time being.
 
 
 ## Actions
