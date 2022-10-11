@@ -27,3 +27,4 @@ Here is a concise guide for all software developers for software development, bu
 23. **Complete a third-party security code review/audit**. Expect this to be USD$50K or more.
 24. **Continuously improve**. Improve scores, look for tips, & apply as appropriate.
 25. **Manage succession**. Have clear governance & work to add active, trustworthy maintainer(s).
+26. **Prefer memory-safe languages**. Many vulnerabilities involve memory safety. Where practical, use memory-safe programming languages (most are) and keep memory safety enabled. Otherwise, use mechanisms like extra tools and peer review to reduce risk.
