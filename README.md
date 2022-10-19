@@ -61,8 +61,8 @@ Our work is organized into several discrete-yet-related projects that help us ac
 - *Package Manager Best Practices* - (incubating) - https://github.com/ossf/package-manager-best-practices
    - Purpose - (Identify/Learn) Collect and document security best practices for projects using various package managers.
 * [npm Best Practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md) - This document aims to be a one-time stop explaining the security supply-chain best practices when using npm's package manager.
-- Purpose - (Identify/Learn) Collect and document security best practices for projects npm.
- *Education SIG* - (incubating) - https://github.com/ossf/education/
+   - Purpose - (Identify/Learn) Collect and document security best practices for projects npm.
+- *Education SIG* - (incubating) - https://github.com/ossf/education/
    - Purpose - (Learn) To provide industry standard secure software development training materials that will educate learners of all levels and backgrounds on how to create, compose, deploy, and maintain software securely using best practices in cyber and application security.
 
 
