@@ -26,7 +26,6 @@
   position: relative;
 }
 
-
 /*** DEMO SKIN ***/
 .sf-mega {
   float: left;
@@ -39,21 +38,21 @@
 }
 .sf-mega > li > a {
   border-left: 1px solid #fff;
-  border-top: 1px solid #dFeEFF; /* fallback colour must use full shorthand */
-  border-top: 1px solid rgba(255,255,255,.5);
-  padding: .75em 1em;
+  border-top: 1px solid #dfeeff; /* fallback colour must use full shorthand */
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 0.75em 1em;
   text-decoration: none;
   zoom: 1; /* IE7 */
   color: #13a;
 }
 .sf-mega > li {
-  background: #BDD2FF;
-  -webkit-transition: background .2s;
-  transition: background .2s;
+  background: #bdd2ff;
+  -webkit-transition: background 0.2s;
+  transition: background 0.2s;
 }
 .sf-mega > li:hover,
 .sf-mega > li.sfHover {
-  background: #CFDEFF;
+  background: #cfdeff;
   /* only transition out, not in */
   -webkit-transition: none;
   transition: none;
@@ -61,7 +60,7 @@
 
 /*** mega menu dropdown ***/
 .sf-mega {
-  background-color: #CFDEFF;
+  background-color: #cfdeff;
   padding: 1em;
   box-sizing: border-box;
   width: 100%;
@@ -74,7 +73,6 @@
   border-right: 1px solid #b4c8f5;
 }
 
-
 /*** arrows (for all except IE7) **/
 .sf-arrows .sf-with-ul {
   padding-right: 2.5em;
@@ -82,7 +80,7 @@
 }
 /* styling for both css and generated arrows */
 .sf-arrows .sf-with-ul:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   right: 1em;
@@ -91,8 +89,8 @@
   width: 0;
   /* order of following 3 rules important for fallbacks to work */
   border: 5px solid transparent;
-  border-top-color: #dFeEFF; /* edit this to suit design (no rgba in IE8) */
-  border-top-color: rgba(255,255,255,.5);
+  border-top-color: #dfeeff; /* edit this to suit design (no rgba in IE8) */
+  border-top-color: rgba(255, 255, 255, 0.5);
 }
 .sf-arrows > li > .sf-with-ul:focus:after,
 .sf-arrows > li:hover > .sf-with-ul:after,

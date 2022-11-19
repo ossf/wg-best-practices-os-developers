@@ -1,1 +1,60 @@
-@media (max-width:600px){body{font-size:.95em}body .h1,body h1{font-size:2em}body .h2,body h2{font-size:1.7em}.container>section:not(.banner):not(.np),footer,header{padding-left:5%;padding-right:5%}.legend li{width:100%}}@media (min-width:601px) and (max-width:1023px){body{font-size:.95em}body .h1,body h1{font-size:2em}body .h2,body h2{font-size:1.7em}.container>section:not(.banner):not(.np),footer,header{padding-left:5%;padding-right:5%}}@media (min-width:1024px) and (max-width:1600px){body{font-size:.95em}body .h1,body h1{font-size:2em}body .h2,body h2{font-size:1.7em}.container>section:not(.banner):not(.np),footer,header{padding-left:5%;padding-right:5%}}
+@media (max-width: 600px) {
+  body {
+    font-size: 0.95em;
+  }
+  body .h1,
+  body h1 {
+    font-size: 2em;
+  }
+  body .h2,
+  body h2 {
+    font-size: 1.7em;
+  }
+  .container > section:not(.banner):not(.np),
+  footer,
+  header {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  .legend li {
+    width: 100%;
+  }
+}
+@media (min-width: 601px) and (max-width: 1023px) {
+  body {
+    font-size: 0.95em;
+  }
+  body .h1,
+  body h1 {
+    font-size: 2em;
+  }
+  body .h2,
+  body h2 {
+    font-size: 1.7em;
+  }
+  .container > section:not(.banner):not(.np),
+  footer,
+  header {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1600px) {
+  body {
+    font-size: 0.95em;
+  }
+  body .h1,
+  body h1 {
+    font-size: 2em;
+  }
+  body .h2,
+  body h2 {
+    font-size: 1.7em;
+  }
+  .container > section:not(.banner):not(.np),
+  footer,
+  header {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
