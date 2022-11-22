@@ -145,7 +145,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - Patricia Tarro, Dell
 - Sami Guirguis, TELUS
 - Avishay Balter, Microsoft
-- Christine Abernathy, F5
+- [Christine Abernathy, F5](https://github.com/caabernathy)
 - Jeff Mendoza, Google
 - Jonathan Leitschuh, Dan Kaminsky Fellowship @ Human Security
 - Jory Burson, Linux Foundation
