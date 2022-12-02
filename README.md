@@ -90,6 +90,7 @@ There are many great projects both within and outside the Foundation that compli
 
 Anyone is welcome to join our open discussions related to the group's mission and charter.
 
+- [2023 Meeting Notes](https://docs.google.com/document/d/1x-fMIt6ZIV6SM-M29xEVKeB505GbDzSIVXg-8uF_FQU/edit#)
 - [2022 Meeting Minutes](https://docs.google.com/document/d/1ttqkcYPmYZyqvtkaHs92bx2UeVUiXDhuzP-0WbP11Fw/edit#)
 - [Historic Group Notes 1](https://github.com/ossf/wg-best-practices-oss-developers/blob/main/meeting-minutes.md)
 - [Historic Notes 2021](https://docs.google.com/document/d/1sJhaZxG_9Wb2Sg6a4KxqnIvo_to5OkhMkbBk_7UqtEc/edit#heading=h.cbmnhvjm63mj)
@@ -124,35 +125,34 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [Dave Russo, Red Hat](https://github.com/drusso-rh)
 
 ### Project Collaborators
-
+- [Glenn ten Cate, OWASP/SKF](https://github.com/)
 - [Marta Rybczynska, OSTC](https://github.com/)
 - [VM Brasseur, WiPro](https://github.com/)
 - [Eric Tice, WiPro](https://github.com/)
 - [Judy Kelly, Red Hat](https://github.com/)
 - [Arnaud J Le Hor, IBMs](https://github.com/)
 - [Matt Rutkowski, IBM](https://github.com/)
-- [Glenn ten Cate, OWASP/SKF](https://github.com/)
 - [Jeff Borek, IBM](https://github.com/)
-
-### Project Contributors
-
-- Azeem Shaikh, Google/Scorecard
-- Spyros Gasteratos, OWASP/CRE
+- [Randall T. Vasquez, Gentoo/Homebrew](https://github.com/ran-dall)
+- Avishay Balter, Microsoft
 - Yotam Perkal,Rezilion
 - Georg Kunz,Ericsson
+- [Christine Abernathy, F5](https://github.com/caabernathy)
+- 
+### Project Contributors
+- Laurent Simon, Google/Scorecard
+- Azeem Shaikh, Google/Scorecard
+- Spyros Gasteratos, OWASP/CRE
 - Harimohan Rajamohanan, Wipro
 - Aeva Black, Microsoft
 - Patricia Tarro, Dell
 - Sami Guirguis, TELUS
-- Avishay Balter, Microsoft
-- [Christine Abernathy, F5](https://github.com/caabernathy)
 - Jeff Mendoza, Google
 - Jonathan Leitschuh, Dan Kaminsky Fellowship @ Human Security
 - Jory Burson, Linux Foundation
-- Randall T. Vasquez, Gentoo/Homebrew
 - Ixchel Ruiz, jfrog
 - Kara Olive, Google
-- Laurent Simon, Google/Scorecard
+
 
 ## Antitrust Policy Notice
 
