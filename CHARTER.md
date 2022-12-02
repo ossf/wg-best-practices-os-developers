@@ -62,7 +62,7 @@ The Best Practices for OSS Developers working group is dedicated to
 
 - b. Quorum for Technical Initiative meetings requires at least fifty percent of Collaborators to be present.
 
-- c. Except as provided in Section 7.c. and 8.a, decisions by vote at a meeting require a majority vote of those in attendance, provided quorum is met. Decisions made by electronic vote without a meeting require a majority vote of Collaborators.
+- c. Decisions by vote at a meeting require a majority vote of those in attendance, provided quorum is met. Decisions made by electronic vote without a meeting require a majority vote of Collaborators.
 
 - d. In the event a vote cannot be resolved by the Technical Initiative, the group lead may refer the matter to the TAC for assistance in reaching a resolution.
 
