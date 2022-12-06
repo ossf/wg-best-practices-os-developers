@@ -94,6 +94,7 @@ Anyone is welcome to join our open discussions related to the group's mission an
 - [2022 Meeting Minutes](https://docs.google.com/document/d/1ttqkcYPmYZyqvtkaHs92bx2UeVUiXDhuzP-0WbP11Fw/edit#)
 - [Historic Group Notes 1](https://github.com/ossf/wg-best-practices-oss-developers/blob/main/meeting-minutes.md)
 - [Historic Notes 2021](https://docs.google.com/document/d/1sJhaZxG_9Wb2Sg6a4KxqnIvo_to5OkhMkbBk_7UqtEc/edit#heading=h.cbmnhvjm63mj)
+- [Recent WG report to the TAC on activities and project statuses](https://docs.google.com/presentation/d/19O_yexAYMF0UR2RczjvZwcHy-88NemJHV0B4B0WLJ1I)
 - [Discussions](https://github.com/ossf/wg-best-practices-os-developers/discussions)
 - Official communications occur on the Best Practices [mailing list](https://lists.openssf.org/g/openssf-wg-best-practices)
 - [Manage your subscriptions to Open SSF mailing lists](https://lists.openssf.org/g/main/subgroups)
