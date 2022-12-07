@@ -127,7 +127,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 
 ### Project Collaborators
 - [Glenn ten Cate, OWASP/SKF](https://github.com/)
-- [Marta Rybczynska, OSTC](https://github.com/)
+- [Marta Rybczynska, Syslinbit](https://github.com/mrybczyn)
 - [VM Brasseur, WiPro](https://github.com/)
 - [Eric Tice, WiPro](https://github.com/)
 - [Judy Kelly, Red Hat](https://github.com/)
