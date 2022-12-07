@@ -12,7 +12,7 @@ The Best Practices for OSS Developers working group is dedicated to
 
 - helping identify and curating an accessible inventory of best practices;
 - raising awareness;
-- and education of secure code best practices for open source developers.
+- and education on secure code best practices for open source developers.
 
 ## 2. Technical initiative roles
 
@@ -24,11 +24,11 @@ The Best Practices for OSS Developers working group is dedicated to
 
   - ii. Collaborators are Contributors who have earned the ability to modify ("commit") text, source code, documentation or other artifacts in the Technical Initiative’s repository or direct the agenda or working activities of the Technical Initiative; and
 
-  - iii. A Contributor may become a Collaborator by a majority approval of the existing Collaborators. A Collaborator may be removed by a majority approval of the other existing Collaborators.
+  - iii. A Contributor may become a Collaborator by majority approval of the existing Collaborators. A Collaborator may be removed by majority approval of the other existing Collaborators.
 
   - iv. Maintainers are the initial Collaborators defined at the creation of the Technical Initiative. The Maintainers will determine the process for selecting future Maintainers. A Maintainer may be removed by two-thirds approval of the other existing Maintainers, or a majority of the other existing Collaborators.
 
-- d. Participation in the Technical Initiative through becoming a Contributor, Collaborator, or Maintainer is open to anyone, whether a OpenSSF member or not, so long as they abide by the terms of this Technical Charter.
+- d. Participation in the Technical Initiative through becoming a Contributor, Collaborator, or Maintainer is open to anyone, whether an OpenSSF member or not, so long as they abide by the terms of this Technical Charter.
 
 - e. The Technical Initiative collaboratively manages all aspects of oversight relating to the Technical Initiative, which may include:
 
@@ -52,7 +52,7 @@ The Best Practices for OSS Developers working group is dedicated to
 
 - g. The Technical Initiative co-lead is supporting the lead in their duties. In the absence of the lead, they can
 
-  - i. facilite discussions, seek consensus, and where necessary, vote on technical matters relating to the Technical Initiative; and
+  - i. facilitate discussions, seek consensus, and where necessary, vote on technical matters relating to the Technical Initiative; and
 
   - ii. coordinate any communications regarding the Technical Initiative.
 
@@ -61,6 +61,7 @@ The Best Practices for OSS Developers working group is dedicated to
 - a. While the Technical Initiative aims to operate as a consensus-based community, if any decision requires a vote to move the Technical Initiative forward, the Technical Initiative will vote on a one vote per member basis.
 
 - b. Quorum for Technical Initiative meetings requires at least fifty percent of Collaborators to be present.
+
 
 - c. Decisions by vote at a meeting require a majority vote of those in attendance, provided quorum is met. Decisions made by electronic vote without a meeting require a majority vote of Collaborators.
 
