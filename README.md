@@ -102,10 +102,10 @@ Anyone is welcome to join our open discussions related to the group's mission an
 
 ## Quick Start
 
-Areas that need contributions
-Build information if applicable
-Where to file issues
-Etc.
+### Areas that need contributions
+- Any topics related to helping developers more easily make more secure software or consumers to better understand the security qualities of the software they wish to ingest.
+### Where to file issues
+- Issues can be reviewed and filed [here](https://github.com/ossf/wg-best-practices-os-developers/issues)
 
 ## Meeting times
 
