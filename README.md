@@ -18,9 +18,9 @@ Our vision is to make it easy for developers to adopt these best practices, than
 - Helping maintainers _Learn_ to write secure software
 - Provide tools to help developers _Adopt_ these good practices into their daily work
 
-<img align="right" src="https://github.com/ossf/wg-best-practices-os-developers/blob/main/img/OpenSSF%20Dev%20Best%20Practices%20Projects%20Relations.png">
+<img align="top" src="https://github.com/ossf/wg-best-practices-os-developers/blob/main/img/OpenSSF%20Dev%20Best%20Practices%20Projects%20Relations.png">
 
----
+
 
 ## Scope
 
