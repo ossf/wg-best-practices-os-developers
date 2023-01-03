@@ -20,8 +20,6 @@ Our vision is to make it easy for developers to adopt these best practices, than
 
 <img align="top" src="https://github.com/ossf/wg-best-practices-os-developers/blob/main/img/OpenSSF%20Dev%20Best%20Practices%20Projects%20Relations.png">
 
-
-
 ## Scope
 
 The Developer Best Practices group wants to help identify and curate an accessible [inventory](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/inventory.md) of best practices
@@ -105,8 +103,11 @@ Anyone is welcome to join our open discussions related to the group's mission an
 ## Quick Start
 
 ### Areas that need contributions
-- Any topics related to helping developers more easily make more secure software or consumers to better understand the security qualities of the software they wish to ingest.
+
+- Any topics related to helping developers more easily make more secure software or consumers to better understand the security qualities of the software they wish to ingest
+
 ### Where to file issues
+
 - Issues can be reviewed and filed [here](https://github.com/ossf/wg-best-practices-os-developers/issues)
 
 ## Meeting times
@@ -128,6 +129,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [Dave Russo, Red Hat](https://github.com/drusso-rh)
 
 ### Project Collaborators
+
 - [Glenn ten Cate, OWASP/SKF](https://github.com/)
 - [Marta Rybczynska, Syslinbit](https://github.com/mrybczyn)
 - [VM Brasseur, WiPro](https://github.com/)
@@ -141,8 +143,9 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - Yotam Perkal,Rezilion
 - Georg Kunz,Ericsson
 - [Christine Abernathy, F5](https://github.com/caabernathy)
-- 
+
 ### Project Contributors
+
 - Laurent Simon, Google/Scorecard
 - Azeem Shaikh, Google/Scorecard
 - Spyros Gasteratos, OWASP/CRE
@@ -155,7 +158,6 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - Jory Burson, Linux Foundation
 - Ixchel Ruiz, jfrog
 - Kara Olive, Google
-
 
 ## Antitrust Policy Notice
 
