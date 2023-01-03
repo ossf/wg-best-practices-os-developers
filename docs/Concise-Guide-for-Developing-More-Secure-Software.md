@@ -1,4 +1,4 @@
-# Concise Guide for Developing More Secure Software 2022-09-01
+# Concise Guide for Developing More Secure Software 2023-01-03
 
 Here is a concise guide for all software developers for software development, building, and distribution. All tools or services listed are merely examples.
 
@@ -28,3 +28,5 @@ Here is a concise guide for all software developers for software development, bu
 24. **Continuously improve**. Improve scores, look for tips, & apply as appropriate.
 25. **Manage succession**. Have clear governance & work to add active, trustworthy maintainer(s).
 26. **Prefer memory-safe languages**. Many vulnerabilities involve memory safety. Where practical, use memory-safe programming languages (most are) and keep memory safety enabled. Otherwise, use mechanisms like extra tools and peer review to reduce risk.
+
+Welcome suggestions and updates! Please open an [issue](https://github.com/ossf/wg-best-practices-os-developers/issues/) or post a [pull request](https://github.com/ossf/wg-best-practices-os-developers/pulls).
