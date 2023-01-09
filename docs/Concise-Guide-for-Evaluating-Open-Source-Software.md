@@ -1,4 +1,4 @@
-# Concise Guide for Evaluating Open Source Software 2022-09-01
+# Concise Guide for Evaluating Open Source Software 2023-01-03
 
 As a software developer, before using open source software (OSS) dependencies or tools, identify candidates and evaluate the leading ones against your needs. To evaluate a potential OSS dependency for security and sustainability, consider these questions (all tools or services listed are merely examples):
 
@@ -47,3 +47,5 @@ Other resources you may wish to consider include:
 
 1. [The Tidelift guide to choosing packages well (February 2021)](https://tidelift.com/subscription/choosing-open-source-packages-well), Tidelift
 2. [How to Evaluate Open Source Software / Free Software (OSS/FS) Programs](https://dwheeler.com/oss_fs_eval.html)
+
+We welcome suggestions and updates! Please open an [issue](https://github.com/ossf/wg-best-practices-os-developers/issues/) or post a [pull request](https://github.com/ossf/wg-best-practices-os-developers/pulls).
