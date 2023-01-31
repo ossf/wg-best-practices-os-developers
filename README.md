@@ -145,6 +145,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - Yotam Perkal,Rezilion
 - Georg Kunz,Ericsson
 - [Christine Abernathy, F5](https://github.com/caabernathy)
+- [Daniel Applequist, Synk](https://github.com/Torgo)
 
 ### Project Contributors
 
@@ -160,6 +161,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - Jory Burson, Linux Foundation
 - Ixchel Ruiz, jfrog
 - Kara Olive, Google
+- Riccardo ten Cate, SKF
 
 ## Antitrust Policy Notice
 
