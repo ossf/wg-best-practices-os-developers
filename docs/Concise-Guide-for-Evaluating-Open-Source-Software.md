@@ -32,16 +32,17 @@ As a software developer, before using open source software (OSS) dependencies or
    2. Is its interface/API designed to be easy to use securely (e.g., if the interface implements a language, does it support parameterized queries)?
    3. Is there guidance on how to use it securely?
 
-6. **Are there instructions on how to report vulnerabilities?​​** See the [Guide to implementing a coordinated vulnerability disclosure process for open source projects](https://github.com/ossf/oss-vulnerability-guide/blob/main/guide.md#readme) for guidance to OSS projects.,
+6. **Are there instructions on how to report vulnerabilities?** See the [Guide to implementing a coordinated vulnerability disclosure process for open source projects](https://github.com/ossf/oss-vulnerability-guide/blob/main/guide.md#readme) for guidance to OSS projects.,
 7. **Does it have significant use?** Software with many users or large users may be inappropriate for your use. However, widely used software is more likely to offer useful information on how to use it securely, and more people will care about its security. Check if a similar name is more popular - that could indicate a typosquatting attack.
 8. **What is the software’s license?** Licenses are technically not security, but licenses can have a significant impact on security and sustainability. Ensure every component has a license, that it’s a widely-used [OSI license](https://opensource.org/licenses) if it’s OSS, and that it’s consistent with your intended use. Projects that won’t provide clear license information are less likely to follow other good practices that lead to secure software.
-9. **What is your evaluation of its code?** Even a brief review of software source code, and its changes over time, can give you some insight. Here are things to consider:
-   1. When you review its source code, is there evidence in the code that the developers were trying to develop secure software (such as rigorous input validation of untrusted input and the use of parameterized statements)?
+9. **What are the results of code evaluation?** Even a brief review of software (by you, someone you hire, or someone else), along with recent changes to it, can give you some insight. Here are things to consider:
+   1. When reviewing its source code, is there evidence in the code that the developers were trying to develop secure software (such as rigorous input validation of untrusted input and the use of parameterized statements)?
    2. Is there evidence of insecure/ incomplete software (e.g., many TODO statements)?
    3. What are the “top” problems reported by static analysis tools?
    4. Is there evidence that the software is malicious? Per [_Backstabber’s Knife Collection_](https://arxiv.org/abs/2005.09535), check the installation scripts/routines for maliciousness, check for data exfiltration from **~/.ssh** and environment variables, and look for encoded/ obfuscated values that are executed. Examine the most recent commits for suspicious code (an attacker may have added them recently).
    5. Consider running the software in a sandbox to attempt to trigger and detect malicious code.
    6. Consider running all defined test cases to ensure the software passes them.
+   7. See the [OpenSSF's list of security reviews](https://github.com/ossf/security-reviews/blob/main/Overview.md#readme).
 
 Other resources you may wish to consider include:
 
