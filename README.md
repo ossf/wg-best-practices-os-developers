@@ -51,7 +51,7 @@ Our work is organized into several discrete-yet-related projects that help us ac
 
   - Purpose - (Identify) Identify similar requirements in different specifications
 
-- _Secure Software Development Fundamentals_ (edX course) - <https://openssf.org/training/courses/> and <https://github.com/ossf/secure-sw-dev-fundamentals>
+- _Secure Software Development Fundamentals_ (online course) - <https://openssf.org/training/courses/> and <https://github.com/ossf/secure-sw-dev-fundamentals>
   - Purpose - (Learn) Teach software developers fundamentals of developing secure software
 - _SKF - Security Knowledge Framework_ - <https://www.securityknowledgeframework.org/>
   - Purpose - (Identify/Adopt/Learn) Learn to integrate security by design in your web application
