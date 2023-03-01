@@ -1,4 +1,4 @@
-# Concise Guide for Evaluating Open Source Software 2023-01-03
+# Concise Guide for Evaluating Open Source Software
 
 As a software developer, before using open source software (OSS) dependencies or tools, identify candidates and evaluate the leading ones against your needs. To evaluate a potential OSS dependency for security and sustainability, consider these questions (all tools or services listed are merely examples):
 
