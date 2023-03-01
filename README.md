@@ -163,6 +163,23 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - Kara Olive, Google
 - Riccardo ten Cate, SKF
 
+## Licenses
+
+Unless otherwise specifically noted, software released by this working
+group is released under the [Apache 2.0 license](LICENSES/Apache-2.0.txt),
+and documentation is released under the
+[CC-BY-4.0 license](LICENSES/CC-BY-4.0.txt).
+Formal specifications would be licensed under the
+[Community Specification License](https://github.com/CommunitySpecification/1.0)
+(though at this time we don't have any examples of that).
+
+## Charter
+
+Like all OpenSSF working groups, this working group reports to the
+[OpenSSF Technical Advisory Council (TAC)](https://github.com/ossf/tac).
+For more organizational information, see the
+[OpenSSF Charter](https://openssf.org/about/charter/).
+
 ## Antitrust Policy Notice
 
 Linux Foundation meetings involve participation by industry competitors, and it is the intention of the Linux Foundation to conduct all of its activities in accordance with applicable antitrust and competition laws. It is therefore extremely important that attendees adhere to meeting agendas, and be aware of, and not participate in, any activities that are prohibited under applicable US state, federal or foreign antitrust and competition laws.
