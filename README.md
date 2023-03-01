@@ -61,8 +61,9 @@ Our work is organized into several discrete-yet-related projects that help us ac
   - Purpose - (Adopt) Automate analysis and trust decisions on the security posture of open source projects.
 - _Great MFA Distribution Project_ - (incubating) <https://github.com/ossf/great-mfa-project>
   - Distribute MFA tokens to OSS developers and best practices on how to easily use them
-- [Recommended compiler option flags for C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b) (incubating)
-  - Recommended compiler option flags for C/C++ programs, especially warning and hardening flags, for developers & distributions
+- [Compiler Options Hardening Guide for C and C++](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Compiler_Hardening_Guides/Compiler-Options-Hardening-Guide-for-C-and-C%2B%2B.md) (incubating)
+  - Recommended compiler option flags for C/C++ programs, especially warning and hardening flags, for developers & distributionss.
+You can also see our older work, [Recommended compiler option flags for C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b).
 - _Interactive artwork_ - (incubating) <https://github.com/blabla1337/wg-best-practices-os-developers/tree/main/infinity2>
   - Place where we want to guide developers in what stage they can use what type of tooling or approach. We have tons of great tools and materials but hard to find for devs, using this page and interactive loop we want to guide them to find the right stuff.
 - _Existing Guidelines for Developing and Distributing Secure Software_ [GitHub Repo](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Existing%20Guidelines%20for%20Developing%20and%20Distributing%20Secure%20Software.md)
