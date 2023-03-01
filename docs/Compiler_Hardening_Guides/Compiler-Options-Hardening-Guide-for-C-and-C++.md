@@ -1,10 +1,10 @@
-## Toolchain hardening for C and C++
+# Compiler Options Hardening Guide for C and C++
 
-This document is intended as a general overview of compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains. Collectively we refer to the configuration of security relevant options as “toolchain hardening”. The objective of toolchain hardening is to produce application binaries with security mechanisms against potential attacks and/or misbehavior.
+This document is intended as a general overview of compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains. The objective of compiler options hardening is to produce application binaries with security mechanisms against potential attacks and/or misbehavior.
 
-Hardened toolchain configurations should also produce applications that integrate well with existing platform security features in modern operating systems (OSs). Effectively configuring the toolchain also has several benefits during development such as enhanced compiler warnings, static analysis, and debug instrumentation.
+Hardened compiler options should also produce applications that integrate well with existing platform security features in modern operating systems (OSs). Effectively configuring the compiler options also has several benefits during development such as enhanced compiler warnings, static analysis, and debug instrumentation.
 
-**Why do we need toolchain hardening?**
+**Why do we need compiler options hardening?**
 
 Applications written in the C and C++ programming languages are prone to exhibit a class of software defects known as memory errors. This class of defects include bugs such as buffer overflows, and use-after-free errors. Memory errors can occur because the low-level memory management in C / C++ offers no language-level provisions for ensuring the memory safety of operations such as pointer arithmetic or direct memory accesses. Memory errors have the potential to cause memory vulnerabilities, which can be exploited by threat actors to gain unauthorized access to computer systems through run-time attacks.
 
@@ -18,11 +18,11 @@ To benefit from the protection mechanism provided by the OS the application bina
 
 Some mechanisms may require additional configuration and fine tuning, for example due to potential compilation issues for certain unlikely edge cases, or performance overhead the mitigation adds for certain program constructs. This problem is exacerbated in projects that rely on outdated or upstream versions of open-source software (OSS) toolchains such as the GNU Compiler Collection (GCC). In general, security mitigations are more likely to be enabled by default in modern versions of GCC included with Linux distributions; the defaults used by the upstream GCC project are more conservative.
 
-If toolchain hardening is overlooked or neglected during build time it can become impossible to add hardening to already distributed executables. It is therefore good practice to evaluate which mitigations an application should support, and make conscious, informed decisions whenever not enabling a mitigation weakens the application’s defensive posture.
+If compiler options hardening is overlooked or neglected during build time it can become impossible to add hardening to already distributed executables. It is therefore good practice to evaluate which mitigations an application should support, and make conscious, informed decisions whenever not enabling a mitigation weakens the application’s defensive posture.
 
-**What does toolchain hardening not do?**
+**What does compiler options hardening not do?**
 
-Toolchain hardening is not a silver bullet; it is not sufficient to rely solely on security features and functions to achieve secure software. Security is an emergent property of the entire system that relies on building and integrating all parts properly. However, if properly utilized, a secure toolchain will complement existing processes, such as static and dynamic analysis, secure coding practices, negative test suites, profiling tools, and most importantly: security hygiene as a part of a solid design and architecture.
+Compiler options hardening is not a silver bullet; it is not sufficient to rely solely on security features and functions to achieve secure software. Security is an emergent property of the entire system that relies on building and integrating all parts properly. However, if properly utilized, secure compiler options will complement existing processes, such as static and dynamic analysis, secure coding practices, negative test suites, profiling tools, and most importantly: security hygiene as a part of a solid design and architecture.
 
 ## Recommended Compiler Options
 
