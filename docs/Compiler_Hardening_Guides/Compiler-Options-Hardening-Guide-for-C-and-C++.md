@@ -1,28 +1,54 @@
 # Compiler Options Hardening Guide for C and C++
 
-This document is intended as a general overview of compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains. The objective of compiler options hardening is to produce application binaries with security mechanisms against potential attacks and/or misbehavior.
+This document is intended as a general overview of compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++. The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
 
 Hardened compiler options should also produce applications that integrate well with existing platform security features in modern operating systems (OSs). Effectively configuring the compiler options also has several benefits during development such as enhanced compiler warnings, static analysis, and debug instrumentation.
 
+This document focuses on recommended options for the GNU Compiler Collection (GCC) and clang, and we expect to expand it to cover compilers that have similar options (such as the Intel C++ compiler).
+
+**TL;DR: What compiler options should I use?**
+
+When compiling C or C++ code on compilers such as GCC and clang, turn on these flags for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
+
+~~~~
+-Wall -Wformat=2 -Wconversion -Wtrampolines -Werror \
+-D_FORTIFY_SOURCE=2 \
+-fstack-clash-protection -fstack-protector-strong \
+-Wl,-z,nodlopen -Wl,-z,nodump -Wl,-z,noexecstack -Wl,-z,noexecheap \
+-Wl,-z,relro -Wl,-z,now \
+-fPIE -pie -fPIC -shared
+~~~~
+
+Developers should use `-Werror`, but redistributors will probably want to omit `-Werror`. See the discussion below a background and for detailed discussion of each option.
+
 **Why do we need compiler options hardening?**
 
-Applications written in the C and C++ programming languages are prone to exhibit a class of software defects known as memory errors. This class of defects include bugs such as buffer overflows, and use-after-free errors. Memory errors can occur because the low-level memory management in C / C++ offers no language-level provisions for ensuring the memory safety of operations such as pointer arithmetic or direct memory accesses. Memory errors have the potential to cause memory vulnerabilities, which can be exploited by threat actors to gain unauthorized access to computer systems through run-time attacks.
+Sadly, attackers today attack the software we use every day. Many programming languages' compilers have options to detect potential vulnerabilities while compiling and/or insert runtime protections against potential attacks. These can be important in any language, but these options are *especially* important in C and C++.
+
+Applications written in the C and C++ programming languages are prone to exhibit a class of software defects known as memory safety errors, aka memory errors. This class of defects include bugs such as buffer overflows, dereferencing a null pointer, and use-after-free errors. Memory errors can occur because the low-level memory management in C / C++ offers no language-level provisions for ensuring the memory safety of operations such as pointer arithmetic or direct memory accesses. Instead, they require software developers to never make a mistake when performing common operations, and this has proven to be difficult at scale. Memory errors have the potential to cause memory vulnerabilities, which can be exploited by threat actors to gain unauthorized access to computer systems through run-time attacks. Microsoft has found that 70% of all its security defects in 2006-2018 were memory safety failures[^Cimpanu2019], and the Chrome team similarly found 70% of all its vulnerabilities are memory safety issues.[^Cimpanu2020]
+
+[^Cimpanu2019]: Cimpanu, Catalin, [Microsoft: 70 percent of all security bugs are memory safety issues](https://www.zdnet.com/article/microsoft-70-percent-of-all-security-bugs-are-memory-safety-issues/), ZDNet, 2019-02-11
+[^Cimpanu2020]: Cimpanu, Catalin, [Chrome: 70% of all security bugs are memory safety issues](https://www.zdnet.com/article/chrome-70-of-all-security-bugs-are-memory-safety-issues/), ZDNet, 2020-05-22
+
+Almost all other programming languages prevent such defects by default. A few languages allow programs to temporarily suspend these protections in special circumstances, but they are intended for use in a few lines, not the whole program. There have been calls to rewrite C and C++ programs in other languages, but this is expensive and time-consuming, has its own risks, is sometimes impractical today (especially for less-common CPUs), and even with universal agreement it would take decades to rewrite all such code.
+
+Thus, in many cases, it's important to take other steps to reduce the likelihood of defects becoming vulnerabilities. Aggressive use of compiler options can sometimes detect vulnerabilities or help counter their run-time effects.
 
 Run-time attacks differ from conventional malware, which carries out its malicious program actions through a dedicated program executable, in that run-time attacks influence benign programs to behave maliciously. A run-time attack that exploits unmitigated memory vulnerabilities can be leveraged by threat actors as the initial attack vectors that allow them to gain a presence on a system, e.g., by injecting malicious code into running programs.
 
-Modern, security-aware C/C++ software development practices, such as secure coding standards and program analysis aim to proactively avoid introducing memory errors (and other software defects) to applications. However, in practice completely eradicating memory errors in production software has turned out to be near-impossible.
+Modern, security-aware C/C++ software development practices, such as secure coding standards and program analysis aim to proactively avoid introducing memory errors (and other software defects) to applications. However, in practice completely eradicating memory errors in production C/C++ software has turned out to be near-impossible.
 
 Consequently, modern operating systems deploy various run-time mechanisms to protect against potential security flaws. The principal purpose of such mechanisms is to mitigate potentially exploitable memory vulnerabilities in a way that prevents a threat actor from exploiting them to gain code execution capabilities. With mitigations in place the affected application may still crash if a memory error is triggered. However, such an outcome is still preferable if the alternative is the compromise of the system’s run-time environment.
 
 To benefit from the protection mechanism provided by the OS the application binaries must be prepared at build time to be compatible with the mitigations. Typically, this means enabling specific option flags for the compiler or linker when the software is built.
 
-Some mechanisms may require additional configuration and fine tuning, for example due to potential compilation issues for certain unlikely edge cases, or performance overhead the mitigation adds for certain program constructs. This problem is exacerbated in projects that rely on outdated or upstream versions of open-source software (OSS) toolchains such as the GNU Compiler Collection (GCC). In general, security mitigations are more likely to be enabled by default in modern versions of GCC included with Linux distributions; the defaults used by the upstream GCC project are more conservative.
+Some mechanisms may require additional configuration and fine tuning, for example due to potential compilation issues for certain unlikely edge cases, or performance overhead the mitigation adds for certain program constructs. This problem is exacerbated in projects that rely on an outdated version of open source software (OSS) compilers such as the GNU Compiler Collection (GCC). In general, security mitigations are more likely to be enabled by default in modern versions of GCC included with Linux distributions; the defaults used by the upstream GCC project are more conservative.
 
-If compiler options hardening is overlooked or neglected during build time it can become impossible to add hardening to already distributed executables. It is therefore good practice to evaluate which mitigations an application should support, and make conscious, informed decisions whenever not enabling a mitigation weakens the application’s defensive posture.
+If compiler options hardening is overlooked or neglected during build time it can become impossible to add hardening to already distributed executables. It is therefore good practice to evaluate which mitigations an application should support, and make conscious, informed decisions whenever not enabling a mitigation weakens the application’s defensive posture. Ensure that the software is *tested* with as many options as practical, to ensure it can be operated that way.
 
 **What does compiler options hardening not do?**
 
-Compiler options hardening is not a silver bullet; it is not sufficient to rely solely on security features and functions to achieve secure software. Security is an emergent property of the entire system that relies on building and integrating all parts properly. However, if properly utilized, secure compiler options will complement existing processes, such as static and dynamic analysis, secure coding practices, negative test suites, profiling tools, and most importantly: security hygiene as a part of a solid design and architecture.
+Compiler options hardening is not a silver bullet; it is not sufficient to rely solely on security features and functions to achieve secure software. Security is an emergent property of the entire system that relies on building and integrating all parts properly. However, if properly used, secure compiler options will complement existing processes, such as static and dynamic analysis, secure coding practices, negative test suites, profiling tools, and most importantly: security hygiene as a part of a solid design and architecture.
 
 ## Recommended Compiler Options
 
