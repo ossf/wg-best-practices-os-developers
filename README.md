@@ -137,10 +137,10 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [Marta Rybczynska, Syslinbit](https://github.com/mrybczyn)
 - [VM Brasseur, WiPro](https://github.com/)
 - [Eric Tice, WiPro](https://github.com/)
-- [Judy Kelly, Red Hat](https://github.com/)
-- [Arnaud J Le Hor, IBMs](https://github.com/)
-- [Matt Rutkowski, IBM](https://github.com/)
-- [Jeff Borek, IBM](https://github.com/)
+- [Judy Kelly, Red Hat](https://github.com/judyobrienie)
+- [Arnaud J Le Hors, IBM](https://github.com/lehors)
+- [Matt Rutkowski, IBM](https://github.com/mrutkows)
+- [Jeffrey Borek, IBM](https://github.com/jtborek)
 - [Randall T. Vasquez, Gentoo/Homebrew](https://github.com/ran-dall)
 - Avishay Balter, Microsoft
 - Yotam Perkal,Rezilion
