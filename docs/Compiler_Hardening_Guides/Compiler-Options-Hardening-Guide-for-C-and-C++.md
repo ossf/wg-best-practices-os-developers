@@ -88,7 +88,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 |:----------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
 | `-D_FORTIFY_SOURCE=2` <br/>(requires `-O1` or higher) |      GCC 4.0<br/>Clang 5.0.0       | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows |
 | `-fstack-clash-protection`                            |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity                           |
-| `-fstack-protector-strong`                            |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows                                      |
+| [`-fstack-protector-strong`](#-fstack-protector-strong)                            |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows                                      |
 | `-Wl,-z,nodlopen`<br/>`-Wl,-z,nodump`                 |           Binutils 2.10            | Restrict `dlopen(3)` and `dldump(3)` calls to shared objects                                 |
 | `-Wl,-z,noexecstack`<br/>`-Wl,-z,noexecheap`          |           Binutils 2.14            | Enable data execution prevention by marking stack and heap memory as non-executable          |
 | `-Wl,-z,relro`<br/>`-Wl,-z,now`                       |           Binutils 2.15            | Mark relocation table entries resolved at load- time as read-only                            |
@@ -249,7 +249,7 @@ Note that `vm.heap-stack-gap` expresses the gap as multiple of page size whereas
 
 | Compiler Flag                                             |       Supported by        | Description                                                                                                      |
 |:--------------------------------------------------------- |:-------------------------:|:---------------------------------------------------------------------------------------------------------------- |
-| `-fstack-protector-strong`                                | GCC 4.9.0<br/>Clang 5.0.0 | Enable run-time checks for stack-based buffer overflows using strong heuristic                                   |
+| <span id="-fstack-protector-strong">`-fstack-protector-strong`</span>                                | GCC 4.9.0<br/>Clang 5.0.0 | Enable run-time checks for stack-based buffer overflows using strong heuristic                                   |
 | `-fstack-protector-all`                                   |       GCC<br/>Clang       | Enable run-time checks for stack-based buffer overflows for all functions                                        |
 | `-fstack-protector`<br/>`--param=ssp-buffer-size=`_`<n>`_ |       GCC<br/>Clang       | Enable run-time checks for stack-based buffer overflows for functions with character arrays if _n_ or more bytes |
 
