@@ -10,7 +10,7 @@ This document focuses on recommended options for the GNU Compiler Collection (GC
 
 When compiling C or C++ code on compilers such as GCC and clang, turn on these flags for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
 
-~~~~
+~~~~sh
 -Wall -Wformat=2 -Wconversion -Wtrampolines -Werror \
 -D_FORTIFY_SOURCE=2 \
 -fstack-clash-protection -fstack-protector-strong \
@@ -81,7 +81,7 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | `-Wformat=2`                                          | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings                                          |
 | `-Wconversion`<br/>`-Wsign-conversion`               | GCC 2.95.3<br/>Clang 4.0 | Enable implicit conversion warnings                                                 |
 | `-Wtrampolines`                                      |         GCC 4.3          | Enable warnings about trampolines that require executable stacks                    |
-| `-Werror`<br/>`-Werror=`_`<warning-flag>`_            | GCC 2.95.3<br/>Clang 2.6 | Make compiler warnings into errors                                                  |
+| `-Werror`<br/>`-Werror=`*`<warning-flag>`*            | GCC 2.95.3<br/>Clang 2.6 | Make compiler warnings into errors                                                  |
 | `-D_FORTIFY_SOURCE=1` <br/>(requires `-O1` or higher) | GCC 4.0<br/>Clang 5.0.0[^1]  | Fortify sources with compile-time checks for unsafe libc usage and buffer overflows |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
@@ -191,7 +191,7 @@ For most target architectures, including 64-bit x86, trampolines are made up of 
 
 | Compiler Flag                              |       Supported by       | Description                        |
 |:------------------------------------------ |:------------------------:|:---------------------------------- |
-| `-Werror`<br/>`-Werror=`_`<warning-flag>`_ | GCC 2.95.3<br/>Clang 2.6 | Make compiler warnings into errors |
+| `-Werror`<br/>`-Werror=`*`<warning-flag>`* | GCC 2.95.3<br/>Clang 2.6 | Make compiler warnings into errors |
 
 #### Synopsis
 
@@ -199,7 +199,7 @@ Make the compiler treat all or specific warning diagnostics as errors.
 
 A blanket `-Werror` can be used to implement a zero-warning policy, although such policies can also be enforced at CI level. CI-based zero- or bounded-warning policies are often preferable as they can be expanded beyond compiler warning. For example, they can also include warnings from static analysis tools or generate warnings when `FIXME` and `TODO` comments are found.
 
-The selective form: `-Werror=`_`<warning-flag>`_ can be used for refined warnings-as-error control without introducing a blanket zero-warning policy. This is beneficial to ensure that certain undesirable constructs or defects do not make into produced builds.
+The selective form: `-Werror=`*`<warning-flag>`* can be used for refined warnings-as-error control without introducing a blanket zero-warning policy. This is beneficial to ensure that certain undesirable constructs or defects do not make into produced builds.
 
 For example, developers can decide to promote warnings that indicate interference with OS defense mechanisms (e.g., `-Werror=trampolines`), undefined behavior (e.g., `-Werror=return-type`), or constructs associated with software weaknesses (e.g., `-Werror=conversion`) to errors.
 
@@ -216,9 +216,9 @@ For example, developers can decide to promote warnings that indicate interferenc
 
 The `_FORTIFY_SOURCE` macro enables a set of extension to the GNU C library (glibc) that will make the compiler automatically add buffer overflow checks to calls to the following functions:  
 
-    memcpy, mempcpy, memmove, memset, strcpy, stpcpy, strncpy, strcat, strncat, sprintf, vsprintf, snprintf, vsnprintf, gets
+> memcpy, mempcpy, memmove, memset, strcpy, stpcpy, strncpy, strcat, strncat, sprintf, vsprintf, snprintf, vsnprintf, gets
 
-The`_FORTIFY_SOURCE` mechanisms have two modes of operation:
+The `_FORTIFY_SOURCE` mechanisms have two modes of operation:
 
 - `-D_FORTIFY_SOURCE=1`: conservative, compile-time checks only; will not change (defined) behavior of programs  
 - `-D_FORTIFY_SOURCE=2`: stricter checks that also detect buffer overflows at run time; may affect program behavior by disallowing certain programming constructs.
@@ -248,7 +248,7 @@ However, when enabling `_FORTIFY_SOURCE=2` in existing code bases regression tes
 | Compiler Flag                                             |      Supported by      | Description                                                                                   |
 |:--------------------------------------------------------- |:----------------------:|:--------------------------------------------------------------------------------------------- |
 | `-fstack-clash-protection`                                | GCC 8<br/>Clang 11.0.0 | Enable run-time checks for variable-size stack allocation validity                            |
-| `-param stack-clash-protection-guard-size=`_`<gap size>`_ | GCC 8<br/>Clang 11.0.0 | Set the stack guard gap size used to determine the probe granularity of the instrumented code |
+| `-param stack-clash-protection-guard-size=`*`<gap size>`* | GCC 8<br/>Clang 11.0.0 | Set the stack guard gap size used to determine the probe granularity of the instrumented code |
 
 #### Synopsis
 
@@ -274,7 +274,7 @@ Note that `vm.heap-stack-gap` expresses the gap as multiple of page size whereas
 |:--------------------------------------------------------- |:-------------------------:|:---------------------------------------------------------------------------------------------------------------- |
 | <span id="-fstack-protector-strong">`-fstack-protector-strong`</span>                                | GCC 4.9.0<br/>Clang 5.0.0 | Enable run-time checks for stack-based buffer overflows using strong heuristic                                   |
 | `-fstack-protector-all`                                   |       GCC<br/>Clang       | Enable run-time checks for stack-based buffer overflows for all functions                                        |
-| `-fstack-protector`<br/>`--param=ssp-buffer-size=`_`<n>`_ |       GCC<br/>Clang       | Enable run-time checks for stack-based buffer overflows for functions with character arrays if *n* or more bytes |
+| `-fstack-protector`<br/>`--param=ssp-buffer-size=`*`<n>`* |       GCC<br/>Clang       | Enable run-time checks for stack-based buffer overflows for functions with character arrays if *n* or more bytes |
 
 #### Synopsis
 
@@ -294,7 +294,7 @@ Stack protector supports three different heuristics that are used to determine w
   - allocates a local struct or union which contains an array, regardless of the type of length of the array  
   - has explicit local register variables
 
-- `-fstack-protector`: instrument functions that call alloca() or allocate character arrays of n bytes or more in size . The threshold for instrumentation is adjustable via the `--param=ssp-buffer-size=`_`n`_ option (default: 8 bytes).  
+- `-fstack-protector`: instrument functions that call alloca() or allocate character arrays of n bytes or more in size . The threshold for instrumentation is adjustable via the `--param=ssp-buffer-size=`*`n`* option (default: 8 bytes).  
 - `-fstack-protector-all`: instrument all functions.
 
 The performance overhead is dependent on the number of function’s instrumented and the frequency at which instrumented functions are activated at run-time. Enabling `-fstack-protector-strong` is recommended as it provides the best balance between function coverage and performance. Projects using older compiler versions can consider `-fstack-protector-all` or `-fstack-protector` with a stricter threshold, e.g. `--param=ssp-buffer-size=4`.
@@ -443,7 +443,7 @@ This section describes discouraged compiler and linker option flags that may lea
 Table 3: List of discouraged compiler and linker options.
 | Compiler Flag                   | Supported by  | Description                                                       |
 |:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| `-Wl,-rpath,`_`path_to_so`_<br/><br/>`-Wl,-rpath,`_`path_to_so`_<br/>`-Wl,--enable-new-dtags` | Binutils | Hard-code run-time search paths in executable files or libraries |
+| `-Wl,-rpath,`*`path_to_so`*<br/><br/>`-Wl,-rpath,`*`path_to_so`*<br/>`-Wl,--enable-new-dtags` | Binutils | Hard-code run-time search paths in executable files or libraries |
 
 ---
 
@@ -451,7 +451,7 @@ Table 3: List of discouraged compiler and linker options.
 
 | Compiler Flag                   | Supported by  | Description                                                       |
 |:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| `-Wl,-rpath,`_`path_to_so`_<br/><br/>`-Wl,-rpath,`_`path_to_so`_<br/>`-Wl,--enable-new-dtags` | Binutils | Hard-code run-time search paths in executable files or libraries |
+| `-Wl,-rpath,`*`path_to_so`*<br/><br/>`-Wl,-rpath,`*`path_to_so`*<br/>`-Wl,--enable-new-dtags` | Binutils | Hard-code run-time search paths in executable files or libraries |
 
 #### Synopsis
 
