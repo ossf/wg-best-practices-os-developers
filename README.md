@@ -146,7 +146,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - Yotam Perkal,Rezilion
 - Georg Kunz,Ericsson
 - [Christine Abernathy, F5](https://github.com/caabernathy)
-- [Daniel Applequist, Synk](https://github.com/Torgo)
+- [Daniel Applequist, Snyk](https://github.com/Torgo)
 
 ### Project Contributors
 
