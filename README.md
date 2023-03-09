@@ -57,7 +57,7 @@ Our work is organized into several discrete-yet-related projects that help us ac
   - Purpose - (Identify/Adopt/Learn) Learn to integrate security by design in your web application
 - _OpenSSF Best Practices Badge_ (formerly CII Best Practices badge) - <https://bestpractices.coreinfrastructure.org/> and <https://github.com/coreinfrastructure/best-practices-badge>
   - Purpose - (Identify/Adopt) Identifies FLOSS best practices & implements a badging system for those practices,
-- _Scorecards Project_ - <https://github.com/ossf/scorecard>
+- _OpenSSF Scorecard Project_ - <https://github.com/ossf/scorecard>
   - Purpose - (Adopt) Automate analysis and trust decisions on the security posture of open source projects.
 - _Great MFA Distribution Project_ - (incubating) <https://github.com/ossf/great-mfa-project>
   - Distribute MFA tokens to OSS developers and best practices on how to easily use them
