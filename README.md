@@ -132,37 +132,44 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [Dave Russo, Red Hat](https://github.com/drusso-rh)
 
 ### Project Collaborators
-
-- [Glenn ten Cate, OWASP/SKF](https://github.com/)
-- [Marta Rybczynska, Syslinbit](https://github.com/mrybczyn)
-- [VM Brasseur, WiPro](https://github.com/)
-- [Eric Tice, WiPro](https://github.com/)
-- [Judy Kelly, Red Hat](https://github.com/judyobrienie)
-- [Arnaud J Le Hors, IBM](https://github.com/lehors)
-- [Matt Rutkowski, IBM](https://github.com/mrutkows)
-- [Jeffrey Borek, IBM](https://github.com/jtborek)
-- [Randall T. Vasquez, Gentoo/Homebrew](https://github.com/ran-dall)
-- Avishay Balter, Microsoft
-- Yotam Perkal,Rezilion
-- Georg Kunz,Ericsson
 - [Christine Abernathy, F5](https://github.com/caabernathy)
 - [Daniel Applequist, Snyk](https://github.com/Torgo)
+- Avishay Balter, Microsoft
+- [Jeffrey Borek, IBM](https://github.com/jtborek)
+- [VM Brasseur, WiPro](https://github.com/)
+- [Glenn ten Cate, OWASP/SKF](https://github.com/)
+- [Judy Kelly, Red Hat](https://github.com/judyobrienie)
+- Georg Kunz,Ericsson
+- [Arnaud J Le Hors, IBM](https://github.com/lehors)
+- [Matt Rutkowski, IBM](https://github.com/mrutkows)
+- [Marta Rybczynska, Syslinbit](https://github.com/mrybczyn)
+- Yotam Perkal,Rezilion
+- [Eric Tice, WiPro](https://github.com/)
+- [Randall T. Vasquez, Gentoo/Homebrew](https://github.com/ran-dall)
+- [Jay White, Microsoft](https://github.com/camaleon2016)
+
+
 
 ### Project Contributors
-
+- Aeva Black, Microsoft
+- Jory Burson, Linux Foundation
+- Rosaria Carr, Indeed
+- Riccardo ten Cate, SKF
+- Spyros Gasteratos, OWASP/CRE
+- Sami Guirguis, TELUS
+- Jonathan Leitschuh, Dan Kaminsky Fellowship @ Human Security
+- Jeff Mendoza, Google
+- Kara Olive, Google
 - Laurent Simon, Google/Scorecard
 - Azeem Shaikh, Google/Scorecard
-- Spyros Gasteratos, OWASP/CRE
 - Harimohan Rajamohanan, Wipro
-- Aeva Black, Microsoft
-- Patricia Tarro, Dell
-- Sami Guirguis, TELUS
-- Jeff Mendoza, Google
-- Jonathan Leitschuh, Dan Kaminsky Fellowship @ Human Security
-- Jory Burson, Linux Foundation
 - Ixchel Ruiz, jfrog
-- Kara Olive, Google
-- Riccardo ten Cate, SKF
+- Patricia Tarro, Dell
+
+
+
+
+
 
 ## Licenses
 
