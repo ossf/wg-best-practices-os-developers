@@ -163,7 +163,7 @@ Check for implicit conversions that may alter a value such as:
 - conversion between data types of different size
 - confusing overload resolution for user-defined conversions in C++
 - conversions that never use a type conversion operator in C++:
-    conversions to void, the same type, a base class or a reference  
+    conversions to void, the same type, a base class or a reference.
 
 Conversion between data types that cause the value of the data to be altered can cause   information to be omitted or translated in a way that produces unexpected values.
 
@@ -249,7 +249,7 @@ However, when enabling `_FORTIFY_SOURCE=2` in existing code bases regression tes
 
 | Compiler Flag                                                                              | Supported by            | Description                                                                                  |
 | ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
-| <span="-D_GLIBCXX_ASSERTIONS">`-D_GLIBCXX_ASSERTIONS`</span>                               |      GCC 6.0<br/>Clang ? | (C++ only) Run-time bounds checking for C++ strings and containers; can impact performance.  
+| <span id="-D_GLIBCXX_ASSERTIONS">`-D_GLIBCXX_ASSERTIONS`</span>                               |      GCC 6.0<br/>Clang ? | (C++ only) Run-time bounds checking for C++ strings and containers; can impact performance.
 
 #### Synopsis
 
