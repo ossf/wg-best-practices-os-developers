@@ -13,6 +13,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 ~~~~sh
 -Wall -Wformat=2 -Wconversion -Wtrampolines -Werror \
 -D_FORTIFY_SOURCE=2 \
+-D_GLIBCXX_ASSERTIONS \
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,nodump -Wl,-z,noexecstack -Wl,-z,noexecheap \
 -Wl,-z,relro -Wl,-z,now \
