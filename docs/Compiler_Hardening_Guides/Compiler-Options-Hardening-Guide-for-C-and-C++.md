@@ -249,7 +249,7 @@ However, when enabling `_FORTIFY_SOURCE=2` in existing code bases regression tes
 
 | Compiler Flag                                                                              | Supported by            | Description                                                                                  |
 | ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
-| <span="-D_GLIBCXX_ASSERTIONS">`-_GLIBCXX_ASSERTIONS`</span>                               |      GCC 6.0<br/>Clang ? | (C++ only) Run-time bounds checking for C++ strings and containers; can impact performance.  
+| <span="-D_GLIBCXX_ASSERTIONS">`-D_GLIBCXX_ASSERTIONS`</span>                               |      GCC 6.0<br/>Clang ? | (C++ only) Run-time bounds checking for C++ strings and containers; can impact performance.  
 
 #### Synopsis
 
