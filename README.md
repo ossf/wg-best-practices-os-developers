@@ -139,7 +139,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [VM Brasseur, WiPro](https://github.com/)
 - [Glenn ten Cate*, OWASP/SKF](https://github.com/)
 - [Judy Kelly, Red Hat](https://github.com/judyobrienie)
-- Georg Kunz, Ericsson
+- [Georg Kunz, Ericsson((https://github.com/gkunz)
 - [Arnaud J Le Hors, IBM](https://github.com/lehors)
 - [Matt Rutkowski, IBM](https://github.com/mrutkows)
 - [Marta Rybczynska, Syslinbit](https://github.com/mrybczyn)
