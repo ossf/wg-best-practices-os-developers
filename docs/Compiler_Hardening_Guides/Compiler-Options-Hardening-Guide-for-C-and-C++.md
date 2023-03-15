@@ -89,6 +89,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | Compiler Flag                                                                             |            Supported by            | Description                                                                                  |
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
 | [`-D_FORTIFY_SOURCE=2`](#-D_FORTIFY_SOURCE=2) <br/>(requires `-O1` or higher)             |      GCC 4.0<br/>Clang 5.0.0       | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows |
+| [`-D__GLIBCXX_ASSERTIONS`](#-_GLIBCXX_ASSERTIONS)                                         |      GCC ?<br/>Clang ?             | (C++ only) Run-time bounds checking for C++ strings and containers; can impact performance.  |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity                           |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows                                      |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen)<br/>[`-Wl,-z,nodump`](#-Wl,-z,nodump)               |           Binutils 2.10            | Restrict `dlopen(3)` and `dldump(3)` calls to shared objects                                 |
@@ -240,6 +241,29 @@ If checks added by `_FORTIFY_SOURCE=2` detect unsafe behavior at run-time they w
 `_FORTIFY_SOURCE` is recommended for all application that depend on glibc.
 
 However, when enabling `_FORTIFY_SOURCE=2` in existing code bases regression testing should be used to ensure the run-time checks do not adversely affect existing features.
+
+---
+
+### Run-time bounds checking for C++ strings and containers
+
+| Compiler Flag                                                                              | Supported by            | Description                                                                                  |
+| ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
+| <span="-D__GLIBCXX_ASSERTIONS">`-_GLIBCXX_ASSERTIONS`</span>                               |      GCC ?<br/>Clang ?  | (C++ only) Run-time bounds checking for C++ strings and containers; can impact performance.  
+
+#### Synopsis
+
+The `-D__GLIBCXX_ASSERTIONS` macro enables run-time bounds checking for C++ strings and containers. It can only affect C++ code.
+
+#### Performance implications
+
+The `-D__GLIBCXX_ASSERTIONS` macro can have a non-trivial impact on performance.
+Impacts of [up to 6% on performance have been reported](https://gitlab.psi.ch/OPAL/src/-/merge_requests/468).
+
+#### When not to use?
+
+`-D__GLIBCXX_ASSERTIONS` is recommended for C++ applications that may handle untrusted data, as well as for any C++ application during testing.
+
+Option `-D__GLIBCXX_ASSERTIONS` is unnecessary for security for applications in production that only handle completely trusted data.
 
 ---
 
