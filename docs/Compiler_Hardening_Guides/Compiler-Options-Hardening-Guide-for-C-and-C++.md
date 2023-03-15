@@ -11,7 +11,7 @@ This document focuses on recommended options for the GNU Compiler Collection (GC
 When compiling C or C++ code on compilers such as GCC and clang, turn on these flags for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
 
 ~~~~sh
--Wall -Wformat=2 -Wconversion -Wtrampolines -Werror \
+-O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Werror \
 -D_FORTIFY_SOURCE=2 \
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,nodump -Wl,-z,noexecstack -Wl,-z,noexecheap \
