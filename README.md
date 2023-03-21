@@ -124,6 +124,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - Lead - [Christopher "CRob" Robinson](https://github.com/SecurityCRob)
 - Co-Lead - [Xavier René-Corail](https://github.com/xcorail)
 - "*" denotes a project/SIG lead
+
 ### Project Maintainers
 
 - [Christopher "CRob" Robinson*, Intel](https://github.com/SecurityCRob)
@@ -132,6 +133,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [Dave Russo*, Red Hat](https://github.com/drusso-rh)
 
 ### Project Collaborators
+
 - [Christine Abernathy*, F5](https://github.com/caabernathy)
 - [Daniel Applequist*, Snyk](https://github.com/Torgo)
 - Avishay Balter, Microsoft
@@ -139,7 +141,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [VM Brasseur, WiPro](https://github.com/)
 - [Glenn ten Cate*, OWASP/SKF](https://github.com/)
 - [Judy Kelly, Red Hat](https://github.com/judyobrienie)
-- [Georg Kunz, Ericsson((https://github.com/gkunz)
+- [Georg Kunz, Ericsson](https://github.com/gkunz)
 - [Arnaud J Le Hors, IBM](https://github.com/lehors)
 - [Matt Rutkowski, IBM](https://github.com/mrutkows)
 - [Marta Rybczynska, Syslinbit](https://github.com/mrybczyn)
@@ -148,9 +150,8 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [Randall T. Vasquez*, Gentoo/Homebrew](https://github.com/ran-dall)
 - [Jay White, Microsoft](https://github.com/camaleon2016)
 
-
-
 ### Project Contributors
+
 - Aeva Black, Microsoft
 - Jory Burson, Linux Foundation
 - Rosaria Carr, Indeed
@@ -167,12 +168,6 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - Patricia Tarro, Dell
 - [Thomas Nyman*, Ericsson](https://github.com/thomasnyman)
 - Noam Dotan, Legit Security
-
-
-
-
-
-
 
 ## Licenses
 
