@@ -13,6 +13,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 ~~~~sh
 -O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Werror \
 -D_FORTIFY_SOURCE=2 \
+-fno-delete-null-pointer-checks \
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,nodump -Wl,-z,noexecstack -Wl,-z,noexecheap \
 -Wl,-z,relro -Wl,-z,now \
@@ -91,6 +92,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | Compiler Flag                                                                             |            Supported by            | Description                                                                                  |
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
 | [`-D_FORTIFY_SOURCE=2`](#-D_FORTIFY_SOURCE=2) <br/>(requires `-O1` or higher)             |      GCC 4.0<br/>Clang 5.0.0       | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows |
+| [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                                   |                                    | Force retention of null pointer checks                                         |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity                           |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows                                      |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen)<br/>[`-Wl,-z,nodump`](#-Wl,-z,nodump)               |           Binutils 2.10            | Restrict `dlopen(3)` and `dldump(3)` calls to shared objects                                 |
@@ -244,6 +246,57 @@ If checks added by `_FORTIFY_SOURCE=2` detect unsafe behavior at run-time they w
 However, when enabling `_FORTIFY_SOURCE=2` in existing code bases regression testing should be used to ensure the run-time checks do not adversely affect existing features.
 
 ---
+
+### Force retention of null pointer checks
+
+| Compiler Flag                                                         |      Supported by      | Description                                                                                   |
+|:--------------------------------------------------------------------- |:----------------------:|:--------------------------------------------------------------------------------------------- |
+| <span id="-fno-delete-null-pointer-checks">`-fno-delete-null-pointer-checks`</span> |                        | Force retention of null pointer checks                                                        |
+#### Synopsis
+
+In some cases the compiler may not generate code for a null pointer check
+when the source code has such a check.
+In particular, this can happen if having a null pointer value would
+imply that undefined behavior could occur.
+This can very slightly improve performance if developers never make a mistake.
+However, if developers make a mistake, this elision
+can lead to surprising vulnerabilities, because it will cause code is run
+that presumes a pointer is not null even if it was expressly preceded
+by a check to see if the pointer was null.
+
+For example, here is some simplified code from an old version of the
+Linux kernel:
+
+~~~~C
+static void __devexit agnx_pci_remove (struct pci_dev *pdev)
+{
+  struct ieee80211_hw *dev = pci_get_drvdata(pdev);
+  struct agnx_priv *priv = dev->priv; 
+
+  if (!dev) return;
+  ...
+}
+~~~~
+
+In this sample code, the use of reference `dev->priv` implies that `dev` is non-null. A compiler might infer that since a null dereference would be undefined behavior at that line, and undefined behavior "doesn't happen", it could infer that `dev` must not be null at that point and omit the code for `if (!dev) return`. This can lead to vulnerabilities. For more information, see [^Regehr-1].
+
+[^Regehr-1]: Regehr. A new fascinating Linux kernel vulnerability. <https://isc.sans.edu/diary/A+new+fascinating+Linux+kernel+vulnerability/6820>
+
+The flag `-fno-delete-null-pointer-checks` requires the compiler to generate the null pointer check even in these cases.
+
+#### Performance implications
+
+This typically has little performance impact.
+Null pointer checks are extremely fast, and since the value being checked
+is often about to be used anyway, they are either cached values and/or
+values that are about to be needed anyway.
+
+If the check implies non-trivial code, that code will then be in the
+generated result, which will increase the code size slightly.
+However, note that this is the insertion of the code from its source code;
+*not* generating such checks is often a surprise to a developer.
+
+Note that the Linux kernel build process includes this flag.
 
 ### Enable run-time checks for variable-size stack allocation validity
 
