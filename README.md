@@ -89,6 +89,17 @@ There are many great projects both within and outside the Foundation that compli
 - _SLSA Supply-chain Levels for Software Artifacts_ - <https://github.com/slsa-framework/slsa>
   - Purpose - A security framework from source to service, giving anyone working with software a common language for increasing levels of software security and supply chain integrity
 
+## Quick Start
+
+### Areas that need contributions
+
+- Any topics related to helping developers more easily make more secure software or consumers to better understand the security qualities of the software they wish to ingest
+
+### Where to file issues
+
+- Issues can be reviewed and filed [here](https://github.com/ossf/wg-best-practices-os-developers/issues)
+
+
 ## Get Involved
 
 Anyone is welcome to join our open discussions related to the group's mission and charter.
@@ -103,19 +114,26 @@ Anyone is welcome to join our open discussions related to the group's mission an
 - [Manage your subscriptions to Open SSF mailing lists](https://lists.openssf.org/g/main/subgroups)
 - Join the conversation on [Slack](https://openssf.slack.com/archives/C01AHCRP8BT)
 
-## Quick Start
-
-### Areas that need contributions
-
-- Any topics related to helping developers more easily make more secure software or consumers to better understand the security qualities of the software they wish to ingest
-
-### Where to file issues
-
-- Issues can be reviewed and filed [here](https://github.com/ossf/wg-best-practices-os-developers/issues)
 
 ## Meeting times
 
 Every 2 weeks, Tuesday 10am EST. The meeting invite is available on the [public OSSF calendar](https://calendar.google.com/calendar?cid=czYzdm9lZmhwNWk5cGZsdGI1cTY3bmdwZXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)
+
+
+| Effort       |    Meeting Times                                         |    Meeting Notes/Agenda    |       Git Repo        | Slack Channel | Mailing List |
+| :----------: | :------------------------------------------------------: | :------------------------: | :-------------------: | :-----------: | :----------: |
+|   Full WG    | Every 2nd Tuesday 7:00a PT/10:00a ET/1400 UTC   | [Meeting Notes](hhttps://docs.google.com/document/d/1x-fMIt6ZIV6SM-M29xEVKeB505GbDzSIVXg-8uF_FQU/edit#heading=h.o9i5dy8de481)           |  [Git Repo](https://github.com/ossf/wg-best-practices-os-developers) | [Slack](https://openssf.slack.com/archives/C01AHCRP8BT) | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) |
+| Concise Guides - C/C++ Compiler Hardening Options | Occurs every 2nd Wednesday 6:00a PT/9:00a ET/1400 UTC |  | [Meeting Notes](hhhttps://docs.google.com/document/d/1x-fMIt6ZIV6SM-M29xEVKeB505GbDzSIVXg-8uF_FQU/edit#heading=h.o9i5dy8de481)           |  [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Compiler_Hardening_Guides/Compiler-Options-Hardening-Guide-for-C-and-C%2B%2B.md) | [Slack](https://openssf.slack.com/archives/C01AHCRP8BT) | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) |
+| Concise Guides - Source Code Management Best Practices | Occurs every 2nd Thursday 7:00a PT/10:00a ET/1400 UTC  |  | [Meeting Notes](hhhttps://docs.google.com/document/d/1x-fMIt6ZIV6SM-M29xEVKeB505GbDzSIVXg-8uF_FQU/edit#heading=h.o9i5dy8de481)           |  [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/SCM-BestPractices) | [Slack](https://openssf.slack.com/archives/C01AHCRP8BT) | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) |
+|   EDU.SIG   | Occurs every 2nd Wednesday 6:00a PT/9:00a ET/1400 UTC   | [Meeting Notes](https://docs.google.com/document/d/18GBwvQJNcPnwxKrnp43DhBZC7K1JM0xzGkDoKh5mu8U/edit#heading=h.9m0zi4b0wnne)                       |  [Git Repo](hhttps://github.com/ossf/education) | [Slack](https://openssf.slack.com/archives/C03FW3YGXH9) | [Mailing List](https://lists.openssf.org/g/openssf-sig-education) |
+|   EDU.SIG - DEI Subcommittee  | Occurs every 2nd Tuesday 8:00a PT/11:00a ET/1600 UTC   | [Meeting Notes](https://docs.google.com/document/d/1LdQ07veOcJ596Vo3aQZCFy-HHeEO7cHnbE_6u_uq9Fk/edit#heading=h.9m0zi4b0wnne)                       |  [Git Repo](hhttps://github.com/ossf/education) | [Slack](https://openssf.slack.com/archives/C04FMD5HSC9) | [Mailing List](https://lists.openssf.org/g/openssf-sig-education-dei) |
+|  Memory Safety SIG   | Every 2nd Thursday 10:00a PT/1:00p ET/1500 UTC           | [Meeting Notes](https://docs.google.com/document/d/1Ehpp1UmAIqMs0ZdKr15sd5MS48OeaGKB9H40htVehs4/edit?usp=sharing)                       |  [Git Repo](https://github.com/ossf/Memory-Safety) | [Slack](https://openssf.slack.com/archives/C03G8NZH58R) | [Mailing List](https://lists.openssf.org/g/openssf-sig-memory-safety) |
+|  Scorecard  | Occurs every 2nd Thursday 1:00p PT/4:00p ET/1800 UTC    | [Meeting Notes](https://docs.google.com/document/d/1dB2U7_qZpNW96vtuoG7ShmgKXzIg6R5XT5Tc-0yz6kE/edit%23&sa=D&source=calendar&usd=2&usg=AOvVaw0dlm9r67uXVvpla6TQtT28 )           |  [Git Repo](https://github.com/ossf/scorecard) | [Slack](https://openssf.slack.com/archives/C0235AR8N2C ) | [Mailing List]( ) |
+|  Security Knowledge Framework -  SKF  | TBD   | [Meeting Notes]( )           |  [Git Repo]( ) | [Slack](https://openssf.slack.com/archives/C04B7EZLTM1) | [Mailing List]( ) |
+
+
+
+
 
 ## Governance
 
