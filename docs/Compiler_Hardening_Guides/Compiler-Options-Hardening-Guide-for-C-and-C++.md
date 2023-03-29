@@ -252,6 +252,7 @@ However, when enabling `_FORTIFY_SOURCE=2` in existing code bases regression tes
 | Compiler Flag                                                         |      Supported by      | Description                                                                                   |
 |:--------------------------------------------------------------------- |:----------------------:|:--------------------------------------------------------------------------------------------- |
 | <span id="-fno-delete-null-pointer-checks">`-fno-delete-null-pointer-checks`</span> |                        | Force retention of null pointer checks                                                        |
+
 #### Synopsis
 
 In some cases the compiler may not generate code for a null pointer check
