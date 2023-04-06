@@ -10,8 +10,8 @@ Each specific recommendation below is noted to be applicable to either GitHub or
 
 For recmmendations only applicable to GitHub or GitLab visit one of the following pages:
 
-- [GitHub Recommendations](github/readme.MD)
-- [GitLab Recommendations](gitlab/readme.MD)
+- [GitHub Recommendations](github/README.md)
+- [GitLab Recommendations](gitlab/READNE.md)
 
 ### Members, Access Control and Permissions
    - Admins Should Have Activity In The Last 6 Months [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/member/stale_admin_found.md) [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">](gitlab/member/stale_admin_found.md)
