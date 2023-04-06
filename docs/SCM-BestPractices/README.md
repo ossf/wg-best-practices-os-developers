@@ -7,31 +7,31 @@ Collaborative source code management platforms (such as GitHub and GitLab) play 
 ## Table Of Contents
 
 1. Members, Access Control and Permissions
-  -. Admins Should Have Activity In The Last 6 Months [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25">](github/member/stale_admin_found.md) [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">](gitlab/member/stale_admin_found.md)
-  -. Members Should Have Activity In The Last 6 Months *GH GL*
-  -. Two-Factor Authentication For Collaborators *GH GL*
-  -. Two-Factor Authentication For External Contributors *GH GL*
+   - Admins Should Have Activity In The Last 6 Months [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25">](github/member/stale_admin_found.md) [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">](gitlab/member/stale_admin_found.md)
+   - Members Should Have Activity In The Last 6 Months *GH GL*
+   - Two-Factor Authentication For Collaborators *GH GL*
+   - Two-Factor Authentication For External Contributors *GH GL*
 2. Organizational Management
-   -. Default Member Permissions Should Be Restricted *GH*
-   -. **[Move to Section 1?]** Two-Factor Authentication Should Be Enforced For The Organization *GH GL*
-   -. Only Admins Should Be Able To Create Public Repositories *GH*
-   -. Organization Should Use Single-Sign-On *GH&
-   -. Webhooks Should Be Configured To Use SSL *GH GL*
-   -. Webhooks Should Be Configured With A Secret *GH*
-   -. **[move to repo config?]** Forking of Repositories to External Namespaces Should Be Disabled. *GL*
-   -. Group Should Enforce Branch Protection *GL*
-   -. Member Default Repository Permission Should be None *GH*
-   -. Member Should Be Able To Create Only Private Repositories *GH*
-   -. **[move to repo config?]** Should Not Enable Forking Of Private And Internal Repositoreis *GH*
-   -. Should Not Enable Repository Admin To Invite Outside Collaborators *GH*
-   -. Member Should Be Able To Create Only Private Github Pages *GH*
-   -. Member Should Be Able Only Private and Internal Packages *GH*
-   -. Package Should Inherit Access From Source Repository *GH*
-   -. Secret Scanning Should Be Enabled For All Repositories *GH*
-   -. **Dependencey Monitoring** Should Be Enabled For All Repositories *GH* (& GL?)
-   -. Default Branch Should Be Fully Protected *GL*
-   -. Reject Pushing Secret File Should Be Enabled *GL*
-   -. Group Shouldn't Forward Package Requsts To Public Registries If Not Found Locally *GL*
+   - Default Member Permissions Should Be Restricted *GH*
+   - **[Move to Section 1?]** Two-Factor Authentication Should Be Enforced For The Organization *GH GL*
+   - Only Admins Should Be Able To Create Public Repositories *GH*
+   - Organization Should Use Single-Sign-On *GH&
+   - Webhooks Should Be Configured To Use SSL *GH GL*
+   - Webhooks Should Be Configured With A Secret *GH*
+   - **[move to repo config?]** Forking of Repositories to External Namespaces Should Be Disabled. *GL*
+   - Group Should Enforce Branch Protection *GL*
+   - Member Default Repository Permission Should be None *GH*
+   - Member Should Be Able To Create Only Private Repositories *GH*
+   - **[move to repo config?]** Should Not Enable Forking Of Private And Internal Repositoreis *GH*
+   - Should Not Enable Repository Admin To Invite Outside Collaborators *GH*
+   - Member Should Be Able To Create Only Private Github Pages *GH*
+   - Member Should Be Able Only Private and Internal Packages *GH*
+   - Package Should Inherit Access From Source Repository *GH*
+   - Secret Scanning Should Be Enabled For All Repositories *GH*
+   - **Dependencey Monitoring** Should Be Enabled For All Repositories *GH* (& GL?)
+   - Default Branch Should Be Fully Protected *GL*
+   - Reject Pushing Secret File Should Be Enabled *GL*
+   - Group Shouldn't Forward Package Requsts To Public Registries If Not Found Locally *GL*
 
 3. Repository configuration
 
