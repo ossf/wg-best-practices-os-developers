@@ -4,11 +4,11 @@
 
 Collaborative source code management platforms (such as GitHub and GitLab) play a critical role in modern software development, providing a central repository for storing, managing, and versioning source code as well as collaborating with a community of developers. However, they also represent a potential security risk if not properly configured. In this guide, we will explore the best practices for securing these latforms, covering topics ranging from user authentication and access control to monitoring and logging activities, and integrating security tools.
 
-## Draft Proposed Structure
+## Table Of Contents
 
 1. Members, Access Control and Permissions
 
-  1. Admins Should Have Activity In The Last 6 Months *GH GL*
+  1. Admins Should Have Activity In The Last 6 Months [GH](github/member/stale_admin_found.md) [GL](gitlab/member/stale_admin_found.md)
   2. Members Should Have Activity In The Last 6 Months *GH GL*
   3. Two-Factor Authentication For Collaborators *GH GL*
   4. Two-Factor Authentication For External Contributors *GH GL*
