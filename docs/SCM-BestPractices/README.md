@@ -34,76 +34,75 @@ Collaborative source code management platforms (such as GitHub and GitLab) play 
    - Group Shouldn't Forward Package Requsts To Public Registries If Not Found Locally *GL*
 
 3. Repository configuration
-
-  1. Forking Should Not Be Allowed for This Repository *GH GL*
-  2. Default Branch Should Require All Checks To Pass Before Merge *GH GL*
-  3. Webhooks Should Be Configured To Use SSL *GH GL*
-  4. Repository Should Be Updated At Least Quarterly *GH GL*
-  5. Default Branch Should Require Code Review *GH GL*
-  6. Default Branch Should Not Allow Force Pushes *GH GL*
-  7. Default Branch Should Be Protected *GH GL*
-  8. Default Branch Should Require Code Review By At Least Two Reviewers *GH GL*
-  9. Default Branch Should Require All Conversations To Be Resolved Before Merge *GH GL*
-  10. Repository Should Have Fewer Than Three Admins *GH GL*
-  11. Default Branch Should Require All Commits To Be Signed *GH GL*
-  12. Default Branch Should Limit Code Review to Code-Owners *GH GL*
-  13. Default Branch Should Require New Code Changes After Approval To Be Re-Approved *GH GL*
-  14. Workflows Should Not Be Allowed To Approve Pull Requests *GH*
-  15. Default Branch Should Require Linear History *GH*
-  16. Vulnerability Alerts Should Be Enabled *GH*
-  17. Default Workflow Token Permission Should Be Set To Read Only *GH*
-  18. GitHub Advanced Security – Dependency Review Should Be Enabled For A Repository *GH*
-  19. Default Branch Deletion Protection Should Be Enabled *GH*
-  20. Default Branch Should Require Branches To Be Up To Date Before Merge *GH*
-  21. Webhooks Should Be Configured With A Secret *GH*
-  22. Default Branch Should Restrict Who Can Push To It *GH*
-  23. Default Branch Should Restrict Who Can Dismiss Reviews *GH*
-  24. Merge Request Authors Should Not Be Able To Override the Approvers List *GL*
-  25. Prevent Pushing Secret File Should Be Enabled *GL*
-  26. Should Prevent Approval By Author *GL*
+   - Forking Should Not Be Allowed for This Repository *GH GL*
+   - Default Branch Should Require All Checks To Pass Before Merge *GH GL*
+   - Webhooks Should Be Configured To Use SSL *GH GL*
+   - Repository Should Be Updated At Least Quarterly *GH GL*
+   - Default Branch Should Require Code Review *GH GL*
+   - Default Branch Should Not Allow Force Pushes *GH GL*
+   - Default Branch Should Be Protected *GH GL*
+   - Default Branch Should Require Code Review By At Least Two Reviewers *GH GL*
+   - Default Branch Should Require All Conversations To Be Resolved Before Merge *GH GL*
+   - Repository Should Have Fewer Than Three Admins *GH GL*
+   - Default Branch Should Require All Commits To Be Signed *GH GL*
+   - Default Branch Should Limit Code Review to Code-Owners *GH GL*
+   - Default Branch Should Require New Code Changes After Approval To Be Re-Approved *GH GL*
+   - Workflows Should Not Be Allowed To Approve Pull Requests *GH*
+   - Default Branch Should Require Linear History *GH*
+   - Vulnerability Alerts Should Be Enabled *GH*
+   - Default Workflow Token Permission Should Be Set To Read Only *GH*
+   - GitHub Advanced Security – Dependency Review Should Be Enabled For A Repository *GH*
+   - Default Branch Deletion Protection Should Be Enabled *GH*
+   - Default Branch Should Require Branches To Be Up To Date Before Merge *GH*
+   - Webhooks Should Be Configured With A Secret *GH*
+   - Default Branch Should Restrict Who Can Push To It *GH*
+   - Default Branch Should Restrict Who Can Dismiss Reviews *GH*
+   - Merge Request Authors Should Not Be Able To Override the Approvers List *GL*
+   - Prevent Pushing Secret File Should Be Enabled *GL*
+   - Should Prevent Approval By Author *GL*
 
 4. Continuous Integration / Continuous Deployment 
 
-  1. Workflows Should Not Be Allowed To Approve Pull Requests *GH*
-  2. GitHub Actions Should Be Restricted To Selected Repositories *GH*
-  3. Default Workflow Token Permission Should Be Read Only *GH* 
-  4. GitHub Actions Should Be Limited To Verified or Explicitly Trusted Actions *GH*
-  5. Fork pull requests should require approval for all outside collaborators *GH*
-  6. Variable Should Be Masked *GH*
-  7. Variable Should Be Protected *GL*
-  8. CI Token Should Be Limited To The Current Project *GL*
-  9. Pipline Visibility Should Be Set To Private *GL*
-  10. Pipeline Should Use Separate Cache For Protected Branches *GL*
-  11. AutoDevOps Should Be Enabled *GL*
-  12. Pipeline Should Not Be Able To Approve Deployment *GL*
-  13. Environment Should Be Protected *GH GL*
-  14. Runner Group Should Be Limited to Private Repositories *GH*
-  15. Runner Group Should Be Limited to Selected Repositories *GH*
-  16. Runner Should Be Limitied To Protected Branches and Tags *GL*
-  17. Runner Should Be Locked To The Current Project *GL*
+   - Workflows Should Not Be Allowed To Approve Pull Requests *GH*
+   - GitHub Actions Should Be Restricted To Selected Repositories *GH*
+   - Default Workflow Token Permission Should Be Read Only *GH* 
+   - GitHub Actions Should Be Limited To Verified or Explicitly Trusted Actions *GH*
+   - Fork pull requests should require approval for all outside collaborators *GH*
+   - Variable Should Be Masked *GH*
+   - Variable Should Be Protected *GL*
+   - CI Token Should Be Limited To The Current Project *GL*
+   - Pipline Visibility Should Be Set To Private *GL*
+   - Pipeline Should Use Separate Cache For Protected Branches *GL*
+   - AutoDevOps Should Be Enabled *GL*
+   - Pipeline Should Not Be Able To Approve Deployment *GL*
+   - Environment Should Be Protected *GH GL*
+   - Runner Group Should Be Limited to Private Repositories *GH*
+   - Runner Group Should Be Limited to Selected Repositories *GH*
+   - Runner Should Be Limitied To Protected Branches and Tags *GL*
+   - Runner Should Be Locked To The Current Project *GL*
 
 5. Server
 
-  1. All collaborators in the server are allowed to create public repositories *GL*
-  2. Default Group visibility is Public *GL*
-  3. Default repository group visibility is Public *GL*
-  4. Server allows access to unauthenticated users with sign-up *GL*
-  5. **[Move to Section 1?]** Two factor authentication is not globally enforced by default *GL*
-  6. Branch protection is not globally enabled by default *GL*
-  7. Collaborator has too many personal access tokens *GL*
-  8. Collaborator is not using any external authentication provider *GL*
-  9. External authentication provider is not mandatory to all users *GL*
-  10. Personal access token has no expiration *GL*
-  11. Personal access token is stale *GL*
-  12. Sign-up confirmation email is not mandatory *GL*
-  13. Unauthenticated request rate limit disabled *GL*
-  14. API request-rate is not limited *GL*
-  15. Password authentication for Git over HTTP(S) is enabled *GL*
-  16. Protected paths rate limit is disabled *GL*
-  17. Webhooks are allowed to be sent to the local network *GL*
-  18. Web request-rate is not limited *GL*
+   - All collaborators in the server are allowed to create public repositories *GL*
+   - Default Group visibility is Public *GL*
+   - Default repository group visibility is Public *GL*
+   - Server allows access to unauthenticated users with sign-up *GL*
+   - **[Move to Section 1?]** Two factor authentication is not globally enforced by default *GL*
+   - Branch protection is not globally enabled by default *GL*
+   - Collaborator has too many personal access tokens *GL*
+   - Collaborator is not using any external authentication provider *GL*
+   - External authentication provider is not mandatory to all users *GL*
+   - Personal access token has no expiration *GL*
+   - Personal access token is stale *GL*
+   - Sign-up confirmation email is not mandatory *GL*
+   - Unauthenticated request rate limit disabled *GL*
+   - API request-rate is not limited *GL*
+   - Password authentication for Git over HTTP(S) is enabled *GL*
+   - Protected paths rate limit is disabled *GL*
+   - Webhooks are allowed to be sent to the local network *GL*
+   - Web request-rate is not limited *GL*
 
 6. Hygiene Factors
 
-  1. Port Visibility Should Be Set To Private *GH*
-  2. OSSF Scorecard Score Should Be Above 7 *GH*
+   - Port Visibility Should Be Set To Private *GH*
+   - OSSF Scorecard Score Should Be Above 7 *GH*
