@@ -4,14 +4,27 @@
 
 Collaborative source code management platforms (such as GitHub and GitLab) play a critical role in modern software development, providing a central repository for storing, managing, and versioning source code as well as collaborating with a community of developers. However, they also represent a potential security risk if not properly configured. In this guide, we will explore the best practices for securing these latforms, covering topics ranging from user authentication and access control to monitoring and logging activities, and integrating security tools.
 
-## Table Of Contents
+## Recommendations
 
-1. Members, Access Control and Permissions
+### Members, Access Control and Permissions
    - Admins Should Have Activity In The Last 6 Months [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25">](github/member/stale_admin_found.md) [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">](gitlab/member/stale_admin_found.md)
    - Members Should Have Activity In The Last 6 Months <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
    - Two-Factor Authentication For Collaborators <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
    - Two-Factor Authentication For External Contributors <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
-2. Organizational Management
+
+### Organizational Management
+
+For centralizing security and billing, all organizations should be managed under one company or organizational account.
+
+The following section covers how to set up new organizations and how to configure existing organizations.
+
+General Recommendations
+- All organizations should be managed under a central account.
+- Only employees of the company can be members of organizations.
+- Two-factor authentication **must** be enabled for all organization members.
+- Access and roles for members must be managed in accordance with the organization's access control policy.
+
+Specific Recommendations
    - Default Member Permissions Should Be Restricted <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25">
    - **[Move to Section 1?]** Two-Factor Authentication Should Be Enforced For The Organization <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
    - Only Admins Should Be Able To Create Public Repositories <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25">
