@@ -122,3 +122,22 @@ Specific Recommendations
 
    - Port Visibility Should Be Set To Private <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
    - OSSF Scorecard Score Should Be Above 7 <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
+
+### Operations
+
+The following section sets out guidelines for the OSPO and operations teams responsible for managing GitHub assets.
+
+Recommendations
+- GitHub's Insights features must be utilized to track repository and organization-wide activity.
+- GitHub's audit log must be utilized to track member activity and changes to the organization.
+- Security-related policies and procedures must be reviewed and updated annually.
+- A clear communication and incident response plan must be established.
+- Regular security audits and vulnerability assessments must be conducted.
+
+Best Practices:
+- GitHub's security alerts and vulnerability scanning features should be utilized. This can be configured at the organization or repository level.
+- GitHub's Insights should be used to track repository and organization-wide activity.
+- Enable GitHub Advanced Security features for private and internal repositories to automatically set up security-related alerts for code scanning, secrets scanning and dependency review.
+- Internal tools that use GitHub APIs should be used to automate and streamline security-related tasks. This avoids granting direct and elevated privileges to GitHub organizations and repositories.
+- Self-service tools for repository and community management should be made available to maintainers for common configuration requests. This avoids giving maintainers elevated GitHub permissions while unblocking them as much as possible.
+- Automated alerts and tools for checking repository compliance should be developed and made available to maintainers. These checks should block repositories going public.
