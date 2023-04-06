@@ -7,14 +7,11 @@ Collaborative source code management platforms (such as GitHub and GitLab) play 
 ## Table Of Contents
 
 1. Members, Access Control and Permissions
-
   1. Admins Should Have Activity In The Last 6 Months [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25">](github/member/stale_admin_found.md) [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">](gitlab/member/stale_admin_found.md)
   2. Members Should Have Activity In The Last 6 Months *GH GL*
   3. Two-Factor Authentication For Collaborators *GH GL*
   4. Two-Factor Authentication For External Contributors *GH GL*
-
 2. Organizational Management
-
   1. Default Member Permissions Should Be Restricted *GH*
   2. **[Move to Section 1?]** Two-Factor Authentication Should Be Enforced For The Organization *GH GL*
   3. Only Admins Should Be Able To Create Public Repositories *GH*
