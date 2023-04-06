@@ -8,7 +8,7 @@ Collaborative source code management platforms (such as GitHub and GitLab) play 
 
 1. Members, Access Control and Permissions
 
-  1. Admins Should Have Activity In The Last 6 Months [!<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="50" width="50">](github/member/stale_admin_found.md) [GL](gitlab/member/stale_admin_found.md)
+  1. Admins Should Have Activity In The Last 6 Months [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25">](github/member/stale_admin_found.md) [GL](gitlab/member/stale_admin_found.md)
   2. Members Should Have Activity In The Last 6 Months *GH GL*
   3. Two-Factor Authentication For Collaborators *GH GL*
   4. Two-Factor Authentication For External Contributors *GH GL*
