@@ -46,7 +46,8 @@ Specific Recommendations
    - Reject Pushing Secret File Should Be Enabled <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
    - Group Shouldn't Forward Package Requsts To Public Registries If Not Found Locally <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
 
-3. Repository configuration
+### Repository configuration
+
    - Forking Should Not Be Allowed for This Repository <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
    - Default Branch Should Require All Checks To Pass Before Merge <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
    - Webhooks Should Be Configured To Use SSL <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
@@ -74,7 +75,7 @@ Specific Recommendations
    - Prevent Pushing Secret File Should Be Enabled <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
    - Should Prevent Approval By Author <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
 
-4. Continuous Integration / Continuous Deployment 
+###. Continuous Integration / Continuous Deployment 
 
    - Workflows Should Not Be Allowed To Approve Pull Requests <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25">
    - GitHub Actions Should Be Restricted To Selected Repositories <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25">
@@ -94,7 +95,7 @@ Specific Recommendations
    - Runner Should Be Limitied To Protected Branches and Tags <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
    - Runner Should Be Locked To The Current Project <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
 
-5. Server
+###. Server
 
    - All collaborators in the server are allowed to create public repositories <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
    - Default Group visibility is Public <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
@@ -115,7 +116,7 @@ Specific Recommendations
    - Webhooks are allowed to be sent to the local network <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
    - Web request-rate is not limited <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">
 
-6. Hygiene Factors
+###. Hygiene Factors
 
    - Port Visibility Should Be Set To Private <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25">
    - OSSF Scorecard Score Should Be Above 7 <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25">
