@@ -7,35 +7,35 @@ Collaborative source code management platforms (such as GitHub and GitLab) play 
 ## Table Of Contents
 
 1. Members, Access Control and Permissions
-  1.1. Admins Should Have Activity In The Last 6 Months [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25">](github/member/stale_admin_found.md) [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">](gitlab/member/stale_admin_found.md)
-  1.2. Members Should Have Activity In The Last 6 Months *GH GL*
-  1.3. Two-Factor Authentication For Collaborators *GH GL*
-  1.4. Two-Factor Authentication For External Contributors *GH GL*
+  1. Admins Should Have Activity In The Last 6 Months [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="25" width="25">](github/member/stale_admin_found.md) [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="25" width="25">](gitlab/member/stale_admin_found.md)
+  2. Members Should Have Activity In The Last 6 Months *GH GL*
+  3. Two-Factor Authentication For Collaborators *GH GL*
+  4. Two-Factor Authentication For External Contributors *GH GL*
 2. Organizational Management
-  2.1. Default Member Permissions Should Be Restricted *GH*
-  2.2. **[Move to Section 1?]** Two-Factor Authentication Should Be Enforced For The Organization *GH GL*
-  2.3. Only Admins Should Be Able To Create Public Repositories *GH*
-  2.4. Organization Should Use Single-Sign-On *GH&
-  2.5. Webhooks Should Be Configured To Use SSL *GH GL*
-  2.6. Webhooks Should Be Configured With A Secret *GH*
-  2.7. **[move to repo config?]** Forking of Repositories to External Namespaces Should Be Disabled. *GL*
-  2.8. Group Should Enforce Branch Protection *GL*
-  2.9. Member Default Repository Permission Should be None *GH*
-  2.10. Member Should Be Able To Create Only Private Repositories *GH*
-  2.11. **[move to repo config?]** Should Not Enable Forking Of Private And Internal Repositoreis *GH*
-  2.12. Should Not Enable Repository Admin To Invite Outside Collaborators *GH*
-  2.13. Member Should Be Able To Create Only Private Github Pages *GH*
-  2.14. Member Should Be Able Only Private and Internal Packages *GH*
-  2.15. Package Should Inherit Access From Source Repository *GH*
-  2.16. Secret Scanning Should Be Enabled For All Repositories *GH*
-  2.17. **Dependencey Monitoring** Should Be Enabled For All Repositories *GH* (& GL?)
-  2.18. Default Branch Should Be Fully Protected *GL*
-  2.19. Reject Pushing Secret File Should Be Enabled *GL*
-  2.20. Group Shouldn't Forward Package Requsts To Public Registries If Not Found Locally *GL*
+  1. Default Member Permissions Should Be Restricted *GH*
+  2. **[Move to Section 1?]** Two-Factor Authentication Should Be Enforced For The Organization *GH GL*
+  3. Only Admins Should Be Able To Create Public Repositories *GH*
+  4. Organization Should Use Single-Sign-On *GH&
+  5. Webhooks Should Be Configured To Use SSL *GH GL*
+  6. Webhooks Should Be Configured With A Secret *GH*
+  7. **[move to repo config?]** Forking of Repositories to External Namespaces Should Be Disabled. *GL*
+  8. Group Should Enforce Branch Protection *GL*
+  9. Member Default Repository Permission Should be None *GH*
+  10. Member Should Be Able To Create Only Private Repositories *GH*
+  11. **[move to repo config?]** Should Not Enable Forking Of Private And Internal Repositoreis *GH*
+  12. Should Not Enable Repository Admin To Invite Outside Collaborators *GH*
+  13. Member Should Be Able To Create Only Private Github Pages *GH*
+  14. Member Should Be Able Only Private and Internal Packages *GH*
+  15. Package Should Inherit Access From Source Repository *GH*
+  16. Secret Scanning Should Be Enabled For All Repositories *GH*
+  17. **Dependencey Monitoring** Should Be Enabled For All Repositories *GH* (& GL?)
+  18. Default Branch Should Be Fully Protected *GL*
+  19. Reject Pushing Secret File Should Be Enabled *GL*
+  20. Group Shouldn't Forward Package Requsts To Public Registries If Not Found Locally *GL*
 
 3. Repository configuration
 
-  3.1. Forking Should Not Be Allowed for This Repository *GH GL*
+  1. Forking Should Not Be Allowed for This Repository *GH GL*
   2. Default Branch Should Require All Checks To Pass Before Merge *GH GL*
   3. Webhooks Should Be Configured To Use SSL *GH GL*
   4. Repository Should Be Updated At Least Quarterly *GH GL*
