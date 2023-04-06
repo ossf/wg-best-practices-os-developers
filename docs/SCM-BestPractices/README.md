@@ -1,4 +1,4 @@
-# Source Code Management Platform Configuration Best PrAactices
+# Source Code Management Platform Configuration Best Practices
 
 ## Intro
 
