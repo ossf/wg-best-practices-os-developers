@@ -12,7 +12,10 @@ Here is a concise guide for all software developers for software development, bu
 8. **Keep dependencies reasonably up-to-date**. Otherwise, it’s hard to update for vulnerabilities.
 9. **Do not push secrets to a repository**. Use tools to detect pushing secrets to a repository.
 10. **Review before accepting changes**. Enforce it, e.g., [GitHub](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches) or [GitLab](https://docs.gitlab.com/ee/user/project/protected_branches.html) protected branches.
-11. **Prominently document how to report vulnerabilities & prepare for them**. Use resources like the [Guide to coordinated vulnerability disclosure](https://github.com/ossf/oss-vulnerability-guide). Create a [security policy](https://github.com/ossf/oss-vulnerability-guide/tree/main/templates/security_policies). Provide contacts.
+11. **Prominently document how to report vulnerabilities & prepare for them**.
+    - Use resources like the [Guide to coordinated vulnerability disclosure](https://github.com/ossf/oss-vulnerability-guide).
+    - [Explicitly disclose security issues affecting vendored dependencies](Vendored-Dependencies-Guide.md).
+    - Create a [security policy](https://github.com/ossf/oss-vulnerability-guide/tree/main/templates/security_policies). Provide contacts.
 12. **Make it easy for your users to update**. Implement stable APIs, e.g., support old names when new ones are added. Use semantic versioning. Have a deprecation process.
 13. **Sign your project’s important releases**. Use standard tools and signing formats for your distribution. See the [cosign tool](https://docs.sigstore.dev/cosign/overview) from the [sigstore project](https://www.sigstore.dev/) to sign containers and other artifacts.
 14. [**Earn an OpenSSF Best Practices badge**](https://bestpractices.coreinfrastructure.org/) for your open source project. At least earn “passing”. Plan and roadmap to eventually earn silver & gold.

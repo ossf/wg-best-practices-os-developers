@@ -12,7 +12,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 
 ~~~~sh
 -O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Werror \
--D_FORTIFY_SOURCE=2 \
+-D_FORTIFY_SOURCE=3 \
 -fno-delete-null-pointer-checks \
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,nodump -Wl,-z,noexecstack -Wl,-z,noexecheap \
@@ -85,13 +85,12 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | [`-Wconversion`](#-Wconversion)<br/>[`-Wsign-conversion`](#-Wsign-conversion) | GCC 2.95.3<br/>Clang 4.0 | Enable implicit conversion warnings                                                 |
 | [`-Wtrampolines`](#-Wtrampolines)                                             |         GCC 4.3          | Enable warnings about trampolines that require executable stacks                    |
 | [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Make compiler warnings into errors                                                  |
-| [`-D_FORTIFY_SOURCE=1`](#-D_FORTIFY_SOURCE=1) <br/>(requires `-O1` or higher) | GCC 4.0<br/>Clang 5.0.0[^1]  | Fortify sources with compile-time checks for unsafe libc usage and buffer overflows |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
 
 | Compiler Flag                                                                             |            Supported by            | Description                                                                                  |
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
-| [`-D_FORTIFY_SOURCE=2`](#-D_FORTIFY_SOURCE=2) <br/>(requires `-O1` or higher)             |      GCC 4.0<br/>Clang 5.0.0       | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows |
+| [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^1]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. See details for different levels of fortification. |
 | [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                                   |                                    | Force retention of null pointer checks                                         |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity                           |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows                                      |
@@ -101,7 +100,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable.                                                    |
 | [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6<br/>Clang 5.0.0[^1] | Build as position-independent code.                                                          |
 
-[^1]: The implementation of `-D_FORTIFY_SOURCE={1,2}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) and but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile does not benefit from the fortified function variants in glibc. For more information see: Guelton, Serge. Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer.
+[^1]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) and but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge. Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer.
  <https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc> and
  Poyarekar, Siddhesh. D91677 Avoid simplification of library functions when callee has an implementation. (LLVM Phabricator) <https://reviews.llvm.org/D91677>
 
@@ -213,37 +212,47 @@ For example, developers can decide to promote warnings that indicate interferenc
 
 | Compiler Flag                                                                              | Supported by            | Description                                                                                  |
 | ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
-| <span id="-D_FORTIFY_SOURCE=1">`-D_FORTIFY_SOURCE=1`</span>                                | GCC 4.0<br/>Clang 5.0.0     | Fortify sources with compile--time checks for unsafe libc usage and buffer overflows         |
-| <span id="-D_FORTIFY_SOURCE=2">`-D_FORTIFY_SOURCE=2`</span><br/>(requires `-O1` or higher) | GCC 4.0<br/>Clang 5.0.0[^1] | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows |
+| <span id="-D_FORTIFY_SOURCE=1">`-D_FORTIFY_SOURCE=1`</span>                                | GCC 4.0<br/>Clang 5.0.0     | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows         |
+| <span id="-D_FORTIFY_SOURCE=2">`-D_FORTIFY_SOURCE=2`</span><br/>(requires `-O1` or higher) | GCC 4.0<br/>Clang 5.0.0[^1] | In addition to checks covered by `-D_FORTIFY_SOURCE=1`, also trap code that may be conforming to the C standard but still unsafe |
+| <span id="-D_FORTIFY_SOURCE=3">`-D_FORTIFY_SOURCE=3`</span><br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^1] | Same checks as in `-D_FORTIFY_SOURCE=2`, but with significantly more calls fortified with a potential to impact performance in some rare cases |
 
 #### Synopsis
 
-The `_FORTIFY_SOURCE` macro enables a set of extension to the GNU C library (glibc) that will make the compiler automatically add buffer overflow checks to calls to the following functions:  
+The `_FORTIFY_SOURCE` macro enables a set of extensions to the GNU C library (glibc) that enable checking at entry points of a number of functions to immediately abort execution when it encounters unsafe behavior. A key feature of this checking is validation of objects passed to these function calls to ensure that the call will not result in a buffer overflow. This relies on the compiler being able to compute the size of the protected object at compile time. A full list of these functions is maintained in the GNU C Library manual[^28]:
 
 > memcpy, mempcpy, memmove, memset, strcpy, stpcpy, strncpy, strcat, strncat, sprintf, vsprintf, snprintf, vsnprintf, gets
 
-The `_FORTIFY_SOURCE` mechanisms have two modes of operation:
+The `_FORTIFY_SOURCE` mechanisms have three modes of operation:
 
-- `-D_FORTIFY_SOURCE=1`: conservative, compile-time checks only; will not change (defined) behavior of programs  
-- `-D_FORTIFY_SOURCE=2`: stricter checks that also detect buffer overflows at run time; may affect program behavior by disallowing certain programming constructs.
+- `-D_FORTIFY_SOURCE=1`: conservative, compile-time and runtime checks; will not change (defined) behavior of programs. Checking for overflows is enabled when the compiler is able to estimate a compile time constant size for the protected object.
+- `-D_FORTIFY_SOURCE=2`: stricter checks that also detect behavior that may be unsafe even though it conforms to the C standard; may affect program behavior by disallowing certain programming constructs. An example of such checks is restricting of the `%n` format specifier to read-only format strings.
+- `-D_FORTIFY_SOURCE=3`: Same checks as those covered by `-D_FORTIFY_SOURCE=3` except that checking is enabled even when the compiler is able to estimate the size of the protected object as an expression, not just a compile time constant.
 
 To benefit from `_FORTIFY_SOURCE` checks following requirements must be met:  
 
-- the application must be built with -O1 optimizations or higher
-- the sizes of the destination buffers must be known at compile time, and
-- the application code must use glibc versions of the aforementioned functions (included with `<stdio.h>` and `<string.h>`)
+- the application must be built with `-O1` optimizations or higher; at least `-O2` is recommended.
+- the compiler should be able to estimate sizes of the destination buffers at compile time. This can be facilitated by applications and libraries by using function attribute extensions supported by GCC and Clang[^29].
+- the application code must use glibc versions of the aforementioned functions (included with standard headers, e.g. `<stdio.h>` and `<string.h>`)
 
-If checks added by `_FORTIFY_SOURCE=2` detect unsafe behavior at run-time they will print an error message, backtrace and terminate the application.
+If checks added by `_FORTIFY_SOURCE` detect unsafe behavior at run-time they will print an error message and terminate the application.
 
 #### Performance implications
 
-`_FORTIFY_SOURCE=1` adds compile-time checks only and has no run-time performance impact. `_FORTIFY_SOURCE=2` is expected to have a negligible run-time performance impact (~0.1% ).
+Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligible run-time performance impact (~0.1% ).
 
 #### When not to use?
 
-`_FORTIFY_SOURCE` is recommended for all application that depend on glibc.
+`_FORTIFY_SOURCE` is recommended for all application that depend on glibc and should be widely deployed. Most packages in all major Linux distributions enable at least `_FORTIFY_SOURCE=2` and some even enable `_FORTIFY_SOURCE=3`. There are a couple of situations when `_FORTIFY_SOURCE` may break existing applications:
 
-However, when enabling `_FORTIFY_SOURCE=2` in existing code bases regression testing should be used to ensure the run-time checks do not adversely affect existing features.
+- If the fortified glibc function calls show up as hotspots in your application performance profile, there is a chance that `_FORTIFY_SOURCE` may have a negative performance impact. This is not a common or widespread slowdown[^29] but worth keeping in mind if slowdowns are observed due to this option
+- Applications that use the GNU extension for flexible array members in structs[^30] may confuse the compiler into thinking that an object is smaller than it actually is, resulting in spurious aborts. The safe resolution for this is to port these uses to C99 flexible arrays but if that is not possible (e.g. due to the need to support a compiler that does not support C99 flexible arrays), one may need to downgrade or disable `_FORTIFY_SOURCE` protections.
+
+[^28]: Source Fortification in the GNU C Library
+<https://www.gnu.org/software/libc/manual/2.37/html_node/Source-Fortification.html>
+[^29]: How to improve application security using _FORTIFY_SOURCE=3
+<https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3>
+[^30]: Arrays of Length Zero
+<https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/arrays-of-length-zero.html>
 
 ---
 
