@@ -90,7 +90,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | Compiler Flag                                                                             |            Supported by            | Description                                                                                  |
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
 | [`-D_FORTIFY_SOURCE=2`](#-D_FORTIFY_SOURCE=2) <br/>(requires `-O1` or higher)             |      GCC 4.0<br/>Clang 5.0.0       | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows |
-| [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT)                                         |      libstdc++ 6.0<br/>libc++ 3.3.0              | (C++ only) Run-time bounds checking for C++ strings and containers; can impact performance.  |
+| [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT)                                         |      libstdc++ 6.0<br/>libc++ 3.3.0              | Precondition checks for C++ standard library calls (C++ only) |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity                           |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows                                      |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen)<br/>[`-Wl,-z,nodump`](#-Wl,-z,nodump)               |           Binutils 2.10            | Restrict `dlopen(3)` and `dldump(3)` calls to shared objects                                 |
@@ -245,11 +245,11 @@ However, when enabling `_FORTIFY_SOURCE=2` in existing code bases regression tes
 
 ---
 
-### Run-time bounds checking for C++ strings and containers
+### Precondition checks for C++ standard library calls
 
 | Compiler Flag                                                                              | Supported by            | Description                                                                                  |
 | ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
-| <span id="-D_GLIBCXX_ASSERTIONS">`-D_GLIBCXX_ASSERTIONS`</span>                            | libstdc++ 6.0       | (C++ using libcstdc++ only) Run-time bounds checking for C++ strings and containers; can impact performance.  |
+| <span id="-D_GLIBCXX_ASSERTIONS">`-D_GLIBCXX_ASSERTIONS`</span>                            | libstdc++ 6.0           | (C++ using libcstdc++ only) Precondition checks for libstdc++ calls; can impact performance. |
 | <span id="-D_LIBCPP_ASSERT">`-D_LIBCPP_ASSERT`</span>                                      | libc++ 3.3.0       | (C++ using libc++ only) Constant-time precondition checks for libc++ calls. |
 
 #### Synopsis
