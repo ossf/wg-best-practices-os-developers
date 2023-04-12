@@ -91,7 +91,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | Compiler Flag                                                                             |            Supported by            | Description                                                                                  |
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
 | [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^1]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. See details for different levels of fortification. |
-| [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                                   |                                    | Force retention of null pointer checks                                         |
+| [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                     | GCC 3.0                            | Force retention of null pointer checks                                                       |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity                           |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows                                      |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen)<br/>[`-Wl,-z,nodump`](#-Wl,-z,nodump)               |           Binutils 2.10            | Restrict `dlopen(3)` and `dldump(3)` calls to shared objects                                 |
@@ -260,8 +260,7 @@ Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligib
 
 | Compiler Flag                                                         |      Supported by      | Description                                                                                   |
 |:--------------------------------------------------------------------- |:----------------------:|:--------------------------------------------------------------------------------------------- |
-| <span id="-fno-delete-null-pointer-checks">`-fno-delete-null-pointer-checks`</span> |                        | Force retention of null pointer checks                                                        |
-
+| <span id="-fno-delete-null-pointer-checks">`-fno-delete-null-pointer-checks`</span> | GCC 3.0                | Force retention of null pointer checks                                                        |
 #### Synopsis
 
 In some cases the compiler may not generate code for a null pointer check
