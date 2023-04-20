@@ -294,10 +294,10 @@ Impacts of [up to 6% on performance have been reported](https://gitlab.psi.ch/OP
 
 These options are unnecessary for security for applications in production that only handle completely trusted data.
 
-[^libstdc++_macros]: The GNU C++ Library: Using Macros. https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_macros.html
-[^Clow19]: Marshall Clow. Hardening the C++ standard template library. C++ Russia 2019. https://www.youtube.com/watch?v=1iHs_K2HpGo&t=990s
-[^Wakely15]: Jonathan Wakely. Enable lightweight checks with _GLIBCXX_ASSERTIONS. GCC Mailing List, Sept. 7, 2015. https://patchwork.ozlabs.org/project/gcc/patch/20150907182755.GP2631@redhat.com/
-[^Dionne22]: Loius Dionne. Audit all uses of _LIBCPP_ASSERT and _LIBCPP_DEBUG_ASSERT. https://github.com/llvm/llvm-project/commit/c87c8917e3662532f0aa75a91caea857c093f8f4
+[^libstdc++_macros]: Free Software Foundation, [Using Macros in the GNU C++ Library](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_macros.html), The GNU C++ Library Manual
+[^Clow19]: Marshall Clow, [Hardening the C++ standard template library](https://www.youtube.com/watch?v=1iHs_K2HpGo&t=990s), C++ Russia 2019
+[^Wakely15]: Jonathan Wakely, [Enable lightweight checks with _GLIBCXX_ASSERTIONS](https://patchwork.ozlabs.org/project/gcc/patch/20150907182755.GP2631@redhat.com/), GCC Mailing List, 2015-09-07
+[^Dionne22]: Loius Dionne, [Audit all uses of \_LIBCPP_ASSERT and \_LIBCPP_DEBUG_ASSERT](https://github.com/llvm/llvm-project/commit/c87c8917e3662532f0aa75a91caea857c093f8f4)
 
 ---
 
