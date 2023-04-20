@@ -89,20 +89,6 @@ There are many great projects both within and outside the Foundation that compli
 - _SLSA Supply-chain Levels for Software Artifacts_ - <https://github.com/slsa-framework/slsa>
   - Purpose - A security framework from source to service, giving anyone working with software a common language for increasing levels of software security and supply chain integrity
 
-## Get Involved
-
-Anyone is welcome to join our open discussions related to the group's mission and charter.
-
-- [2023 Meeting Notes](https://docs.google.com/document/d/1x-fMIt6ZIV6SM-M29xEVKeB505GbDzSIVXg-8uF_FQU/edit#)
-- [2022 Meeting Minutes](https://docs.google.com/document/d/1ttqkcYPmYZyqvtkaHs92bx2UeVUiXDhuzP-0WbP11Fw/edit#)
-- [Historic Group Notes 1](https://github.com/ossf/wg-best-practices-oss-developers/blob/main/meeting-minutes.md)
-- [Historic Notes 2021](https://docs.google.com/document/d/1sJhaZxG_9Wb2Sg6a4KxqnIvo_to5OkhMkbBk_7UqtEc/edit#heading=h.cbmnhvjm63mj)
-- [Recent WG report to the TAC on activities and project statuses](https://docs.google.com/presentation/d/19O_yexAYMF0UR2RczjvZwcHy-88NemJHV0B4B0WLJ1I)
-- [Discussions](https://github.com/ossf/wg-best-practices-os-developers/discussions)
-- Official communications occur on the Best Practices [mailing list](https://lists.openssf.org/g/openssf-wg-best-practices)
-- [Manage your subscriptions to Open SSF mailing lists](https://lists.openssf.org/g/main/subgroups)
-- Join the conversation on [Slack](https://openssf.slack.com/archives/C01AHCRP8BT)
-
 ## Quick Start
 
 ### Areas that need contributions
@@ -113,9 +99,41 @@ Anyone is welcome to join our open discussions related to the group's mission an
 
 - Issues can be reviewed and filed [here](https://github.com/ossf/wg-best-practices-os-developers/issues)
 
+
+## Get Involved
+
+Anyone is welcome to join our open discussions related to the group's mission and charter.
+
+- [2023 Meeting Notes](https://docs.google.com/document/d/1x-fMIt6ZIV6SM-M29xEVKeB505GbDzSIVXg-8uF_FQU/edit#)
+- [2022 Meeting Minutes](https://docs.google.com/document/d/1ttqkcYPmYZyqvtkaHs92bx2UeVUiXDhuzP-0WbP11Fw/edit#)
+- [Historic Group Notes 1](https://github.com/ossf/wg-best-practices-oss-developers/blob/main/meeting-minutes.md)
+- [Historic Notes 2021](https://docs.google.com/document/d/1sJhaZxG_9Wb2Sg6a4KxqnIvo_to5OkhMkbBk_7UqtEc/edit#heading=h.cbmnhvjm63mj)
+- [Recent WG report to the TAC on activities and project statuses](https://docs.google.com/presentation/d/1n_zaIdwaG7Tv1UA0ZPnxl0Z7sFenKt7aB2A1vfMtgjc/edit#slide=id.g13dc63f7ee3_0_114)
+- [Discussions](https://github.com/ossf/wg-best-practices-os-developers/discussions)
+- Official communications occur on the Best Practices [mailing list](https://lists.openssf.org/g/openssf-wg-best-practices)
+- [Manage your subscriptions to Open SSF mailing lists](https://lists.openssf.org/g/main/subgroups)
+- Join the conversation on [Slack](https://openssf.slack.com/archives/C01AHCRP8BT)
+
+
 ## Meeting times
 
 Every 2 weeks, Tuesday 10am EST. The meeting invite is available on the [public OSSF calendar](https://calendar.google.com/calendar?cid=czYzdm9lZmhwNWk5cGZsdGI1cTY3bmdwZXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)
+
+
+| Effort       |    Meeting Times                                         |    Meeting Notes/Agenda    |       Git Repo        | Slack Channel | Mailing List |
+| :----------: | :------------------------------------------------------: | :------------------------: | :-------------------: | :-----------: | :----------: |
+|   Full WG    | Every 2nd Tuesday 7:00a PT/10:00a ET/1400 UTC   | [Meeting Notes](https://docs.google.com/document/d/1x-fMIt6ZIV6SM-M29xEVKeB505GbDzSIVXg-8uF_FQU/edit#heading=h.o9i5dy8de481)           |  [Git Repo](https://github.com/ossf/wg-best-practices-os-developers) | [Slack](https://openssf.slack.com/archives/C01AHCRP8BT) | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) |
+| Concise Guides - C/C++ Compiler Hardening Options | Occurs every 2nd Wednesday 6:00a PT/9:00a ET/1400 UTC | [Meeting Notes](https://docs.google.com/document/d/1x-fMIt6ZIV6SM-M29xEVKeB505GbDzSIVXg-8uF_FQU/edit#heading=h.o9i5dy8de481)           |  [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Compiler_Hardening_Guides/Compiler-Options-Hardening-Guide-for-C-and-C%2B%2B.md) | [Slack](https://openssf.slack.com/archives/C01AHCRP8BT) | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) |
+| Concise Guides - Source Code Management Best Practices | Occurs every 2nd Thursday 7:00a PT/10:00a ET/1400 UTC  | [Meeting Notes](https://docs.google.com/document/d/1x-fMIt6ZIV6SM-M29xEVKeB505GbDzSIVXg-8uF_FQU/edit#heading=h.o9i5dy8de481)           |  [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/SCM-BestPractices) | [Slack](https://openssf.slack.com/archives/C01AHCRP8BT) | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) |
+|   EDU.SIG   | Occurs every 2nd Wednesday 6:00a PT/9:00a ET/1400 UTC   | [Meeting Notes](https://docs.google.com/document/d/18GBwvQJNcPnwxKrnp43DhBZC7K1JM0xzGkDoKh5mu8U/edit#heading=h.9m0zi4b0wnne)                       |  [Git Repo](https://github.com/ossf/education) | [Slack](https://openssf.slack.com/archives/C03FW3YGXH9) | [Mailing List](https://lists.openssf.org/g/openssf-sig-education) |
+|   EDU.SIG - DEI Subcommittee  | Occurs every 2nd Tuesday 8:00a PT/11:00a ET/1600 UTC   | [Meeting Notes](https://docs.google.com/document/d/1LdQ07veOcJ596Vo3aQZCFy-HHeEO7cHnbE_6u_uq9Fk/edit#heading=h.9m0zi4b0wnne)                       |  [Git Repo](https://github.com/ossf/education) | [Slack](https://openssf.slack.com/archives/C04FMD5HSC9) | [Mailing List](https://lists.openssf.org/g/openssf-sig-education-dei) |
+|  Memory Safety SIG   | Every 2nd Thursday 10:00a PT/1:00p ET/1500 UTC           | [Meeting Notes](https://docs.google.com/document/d/1Ehpp1UmAIqMs0ZdKr15sd5MS48OeaGKB9H40htVehs4/edit?usp=sharing)                       |  [Git Repo](https://github.com/ossf/Memory-Safety) | [Slack](https://openssf.slack.com/archives/C03G8NZH58R) | [Mailing List](https://lists.openssf.org/g/openssf-sig-memory-safety) |
+|  Scorecard  | Occurs every 2nd Thursday 1:00p PT/4:00p ET/1800 UTC    | [Meeting Notes](https://docs.google.com/document/d/1dB2U7_qZpNW96vtuoG7ShmgKXzIg6R5XT5Tc-0yz6kE/edit%23&sa=D&source=calendar&usd=2&usg=AOvVaw0dlm9r67uXVvpla6TQtT28 )           |  [Git Repo](https://github.com/ossf/scorecard) | [Slack](https://openssf.slack.com/archives/C0235AR8N2C ) | [Mailing List]( ) |
+|  Security Knowledge Framework -  SKF  | TBD   | [Meeting Notes]( )           |  [Git Repo]( ) | [Slack](https://openssf.slack.com/archives/C04B7EZLTM1) | [Mailing List]( ) |
+
+
+
+
 
 ## Governance
 
@@ -123,53 +141,51 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 
 - Lead - [Christopher "CRob" Robinson](https://github.com/SecurityCRob)
 - Co-Lead - [Xavier René-Corail](https://github.com/xcorail)
+- "*" denotes a project/SIG lead
 
 ### Project Maintainers
 
-- [Christopher "CRob" Robinson, Intel](https://github.com/SecurityCRob)
+- [Christopher "CRob" Robinson*, Intel](https://github.com/SecurityCRob)
 - [Xavier René-Corail, GitHub](https://github.com/xcorail)
 - [David A Wheeler, LF/OSSF](https://github.com/david-a-wheeler)
-- [Dave Russo, Red Hat](https://github.com/drusso-rh)
+- [Dave Russo*, Red Hat](https://github.com/drusso-rh)
 
 ### Project Collaborators
-- [Christine Abernathy, F5](https://github.com/caabernathy)
-- [Daniel Applequist, Snyk](https://github.com/Torgo)
+
+- [Christine Abernathy*, F5](https://github.com/caabernathy)
+- [Daniel Applequist*, Snyk](https://github.com/Torgo)
 - Avishay Balter, Microsoft
 - [Jeffrey Borek, IBM](https://github.com/jtborek)
 - [VM Brasseur, WiPro](https://github.com/)
-- [Glenn ten Cate, OWASP/SKF](https://github.com/)
+- [Glenn ten Cate*, OWASP/SKF](https://github.com/)
 - [Judy Kelly, Red Hat](https://github.com/judyobrienie)
-- Georg Kunz,Ericsson
+- [Georg Kunz, Ericsson](https://github.com/gkunz)
 - [Arnaud J Le Hors, IBM](https://github.com/lehors)
 - [Matt Rutkowski, IBM](https://github.com/mrutkows)
 - [Marta Rybczynska, Syslinbit](https://github.com/mrybczyn)
-- Yotam Perkal,Rezilion
+- Yotam Perkal, Rezilion
 - [Eric Tice, WiPro](https://github.com/)
-- [Randall T. Vasquez, Gentoo/Homebrew](https://github.com/ran-dall)
+- [Randall T. Vasquez*, Gentoo/Homebrew](https://github.com/ran-dall)
 - [Jay White, Microsoft](https://github.com/camaleon2016)
 
-
-
 ### Project Contributors
+
 - Aeva Black, Microsoft
 - Jory Burson, Linux Foundation
 - Rosaria Carr, Indeed
 - Riccardo ten Cate, SKF
-- Spyros Gasteratos, OWASP/CRE
+- Spyros Gasteratos*, OWASP/CRE
 - Sami Guirguis, TELUS
-- Jonathan Leitschuh, Dan Kaminsky Fellowship @ Human Security
+- Jonathan Leitschuh*, Dan Kaminsky Fellowship @ Human Security
 - Jeff Mendoza, Google
 - Kara Olive, Google
-- Laurent Simon, Google/Scorecard
-- Azeem Shaikh, Google/Scorecard
+- Laurent Simon*, Google/Scorecard
+- Azeem Shaikh*, Google/Scorecard
 - Harimohan Rajamohanan, Wipro
 - Ixchel Ruiz, jfrog
 - Patricia Tarro, Dell
-
-
-
-
-
+- [Thomas Nyman*, Ericsson](https://github.com/thomasnyman)
+- Noam Dotan, Legit Security
 
 ## Licenses
 
