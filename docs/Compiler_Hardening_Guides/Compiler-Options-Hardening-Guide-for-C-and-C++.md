@@ -13,6 +13,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 ~~~~sh
 -O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Werror \
 -D_FORTIFY_SOURCE=3 \
+-D_GLIBCXX_ASSERTIONS \
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,nodump -Wl,-z,noexecstack -Wl,-z,noexecheap \
 -Wl,-z,relro -Wl,-z,now \
@@ -96,6 +97,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | Compiler Flag                                                                             |            Supported by            | Description                                                                                  |
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
 | [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^1]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. See details for different levels of fortification. |
+| [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls (C++ only)                                |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity                           |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows                                      |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen)<br/>[`-Wl,-z,nodump`](#-Wl,-z,nodump)               |           Binutils 2.10            | Restrict `dlopen(3)` and `dldump(3)` calls to shared objects                                 |
@@ -168,7 +170,7 @@ Check for implicit conversions that may alter a value such as:
 - conversion between data types of different size
 - confusing overload resolution for user-defined conversions in C++
 - conversions that never use a type conversion operator in C++:
-    conversions to void, the same type, a base class or a reference  
+    conversions to void, the same type, a base class or a reference.
 
 Conversion between data types that cause the value of the data to be altered can cause   information to be omitted or translated in a way that produces unexpected values.
 
@@ -257,6 +259,45 @@ Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligib
 <https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3>
 [^30]: Arrays of Length Zero
 <https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/arrays-of-length-zero.html>
+
+---
+
+### Precondition checks for C++ standard library calls
+
+| Compiler Flag                                                                              | Supported by            | Description                                                                                  |
+| ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
+| <span id="-D_GLIBCXX_ASSERTIONS">`-D_GLIBCXX_ASSERTIONS`</span>                            | libstdc++ 6.0           | (C++ using libcstdc++ only) Precondition checks for libstdc++ calls; can impact performance. |
+| <span id="-D_LIBCPP_ASSERT">`-D_LIBCPP_ASSERT`</span>                                      | libc++ 3.3.0       | (C++ using libc++ only) Constant-time precondition checks for libc++ calls. |
+
+#### Synopsis
+
+The C++ standard library implementations in GCC (libstdc++) and LLVM (libc++) provide run-time precondition checks for C++ standard library calls, such as bounds-checks for C++ strings and containers, and null-pointer checks when dereferencing smart pointers.
+
+These precondition checks can be enabled by defining the corresponding pre-processor macros in when compiling C++ code that calls into libstdc++ or libc++:
+
+- The `-D_GLIBCXX_ASSERTIONS` macro enables precondition checks for libstdc++[^libstdc++_macros].  
+  It can only affect C++ code that uses GCC’s libstdc++.
+- The `-D_LIBCPP_ASSERT` macro enables precondition checks for libc++[^Clow19].  
+  It can only affect C++ code that uses LLVM’s libc++.
+
+#### Performance implications
+
+Most calls into the C++ standard library have preconditions. Some preconditions can be checked in constant-time, others are more expensive.
+Both `-D_GLIBCXX_ASSERTIONS` and `-D_LIBCPP_ASSERT` are intended to enable only lightweight[^Wakely15], i.e., constant-time checks[^Dionne22] but the exact behavior can differ between standard library versions .
+
+The `-D_GLIBCXX_ASSERTIONS` macro can have a non-trivial impact on performance.
+Impacts of [up to 6% on performance have been reported](https://gitlab.psi.ch/OPAL/src/-/merge_requests/468).
+
+#### When not to use?
+
+`-D_GLIBCXX_ASSERTIONS` and `-D_LIBCPP_ASSERT` are recommended for C++ applications that may handle untrusted data, as well as for any C++ application during testing.
+
+These options are unnecessary for security for applications in production that only handle completely trusted data.
+
+[^libstdc++_macros]: Free Software Foundation, [Using Macros in the GNU C++ Library](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_macros.html), The GNU C++ Library Manual
+[^Clow19]: Marshall Clow, [Hardening the C++ standard template library](https://www.youtube.com/watch?v=1iHs_K2HpGo&t=990s), C++ Russia 2019
+[^Wakely15]: Jonathan Wakely, [Enable lightweight checks with _GLIBCXX_ASSERTIONS](https://patchwork.ozlabs.org/project/gcc/patch/20150907182755.GP2631@redhat.com/), GCC Mailing List, 2015-09-07
+[^Dionne22]: Loius Dionne, [Audit all uses of \_LIBCPP_ASSERT and \_LIBCPP_DEBUG_ASSERT](https://github.com/llvm/llvm-project/commit/c87c8917e3662532f0aa75a91caea857c093f8f4)
 
 ---
 
