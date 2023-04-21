@@ -1,6 +1,6 @@
 # Compiler Options Hardening Guide for C and C++
 
-This document is intended as a general overview of compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++. The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
+This document is a guide for compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++. The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
 
 Hardened compiler options should also produce applications that integrate well with existing platform security features in modern operating systems (OSs). Effectively configuring the compiler options also has several benefits during development such as enhanced compiler warnings, static analysis, and debug instrumentation.
 
@@ -9,22 +9,25 @@ This document is intended for:
 * Those who write C/C++ code, to help them ensure that resulting code will work with hardened options.
 * Those who build C/C++ code for use in production environments, This includes Linux distributions, device makers, and those who compile C/C++ for their local environment.
 
-This document focuses on recommended options for the GNU Compiler Collection (GCC) and clang, and we expect to expand it to cover compilers that have similar options (such as the Intel C++ compiler).
+This document focuses on recommended options for the GNU Compiler Collection (GCC) and clang, and we expect to expand it to cover compilers that have similar option syntax (such as the Intel C++ compiler).
 
 **TL;DR: What compiler options should I use?**
 
 When compiling C or C++ code on compilers such as GCC and clang, turn on these flags for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
 
 ~~~~sh
--Wall -Wformat=2 -Wconversion -Wtrampolines -Werror \
--D_FORTIFY_SOURCE=2 \
+-O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Werror \
+-D_FORTIFY_SOURCE=3 \
+-D_GLIBCXX_ASSERTIONS \
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,nodump -Wl,-z,noexecstack -Wl,-z,noexecheap \
 -Wl,-z,relro -Wl,-z,now \
 -fPIE -pie -fPIC -shared
 ~~~~
 
-Developers should use `-Werror`, but redistributors will probably want to omit `-Werror`. See the discussion below a background and for detailed discussion of each option.
+Developers should use `-Werror`, but redistributors will probably want to omit `-Werror`. Developers who release source code should ensure that their programs compile and pass their automated tests with all these options, e.g., by setting these as the default options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build programs for production may choose to omit some options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and.rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
+
+See the discussion below a background and for detailed discussion of each option.
 
 **Why do we need compiler options hardening?**
 
@@ -50,6 +53,12 @@ To benefit from the protection mechanism provided by the OS the application bina
 Some mechanisms may require additional configuration and fine tuning, for example due to potential compilation issues for certain unlikely edge cases, or performance overhead the mitigation adds for certain program constructs. This problem is exacerbated in projects that rely on an outdated version of open source software (OSS) compilers such as the GNU Compiler Collection (GCC). In general, security mitigations are more likely to be enabled by default in modern versions of GCC included with Linux distributions; the defaults used by the upstream GCC project are more conservative.
 
 If compiler options hardening is overlooked or neglected during build time it can become impossible to add hardening to already distributed executables. It is therefore good practice to evaluate which mitigations an application should support, and make conscious, informed decisions whenever not enabling a mitigation weakens the application’s defensive posture. Ensure that the software is *tested* with as many options as practical, to ensure it can be operated that way.
+
+Some organizations require selecting hardening rules. For example, the US government's NIST SP 800-218 practice PW.6 requires configuring "the compilation, interpreter, and build processes to improve executable security".[^NIST-SP-800-218.1.1]. Carnegie Mellon University (CMU)'s "top 10 secure coding practices" recommends compiling "code using the highest warning level available for your compiler and eliminate warnings by modifying the code."[^CMU2018] This guide can help you do that.
+
+[^NIST-SP-800-218.1.1]: US NIST, [Secure Software Development Framework (SSDF) Version 1.1: Recommendations for Mitigating the Risk of Software Vulnerabilities](https://csrc.nist.gov/publications/detail/sp/800-218/final), NIST SP 800-218
+
+[^CMU2018]: Carnegie Mellon University (CMU), [Top 10 Secure Coding Practices](https://wiki.sei.cmu.edu/confluence/display/seccode/Top+10+Secure+Coding+Practices)
 
 **What does compiler options hardening not do?**
 
@@ -87,13 +96,13 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | [`-Wconversion`](#-Wconversion)<br/>[`-Wsign-conversion`](#-Wsign-conversion) | GCC 2.95.3<br/>Clang 4.0 | Enable implicit conversion warnings                                                 |
 | [`-Wtrampolines`](#-Wtrampolines)                                             |         GCC 4.3          | Enable warnings about trampolines that require executable stacks                    |
 | [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Make compiler warnings into errors                                                  |
-| [`-D_FORTIFY_SOURCE=1`](#-D_FORTIFY_SOURCE=1) <br/>(requires `-O1` or higher) | GCC 4.0<br/>Clang 5.0.0[^1]  | Fortify sources with compile-time checks for unsafe libc usage and buffer overflows |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
 
 | Compiler Flag                                                                             |            Supported by            | Description                                                                                  |
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
-| [`-D_FORTIFY_SOURCE=2`](#-D_FORTIFY_SOURCE=2) <br/>(requires `-O1` or higher)             |      GCC 4.0<br/>Clang 5.0.0       | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows |
+| [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^1]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. See details for different levels of fortification. |
+| [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls (C++ only)                                |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity                           |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows                                      |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen)<br/>[`-Wl,-z,nodump`](#-Wl,-z,nodump)               |           Binutils 2.10            | Restrict `dlopen(3)` and `dldump(3)` calls to shared objects                                 |
@@ -102,7 +111,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable.                                                    |
 | [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6<br/>Clang 5.0.0[^1] | Build as position-independent code.                                                          |
 
-[^1]: The implementation of `-D_FORTIFY_SOURCE={1,2}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) and but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile does not benefit from the fortified function variants in glibc. For more information see: Guelton, Serge. Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer.
+[^1]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) and but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge. Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer.
  <https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc> and
  Poyarekar, Siddhesh. D91677 Avoid simplification of library functions when callee has an implementation. (LLVM Phabricator) <https://reviews.llvm.org/D91677>
 
@@ -166,7 +175,7 @@ Check for implicit conversions that may alter a value such as:
 - conversion between data types of different size
 - confusing overload resolution for user-defined conversions in C++
 - conversions that never use a type conversion operator in C++:
-    conversions to void, the same type, a base class or a reference  
+    conversions to void, the same type, a base class or a reference.
 
 Conversion between data types that cause the value of the data to be altered can cause   information to be omitted or translated in a way that produces unexpected values.
 
@@ -214,37 +223,86 @@ For example, developers can decide to promote warnings that indicate interferenc
 
 | Compiler Flag                                                                              | Supported by            | Description                                                                                  |
 | ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
-| <span id="-D_FORTIFY_SOURCE=1">`-D_FORTIFY_SOURCE=1`</span>                                | GCC 4.0<br/>Clang 5.0.0     | Fortify sources with compile--time checks for unsafe libc usage and buffer overflows         |
-| <span id="-D_FORTIFY_SOURCE=2">`-D_FORTIFY_SOURCE=2`</span><br/>(requires `-O1` or higher) | GCC 4.0<br/>Clang 5.0.0[^1] | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows |
+| <span id="-D_FORTIFY_SOURCE=1">`-D_FORTIFY_SOURCE=1`</span>                                | GCC 4.0<br/>Clang 5.0.0     | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows         |
+| <span id="-D_FORTIFY_SOURCE=2">`-D_FORTIFY_SOURCE=2`</span><br/>(requires `-O1` or higher) | GCC 4.0<br/>Clang 5.0.0[^1] | In addition to checks covered by `-D_FORTIFY_SOURCE=1`, also trap code that may be conforming to the C standard but still unsafe |
+| <span id="-D_FORTIFY_SOURCE=3">`-D_FORTIFY_SOURCE=3`</span><br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^1] | Same checks as in `-D_FORTIFY_SOURCE=2`, but with significantly more calls fortified with a potential to impact performance in some rare cases |
 
 #### Synopsis
 
-The `_FORTIFY_SOURCE` macro enables a set of extension to the GNU C library (glibc) that will make the compiler automatically add buffer overflow checks to calls to the following functions:  
+The `_FORTIFY_SOURCE` macro enables a set of extensions to the GNU C library (glibc) that enable checking at entry points of a number of functions to immediately abort execution when it encounters unsafe behavior. A key feature of this checking is validation of objects passed to these function calls to ensure that the call will not result in a buffer overflow. This relies on the compiler being able to compute the size of the protected object at compile time. A full list of these functions is maintained in the GNU C Library manual[^28]:
 
 > memcpy, mempcpy, memmove, memset, strcpy, stpcpy, strncpy, strcat, strncat, sprintf, vsprintf, snprintf, vsnprintf, gets
 
-The `_FORTIFY_SOURCE` mechanisms have two modes of operation:
+The `_FORTIFY_SOURCE` mechanisms have three modes of operation:
 
-- `-D_FORTIFY_SOURCE=1`: conservative, compile-time checks only; will not change (defined) behavior of programs  
-- `-D_FORTIFY_SOURCE=2`: stricter checks that also detect buffer overflows at run time; may affect program behavior by disallowing certain programming constructs.
+- `-D_FORTIFY_SOURCE=1`: conservative, compile-time and runtime checks; will not change (defined) behavior of programs. Checking for overflows is enabled when the compiler is able to estimate a compile time constant size for the protected object.
+- `-D_FORTIFY_SOURCE=2`: stricter checks that also detect behavior that may be unsafe even though it conforms to the C standard; may affect program behavior by disallowing certain programming constructs. An example of such checks is restricting of the `%n` format specifier to read-only format strings.
+- `-D_FORTIFY_SOURCE=3`: Same checks as those covered by `-D_FORTIFY_SOURCE=3` except that checking is enabled even when the compiler is able to estimate the size of the protected object as an expression, not just a compile time constant.
 
 To benefit from `_FORTIFY_SOURCE` checks following requirements must be met:  
 
-- the application must be built with -O1 optimizations or higher
-- the sizes of the destination buffers must be known at compile time, and
-- the application code must use glibc versions of the aforementioned functions (included with `<stdio.h>` and `<string.h>`)
+- the application must be built with `-O1` optimizations or higher; at least `-O2` is recommended.
+- the compiler should be able to estimate sizes of the destination buffers at compile time. This can be facilitated by applications and libraries by using function attribute extensions supported by GCC and Clang[^29].
+- the application code must use glibc versions of the aforementioned functions (included with standard headers, e.g. `<stdio.h>` and `<string.h>`)
 
-If checks added by `_FORTIFY_SOURCE=2` detect unsafe behavior at run-time they will print an error message, backtrace and terminate the application.
+If checks added by `_FORTIFY_SOURCE` detect unsafe behavior at run-time they will print an error message and terminate the application.
 
 #### Performance implications
 
-`_FORTIFY_SOURCE=1` adds compile-time checks only and has no run-time performance impact. `_FORTIFY_SOURCE=2` is expected to have a negligible run-time performance impact (~0.1% ).
+Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligible run-time performance impact (~0.1% ).
 
 #### When not to use?
 
-`_FORTIFY_SOURCE` is recommended for all application that depend on glibc.
+`_FORTIFY_SOURCE` is recommended for all application that depend on glibc and should be widely deployed. Most packages in all major Linux distributions enable at least `_FORTIFY_SOURCE=2` and some even enable `_FORTIFY_SOURCE=3`. There are a couple of situations when `_FORTIFY_SOURCE` may break existing applications:
 
-However, when enabling `_FORTIFY_SOURCE=2` in existing code bases regression testing should be used to ensure the run-time checks do not adversely affect existing features.
+- If the fortified glibc function calls show up as hotspots in your application performance profile, there is a chance that `_FORTIFY_SOURCE` may have a negative performance impact. This is not a common or widespread slowdown[^29] but worth keeping in mind if slowdowns are observed due to this option
+- Applications that use the GNU extension for flexible array members in structs[^30] may confuse the compiler into thinking that an object is smaller than it actually is, resulting in spurious aborts. The safe resolution for this is to port these uses to C99 flexible arrays but if that is not possible (e.g. due to the need to support a compiler that does not support C99 flexible arrays), one may need to downgrade or disable `_FORTIFY_SOURCE` protections.
+
+[^28]: Source Fortification in the GNU C Library
+<https://www.gnu.org/software/libc/manual/2.37/html_node/Source-Fortification.html>
+[^29]: How to improve application security using _FORTIFY_SOURCE=3
+<https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3>
+[^30]: Arrays of Length Zero
+<https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/arrays-of-length-zero.html>
+
+---
+
+### Precondition checks for C++ standard library calls
+
+| Compiler Flag                                                                              | Supported by            | Description                                                                                  |
+| ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
+| <span id="-D_GLIBCXX_ASSERTIONS">`-D_GLIBCXX_ASSERTIONS`</span>                            | libstdc++ 6.0           | (C++ using libcstdc++ only) Precondition checks for libstdc++ calls; can impact performance. |
+| <span id="-D_LIBCPP_ASSERT">`-D_LIBCPP_ASSERT`</span>                                      | libc++ 3.3.0       | (C++ using libc++ only) Constant-time precondition checks for libc++ calls. |
+
+#### Synopsis
+
+The C++ standard library implementations in GCC (libstdc++) and LLVM (libc++) provide run-time precondition checks for C++ standard library calls, such as bounds-checks for C++ strings and containers, and null-pointer checks when dereferencing smart pointers.
+
+These precondition checks can be enabled by defining the corresponding pre-processor macros in when compiling C++ code that calls into libstdc++ or libc++:
+
+- The `-D_GLIBCXX_ASSERTIONS` macro enables precondition checks for libstdc++[^libstdc++_macros].  
+  It can only affect C++ code that uses GCC’s libstdc++.
+- The `-D_LIBCPP_ASSERT` macro enables precondition checks for libc++[^Clow19].  
+  It can only affect C++ code that uses LLVM’s libc++.
+
+#### Performance implications
+
+Most calls into the C++ standard library have preconditions. Some preconditions can be checked in constant-time, others are more expensive.
+Both `-D_GLIBCXX_ASSERTIONS` and `-D_LIBCPP_ASSERT` are intended to enable only lightweight[^Wakely15], i.e., constant-time checks[^Dionne22] but the exact behavior can differ between standard library versions .
+
+The `-D_GLIBCXX_ASSERTIONS` macro can have a non-trivial impact on performance.
+Impacts of [up to 6% on performance have been reported](https://gitlab.psi.ch/OPAL/src/-/merge_requests/468).
+
+#### When not to use?
+
+`-D_GLIBCXX_ASSERTIONS` and `-D_LIBCPP_ASSERT` are recommended for C++ applications that may handle untrusted data, as well as for any C++ application during testing.
+
+These options are unnecessary for security for applications in production that only handle completely trusted data.
+
+[^libstdc++_macros]: Free Software Foundation, [Using Macros in the GNU C++ Library](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_macros.html), The GNU C++ Library Manual
+[^Clow19]: Marshall Clow, [Hardening the C++ standard template library](https://www.youtube.com/watch?v=1iHs_K2HpGo&t=990s), C++ Russia 2019
+[^Wakely15]: Jonathan Wakely, [Enable lightweight checks with _GLIBCXX_ASSERTIONS](https://patchwork.ozlabs.org/project/gcc/patch/20150907182755.GP2631@redhat.com/), GCC Mailing List, 2015-09-07
+[^Dionne22]: Loius Dionne, [Audit all uses of \_LIBCPP_ASSERT and \_LIBCPP_DEBUG_ASSERT](https://github.com/llvm/llvm-project/commit/c87c8917e3662532f0aa75a91caea857c093f8f4)
 
 ---
 
