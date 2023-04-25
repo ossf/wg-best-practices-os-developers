@@ -6,10 +6,10 @@ Hardened compiler options should also produce applications that integrate well w
 
 This document is intended for:
 
-- Those who write C/C++ code, to help them ensure that resulting code will work with hardened options.
-- Those who build C/C++ code for use in production environments, This includes Linux distributions, device makers, and those who compile C/C++ for their local environment.
+- Those who write C or C++ code, to help them ensure that resulting code will work with hardened options.
+- Those who build C or C++ code for use in production environments, including Linux distributions, device makers, and those who compile C or C++ for their local environment.
 
-This document focuses on recommended options for the GNU Compiler Collection (GCC) and clang, and we expect to expand it to cover compilers that have similar option syntax (such as the Intel C++ compiler).
+This document focuses on recommended options for the GNU Compiler Collection (GCC) and clang, and we expect to expand it to cover compilers that have similar option syntax (such as the Intel compiler).
 
 **TL;DR: What compiler options should I use?**
 
@@ -27,24 +27,24 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 
 Developers should use `-Werror`, but redistributors will probably want to omit `-Werror`. Developers who release source code should ensure that their programs compile and pass their automated tests with all these options, e.g., by setting these as the default options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build programs for production may choose to omit some options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and.rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
 
-See the discussion below a background and for detailed discussion of each option.
+See the discussion below for background and for detailed discussion of each option.
 
 **Why do we need compiler options hardening?**
 
 Sadly, attackers today attack the software we use every day. Many programming languages' compilers have options to detect potential vulnerabilities while compiling and/or insert runtime protections against potential attacks. These can be important in any language, but these options are *especially* important in C and C++.
 
-Applications written in the C and C++ programming languages are prone to exhibit a class of software defects known as memory safety errors, aka memory errors. This class of defects include bugs such as buffer overflows, dereferencing a null pointer, and use-after-free errors. Memory errors can occur because the low-level memory management in C / C++ offers no language-level provisions for ensuring the memory safety of operations such as pointer arithmetic or direct memory accesses. Instead, they require software developers to never make a mistake when performing common operations, and this has proven to be difficult at scale. Memory errors have the potential to cause memory vulnerabilities, which can be exploited by threat actors to gain unauthorized access to computer systems through run-time attacks. Microsoft has found that 70% of all its security defects in 2006-2018 were memory safety failures[^Cimpanu2019], and the Chrome team similarly found 70% of all its vulnerabilities are memory safety issues.[^Cimpanu2020]
+Applications written in the C and C++ programming languages are prone to exhibit a class of software defects known as memory safety errors, a.k.a. memory errors. This class of defects include bugs such as buffer overflows, dereferencing a null pointer, and use-after-free errors. Memory errors can occur because the low-level memory management in C and C++ offers no language-level provisions for ensuring the memory safety of operations such as pointer arithmetic or direct memory accesses. Instead, they require software developers to write correct code when performing common operations, and this has proven to be difficult at scale. Memory errors have the potential to cause memory vulnerabilities, which can be exploited by threat actors to gain unauthorized access to computer systems through run-time attacks. Microsoft has found that 70% of all its security defects in 2006-2018 were memory safety failures[^Cimpanu2019], and the Chrome team similarly found 70% of all its vulnerabilities are memory safety issues.[^Cimpanu2020]
 
 [^Cimpanu2019]: Cimpanu, Catalin, [Microsoft: 70 percent of all security bugs are memory safety issues](https://www.zdnet.com/article/microsoft-70-percent-of-all-security-bugs-are-memory-safety-issues/), ZDNet, 2019-02-11
 [^Cimpanu2020]: Cimpanu, Catalin, [Chrome: 70% of all security bugs are memory safety issues](https://www.zdnet.com/article/chrome-70-of-all-security-bugs-are-memory-safety-issues/), ZDNet, 2020-05-22
 
-Almost all other programming languages prevent such defects by default. A few languages allow programs to temporarily suspend these protections in special circumstances, but they are intended for use in a few lines, not the whole program. There have been calls to rewrite C and C++ programs in other languages, but this is expensive and time-consuming, has its own risks, is sometimes impractical today (especially for less-common CPUs), and even with universal agreement it would take decades to rewrite all such code.
-
-Thus, in many cases, it's important to take other steps to reduce the likelihood of defects becoming vulnerabilities. Aggressive use of compiler options can sometimes detect vulnerabilities or help counter their run-time effects.
+Most programming languages prevent such defects by default. A few languages allow programs to temporarily suspend these protections in special circumstances, but they are intended for use in a few lines, not the whole program. There have been calls to rewrite C and C++ programs in other languages, but this is expensive and time-consuming, has its own risks, is sometimes impractical today (especially for less-common CPUs). Even with universal agreement, it would take decades to rewrite all such code. Consequently, it's important to take other steps to reduce the likelihood of defects becoming vulnerabilities. Aggressive use of compiler options can sometimes detect vulnerabilities or help counter their run-time effects.
 
 Run-time attacks differ from conventional malware, which carries out its malicious program actions through a dedicated program executable, in that run-time attacks influence benign programs to behave maliciously. A run-time attack that exploits unmitigated memory vulnerabilities can be leveraged by threat actors as the initial attack vectors that allow them to gain a presence on a system, e.g., by injecting malicious code into running programs.
 
-Modern, security-aware C/C++ software development practices, such as secure coding standards and program analysis aim to proactively avoid introducing memory errors (and other software defects) to applications. However, in practice completely eradicating memory errors in production C/C++ software has turned out to be near-impossible.
+Modern, security-aware C and C++ software development practices, such as secure coding standards [^Seacord2014] and program analysis aim to proactively avoid introducing memory errors (and other software defects) to applications. However, in practice completely eradicating memory errors in production C and C++ software has turned out to be near-impossible.
+
+[^Seacord2014]: Seacord, Robert. The CERT C Coding Standard: 98 Rules for Developing Safe, Reliable, and Secure Systems, 2nd Edition. Addison-Wesley Professional. 2014.
 
 Consequently, modern operating systems deploy various run-time mechanisms to protect against potential security flaws. The principal purpose of such mechanisms is to mitigate potentially exploitable memory vulnerabilities in a way that prevents a threat actor from exploiting them to gain code execution capabilities. With mitigations in place the affected application may still crash if a memory error is triggered. However, such an outcome is still preferable if the alternative is the compromise of the system’s run-time environment.
 
@@ -68,11 +68,11 @@ Compiler options hardening is not a silver bullet; it is not sufficient to rely 
 
 This section describes recommendations for compiler and linker option flags that 1) enable compile-time checks that warn developers of potential defects in the source code (Table 1), and 2) enable run-time protection mechanisms, such as checks that are designed to detect when memory vulnerabilities in the application are exploited (Table 2).
 
-The recommendations in Table 1 and Table 2 are primarily applicable to compiling user space code in GNU/Linux environments using either the GCC and Binutils toolchain or the Clang / LLVM toolchain and have been included in this document on the following merits:
+The recommendations in Table 1 and Table 2 are primarily applicable to compiling user space code in GNU/Linux environments using either the GCC and Binutils toolchain or the Clang / LLVM toolchain and have been included in this document becaues they are:
 
-- They are widely deployed and enabled by default for pre-built packages in major Linux distributions, including Debian, Ubuntu, Red Hat and SUSE Linux.
-- They are supported both by the GCC and Clang / LLVM toolchains.
-- They are cross-platform and supported on (at least) Intel and AMD 64-bit x86 architectures as well as the 64-bit version of the ARM architecture (AArch64).
+- widely deployed and enabled by default for pre-built packages in major Linux distributions, including Debian, Ubuntu, Red Hat and SUSE Linux.
+- supported both by the GCC and Clang / LLVM toolchains.
+- ross-platform and supported on (at least) Intel and AMD 64-bit x86 architectures as well as the 64-bit version of the ARM architecture (AArch64).
 
 For historical reasons, the GCC compiler and Binutils upstream projects do not enable optimization or security hardening options by default. While some aspects of the default options can be changed when building GCC and Binutils from source, the defaults used in the toolchains shipped with GNU/Linux distributions vary. Distributions may also ship multiple versions of toolchains with different defaults. Consequently, developers need to pay attention to compiler and linker options flags, and manage them according to their need of optimization, level of warning and error detection, and security hardening of the project.
 
@@ -93,7 +93,7 @@ As these options have an impact on the binary produced by the compiler the effec
 
 Table 1: Recommended compiler options that enable strictly compile-time checks.
 
-| Compiler Flag                                                                 |       Supported by       | Description                                                                         |
+| Compiler Flag                                                                 |       Starting With       | Description                                                                         |
 |:----------------------------------------------------------------------------- |:------------------------:|:----------------------------------------------------------------------------------- |
 | [`-Wall`](#-Wall)<br/>[`-Wextra`](#-Wextra)                                   | GCC 2.95.3<br/>Clang 4.0 | Enable warnings for constructs often associated with defects                        |
 | [`-Wformat=2`](#-Wformat=2)                                                   | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings                                          |
@@ -347,7 +347,7 @@ Note that `vm.heap-stack-gap` expresses the gap as multiple of page size whereas
 
 Stack protector instruments code produced by the compiler to detect overflows in buffers allocated on the program stack at run-time (colloquially referred to as *“stack smashing”*).
 
-The detection is based on inserting a “canary” value into the stack frame in the function prologue. The canary is verified against a reference value in the function epilogue. If they differ the runtime calls `__stack_chk_fail()`, which will terminate the offending application.
+The detection is based on inserting a _canary_ value into the stack frame in the function prologue. The canary is verified against a reference value in the function epilogue. If they differ the runtime calls `__stack_chk_fail()`, which will terminate the offending application.
 
 This mitigates potential control-flow hijacking attacks that may lead to arbitrary code execution by corrupting return addresses stored on the stack.
 
