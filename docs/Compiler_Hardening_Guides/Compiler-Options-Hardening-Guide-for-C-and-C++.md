@@ -237,7 +237,7 @@ The `_FORTIFY_SOURCE` mechanisms have three modes of operation:
 
 - `-D_FORTIFY_SOURCE=1`: conservative, compile-time and runtime checks; will not change (defined) behavior of programs. Checking for overflows is enabled when the compiler is able to estimate a compile time constant size for the protected object.
 - `-D_FORTIFY_SOURCE=2`: stricter checks that also detect behavior that may be unsafe even though it conforms to the C standard; may affect program behavior by disallowing certain programming constructs. An example of such checks is restricting of the `%n` format specifier to read-only format strings.
-- `-D_FORTIFY_SOURCE=3`: Same checks as those covered by `-D_FORTIFY_SOURCE=3` except that checking is enabled even when the compiler is able to estimate the size of the protected object as an expression, not just a compile time constant.
+- `-D_FORTIFY_SOURCE=3`: Same checks as those covered by `-D_FORTIFY_SOURCE=2` except that checking is enabled even when the compiler is able to estimate the size of the protected object as an expression, not just a compile time constant.
 
 To benefit from `_FORTIFY_SOURCE` checks following requirements must be met:  
 
