@@ -115,7 +115,7 @@ Anyone is welcome to join our open discussions related to the group's mission an
 - Join the conversation on [Slack](https://openssf.slack.com/archives/C01AHCRP8BT)
 
 
-## Meeting times
+## Meeting Times
 
 Every 2 weeks, Tuesday 10am EST. The meeting invite is available on the [public OSSF calendar](https://calendar.google.com/calendar?cid=czYzdm9lZmhwNWk5cGZsdGI1cTY3bmdwZXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)
 
@@ -131,8 +131,9 @@ Every 2 weeks, Tuesday 10am EST. The meeting invite is available on the [public 
 |  Scorecard  | Occurs every 2nd Thursday 1:00p PT/4:00p ET/1800 UTC    | [Meeting Notes](https://docs.google.com/document/d/1dB2U7_qZpNW96vtuoG7ShmgKXzIg6R5XT5Tc-0yz6kE/edit%23&sa=D&source=calendar&usd=2&usg=AOvVaw0dlm9r67uXVvpla6TQtT28 )           |  [Git Repo](https://github.com/ossf/scorecard) | [Slack](https://openssf.slack.com/archives/C0235AR8N2C ) | [Mailing List]( ) |
 |  Security Knowledge Framework -  SKF  | TBD   | [Meeting Notes]( )           |  [Git Repo]( ) | [Slack](https://openssf.slack.com/archives/C04B7EZLTM1) | [Mailing List]( ) |
 
+## Meeting Notes
 
-
+Meeting notes are maintained in a Google Doc found in the above table. If attending please add your name, and if a returning attendee, please change the color of your name from gray to black.
 
 
 ## Governance
