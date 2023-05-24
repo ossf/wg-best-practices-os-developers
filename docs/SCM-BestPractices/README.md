@@ -2,7 +2,15 @@
 
 ## Intro
 
-Collaborative source code management platforms (such as GitHub and GitLab) play a critical role in modern software development, providing a central repository for storing, managing, and versioning source code as well as collaborating with a community of developers. However, they also represent a potential security risk if not properly configured. In this guide, we will explore the best practices for securing these latforms, covering topics ranging from user authentication and access control to monitoring and logging activities, and integrating security tools.
+Collaborative source code management platforms (such as GitHub and GitLab) play a critical role in modern software development, providing a central repository for storing, managing, and versioning source code as well as collaborating with a community of developers. However, they also represent a potential security risk if not properly configured. In this guide, we will explore the best practices for securing these platforms, covering topics that include user authentication, access control, permissions, monitoring, and logging.
+
+## Audience
+
+This guide has been written for the:
+
+* **Maintainer** who wants to improve the security posture for one or more GitHub repositories or GitLab projects they support.  
+* **Open Source Program Office (OSPO)** (or a team that plays a similar role) who is typically responsible for multiple GitHub organizations or GitLab groups.
+* **Operations** team tasked with applying policies as part of their work managing assets on these platforms.
 
 ## Recommendations
 
@@ -41,26 +49,6 @@ For recmmendations only applicable to GitHub or GitLab visit one of the followin
 - Two Factor Authentication Should Be Enabled for External Collaborators [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">](gitlab/member/two_factor_authentication_is_disabled_for_an_external_collaborator.md)
 - Admininistrators Should Have Activity in the Last 6 Months [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">](gitlab/member/stale_admin_found.md)
 
-### Organizational Management 
-
-For centralizing security and billing, all organizations should be managed under one company or organizational account.
-
-The following section covers how to set up new organizations and how to configure existing organizations.
-
-General Recommendations
-- All organizations should be managed under a central account.
-- Only employees of the company can be members of organizations.
-- Two-factor authentication **must** be enabled for all organization members.
-- Access and roles for members must be managed in accordance with the organization's access control policy.
-
-Specific Recommendations
-- Two-Factor Authentication Should Be Enforced For The Organization [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/two_factor_authentication_not_required_for_org.md)
-- Default Member Permissions Should Be Restricted [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/default_repository_permission_is_not_none.md)
-- Only Admins Should Be Able To Create Public Repositories [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/non_admins_can_create_public_repositories.md)
-- Organization Should Use Single-Sign-On [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/organization_not_using_single_sign_on.md)
-- Webhooks Should Be Configured To Use SSL [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/organization_webhook_doesnt_require_ssl.md)
-- Webhooks Should Be Configured With A Secret [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/organization_webhook_no_secret.md)
-
 ### Repository configuration 
 - Repository Should Be Updated At Least Quarterly [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/repository/repository_not_maintained.md)
 - Workflows Should Not Be Allowed To Approve Pull Requests [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/repository/actions_can_approve_pull_requests.md)
@@ -98,19 +86,28 @@ Specific Recommendations
 
 ### Operations
 
-The following section sets out guidelines for the OSPO and operations teams responsible for managing GitHub assets.
+General Recommendations
+- Organization Management Should Be Consolidated Under a Central Account. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
+- Organization  Membership Should Be Limited to Employees. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
+- Review Security Policies and Procedures At Least Annually. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
+- Establish a Clear Communication and Incident Response Plan. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
+- Conduct Regular Security Audits and Vulnerability Assessments. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
+- Use Insights to Track Activity and in Repositories and Organizations. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
+- Use Tools Built On APIs to Automate Tasks and Avoid Needing Elevated Privileges. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
+- Provide Automated Alerts and Tooling to Ensure Ongoing Compliance. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
+- Review Audit Logs to Track Activity and Changes in Repositories and Organizations. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
+- Group Membership Should Be Limited to Employees. <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20"> 
+- Review Audit Events to Track Activity and Changes in Projects and Groups. <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20"> 
 
-Recommendations
-- GitHub's Insights features must be utilized to track repository and organization-wide activity.
-- GitHub's audit log must be utilized to track member activity and changes to the organization.
-- Security-related policies and procedures must be reviewed and updated annually.
-- A clear communication and incident response plan must be established.
-- Regular security audits and vulnerability assessments must be conducted.
-
-Best Practices:
-- GitHub's security alerts and vulnerability scanning features should be utilized. This can be configured at the organization or repository level.
-- GitHub's Insights should be used to track repository and organization-wide activity.
-- Enable GitHub Advanced Security features for private and internal repositories to automatically set up security-related alerts for code scanning, secrets scanning and dependency review.
-- Internal tools that use GitHub APIs should be used to automate and streamline security-related tasks. This avoids granting direct and elevated privileges to GitHub organizations and repositories.
-- Self-service tools for repository and community management should be made available to maintainers for common configuration requests. This avoids giving maintainers elevated GitHub permissions while unblocking them as much as possible.
-- Automated alerts and tools for checking repository compliance should be developed and made available to maintainers. These checks should block repositories going public.
+Specific Recommendations
+- Two-Factor Authentication Should Be Enforced For The Organization [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/two_factor_authentication_not_required_for_org.md)
+- Organization Should Use Single-Sign-On [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/organization_not_using_single_sign_on.md)
+- Default Member Permissions Should Be Restricted [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/default_repository_permission_is_not_none.md)
+- Only Admins Should Be Able To Create Public Repositories [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/non_admins_can_create_public_repositories.md)
+- Webhooks Should Be Configured To Use SSL [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/organization_webhook_doesnt_require_ssl.md) [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">](gitlab/group/organization_webhook_doesnt_require_ssl.md)
+- Webhooks Should Be Configured With A Secret [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/organization_webhook_no_secret.md)
+- Configure Security Alerts and Vulnerability Scanning at the Organization or Repository Level. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
+- Enable GitHub Advanced Security features for Private and Internal Repositories. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
+- Two-Factor Authentication Should Be Enforced For The Group [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">](gitlab/group/two_factor_authentication_not_required_for_group.md)
+- Group Should Use Single-Sign-On <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
+- Only Admins Should Be Able To Create Public Projects and Groups. <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20"> 
