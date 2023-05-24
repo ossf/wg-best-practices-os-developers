@@ -2,7 +2,7 @@
 
 ## Intro
 
-Collaborative source code management platforms (such as GitHub and GitLab) play a critical role in modern software development, providing a central repository for storing, managing, and versioning source code as well as collaborating with a community of developers. However, they also represent a potential security risk if not properly configured. In this guide, we will explore the best practices for securing these platforms, covering topics that include user authentication, access control, permissions, monitoring, logging, and integrating security tools.
+Collaborative source code management platforms (such as GitHub and GitLab) play a critical role in modern software development, providing a central repository for storing, managing, and versioning source code as well as collaborating with a community of developers. However, they also represent a potential security risk if not properly configured. In this guide, we will explore the best practices for securing these platforms, covering topics that include user authentication, access control, permissions, monitoring, and logging.
 
 ## Audience
 
