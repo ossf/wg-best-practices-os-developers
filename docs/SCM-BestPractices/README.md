@@ -9,7 +9,7 @@ Collaborative source code management platforms (such as GitHub and GitLab) play 
 This guide has been written for the:
 
 * **Maintainer** who wants to improve the security posture for one or more GitHub repositories or GitLab projects they support.  
-* **Open Source Program Office (OSPO)** who is typically responsible for multiple GitHub organizations or GitLab groups.
+* **Open Source Program Office (OSPO)** (or a team that plays a similar role) who is typically responsible for multiple GitHub organizations or GitLab groups.
 * **Operations** team tasked with applying policies as part of their work managing assets on these platforms.
 
 ## Recommendations
