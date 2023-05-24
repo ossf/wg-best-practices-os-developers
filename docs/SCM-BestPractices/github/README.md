@@ -1,3 +1,19 @@
+# GitHub Configuration Best Practices
+
+## Intro
+
+GitHub is a collaborative source code management platform that plays a critical role in modern software development, providing a central repository for storing, managing, and versioning source code as well as collaborating with a community of developers. However, it also represent a potential security risk if not properly configured. In this guide, we will explore the best practices for securing GitHub, covering topics that include user authentication, access control, permissions, monitoring, logging, and integrating security tools.
+
+## Audience
+
+This guide has been written for the:
+
+* **Maintainer** who wants to improve the security posture for one or more GitHub repositories they support.  
+* **Open Source Program Office (OSPO)** who is typically responsible for multiple organizations and repositories.
+* **Operations** team tasked with applying policies as part of their work managing assets on GitHub.
+
+## Recommendations
+
 ### Continuous Integration / Continuous Deployment
 1. [Workflows Should Not Be Allowed To Approve Pull Requests](actions/actions_can_approve_pull_requests.md)
 2. [GitHub Actions Should Be Restricted To Selected Repositories](actions/all_repositories_can_run_github_actions.md)
@@ -49,3 +65,27 @@
 ### Continuous Integration / Continuous Deployment
 1. [Runner Group Should Be Limited to Private Repositories](runner_group/runner_group_can_be_used_by_public_repositories.md)
 2. [Runner Group Should Be Limited to Selected Repositories](runner_group/runner_group_not_limited_to_selected_repositories.md)
+
+### Operations
+
+General Recommendations
+- Organization Management Should Be Consolidated Under a Central Account.
+- Organization Membership Should Be Limited to Employees.
+- Review Security Policies and Procedures At Least Annually.
+- Establish a Clear Communication and Incident Response Plan.
+- Conduct Regular Security Audits and Vulnerability Assessments.
+- Use Insights to Track Activity and in Repositories and Organizations.
+- Use Tools Built On APIs to Automate Tasks and Avoid Needing Elevated Privileges.
+- Provide Automated Alerts and Tooling to Ensure Ongoing Compliance.
+- Review Audit Logs to Track Activity and Changes in Repositories and Organizations.
+- Review Audit Events to Track Activity and Changes in Projects and Groups.
+
+Specific Recommendations
+- [Two-Factor Authentication Should Be Enforced For The Organization](organization/two_factor_authentication_not_required_for_org.md)
+- [Organization Should Use Single-Sign-On](organization/organization_not_using_single_sign_on.md)
+- [Default Member Permissions Should Be Restricted](organization/default_repository_permission_is_not_none.md)
+- [Only Admins Should Be Able To Create Public Repositories](organization/non_admins_can_create_public_repositories.md)
+- [Webhooks Should Be Configured To Use SSL](organization/organization_webhook_doesnt_require_ssl.md)
+- [Webhooks Should Be Configured With A Secret](organization/organization_webhook_no_secret.md)
+- Configure Security Alerts and Vulnerability Scanning at the Organization or Repository Level.
+- Enable GitHub Advanced Security features for Private and Internal Repositories.

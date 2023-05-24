@@ -1,3 +1,19 @@
+# GitLab Configuration Best Practices
+
+## Intro
+
+GitLab is a collaborative source code management platform that plays a critical role in modern software development, providing a central repository for storing, managing, and versioning source code as well as collaborating with a community of developers. However, it also represent a potential security risk if not properly configured. In this guide, we will explore the best practices for securing GitLab, covering topics that include user authentication, access control, permissions, monitoring, logging, and integrating security tools.
+
+## Audience
+
+This guide has been written for the:
+
+* **Maintainer** who wants to improve the security posture for one or more GitLab projects they support.  
+* **Open Source Program Office (OSPO)** who is typically responsible for multiple groups and projects.
+* **Operations** team tasked with applying policies as part of their work managing assets on GitLab.
+
+## Recommendations
+
 ### Server
 1. [Two-Factor Authentication Should Be Enforced For The Group](group/two_factor_authentication_not_required_for_group.md)
 2. [Forking of Repositories to External Namespaces Should Be Disabled.](group/collaborators_can_fork_repositories_to_external_namespaces.md)
@@ -24,3 +40,20 @@
 14. [Webhook Configured Without SSL Verification](project/project_webhook_doesnt_require_ssl.md)
 15. [Project Should Have Fewer Than Three Owners](project/project_has_too_many_admins.md)
 16. [Default Branch Should Require New Code Changes After Approval To Be Re-Approved](project/repository_dismiss_stale_reviews.md)
+
+### Operations
+
+General Recommendations
+- Group Membership Should Be Limited to Employees.
+- Review Security Policies and Procedures At Least Annually.
+- Establish a Clear Communication and Incident Response Plan.
+- Conduct Regular Security Audits and Vulnerability Assessments.
+- Use Tools Built On APIs to Automate Tasks and Avoid Needing Elevated Privileges.
+- Provide Automated Alerts and Tooling to Ensure Ongoing Compliance.
+- Review Audit Events to Track Activity and Changes in Projects and Groups. 
+
+Specific Recommendations
+- [Two-Factor Authentication Should Be Enforced For The Group](group/two_factor_authentication_not_required_for_group.md)
+- Group Should Use Single-Sign-On
+- Only Admins Should Be Able To Create Public Projects and Groups.
+- [Webhooks Should Be Configured To Use SSL](group/organization_webhook_doesnt_require_ssl.md)
