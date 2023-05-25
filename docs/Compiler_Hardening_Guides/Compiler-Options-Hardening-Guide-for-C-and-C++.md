@@ -20,7 +20,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
 -fstack-clash-protection -fstack-protector-strong \
--Wl,-z,nodlopen -Wl,-z,nodump -Wl,-z,noexecstack -Wl,-z,noexecheap \
+-Wl,-z,nodlopen -Wl,-z,nodump -Wl,-z,noexecstack \
 -Wl,-z,relro -Wl,-z,now \
 -fPIE -pie -fPIC -shared
 ~~~~
@@ -110,7 +110,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity                           |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows                                      |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen)<br/>[`-Wl,-z,nodump`](#-Wl,-z,nodump)               |           Binutils 2.10            | Restrict `dlopen(3)` and `dldump(3)` calls to shared objects                                 |
-| [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)<br/>[`-Wl,-z,noexecheap`](#-Wl,-z,noexecheap) |           Binutils 2.14            | Enable data execution prevention by marking stack and heap memory as non-executable          |
+| [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)                                               |           Binutils 2.14            | Enable data execution prevention by marking stack memory as non-executable                   |
 | [`-Wl,-z,relro`](#-Wl,-z,relro)<br/>[`-Wl,-z,now`](#-Wl,-z,now)                           |           Binutils 2.15            | Mark relocation table entries resolved at load- time as read-only                            |
 | [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable.                                                    |
 | [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6<br/>Clang 5.0.0[^1] | Build as position-independent code.                                                          |
@@ -410,17 +410,17 @@ Since `nodlopen` and `nodump` interfere with applications that rely on to `dlope
 
 | Compiler Flag                                                                                                         | Supported by  | Description                                                                         |
 |:--------------------------------------------------------------------------------------------------------------------- |:-------------:|:----------------------------------------------------------------------------------- |
-| <span id="-Wl,-z,noexecstack">`-Wl,-z,noexecstack`</span><br/><span id="-Wl,-z,noexecheap">`-Wl,-z,noexecheap`</span> | Binutils 2.14 | Enable data execution prevention by marking stack and heap memory as non-executable |
+| <span id="-Wl,-z,noexecstack">`-Wl,-z,noexecstack`</span> | Binutils 2.14 | Enable data execution prevention by marking stack memory as non-executable |
 
 #### Synopsis
 
 All major modern processor architectures incorporate memory management primitives that give the OS the ability to mark certain memory areas, such as the stack and heap, as non-executable, e.g., the AMD *“non-execute”* (NX) bit and the Intel *“execute disable”* (XD) bit. This mechanism prevents the stack or heap from being used inject malicious code during a run-time attack.
 
-The `-Wl,-z,noexecstack` and `-Wl,-z,noexecheap` options tell the linker to mark the corresponding program segments as non-executable which enables the OS to configure memory access rights correctly when the program executable is loaded into memory.
+The `-Wl,-z,noexecstack` option tells the linker to mark the corresponding program segment as non-executable which enables the OS to configure memory access rights correctly when the program executable is loaded into memory.
 
 However, some language-level programming constructs, such as taking the address of a nested function (a GNU C extension to ISO standard C) requires special compiler handling which may prevent the linker from marking stack segments correctly as non-executable[^5].
 
-Consequently the `-Wl,-z,noexecstack` and `-Wl,-z,noexecheap` options work best when combined with appropriate warning flags (`-Wtrampolines` where available) that indicate whether language constructs interfere with stack virtual memory protection.
+Consequently the `-Wl,-z,noexecstack` option works best when combined with appropriate warning flags (`-Wtrampolines` where available) that indicate whether language constructs interfere with stack virtual memory protection.
 
 #### Performance implications
 
