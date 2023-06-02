@@ -103,7 +103,7 @@ There are many great projects both within and outside the Foundation that compli
 ## Get Involved
 
 Anyone is welcome to join our open discussions related to the group's mission and charter.
-
+ 
 - [2023 Meeting Notes](https://docs.google.com/document/d/1x-fMIt6ZIV6SM-M29xEVKeB505GbDzSIVXg-8uF_FQU/edit#)
 - [2022 Meeting Minutes](https://docs.google.com/document/d/1ttqkcYPmYZyqvtkaHs92bx2UeVUiXDhuzP-0WbP11Fw/edit#)
 - [Historic Group Notes 1](https://github.com/ossf/wg-best-practices-oss-developers/blob/main/meeting-minutes.md)
