@@ -68,11 +68,11 @@ Compiler options hardening is not a silver bullet; it is not sufficient to rely 
 
 This section describes recommendations for compiler and linker option flags that 1) enable compile-time checks that warn developers of potential defects in the source code (Table 1), and 2) enable run-time protection mechanisms, such as checks that are designed to detect when memory vulnerabilities in the application are exploited (Table 2).
 
-The recommendations in Table 1 and Table 2 are primarily applicable to compiling user space code in GNU/Linux environments using either the GCC and Binutils toolchain or the Clang / LLVM toolchain and have been included in this document becaues they are:
+The recommendations in Table 1 and Table 2 are primarily applicable to compiling user space code in GNU/Linux environments using either the GCC and Binutils toolchain or the Clang / LLVM toolchain and have been included in this document because they are:
 
 - widely deployed and enabled by default for pre-built packages in major Linux distributions, including Debian, Ubuntu, Red Hat and SUSE Linux.
 - supported both by the GCC and Clang / LLVM toolchains.
-- ross-platform and supported on (at least) Intel and AMD 64-bit x86 architectures as well as the 64-bit version of the ARM architecture (AArch64).
+- cross-platform and supported on (at least) Intel and AMD 64-bit x86 architectures as well as the 64-bit version of the ARM architecture (AArch64).
 
 For historical reasons, the GCC compiler and Binutils upstream projects do not enable optimization or security hardening options by default. While some aspects of the default options can be changed when building GCC and Binutils from source, the defaults used in the toolchains shipped with GNU/Linux distributions vary. Distributions may also ship multiple versions of toolchains with different defaults. Consequently, developers need to pay attention to compiler and linker options flags, and manage them according to their need of optimization, level of warning and error detection, and security hardening of the project.
 
