@@ -6,7 +6,7 @@ Hardened compiler options should also produce applications that integrate well w
 
 This document is intended for:
 
-- Those who write C or C++ code, to help them ensure that resulting code will work with hardened options.
+- Those who write C or C++ code, to help them ensure that resulting code will work with hardened options, including for embedded devices, Internet of THings devices, smartphones, and personal computers.
 - Those who build C or C++ code for use in production environments, including Linux distributions, device makers, and those who compile C or C++ for their local environment.
 
 This document focuses on recommended options for the GNU Compiler Collection (GCC) and clang, and we expect to expand it to cover compilers that have similar option syntax (such as the Intel compiler).
