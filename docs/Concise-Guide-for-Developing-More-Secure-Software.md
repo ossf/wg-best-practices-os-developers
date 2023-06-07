@@ -1,5 +1,7 @@
 # Concise Guide for Developing More Secure Software
 
+by the [Open Source Security Foundation (OpenSSF)](https://openssf.org)
+
 Here is a concise guide for all software developers for software development, building, and distribution. All tools or services listed are merely examples.
 
 1. **Ensure all privileged developers use** [**multi-factor authentication (MFA) tokens**](https://github.com/ossf/great-mfa-project/blob/main/guide/token-usage-guide.md#readme). This includes those with commit or accept privileges. MFA hinders attackers from “taking over” these accounts.
