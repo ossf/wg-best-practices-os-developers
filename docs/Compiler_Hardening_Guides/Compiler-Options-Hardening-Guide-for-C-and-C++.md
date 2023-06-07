@@ -347,7 +347,7 @@ Note that `vm.heap-stack-gap` expresses the gap as multiple of page size whereas
 
 Stack protector instruments code produced by the compiler to detect overflows in buffers allocated on the program stack at run-time (colloquially referred to as *“stack smashing”*).
 
-The detection is based on inserting a _canary_ value into the stack frame in the function prologue. The canary is verified against a reference value in the function epilogue. If they differ the runtime calls `__stack_chk_fail()`, which will terminate the offending application.
+The detection is based on inserting a *canary* value into the stack frame in the function prologue. The canary is verified against a reference value in the function epilogue. If they differ the runtime calls `__stack_chk_fail()`, which will terminate the offending application.
 
 This mitigates potential control-flow hijacking attacks that may lead to arbitrary code execution by corrupting return addresses stored on the stack.
 
