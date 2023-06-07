@@ -25,12 +25,12 @@ h1, h2, h3, h4, h5, h6 {
 @font-face {
   font-family: "Cairo";
   /* ../assets/fonts/Cairo/Cairo-VariableFont_slnt,wght.ttf"); */
-  src: url("../fonts/Cairo/Cairo-VariableFont_slnt,wght.ttf");
+  src: url("/assets/fonts/Cairo/Cairo-VariableFont_slnt,wght.ttf");
 }
 
 @font-face {
   font-family: "Teko";
-  src: url("../fonts/Teko/Teko-Regular.ttf");
+  src: url("/assets/fonts/Teko/Teko-Regular.ttf");
 }
 
 /* Number headings */
