@@ -1,6 +1,6 @@
 # Concise Guide for Developing More Secure Software
 
-*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org)*
+_by the [Open Source Security Foundation (OpenSSF)](https://openssf.org)_
 
 Here is a concise guide for all software developers for software development, building, and distribution. All tools or services listed are merely examples.
 
