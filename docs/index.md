@@ -2,7 +2,7 @@
 
 This is a list of materials (documents, services, and so on) released by the
 [Open Source Security Foundation (OpenSSF)](https;//openssf.org)
-[Best Practices Working Group (WG)].
+[Best Practices Working Group (WG)](https://github.com/ossf/wg-best-practices-os-developers).
 
 ## Guides
 
