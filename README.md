@@ -44,8 +44,8 @@ Our work is organized into several discrete-yet-related projects that help us ac
 
 - Concise guides for (1) developing software and (2) evaluating OSS (sandbox)
 
-  - [Concise Guide for Developing More Secure Software](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Concise-Guide-for-Developing-More-Secure-Software.md#readme)
-  - [Concise Guide for Evaluating Open Source Software](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Concise-Guide-for-Evaluating-Open-Source-Software.md#readme)
+  - [Concise Guide for Developing More Secure Software](https://best.openssf.org/Concise-Guide-for-Developing-More-Secure-Software) [editable version](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Concise-Guide-for-Developing-More-Secure-Software.md#readme)
+  - [Concise Guide for Evaluating Open Source Software](https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software) [editable version](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Concise-Guide-for-Evaluating-Open-Source-Software.md#readme)
 
 - _Common Requirement Enumeration (CRE) Project_ - (incubating) <https://www.opencre.org/>
 
@@ -99,11 +99,10 @@ There are many great projects both within and outside the Foundation that compli
 
 - Issues can be reviewed and filed [here](https://github.com/ossf/wg-best-practices-os-developers/issues)
 
-
 ## Get Involved
 
 Anyone is welcome to join our open discussions related to the group's mission and charter.
- 
+
 - [2023 Meeting Notes](https://docs.google.com/document/d/1UClGUnOSkOH_wab6Lx43KUdkaK37L8sbWJ_GPZvc1YY/edit?usp=sharing)
 - [2022 Meeting Minutes](https://docs.google.com/document/d/159RLmTvW-G6DqDOw3ya-7RI5KNNd1yHxQ5XP0D9OB4o/edit?usp=sharing)
 - [Historic Group Notes 1](https://github.com/ossf/wg-best-practices-oss-developers/blob/main/meeting-minutes.md)
@@ -114,11 +113,9 @@ Anyone is welcome to join our open discussions related to the group's mission an
 - [Manage your subscriptions to Open SSF mailing lists](https://lists.openssf.org/g/main/subgroups)
 - Join the conversation on [Slack](https://openssf.slack.com/archives/C01AHCRP8BT)
 
-
 ## Meeting Times
 
 Every 2 weeks, Tuesday 10am EST. The meeting invite is available on the [public OSSF calendar](https://calendar.google.com/calendar?cid=czYzdm9lZmhwNWk5cGZsdGI1cTY3bmdwZXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)
-
 
 | Effort       |    Meeting Times                                         |    Meeting Notes/Agenda    |       Git Repo        | Slack Channel | Mailing List |
 | :----------: | :------------------------------------------------------: | :------------------------: | :-------------------: | :-----------: | :----------: |
@@ -128,13 +125,12 @@ Every 2 weeks, Tuesday 10am EST. The meeting invite is available on the [public 
 |   EDU.SIG   | Occurs every 2nd Wednesday 6:00a PT/9:00a ET/1400 UTC   | [Meeting Notes](https://docs.google.com/document/d/18lIznkQyrcD_KI-7bKhWJQ5bjwdHpdzelA9kPTF1Gow/edit)                       |  [Git Repo](https://github.com/ossf/education) | [Slack](https://openssf.slack.com/archives/C03FW3YGXH9) | [Mailing List](https://lists.openssf.org/g/openssf-sig-education) |
 |   EDU.SIG - DEI Subcommittee  | Occurs every 2nd Tuesday 8:00a PT/11:00a ET/1600 UTC   | [Meeting Notes](https://docs.google.com/document/d/1LdQ07veOcJ596Vo3aQZCFy-HHeEO7cHnbE_6u_uq9Fk/edit#)                       |  [Git Repo](https://github.com/ossf/education) | [Slack](https://openssf.slack.com/archives/C04FMD5HSC9) | [Mailing List](https://lists.openssf.org/g/openssf-sig-education-dei) |
 |  Memory Safety SIG   | Every 2nd Thursday 10:00a PT/1:00p ET/1500 UTC           | [Meeting Notes](https://docs.google.com/document/d/1KgWw0co9xvUfCqQYW6Qei2lii2Fl-t-L7gYkAZBYDWg/edit?usp=sharing)                       |  [Git Repo](https://github.com/ossf/Memory-Safety) | [Slack](https://openssf.slack.com/archives/C03G8NZH58R) | [Mailing List](https://lists.openssf.org/g/openssf-sig-memory-safety) |
-|  Scorecard  | Occurs every 2nd Thursday 1:00p PT/4:00p ET/1800 UTC    | [Meeting Notes](https://docs.google.com/document/d/1b6d3CVJLsl7YnTE7ZaZQHdkdYIvuOQ8rzAmvVdypOWM/edit?usp=sharing)           |  [Git Repo](https://github.com/ossf/scorecard) | [Slack](https://openssf.slack.com/archives/C0235AR8N2C ) | [Mailing List]( ) |
-|  Security Knowledge Framework -  SKF  | TBD   | [Meeting Notes]( )           |  [Git Repo]( ) | [Slack](https://openssf.slack.com/archives/C04B7EZLTM1) | [Mailing List]( ) |
+|  Scorecard  | Occurs every 2nd Thursday 1:00p PT/4:00p ET/1800 UTC    | [Meeting Notes](https://docs.google.com/document/d/1b6d3CVJLsl7YnTE7ZaZQHdkdYIvuOQ8rzAmvVdypOWM/edit?usp=sharing)           |  [Git Repo](https://github.com/ossf/scorecard) | [Slack](https://openssf.slack.com/archives/C0235AR8N2C ) | Mailing List |
+|  Security Knowledge Framework -  SKF  | TBD   | Meeting Notes           |  Git Repo | [Slack](https://openssf.slack.com/archives/C04B7EZLTM1) | Mailing List |
 
 ## Meeting Notes
 
 Meeting notes are maintained in a Google Doc found in the above table. If attending please add your name, and if a returning attendee, please change the color of your name from gray to black.
-
 
 ## Governance
 
