@@ -20,11 +20,11 @@ defaults:
       author: Open Source Security Foundation (OpenSSF)
   -
     scope:
-      path: "/Concise-Guide-for-Developing-More-Secure-Software.html"
+      path: "Concise-Guide-for-Developing-More-Secure-Software.html"
     values:
       description: This is a concise guide for all software developers for how to create more secure software during development, building, and distribution.
   -
     scope:
-      path: "/Concise-Guide-for-Evaluating-Open-Source-Software.html"
+      path: "Concise-Guide-for-Evaluating-Open-Source-Software.html"
     values:
       description: This is a concise guide for evaluating Open Source Software (OSS) for its security and sustainability.
