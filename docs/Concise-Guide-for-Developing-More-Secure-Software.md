@@ -2,7 +2,7 @@
 
 _by the [Open Source Security Foundation (OpenSSF)](https://openssf.org)_
 
-Here is a concise guide for all software developers for software development, building, and distribution. All tools or services listed are merely examples.
+Here is a concise guide for all software developers for secure software development, building, and distribution. All tools or services listed are merely examples.
 
 1. **Ensure all privileged developers use** [**multi-factor authentication (MFA) tokens**](https://github.com/ossf/great-mfa-project/blob/main/guide/token-usage-guide.md#readme). This includes those with commit or accept privileges. MFA hinders attackers from “taking over” these accounts.
 2. **Learn about secure software development.** Take, e.g., the [free OpenSSF course](https://openssf.org/training/courses/) or the hands-on [Security Knowledge Framework](https://www.securityknowledgeframework.org/) course. [SAFECode’s Fundamental Practices](https://safecode.org/wp-content/uploads/2018/03/SAFECode_Fundamental_Practices_for_Secure_Software_Development_March_2018.pdf) [for Secure Software Development](https://safecode.org/wp-content/uploads/2018/03/SAFECode_Fundamental_Practices_for_Secure_Software_Development_March_2018.pdf) provides a helpful summary.
