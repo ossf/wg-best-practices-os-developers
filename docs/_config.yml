@@ -6,3 +6,25 @@ title: null
 kramdown:
   # See: https://dieghernan.github.io/chulapa-101/cheatsheets/02-kramdown-cheat-sheet
   toc_levels: 2..6
+#
+# https://jekyllrb.com/docs/configuration/front-matter-defaults/
+# Note: We specific *specific* scopes in documents that were directly
+# published and referenced on GitHub. That way we don't need to add YAML
+# to the beginning of the markdown in those cases.
+# In newer markdown documents, use a yaml prefix to set "description", etc.
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      author: Open Source Security Foundation (OpenSSF)
+  -
+    scope:
+      path: "/Concise-Guide-for-Developing-More-Secure-Software.html"
+    values:
+      description: This is a concise guide for all software developers for how to create more secure software during development, building, and distribution.
+  -
+    scope:
+      path: "/Concise-Guide-for-Evaluating-Open-Source-Software.html"
+    values:
+      description: This is a concise guide for evaluating Open Source Software (OSS) for its security and sustainability.
