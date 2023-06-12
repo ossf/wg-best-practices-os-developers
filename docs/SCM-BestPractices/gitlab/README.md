@@ -15,15 +15,20 @@ This guide has been written for the:
 ## Recommendations
 
 ### Server
+
 1. [Two-Factor Authentication Should Be Enforced For The Group](group/two_factor_authentication_not_required_for_group.md)
 2. [Forking of Repositories to External Namespaces Should Be Disabled.](group/collaborators_can_fork_repositories_to_external_namespaces.md)
 3. [Group Should Enforce Branch Protection](group/group_does_not_enforce_branch_protection_by_default.md)
 4. [Webhooks Should Be Configured To Use SSL](group/organization_webhook_doesnt_require_ssl.md)
+
 ### Members, Access Control and Permissions
+
 1. [Two Factor Authentication Should Be Enabled for Collaborators](member/two_factor_authentication_is_disabled_for_a_collaborator.md)
 2. [Two Factor Authentication Should Be Enabled for External Collaborators](member/two_factor_authentication_is_disabled_for_an_external_collaborator.md)
 3. [Admininistrators Should Have Activity in the Last 6 Months](member/stale_admin_found.md)
+
 ### Repository configuration
+
 1. [Default Branch Should Require Code Review](project/code_review_not_required.md)
 2. [Project Should Be Updated At Least Quarterly](project/project_not_maintained.md)
 3. [Repository Should Not Allow Review Requester To Approve Their Own Request](project/repository_allows_review_requester_to_approve_their_own_request.md)
@@ -44,16 +49,16 @@ This guide has been written for the:
 ### Operations
 
 General Recommendations
-- Group Membership Should Be Limited to Employees.
-- Review Security Policies and Procedures At Least Annually.
-- Establish a Clear Communication and Incident Response Plan.
-- Conduct Regular Security Audits and Vulnerability Assessments.
-- Use Tools Built On APIs to Automate Tasks and Avoid Needing Elevated Privileges.
-- Provide Automated Alerts and Tooling to Ensure Ongoing Compliance.
-- Review Audit Events to Track Activity and Changes in Projects and Groups. 
+* Group Membership Should Be Limited to Employees.
+* Review Security Policies and Procedures At Least Annually.
+* Establish a Clear Communication and Incident Response Plan.
+* Conduct Regular Security Audits and Vulnerability Assessments.
+* Use Tools Built On APIs to Automate Tasks and Avoid Needing Elevated Privileges.
+* Provide Automated Alerts and Tooling to Ensure Ongoing Compliance.
+* Review Audit Events to Track Activity and Changes in Projects and Groups.
 
 Specific Recommendations
-- [Two-Factor Authentication Should Be Enforced For The Group](group/two_factor_authentication_not_required_for_group.md)
-- Group Should Use Single-Sign-On
-- Only Admins Should Be Able To Create Public Projects and Groups.
-- [Webhooks Should Be Configured To Use SSL](group/organization_webhook_doesnt_require_ssl.md)
+* [Two-Factor Authentication Should Be Enforced For The Group](group/two_factor_authentication_not_required_for_group.md)
+* Group Should Use Single-Sign-On
+* Only Admins Should Be Able To Create Public Projects and Groups.
+* [Webhooks Should Be Configured To Use SSL](group/organization_webhook_doesnt_require_ssl.md)
