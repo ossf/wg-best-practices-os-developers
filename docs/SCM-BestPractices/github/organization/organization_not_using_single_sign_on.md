@@ -1,18 +1,23 @@
-## Organization Not Using Single-Sign-On
+# Organization Should Use Single-Sign-On
 
 policy name: organization_not_using_single_sign_on
 
 severity: MEDIUM
 
-### Description
+## Description
 
-It is recommended to enable access to an organization via SAML single sign-on (SSO) by authenticating through an identity provider (IdP).
+It is recommended to enable access to an organization via SAML single sign-on
+(SSO) by authenticating through an identity provider (IdP). This allows for
+central account control and for timely access revocations.
 
-### Threat Example(s)
+## Threat Example(s)
 
-Not using an SSO solution makes it more difficult to track a potentially compromised user's actions accross different systems, prevents the organization from defining a common password policy, and makes it challenging to audit different aspects of the user's behavior.
+Not using an SSO solution makes it more difficult to track a potentially
+compromised user's actions accross different systems, prevents the organization
+from defining a common password policy, and makes it challenging to audit
+different aspects of the user's behavior.
 
-### Remediation
+## Remediation
 
 1. Make sure you have admin permissions
 2. Go to the organization settings page

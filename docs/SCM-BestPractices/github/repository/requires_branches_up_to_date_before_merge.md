@@ -1,18 +1,21 @@
-## Default Branch Doesn’t Require Branches To Be Up To Date Before Merge
+# Default Branch Should Require Branches To Be Up To Date Before Merge
 
 policy name: requires_branches_up_to_date_before_merge
 
 severity: MEDIUM
 
-### Description
+## Description
 
 Status checks are required, but branches that are not up to date can be merged.
+This can result in previously remediated issues being merged in over fixes.
 
-### Threat Example(s)
+## Threat Example(s)
 
-Required status checks may be failing on the latest version after passing on an earlier version of the code, making it easy to commit buggy or otherwise insecure code.
+Required status checks may be failing on the latest version after passing on an
+earlier version of the code, making it easy to commit buggy or otherwise
+insecure code.
 
-### Remediation
+## Remediation
 
 1. Make sure you have admin permissions
 2. Go to the repo's settings page

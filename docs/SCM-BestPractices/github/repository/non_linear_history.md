@@ -1,18 +1,19 @@
-## Default Branch Doesn't Require Linear History
+# Default Branch Should Require Linear History
 
 policy name: non_linear_history
 
 severity: MEDIUM
 
-### Description
+## Description
 
 Prevent merge commits from being pushed to protected branches.
 
-### Threat Example(s)
+## Threat Example(s)
 
-Having a non-linear history makes it harder to reverse changes, making recovery from bugs and security risks slower and more difficult.
+Having a non-linear history makes it harder to reverse changes, making recovery
+from bugs and security risks slower and more difficult.
 
-### Remediation
+## Remediation
 
 1. Make sure you have admin permissions
 2. Go to the repo's settings page

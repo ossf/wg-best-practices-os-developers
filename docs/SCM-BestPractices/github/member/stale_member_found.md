@@ -1,18 +1,21 @@
-## Stale Member Found
+# Organization Members Should Have Activity In The Last 6 Months
 
 policy name: stale_member_found
 
 severity: LOW
 
-### Description
+## Description
 
-A member didn't do any action in the last 6 months. Stale members can pose a potential risk if they are compromised. Consider removing the user's access completely.
+A member did not perform any action in the last 6 months. Stale members can
+pose a potential risk if they are compromised. Consider removing the user's
+access completely.
 
-### Threat Example(s)
+## Threat Example(s)
 
-Stale members are most likely not managed and monitored, increasing the possibility of being compromised.
+Stale members are most likely not managed and monitored, increasing the
+possibility of being compromised.
 
-### Remediation
+## Remediation
 
 1. Make sure you have admin permissions
 2. Go to the org's People page

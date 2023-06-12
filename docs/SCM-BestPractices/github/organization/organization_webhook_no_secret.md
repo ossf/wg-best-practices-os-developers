@@ -1,19 +1,23 @@
-## Webhook Configured Without A Secret
+# Webhooks Should Be Configured With A Secret
 
 policy name: organization_webhook_no_secret
 
 severity: LOW
 
-### Description
+## Description
 
-Webhooks are not configured with an authenticated token to validate the origin of the request and could make your software vulnerable.
+Webhooks are not configured with a shared secret to validate the origin and
+content of the request. This could allow your webhook to be triggered by any bad
+actor with the URL.
 
-### Threat Example(s)
+## Threat Example(s)
 
-Not using a webhook secret makes the service receiving the webhook unable to determine the authenticity of the request.
-This allows attackers to masquerade as your organization, potentially creating an unstable or insecure state in other systems.
+Not using a webhook secret makes the service receiving the webhook unable to
+determine the authenticity of the request.
+This allows attackers to masquerade as your organization, potentially creating
+an unstable or insecure state in other systems.
 
-### Remediation
+## Remediation
 
 1. Make sure you have admin permissions
 2. Go to the organization settings page

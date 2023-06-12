@@ -22,6 +22,7 @@ For recmmendations only applicable to GitHub or GitLab visit one of the followin
 * [GitLab Recommendations](gitlab/README.md)
 
 ### Continuous Integration / Continuous Deployment
+
 * Workflows Should Not Be Allowed To Approve Pull Requests [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/actions/actions_can_approve_pull_requests.md)
 * GitHub Actions Should Be Restricted To Selected Repositories [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/actions/all_repositories_can_run_github_actions.md)
 * GitHub Actions Should Be Limited To Verified or Explicitly Trusted Actions [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/actions/all_github_actions_are_allowed.md)
@@ -30,6 +31,7 @@ For recmmendations only applicable to GitHub or GitLab visit one of the followin
 * Runner Group Should Be Limited to Selected Repositories [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/runner_group/runner_group_not_limited_to_selected_repositories.md)
 
 ### Server
+
 * Two-Factor Authentication Should Be Enforced For The Enterprise [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/enterprise/enterprise_enforce_two_factor_authentication.md)
 * Enterprise Should Not Allow Members To Create public Repositories [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/enterprise/enterprise_allows_creating_public_repos.md)
 * Enterprise Should Not Allow Members To Invite Outside Collaborators [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/enterprise/enterprise_allows_inviting_externals_collaborators.md)
@@ -42,6 +44,7 @@ For recmmendations only applicable to GitHub or GitLab visit one of the followin
 * Webhooks Should Be Configured To Use SSL [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">](gitlab/group/organization_webhook_doesnt_require_ssl.md)
 
 ### Members, Access Control and Permissions
+
 * Organization Should Have Fewer Than Three Owners [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/member/organization_has_too_many_admins.md)
 * Organization Admins Should Have Activity In The Last 6 Months [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/member/stale_admin_found.md)
 * Organization Members Should Have Activity In The Last 6 Months [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/member/stale_member_found.md)
@@ -50,6 +53,7 @@ For recmmendations only applicable to GitHub or GitLab visit one of the followin
 * Admininistrators Should Have Activity in the Last 6 Months [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">](gitlab/member/stale_admin_found.md)
 
 ### Repository configuration
+
 * Repository Should Be Updated At Least Quarterly [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/repository/repository_not_maintained.md)
 * Workflows Should Not Be Allowed To Approve Pull Requests [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/repository/actions_can_approve_pull_requests.md)
 * Default Branch Should Require Code Review [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/repository/code_review_not_required.md) [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">](gitlab/project/code_review_not_required.md)
@@ -87,6 +91,7 @@ For recmmendations only applicable to GitHub or GitLab visit one of the followin
 ### Operations
 
 General Recommendations
+
 * Organization Management Should Be Consolidated Under a Central Account. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
 * Organization  Membership Should Be Limited to Employees. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
 * Review Security Policies and Procedures At Least Annually. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
@@ -100,6 +105,7 @@ General Recommendations
 * Review Audit Events to Track Activity and Changes in Projects and Groups. <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
 
 Specific Recommendations
+
 * Two-Factor Authentication Should Be Enforced For The Organization [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/two_factor_authentication_not_required_for_org.md)
 * Organization Should Use Single-Sign-On [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/organization_not_using_single_sign_on.md)
 * Default Member Permissions Should Be Restricted [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/organization/default_repository_permission_is_not_none.md)

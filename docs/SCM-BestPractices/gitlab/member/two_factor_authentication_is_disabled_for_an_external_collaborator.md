@@ -1,19 +1,25 @@
-## Two Factor Authentication Is Disabled For an External Collaborator
+# Two Factor Authentication Should Be Enabled for External Collaborators
 
 policy name: two_factor_authentication_is_disabled_for_an_external_collaborator
 
 severity: HIGH
 
-### Description
+## Description
 
-An external collaborator's two factor authentication is disabled at the source code management system. Turn it on in the collaborator setting, or globally in the account, to prevent any access without MFA.
+An external collaborator's two factor authentication is disabled. Turn it on in
+the collaborator setting, or globally in the account, to prevent any access
+without MFA.
 
-### Threat Example(s)
+## Threat Example(s)
 
-Collaborators without two-factor authentication are prime targets for phising and social engineering attacks, as compromise only requires acquiring the collaborator's password.
-This is doubly important for external collaborators, as these are identities that aren't likely managed by you or your organization and may be easier to compromise.
+Collaborators without two-factor authentication are prime targets for phising
+and social engineering attacks, as compromise only requires acquiring the
+collaborator's password.
+This is doubly important for external collaborators, as these are identities
+that aren't likely managed by you or your organization and may be easier to
+compromise.
 
-### Remediation
+## Remediation
 
 1. Login with the user credentials
 2. Go to the user settings page

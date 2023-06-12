@@ -1,18 +1,22 @@
-## Permissive Default Member Permissions Exist For New Repositories
+# Default Member Permissions Should Be Restricted
 
 policy name: default_repository_permission_is_not_none
 
 severity: HIGH
 
-### Description
+## Description
 
-Default repository permissions configuration is not set in the organization, thus every new repository will be accessible by default to all users. It is strongly recommended to remove the default permissions and assign them on demand.
+Default repository permissions configuration is not set in the organization,
+thus every new repository will be accessible by default to all users. It is
+strongly recommended to remove the default permissions and assign them on
+demand.
 
-### Threat Example(s)
+## Threat Example(s)
 
-Organization members can see the content of freshly created repositories, even if they should be restricted.
+Organization members can see the content of freshly created repositories, even
+if they should be restricted.
 
-### Remediation
+## Remediation
 
 1. Make sure you have admin permissions
 2. Go to the organization settings page

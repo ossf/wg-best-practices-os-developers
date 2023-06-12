@@ -1,18 +1,22 @@
-## Default Branch Doesn't Restrict Who Can Dismiss Reviews
+# Default Branch Should Restrict Who Can Dismiss Reviews
 
 policy name: review_dismissal_allowed
 
 severity: LOW
 
-### Description
+## Description
 
-Any user with write access to the repository can dismiss pull-request reviews. Pull-request review contains essential information on the work that needs to be done and helps keep track of the changes. Dismissing it might cause a loss of this information and should be restricted to a limited number of users.
+Any user with write access to the repository can dismiss pull-request reviews.
+Pull-request review contains essential information on the work that needs to be
+done and helps keep track of the changes. Dismissing it might cause a loss of
+this information and should be restricted to a limited number of users.
 
-### Threat Example(s)
+## Threat Example(s)
 
-Allowing the dismissal of reviews can promote poor and vulnerable code, as important comments may be forgotten and ignored during the review process.
+Allowing the dismissal of reviews can promote poor and vulnerable code, as
+important comments may be forgotten and ignored during the review process.
 
-### Remediation
+## Remediation
 
 1. Make sure you have admin permissions
 2. Go to the repo's settings page

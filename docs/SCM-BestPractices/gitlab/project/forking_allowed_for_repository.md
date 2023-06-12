@@ -1,18 +1,23 @@
-## Forking Allowed for This Repository
+# Forking Should Not Be Allowed
 
 policy name: forking_allowed_for_repository
 
 severity: LOW
 
-### Description
+## Description
 
-Forking a repository can lead to loss of control and potential exposure of the source code. The option to fork must be disabled by default and turned on only by owners deliberately when opting to create a fork. If you do not need forking, it is recommended to turn it off in the project's configuration.
+Forking a repository can lead to loss of control and potential exposure of
+source code. If you do not need forking, it is recommended to turn it off in the
+project's configuration. The option to fork should be enabled only by owners
+deliberately when opting to create a fork.
 
-### Threat Example(s)
+## Threat Example(s)
 
-Forked repositories may leak important code assets or sensitive secrets embedded in the code to anyone outside your organization, as the code becomes publicy-accessible
+Forked repositories may leak important code assets or sensitive secrets
+embedded in the code to anyone outside your organization, as the code becomes
+publicy-accessible
 
-### Remediation
+## Remediation
 
 1. Make sure you have owner permissions
 2. Go to the project's settings page

@@ -1,18 +1,21 @@
-## Project Doesn't Require Code Review For Default Branch
+# Default Branch Should Require Code Review
 
 policy name: code_review_not_required
 
 severity: HIGH
 
-### Description
+## Description
 
-In order to comply with separation of duties principle and enforce secure code practices, a code review should be mandatory using the source-code-management built-in enforcement. An even safer option is to require 2 separate reviewers, which is enforced in the Legitify policy "Project Doesn't Require Code Review By At Least Two Reviewers".
+In order to comply with separation of duties principle and enforce secure code
+practices, a code review should be mandatory using the source-code-management
+built-in enforcement.
 
-### Threat Example(s)
+## Threat Example(s)
 
-Users can merge code without being reviewed which can lead to insecure code reaching the main branch and production.
+Users can merge code without being reviewed which can lead to insecure code
+reaching the main branch and production.
 
-### Remediation
+## Remediation
 
 1. Make sure you have admin permissions
 2. Go to the repo's settings page
