@@ -12,6 +12,35 @@ This guide has been written for the:
 * **Open Source Program Office (OSPO)** (or a team that plays a similar role) who is typically responsible for multiple GitHub organizations or GitLab groups.
 * **Operations** team tasked with applying policies as part of their work managing assets on these platforms.
 
+## Tooling
+
+### Legitify - https://github.com/Legit-Labs/legitify
+
+An open-source project from [Legit Security](https://www.legitsecurity.com/) that scans SCM assets to find misconfigurations, security issues, and unfollowed best practices.
+Legitify detects all policies suggested by this document and supports the following SCMs:
+
+* GitHub Cloud
+* GitHub Enterprise Server
+* GitLab Cloud
+* GitLab Server
+
+### Scorecard - https://github.com/ossf/scorecard
+
+An open-source project from the [OpenOSSF](https://openssf.org/) that scans repositories for security issues and provides security health metrics.
+Scorecard detects many of the “repository level” policies suggested by this document and supports the following SCMs:
+
+* GitHub Cloud
+* GitHub Enterprise Server
+* GitLab Cloud
+* GitLab Server
+
+### Allstar - https://github.com/ossf/allstar
+
+An open-source project from the [OpenOSSF](https://openssf.org/) that scans GitHub organizations for “repository level” misconfigurations.
+Allstar detects a subset of the “repository level” policies suggested by this document. It can be configured to scan all repositories in an organization or a subset of them and is supported by the following SCMs:
+
+* GitHub Cloud
+
 ## Recommendations
 
 Each specific recommendation below is noted to be applicable to either GitHub or GitLab by use of an appropriate icon, which is linked to the detailed best practice definition: <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
