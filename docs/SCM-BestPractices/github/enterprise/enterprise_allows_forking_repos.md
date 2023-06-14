@@ -1,12 +1,12 @@
-# Forking of Repositories to External Namespaces Should Be Disabled
+# Enterprise Should Not Allow Members To Fork Internal And Private Repositories
 
-policy name: collaborators_can_fork_repositories_to_external_namespaces
+policy name: enterprise_allows_forking_repos
 
-severity: MEDIUM
+severity: LOW
 
 ## Description
 
-The ability to fork project to external namespaces is turned on. Forking a
+The enterprise's repository forking policy should be set to DISABLED. Forking a
 repository can lead to loss of control and potential exposure of source code. If
 you do not need forking, it is recommended to turn it off in the project's
 configuration. The option to fork should be enabled only by owners deliberately
@@ -20,7 +20,7 @@ data leaks.
 
 ## Remediation
 
-1. Go to the top-level groups Settings > General page
-2. Expand the Permissions and group features section
-3. Check Prevent project forking outside current group
-4. Select Save changes
+1. Make sure you are an enterprise owner
+2. Go to the policies page
+3. Under the "Repository Forking" section
+4. Choose the "Disabled" option
