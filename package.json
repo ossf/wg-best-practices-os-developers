@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "OpenSSF Repository for the Best Practices for OSS Developers WG",
   "scripts": {
-    "format": "npx prettier --write . && npx markdownlint --fix '**/*.md' --ignore node_modules --config .github/linters/.markdown-lint.yml"
+    "format": "npx prettier --write . && npx markdownlint --fix '**/*.md' --ignore node_modules"
   },
   "repository": {
     "type": "git",
