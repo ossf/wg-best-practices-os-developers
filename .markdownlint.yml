@@ -1,0 +1,10 @@
+# Default state for all rules
+default: true
+# MD013 line-length
+MD013: false
+# MD024 no-duplicate-heading/no-duplicate-header
+MD024: false
+# MD033 no-inline-html
+MD033: false
+# MD036 no-emphasis-as-heading/no-emphasis-as-header
+MD036: false
