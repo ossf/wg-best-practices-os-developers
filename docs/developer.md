@@ -46,4 +46,28 @@ Sigstore is a new and simpler approach for artifact signing and signature verifi
 
 ## For more information
 
-Please also see the [main OpenSSF website](https://openssf.org) to learn more about the OpenSSF.
+To learn more about the OpenSSF, 
+please see the [main OpenSSF website](https://openssf.org).
+This website includes information on:
+
+* [Town Hall meetings](https://openssf.org/townhalls/),
+  where we give brief updates. Consider watching a recording to learn
+  what's going on.
+* [OpenSSF blog](https://openssf.org/blog/)
+* [Upcoming Events](https://openssf.org/events/)
+* [OpenSSF press releases](https://openssf.org/news/)
+
+## Getting involved in the OpenSSF
+
+If you're interested in helping us improve the security (including the
+supply chain security) of open source software, please join us.
+A good starting point would be to look at our
+[list of OpenSSF working groups (WGs)](https://openssf.org/community/openssf-working-groups/)
+to see what would interest you.
+
+If you see something working group that interests you, you can click
+on its GitHub page to learn more about what they do and when they
+meet by video; you can also join their Slack channel and mailing list
+to participate in what they're doing.
+
+We would love to work together.
