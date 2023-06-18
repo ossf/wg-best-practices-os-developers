@@ -46,7 +46,7 @@ Sigstore is a new and simpler approach for artifact signing and signature verifi
 
 ## For more information
 
-To learn more about the OpenSSF, 
+To learn more about the OpenSSF,
 please see the [main OpenSSF website](https://openssf.org).
 This website includes information on:
 
