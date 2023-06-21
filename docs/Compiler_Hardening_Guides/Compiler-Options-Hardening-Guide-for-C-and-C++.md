@@ -719,6 +719,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - Gabriel Dos Reis, Microsoft
 - Georg Kunz, Ericsson
 - Randall T. Vasquez, Linux Foundation
+- Robert C. Seacord, Woven Planet
 - Siddhesh Poyarekar, Red Hat
 
 ## License
