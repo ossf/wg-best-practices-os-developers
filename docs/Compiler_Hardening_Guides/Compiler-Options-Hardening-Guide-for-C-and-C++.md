@@ -714,7 +714,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - Thomas Nyman, Ericsson
 - Robert Byrne, Ericsson
 - Jussi Auvinen, Ericsson
-
+- Christopher "CRob" Robinson, Intel
 - David A. Wheeler, Linux Foundation
 - Gabriel Dos Reis, Microsoft
 - Georg Kunz, Ericsson
