@@ -789,5 +789,10 @@ Many more security-relevant compiler options exist than are recommended in this 
 
 | Compiler Flag | Supported since  | Rationale |
 |---------------|------------------|-----------|
+| <span id="-Wl,-z,noexecheap">`-Wl,-z,noexecheap`</span> | Binutils 2.15 (Hardened Gentoo / PaX only ) | Hardened Gentoo / PaX specific Binutils extension[^noexecheap], not present in upstream toolchains.
+
+[^nodump]: The `-Wl,-z,nodump` option sets `DF_1_NODUMP` flag in the object’s `.dynamic` section tags. On Solaris this restricts calls to `dldump(3)` for the object. However, other operating systems ignore the `DF_1_NODUMP` flag. While Binutils implements `-Wl,-z,nodump` for Solaris compatibility a choice was made to not support it in `lld` ([D52096 lld: add -z nodump support](https://reviews.llvm.org/D52096)).
+
+[^noexecheap]: The `-Wl,-z,noexecheap` option is a [Hardened Gentoo](https://wiki.gentoo.org/wiki/Hardened/PaX_Quickstart) extension to Binutils ported from [PaX](https://pax.grsecurity.net/). PaX is a patch to the Linux kernel and Binutils that adds a `PT_PAX_FLAGS` program header to ELF objects that stores memory protection information the PaX kernel can enforce. The protection information stored in `PT_PAX_FLAGS` will not benefit software running on systems without a PaX kernel. The Gentoo patch (`63_all_binutils-`*\<version\>*`-pt-pax-flags-`*\<date\>*`.patch`) for various versions of Binutils since 2.15 can be found at [https://dev.gentoo.org/~vapier/dist/](https://dev.gentoo.org/~vapier/dist/).
 
 ## References
