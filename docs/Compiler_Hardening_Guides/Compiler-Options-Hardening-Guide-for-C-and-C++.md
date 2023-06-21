@@ -709,10 +709,17 @@ If the build ID method is used the debug info file’s name is computed from the
 Note that the build ID does not act as a checksum for the executable or debug info file. For more information on the build ID feature please refer to the GDB[^23] and GNU linker[^20] documentation.
 
 ## Contributors
+The OpenSSF Developer BEST Practices Working group thanks Ericsson for their generous intial donation of content to start collaboration on this guide.
 
 - Thomas Nyman, Ericsson
 - Robert Byrne, Ericsson
 - Jussi Auvinen, Ericsson
+
+- David A. Wheeler, Linux Foundation
+- Gabriel Dos Reis, Microsoft
+- Georg Kunz, Ericsson
+- Randall T. Vasquez, Linux Foundation
+- Siddhesh Poyarekar, Red Hat
 
 ## License
 
