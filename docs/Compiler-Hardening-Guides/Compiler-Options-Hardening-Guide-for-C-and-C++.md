@@ -89,7 +89,9 @@ The options in Table 2 can be categorized into two types:
 1) options that cause the compiler to augment the produced binary with run-time checks aimed to detect memory errors, and
 2) options that direct the compiler to adjust the properties of the generated binary or code to ensure the resulting binary is compatible with OS-enforced protection mechanisms.
 
-As these options have an impact on the binary produced by the compiler the effects of enabling any of the options in Table 2 must be validated through testing.
+Testing is essential to validate the impact of enabling any of the options listed in Table 2, as they affect the binary produced by the compiler. Some of the compiler options described below may influence the software's performance. However, this performance impact is usually context-specific, and in most cases, it is either minimal or the benefits outweigh the overhead. For further information on when significant performance impacts may occur, you can find detailed descriptions of these options later in this document.
+
+When dealing with software for which performance is a critical factor developers should carefully assess the trades-offs between enabling more secure options and observed performance test data, taking into account the specific use cases of their software. Before implementing any changes in production environments, it is essential to conduct thorough benchmarking and testing. This will provide insights into how the compiler options influence both performance and security aspects of the software. Keep in mind that a system that works quickly but is vulnerable to adversaries may not align with user expectations. Benchmarks should consider any relevant performance characteristics such as average time, worst-case time, and memory use during execution. Additionally, the impact on the size of the produced binaries can be a concern, particularly for embedded systems.
 
 Table 1: Recommended compiler options that enable strictly compile-time checks.
 
