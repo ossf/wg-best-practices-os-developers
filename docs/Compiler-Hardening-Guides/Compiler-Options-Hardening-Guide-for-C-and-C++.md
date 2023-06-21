@@ -783,4 +783,11 @@ Note that the build ID does not act as a checksum for the executable or debug in
 
 Copyright 2023, OpenSSF contributors, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
+## Appendix: List of Considered Compiler Options
+
+Many more security-relevant compiler options exist than are recommended in this guide. Some of these have been considered for inclusion, but for various reasons have, in-the-end been excluded from the set of recommended options. The following table lists options that have been reviewed and the rationale for their exclusion. While they are not in the recommended list, you may find them useful for your purposes.
+
+| Compiler Flag | Supported since  | Rationale |
+|---------------|------------------|-----------|
+
 ## References
