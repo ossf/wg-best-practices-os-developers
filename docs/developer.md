@@ -44,11 +44,11 @@ Sigstore is a new and simpler approach for artifact signing and signature verifi
 
 * [Secure Open Source Rewards (SOS)](https://sos.dev/) - provides financial grants to OSS projects to enhance their their security. Please read its [FAQ](https://sos.dev/#frequently-asked-questions) before submitting your application.
 
-## For more information
+## For more information about the OpenSSF
 
 To learn more about the OpenSSF,
 please see the [main OpenSSF website](https://openssf.org).
-This website includes information on:
+From this website you can get information such as:
 
 * [Town Hall meetings](https://openssf.org/townhalls/),
   where we give brief updates. Consider watching a recording to learn
@@ -56,18 +56,21 @@ This website includes information on:
 * [OpenSSF blog](https://openssf.org/blog/)
 * [Upcoming Events](https://openssf.org/events/)
 * [OpenSSF press releases](https://openssf.org/news/)
+* [Public event calendar](https://calendar.google.com/calendar/u/0?cid=czYzdm9lZmhwNWk5cGZsdGI1cTY3bmdwZXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ).
 
 ## Getting involved in the OpenSSF
 
 If you're interested in helping us improve the security (including the
-supply chain security) of open source software, please join us.
+supply chain security) of open source software,
+[please get involved in the OpenSSF](https://openssf.org/getinvolved/).
+
 A good starting point would be to look at our
 [list of OpenSSF working groups (WGs)](https://openssf.org/community/openssf-working-groups/)
 to see what would interest you.
-
-If you see something working group that interests you, you can click
-on its GitHub page to learn more about what they do and when they
+You can click on its GitHub page to learn more about what they do and when they
 meet by video; you can also join their Slack channel and mailing list
 to participate in what they're doing.
 
+You can
+[get involved with the OpenSSF in many ways](https://openssf.org/getinvolved/).
 We would love to work together.
