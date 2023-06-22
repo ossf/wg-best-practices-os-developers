@@ -23,7 +23,7 @@ Use these to evaluate OSS you intend to use _and_ how well your OSS project is d
 * [Security Scorecard](https://github.com/ossf/scorecard) is a tool that automatically scores OSS projects. Currently only supports projects hosted by GitHub.
   * You can add [AllStar](https://github.com/ossf/allstar) to your OSS project, which will file an issue for Scorecard policy violations (you can configure what files an issue). See [Allstar's "Quickstart Installation" for more](https://github.com/ossf/allstar#quickstart-installation).
 * [OpenSSF Best Practices badge](https://bestpractices.coreinfrastructure.org/) - This is a questionaire of security best practices, partly automation, that takes ~20 mintues. If you meet enough criteria your OSS project earns a badge!
-* [Security Review](https://github.com/ossf/security-reviews) - collection of known security reviews of OSS projects.
+* [Security Reviews](https://github.com/ossf/security-reviews) - collection of known security reviews of OSS projects.
 
 ## Build protection
 
