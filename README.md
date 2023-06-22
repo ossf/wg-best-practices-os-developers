@@ -61,7 +61,7 @@ Our work is organized into several discrete-yet-related projects that help us ac
   - Purpose - (Adopt) Automate analysis and trust decisions on the security posture of open source projects.
 - _Great MFA Distribution Project_ - (incubating) <https://github.com/ossf/great-mfa-project>
   - Distribute MFA tokens to OSS developers and best practices on how to easily use them
-- [_Compiler Options Hardening Guide for C and C++_](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Compiler_Hardening_Guides/Compiler-Options-Hardening-Guide-for-C-and-C%2B%2B.md) (incubating)
+- [_Compiler Options Hardening Guide for C and C++_](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++) (incubating, [editable version](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C%2B%2B.md))
   - Recommended compiler option flags for C/C++ programs, especially warning and hardening flags, for developers & distributionss.
 You can also see our older work, [Recommended compiler option flags for C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b).
 - _Interactive artwork_ - (incubating) <https://github.com/blabla1337/wg-best-practices-os-developers/tree/main/infinity2>
