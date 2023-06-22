@@ -1,8 +1,8 @@
-# Developer Landing Page
+# For Software Developers
 
 _by the [Open Source Security Foundation (OpenSSF)](https;//openssf.org)_
 
-If you develop or build software, here are some ready-to-go resources to help you secure it.
+If you develop or build software, here are some ready-to-go resources to help you secure it from the OpenSSF.
 
 ## General software security education
 
