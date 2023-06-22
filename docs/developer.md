@@ -42,7 +42,7 @@ Sigstore is a new and simpler approach for artifact signing and signature verifi
 
 ## Funding of OSS projects
 
-* [Secure Open Source Rewards (SOS)](https://sos.dev/) - provides financial grants to critical OSS projects to enhance their their security. Please read its [FAQ](https://sos.dev/#frequently-asked-questions) before submitting your application.
+* [Secure Open Source Rewards (SOS)](https://sos.dev/) - provides financial grants to OSS projects to enhance their their security. Please read its [FAQ](https://sos.dev/#frequently-asked-questions) before submitting your application.
 
 ## For more information
 
