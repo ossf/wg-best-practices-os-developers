@@ -2,7 +2,7 @@
 
 _by the [Open Source Security Foundation (OpenSSF)](https;//openssf.org)_
 
-If you develop or build software, here are some ready-to-go resources to help you secure it from the OpenSSF.
+If you develop or build software, here are some ready-to-go resources from the OpenSF to help you secure that software.
 
 ## General software security education
 
