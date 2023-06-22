@@ -20,7 +20,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
 -fstack-clash-protection -fstack-protector-strong \
--Wl,-z,nodlopen -Wl,-z,nodump -Wl,-z,noexecstack \
+-Wl,-z,nodlopen -Wl,-z,noexecstack \
 -Wl,-z,relro -Wl,-z,now \
 -fPIE -pie -fPIC -shared
 ~~~~
@@ -109,7 +109,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls (C++ only)                                |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity                           |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows                                      |
-| [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen)<br/>[`-Wl,-z,nodump`](#-Wl,-z,nodump)               |           Binutils 2.10            | Restrict `dlopen(3)` and `dldump(3)` calls to shared objects                                 |
+| [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen) |           Binutils 2.10            | Restrict `dlopen(3)` calls to shared objects                                 |
 | [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)                                               |           Binutils 2.14            | Enable data execution prevention by marking stack memory as non-executable                   |
 | [`-Wl,-z,relro`](#-Wl,-z,relro)<br/>[`-Wl,-z,now`](#-Wl,-z,now)                           |           Binutils 2.15            | Mark relocation table entries resolved at load- time as read-only                            |
 | [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable.                                                    |
@@ -375,21 +375,21 @@ The performance overhead is dependent on the number of function’s instrumented
 
 ---
 
-### Restrict dlopen and dldump calls to shared objects
+### Restrict dlopen calls to shared objects
 
 | Compiler Flag                                                                                            | Supported by  | Description                                                  |
 |:-------------------------------------------------------------------------------------------------------- |:-------------:|:------------------------------------------------------------ |
-|  <span id="-Wl,-z,nodlopen">`-Wl,-z,nodlopen`</span><br/><span id="-Wl,-z,nodump">`-Wl,-z,nodump`</span> | Binutils 2.10 | Restrict `dlopen(3)` and `dldump(3)` calls to shared objects |
+|  <span id="-Wl,-z,nodlopen">`-Wl,-z,nodlopen`</span><br/> | Binutils 2.10 | Restrict `dlopen(3)` calls to shared objects |
 
 #### Synopsis
 
-The `nodlopen` and `nodump` options passed to the linker when building shared objects will mark the resulting object as not available to `dlopen(3)` and `dldump(3)` calls respectively. This can help in reducing an attacker's ability to load and manipulate shared objects. Loading new objects or duplicating an already existing shared object in a process can constitute a part of the attack chain in runtime exploitation.
+The `nodlopen` option passed to the linker when building shared objects will mark the resulting object as not available to `dlopen(3)` calls. This can help in reducing an attacker's ability to load and manipulate shared objects. Loading new objects or duplicating an already existing shared object in a process can constitute a part of the attack chain in runtime exploitation.
 
-The `nodlopen` and `nodump` restrictions are based on setting the `DF_1_NOOPEN` and `DF_1_NODUMP` flags in the object’s `.dynamic` section tags. Since the enforcement of restricted calls is done inside libc when `dlopen(3)` or `dldump(3)` are called it is possible for attackers to bypass check by 1) manipulating the tag embedded in the object if they have the ability to modify the object file on disk, or 2) bypassing `dlopen(3)` or `dldump(3)` and loading shared objects through attacker controlled code, e.g., pieces of shellcode or return-oriented-programming gadgets. However, restrictions on `dlopen(3)` or `dldump(3)` put in place at link time can still be useful in restricting the attacker before they have obtained arbitrary code execution capabilities.
+The `nodlopen` restrictions are based on setting the `DF_1_NOOPEN` flags in the object’s `.dynamic` section tags. Since the enforcement of restricted calls is done inside libc when `dlopen(3)` are called it is possible for attackers to bypass check by 1) manipulating the tag embedded in the object if they have the ability to modify the object file on disk, or 2) bypassing `dlopen(3)` and loading shared objects through attacker controlled code, e.g., pieces of shellcode or return-oriented-programming gadgets. However, restrictions on `dlopen(3)` put in place at link time can still be useful in restricting the attacker before they have obtained arbitrary code execution capabilities.
 
 #### Performance implications
 
-None, marking shared objects as restricted to `dlopen(3)` and `dldump(3)` does not have an impact on performance at run time.
+None, marking shared objects as restricted to `dlopen(3)` does not have an impact on performance at run time.
 
 #### When not to use?
 
@@ -400,9 +400,7 @@ In some cases it is desirable for applications to manage the loading of librarie
 - Selecting an implementation of an API by different vendors
 - Delay loading of shared libraries to decrease application start times. (See also lazy binding in Section 2.11)
 
-The `dldump(3)` interface is rarely used but can be used to lower the startup cost in specialized applications that need to load the same program object multiple times.
-
-Since `nodlopen` and `nodump` interfere with applications that rely on to `dlopen(3)` and `dldump(3)` to manipulate shared objects they cannot be used with applications that rely on such functionality.
+Since `nodlopen` interfere with applications that rely on to `dlopen(3)` to manipulate shared objects they cannot be used with applications that rely on such functionality.
 
 ---
 
@@ -782,5 +780,18 @@ Note that the build ID does not act as a checksum for the executable or debug in
 ## License
 
 Copyright 2023, OpenSSF contributors, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+## Appendix: List of Considered Compiler Options
+
+Many more security-relevant compiler options exist than are recommended in this guide. Some of these have been considered for inclusion, but for various reasons have, in-the-end been excluded from the set of recommended options. The following table lists options that have been reviewed and the rationale for their exclusion. While they are not in the recommended list, you may find them useful for your purposes.
+
+| Compiler Flag | Supported since  | Rationale |
+|---------------|------------------|-----------|
+| <span id="-Wl,-z,nodump">`-Wl,-z,nodump`</span>         | Binutils 2.10 | Single-purpose feature for Solaris compatibility[^nodump].
+| <span id="-Wl,-z,noexecheap">`-Wl,-z,noexecheap`</span> | Binutils 2.15 (Hardened Gentoo / PaX only ) | Hardened Gentoo / PaX specific Binutils extension[^noexecheap], not present in upstream toolchains.
+
+[^nodump]: The `-Wl,-z,nodump` option sets `DF_1_NODUMP` flag in the object’s `.dynamic` section tags. On Solaris this restricts calls to `dldump(3)` for the object. However, other operating systems ignore the `DF_1_NODUMP` flag. While Binutils implements `-Wl,-z,nodump` for Solaris compatibility a choice was made to not support it in `lld` ([D52096 lld: add -z nodump support](https://reviews.llvm.org/D52096)).
+
+[^noexecheap]: The `-Wl,-z,noexecheap` option is a [Hardened Gentoo](https://wiki.gentoo.org/wiki/Hardened/PaX_Quickstart) extension to Binutils ported from [PaX](https://pax.grsecurity.net/). PaX is a patch to the Linux kernel and Binutils that adds a `PT_PAX_FLAGS` program header to ELF objects that stores memory protection information the PaX kernel can enforce. The protection information stored in `PT_PAX_FLAGS` will not benefit software running on systems without a PaX kernel. The Gentoo patch (`63_all_binutils-`*\<version\>*`-pt-pax-flags-`*\<date\>*`.patch`) for various versions of Binutils since 2.15 can be found at [https://dev.gentoo.org/~vapier/dist/](https://dev.gentoo.org/~vapier/dist/).
 
 ## References
