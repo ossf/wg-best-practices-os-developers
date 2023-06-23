@@ -6,7 +6,7 @@ If you develop or build software, here are some ready-to-go resources from the O
 
 ## General software security education
 
-* [Secure Software Development Fundamentals Courses](https://openssf.org/training/courses/) - a _free_ course for software developers focusing on the fundamentals of developing secure software, whether it's open source software (OSS) or closed source software.
+* [Secure Software Development Fundamentals Courses](https://openssf.org/training/courses/) - a _free_ course for software developers focusing on the fundamentals of developing secure software, whether it's open source software (OSS) or closed source software. Both the course and its certificate of completion are free from Linux Foundation Training.
 
 ## General guides for projects
 
