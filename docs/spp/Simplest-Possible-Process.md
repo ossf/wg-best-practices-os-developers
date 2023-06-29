@@ -1,4 +1,5 @@
 # Simplest Possible Process (SPP) for Publishing Documentation
+
 *by the [Open Source Security Foundation (OpenSSF)](https://openssf.org), 2023-06-28*
 
 This document describes the "Simplest Possible Process" (SPP),
@@ -31,7 +32,7 @@ The Open Source Security Foundation (OpenSSF) produces many results,
 some of which should be published in a nice-looking easily-consumed format.
 However, it has been unclear how to publish final results.
 [David A. Wheeler](https://dwheeler.com) considered the options
-and proposed using this SPP (see the [rationale](#rationale)
+and proposed using this SPP (see the [rationale](#rationale-for-the-spp))
 unless there was some reason the process wouldn't work.
 The Best Practices Working Group experimented with the SPP and found
 it helpful to them.
@@ -74,7 +75,8 @@ When using markdown:
   for a summary.
 * Begin with a single H1 heading (`#`) with its title.
   This makes it easy to generate a correct document title in the metadata.
-  In the following line include a line with *AUTHOR, YYYY-MM-DD*, like this:
+  In the following paragraph (after a blank line)
+  include a line with *AUTHOR, YYYY-MM-DD*, like this:
   `*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2023-06-14*`
 * Use `##` headings for logical Heading1 entries,
   `###` for logical Heading2 entries, and so on.
@@ -90,7 +92,7 @@ When using markdown:
   [`Minima` Jekyll template](https://github.com/jekyll/minima).
   Thus the [kramdown cheatsheet](https://dieghernan.github.io/chulapa-101/cheatsheets/02-kramdown-cheat-sheet) may be helpful.
 
-When you creating a new markdown document, you 
+When you creating a new markdown document, you
 should begin with a
 [YAML front matter block](https://jekyllrb.com/docs/front-matter/)
 surrounded by triple-dashed lines,
@@ -142,7 +144,7 @@ Here's how to do that:
    can just email `operations` at `openssf.org`;
    Linux Foundation employees can send the request to
    [LF support](https://support.linuxfoundation.org) or more specifically
-   [Domains &amp; DNS](<https://jira.linuxfoundation.org/plugins/servlet/theme/portal/2).
+   [Domains &amp; DNS](https://jira.linuxfoundation.org/plugins/servlet/theme/portal/2).
    After a little while TLS (`https:`) will be ready!
 4. *Configure the repository*.
    Copy some configuration files to make the results look good, mainly
@@ -228,7 +230,7 @@ Of course, we didn't create this process as a new concept.
 Many other organizations already use this kind of process.
 GitHub implemented these mechanisms and this is how they're
 intended to be used.
-However, we had an overwhelming number of alternatives, so 
+However, we had an overwhelming number of alternatives, so
 we needed to identify and name a specific approach to use.
 
 Experimentation in the Best
