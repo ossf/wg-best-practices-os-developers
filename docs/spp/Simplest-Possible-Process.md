@@ -69,10 +69,13 @@ When using markdown:
   to de facto [CommonMark](https://commonmark.org/) where reasonable.
 * However, feel free to use HTML directly within markdown where it's
   necessary or less confusing.
-  Also, you can use [kramdown](https://kramdown.gettalong.org/)
+* You can use [kramdown](https://kramdown.gettalong.org/)
   extensions when CommonMark isn't enough; see
   [markdown kramdown tips and tricks](https://about.gitlab.com/blog/2016/07/19/markdown-kramdown-tips-and-tricks/#the-magic)
   for a summary.
+  However, note that `kramdown` extensions might not work in other
+  markdown processors; if it's equal work, you might use HTML instead
+  as that's not tied to any particular markdown processors.
 * Begin with a single H1 heading (`#`) with its title.
   This makes it easy to generate a correct document title in the metadata.
   In the following paragraph (after a blank line)
@@ -154,7 +157,9 @@ Here's how to do that:
    The directories (e.g., `_includes/` can override a template's file
    simply by creating another file with the same name in the same place.
    We intend to add more about doing this in the future.
-   For now, you can use the OpenSSF best practices WG as a demonstration.
+   For now, you can use the
+   [OpenSSF best practices WG]((https://github.com/ossf/wg-best-practices-os-developers/)
+    as a demonstration.
 
 ## Rationale for the SPP
 
@@ -182,15 +187,17 @@ if the situation called for it.
 ### How the SPP was identified
 
 On 2023-06-06 the OpenSSF best practices WG re-raised the lack
-of a good "publishing" process to a website was a problem.
+of a good "publishing" process to a website as a problem.
 This was recorded as [Best Practices WG issue 158, Revamp publishing of guides such as concise guides & scm guide](https://github.com/ossf/wg-best-practices-os-developers/issues/158).
 
 OpenSSF staff quickly developed and deployed an experimental solution.
 The overall approach to selecting the SPP
 has been to find the "easiest way to do it" (given our current state)
-and to prefer system defaults
-(e.g., using default GitHub pages with its default site generation
-process (Jekyll), markdown processors (kramdown) and default template (Minima).
+and to prefer system defaults.
+For example, since we're using GitHub, simply
+enabling GitHub pages and using its default settings:
+its default site generation process (Jekyll),
+markdown processors (kramdown), and default template (Minima).
 In short,
 the "simplest possible process" (SPP) focuses on trying to work *with*
 existing tools & minimize what needs to be done:
@@ -244,9 +251,9 @@ but they all add complexity that seems unnecessary for most of our use cases:
 
 * We can write workflows that push data to other places, but then
   we need to write that code and manage the keys.
-* We can write workflows that gather the data (but then we need to
+* We can write workflows that gather the data, but then we need to
   write that code, and these typically have significant deployment
-  delays because they're often periodic and would handle much more data).
+  delays because they're often periodic and would handle much more data.
 * There are additional operational complications if we try to put everything
   in the domain openssf.org, as that is currently a WordPress instance.
   We would then have to synchronize these systems.
@@ -269,27 +276,29 @@ for generating a static site:
 * Page regeneration is trivial to trigger (it's automatically handled
   by GitHub), and the regeneration is fast
   (because there are relatively few pages to regenerate).
-* They all under `*.openssf.org`, making it clear they the work from
+* They all under `*.openssf.org`, making it clear that the work is from
   our group (the OpenSSF).
 
 Once set up, these web pages are quickly and automatically updated
-once the repo's main branch is updated. The source materials are
+whenever the repo's main branch is updated. The source materials are
 version-controlled, and the contributors can simply
 "work like they've always worked".
 
 ### Non-problems
 
 Some potential issues have been noted, but we believe
-we have adequate solutions:
+they are not really problems or have adequate solutions:
 
 1. *Common CSS*. If many repos use this approach,
    it would be a pain to have to individually update each one to
    update the CSS if that happens.
    The "obvious" solution is to have a repo for just the CSS,
-   and then have all other OpenSSF repos include that CSS.
+   and then have all other OpenSSF repos "include" that common CSS
+   from their own CSS.
    Then there would be one place to update CSS.
    If we have that many repos, we can implement this, and have the
    one-time cost of changing each publishing repo to use it.
+   We don't need to do that now, we can wait until there are many uses.
 2. *Abandoned domain names*. If a repo is deleted,
    we also need to delete the repo entry.
    Repo deletion is incredibly rare (we've never done it in 3 years),
@@ -297,7 +306,7 @@ we have adequate solutions:
    In short, if someone is going to delete a repo that is serving
    GitHub pages and has a `CNAME` entry, we need to delete its DNS name first.
    We could also automate checking for dangling DNS entries if we wanted to
-   (that would be good anyway).
+   (that would be a good idea anyway).
 3. *Changing later*. If the SPP later turns out to be not enough,
    the group can switch to another process and automatically redirect
    requesters to their new locations (where appropriate).
@@ -337,13 +346,16 @@ we have adequate solutions:
 ## Limitations
 
 The SPP only generates static websites.
-You can serve JavaScript, but that doesn't work when
-users will not execute client-side JavaScript.
-If you want a truly dynamic website running server-side code,
-the SPP is inadequate, and groups should look for a different solution.
 
-However, many of our groups are serving simple static documents;
-a simple process like the SPP should serve them well.
+If you want a dynamic website running server-side code,
+the SPP is inadequate, and groups should look for a different solution.
+This approach can serve JavaScript, and in some cases that is enough,
+but note that this JavaScript won't run on the client side when
+users disable executing client-side JavaScript, and of course we cannot
+trust the results of client-side execution.
+
+However, many of our groups just need to serve simple static documents.
+In those cases, a simple process (like the SPP) should serve them well.
 
 ## To be done
 
