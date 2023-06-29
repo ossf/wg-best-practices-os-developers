@@ -26,7 +26,7 @@ Legitify detects all policies suggested by this document and supports the follow
 
 ### Scorecard - https://github.com/ossf/scorecard
 
-An open-source project from the [OpenOSSF](https://openssf.org/) that scans repositories for security issues and provides security health metrics.
+An open-source project from the [OpenSSF](https://openssf.org/) that scans repositories for security issues and provides security health metrics.
 Scorecard detects many of the “repository level” policies suggested by this document and supports the following SCMs:
 
 * GitHub Cloud
@@ -36,7 +36,7 @@ Scorecard detects many of the “repository level” policies suggested by this 
 
 ### Allstar - https://github.com/ossf/allstar
 
-An open-source project from the [OpenOSSF](https://openssf.org/) that scans GitHub organizations for “repository level” misconfigurations.
+An open-source project from the [OpenSSF](https://openssf.org/) that scans GitHub organizations for “repository level” misconfigurations.
 Allstar detects a subset of the “repository level” policies suggested by this document. It can be configured to scan all repositories in an organization or a subset of them and is supported by the following SCMs:
 
 * GitHub Cloud
