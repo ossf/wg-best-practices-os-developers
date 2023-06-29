@@ -1,6 +1,6 @@
 # Concise Guide for Evaluating Open Source Software
 
-_by the [Open Source Security Foundation (OpenSSF)](https://openssf.org)_
+_by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2023-06-14_
 
 As a software developer, before using open source software (OSS) dependencies or tools, identify candidates and evaluate the leading ones against your needs. To evaluate a potential OSS dependency for security and sustainability, consider these questions (all tools or services listed are merely examples):
 
