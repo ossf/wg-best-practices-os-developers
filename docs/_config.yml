@@ -1,7 +1,7 @@
-# Configure generation of web page(s) on https://lamp-guide.metamath.org
-# https://stackoverflow.com/questions/46375765/how-do-you-remove-header-on-github-pages
+# Configure generation of web page(s).
 name: OpenSSF Best Practices Working Group
-# Don't insert the name of the repo at the beginning:
+# Don't insert the name of the repo at the beginning
+# https://stackoverflow.com/questions/46375765/how-do-you-remove-header-on-github-pages
 title: null
 kramdown:
   # See: https://dieghernan.github.io/chulapa-101/cheatsheets/02-kramdown-cheat-sheet
