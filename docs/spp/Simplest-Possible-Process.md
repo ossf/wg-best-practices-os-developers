@@ -17,7 +17,7 @@ and deployed as simple static pages:
 3. If documents are being published in this format, consider applying
    the [tips](#tips) below. In particular, please
    include a (publication) date in `YYYY-MM-DD` format
-   in their contents, and update that during content changes.
+   in their contents, and *update* that during content changes.
 
 This document is written primarily for use by
 technical contributors to the
@@ -78,6 +78,9 @@ When using markdown:
   In the following paragraph (after a blank line)
   include a line with *AUTHOR, YYYY-MM-DD*, like this:
   `*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2023-06-14*`
+* Update the publication date when you change the material in the main branch.
+  We suggest making date updates a separate pull request (to reduce
+  the number of merge conflicts that need to be resolved).
 * Use `##` headings for logical Heading1 entries,
   `###` for logical Heading2 entries, and so on.
   Each heading name should be unique (so that the generated ids are unique).
@@ -324,14 +327,14 @@ we have adequate solutions:
    are all OSS and we could reconstitute them elsewhere.
    Even if they weren't, there are other similar tools we could use instead,
    as it's basically just converting markdown to HTML and posting the results.
-6. *Publication Dates*. As currently implemented the SPP does not
+6. *Publication dates*. As currently implemented the SPP does not
    automatically add publication dates. There are Jekyll
    plug-ins we could use to create publication dates, but installing them
    seems complex and probably not worth it. For now, we ask that
    groups just include the date in the document being published.
    While groups could occasionally forget to update them,
-   this also means that the date will be robustly included once they are
-   updated, and we expect people will easily understand
+   this also means that the date will be robustly included in the file itself
+   once they are updated, and we expect people will easily understand
    when they need to update a simple date.
 
 ## Limitations
