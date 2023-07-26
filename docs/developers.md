@@ -11,15 +11,15 @@ If you develop or build software, here are some ready-to-go resources from the O
 ## General guides for projects
 
 * [Concise Guide for Developing More Secure Software](https://best.openssf.org/Concise-Guide-for-Developing-More-Secure-Software) - a short "start here" page for how to develop secure software.
-* [Concise Guide for Evaluating Open Source Software](https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software) - before you add a dependency, use this to help you evaluate it.
 * [Guide to Implementing a Coordinated Vulnerability Disclosure Process for Open Source Projects](https://github.com/ossf/oss-vulnerability-guide/blob/main/maintainer-guide.md#readme) - we recommend OSS projects use this _before_ you get a vulnerability report!
 
 You can also see the full list of [Guides released by the OpenSSF](https://openssf.org/resources/guides/).
 
 ## OSS Project Evaluation
 
-Use these to evaluate OSS you intend to use _and_ how well your OSS project is doing.
+Use these to evaluate the OSS you intend to use _and_ to evaluate how well your OSS project(s are doing.
 
+* [Concise Guide for Evaluating Open Source Software](https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software) - before you add a dependency, use this to help you evaluate it.
 * [Security Scorecard](https://github.com/ossf/scorecard) is a tool that automatically scores OSS projects. Currently only supports projects hosted by GitHub.
   * You can add [AllStar](https://github.com/ossf/allstar) to your OSS project, which will file an issue for Scorecard policy violations (you can configure what files an issue). See [Allstar's "Quickstart Installation" for more](https://github.com/ossf/allstar#quickstart-installation).
 * [OpenSSF Best Practices badge](https://bestpractices.coreinfrastructure.org/) - This is a questionaire of security best practices, partly automation, that takes ~20 mintues. If you meet enough criteria your OSS project earns a badge!
