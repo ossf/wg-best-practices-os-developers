@@ -187,6 +187,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - Patricia Tarro, Dell
 - [Thomas Nyman*, Ericsson](https://github.com/thomasnyman)
 - Noam Dotan, Legit Security
+- [Chris de Almeida, IBM](https://github.com/ctcpip)
 
 ## Licenses
 
