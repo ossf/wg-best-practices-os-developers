@@ -153,10 +153,10 @@ Specific Recommendations
 
 ## Acknowledgements
 The following community members helped contribute to this guidance:
-[Avishay Balter, Microsoft](https://github.com/balteravishay)
-[Chris de Almeida, IBM](https://github.com/ctcpip)
-[Christine Abernathy, F5 - project lead](https://github.com/caabernathy) 
-[Daniel Appelquist, Snyk - project lead](https://github.com/Torgo)
-[Noam Dotan, Legit Security - project lead](https://github.com/)
-[David A. Wheeler, The Linux Foundation](https://github.com/david-a-wheeler)
+* [Avishay Balter, Microsoft](https://github.com/balteravishay)
+* [Chris de Almeida, IBM](https://github.com/ctcpip)
+* [Christine Abernathy, F5 - project lead](https://github.com/caabernathy) 
+* [Daniel Appelquist, Snyk - project lead](https://github.com/Torgo)
+* [Noam Dotan, Legit Security - project lead](https://github.com/)
+* [David A. Wheeler, The Linux Foundation](https://github.com/david-a-wheeler)
 
