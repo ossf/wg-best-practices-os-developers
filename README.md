@@ -86,6 +86,8 @@ You can also see our older work, [Recommended compiler option flags for C/C++ pr
 
 We welcome contributions, suggestions and updates to our projects. To contribute please fill in an [issue](https://github.com/ossf/wg-best-practices-os-developers/issues) or create a [pull request](https://github.com/ossf/wg-best-practices-os-developers/pulls).
 
+We typically use the [Simplest Possible Process (SPP)](https://best.openssf.org/spp/Simplest-Possible-Process) to publish and maintain the documents we publish; see the [SPP documentation](https://best.openssf.org/spp/Simplest-Possible-Process) if you have questions about it.
+
 ## Related Activities
 
 There are many great projects both within and outside the Foundation that compliment and intersect our work here. Some other great projects/resources to explore:
