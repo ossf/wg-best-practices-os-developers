@@ -93,7 +93,7 @@ As these options have an impact on the binary produced by the compiler the effec
 
 Table 1: Recommended compiler options that enable strictly compile-time checks.
 
-| Compiler Flag                                                                 |       Starting With       | Description                                                                         |
+| Compiler Flag                                                                 |       Supported since       | Description                                                                         |
 |:----------------------------------------------------------------------------- |:------------------------:|:----------------------------------------------------------------------------------- |
 | [`-Wall`](#-Wall)<br/>[`-Wextra`](#-Wextra)                                   | GCC 2.95.3<br/>Clang 4.0 | Enable warnings for constructs often associated with defects                        |
 | [`-Wformat=2`](#-Wformat=2)                                                   | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings                                          |
@@ -103,7 +103,7 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
 
-| Compiler Flag                                                                             |            Supported by            | Description                                                                                  |
+| Compiler Flag                                                                             |            Supported since            | Description                                                                                  |
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
 | [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^1]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. See details for different levels of fortification. |
 | [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls (C++ only)                                |
@@ -123,7 +123,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 
 ### Enable warnings for constructs often associated with defects
 
-| Compiler Flag                                                           |       Supported by       | Description                                                  |
+| Compiler Flag                                                           |       Supported since       | Description                                                  |
 |:----------------------------------------------------------------------- |:------------------------:|:------------------------------------------------------------ |
 | <span id="-Wall">`-Wall`</span><br/><span id="-Wextra">`-Wextra`</span> | GCC 2.95.3<br/>Clang 4.0 | Enable warnings for constructs often associated with defects |
 
@@ -148,7 +148,7 @@ NOTE: Despite its name the `-Wall` options does NOT enable all possible warning 
 
 ### Enable additional format function warnings
 
-| Compiler Flag                              |       Supported by       | Description                                |
+| Compiler Flag                              |       Supported since       | Description                                |
 |:------------------------------------------ |:------------------------:|:------------------------------------------ |
 | <span id="-Wformat=2">`-Wformat=2`</span>  | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings |
 
@@ -166,7 +166,7 @@ The `-Wformat=2` form of the option also enables certain additional checks, incl
 
 ### Enable implicit conversion warnings
 
-| Compiler Flag                                                                                             |       Supported by       | Description                         |
+| Compiler Flag                                                                                             |       Supported since       | Description                         |
 |:--------------------------------------------------------------------------------------------------------- |:------------------------:|:----------------------------------- |
 | <span id="-Wconversion">`-Wconversion`</span><br/><span id="-Wsign-conversion">`-Wsign-conversion`</span> | GCC 2.95.3<br/>Clang 4.0 | Enable implicit conversion warnings |
 
@@ -191,7 +191,7 @@ For C++ warnings about conversions between signed and unsigned integers are disa
 
 ### Enable warning about trampolines that require executable stacks
 
-| Compiler Flag                                   | Supported by | Description                                                      |
+| Compiler Flag                                   | Supported since | Description                                                      |
 |:----------------------------------------------- |:------------:|:---------------------------------------------------------------- |
 | <span id="-Wtrampolines">`-Wtrampolines`</span> |   GCC 4.3    | Enable warnings about trampolines that require executable stacks |
 
@@ -207,7 +207,7 @@ For most target architectures, including 64-bit x86, trampolines are made up of 
 
 ### Make compiler warnings into errors
 
-| Compiler Flag                                                                                        |       Supported by       | Description                        |
+| Compiler Flag                                                                                        |       Supported since       | Description                        |
 |:---------------------------------------------------------------------------------------------------- |:------------------------:|:---------------------------------- |
 | <span id="-Werror">`-Werror`</span><br/> <span id="-Werror-flag">`-Werror=`*`<warning-flag>`*</span> | GCC 2.95.3<br/>Clang 2.6 | Make compiler warnings into errors |
 
@@ -225,7 +225,7 @@ For example, developers can decide to promote warnings that indicate interferenc
 
 ### Fortify sources for unsafe libc usage and buffer overflows
 
-| Compiler Flag                                                                              | Supported by            | Description                                                                                  |
+| Compiler Flag                                                                              | Supported since            | Description                                                                                  |
 | ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
 | <span id="-D_FORTIFY_SOURCE=1">`-D_FORTIFY_SOURCE=1`</span>                                | GCC 4.0<br/>Clang 5.0.0     | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows         |
 | <span id="-D_FORTIFY_SOURCE=2">`-D_FORTIFY_SOURCE=2`</span><br/>(requires `-O1` or higher) | GCC 4.0<br/>Clang 5.0.0[^1] | In addition to checks covered by `-D_FORTIFY_SOURCE=1`, also trap code that may be conforming to the C standard but still unsafe |
@@ -273,7 +273,7 @@ Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligib
 
 ### Precondition checks for C++ standard library calls
 
-| Compiler Flag                                                                              | Supported by            | Description                                                                                  |
+| Compiler Flag                                                                              | Supported since            | Description                                                                                  |
 | ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
 | <span id="-D_GLIBCXX_ASSERTIONS">`-D_GLIBCXX_ASSERTIONS`</span>                            | libstdc++ 6.0           | (C++ using libcstdc++ only) Precondition checks for libstdc++ calls; can impact performance. |
 | <span id="-D_LIBCPP_ASSERT">`-D_LIBCPP_ASSERT`</span>                                      | libc++ 3.3.0       | (C++ using libc++ only) Constant-time precondition checks for libc++ calls. |
@@ -312,7 +312,7 @@ These options are unnecessary for security for applications in production that o
 
 ### Enable run-time checks for variable-size stack allocation validity
 
-| Compiler Flag                                                         |      Supported by      | Description                                                                                   |
+| Compiler Flag                                                         |      Supported since      | Description                                                                                   |
 |:--------------------------------------------------------------------- |:----------------------:|:--------------------------------------------------------------------------------------------- |
 | <span id="-fstack-clash-protection">`-fstack-clash-protection`</span> | GCC 8<br/>Clang 11.0.0 | Enable run-time checks for variable-size stack allocation validity                            |
 | `-param stack-clash-protection-guard-size=`*`<gap size>`*             | GCC 8<br/>Clang 11.0.0 | Set the stack guard gap size used to determine the probe granularity of the instrumented code |
@@ -337,7 +337,7 @@ Note that `vm.heap-stack-gap` expresses the gap as multiple of page size whereas
 
 ### Enable run-time checks for stack-based buffer overflows
 
-| Compiler Flag                                                          |       Supported by        | Description                                                                                                      |
+| Compiler Flag                                                          |       Supported since        | Description                                                                                                      |
 |:---------------------------------------------------------------------- |:-------------------------:|:---------------------------------------------------------------------------------------------------------------- |
 | <span id="-fstack-protector-strong">`-fstack-protector-strong`</span>  | GCC 4.9.0<br/>Clang 5.0.0 | Enable run-time checks for stack-based buffer overflows using strong heuristic                                   |
 | `-fstack-protector-all`                                                |       GCC<br/>Clang       | Enable run-time checks for stack-based buffer overflows for all functions                                        |
@@ -377,7 +377,7 @@ The performance overhead is dependent on the number of function’s instrumented
 
 ### Restrict dlopen calls to shared objects
 
-| Compiler Flag                                                                                            | Supported by  | Description                                                  |
+| Compiler Flag                                                                                            | Supported since  | Description                                                  |
 |:-------------------------------------------------------------------------------------------------------- |:-------------:|:------------------------------------------------------------ |
 |  <span id="-Wl,-z,nodlopen">`-Wl,-z,nodlopen`</span><br/> | Binutils 2.10 | Restrict `dlopen(3)` calls to shared objects |
 
@@ -406,7 +406,7 @@ Since `nodlopen` interfere with applications that rely on to `dlopen(3)` to mani
 
 ### Enable data execution prevention
 
-| Compiler Flag                                                                                                         | Supported by  | Description                                                                         |
+| Compiler Flag                                                                                                         | Supported since  | Description                                                                         |
 |:--------------------------------------------------------------------------------------------------------------------- |:-------------:|:----------------------------------------------------------------------------------- |
 | <span id="-Wl,-z,noexecstack">`-Wl,-z,noexecstack`</span> | Binutils 2.14 | Enable data execution prevention by marking stack memory as non-executable |
 
@@ -441,7 +441,7 @@ In addition to protection against malicious code injection such applications may
 
 ### Mark relocation table entries resolved at load-time as read-only
 
-| Compiler Flag                                                                               | Supported by  | Description                                                       |
+| Compiler Flag                                                                               | Supported since  | Description                                                       |
 |:------------------------------------------------------------------------------------------- |:-------------:|:----------------------------------------------------------------- |
 | <span id="-Wl,-z,relro">`-Wl,-z,relro`</span><br/><span id="-Wl,-z,now">`-Wl,-z,now`</span> | Binutils 2.15 | Mark relocation table entries resolved at load- time as read-only |
 
@@ -469,7 +469,7 @@ Static linking avoids the need for dynamic symbol resolution altogether but can 
 
 ### Build as position-independent code
 
-| Compiler Flag                                  |            Supported by            | Description                               |
+| Compiler Flag                                  |            Supported since            | Description                               |
 |:---------------------------------------------- |:----------------------------------:|:----------------------------------------- |
 | <span id="-fPIE_-pie">`-fPIE -pie`</span>      |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable. |
 | <span id="-fPIC_-shared">`-fPIC -shared`</span> | < Binutils 2.6<br/>Clang 5.0.0[^1] | Build as position-independent code.       |
@@ -506,7 +506,7 @@ Resource-constrained embedded systems may save memory by *prelinking* executable
 This section describes discouraged compiler and linker option flags that may lead to potential defects with security implications in produced binaries.
 
 Table 3: List of discouraged compiler and linker options.
-| Compiler Flag                   | Supported by  | Description                                                       |
+| Compiler Flag                   | Supported since  | Description                                                       |
 |:------------------------------- |:-------------:|:----------------------------------------------------------------- |
 | `-Wl,-rpath,`*`path_to_so`*<br/><br/>`-Wl,-rpath,`*`path_to_so`*<br/>`-Wl,--enable-new-dtags` | Binutils | Hard-code run-time search paths in executable files or libraries |
 
@@ -514,7 +514,7 @@ Table 3: List of discouraged compiler and linker options.
 
 ### Hard-code run-time search paths in executable files or libraries
 
-| Compiler Flag                   | Supported by  | Description                                                       |
+| Compiler Flag                   | Supported since  | Description                                                       |
 |:------------------------------- |:-------------:|:----------------------------------------------------------------- |
 | `-Wl,-rpath,`*`path_to_so`*<br/><br/>`-Wl,-rpath,`*`path_to_so`*<br/>`-Wl,--enable-new-dtags` | Binutils | Hard-code run-time search paths in executable files or libraries |
 
@@ -545,7 +545,7 @@ As with all testing practices, sanitizers cannot absolutely prove the absence of
 
 Table 4: Sanitizer options in GCC and Clang.
 
-| Compiler Flag          |     Supported by      | Description                                                                 |
+| Compiler Flag          |     Supported since      | Description                                                                 |
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
 | `-fsanitize=address`   | GCC 4.8<br/>Clang 3.1 | Enables AddressSanitizer to detect memory errors at run-time                |
 | `-fsanitize=thread`    | GCC 4.8<br/>Clang 3.2 | Enables ThreadSanitizer to detect data race bugs at run time                |
@@ -559,7 +559,7 @@ Table 4: Sanitizer options in GCC and Clang.
 
 ### AddressSanitizer
 
-| Compiler Flag          |     Supported by      | Description                                                                 |
+| Compiler Flag          |     Supported since      | Description                                                                 |
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
 | `-fsanitize=address`   | GCC 4.8<br/>Clang 3.1 | Enables AddressSanitizer to detect memory errors at run-time                || `-fsanitize=thread`    | GCC 4.8<br/>Clang 3.2 | Enables ThreadSanitizer to detect data race bugs at run time                |
 
@@ -599,7 +599,7 @@ ASan cannot be used simultaneously with ThreadSanitizer or LeakSanitizer. It is 
 
 ### ThreadSanitizer
 
-| Compiler Flag          |     Supported by      | Description                                                                 |
+| Compiler Flag          |     Supported since      | Description                                                                 |
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
 | `-fsanitize=thread`    | GCC 4.8<br/>Clang 3.2 | Enables ThreadSanitizer to detect data race bugs at run time                |
 
@@ -624,7 +624,7 @@ TSan cannot be used simultaneously with AddressSanitizer (ASan) or LeakSanitizer
 
 ### LeakSanitizer
 
-| Compiler Flag          |     Supported by      | Description                                                                 |
+| Compiler Flag          |     Supported since      | Description                                                                 |
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
 | `-fsanitize=leak`      | GCC 4.8<br/>Clang 3.1 | Enables LeakSanitizer to detect memory leaks at run time                    |
 
@@ -638,7 +638,7 @@ LSan cannot be used simultaneously with AddressSanitizer (ASan) or ThreadSanitiz
 
 ### UndefinedBehaviorSanitizer
 
-| Compiler Flag          |     Supported by      | Description                                                                 |
+| Compiler Flag          |     Supported since      | Description                                                                 |
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
 | `-fsanitize=undefined`<br/>(requires `-O1` or higher) |   GCC 4.9<br/>Clang 3.3   | Enables UndefinedBehaviorSanitizer to detect undefined behavior at run time |
 
