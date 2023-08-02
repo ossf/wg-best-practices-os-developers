@@ -721,6 +721,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - Jack Kelly, ControlPlane
 - Randall T. Vasquez, Linux Foundation
 - Robert C. Seacord, Woven Planet
+- Siddharth Sharma, Red Hat
 - Siddhesh Poyarekar, Red Hat
 
 ## License
