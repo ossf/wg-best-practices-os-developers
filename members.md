@@ -1,3 +1,5 @@
+GitHub Team memberships and repository access are based on the following groups. If this file is in error, please notify the project/SIG lead or opeartions@openssf.org
+
 - Lead - [Christopher "CRob" Robinson](https://github.com/SecurityCRob)
 - Co-Lead -
 - Backlog Warden - 
@@ -16,7 +18,7 @@
 - [Georg Kunz, Ericsson](https://github.com/gkunz)
 - [Glenn ten Cate*, OWASP/SKF](https://github.com/)
 - [Jay White, Microsoft](https://github.com/camaleon2016)
-- Jonathan Leitschuh*, Dan Kaminsky Fellowship @ Human Security
+- [Jonathan Leitschuh*](https://github.com/JLLeitschuh), Dan Kaminsky Fellowship @ Human Security
 - [Judy Kelly, Red Hat](https://github.com/judyobrienie)
 - [Marta Rybczynska, Syslinbit](https://github.com/mrybczyn)
 - Noam Dotan, Legit Security
@@ -28,6 +30,7 @@
 
 ### Project Contributors
 - [Chris de Almeida, IBM](https://github.com/ctcpip)
+- [Emily Fox](https://github.com/TheFoxAtWork)
 - [Jeffrey Borek, IBM](https://github.com/jtborek)
 - Ixchel Ruiz, jfrog
 - Laurent Simon*, Google/Scorecard
@@ -39,11 +42,16 @@
 ### Hall of Fame
 Former BEST contributors that are always welcome!
 - Aeva Black, Microsoft
+- [Björn Kimminich](https://github.com/orgs/ossf/people/bkimminich) 
 - Azeem Shaikh, Google/Scorecard
+- [Dan Lorenc](https://github.com/orgs/ossf/people/dlorenc)
 - [Eric Tice, WiPro](https://github.com/)
+- [Eva Sarafianou](https://github.com/orgs/ossf/people/esarafianou) 
+- [Federico](https://github.com/orgs/ossf/people/rhaidiz) 
 - Harimohan Rajamohanan, Wipro
 - Jeff Mendoza, Google
 - Jory Burson, Linux Foundation
+- [Maya Kaczorowski](https://github.com/orgs/ossf/people/mayakacz) 
 - Kara Olive, Google
 - Patricia Tarro, Dell
 - Rosaria Carr, Indeed
