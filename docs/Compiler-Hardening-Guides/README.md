@@ -1,6 +1,6 @@
 # Compiler Hardening Guides
 
-This is the working area for the C/C++ Compiler hardening best practices guide.  This document is currently work-in-progress and in incubation state.
+This is the working area for Compiler hardening best practices guide.  The [C/C++ Compiler Hardening](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C%2B%2B.md) document is currently work-in-progress and in incubation state.
 
 ## Scope and Objectives
 
