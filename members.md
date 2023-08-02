@@ -32,6 +32,7 @@ GitHub Team memberships and repository access are based on the following groups.
 - [Chris de Almeida, IBM](https://github.com/ctcpip)
 - [Emily Fox](https://github.com/TheFoxAtWork)
 - [Jeffrey Borek, IBM](https://github.com/jtborek)
+- [Jeff Mendoza](https://github.com/jeffmendoza), Google
 - Ixchel Ruiz, jfrog
 - Laurent Simon*, Google/Scorecard
 - [Matt Rutkowski, IBM](https://github.com/mrutkows)
@@ -49,7 +50,6 @@ Former BEST contributors that are always welcome!
 - [Eva Sarafianou](https://github.com/orgs/ossf/people/esarafianou) 
 - [Federico](https://github.com/orgs/ossf/people/rhaidiz) 
 - Harimohan Rajamohanan, Wipro
-- Jeff Mendoza, Google
 - Jory Burson, Linux Foundation
 - [Maya Kaczorowski](https://github.com/orgs/ossf/people/mayakacz) 
 - Kara Olive, Google
