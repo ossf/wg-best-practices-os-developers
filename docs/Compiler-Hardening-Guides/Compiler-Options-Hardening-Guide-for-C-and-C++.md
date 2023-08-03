@@ -130,9 +130,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable. Can impact performance on 32-bit architectures.                                                   |
 | [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6<br/>Clang 5.0.0[^1] | Build as position-independent code. Can impact performance on 32-bit architectures.                                                         |
 
-[^1]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) and but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge. Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer.
- <https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc> and
- Poyarekar, Siddhesh. D91677 Avoid simplification of library functions when callee has an implementation. (LLVM Phabricator) <https://reviews.llvm.org/D91677>
+[^1]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) and but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge. Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer. <https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc> and Poyarekar, Siddhesh. D91677 Avoid simplification of library functions when callee has an implementation. (LLVM Phabricator) <https://reviews.llvm.org/D91677>
 
 ---
 
@@ -154,11 +152,9 @@ The `-Wextra` set of warnings are either situational, or indicate problematic co
 
 NOTE: Despite its name the `-Wall` options does NOT enable all possible warning diagnostics, but a pre-defined subset. For a complete list of specific warnings enabled by the`-Wall` and `-Wextra` compiler please consult the GCC[^2] and Clang[^3] documentation respectively.
 
-[^2]: Using the GNU Compiler Collection (GCC): Warning Options.
-<https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html>
+[^2]: [Using the GNU Compiler Collection (GCC): Warning Options.](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html)
 
-[^3]: Clang documentation: Diagnostics flags in Clang.
-<https://clang.llvm.org/docs/DiagnosticsReference.html>
+[^3]: Clang documentation: Diagnostics flags in Clang. <https://clang.llvm.org/docs/DiagnosticsReference.html>
 
 ---
 
@@ -278,14 +274,11 @@ Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligib
 - If the fortified glibc function calls show up as hotspots in your application performance profile, there is a chance that `_FORTIFY_SOURCE` may have a negative performance impact. This is not a common or widespread slowdown[^29] but worth keeping in mind if slowdowns are observed due to this option
 - Applications that use the GNU extension for flexible array members in structs[^30] may confuse the compiler into thinking that an object is smaller than it actually is, resulting in spurious aborts. The safe resolution for this is to port these uses to C99 flexible arrays but if that is not possible (e.g. due to the need to support a compiler that does not support C99 flexible arrays), one may need to downgrade or disable `_FORTIFY_SOURCE` protections.
 
-[^28]: Source Fortification in the GNU C Library
-<https://www.gnu.org/software/libc/manual/2.37/html_node/Source-Fortification.html>
+[^28]: Source Fortification in the GNU C Library <https://www.gnu.org/software/libc/manual/2.37/html_node/Source-Fortification.html>
 
-[^29]: How to improve application security using _FORTIFY_SOURCE=3
-<https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3>
+[^29]: How to improve application security using _FORTIFY_SOURCE=3 <https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3>
 
-[^30]: Arrays of Length Zero
-<https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/arrays-of-length-zero.html>
+[^30]: Arrays of Length Zero <https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/arrays-of-length-zero.html>
 
 ---
 
@@ -391,8 +384,7 @@ The performance overhead is dependent on the number of function’s instrumented
 
 `-fstack-protector-strong` is recommended for all applications with conventional stack behavior. Applications with hand-written assembler optimization that make assumptions about the layout of the stack may be incompatible with stack-protector functionality.
 
-[^4]: Shen, Han. New stack protector option for gcc (Google Docs).
-<https://docs.google.com/document/d/1xXBH6rRZue4f296vGt9YQcuLVQHeE516stHwt8M9xyU>
+[^4]: Shen, Han. New stack protector option for gcc (Google Docs). <https://docs.google.com/document/d/1xXBH6rRZue4f296vGt9YQcuLVQHeE516stHwt8M9xyU>
 
 ---
 
@@ -453,11 +445,9 @@ Such applications require sandboxing techniques to protect the application’s m
 
 In addition to protection against malicious code injection such applications may also require special mitigations against speculative execution side channels [^6].
 
-[^5]: Trampolines (GNU Compiler Collection (GCC) Internals). 18.11 Support for Nested Functions.
-<https://gcc.gnu.org/onlinedocs/gccint/Trampolines.html>
+[^5]: Trampolines (GNU Compiler Collection (GCC) Internals). 18.11 Support for Nested Functions. <https://gcc.gnu.org/onlinedocs/gccint/Trampolines.html>
 
-[^6]: Managed Runtime Speculative Execution Side Channel Mitigations (Intel Developer Zone).
-<https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/runtime-speculative-side-channel-mitigations.html>
+[^6]: Managed Runtime Speculative Execution Side Channel Mitigations (Intel Developer Zone). <https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/runtime-speculative-side-channel-mitigations.html>
 
 ---
 
@@ -514,14 +504,11 @@ The x86_64 architecture supports mov instructions that address memory using offs
 
 Resource-constrained embedded systems may save memory by *prelinking* executables at compile time. Prelinking performs some relocation decisions, normally made by the dynamic linker, ahead of time. As a result, fewer relocations need to be performed by the dynamic linker, reducing startup time and memory consumption for applications. PIE does not prevent prelinking but enabling ASLR on prelinked binaries overrides the compile-time decisions, thus nullifying the run-time memory savings gained by prelinking. If the memory savings gained by prelinking are important for a system PIE can be enabled for a subset of executables that are at higher risk, e.g., applications that process untrusted external input.
 
-[^7]: Security Features (Ubuntu Wiki). Built as PIE.
-<https://wiki.ubuntu.com/Security/Features#pie>
+[^7]: Security Features (Ubuntu Wiki). Built as PIE. <https://wiki.ubuntu.com/Security/Features#pie>
 
-[^8]: Bendersky, Eli. Position Independent Code (PIC) in shared libraries.
- <https://eli.thegreenplace.net/2011/11/03/position-independent-code-pic-in-shared-libraries/>
+[^8]: Bendersky, Eli. Position Independent Code (PIC) in shared libraries. <https://eli.thegreenplace.net/2011/11/03/position-independent-code-pic-in-shared-libraries/>
 
-[^9]: Bendersky, Eli. Position Independent Code (PIC) in shared libraries on x64.
-<https://eli.thegreenplace.net/2011/11/11/position-independent-code-pic-in-shared-libraries-on-x64>
+[^9]: Bendersky, Eli. Position Independent Code (PIC) in shared libraries on x64. <https://eli.thegreenplace.net/2011/11/11/position-independent-code-pic-in-shared-libraries-on-x64>
 
 ---
 
@@ -555,8 +542,7 @@ The keyword `$ORIGIN` in rpath is expanded (by the dynamic loader) to be path of
 
 Setting rpath in setuid/setgid programs can lead to privilege escalation under conditions where untrusted libraries loaded via a set rpath are executed as part of the privileged program. While setuid/setgid binaries ignore environmental overrides to search path (such as `LD_PRELOAD`, `LD_LIBRARY_PATH` etc.) rpath within such binaries can provide an attacker with equivalent capabilities to manipulate the dependency search paths.
 
-[^10]: Kerrisk, Michael. Building and Using Shared Libraries on Linux, Shared Libraries: The Dynamic Linker.
-<https://man7.org/training/download/shlib_dynlinker_slides.pdf>
+[^10]: Kerrisk, Michael. Building and Using Shared Libraries on Linux, Shared Libraries: The Dynamic Linker. <https://man7.org/training/download/shlib_dynlinker_slides.pdf>
 
 ---
 
@@ -577,8 +563,7 @@ Table 4: Sanitizer options in GCC and Clang.
 | `-fsanitize=leak`      | GCC 4.8<br/>Clang 3.1 | Enables LeakSanitizer to detect memory leaks at run time                    |
 | `-fsanitize=undefined` |   GCC 4.9<br/>Clang 3.3   | Enables UndefinedBehaviorSanitizer to detect undefined behavior at run time |
 
-[^11]:: Kratochvil, Jan. Memory error checking in C and C++: Comparing Sanitizers and Valgrind (Red hat Developers).
-<https://developers.redhat.com/blog/2021/05/05/memory-error-checking-in-c-and-c-comparing-sanitizers-and-valgrind>
+[^11]:: Kratochvil, Jan. Memory error checking in C and C++: Comparing Sanitizers and Valgrind (Red hat Developers). <https://developers.redhat.com/blog/2021/05/05/memory-error-checking-in-c-and-c-comparing-sanitizers-and-valgrind>
 
 ---
 
@@ -614,11 +599,9 @@ When ASan encounters a memory error it (by default) terminates the application a
 
 ASan cannot be used simultaneously with ThreadSanitizer or LeakSanitizer. It is not possible to mix ASan-instrumented code produced by GCC with ASan-instrumented code produced Clang as the ASan implementations in GCC and Clang are mutually incompatible.
 
-[^12]: AddressSanitizerFlags (GitHub google/sanitizers Wiki).
-<https://github.com/google/sanitizers/wiki/AddressSanitizerFlags>
+[^12]: AddressSanitizerFlags (GitHub google/sanitizers Wiki). <https://github.com/google/sanitizers/wiki/AddressSanitizerFlags>
 
-[^13]: AddressSanitizer (GitHub google/sanitizers Wiki).
-<https://github.com/google/sanitizers/wiki/AddressSanitizer>
+[^13]: AddressSanitizer (GitHub google/sanitizers Wiki). <https://github.com/google/sanitizers/wiki/AddressSanitizer>
 
 ---
 
@@ -641,8 +624,7 @@ When TSan encounters a potential data race it (by default) reports the race by p
 
 TSan cannot be used simultaneously with AddressSanitizer (ASan) or LeakSanitizer (LSan). It is not possible to mix TSan-instrumented code produced by GCC with TSan-instrumented code produced Clang as the TSan implementations in GCC and Clang are mutually incompatible. TSan generally requires all code to be compiled with `-fsanitize=thread` to operate correctly.
 
-[^14]: ThreadSanitizerFlags (GitHub google/sanitizers Wiki).
-<https://github.com/google/sanitizers/wiki/ThreadSanitizerFlags>
+[^14]: ThreadSanitizerFlags (GitHub google/sanitizers Wiki). <https://github.com/google/sanitizers/wiki/ThreadSanitizerFlags>
 
 [^15]: ThreadSanitizerReportFormat (GitHub google/sanitizers Wiki).
 
@@ -677,11 +659,9 @@ To enable UBSan add `-fsanitize=undefined` to the compiler flags (`CFLAGS` for C
 
 The run-time behavior of UBSan can be influenced using the `UBSAN_OPTIONS` environment variable. If set to `UBSAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program.
 
-[^16]: Using the GNU Compiler Collection (GCC). 3.12 Program Instrumentation Options.
-<https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#Instrumentation-Options>
+[^16]: Using the GNU Compiler Collection (GCC). 3.12 Program Instrumentation Options. <https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#Instrumentation-Options>
 
-[^17]: Clang documentation. UndefinedBehaviorSanitizer.
-<https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html>
+[^17]: Clang documentation. UndefinedBehaviorSanitizer. <https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html>
 
 ---
 
@@ -716,18 +696,13 @@ In ELF binaries debug and symbol information are stored in discrete ELF sections
 
 Whether a particular section is present or absent in an ELF binary indicates what type of information is available. The availability of symbol information makes binary analysis easier as debuggers, disassemblers and binary code analysis tools, such as Ghidra[^21] and IDA Pro[^21], can use available symbol information to automatically annotate decompiled machine code. Similarly, the availability of debug information makes dynamic analysis of the application in a debugger easier. Stripping unnecessary debug and symbol information from the binary does not make it impervious against reverse engineering, however it does considerably increase the cost and manual effort required for successful exploitation.
 
-[^18]: DWARF Debugging Information Format Version 4.
-<https://sourceware.org/binutils/docs/ld/Options.html#Options>
+[^18]: DWARF Debugging Information Format Version 4. <https://sourceware.org/binutils/docs/ld/Options.html#Options>
 
-[^19]: Linux Standard Base Core Specification, Generic Part. Chapter 10.8. ABI note tag.
-<https://refspecs.linuxfoundation.org/LSB_5.0.0/LSB-Core-generic/LSB-Core-generic/noteabitag.html>
+[^19]: Linux Standard Base Core Specification, Generic Part. Chapter 10.8. ABI note tag. <https://refspecs.linuxfoundation.org/LSB_5.0.0/LSB-Core-generic/LSB-Core-generic/noteabitag.html>
 
-[^20]: LD Options.
-<https://sourceware.org/binutils/docs/ld/Options.html#Options>
+[^20]: LD Options. <https://sourceware.org/binutils/docs/ld/Options.html#Options>
 
-[^21]: Ghidra homepage.
- <https://ghidra-sre.org>
-<https://www.hex-rays.com/products/ida>
+[^21]: Ghidra homepage. <https://ghidra-sre.org> <https://www.hex-rays.com/products/ida>
 
 ### Creating debug info files
 
@@ -741,11 +716,9 @@ There are no particular requirements for the debug link filename, although a com
 
 Debug info files allows the binary to be analyzed in the same way as the original binary with debug and symbol information intact. They should be handled with care and not exposed in computing environments where they may be obtained by adversaries.
 
-[^23]: objcopy (GNU Binary Utilities).
-<https://sourceware.org/binutils/docs/binutils/objcopy.html>
+[^23]: objcopy (GNU Binary Utilities). <https://sourceware.org/binutils/docs/binutils/objcopy.html>
 
-[^24]: llvm-objcopy - object copying and editing tool.
-<https://llvm.org/docs/CommandGuide/llvm-objcopy.html>
+[^24]: llvm-objcopy - object copying and editing tool. <https://llvm.org/docs/CommandGuide/llvm-objcopy.html>
 
 ### Strip debug and symbol information
 
@@ -767,11 +740,9 @@ Note that `--strip-unneeded` only discards standard ELF sections as unneeded. Si
 
  strip --strip-unneeded --remove-section=.comment executable_file
 
-[^25]: strip (GNU binary Utilities
-<https://sourceware.org/binutils/docs/binutils/strip.html>
+[^25]: strip (GNU binary Utilities <https://sourceware.org/binutils/docs/binutils/strip.html>
 
-[^26]: llvm-strip - object stripping tool
-<https://llvm.org/docs/CommandGuide/llvm-strip.html>
+[^26]: llvm-strip - object stripping tool <https://llvm.org/docs/CommandGuide/llvm-strip.html>
 
 ### Add a debug link to the binary
 
@@ -792,8 +763,7 @@ If the debug information file is built in one location but is going to be later 
 
 Note that `.gnu_debuglink` does not contain the full pathname to the debug info; only a filename with the leading directory components removed. GDB looks for the debug info file with the specified filename in a series of search directories starting from the directory where the executable is placed. For a complete list of search paths refer to the GDB documentation[^27].
 
-[^27]: : Debugging Information in Separate Files (Debugging with GDB).
-<https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html>
+[^27]: : Debugging Information in Separate Files (Debugging with GDB). <https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html>
 
 **Build ID**
 
