@@ -36,6 +36,7 @@ Sadly, attackers today attack the software we use every day. Many programming la
 Applications written in the C and C++ programming languages are prone to exhibit a class of software defects known as memory safety errors, a.k.a. memory errors. This class of defects include bugs such as buffer overflows, dereferencing a null pointer, and use-after-free errors. Memory errors can occur because the low-level memory management in C and C++ offers no language-level provisions for ensuring the memory safety of operations such as pointer arithmetic or direct memory accesses. Instead, they require software developers to write correct code when performing common operations, and this has proven to be difficult at scale. Memory errors have the potential to cause memory vulnerabilities, which can be exploited by threat actors to gain unauthorized access to computer systems through run-time attacks. Microsoft has found that 70% of all its security defects in 2006-2018 were memory safety failures[^Cimpanu2019], and the Chrome team similarly found 70% of all its vulnerabilities are memory safety issues.[^Cimpanu2020]
 
 [^Cimpanu2019]: Cimpanu, Catalin, [Microsoft: 70 percent of all security bugs are memory safety issues](https://www.zdnet.com/article/microsoft-70-percent-of-all-security-bugs-are-memory-safety-issues/), ZDNet, 2019-02-11
+
 [^Cimpanu2020]: Cimpanu, Catalin, [Chrome: 70% of all security bugs are memory safety issues](https://www.zdnet.com/article/chrome-70-of-all-security-bugs-are-memory-safety-issues/), ZDNet, 2020-05-22
 
 Most programming languages prevent such defects by default. A few languages allow programs to temporarily suspend these protections in special circumstances, but they are intended for use in a few lines, not the whole program. There have been calls to rewrite C and C++ programs in other languages, but this is expensive and time-consuming, has its own risks, is sometimes impractical today (especially for less-common CPUs). Even with universal agreement, it would take decades to rewrite all such code. Consequently, it's important to take other steps to reduce the likelihood of defects becoming vulnerabilities. Aggressive use of compiler options can sometimes detect vulnerabilities or help counter their run-time effects.
@@ -54,9 +55,9 @@ Some mechanisms may require additional configuration and fine tuning, for exampl
 
 If compiler options hardening is overlooked or neglected during build time it can become impossible to add hardening to already distributed executables. It is therefore good practice to evaluate which mitigations an application should support, and make conscious, informed decisions whenever not enabling a mitigation weakens the application’s defensive posture. Ensure that the software is *tested* with as many options as practical, to ensure it can be operated that way.
 
-Some organizations require selecting hardening rules. For example, the US government's NIST SP 800-218 practice PW.6 requires configuring "the compilation, interpreter, and build processes to improve executable security".[^NIST-SP-800-218.1.1]. Carnegie Mellon University (CMU)'s "top 10 secure coding practices" recommends compiling "code using the highest warning level available for your compiler and eliminate warnings by modifying the code."[^CMU2018] This guide can help you do that.
+Some organizations require selecting hardening rules. For example, the US government's NIST SP 800-218 practice PW.6 requires configuring "the compilation, interpreter, and build processes to improve executable security" [^NIST-SP-800-218-1-1]. Carnegie Mellon University (CMU)'s "top 10 secure coding practices" recommends compiling "code using the highest warning level available for your compiler and eliminate warnings by modifying the code."[^CMU2018] This guide can help you do that.
 
-[^NIST-SP-800-218.1.1]: US NIST, [Secure Software Development Framework (SSDF) Version 1.1: Recommendations for Mitigating the Risk of Software Vulnerabilities](https://csrc.nist.gov/publications/detail/sp/800-218/final), NIST SP 800-218
+[^NIST-SP-800-218-1-1]: US NIST, [Secure Software Development Framework (SSDF) Version 1.1: Recommendations for Mitigating the Risk of Software Vulnerabilities](https://csrc.nist.gov/publications/detail/sp/800-218/final), NIST SP 800-218
 
 [^CMU2018]: Carnegie Mellon University (CMU), [Top 10 Secure Coding Practices](https://wiki.sei.cmu.edu/confluence/display/seccode/Top+10+Secure+Coding+Practices)
 
@@ -155,6 +156,7 @@ NOTE: Despite its name the `-Wall` options does NOT enable all possible warning 
 
 [^2]: Using the GNU Compiler Collection (GCC): Warning Options.
 <https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html>
+
 [^3]: Clang documentation: Diagnostics flags in Clang.
 <https://clang.llvm.org/docs/DiagnosticsReference.html>
 
@@ -278,8 +280,10 @@ Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligib
 
 [^28]: Source Fortification in the GNU C Library
 <https://www.gnu.org/software/libc/manual/2.37/html_node/Source-Fortification.html>
+
 [^29]: How to improve application security using _FORTIFY_SOURCE=3
 <https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3>
+
 [^30]: Arrays of Length Zero
 <https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/arrays-of-length-zero.html>
 
@@ -298,7 +302,7 @@ The C++ standard library implementations in GCC (libstdc++) and LLVM (libc++) pr
 
 These precondition checks can be enabled by defining the corresponding pre-processor macros in when compiling C++ code that calls into libstdc++ or libc++:
 
-- The `-D_GLIBCXX_ASSERTIONS` macro enables precondition checks for libstdc++[^libstdc++_macros].  
+- The `-D_GLIBCXX_ASSERTIONS` macro enables precondition checks for libstdc++[^libstdcpp_macros].
   It can only affect C++ code that uses GCC’s libstdc++.
 - The `-D_LIBCPP_ASSERT` macro enables precondition checks for libc++[^Clow19].  
   It can only affect C++ code that uses LLVM’s libc++.
@@ -317,9 +321,12 @@ Impacts of [up to 6% on performance have been reported](https://gitlab.psi.ch/OP
 
 These options are unnecessary for security for applications in production that only handle completely trusted data.
 
-[^libstdc++_macros]: Free Software Foundation, [Using Macros in the GNU C++ Library](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_macros.html), The GNU C++ Library Manual
+[^libstdcpp_macros]: Free Software Foundation, [Using Macros in the GNU C++ Library](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_macros.html), The GNU C++ Library Manual
+
 [^Clow19]: Marshall Clow, [Hardening the C++ standard template library](https://www.youtube.com/watch?v=1iHs_K2HpGo&t=990s), C++ Russia 2019
+
 [^Wakely15]: Jonathan Wakely, [Enable lightweight checks with _GLIBCXX_ASSERTIONS](https://patchwork.ozlabs.org/project/gcc/patch/20150907182755.GP2631@redhat.com/), GCC Mailing List, 2015-09-07
+
 [^Dionne22]: Loius Dionne, [Audit all uses of \_LIBCPP_ASSERT and \_LIBCPP_DEBUG_ASSERT](https://github.com/llvm/llvm-project/commit/c87c8917e3662532f0aa75a91caea857c093f8f4)
 
 ---
@@ -448,6 +455,7 @@ In addition to protection against malicious code injection such applications may
 
 [^5]: Trampolines (GNU Compiler Collection (GCC) Internals). 18.11 Support for Nested Functions.
 <https://gcc.gnu.org/onlinedocs/gccint/Trampolines.html>
+
 [^6]: Managed Runtime Speculative Execution Side Channel Mitigations (Intel Developer Zone).
 <https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/runtime-speculative-side-channel-mitigations.html>
 
@@ -508,8 +516,10 @@ Resource-constrained embedded systems may save memory by *prelinking* executable
 
 [^7]: Security Features (Ubuntu Wiki). Built as PIE.
 <https://wiki.ubuntu.com/Security/Features#pie>
+
 [^8]: Bendersky, Eli. Position Independent Code (PIC) in shared libraries.
  <https://eli.thegreenplace.net/2011/11/03/position-independent-code-pic-in-shared-libraries/>
+
 [^9]: Bendersky, Eli. Position Independent Code (PIC) in shared libraries on x64.
 <https://eli.thegreenplace.net/2011/11/11/position-independent-code-pic-in-shared-libraries-on-x64>
 
@@ -520,6 +530,7 @@ Resource-constrained embedded systems may save memory by *prelinking* executable
 This section describes discouraged compiler and linker option flags that may lead to potential defects with security implications in produced binaries.
 
 Table 3: List of discouraged compiler and linker options.
+
 | Compiler Flag                   | Supported since  | Description                                                       |
 |:------------------------------- |:-------------:|:----------------------------------------------------------------- |
 | `-Wl,-rpath,`*`path_to_so`*<br/><br/>`-Wl,-rpath,`*`path_to_so`*<br/>`-Wl,--enable-new-dtags` | Binutils | Hard-code run-time search paths in executable files or libraries |
@@ -632,6 +643,7 @@ TSan cannot be used simultaneously with AddressSanitizer (ASan) or LeakSanitizer
 
 [^14]: ThreadSanitizerFlags (GitHub google/sanitizers Wiki).
 <https://github.com/google/sanitizers/wiki/ThreadSanitizerFlags>
+
 [^15]: ThreadSanitizerReportFormat (GitHub google/sanitizers Wiki).
 
 ---
@@ -667,6 +679,7 @@ The run-time behavior of UBSan can be influenced using the `UBSAN_OPTIONS` envir
 
 [^16]: Using the GNU Compiler Collection (GCC). 3.12 Program Instrumentation Options.
 <https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#Instrumentation-Options>
+
 [^17]: Clang documentation. UndefinedBehaviorSanitizer.
 <https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html>
 
@@ -705,10 +718,13 @@ Whether a particular section is present or absent in an ELF binary indicates wha
 
 [^18]: DWARF Debugging Information Format Version 4.
 <https://sourceware.org/binutils/docs/ld/Options.html#Options>
+
 [^19]: Linux Standard Base Core Specification, Generic Part. Chapter 10.8. ABI note tag.
 <https://refspecs.linuxfoundation.org/LSB_5.0.0/LSB-Core-generic/LSB-Core-generic/noteabitag.html>
+
 [^20]: LD Options.
 <https://sourceware.org/binutils/docs/ld/Options.html#Options>
+
 [^21]: Ghidra homepage.
  <https://ghidra-sre.org>
 <https://www.hex-rays.com/products/ida>
@@ -727,6 +743,7 @@ Debug info files allows the binary to be analyzed in the same way as the origina
 
 [^23]: objcopy (GNU Binary Utilities).
 <https://sourceware.org/binutils/docs/binutils/objcopy.html>
+
 [^24]: llvm-objcopy - object copying and editing tool.
 <https://llvm.org/docs/CommandGuide/llvm-objcopy.html>
 
@@ -752,6 +769,7 @@ Note that `--strip-unneeded` only discards standard ELF sections as unneeded. Si
 
 [^25]: strip (GNU binary Utilities
 <https://sourceware.org/binutils/docs/binutils/strip.html>
+
 [^26]: llvm-strip - object stripping tool
 <https://llvm.org/docs/CommandGuide/llvm-strip.html>
 
