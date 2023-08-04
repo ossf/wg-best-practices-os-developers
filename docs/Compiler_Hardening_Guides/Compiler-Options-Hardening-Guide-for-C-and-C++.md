@@ -720,7 +720,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - Georg Kunz, Ericsson
 - Jack Kelly, ControlPlane
 - Randall T. Vasquez, Linux Foundation
-- Robert C. Seacord, Woven Planet
+- Robert C. Seacord, Woven by Toyota
 - Siddharth Sharma, Red Hat
 - Siddhesh Poyarekar, Red Hat
 
