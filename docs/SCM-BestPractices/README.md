@@ -18,14 +18,14 @@ This guide has been written for the:
 
 Below is a non-exhaustive list of possible tools that can be used to assist in review source code repositories.
 
-### Allstar - https://github.com/ossf/allstar
+### Allstar - <https://github.com/ossf/allstar>
 
 An open-source project from the [OpenSSF](https://openssf.org/) that scans GitHub organizations for “repository level” misconfigurations.
 Allstar detects a subset of the “repository level” policies suggested by this document. It can be configured to scan all repositories in an organization or a subset of them and is supported by the following SCMs:
 
 * GitHub Cloud
 
-### Legitify - https://github.com/Legit-Labs/legitify
+### Legitify - <https://github.com/Legit-Labs/legitify>
 
 An open-source project from [Legit Security](https://www.legitsecurity.com/) that scans SCM assets to find misconfigurations, security issues, and unfollowed best practices.
 Legitify detects all policies suggested by this document and supports the following SCMs:
@@ -35,7 +35,7 @@ Legitify detects all policies suggested by this document and supports the follow
 * GitLab Cloud
 * GitLab Server
 
-### Scorecard - https://github.com/ossf/scorecard
+### Scorecard - <https://github.com/ossf/scorecard>
 
 An open-source project from the [OpenSSF](https://openssf.org/) that scans repositories for security issues and provides security health metrics.
 Scorecard detects many of the “repository level” policies suggested by this document and supports the following SCMs:
@@ -44,7 +44,6 @@ Scorecard detects many of the “repository level” policies suggested by this 
 * GitHub Enterprise Server
 * GitLab Cloud
 * GitLab Server
-
 
 ## Recommendations
 
@@ -155,11 +154,12 @@ Specific Recommendations
 * Only Admins Should Be Able To Create Public Projects and Groups. <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
 
 ## Acknowledgements
+
 The following community members helped contribute to this guidance:
+
 * [Avishay Balter, Microsoft](https://github.com/balteravishay)
 * [Chris de Almeida, IBM](https://github.com/ctcpip)
 * [Christine Abernathy, F5 - project lead](https://github.com/caabernathy) 
 * [Daniel Appelquist, Snyk - project lead](https://github.com/Torgo)
 * [Noam Dotan, Legit Security - project lead](https://github.com/)
 * [David A. Wheeler, The Linux Foundation](https://github.com/david-a-wheeler)
-
