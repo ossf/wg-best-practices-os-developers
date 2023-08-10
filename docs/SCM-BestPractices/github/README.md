@@ -57,7 +57,7 @@ managing assets on GitHub.
 5. [Webhooks Should Be Configured To Use SSL](organization/organization_webhook_doesnt_require_ssl.md)
 6. [Webhooks Should Be Configured With A Secret](organization/organization_webhook_no_secret.md)
 
-### Repository configuration
+### Repository
 
 1. [Repository Should Be Updated At Least Quarterly](repository/repository_not_maintained.md)
 2. [Workflows Should Not Be Allowed To Approve Pull Requests](repository/actions_can_approve_pull_requests.md)
@@ -89,12 +89,14 @@ managing assets on GitHub.
 General Recommendations
 
 * Organization Management Should Be Consolidated Under a Central Account.
-* Organization Membership Should Be Limited to Employees.
+* Organization Membership Should Be Limited to Its Staff When Relevant.
 * Review Security Policies and Procedures At Least Annually.
 * Establish a Clear Communication and Incident Response Plan.
 * Conduct Regular Security Audits and Vulnerability Assessments.
 * Use Insights to Track Activity and in Repositories and Organizations.
 * Use Tools Built On APIs to Automate Tasks and Avoid Needing Elevated Privileges.
+* Review the Configuration Settings Before Making a Repository Public.
+* Review the Configuration Settings After Transferring a Repository into the Organization.
 * Provide Automated Alerts and Tooling to Ensure Ongoing Compliance.
 * Review Audit Logs to Track Activity and Changes in Repositories and Organizations.
 * Review Audit Events to Track Activity and Changes in Projects and Groups.
