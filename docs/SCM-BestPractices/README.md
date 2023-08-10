@@ -15,6 +15,7 @@ This guide has been written for the:
 * **Operations** team tasked with applying policies as part of their work managing assets on these platforms.
 
 ## Tooling
+
 Below is a non-exhaustive list of possible tools that can be used to assist in review source code repositories.
 
 ### Allstar - https://github.com/ossf/allstar
