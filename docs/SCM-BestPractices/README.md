@@ -15,16 +15,17 @@ This guide has been written for the:
 * **Operations** team tasked with applying policies as part of their work managing assets on these platforms.
 
 ## Tooling
+
 Below is a non-exhaustive list of possible tools that can be used to assist in review source code repositories.
 
-### Allstar - https://github.com/ossf/allstar
+### Allstar - <https://github.com/ossf/allstar>
 
 An open-source project from the [OpenSSF](https://openssf.org/) that scans GitHub organizations for “repository level” misconfigurations.
 Allstar detects a subset of the “repository level” policies suggested by this document. It can be configured to scan all repositories in an organization or a subset of them and is supported by the following SCMs:
 
 * GitHub Cloud
 
-### Legitify - https://github.com/Legit-Labs/legitify
+### Legitify - <https://github.com/Legit-Labs/legitify>
 
 An open-source project from [Legit Security](https://www.legitsecurity.com/) that scans SCM assets to find misconfigurations, security issues, and unfollowed best practices.
 Legitify detects all policies suggested by this document and supports the following SCMs:
@@ -34,7 +35,7 @@ Legitify detects all policies suggested by this document and supports the follow
 * GitLab Cloud
 * GitLab Server
 
-### Scorecard - https://github.com/ossf/scorecard
+### Scorecard - <https://github.com/ossf/scorecard>
 
 An open-source project from the [OpenSSF](https://openssf.org/) that scans repositories for security issues and provides security health metrics.
 Scorecard detects many of the “repository level” policies suggested by this document and supports the following SCMs:
@@ -43,7 +44,6 @@ Scorecard detects many of the “repository level” policies suggested by this 
 * GitHub Enterprise Server
 * GitLab Cloud
 * GitLab Server
-
 
 ## Recommendations
 
@@ -85,7 +85,7 @@ For recmmendations only applicable to GitHub or GitLab visit one of the followin
 * Two Factor Authentication Should Be Enabled for External Collaborators [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">](gitlab/member/two_factor_authentication_is_disabled_for_an_external_collaborator.md)
 * Admininistrators Should Have Activity in the Last 6 Months [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">](gitlab/member/stale_admin_found.md)
 
-### Repository configuration
+### Repository
 
 * Repository Should Be Updated At Least Quarterly [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/repository/repository_not_maintained.md)
 * Workflows Should Not Be Allowed To Approve Pull Requests [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/repository/actions_can_approve_pull_requests.md)
@@ -126,15 +126,17 @@ For recmmendations only applicable to GitHub or GitLab visit one of the followin
 General Recommendations
 
 * Organization Management Should Be Consolidated Under a Central Account. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
-* Organization  Membership Should Be Limited to Employees. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
+* Organization Membership Should Be Limited to Its Staff When Relevant. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
 * Review Security Policies and Procedures At Least Annually. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
 * Establish a Clear Communication and Incident Response Plan. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
 * Conduct Regular Security Audits and Vulnerability Assessments. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
 * Use Insights to Track Activity and in Repositories and Organizations. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
 * Use Tools Built On APIs to Automate Tasks and Avoid Needing Elevated Privileges. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
+* Review the Configuration Settings Before Making a Repository Public. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
+* Review the Configuration Settings After Transferring a Repository into the Organization. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
 * Provide Automated Alerts and Tooling to Ensure Ongoing Compliance. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
 * Review Audit Logs to Track Activity and Changes in Repositories and Organizations. <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">
-* Group Membership Should Be Limited to Employees. <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
+* Group Membership Should Be Limited to Organization Staff When Relevant. <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
 * Review Audit Events to Track Activity and Changes in Projects and Groups. <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
 
 Specific Recommendations
@@ -152,11 +154,12 @@ Specific Recommendations
 * Only Admins Should Be Able To Create Public Projects and Groups. <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">
 
 ## Acknowledgements
+
 The following community members helped contribute to this guidance:
+
 * [Avishay Balter, Microsoft](https://github.com/balteravishay)
 * [Chris de Almeida, IBM](https://github.com/ctcpip)
-* [Christine Abernathy, F5 - project lead](https://github.com/caabernathy) 
+* [Christine Abernathy, F5 - project lead](https://github.com/caabernathy)
 * [Daniel Appelquist, Snyk - project lead](https://github.com/Torgo)
 * [Noam Dotan, Legit Security - project lead](https://github.com/)
 * [David A. Wheeler, The Linux Foundation](https://github.com/david-a-wheeler)
-

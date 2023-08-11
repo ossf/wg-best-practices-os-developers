@@ -37,7 +37,7 @@ managing assets on GitLab.
 2. [Two Factor Authentication Should Be Enabled for External Collaborators](member/two_factor_authentication_is_disabled_for_an_external_collaborator.md)
 3. [Admininistrators Should Have Activity in the Last 6 Months](member/stale_admin_found.md)
 
-## Repository configuration
+## Repository
 
 1. [Project Should Be Updated At Least Quarterly](project/project_not_maintained.md)
 2. [Default Branch Should Require Code Review](project/code_review_not_required.md)
@@ -60,11 +60,13 @@ managing assets on GitLab.
 
 General Recommendations:
 
-* Group Membership Should Be Limited to Employees.
+* Group Membership Should Be Limited to Organization Staff When Relevant.
 * Review Security Policies and Procedures At Least Annually.
 * Establish a Clear Communication and Incident Response Plan.
 * Conduct Regular Security Audits and Vulnerability Assessments.
 * Use Tools Built On APIs to Automate Tasks and Avoid Needing Elevated Privileges.
+* Review the Configuration Settings Before Making a Repository Public.
+* Review the Configuration Settings After Transferring a Repository into the Organization.
 * Provide Automated Alerts and Tooling to Ensure Ongoing Compliance.
 * Review Audit Events to Track Activity and Changes in Projects and Groups.
 
