@@ -122,7 +122,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 
 | Compiler Flag                                                                             |            Supported since            | Description                                                                                  |
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
-| [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^1]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. |
+| [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^Guelton20]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. |
 | [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
@@ -130,9 +130,9 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)                                               |           Binutils 2.14            | Enable data execution prevention by marking stack memory as non-executable                   |
 | [`-Wl,-z,relro`](#-Wl,-z,relro)<br/>[`-Wl,-z,now`](#-Wl,-z,now)                           |           Binutils 2.15            | Mark relocation table entries resolved at load-time as read-only. `-Wl,-z,now` can impact startup performance.                            |
 | [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable. Can impact performance on 32-bit architectures.                                                   |
-| [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6<br/>Clang 5.0.0[^1] | Build as position-independent code. Can impact performance on 32-bit architectures.                                                         |
+| [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6<br/>Clang 5.0.0[^Guelton20] | Build as position-independent code. Can impact performance on 32-bit architectures.                                                         |
 
-[^1]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) and but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge. Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer. <https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc> and Poyarekar, Siddhesh. D91677 Avoid simplification of library functions when callee has an implementation. (LLVM Phabricator) <https://reviews.llvm.org/D91677>
+[^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) and but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
 ---
 
@@ -242,8 +242,8 @@ For example, developers can decide to promote warnings that indicate interferenc
 | Compiler Flag                                                                              | Supported since            | Description                                                                                  |
 | ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
 | <span id="-D_FORTIFY_SOURCE=1">`-D_FORTIFY_SOURCE=1`</span>                                | GCC 4.0<br/>Clang 5.0.0     | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows         |
-| <span id="-D_FORTIFY_SOURCE=2">`-D_FORTIFY_SOURCE=2`</span><br/>(requires `-O1` or higher) | GCC 4.0<br/>Clang 5.0.0[^1] | In addition to checks covered by `-D_FORTIFY_SOURCE=1`, also trap code that may be conforming to the C standard but still unsafe |
-| <span id="-D_FORTIFY_SOURCE=3">`-D_FORTIFY_SOURCE=3`</span><br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^1] | Same checks as in `-D_FORTIFY_SOURCE=2`, but with significantly more calls fortified with a potential to impact performance in some rare cases |
+| <span id="-D_FORTIFY_SOURCE=2">`-D_FORTIFY_SOURCE=2`</span><br/>(requires `-O1` or higher) | GCC 4.0<br/>Clang 5.0.0[^Guelton20] | In addition to checks covered by `-D_FORTIFY_SOURCE=1`, also trap code that may be conforming to the C standard but still unsafe |
+| <span id="-D_FORTIFY_SOURCE=3">`-D_FORTIFY_SOURCE=3`</span><br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^Guelton20] | Same checks as in `-D_FORTIFY_SOURCE=2`, but with significantly more calls fortified with a potential to impact performance in some rare cases |
 
 #### Synopsis
 
@@ -486,7 +486,7 @@ Static linking avoids the need for dynamic symbol resolution altogether but can 
 | Compiler Flag                                  |            Supported since            | Description                               |
 |:---------------------------------------------- |:----------------------------------:|:----------------------------------------- |
 | <span id="-fPIE_-pie">`-fPIE -pie`</span>      |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable. |
-| <span id="-fPIC_-shared">`-fPIC -shared`</span> | < Binutils 2.6<br/>Clang 5.0.0[^1] | Build as position-independent code.       |
+| <span id="-fPIC_-shared">`-fPIC -shared`</span> | < Binutils 2.6<br/>Clang 5.0.0[^Guelton20] | Build as position-independent code.       |
 
 #### Synopsis
 
