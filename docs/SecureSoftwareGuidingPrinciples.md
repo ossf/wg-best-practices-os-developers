@@ -3,8 +3,8 @@
 **As developers of software, we are committed to enhancing the security and transparency of the software supply chain by pledging the following for all software we produce, both proprietary and open source, whether embedded in a device, released on a standalone basis, or designed to operate as a service, with the goal of creating software that is secure by default:**
 
 1. To employ development practices that are in conformance with modern, industry-accepted secure development methods
-2. To learn and apply secure software design principles (such as least privilege) where practical
-3. To learn the most common kinds of vulnerabilities and to take steps where practical to make them unlikely or limit their impact
+2. To learn and apply secure software design principles (such as least privilege)
+3. To learn the most common kinds of vulnerabilities and to take steps to make them unlikely or limit their impact
 4. To provide software supply chain understandability to consumers of our software consistent with evolving industry standards, practices, and tooling
 5. To prioritize the sourcing of software from suppliers and developers who also pledge to develop in conformance with the Secure Software Guiding Principles, and from projects that publicly report security health metrics and adopt controls to prevent tampering of software packages
 6. To check for and remediate known and potential critical vulnerabilities prior to releasing software, then monitor for vulnerabilities subsequently throughout the supported life of the product
