@@ -1,6 +1,6 @@
 # Secure Software Guiding Principles version 0.6 (previous versions iterated in Google Docs)
 
-### As developers of software, we are committed to enhancing the security and transparency of the software supply chain by pledging the following for all software we produce, both proprietary and open source, whether embedded in a device, released on a standalone basis, or designed to operate as a service, with the goal of creating software that is secure by default:
+**As developers of software, we are committed to enhancing the security and transparency of the software supply chain by pledging the following for all software we produce, both proprietary and open source, whether embedded in a device, released on a standalone basis, or designed to operate as a service, with the goal of creating software that is secure by default:**
 
 1. To employ development practices that are in conformance with modern, industry-accepted secure development methods
 2. To learn and apply secure software design principles (such as least privilege) where practical
