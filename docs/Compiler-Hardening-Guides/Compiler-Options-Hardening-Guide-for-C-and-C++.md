@@ -59,7 +59,7 @@ If compiler options hardening is overlooked or neglected during build time it ca
 
 Some organizations require selecting hardening rules. For example, the US government's NIST SP 800-218 practice PW.6 requires configuring "the compilation, interpreter, and build processes to improve executable security" [^NIST-SP-800-218-1-1]. Carnegie Mellon University (CMU)'s "top 10 secure coding practices" recommends compiling "code using the highest warning level available for your compiler and eliminate warnings by modifying the code."[^CMU2018] This guide can help you do that.
 
-[^NIST-SP-800-218-1-1]: US NIST, [Secure Software Development Framework (SSDF) Version 1.1: Recommendations for Mitigating the Risk of Software Vulnerabilities](https://csrc.nist.gov/publications/detail/sp/800-218/final), NIST SP 800-218
+[^NIST-SP-800-218-1-1]: US NIST, [Secure Software Development Framework (SSDF) Version 1.1: Recommendations for Mitigating the Risk of Software Vulnerabilities](https://csrc.nist.gov/publications/detail/sp/800-218/final), NIST SP 800-218, February 2018.
 
 [^CMU2018]: Carnegie Mellon University (CMU), [Top 10 Secure Coding Practices](https://wiki.sei.cmu.edu/confluence/display/seccode/Top+10+Secure+Coding+Practices)
 
