@@ -43,9 +43,11 @@ Most programming languages prevent such defects by default. A few languages allo
 
 Run-time attacks differ from conventional malware, which carries out its malicious program actions through a dedicated program executable, in that run-time attacks influence benign programs to behave maliciously. A run-time attack that exploits unmitigated memory vulnerabilities can be leveraged by threat actors as the initial attack vectors that allow them to gain a presence on a system, e.g., by injecting malicious code into running programs.
 
-Modern, security-aware C and C++ software development practices, such as secure coding standards [^Seacord2014] and program analysis aim to proactively avoid introducing memory errors (and other software defects) to applications. However, in practice completely eradicating memory errors in production C and C++ software has turned out to be near-impossible.
+Modern, security-aware C and C++ software development practices, such as secure coding standards [^CMU2016C][^CMU2016CPP] and program analysis aim to proactively avoid introducing memory errors (and other software defects) to applications. However, in practice completely eradicating memory errors in production C and C++ software has turned out to be near-impossible.
 
-[^Seacord2014]: Seacord, Robert. The CERT C Coding Standard: 98 Rules for Developing Safe, Reliable, and Secure Systems, 2nd Edition. Addison-Wesley Professional. 2014.
+[^CMU2016C]: Carnegie Mellon University (CMU), [SEI CERT C Coding Standard Rules for Developing Safe, Reliable, and Secure Systems, 2016 edition](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=454220), June 2016.
+
+[^CMU2016CPP]: Carnegie Mellon University (CMU), [SEI CERT C++ Coding Standard Rules for Developing Safe, Reliable, and Secure Systems, 2016 edition](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=494932), March 2017.
 
 Consequently, modern operating systems deploy various run-time mechanisms to protect against potential security flaws. The principal purpose of such mechanisms is to mitigate potentially exploitable memory vulnerabilities in a way that prevents a threat actor from exploiting them to gain code execution capabilities. With mitigations in place the affected application may still crash if a memory error is triggered. However, such an outcome is still preferable if the alternative is the compromise of the system’s run-time environment.
 
