@@ -152,11 +152,11 @@ The warnings in the `–Wall` set are generally easy to avoid or can be easily p
 
 The `-Wextra` set of warnings are either situational, or indicate problematic constructs that are harder to avoid and in some cases may be necessary.
 
-NOTE: Despite its name the `-Wall` options does NOT enable all possible warning diagnostics, but a pre-defined subset. For a complete list of specific warnings enabled by the`-Wall` and `-Wextra` compiler please consult the GCC[^2] and Clang[^3] documentation respectively.
+NOTE: Despite its name the `-Wall` options does NOT enable all possible warning diagnostics, but a pre-defined subset. For a complete list of specific warnings enabled by the`-Wall` and `-Wextra` compiler please consult the GCC[^gcc-warnings] and Clang[^clang-diagnostics] documentation respectively.
 
-[^2]: [Using the GNU Compiler Collection (GCC): Warning Options.](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html)
+[^gcc-warnings]: GCC team, [Using the GNU Compiler Collection (GCC): Warning Options.](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html), GCC Manual, 2023-07-27.
 
-[^3]: Clang documentation: Diagnostics flags in Clang. <https://clang.llvm.org/docs/DiagnosticsReference.html>
+[^clang-diagnostics]: LLVM Team, [Clang documentation: Diagnostics flags in Clang](https://clang.llvm.org/docs/DiagnosticsReference.html), Clang documentation, 2023-03-17.
 
 ---
 
@@ -247,7 +247,7 @@ For example, developers can decide to promote warnings that indicate interferenc
 
 #### Synopsis
 
-The `_FORTIFY_SOURCE` macro enables a set of extensions to the GNU C library (glibc) that enable checking at entry points of a number of functions to immediately abort execution when it encounters unsafe behavior. A key feature of this checking is validation of objects passed to these function calls to ensure that the call will not result in a buffer overflow. This relies on the compiler being able to compute the size of the protected object at compile time. A full list of these functions is maintained in the GNU C Library manual[^28]:
+The `_FORTIFY_SOURCE` macro enables a set of extensions to the GNU C library (glibc) that enable checking at entry points of a number of functions to immediately abort execution when it encounters unsafe behavior. A key feature of this checking is validation of objects passed to these function calls to ensure that the call will not result in a buffer overflow. This relies on the compiler being able to compute the size of the protected object at compile time. A full list of these functions is maintained in the GNU C Library manual[^glibc-fortification]:
 
 > memcpy, mempcpy, memmove, memset, strcpy, stpcpy, strncpy, strcat, strncat, sprintf, vsprintf, snprintf, vsnprintf, gets
 
@@ -274,13 +274,13 @@ Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligib
 `_FORTIFY_SOURCE` is recommended for all application that depend on glibc and should be widely deployed. Most packages in all major Linux distributions enable at least `_FORTIFY_SOURCE=2` and some even enable `_FORTIFY_SOURCE=3`. There are a couple of situations when `_FORTIFY_SOURCE` may break existing applications:
 
 - If the fortified glibc function calls show up as hotspots in your application performance profile, there is a chance that `_FORTIFY_SOURCE` may have a negative performance impact. This is not a common or widespread slowdown[^29] but worth keeping in mind if slowdowns are observed due to this option
-- Applications that use the GNU extension for flexible array members in structs[^30] may confuse the compiler into thinking that an object is smaller than it actually is, resulting in spurious aborts. The safe resolution for this is to port these uses to C99 flexible arrays but if that is not possible (e.g. due to the need to support a compiler that does not support C99 flexible arrays), one may need to downgrade or disable `_FORTIFY_SOURCE` protections.
+- Applications that use the GNU extension for flexible array members in structs[^gcc-zerolengtharrays]] may confuse the compiler into thinking that an object is smaller than it actually is, resulting in spurious aborts. The safe resolution for this is to port these uses to C99 flexible arrays but if that is not possible (e.g. due to the need to support a compiler that does not support C99 flexible arrays), one may need to downgrade or disable `_FORTIFY_SOURCE` protections.
 
-[^28]: Source Fortification in the GNU C Library <https://www.gnu.org/software/libc/manual/2.37/html_node/Source-Fortification.html>
+[^glibc-fortification]: GNU C Library team, [Source Fortification in the GNU C Library](https://www.gnu.org/software/libc/manual/html_node/Source-Fortification.html), GNU C Library (glibc) manual, 2023-02-01.
 
 [^29]: How to improve application security using _FORTIFY_SOURCE=3 <https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3>
 
-[^30]: Arrays of Length Zero <https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/arrays-of-length-zero.html>
+[^gcc-zerolengtharrays]]: GCC team, [Arrays of Length Zero](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/arrays-of-length-zero.html), GCC Manual (experimental 20221114 documentation), 2022-11-14.
 
 ---
 
@@ -297,7 +297,7 @@ The C++ standard library implementations in GCC (libstdc++) and LLVM (libc++) pr
 
 These precondition checks can be enabled by defining the corresponding pre-processor macros in when compiling C++ code that calls into libstdc++ or libc++:
 
-- The `-D_GLIBCXX_ASSERTIONS` macro enables precondition checks for libstdc++[^libstdcpp_macros].
+- The `-D_GLIBCXX_ASSERTIONS` macro enables precondition checks for libstdc++[^libsdcpp-macros].
   It can only affect C++ code that uses GCC’s libstdc++.
 - The `-D_LIBCPP_ASSERT` macro enables precondition checks for libc++[^Clow19].  
   It can only affect C++ code that uses LLVM’s libc++.
@@ -316,7 +316,7 @@ Impacts of [up to 6% on performance have been reported](https://gitlab.psi.ch/OP
 
 These options are unnecessary for security for applications in production that only handle completely trusted data.
 
-[^libstdcpp_macros]: Free Software Foundation, [Using Macros in the GNU C++ Library](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_macros.html), The GNU C++ Library Manual
+[^libsdcpp-macros]: GCC team, [Using Macros in the GNU C++ Library](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_macros.html), The GNU C++ Library Manual, 2023-07-27.
 
 [^Clow19]: Marshall Clow, [Hardening the C++ standard template library](https://www.youtube.com/watch?v=1iHs_K2HpGo&t=990s), C++ Russia 2019
 
@@ -431,7 +431,7 @@ All major modern processor architectures incorporate memory management primitive
 
 The `-Wl,-z,noexecstack` option tells the linker to mark the corresponding program segment as non-executable which enables the OS to configure memory access rights correctly when the program executable is loaded into memory.
 
-However, some language-level programming constructs, such as taking the address of a nested function (a GNU C extension to ISO standard C) requires special compiler handling which may prevent the linker from marking stack segments correctly as non-executable[^5].
+However, some language-level programming constructs, such as taking the address of a nested function (a GNU C extension to ISO standard C) requires special compiler handling which may prevent the linker from marking stack segments correctly as non-executable[^gcc-trampolines].
 
 Consequently the `-Wl,-z,noexecstack` option works best when combined with appropriate warning flags (`-Wtrampolines` where available) that indicate whether language constructs interfere with stack virtual memory protection.
 
@@ -447,7 +447,7 @@ Such applications require sandboxing techniques to protect the application’s m
 
 In addition to protection against malicious code injection such applications may also require special mitigations against speculative execution side channels [^6].
 
-[^5]: Trampolines (GNU Compiler Collection (GCC) Internals). 18.11 Support for Nested Functions. <https://gcc.gnu.org/onlinedocs/gccint/Trampolines.html>
+[^gcc-trampolines]: GCC team, [Support for Nested Functions.](https://gcc.gnu.org/onlinedocs/gccint/Trampolines.html), GCC Internals, 2023-07-27.
 
 [^6]: Managed Runtime Speculative Execution Side Channel Mitigations (Intel Developer Zone). <https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/runtime-speculative-side-channel-mitigations.html>
 
@@ -650,7 +650,7 @@ LSan cannot be used simultaneously with AddressSanitizer (ASan) or ThreadSanitiz
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
 | `-fsanitize=undefined`<br/>(requires `-O1` or higher) |   GCC 4.9<br/>Clang 3.3   | Enables UndefinedBehaviorSanitizer to detect undefined behavior at run time |
 
-UndefinedBehaviorSanitizer (UBSan) is a detector of non-portable or erroneous program constructs which cause behavior which is not clearly defined in the ISO C standard. UBSan provides a large number of sub-options to enable / disable individual checks for different classes of undefined behavior. Consult the GCC[^16] and Clang[^17] documentation respectively for up-to-date information on supported sub-options.
+UndefinedBehaviorSanitizer (UBSan) is a detector of non-portable or erroneous program constructs which cause behavior which is not clearly defined in the ISO C standard. UBSan provides a large number of sub-options to enable / disable individual checks for different classes of undefined behavior. Consult the GCC[^gcc-instrumentation] and Clang[^clang-ubsan] documentation respectively for up-to-date information on supported sub-options.
 
 To enable UBSan add `-fsanitize=undefined` to the compiler flags (`CFLAGS` for C, `CXXFLAGS` for C++) and linker flags (`LDFLAGS`) together with any desired sub-options. Consider combining TSan with the following compiler flags:
 
@@ -659,9 +659,9 @@ To enable UBSan add `-fsanitize=undefined` to the compiler flags (`CFLAGS` for C
 
 The run-time behavior of UBSan can be influenced using the `UBSAN_OPTIONS` environment variable. If set to `UBSAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program.
 
-[^16]: Using the GNU Compiler Collection (GCC). 3.12 Program Instrumentation Options. <https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#Instrumentation-Options>
+[^gcc-instrumentation]: GCC team, [Program Instrumentation Options](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#Instrumentation-Options), GCC Manual, 2023-07-27.
 
-[^17]: Clang documentation. UndefinedBehaviorSanitizer. <https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html>
+[^clang-ubsan]: LLVM team, [UndefinedBehaviorSanitizer](https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html), Clang documentation, 2023-03-17.
 
 ---
 
