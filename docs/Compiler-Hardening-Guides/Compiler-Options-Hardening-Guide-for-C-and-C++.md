@@ -260,7 +260,7 @@ The `_FORTIFY_SOURCE` mechanisms have three modes of operation:
 To benefit from `_FORTIFY_SOURCE` checks following requirements must be met:  
 
 - the application must be built with `-O1` optimizations or higher; at least `-O2` is recommended.
-- the compiler should be able to estimate sizes of the destination buffers at compile time. This can be facilitated by applications and libraries by using function attribute extensions supported by GCC and Clang[^29].
+- the compiler should be able to estimate sizes of the destination buffers at compile time. This can be facilitated by applications and libraries by using function attribute extensions supported by GCC and Clang[^Poyarekar23].
 - the application code must use glibc versions of the aforementioned functions (included with standard headers, e.g. `<stdio.h>` and `<string.h>`)
 
 If checks added by `_FORTIFY_SOURCE` detect unsafe behavior at run-time they will print an error message and terminate the application.
@@ -273,12 +273,12 @@ Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligib
 
 `_FORTIFY_SOURCE` is recommended for all application that depend on glibc and should be widely deployed. Most packages in all major Linux distributions enable at least `_FORTIFY_SOURCE=2` and some even enable `_FORTIFY_SOURCE=3`. There are a couple of situations when `_FORTIFY_SOURCE` may break existing applications:
 
-- If the fortified glibc function calls show up as hotspots in your application performance profile, there is a chance that `_FORTIFY_SOURCE` may have a negative performance impact. This is not a common or widespread slowdown[^29] but worth keeping in mind if slowdowns are observed due to this option
+- If the fortified glibc function calls show up as hotspots in your application performance profile, there is a chance that `_FORTIFY_SOURCE` may have a negative performance impact. This is not a common or widespread slowdown[^Poyarekar23] but worth keeping in mind if slowdowns are observed due to this option
 - Applications that use the GNU extension for flexible array members in structs[^gcc-zerolengtharrays] may confuse the compiler into thinking that an object is smaller than it actually is, resulting in spurious aborts. The safe resolution for this is to port these uses to C99 flexible arrays but if that is not possible (e.g. due to the need to support a compiler that does not support C99 flexible arrays), one may need to downgrade or disable `_FORTIFY_SOURCE` protections.
 
 [^glibc-fortification]: GNU C Library team, [Source Fortification in the GNU C Library](https://www.gnu.org/software/libc/manual/html_node/Source-Fortification.html), GNU C Library (glibc) manual, 2023-02-01.
 
-[^29]: How to improve application security using _FORTIFY_SOURCE=3 <https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3>
+[^Poyarekar23]: Poyarekar, Siddhesh, [How to improve application security using _FORTIFY_SOURCE=3](https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3), Red Hat Developer, 2023-02-06.
 
 [^gcc-zerolengtharrays]: GCC team, [Arrays of Length Zero](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/arrays-of-length-zero.html), GCC Manual (experimental 20221114 documentation), 2022-11-14.
 
