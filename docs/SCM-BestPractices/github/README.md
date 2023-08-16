@@ -17,10 +17,14 @@ This guide has been written for the:
 
 * **Maintainer** who wants to improve the security posture for one or more
 GitHub repositories they support.
+* **Owner** who wants to improve the security posture for one or more GitHub
+organizations they manage. 
 * **Open Source Program Office (OSPO)** who is typically responsible for
 multiple organizations and repositories.
 * **Operations** team tasked with applying policies as part of their work
 managing assets on GitHub.
+* **GitHub Enterprise Server admin** who wants to improve the security posture
+for their server. 
 
 ## Recommendations
 
@@ -33,7 +37,7 @@ managing assets on GitHub.
 5. [Runner Group Should Be Limited to Private Repositories](runner_group/runner_group_can_be_used_by_public_repositories.md)
 6. [Runner Group Should Be Limited to Selected Repositories](runner_group/runner_group_not_limited_to_selected_repositories.md)
 
-### Server
+### Enterprise
 
 1. [Two-Factor Authentication Should Be Enforced For The Enterprise](enterprise/enterprise_enforce_two_factor_authentication.md)
 2. [Enterprise Should Not Allow Members To Change Repository Visibility](enterprise/enterprise_not_using_visibility_change_disable_policy.md)
