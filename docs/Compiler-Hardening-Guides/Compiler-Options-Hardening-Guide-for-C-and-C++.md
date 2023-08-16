@@ -688,29 +688,31 @@ In ELF binaries debug and symbol information are stored in discrete ELF sections
 
 | Elf Section | Description                                                               |
 | ----------- | ------------------------------------------------------------------------- |
-| `.debug`    | Symbolic debug information for debuggers (typically in DWARF format[^18]) |
+| `.debug`    | Symbolic debug information for debuggers (typically in DWARF format[^DWARF17]) |
 | `.comment`  | GCC version information                                                   |
 | `.dynstr`   | Strings needed for dynamic symbol name lookup via .dynsym                 |
 | `.dynsym`   | Dynamic symbol lookup table used for run-time relocations                 |
-| `.note`     | Auxiliary metadata, e.g, ABI tags[^19] and Build ID[^20]                  |
+| `.note`     | Auxiliary metadata, e.g, ABI tags[^LF15] and Build ID[^binutils-ld]       |
 | `.strtab`   | Strings representing names in `.symtab`                                   |
 | `.symtab`   | Global symbol table used for symbol name lookup by debuggers              |
 
-Whether a particular section is present or absent in an ELF binary indicates what type of information is available. The availability of symbol information makes binary analysis easier as debuggers, disassemblers and binary code analysis tools, such as Ghidra[^21] and IDA Pro[^21], can use available symbol information to automatically annotate decompiled machine code. Similarly, the availability of debug information makes dynamic analysis of the application in a debugger easier. Stripping unnecessary debug and symbol information from the binary does not make it impervious against reverse engineering, however it does considerably increase the cost and manual effort required for successful exploitation.
+Whether a particular section is present or absent in an ELF binary indicates what type of information is available. The availability of symbol information makes binary analysis easier as debuggers, disassemblers and binary code analysis tools, such as Ghidra[^ghidra-homepage] and IDA Pro[^idapro-homepage], can use available symbol information to automatically annotate decompiled machine code. Similarly, the availability of debug information makes dynamic analysis of the application in a debugger easier. Stripping unnecessary debug and symbol information from the binary does not make it impervious against reverse engineering, however it does considerably increase the cost and manual effort required for successful exploitation.
 
-[^18]: DWARF Debugging Information Format Version 4. <https://sourceware.org/binutils/docs/ld/Options.html#Options>
+[^DWARF17]: DWARF Debugging Information Format Committee, [DWARF Version 5 Debugging Format Standard](https://dwarfstd.org/dwarf5std.html), DWARF Debugging Standard Website, 2017-02-13.
 
-[^19]: Linux Standard Base Core Specification, Generic Part. Chapter 10.8. ABI note tag. <https://refspecs.linuxfoundation.org/LSB_5.0.0/LSB-Core-generic/LSB-Core-generic/noteabitag.html>
+[^LF15]: Linux Foundation, [Linux Standard Base Core Specification, Generic Part, Chapter 10.8. ABI note tag.](https://refspecs.linuxfoundation.org/LSB_5.0.0/LSB-Core-generic/LSB-Core-generic/noteabitag.html), Linux Foundation Referenced Specifications, 2015-05-27.
 
-[^20]: LD Options. <https://sourceware.org/binutils/docs/ld/Options.html#Options>
+[^binutils-ld]: Binutils team, [LD Options](https://sourceware.org/binutils/docs/ld/Options.html#Options), Documentation for binutils, 2023-07-30.
 
-[^21]: Ghidra homepage. <https://ghidra-sre.org> <https://www.hex-rays.com/products/ida>
+[^ghidra-homepage]: NSA, [Ghidra homepage](https://ghidra-sre.org)
+
+[îdapro-homepage]: Hex-Rays, [IDA Pro homepage](https://www.hex-rays.com/products/ida)
 
 ### Creating debug info files
 
 The debug info files are ordinary executables with an identical section layout as the application’s original executable, but without the executable’s data. The debug info file is
 
-created by compiling the application executable with the desired debug information included, then processing the executable with the `objcopy` utility to produce the stripped executable (without debugging information) and the debug info file (without executable data). Both GNU binutils `objcopy`[^23] and LLVM `llvm-objcopy`[^24] support the same options for stripping debug information and creating the debug info file. The shell snippet below shows the `objcopy` invocation for creating a debug info file from an executable with debug information.
+created by compiling the application executable with the desired debug information included, then processing the executable with the `objcopy` utility to produce the stripped executable (without debugging information) and the debug info file (without executable data). Both GNU binutils `objcopy`[^binutils-objcopy] and LLVM `llvm-objcopy`[^llvm-objcopy] support the same options for stripping debug information and creating the debug info file. The shell snippet below shows the `objcopy` invocation for creating a debug info file from an executable with debug information.
 
  objcopy --only-keep-debug executable_file executable_file.debug
 
@@ -718,13 +720,13 @@ There are no particular requirements for the debug link filename, although a com
 
 Debug info files allows the binary to be analyzed in the same way as the original binary with debug and symbol information intact. They should be handled with care and not exposed in computing environments where they may be obtained by adversaries.
 
-[^23]: objcopy (GNU Binary Utilities). <https://sourceware.org/binutils/docs/binutils/objcopy.html>
+[^binutils-objcopy]: Binutils team, [objcopy](<https://sourceware.org/binutils/docs/binutils/objcopy.html), Documentation for binutils, 2023-07-30.
 
-[^24]: llvm-objcopy - object copying and editing tool. <https://llvm.org/docs/CommandGuide/llvm-objcopy.html>
+[^llvm-objcopy]: LLVM team, [llvm-objcopy](<https://llvm.org/docs/CommandGuide/llvm-objcopy.html), LLVM Command Guide, 2023-03-17.
 
 ### Strip debug and symbol information
 
-Once the debug info file has been created the debug and symbol information can be stripped from the original binary using either the `objcopy` or `strip`[^25] utilities provided by Binutils, or the `llvm-objcopy` or `llvm-strip`[^26] equivalents provided by LLVM. The shell snippets below show how the debug and unneeded symbol information can removed from an executable using `objcopy` and `strip` respectively. If code signing is enforced on the application binaries the debug and symbol information must be stripped away before the binaries are signed.
+Once the debug info file has been created the debug and symbol information can be stripped from the original binary using either the `objcopy` or `strip`[^binutils-strip] utilities provided by Binutils, or the `llvm-objcopy` or `llvm-strip`[^llvm-strip] equivalents provided by LLVM. The shell snippets below show how the debug and unneeded symbol information can removed from an executable using `objcopy` and `strip` respectively. If code signing is enforced on the application binaries the debug and symbol information must be stripped away before the binaries are signed.
 
  strip --strip-unneeded executable_file
 
@@ -742,9 +744,9 @@ Note that `--strip-unneeded` only discards standard ELF sections as unneeded. Si
 
  strip --strip-unneeded --remove-section=.comment executable_file
 
-[^25]: strip (GNU binary Utilities <https://sourceware.org/binutils/docs/binutils/strip.html>
+[^binutils-strip]: Binutils team, [strip](https://sourceware.org/binutils/docs/binutils/strip.html), Documentation for binutils, 2023-07-30.
 
-[^26]: llvm-strip - object stripping tool <https://llvm.org/docs/CommandGuide/llvm-strip.html>
+[^llvm-strip]: LLVM team, [llvm-strip](https://llvm.org/docs/CommandGuide/llvm-strip.html), LLVM Command Guide, 2023-03-17.
 
 ### Add a debug link to the binary
 
@@ -763,9 +765,9 @@ A debug link is a special section (`.gnu_debuglink`) in the executable file that
 
 If the debug information file is built in one location but is going to be later installed at a different location the `--add-gnu-debuglink` option should be used with the path to the built debug information file. The debug info file must exist at the specified path as it is required for the CRC calculation which allows the debugger to validate that the debug info file it loads matches that of the executable.
 
-Note that `.gnu_debuglink` does not contain the full pathname to the debug info; only a filename with the leading directory components removed. GDB looks for the debug info file with the specified filename in a series of search directories starting from the directory where the executable is placed. For a complete list of search paths refer to the GDB documentation[^27].
+Note that `.gnu_debuglink` does not contain the full pathname to the debug info; only a filename with the leading directory components removed. GDB looks for the debug info file with the specified filename in a series of search directories starting from the directory where the executable is placed. For a complete list of search paths refer to the GDB documentation[^gdb-debugfiles].
 
-[^27]: : Debugging Information in Separate Files (Debugging with GDB). <https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html>
+[^gdb-debugfiles]:  GDB team, [Debugging Information in Separate Files](https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html), Debugging with GDB, 2023-08-16.
 
 **Build ID**
 
@@ -773,7 +775,7 @@ A build ID is a unique bit string stored in `.note.gnu.build-id` of the ELF .not
 
 If the build ID method is used the debug info file’s name is computed from the build ID. GDB searches the global debug directories (typically /usr/lib/debug) for a .build- id/xx/yyyy.debug file, where xx are the first two hex characters of the build ID and yyyy are the rest of the build ID bit string in hex (actual build ID strings are 32 or more hex characters).
 
-Note that the build ID does not act as a checksum for the executable or debug info file. For more information on the build ID feature please refer to the GDB[^23] and GNU linker[^20] documentation.
+Note that the build ID does not act as a checksum for the executable or debug info file. For more information on the build ID feature please refer to the GDB[^binutils-objcopy] and GNU linker[^binutils-ld] documentation.
 
 ## Contributors
 
