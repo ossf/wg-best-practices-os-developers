@@ -592,18 +592,18 @@ To enable ASan add `-fsanitize=address` to the compiler flags (`CFLAGS` for C, `
 - `-fno-optimize-sibling-calls` (disable tail call optimizations)
 - `-fno-common` (disable common symbols to improve tracking of globals)
 
-The run-time behavior of ASan can be influenced using the `ASAN_OPTIONS` environment variable. The run-time options can be used enable additional memory error checks and to tweak ASan performance. An up-to-date list of supported options are available on the AddressSanitizerFlags article on the project's GitHub Wiki[^12]. If set to `ASAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program. This is particularly useful for determining which options are supported by the specific version ASan integrated to the compiler being used. A useful pre-set to enable more aggressive diagnostics compared to the default behavior is given below:
+The run-time behavior of ASan can be influenced using the `ASAN_OPTIONS` environment variable. The run-time options can be used enable additional memory error checks and to tweak ASan performance. An up-to-date list of supported options are available on the AddressSanitizerFlags article on the project's GitHub Wiki[^asan-flags]. If set to `ASAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program. This is particularly useful for determining which options are supported by the specific version ASan integrated to the compiler being used. A useful pre-set to enable more aggressive diagnostics compared to the default behavior is given below:
 
  ASAN_OPTIONS=strict_string_checks=1:detect_stack_use_after_return=1: \
  check_initialization_order=1:strict_init_order=1 ./instrumented-executable
 
-When ASan encounters a memory error it (by default) terminates the application and prints an error message and stack trace describing the nature and location of the detected error. A systematic description of the different error types and the corresponding root causes reported by ASan can be found in the AddressSanitizer article on the project's GitHub Wiki[^13].
+When ASan encounters a memory error it (by default) terminates the application and prints an error message and stack trace describing the nature and location of the detected error. A systematic description of the different error types and the corresponding root causes reported by ASan can be found in the AddressSanitizer article on the project's GitHub Wiki[^asan].
 
 ASan cannot be used simultaneously with ThreadSanitizer or LeakSanitizer. It is not possible to mix ASan-instrumented code produced by GCC with ASan-instrumented code produced Clang as the ASan implementations in GCC and Clang are mutually incompatible.
 
-[^12]: AddressSanitizerFlags (GitHub google/sanitizers Wiki). <https://github.com/google/sanitizers/wiki/AddressSanitizerFlags>
+[^asan-flags]: LLVM Sanitizers team, [AddressSanitizerFlags](https://github.com/google/sanitizers/wiki/AddressSanitizerFlags), GitHub google/sanitizers Wiki, 2019-05-15.
 
-[^13]: AddressSanitizer (GitHub google/sanitizers Wiki). <https://github.com/google/sanitizers/wiki/AddressSanitizer>
+[^asan]: LLVM Sanitizers team, [AddressSanitizer](https://github.com/google/sanitizers/wiki/AddressSanitizer), GitHub google/sanitizers Wiki, 2019-05-15.
 
 ---
 
@@ -620,15 +620,15 @@ To enable TSan add `-fsanitize=thread` to the compiler flags (`CFLAGS` for C, `C
 - `-O2` (or higher for reasonable performance)
 - `-g` (to display source file names and line numbers in the produced warning messages)
 
-The run-time behavior of TSan can be influenced using the `TSAN_OPTIONS` environment variable. An up-to-date list of supported options are available on the ThreadSanitizerFlags article on the project's GitHub Wiki[^14]. If set to `TSAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program.
+The run-time behavior of TSan can be influenced using the `TSAN_OPTIONS` environment variable. An up-to-date list of supported options are available on the ThreadSanitizerFlags article on the project's GitHub Wiki[^tsan-flags]. If set to `TSAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program.
 
-When TSan encounters a potential data race it (by default) reports the race by printing a warning message with a description of the program state that lead to the data race. A detailed description of the report format can be found in the ThreadSanitizerReportFormat article on the project's Github Wiki[^15].
+When TSan encounters a potential data race it (by default) reports the race by printing a warning message with a description of the program state that lead to the data race. A detailed description of the report format can be found in the ThreadSanitizerReportFormat article on the project's Github Wiki[^tsan-reportformat].
 
 TSan cannot be used simultaneously with AddressSanitizer (ASan) or LeakSanitizer (LSan). It is not possible to mix TSan-instrumented code produced by GCC with TSan-instrumented code produced Clang as the TSan implementations in GCC and Clang are mutually incompatible. TSan generally requires all code to be compiled with `-fsanitize=thread` to operate correctly.
 
-[^14]: ThreadSanitizerFlags (GitHub google/sanitizers Wiki). <https://github.com/google/sanitizers/wiki/ThreadSanitizerFlags>
+[^tsan-flags]: LLVM Sanitizers team, [ThreadSanitizerFlags](https://github.com/google/sanitizers/wiki/ThreadSanitizerFlags), GitHub google/sanitizers Wiki, 2015-08-31.
 
-[^15]: ThreadSanitizerReportFormat (GitHub google/sanitizers Wiki).
+[^tsan-reportformat]: LLVM Sanitizers team, [ThreadSanitizerReportFormat](https://github.com/google/sanitizers/wiki/ThreadSanitizerReportFormat), GitHub google/sanitizers Wiki, 2015-08-31.
 
 ---
 
