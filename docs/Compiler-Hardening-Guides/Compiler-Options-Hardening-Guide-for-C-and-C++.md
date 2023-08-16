@@ -373,7 +373,7 @@ This mitigates potential control-flow hijacking attacks that may lead to arbitra
 
 Stack protector supports three different heuristics that are used to determine which functions are instrumented with run-time checks during compilation:
 
-- `-fstack-protector-strong`[^4]: instrument any function that  
+- `-fstack-protector-strong`[^Han11]: instrument any function that  
   - takes the address of any of its local variables on the right-hand-side of an assignment or as part of a function argument  
   - allocates a local array, regardless of type or length  
   - allocates a local struct or union which contains an array, regardless of the type of length of the array  
@@ -388,7 +388,7 @@ The performance overhead is dependent on the number of function’s instrumented
 
 `-fstack-protector-strong` is recommended for all applications with conventional stack behavior. Applications with hand-written assembler optimization that make assumptions about the layout of the stack may be incompatible with stack-protector functionality.
 
-[^4]: Shen, Han. New stack protector option for gcc (Google Docs). <https://docs.google.com/document/d/1xXBH6rRZue4f296vGt9YQcuLVQHeE516stHwt8M9xyU>
+[^Han11]: Shen, Han, [New stack protector option for gcc](https://docs.google.com/document/d/1xXBH6rRZue4f296vGt9YQcuLVQHeE516stHwt8M9xyU), Google Docs, 2011-11-30.
 
 ---
 
