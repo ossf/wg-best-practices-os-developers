@@ -550,7 +550,7 @@ Setting rpath in setuid/setgid programs can lead to privilege escalation under c
 
 ## Sanitizers
 
-Sanitizers are a suite of compiler-based tools designed to detect and pinpoint memory- safety issues and other defects in applications written in C and C++. They provide similar capabilities as dynamic analysis tools built on frameworks such as Valgrind. However, unlike Valgrind, sanitizers leverage compile-time instrumentation to intercept and monitor memory accesses. This allows sanitizers to be more efficient and accurate compared to dynamic analyzers. On average, Sanitizers impose a 2× to 4× slowdown in instrumented binaries, whereas dynamic instrumentation can exhibit slowdowns as large as 20× to 50×[^11]. As a tradeoff, sanitizers must be enabled at compile time whereas Valgrind can be used with unmodified binaries. Table 4 lists sanitizer options supported by GCC and Clang.
+Sanitizers are a suite of compiler-based tools designed to detect and pinpoint memory- safety issues and other defects in applications written in C and C++. They provide similar capabilities as dynamic analysis tools built on frameworks such as Valgrind. However, unlike Valgrind, sanitizers leverage compile-time instrumentation to intercept and monitor memory accesses. This allows sanitizers to be more efficient and accurate compared to dynamic analyzers. On average, Sanitizers impose a 2× to 4× slowdown in instrumented binaries, whereas dynamic instrumentation can exhibit slowdowns as large as 20× to 50×[^Kratochvil21]. As a tradeoff, sanitizers must be enabled at compile time whereas Valgrind can be used with unmodified binaries. Table 4 lists sanitizer options supported by GCC and Clang.
 
 While more efficient compared to dynamic analysis, sanitizers are still prohibitively expensive in terms of performance penalty and memory overhead to be used with Release builds, but excel at providing memory diagnostics in Debug, and in certain cases Test builds. For example, fuzz testing (or “fuzzing”) is a common security assurance activity designed to identify conditions that trigger memory-related bugs. Fuzzing is primarily useful for identifying memory errors that lead to application crashes. However, if fuzz testing is performed in binaries equipped with sanitizer functionality it is possible to also identify bugs which do not crash the application. Another benefit is the enhanced diagnostics information produced by sanitizers.
 
@@ -565,7 +565,7 @@ Table 4: Sanitizer options in GCC and Clang.
 | `-fsanitize=leak`      | GCC 4.8<br/>Clang 3.1 | Enables LeakSanitizer to detect memory leaks at run time                    |
 | `-fsanitize=undefined` |   GCC 4.9<br/>Clang 3.3   | Enables UndefinedBehaviorSanitizer to detect undefined behavior at run time |
 
-[^11]:: Kratochvil, Jan. Memory error checking in C and C++: Comparing Sanitizers and Valgrind (Red hat Developers). <https://developers.redhat.com/blog/2021/05/05/memory-error-checking-in-c-and-c-comparing-sanitizers-and-valgrind>
+[^Kratochvil21]: Kratochvil, Jan, [Memory error checking in C and C++: Comparing Sanitizers and Valgrind](https://developers.redhat.com/blog/2021/05/05/memory-error-checking-in-c-and-c-comparing-sanitizers-and-valgrind),  Red hat Developers, 2021-05-05.
 
 ---
 
