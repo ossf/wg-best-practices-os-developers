@@ -447,11 +447,11 @@ Applications that leverage just-in-time (JIT) compilation for managed bytecode o
 
 Such applications require sandboxing techniques to protect the application’s memory integrity from potentially malicious JIT code.
 
-In addition to protection against malicious code injection such applications may also require special mitigations against speculative execution side channels [^6].
+In addition to protection against malicious code injection such applications may also require special mitigations against speculative execution side channels [^Intel18].
 
 [^gcc-trampolines]: GCC team, [Support for Nested Functions.](https://gcc.gnu.org/onlinedocs/gccint/Trampolines.html), GCC Internals, 2023-07-27.
 
-[^6]: Managed Runtime Speculative Execution Side Channel Mitigations (Intel Developer Zone). <https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/runtime-speculative-side-channel-mitigations.html>
+[^Intel18]: Intel, [Managed Runtime Speculative Execution Side Channel Mitigations](<https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/runtime-speculative-side-channel-mitigations.html), Intel Developer Zone, 2018-03-01.
 
 ---
 
