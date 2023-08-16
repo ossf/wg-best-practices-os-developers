@@ -10,20 +10,15 @@ Collaborative source code management platforms (such as GitHub and GitLab) play 
 
 This guide has been written for the:
 
-* **Maintainer** who wants to improve the security posture for one or more GitHub repositories or GitLab projects they support.  
+* **Maintainer** who wants to improve the security posture for one or more GitHub repositories or GitLab projects they support.
+* **Owner** who wants to improve the security posture for their GitHub organization or GitLab group they manage. 
 * **Open Source Program Office (OSPO)** (or a team that plays a similar role) who is typically responsible for multiple GitHub organizations or GitLab groups.
 * **Operations** team tasked with applying policies as part of their work managing assets on these platforms.
+* **GitHub/GitLab server administrator** who wants to improve the security posture for their SCM server. 
 
 ## Tooling
 
 Below is a non-exhaustive list of possible tools that can be used to assist in review source code repositories.
-
-### Allstar - <https://github.com/ossf/allstar>
-
-An open-source project from the [OpenSSF](https://openssf.org/) that scans GitHub organizations for “repository level” misconfigurations.
-Allstar detects a subset of the “repository level” policies suggested by this document. It can be configured to scan all repositories in an organization or a subset of them and is supported by the following SCMs:
-
-* GitHub Cloud
 
 ### Legitify - <https://github.com/Legit-Labs/legitify>
 
@@ -34,6 +29,13 @@ Legitify detects all policies suggested by this document and supports the follow
 * GitHub Enterprise Server
 * GitLab Cloud
 * GitLab Server
+
+### Allstar - <https://github.com/ossf/allstar>
+
+An open-source project from the [OpenSSF](https://openssf.org/) that scans GitHub organizations for “repository level” misconfigurations.
+Allstar detects a subset of the “repository level” policies suggested by this document. It can be configured to scan all repositories in an organization or a subset of them and is supported by the following SCMs:
+
+* GitHub Cloud
 
 ### Scorecard - <https://github.com/ossf/scorecard>
 
@@ -63,7 +65,7 @@ For recmmendations only applicable to GitHub or GitLab visit one of the followin
 * Runner Group Should Be Limited to Private Repositories [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/runner_group/runner_group_can_be_used_by_public_repositories.md)
 * Runner Group Should Be Limited to Selected Repositories [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/runner_group/runner_group_not_limited_to_selected_repositories.md)
 
-### Server
+### Enterprise
 
 * Two-Factor Authentication Should Be Enforced For The Enterprise [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/enterprise/enterprise_enforce_two_factor_authentication.md)
 * Enterprise Should Not Allow Members To Create public Repositories [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/enterprise/enterprise_allows_creating_public_repos.md)
@@ -161,5 +163,5 @@ The following community members helped contribute to this guidance:
 * [Chris de Almeida, IBM](https://github.com/ctcpip)
 * [Christine Abernathy, F5 - project lead](https://github.com/caabernathy)
 * [Daniel Appelquist, Snyk - project lead](https://github.com/Torgo)
-* [Noam Dotan, Legit Security - project lead](https://github.com/)
+* [Noam Dotan, Legit Security - project lead](https://github.com/noamd-legit)
 * [David A. Wheeler, The Linux Foundation](https://github.com/david-a-wheeler)
