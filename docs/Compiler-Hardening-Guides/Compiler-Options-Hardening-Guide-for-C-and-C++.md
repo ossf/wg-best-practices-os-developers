@@ -536,7 +536,7 @@ Table 3: List of discouraged compiler and linker options.
 
 The `-rpath` option records the specified path to a shared object files to the `DT_RPATH` or `DT_RUNPATH` header value in the produced ELF binary. The recorded rpath may override or supplement the system default search path used by the dynamic linker to find the specified library dependency the executable or library requires.
 
-The rpath provided by the original (and default) `DT_RPATH` entry takes precedence over environmental overrides such as `LD_LIBRARY_PATH` and one object’s `DT_RPATH` can be used for resolving dependencies of another object. These were design errors rectified with the introduction of `DT_RUNPATH` value which has a lower precedence with respect to `LD_LIBRARY_PATH` and only affect the search path of an object’s own, immediate dependencies[^10].
+The rpath provided by the original (and default) `DT_RPATH` entry takes precedence over environmental overrides such as `LD_LIBRARY_PATH` and one object’s `DT_RPATH` can be used for resolving dependencies of another object. These were design errors rectified with the introduction of `DT_RUNPATH` value which has a lower precedence with respect to `LD_LIBRARY_PATH` and only affect the search path of an object’s own, immediate dependencies[^Kerrisk23].
 
 Setting rpath in release binaries (irrespective of whether `DT_RPATH` or `DT_RUNPATH` is used) is an unsafe programming practice and may under certain conditions lead to security vulnerabilities. For instance, an attacker may be able to supply their own shared files in directories where rpath is pointing to, thereby overriding those libraries that would be supplied by the operating system. This could occur as a result of setting a relative rpath (i.e. `foo.so` rather than `/usr/lib/foo.so`) in environments where an attacker can control the working directory, and point it to a directory where they can place a malicious dependency.
 
@@ -544,7 +544,7 @@ The keyword `$ORIGIN` in rpath is expanded (by the dynamic loader) to be path of
 
 Setting rpath in setuid/setgid programs can lead to privilege escalation under conditions where untrusted libraries loaded via a set rpath are executed as part of the privileged program. While setuid/setgid binaries ignore environmental overrides to search path (such as `LD_PRELOAD`, `LD_LIBRARY_PATH` etc.) rpath within such binaries can provide an attacker with equivalent capabilities to manipulate the dependency search paths.
 
-[^10]: Kerrisk, Michael. Building and Using Shared Libraries on Linux, Shared Libraries: The Dynamic Linker. <https://man7.org/training/download/shlib_dynlinker_slides.pdf>
+[^Kerrisk23]: Kerrisk, Michael, [Building and Using Shared Libraries on Linux, Shared Libraries: The Dynamic Linker](https://man7.org/training/download/shlib_dynlinker_slides.pdf), man7.org, February 2023.
 
 ---
 
