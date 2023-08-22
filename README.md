@@ -180,6 +180,35 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - Riccardo ten Cate, SKF
 - Spyros Gasteratos*, OWASP/CRE
 
+### Toolbelt Collaborators
+- [Andrea Frittoli, IBM](https://github.com/afrittoli)
+- [Arnaud Le Hors, IBM](https://github.com/lehors)
+- [Behan Webster, The Linux Foundation](https://github.com/)
+- [Brandon Mitchell, IBM](https://github.com/sudo-bmitch)
+- [Brian Behlendorf, The Linux Foundation](https://github.com/}
+- [Brian Wagner, IBM](https://github.com/wags007)
+- [Christopher "CRob" Robinson, Intel](https://github.com/SecurityCRob)
+- [Daniel Appelquist, Synk](https://github.com/Torgo)
+- [David A Wheeler, LF/OSSF](https://github.com/david-a-wheeler)
+- [Georg Kunz, Ericsson](https://github.com/}
+- [Jacques Chester, independent](https://github.com/jchester)
+- [Jay White, Microsoft](https://github.com/camaleon2016)
+- [Jeff Borek, IBM](https://github.com/jtborek)
+- [Jon Meadows, Citi](https://github.com/}
+- [Josh Clements, Analog Devices](https://github.com/}
+- [Joshua Lock, Verizon](https://github.com/}
+- [Kris Borchers, independent](https://github.com/}
+- [Marcela Melara, Intel](https://github.com/marcelamelara)
+- [Matt Rutkowski, IBM](https://github.com/mrutkows)
+- [Melba Lopez, IBM](https://github.com/}
+- [Michael Leiberman, Kusari](https://github.com/mlieberman85)
+- [Phil Estes, AWS](https://github.com/estesp)
+- [Ryan Ware, Intel](https://github.com/ware)
+- [Sal Kimmich, EscherCloud AI](https://github.com/salkimmich)
+- [Sarah Evans, Dell](https://github.com/sevansdell)
+- [Steve Taylor, Deployhub/Ortelius/Pyrsia](https://github.com/}
+- [Tom Hennen, Google](https://github.com/TomHennen)
+- [Tracy Ragan, Deployhub/Ortelius/CDEvents](https://github.com/}
 
 A listing of our current and past group [members](https://github.com/ossf/wg-best-practices-os-developers/blob/main/members.md).
 
