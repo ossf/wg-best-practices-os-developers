@@ -17,14 +17,17 @@ This guide has been written for the:
 
 * **Maintainer** who wants to improve the security posture for one or more
 GitLab projects they support.
+* **Owner** who wants to improve the security posture for one or more GitLab
+groups they manage. 
 * **Open Source Program Office (OSPO)** who is typically responsible for
 multiple groups and projects.
 * **Operations** team tasked with applying policies as part of their work
 managing assets on GitLab.
+* **GitLab enterprise admin** who wants to improve the security posture for their server. 
 
 ## Recommendations
 
-## Server
+## Enterprise
 
 1. [Two-Factor Authentication Should Be Enforced For The Group](group/two_factor_authentication_not_required_for_group.md)
 2. [Forking of Repositories to External Namespaces Should Be Disabled](group/collaborators_can_fork_repositories_to_external_namespaces.md)
