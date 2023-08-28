@@ -23,7 +23,7 @@ groups they manage.
 multiple groups and projects.
 * **Operations** team tasked with applying policies as part of their work
 managing assets on GitLab.
-* **GitLab server admin** who wants to improve the security posture for their server. 
+* **GitLab enterprise admin** who wants to improve the security posture for their server. 
 
 ## Recommendations
 
