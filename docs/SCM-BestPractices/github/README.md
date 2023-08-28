@@ -23,8 +23,7 @@ organizations they manage.
 multiple organizations and repositories.
 * **Operations** team tasked with applying policies as part of their work
 managing assets on GitHub.
-* **GitHub Enterprise Server admin** who wants to improve the security posture
-for their server. 
+* **GitHub Enterprise administrator** who wants to improve the security posture for their enterprise.
 
 ## Recommendations
 
