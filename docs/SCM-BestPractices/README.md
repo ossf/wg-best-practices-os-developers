@@ -14,7 +14,7 @@ This guide has been written for the:
 * **Owner** who wants to improve the security posture for their GitHub organization or GitLab group they manage. 
 * **Open Source Program Office (OSPO)** (or a team that plays a similar role) who is typically responsible for multiple GitHub organizations or GitLab groups.
 * **Operations** team tasked with applying policies as part of their work managing assets on these platforms.
-* **GitHub/GitLab server administrator** who wants to improve the security posture for their SCM server. 
+* **GitHub/GitLab enterprise administrator** who wants to improve the security posture for their SCM enterprise. 
 
 ## Tooling
 
