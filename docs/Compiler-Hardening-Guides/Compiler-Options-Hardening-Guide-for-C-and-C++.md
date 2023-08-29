@@ -310,7 +310,7 @@ Both `-D_GLIBCXX_ASSERTIONS` and `-D_LIBCPP_ASSERT` are intended to enable only 
 The `-D_GLIBCXX_ASSERTIONS` macro can have a non-trivial impact on performance.
 Impacts of up to 6% on performance have been reported[^Kraus21].
 
-[Kraus21] Metzger-Kraus, Christof. [Don't use GLIBCXX_ASSERTIONS in production](https://gitlab.psi.ch/OPAL/src/-/merge_requests/468), Object Oriented Particle Accelerator Library (OPAL) Issue Tracker, 2021-01-16.
+[^Kraus21]: Metzger-Kraus, Christof. [Don't use GLIBCXX_ASSERTIONS in production](https://gitlab.psi.ch/OPAL/src/-/merge_requests/468), Object Oriented Particle Accelerator Library (OPAL) Issue Tracker, 2021-01-16.
 
 #### When not to use?
 
