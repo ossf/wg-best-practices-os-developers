@@ -7,8 +7,8 @@
 3. To learn the most common kinds of vulnerabilities and to take steps to make them unlikely or limit their impact.
 4. To check for and remediate known and potential critical vulnerabilities prior to releasing software, then monitor for vulnerabilities subsequently throughout the supported life of the product.
 5. To harden and secure our software development infrastructure against compromise or infiltration against the same principles, practices, and expectations set for the software developed on and built from them.
-6. To prioritize the sourcing of software from suppliers and developers who also pledge to develop in conformance with the Secure Software Guiding Principles, and from projects that publicly report security health metrics and adopt controls to prevent tampering of software packages.
+6. To prioritize the sourcing of software from suppliers and developers who also pledge to develop in conformance with the Secure Software Development Guiding Principles, and from projects that publicly report security health metrics and adopt controls to prevent tampering of software packages.
 7. To provide software supply chain understandability to consumers of our software consistent with evolving industry standards, practices, and tooling.
 8. To manage responsible vulnerability disclosure programs that are inclusive of upstream dependencies and have publicly documented vulnerability reporting and remediation policies.
 9. To publish security advisories consistent with evolving industry best practices.
-10. To actively collaborate with and participate in industry and regulatory initiatives related to securing the software supply chain, and to evangelize adoption of the Secure Software Guiding Principles among our industry peers.
+10. To actively collaborate with and participate in industry and regulatory initiatives related to securing the software supply chain, and to evangelize adoption of the Secure Software Development Guiding Principles among our industry peers.
