@@ -678,9 +678,11 @@ There are several reasons why developers may wish to separate the debug informat
 
 The following series of commands needed to the generate the debug info file, strip the debugging information from the main executable, and to add the debug link section.
 
- objcopy --only-keep-debug executable_file executable_file.debug
- objcopy --strip-unneeded executable_file  
- objcopy --add-gnu-debuglink=executable_file.debug executable_file
+~~~~sh
+objcopy --only-keep-debug executable_file executable_file.debug
+objcopy --strip-unneeded executable_file
+objcopy --add-gnu-debuglink=executable_file.debug executable_file
+~~~~
 
 ### Debug information in the ELF binary format
 
@@ -714,7 +716,9 @@ The debug info files are ordinary executables with an identical section layout a
 
 created by compiling the application executable with the desired debug information included, then processing the executable with the `objcopy` utility to produce the stripped executable (without debugging information) and the debug info file (without executable data). Both GNU binutils `objcopy`[^binutils-objcopy] and LLVM `llvm-objcopy`[^llvm-objcopy] support the same options for stripping debug information and creating the debug info file. The shell snippet below shows the `objcopy` invocation for creating a debug info file from an executable with debug information.
 
- objcopy --only-keep-debug executable_file executable_file.debug
+~~~~sh
+objcopy --only-keep-debug executable_file executable_file.debug
+~~~~
 
 There are no particular requirements for the debug link filename, although a common convention is to name debug info for an executable , e.g., “executable.debug”. While the debug info file can have the same name as the executable it is preferred to use an extension such as “.debug” as it means that the debug info file can be placed in the same directory as the executable.
 
@@ -728,9 +732,11 @@ Debug info files allows the binary to be analyzed in the same way as the origina
 
 Once the debug info file has been created the debug and symbol information can be stripped from the original binary using either the `objcopy` or `strip`[^binutils-strip] utilities provided by Binutils, or the `llvm-objcopy` or `llvm-strip`[^llvm-strip] equivalents provided by LLVM. The shell snippets below show how the debug and unneeded symbol information can removed from an executable using `objcopy` and `strip` respectively. If code signing is enforced on the application binaries the debug and symbol information must be stripped away before the binaries are signed.
 
- strip --strip-unneeded executable_file
+~~~~sh
+strip --strip-unneeded executable_file
 
- objcopy --strip-unneeded executable_file
+objcopy --strip-unneeded executable_file
+~~~~
 
 The `--strip-unneeded` option in `objcopy` and will remove all symbol information (ELF `.symtab` and `.strtab` sections) from the binary that is not needed for processing relocations. In addition, it will trigger the removal of any symbolic debug information from the binary (ELF `.debug` sections and all sections with the `.debug` prefix).
 
@@ -740,9 +746,11 @@ Removing symbol information used for relocations is discouraged as it may interf
 
 Note that `--strip-unneeded` only discards standard ELF sections as unneeded. Since an ELF binary can have any number of additional sections which are unknown to `objcopy` and strip they cannot determine whether such unrecognized sections are safe to remove. This includes for example the .comment section added by GCC.  The shell snippets below show how non-standard sections, such as .comment can be removed in addition to the unneeded sections identified by `--strip-unneeded`. If the application includes custom, application-specific ELF sections with possible sensitive diagnostics information or metadata which is not required at run-time during normal operations developers may wish to strip such additional sections from release binaries.
 
- objcopy --strip-unneeded --remove-section=.comment executable_file
+~~~~sh
+objcopy --strip-unneeded --remove-section=.comment executable_file
 
- strip --strip-unneeded --remove-section=.comment executable_file
+strip --strip-unneeded --remove-section=.comment executable_file
+~~~~
 
 [^binutils-strip]: Binutils team, [strip](https://sourceware.org/binutils/docs/binutils/strip.html), Documentation for binutils, 2023-07-30.
 
@@ -761,7 +769,9 @@ In most cases the debug link is preferrable as it allows the developers to name 
 
 A debug link is a special section (`.gnu_debuglink`) in the executable file that contains the name of the corresponding debug info file and a 32-bit cyclic redundancy checksum (CRC) computed over the debug info file’s full contents. Any executable file format can carry debug link information as long is can contain a section named `.gnu_debuglink`. The shell snippet below shows how a debug link can be added to an executable using `objcopy` (or `llvm-objcopy`).
 
- objcopy --add-gnu-debuglink=executable_file.debug executable_file
+~~~~sh
+objcopy --add-gnu-debuglink=executable_file.debug executable_file
+~~~~
 
 If the debug information file is built in one location but is going to be later installed at a different location the `--add-gnu-debuglink` option should be used with the path to the built debug information file. The debug info file must exist at the specified path as it is required for the CRC calculation which allows the debugger to validate that the debug info file it loads matches that of the executable.
 
