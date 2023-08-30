@@ -1,6 +1,6 @@
 # Source Code Management Platform Configuration Best Practices
 
-_by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2023-06-14_
+_by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2023-08-29_
 
 ## Intro
 
