@@ -18,12 +18,12 @@ This guide has been written for the:
 * **Maintainer** who wants to improve the security posture for one or more
 GitLab projects they support.
 * **Owner** who wants to improve the security posture for one or more GitLab
-groups they manage. 
+groups they manage.
 * **Open Source Program Office (OSPO)** who is typically responsible for
 multiple groups and projects.
 * **Operations** team tasked with applying policies as part of their work
 managing assets on GitLab.
-* **GitLab enterprise admin** who wants to improve the security posture for their server. 
+* **GitLab enterprise admin** who wants to improve the security posture for their server.
 
 ## Recommendations
 
@@ -79,4 +79,3 @@ Specific Recommendations:
 * Group Should Use Single-Sign-On
 * Only Admins Should Be Able To Create Public Projects and Groups.
 * [Webhooks Should Be Configured To Use SSL](group/organization_webhook_doesnt_require_ssl.md)
-  

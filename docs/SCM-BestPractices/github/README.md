@@ -18,7 +18,7 @@ This guide has been written for the:
 * **Maintainer** who wants to improve the security posture for one or more
 GitHub repositories they support.
 * **Owner** who wants to improve the security posture for one or more GitHub
-organizations they manage. 
+organizations they manage.
 * **Open Source Program Office (OSPO)** who is typically responsible for
 multiple organizations and repositories.
 * **Operations** team tasked with applying policies as part of their work
@@ -115,4 +115,3 @@ Specific Recommendations
 * Configure Security Alerts and Vulnerability Scanning at the Organization or
 Repository Level.
 * Enable GitHub Advanced Security features for Private and Internal Repositories.
-  
