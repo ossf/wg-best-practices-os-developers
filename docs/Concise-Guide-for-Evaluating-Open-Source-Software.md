@@ -17,7 +17,7 @@ As a software developer, before using open source software (OSS) dependencies or
    4. Are there recent releases or announcements from its maintainer(s)?
    5. Does its version string indicate instability (e.g., begin with “0”, include “alpha” or “beta”, etc.)
 4. **Is there evidence that its developers work to make it secure?**
-   1. Determine whether the project has earned (or is well on the way to) an [Open Source Security Foundation (OpenSSF) Best Practices badge](https://bestpractices.coreinfrastructure.org/).
+   1. Determine whether the project has earned (or is well on the way to) an [Open Source Security Foundation (OpenSSF) Best Practices badge](https://www.bestpractices.dev/).
    2. Examine information on [https://deps.dev](https://deps.dev/), including its [OpenSSF Scorecards](https://github.com/ossf/scorecard) score and any known vulnerabilities.
    3. Determine whether the package dependencies are (relatively) up to date.
    4. Determine whether there is documentation explaining why it’s secure (aka an “assurance case”).
