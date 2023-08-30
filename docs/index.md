@@ -20,7 +20,7 @@ Note: You can also see the larger list of
 ## OSS Project Evaluation
 
 * [Security Scorecard](https://github.com/ossf/scorecard) - automated scoring of OSS projects
-* [OpenSSF Best Practices badge](https://bestpractices.coreinfrastructure.org/) - a way for Free/Libre/Open Source Software projects to show that they follow best practices (you can also see its [source code repository](https://github.com/coreinfrastructure/best-practices-badge)).
+* [OpenSSF Best Practices badge](https://www.bestpractices.dev/) - a way for Free/Libre/Open Source Software projects to show that they follow best practices (you can also see its [source code repository](https://github.com/coreinfrastructure/best-practices-badge)).
 
 ## Future work
 
