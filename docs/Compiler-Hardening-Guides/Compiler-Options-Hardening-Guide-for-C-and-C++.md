@@ -789,9 +789,20 @@ Note that the build ID does not act as a checksum for the executable or debug in
 
 ## Contributors
 
+The OpenSSF Developer BEST Practices Working group thanks Ericsson for their generous intial donation of content to start collaboration on this guide.
+
 - Thomas Nyman, Ericsson
 - Robert Byrne, Ericsson
 - Jussi Auvinen, Ericsson
+- Christopher "CRob" Robinson, Intel
+- David A. Wheeler, Linux Foundation
+- Gabriel Dos Reis, Microsoft
+- Georg Kunz, Ericsson
+- Jack Kelly, ControlPlane
+- Randall T. Vasquez, Linux Foundation
+- Robert C. Seacord, Woven by Toyota
+- Siddharth Sharma, Red Hat
+- Siddhesh Poyarekar, Red Hat
 
 ## License
 
