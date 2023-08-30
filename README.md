@@ -39,58 +39,33 @@ Supply a Learning platform
 - A suite of exercises are available for each best practice of the inventory
 
 ## Current Work
-
-Our work is organized into several discrete-yet-related projects that help us achieve our goals:
-
-- Concise guides for (1) developing software and (2) evaluating OSS (sandbox)
-
-  - [Concise Guide for Developing More Secure Software](https://best.openssf.org/Concise-Guide-for-Developing-More-Secure-Software) [editable version](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Concise-Guide-for-Developing-More-Secure-Software.md#readme)
-  - [Concise Guide for Evaluating Open Source Software](https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software) [editable version](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Concise-Guide-for-Evaluating-Open-Source-Software.md#readme)
-
-- _Common Requirement Enumeration (CRE) Project_ - (incubating) <https://www.opencre.org/>
-
-  - Purpose - (Identify) Identify similar requirements in different specifications
-
-- _Secure Software Development Fundamentals_ (online course) - <https://openssf.org/training/courses/> and <https://github.com/ossf/secure-sw-dev-fundamentals>
-  - Purpose - (Learn) Teach software developers fundamentals of developing secure software
-- _SKF - Security Knowledge Framework_ - <https://www.securityknowledgeframework.org/>
-  - Purpose - (Identify/Adopt/Learn) Learn to integrate security by design in your web application
-- _OpenSSF Best Practices Badge_ (formerly CII Best Practices badge) - <https://bestpractices.coreinfrastructure.org/> and <https://github.com/coreinfrastructure/best-practices-badge>
-  - Purpose - (Identify/Adopt) Identifies FLOSS best practices & implements a badging system for those practices,
-- _OpenSSF Scorecard Project_ - <https://github.com/ossf/scorecard>
-  - Purpose - (Adopt) Automate analysis and trust decisions on the security posture of open source projects.
-- _Great MFA Distribution Project_ - (incubating) <https://github.com/ossf/great-mfa-project>
-  - Distribute MFA tokens to OSS developers and best practices on how to easily use them
-- [_Compiler Options Hardening Guide for C and C++_](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++) (incubating, [editable version](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C%2B%2B.md))
-  - Recommended compiler option flags for C/C++ programs, especially warning and hardening flags, for developers & distributionss.
-You can also see our older work, [Recommended compiler option flags for C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b).
-- _Interactive artwork_ - (incubating) <https://github.com/blabla1337/wg-best-practices-os-developers/tree/main/infinity2>
-  - Place where we want to guide developers in what stage they can use what type of tooling or approach. We have tons of great tools and materials but hard to find for devs, using this page and interactive loop we want to guide them to find the right stuff.
-- _Existing Guidelines for Developing and Distributing Secure Software_ [GitHub Repo](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Existing%20Guidelines%20for%20Developing%20and%20Distributing%20Secure%20Software.md)
-  - Purpose - (Identify) - Highlight documentation and training materials that educate OSS developers on good secure coding practices
-- _Package Manager Best Practices_ - (incubating) - <https://github.com/ossf/package-manager-best-practices>
-
-  - Purpose - (Identify/Learn) Collect and document security best practices for projects using various package managers.
-
-- [npm Best Practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md) - This document aims to be a one-time stop explaining the security supply-chain best practices when using npm's package manager.
-
-  - Purpose - (Identify/Learn) Collect and document security best practices for projects npm.
-
-- _Education SIG_ - (incubating) - <https://github.com/ossf/education/>
-
-  - Purpose - (Learn) To provide industry standard secure software development training materials that will educate learners of all levels and backgrounds on how to create, compose, deploy, and maintain software securely using best practices in cyber and application security.
-
-- [Source Code Management Platform Configuration Best Practices](docs/SCM-BestPractices/README.md)
-
-  - Purpose - Provide best practices for securing source code management platforms (such as GitHub and GitLab)
-
-- [The Security Toolbelt](https://github.com/ossf/toolbelt) 
-  - Purpose - (Identify/Learn/Adopt) - Assemble a “sterling” collection of capabilities (**software frameworks, specifications, and human and automated processes**) that work together to **automatically list, scan, remediate, and secure the components flowing through the software supply chain** that come together as software is written, built, deployed, consumed, and maintained. Each piece of the collection will represent an **interoperable** link in that supply chain, enabling adaptation and integration into the major upstream language toolchains, developer environments, and CI/CD systems.
-
-
 We welcome contributions, suggestions and updates to our projects. To contribute please fill in an [issue](https://github.com/ossf/wg-best-practices-os-developers/issues) or create a [pull request](https://github.com/ossf/wg-best-practices-os-developers/pulls).
 
 We typically use the [Simplest Possible Process (SPP)](https://best.openssf.org/spp/Simplest-Possible-Process) to publish and maintain the documents we publish; see the [SPP documentation](https://best.openssf.org/spp/Simplest-Possible-Process) if you have questions about it.
+
+Our work is organized into several discrete-yet-related projects that help us achieve our goals:
+
+| Effort                  |     Description           |       Git Repo        | Slack Channel | Mailing List |
+| :------------------:    | :------------------------:| :-------------------: | :-----------: | :----------: |
+| Best Practices Guides   | Longer reference documents on implementing specific secure techniques   | - [Compiler Options Hardening Guide for C and C++ (incubating)](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++) , - [Existing Guidelines for Developing and Distributing Secure Software](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Existing%20Guidelines%20for%20Developing%20and%20Distributing%20Secure%20Software.md) , - [Package Manager Best Practices (incubating)](https://github.com/ossf/package-manager-best-practices) , - [npm Best Practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md) , - [Source Code Management Platform Configuration Best Practices](docs/SCM-BestPractices/README.md) | [SCM Slack](https://openssf.slack.com/archives/C058EC1EZ5Y) |
+|  Concise Guides SIGs   |  Quick Guidance around Open Source Software Develpment Good Practices | [Concise Guide for Developing More Secure Software](https://best.openssf.org/Concise-Guide-for-Developing-More-Secure-Software) , [Concise Guide for Evaluating Open Source Software](https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software) |  | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) |
+| Education SIG - (incubating) | To provide industry standard secure software development training materials that will educate learners of all levels and backgrounds on how to create, compose, deploy, and maintain software securely using best practices in cyber and application security. | [EDU.SIG](https://github.com/ossf/education/)  | [stream-01-security-education](https://openssf.slack.com/archives/C03FW3YGXH9)  |  [Mailing List](https://lists.openssf.org/g/openssf-sig-education)  |
+|[OpenSSF Best Practices Badge - formerly CII Best Practices badge](https://bestpractices.coreinfrastructure.org/) | Identifies FLOSS best practices & implements a badging system for those practices, | | |
+| OpenSSF Scorecard Project  | Automate analysis and trust decisions on the security posture of open source projects |[Scorecard Repo](https://github.com/ossf/scorecard) | [security_scorecards](https://openssf.slack.com/archives/C0235AR8N2C) | |
+| [Secure Software Development Fundamentals - online course](https://openssf.org/training/courses/)  |Teach software developers fundamentals of developing secure software  | [GitHub](https://github.com/ossf/secure-sw-dev-fundamentals) | | |
+|  The Security Toolbelt | Assemble a “sterling” collection of capabilities (**software frameworks, specifications, and human and automated processes**) that work together to **automatically list, scan, remediate, and secure the components flowing through the software supply chain** that come together as software is written, built, deployed, consumed, and maintained. Each piece of the collection will represent an **interoperable** link in that supply chain, enabling adaptation and integration into the major upstream language toolchains, developer environments, and CI/CD systems. | [Security Toolbelt](https://github.com/ossf/toolbelt) | [security-toolbelt](https://openssf.slack.com/archives/C057BN7K19B) | [Mailing List](Openssf-sig-sterling-toolchain@lists.openssf.org) |
+| [SKF - Security Knowledge Framework](https://www.securityknowledgeframework.org/) |  Learn to integrate security by design in your web application  | | |
+
+
+
+
+## Past Work/Greatest Hits
+- _Interactive artwork_ - (incubating) <https://github.com/blabla1337/wg-best-practices-os-developers/tree/main/infinity2>
+  - Place where we want to guide developers in what stage they can use what type of tooling or approach. We have tons of great tools and materials but hard to find for devs, using this page and interactive loop we want to guide them to find the right stuff.
+- _Great MFA Distribution Project_ - (archived) <https://github.com/ossf/great-mfa-project>
+  - Distribute MFA tokens to OSS developers and best practices on how to easily use them
+- [Recommended compiler option flags for C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b).
+
 
 ## Related Activities
 
