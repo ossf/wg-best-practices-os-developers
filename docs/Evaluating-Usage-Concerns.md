@@ -5,12 +5,13 @@ As a software developer, before using open source software (OSS) dependencies or
 1. **How do you intend to use the software?** Is it a build or runtime dependency? Will the software be incorporated into a versioned deliverable to users or up for the user to update themselves?
    1. Consider the full lifecycle of the update process, including deprecating or blocking old client software that has not updated, particularly where your use case is a mobile or desktop application.
    2. In the case that you only need some functionality of the software it may be helpful to understand the code structure in detail and only utilize specific portions of the software (e.g. classes, packages, modules, etc.) to solve your problem rather than the entirety of the software.
-   3. If you only need the software for a debug / pre-release or as part of the build process ensure it isn't being utilized as a runtime dependency
+   3. If you only need the software for a debug / pre-release or as part of the build process ensure it isn't being utilized as a runtime dependency.
 
 2. **Should a vulnerability be discovered, what can you to stop immediate bleeding?** Can you degrade features, or disable functionality entirely?
    1. Consider implementing configuration options or other means of disabling functionality supported by this software if possible.
    2. In the event that a user is responsible for updating the dependency outside of your system, consider warning mechanisms to alert the user of out of date dependencies.
    3. If the software is not distributed together, consider emitting information about the version of any dependencies at startup so that the user can easily understand what version(s) were picked up and whether a particular runtime instance might be vulnerable.
+   4. Having a means to build the dependency from source rather than using a pre-built version can be helpful in emergencies.
 
 3. **What happens if the software becomes unmaintained?** Are there alternatives you could switch to? Could you take on maintenance of the open source project?
    1. It may be valuable to attempt to spend some time understanding the software and making some basic modifications to prepare for the potential to need to need to maintain this software on your own.
