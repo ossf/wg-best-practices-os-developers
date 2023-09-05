@@ -46,6 +46,8 @@ As a software developer, before using open source software (OSS) dependencies or
    6. Consider running all defined test cases to ensure the software passes them.
    7. See the [OpenSSF's list of security reviews](https://github.com/ossf/security-reviews/blob/main/Overview.md#readme).
 
+As you integrate a particular dependency into your project, consider how you can plan for the future changes to the lifecycle of the depdendency: [Evaluating Usage Considerations](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Evaluating-Usage-Concerns.md)
+
 Other resources you may wish to consider include:
 
 1. [The Tidelift guide to choosing packages well (February 2021)](https://tidelift.com/subscription/choosing-open-source-packages-well), Tidelift
