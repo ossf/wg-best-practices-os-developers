@@ -15,6 +15,7 @@ GitHub Team memberships and repository access are based on the following groups.
 - Avishay Balter, Microsoft
 - [Christine Abernathy*, F5](https://github.com/caabernathy)
 - [Daniel Applequist*, Snyk](https://github.com/Torgo)
+- [David Edelsohn](https://github.com/edelsohn)
 - [Georg Kunz, Ericsson](https://github.com/gkunz)
 - [Glenn ten Cate*, OWASP/SKF](https://github.com/)
 - [Jay White, Microsoft](https://github.com/camaleon2016)
