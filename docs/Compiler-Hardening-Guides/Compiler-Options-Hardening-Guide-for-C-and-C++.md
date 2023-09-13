@@ -355,6 +355,10 @@ The detection is based on inserting a *canary* value into the stack frame in the
 
 This mitigates potential control-flow hijacking attacks that may lead to arbitrary code execution by corrupting return addresses stored on the stack.
 
+Out-of-date versions of GCC may not detect or defend against overflows of dynamically-sized local variables such as variable-length arrays or buffers allocated using `alloca()` when compiling for 64-bit Arm (Aarch64) processors[^Meta23]. Users of GCC-based toolchains for Aarch64 should ensure they use up-to-date versions of GCC 7 or later that support an alternative stack frame layout that places all local variables below saved registers, with the stack-protector canary between them[^Arm23].
+
+Some versions of GCC[^CVE-2023-4039] may not detect or defend against overflows of dynamically-sized local variables such as variable-length arrays or buffers allocated using alloca() when compiling for 64-bit Arm (Aarch64) processors[^Meta23]. Users of GCC-based toolchains for Aarch64 should, before depending on it, determine if they support an alternative stack frame layout that places all local variables below saved registers, with the stack-protector canary between them[^Arm23].
+
 #### Performance implications
 
 Stack protector supports three different heuristics that are used to determine which functions are instrumented with run-time checks during compilation:
@@ -375,6 +379,12 @@ The performance overhead is dependent on the number of function’s instrumented
 `-fstack-protector-strong` is recommended for all applications with conventional stack behavior. Applications with hand-written assembler optimization that make assumptions about the layout of the stack may be incompatible with stack-protector functionality.
 
 [^Han11]: Shen, Han, [New stack protector option for gcc](https://docs.google.com/document/d/1xXBH6rRZue4f296vGt9YQcuLVQHeE516stHwt8M9xyU), Google Docs, 2011-11-30.
+
+[^CVE-2023-4039]: Common Vulnerability Enumeration Database, [CVE-2023-4039](https://www.cve.org/CVERecord?id=CVE-2023-4039), 2023-09-13.
+
+[^Meta23]: Hebb, Tom, [GCC's -fstack-protector fails to guard dynamic stack allocations on ARM64](https://github.com/metaredteam/external-disclosures/security/advisories/GHSA-x7ch-h5rf-w2mf), GitHub metaredteam/external-disclosures Advisories, 2023-09-12.
+
+[^Arm23]: Arm, [GCC Stack Protector Vulnerability AArch64](https://developer.arm.com/Arm%20Security%20Center/GCC%20Stack%20Protector%20Vulnerability%20AArch64), Arm Security Center, 2023-09-12.
 
 ---
 
