@@ -289,42 +289,28 @@ Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligib
 | Compiler Flag                                                                              | Supported since            | Description                                                                                  |
 | ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
 | <span id="-D_GLIBCXX_ASSERTIONS">`-D_GLIBCXX_ASSERTIONS`</span>                            | libstdc++ 6.0           | (C++ using libcstdc++ only) Precondition checks for libstdc++ calls; can impact performance. |
-| <span id="-D_LIBCPP_ASSERT">`-D_LIBCPP_ASSERT`</span>                                      | libc++ 3.3.0       | (C++ using libc++ only) Constant-time precondition checks for libc++ calls. |
 
 #### Synopsis
 
-The C++ standard library implementations in GCC (libstdc++) and LLVM (libc++) provide run-time precondition checks for C++ standard library calls, such as bounds-checks for C++ strings and containers, and null-pointer checks when dereferencing smart pointers.
+The C++ standard library implementation in GCC (libstdc++) provides run-time precondition checks for C++ standard library calls, such as bounds-checks for C++ strings and containers, and null-pointer checks when dereferencing smart pointers.
 
-These precondition checks can be enabled by defining the corresponding pre-processor macros in when compiling C++ code that calls into libstdc++ or libc++:
-
-- The `-D_GLIBCXX_ASSERTIONS` macro enables precondition checks for libstdc++[^libsdcpp-macros].
-  It can only affect C++ code that uses GCC’s libstdc++.
-- The `-D_LIBCPP_ASSERT` macro enables precondition checks for libc++[^Clow19].  
-  It can only affect C++ code that uses LLVM’s libc++.
+These precondition checks can be enabled by defining the `-D_GLIBCXX_ASSERTIONS` macro when compiling C++ code that calls into libstdc++[^libsdcpp-macros].
 
 #### Performance implications
 
-Most calls into the C++ standard library have preconditions. Some preconditions can be checked in constant-time, others are more expensive.
-Both `-D_GLIBCXX_ASSERTIONS` and `-D_LIBCPP_ASSERT` are intended to enable only lightweight[^Wakely15], i.e., constant-time checks[^Dionne22] but the exact behavior can differ between standard library versions .
-
-The `-D_GLIBCXX_ASSERTIONS` macro can have a non-trivial impact on performance.
-Impacts of up to 6% on performance have been reported[^Kraus21].
-
-[^Kraus21]: Metzger-Kraus, Christof. [Don't use GLIBCXX_ASSERTIONS in production](https://gitlab.psi.ch/OPAL/src/-/merge_requests/468), Object Oriented Particle Accelerator Library (OPAL) Issue Tracker, 2021-01-16.
+Most calls into the C++ standard library have preconditions. Some preconditions can be checked in constant-time, others are more expensive. The checks enabled by `-D_GLIBCXX_ASSERTIONS` are  intended to be lightweight[^Wakely15], i.e., constant-time checks but the exact behavior can differ between standard library versions. In some versions libstdc++ the `-D_GLIBCXX_ASSERTIONS` macro can have a non-trivial impact on performance. Slowdowns of up to 6% have been reported[^Kraus21].
 
 #### When not to use?
 
-`-D_GLIBCXX_ASSERTIONS` and `-D_LIBCPP_ASSERT` are recommended for C++ applications that may handle untrusted data, as well as for any C++ application during testing.
+`-D_GLIBCXX_ASSERTIONS` is recommended for C++ applications that may handle untrusted data, as well as for any C++ application during testing.
 
-These options are unnecessary for security for applications in production that only handle completely trusted data.
+This option is unnecessary for security for applications in production that only handle completely trusted data.
 
 [^libsdcpp-macros]: GCC team, [Using Macros in the GNU C++ Library](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_macros.html), The GNU C++ Library Manual, 2023-07-27.
 
-[^Clow19]: Clow, Marshall, [Hardening the C++ standard template library](https://www.youtube.com/watch?v=1iHs_K2HpGo&t=990s), C++ Russia 2019, 2019-11-01.
-
 [^Wakely15]: Wakely, Jonathan, [Enable lightweight checks with _GLIBCXX_ASSERTIONS](https://patchwork.ozlabs.org/project/gcc/patch/20150907182755.GP2631@redhat.com/), GCC Mailing List, 2015-09-07
 
-[^Dionne22]: Dionne, Loius,  [Audit all uses of \_LIBCPP_ASSERT and \_LIBCPP_DEBUG_ASSERT](https://github.com/llvm/llvm-project/commit/c87c8917e3662532f0aa75a91caea857c093f8f4), GitHub llvm/llvm-project, 2022-03-24.
+[^Kraus21]: Metzger-Kraus, Christof. [Don't use GLIBCXX_ASSERTIONS in production](https://gitlab.psi.ch/OPAL/src/-/merge_requests/468), Object Oriented Particle Accelerator Library (OPAL) Issue Tracker, 2021-01-16.
 
 ---
 
@@ -816,9 +802,13 @@ Many more security-relevant compiler options exist than are recommended in this 
 |---------------|------------------|-----------|
 | <span id="-Wl,-z,nodump">`-Wl,-z,nodump`</span>         | Binutils 2.10 | Single-purpose feature for Solaris compatibility[^nodump].
 | <span id="-Wl,-z,noexecheap">`-Wl,-z,noexecheap`</span> | Binutils 2.15 (Hardened Gentoo / PaX only ) | Hardened Gentoo / PaX specific Binutils extension[^noexecheap], not present in upstream toolchains.
+| <span id="-D_LIBCPP_ASSERT">`-D_LIBCPP_ASSERT`</span>   | libc++ 3.3.0 | Deprecated in favor of `_LIBCPP_ENABLE_HARDENED_MODE`[^libcpp_assert]
+| <span id="-D_LIBCPP_ENABLE_ASSERTIONS">`-D_LIBCPP_ENABLE_ASSERTIONS`</span> | libc++ 3.3.0 | Deprecated in favor of `_LIBCPP_ENABLE_HARDENED_MODE`[^libcpp_assert]
 
 [^nodump]: The `-Wl,-z,nodump` option sets `DF_1_NODUMP` flag in the object’s `.dynamic` section tags. On Solaris this restricts calls to `dldump(3)` for the object. However, other operating systems ignore the `DF_1_NODUMP` flag. While Binutils implements `-Wl,-z,nodump` for Solaris compatibility a choice was made to not support it in `lld` ([D52096 lld: add -z nodump support](https://reviews.llvm.org/D52096)).
 
 [^noexecheap]: The `-Wl,-z,noexecheap` option is a [Hardened Gentoo](https://wiki.gentoo.org/wiki/Hardened/PaX_Quickstart) extension to Binutils ported from [PaX](https://pax.grsecurity.net/). PaX is a patch to the Linux kernel and Binutils that adds a `PT_PAX_FLAGS` program header to ELF objects that stores memory protection information the PaX kernel can enforce. The protection information stored in `PT_PAX_FLAGS` will not benefit software running on systems without a PaX kernel. The Gentoo patch (`63_all_binutils-`*\<version\>*`-pt-pax-flags-`*\<date\>*`.patch`) for various versions of Binutils since 2.15 can be found at [https://dev.gentoo.org/~vapier/dist/](https://dev.gentoo.org/~vapier/dist/).
+
+[^libcpp_assert]: The LLVM libc++ has gone through a number of design iterations with its  "safe" mode of operation. Starting with libc++ release 17.0.0 the "safe" mode has been deprecated in favor a new hardened mode of operation that provides a narrower set of checks (security-critical checks that are performant enough to be used in production). For more information see: LLVM team, [Libc++ 17.0.0 Release Notes](https://libcxx.llvm.org/ReleaseNotes/17.html#deprecations-and-removals), Libc++ documentation, 2023-07-27; LLVM Team, [Hardened Mode](https://libcxx.llvm.org/Hardening.html), Libc++ documentation, 2023-07-27 and Varlamov, Konstatin, [Deprecate `_LIBCPP_ENABLE_ASSERTIONS`](https://reviews.llvm.org/D154997), LLVM Phabricator, 2022-07-11.
 
 ## References
