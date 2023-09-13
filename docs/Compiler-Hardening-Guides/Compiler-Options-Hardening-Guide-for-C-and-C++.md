@@ -508,7 +508,7 @@ Table 3: List of discouraged compiler and linker options.
 
 | Compiler Flag                   | Supported since  | Description                                                       |
 |:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| `-Wl,-rpath,`*`path_to_so`* | Binutils 2.11 | Hard-code run-time search paths in executable files or libraries |
+| [`-Wl,-rpath,`*`path_to_so`*](#-Wl,-rpath) | Binutils 2.11 | Hard-code run-time search paths in executable files or libraries |
 
 ---
 
@@ -516,7 +516,7 @@ Table 3: List of discouraged compiler and linker options.
 
 | Compiler Flag                   | Supported since  | Description                                                       |
 |:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| `-Wl,-rpath,`*`path_to_so`* | Binutils 2.11 | Hard-code run-time search paths in executable files or libraries |
+| <span id="-Wl,-rpath">`-Wl,-rpath,`*`path_to_so`*</span> | Binutils 2.11 | Hard-code run-time search paths in executable files or libraries |
 
 #### Synopsis
 
