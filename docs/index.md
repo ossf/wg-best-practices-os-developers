@@ -9,6 +9,7 @@ This is a list of materials (documents, services, and so on) released by the
 * [Concise Guide for Developing More Secure Software](https://best.openssf.org/Concise-Guide-for-Developing-More-Secure-Software)
 * [Concise Guide for Evaluating Open Source Software](https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software)
 * [npm Best Practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md)
+* [Source Code Management Platform Configuration Best Practices Guide](https://best.openssf.org/SCM-BestPractices/)
 
 Note: You can also see the larger list of
 [Guides released by the OpenSSF](https://openssf.org/resources/guides/).
