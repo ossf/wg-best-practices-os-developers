@@ -156,8 +156,8 @@ Specific Recommendations
 * Configure Security Alerts and Vulnerability Scanning at the Organization or Repository Level. (Applies to: <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> GitHub)
 * Enable GitHub Advanced Security features for Private and Internal Repositories. (Applies to: <img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20"> GitHub)
 * Two-Factor Authentication Should Be Enforced For The Group [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">](gitlab/group/two_factor_authentication_not_required_for_group.md) [GitLab](gitlab/group/two_factor_authentication_not_required_for_group.md)
-* Group Should Use Single-Sign-On (Applies to: <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20"> GitHub)
-* Only Admins Should Be Able To Create Public Projects and Groups. (Applies to: <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20"> GitHub)
+* Group Should Use Single-Sign-On (Applies to: <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20"> GitLab)
+* Only Admins Should Be Able To Create Public Projects and Groups. (Applies to: <img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20"> GitLab)
 
 ## Acknowledgements
 
