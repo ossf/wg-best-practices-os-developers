@@ -1,4 +1,6 @@
-# Secure Software Development Guiding Principles version 0.7 (previous versions 0.0-0.6 iterated in Google Docs)
+# Secure Software Development Guiding Principles version 1.0
+
+The Secure Software Development Guiding Principles (SSDGP) are a series of core tenants that producers and suppliers of software can pledge to align with and follow through out their development lifecycles.  The principles describe a series of foundational practices that, if followed, can help provide better assurance and security for organizations leveraging them.  The Guiding Principles are a companion piece to the OpenSSF End User Working Group's [Open Source Consumption Manifesto](https://github.com/ossf/wg-endusers/tree/main/MANIFESTO), which focuses on individuals and organizations using (aka consuming) open source software) We welcome every organziation producing and supplying software that uses open source components to consider following and signing on endorsing these great practices.
 
 **As developers of software, we are committed to enhancing the security and transparency of the software supply chain by pledging the following for all software we produce, both proprietary and open source, whether embedded in a device, released on a standalone basis, or designed to operate as a service, with the goal of creating software that is secure by default:**
 
@@ -12,3 +14,6 @@
 8. To manage responsible vulnerability disclosure programs that are inclusive of upstream dependencies and have publicly documented vulnerability reporting and remediation policies.
 9. To publish security advisories consistent with evolving industry best practices.
 10. To actively collaborate with and participate in industry and regulatory initiatives related to securing the software supply chain, and to evangelize adoption of the Secure Software Development Guiding Principles among our industry peers.
+
+Signatures
+Christopher "CRob" Robinson, OpenSSF TAC Chair and BEST Working Group facilitator
