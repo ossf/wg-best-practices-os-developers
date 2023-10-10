@@ -4,19 +4,17 @@
 
 Anyone is welcome to join our open discussions related to the group's mission and charter.
 
-## Objective
+## Mission
 
-Our objective is to provide open source developers with best practices recommendations, and with an easy way to learn and apply them.
+Our Mission is to provide open source developers with security best practices recommendations and easy ways to learn and apply them.  
 
-Unlike other existing best practices list, we want it to be widely distributed to open source developers and community-sourced. And we want these practices to stick, thanks to an effective learning platform.
+We seek to fortify the open-source ecosystem by championing and embedding best security practices, thereby creating a digital environment where both developers and users can trust and rely on open-source solutions without hesitation.
+
 
 ## Vision
-
-Our vision is to make it easy for developers to adopt these best practices, thanks to:
-
-- _Identifying_ good practices, requirements, and tools that help open source developers create and maintain more secure software
-- Helping maintainers _Learn_ to write secure software
-- Provide tools to help developers _Adopt_ these good practices into their daily work
+- We envision a world where software developers can easily IDENTIFY good practices, requirements and tools that help them create and maintain secure world-class software, helping foster a community where security knowledge is shared and amplified.  
+- We seek to provide means to LEARN techniques of writing and identifying secure software using methods best suited to learners of all types.
+- We desire to provide tools to help developers ADOPT these good practices seamlessly into their daily work.
 
 <img align="top" src="https://github.com/ossf/wg-best-practices-os-developers/blob/main/img/OpenSSF%20Dev%20Best%20Practices%20Projects%20Relations.png">
 
@@ -28,7 +26,36 @@ The Developer Best Practices group wants to help identify and curate an accessib
 - Categorized per technology, language, framework
 - Community-curated
 
-Help build a community
+## Strategy
+
+To achieve our Mission and Vision, the BEST Working group will execute on the following strategy:
+
+- Collaborate with security experts to draft a comprehensive set of best practices tailored for open-source projects.
+- Identify gaps in tools and resources that provide opportunities to promote and implement secure development practices.
+- Evangelize and drive adoption of our artifacts (ex: guides, trainings, tools) through community outreach and targeted maintainer engagement.
+- Collaborate with other OpenSSF and open source efforts to provide comprehensive guidance, advice, and tooling for software developers and open source software consumers to use, implement, and evaluate the security qualities of software.
+
+
+## Roadmap
+
+To deliver on our Strategy, the BEST Working Group will do the following:
+
+- Evangelize OpenSSF “best practices” and tooling through blogs, podcasts, conference presentations, and the like.
+-- Create a “Secure from the (open) source” expert podcast to showcase the work across the foundation.
+-- As new guides/best practices are launched, we will create blogs and a conference presentation to raise awareness about it.
+-- Amplify talks and artifacts created by other groups within the foundation
+-- Create 3 EvilTux artifacts each quarter
+- Create express learning classes for our body of work: working group explainer, SCM BP Guide, C/C++ Guide, Scorecard/Badges, Concise Guides
+- Create a “Best Practices Member Badge” for member organizations
+- Support and promote our sub-projects with contributions and feedback - Scorecard, BP Badges, OpenSSF - SkillFoundry, Classes, and Guides, Secure Software Guiding Principles (SSGP)
+- Create a Memory Safety W3C-style workshop to assemble development leaders to talk about how to integrate memory safe languages and techniques more deeply into the oss ecosystem.
+- Expand DEI AMA Office Hours to more broadly engage new-to-oss individuals and provide a forum for mentorship and guidance as they launch into and grow within their careers.
+- Identify, curate, produce, and deliver new secure development education such as Developer Manager Training, Implementing/Integrating OSSF tools such as Scorecard, Badges, OSV, OpenVEX, etc), advanced secure development techniques, and more.
+- On Roadmap above, do we want to commit to taking all of our guides and seeing what makes sense to integrate into Scorecard?
+
+
+
+## Help build a community
 
 - Program to attract open source contributors and incentivize them to use and contribute to the inventory
 
