@@ -25,7 +25,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -fPIE -pie -fPIC -shared
 ~~~~
 
-Developers should use `-Werror`, but redistributors will probably want to omit `-Werror`. Developers who release source code should ensure that their programs compile and pass their automated tests with all these options, e.g., by setting these as the default options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build programs for production may choose to omit some options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and.rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
+Developers should use `-Werror`, but redistributors will probably want to omit `-Werror`. Developers who release source code should ensure that their programs compile and pass their automated tests with all these options, e.g., by setting these as the default options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build programs for production may choose to omit some options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
 
 See the discussion below for background and for detailed discussion of each option.
 
