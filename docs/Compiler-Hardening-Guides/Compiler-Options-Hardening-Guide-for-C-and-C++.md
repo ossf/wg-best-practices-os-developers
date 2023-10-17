@@ -63,6 +63,10 @@ Some organizations require selecting hardening rules. For example, the US govern
 
 [^CMU2018]: Carnegie Mellon University (CMU), [Top 10 Secure Coding Practices](https://wiki.sei.cmu.edu/confluence/display/seccode/Top+10+Secure+Coding+Practices), SEI CERT Coding Standards Wiki, 2018-05-02.
 
+**What should you do when compiling compilers?**
+
+If you are compiling a C/C++ compiler, where practical make the generated compiler's default options the *secure* options (as documented here). For example, when compiling GCC, use `--enable-default-pie` (which makes `-fPIE` and `-pie` the defaults) and when compiling clang on Linux systems set `CLANG_DEFAULT_PIE_ON_LINUX` (which has a similar effect).
+
 **What does compiler options hardening not do?**
 
 Compiler options hardening is not a silver bullet; it is not sufficient to rely solely on security features and functions to achieve secure software. Security is an emergent property of the entire system that relies on building and integrating all parts properly. However, if properly used, secure compiler options will complement existing processes, such as static and dynamic analysis, secure coding practices, negative test suites, profiling tools, and most importantly: security hygiene as a part of a solid design and architecture.
