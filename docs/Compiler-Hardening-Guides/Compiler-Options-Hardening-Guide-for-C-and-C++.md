@@ -399,7 +399,7 @@ due to hardware assistance.
 The `-fcf-protection=full` flag enables Intel's Control-Flow Enforcement Technology (CET) [^IntelCET].
 The `-mbranch-protection=standard` flag invokes similar protections in the AArch64. In clang it is equivalent to `-mbranch-protection=bti+pac-ret` and invokes the AArch64 Branch Target Identification (BTI) and Pointer Authentication using key A (pac-ret) [^Armclang]
 
-[^Armclang]: ARM Developer, [Arm Compiler armclang Reference Guide Version 6.12 -mbranch-protection]((https://developer.arm.com/documentation/100067/0612/armclang-Command-line-Options/-mbranch-protection).
+[^Armclang]: ARM Developer, [Arm Compiler armclang Reference Guide Version 6.12 -mbranch-protection](https://developer.arm.com/documentation/100067/0612/armclang-Command-line-Options/-mbranch-protection).
 
 [^IntelCET]: Intel, ["A Technical Look at Intel’s Control-flow Enforcement Technology"](https://www.intel.com/content/www/us/en/developer/articles/technical/technical-look-control-flow-enforcement-technology.html), 2020-06-13.
 
