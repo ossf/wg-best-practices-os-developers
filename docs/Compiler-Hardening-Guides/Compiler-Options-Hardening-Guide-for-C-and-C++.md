@@ -235,7 +235,7 @@ The `switch` statement in C and C++ allows a case block to fall through to the f
 
 This warning flag warns when a fall through occurs unless it is specially marked as being *intended*. The Linux kernel project uses this flag; it led to the discovery and fixing of many bugs [^CorbetFallthrough2019].
 
-This warning flag does not have a performance impact. However, sometimes a fall through *is* intentional. This flag requires developers annotate those (rare) cases in the source code where a falthrough *is* intentional, to suppress the warning. Obviously, this annotation should *only* be used when it is intentional. C++17 (or later) code should simply use the attribute `[[fallthrough]] ` as it is standard (remember to add `;` after it).
+This warning flag does not have a performance impact. However, sometimes a fall through *is* intentional. This flag requires developers annotate those (rare) cases in the source code where a falthrough *is* intentional, to suppress the warning. Obviously, this annotation should *only* be used when it is intentional. C++17 (or later) code should simply use the attribute `[[fallthrough]]` as it is standard (remember to add `;` after it).
 
 In C there is currently no standard mechanism to mark intentional fallthroughs. A portable way, used by the Linux kernel version 5.10, is to define a keyword-like macro named `fallthrough` to mark a fallthrough that automatically adjusts to the compiler format [^StackOverflowFallthrough]:
 
