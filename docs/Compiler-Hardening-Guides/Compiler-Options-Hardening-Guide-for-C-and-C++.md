@@ -16,7 +16,8 @@ This document focuses on recommended options for the GNU Compiler Collection (GC
 When compiling C or C++ code on compilers such as GCC and clang, turn on these flags for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
 
 ~~~~sh
--O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Werror \
+-O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Wimplicit-fallthrough \
+-Werror \
 -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
 -fstack-clash-protection -fstack-protector-strong \
@@ -116,6 +117,7 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | [`-Wformat=2`](#-Wformat=2)                                                   | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings                                          |
 | [`-Wconversion`](#-Wconversion)<br/>[`-Wsign-conversion`](#-Wsign-conversion) | GCC 2.95.3<br/>Clang 4.0 | Enable implicit conversion warnings                                                 |
 | [`-Wtrampolines`](#-Wtrampolines)                                             |         GCC 4.3          | Enable warnings about trampolines that require executable stacks                    |
+| [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC<br>Clang   | Warn when a switch case falls through                                                 |
 | [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Make compiler warnings into errors                                                  |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
@@ -216,6 +218,40 @@ Check whether the compiler generates trampolines for pointer to nested functions
 A trampoline is a small piece of data or code that is created at run time on the stack when the address of a nested function is taken and is used to call the nested function indirectly.
 
 For most target architectures, including 64-bit x86, trampolines are made up of code and thus requires the stack to be made executable for the program to work properly. This interferes with the non-executable stack mitigation which is used by all major operating system to prevent code injection attacks (see Section 2.10).
+
+---
+
+### Warn about implicit fallthrough in switch statements
+
+| Compiler Flag                                                                                        |       Supported since       | Description                        |
+|:---------------------------------------------------------------------------------------------------- |:------------------------:|:---------------------------------- |
+| <span id="-Wimplicit-fallthrough">`-Wimplicit-fallthrough`</span>                           |         GCC<br>Clang   | Warn when a switch case falls through                                                 |
+
+#### Synopsis
+
+Warn when an implicit fallthrough occurs in a switch statement that has not been specifically marked as intended.
+
+The `switch` statement in C and C++ allows a case block to fall through to the following case block (unless preceded by break, return, goto, or similar). This is widely considered a design defect in C, because a common mistake is to have a fall through occur when it was *not* intended. [^Polacek2017]
+
+This warning flag warns when a fall through occurs unless it is specially marked as being *intended*. The Linux kernel project uses this flag; it led to the discovery and fixing of many bugs [^CorbetFallthrough2019].
+
+This warning flag does not have a performance impact. However, sometimes a fall through *is* intentional. This flag requires developers annotate those (rare) cases in the source code where a falthrough *is* intentional, to suppress the warning. Obviously, this annotation should *only* be used when it is intentional. C++17 (or later) code should simply use the attribute `[[fallthrough]] ` as it is standard (remember to add `;` after it).
+
+In C there is currently no standard mechanism to mark intentional fallthroughs. A portable way, used by the Linux kernel version 5.10, is to define a keyword-like macro named `fallthrough` to mark a fallthrough that automatically adjusts to the compiler format [^StackOverflowFallthrough]:
+
+~~~~c
+#if __has_attribute(__fallthrough__)
+# define fallthrough                    __attribute__((__fallthrough__))
+#else
+# define fallthrough                    do {} while (0)  /* fallthrough */
+#endif
+~~~~
+
+[^Polacek2017]: Polacek, Marek, ["-Wimplicit-fallthrough in GCC 7"](https://developers.redhat.com/blog/2017/03/10/wimplicit-fallthrough-in-gcc-7), 2017-03-10
+
+[^CorbetFallthrough2019]: Corbet, Jonathan.  ["An end to implicit fall-throughs in the kernel"](https://lwn.net/Articles/794944/), 2019-08-01.
+
+[^StackOverflowFallthrough]: Stack Overflow, ["GCC 7, -Wimplicit-fallthrough warnings, and portable way to clear them?"](https://stackoverflow.com/questions/27965722/c-force-compile-time-error-warning-on-implicit-fall-through-in-switch)
 
 ---
 
