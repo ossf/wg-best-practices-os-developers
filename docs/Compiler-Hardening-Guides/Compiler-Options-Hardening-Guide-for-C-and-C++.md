@@ -19,6 +19,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Werror \
 -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
+-fstrict-flex-arrays=3 \
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,noexecstack \
 -Wl,-z,relro -Wl,-z,now \
@@ -124,6 +125,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
 | [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^Guelton20]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. |
 | [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
+| [`-fstrict-flex-arrays=3`](#-fstrict-flex-arrays)                             |       GCC 13<br/>Clang 16.0.0       | Make the compiler respect the sizes of trailing arrays more strictly (this affects bounds checking) |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen) |           Binutils 2.10            | Restrict `dlopen(3)` calls to shared objects                                 |
@@ -311,6 +313,48 @@ This option is unnecessary for security for applications in production that only
 [^Wakely15]: Wakely, Jonathan, [Enable lightweight checks with _GLIBCXX_ASSERTIONS](https://patchwork.ozlabs.org/project/gcc/patch/20150907182755.GP2631@redhat.com/), GCC Mailing List, 2015-09-07
 
 [^Kraus21]: Metzger-Kraus, Christof. [Don't use GLIBCXX_ASSERTIONS in production](https://gitlab.psi.ch/OPAL/src/-/merge_requests/468), Object Oriented Particle Accelerator Library (OPAL) Issue Tracker, 2021-01-16.
+
+---
+
+### Enable strict flexible arrays
+
+| Compiler Flag                                                         |      Supported since      | Description                                                                                   |
+|:--------------------------------------------------------------------- |:----------------------:|:--------------------------------------------------------------------------------------------- |
+| <span id="-fstrict-flex-arrays">`-fstrict-flex-arrays=3`</span>                             |       GCC 13<br/>Clang 16.0.0       | Make the compiler respect the sizes of trailing arrays more strictly (this affects bounds checking) |
+
+#### Synopsis
+
+Make the compiler respect the sizes of trailing arrays more strictly (this affects bounds checking).
+
+By default, GCC and Clang treat all trailing arrays (arrays that are placed as the last member or a structure) as flexible-sized arrays regardless of their actual size for the purposes of `__builtin_object_size()` calculations used by `__FORTIFY_SOURCE`. For example, given:
+
+~~~~c
+struct trailing_array {
+    int a;
+    int b;
+    int c[4];
+};
+struct trailing_array *trailing;
+~~~~
+
+The value of `__builtin_object_size(trailing->c, 1)` is  `-1` ("unknown size"), inhibiting bounds checking. The rationale for this default behavior is to allow for the "struct hack" idiom that allows for trailing arrays to be treated as variable sized (regardless of their declared size).
+
+The `-fstrict-flex-arrays` option makes the compiler respect the sizes of trailing array member more strictly. This allows bounds checks added by instrumentation such as `__FORTIFY_SOURCE` or `-fsanitize=bounds` to be able to correctly determine the size of trailing arrays.
+
+The tradeoff is that code that relies on the "struct hack" for arbitrary sized trailing arrays may break as a result. Such code needs to be modified to clearly state that it does not have a specific bound (that is, use `[]` instead of `[4]`). There is normally no significant performance trade-off.
+
+Clang 16.0.0 supports level 3. Clang 15.X supports levels 0 through 2 inclusive.
+
+For more information, see [^Guelton2022], [^GCCBug101836], [^Edge2022], and [^CorbetHarden2023].
+
+[^Guelton2022]: Guelton, Serge, [The benefits and limitations of flexible array members](https://developers.redhat.com/articles/2022/09/29/benefits-limitations-flexible-array-members), 2022-09-29
+
+[^GCCBug101836]: [GCC Bug 101836 - ` __builtin_object_size(P->M, 1) where M is an array and the last member of a struct fails`](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101836)
+
+[^Edge2022]: Edge, Jake, [Safer flexible arrays for the kernel](https://lwn.net/Articles/908817/), 2022-09-22
+
+[^CorbetHarden2023]: Corbet, Jonathan, ["GCC features to help harden the kernel"](https://lwn.net/Articles/946041/)
+2023-10-05
 
 ---
 
