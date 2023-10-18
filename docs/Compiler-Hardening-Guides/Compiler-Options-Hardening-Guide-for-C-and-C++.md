@@ -349,7 +349,7 @@ For more information, see [^Guelton2022], [^GCCBug101836], [^Edge2022], and [^Co
 
 [^Guelton2022]: Guelton, Serge, [The benefits and limitations of flexible array members](https://developers.redhat.com/articles/2022/09/29/benefits-limitations-flexible-array-members), 2022-09-29
 
-[^GCCBug101836]: [GCC Bug 101836 - ` __builtin_object_size(P->M, 1) where M is an array and the last member of a struct fails`](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101836)
+[^GCCBug101836]: [GCC Bug 101836 - `__builtin_object_size(P->M, 1) where M is an array and the last member of a struct fails`](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101836)
 
 [^Edge2022]: Edge, Jake, [Safer flexible arrays for the kernel](https://lwn.net/Articles/908817/), 2022-09-22
 
