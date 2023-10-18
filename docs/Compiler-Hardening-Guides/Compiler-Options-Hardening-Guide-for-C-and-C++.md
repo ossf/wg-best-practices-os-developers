@@ -716,7 +716,7 @@ Debug info files allows the binary to be analyzed in the same way as the origina
 
 ### Strip debug and symbol information
 
-Once the debug info file has been created the debug and symbol information can be stripped from the original binary using either the `objcopy` or `strip`[^binutils-strip] utilities provided by Binutils, or the `llvm-objcopy` or `llvm-strip`[^llvm-strip] equivalents provided by LLVM. The shell snippets below show how the debug and unneeded symbol information can removed from an executable using `objcopy` and `strip` respectively. If code signing is enforced on the application binaries the debug and symbol information must be stripped away before the binaries are signed.
+Once the debug info file has been created the debug and symbol information can be stripped from the original binary using either the `objcopy` or `strip`[^binutils-strip] utilities provided by Binutils, or the `llvm-objcopy` or `llvm-strip`[^llvm-strip] equivalents provided by LLVM. The shell snippets below show how the debug and unneeded symbol information can be removed from an executable using `objcopy` and `strip` respectively. If code signing is enforced on the application binaries the debug and symbol information must be stripped away before the binaries are signed.
 
 ~~~~sh
 strip --strip-unneeded executable_file
@@ -775,7 +775,7 @@ Note that the build ID does not act as a checksum for the executable or debug in
 
 ## Contributors
 
-The OpenSSF Developer BEST Practices Working group thanks Ericsson for their generous intial donation of content to start collaboration on this guide.
+The OpenSSF Developer BEST Practices Working group thanks Ericsson for their generous initial donation of content to start collaboration on this guide.
 
 - Thomas Nyman, Ericsson
 - Robert Byrne, Ericsson
