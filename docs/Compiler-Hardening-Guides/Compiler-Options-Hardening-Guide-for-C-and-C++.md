@@ -326,7 +326,7 @@ This option is unnecessary for security for applications in production that only
 
 Make the compiler respect the sizes of trailing arrays more strictly (this affects bounds checking).
 
-By default, GCC and Clang treat all trailing arrays (arrays that are placed as the last member or a structure) as flexible-sized arrays regardless of their actual size for the purposes of `__builtin_object_size()` calculations used by `__FORTIFY_SOURCE`. For example, given:
+By default, GCC and Clang treat all trailing arrays (arrays that are placed as the last member or a structure) as flexible-sized arrays regardless of their actual size for the purposes of `__builtin_object_size()` calculations used by `_FORTIFY_SOURCE`. For example, given:
 
 ~~~~c
 struct trailing_array {
@@ -339,9 +339,9 @@ struct trailing_array *trailing;
 
 The value of `__builtin_object_size(trailing->c, 1)` is  `-1` ("unknown size"), inhibiting bounds checking. The rationale for this default behavior is to allow for the "struct hack" idiom that allows for trailing arrays to be treated as variable sized (regardless of their declared size).
 
-The `-fstrict-flex-arrays` option makes the compiler respect the sizes of trailing array member more strictly. This allows bounds checks added by instrumentation such as `__FORTIFY_SOURCE` or `-fsanitize=bounds` to be able to correctly determine the size of trailing arrays.
+The `-fstrict-flex-arrays` option makes the compiler respect the sizes of trailing array member more strictly. This allows bounds checks added by instrumentation such as `_FORTIFY_SOURCE` or `-fsanitize=bounds` to be able to correctly determine the size of trailing arrays.
 
-The tradeoff is that code that relies on the "struct hack" for arbitrary sized trailing arrays may break as a result. Such code needs to be modified to clearly state that it does not have a specific bound (that is, use `[]` instead of `[4]`). There is normally no significant performance trade-off.
+The tradeoff is that code that relies on the "struct hack" for arbitrary sized trailing arrays may break as a result. Such code needs to be modified to clearly state that it does not have a specific bound (that is, use `[]` instead of `[4]`). Code that uses `[0]` for a flexible array needs to be modified to use `[]` instead. Code that uses `[1]` for a flexible arrays needs to be modified to use `[]` and also extensively modified to eliminate off-by-one errors. There is normally no significant performance trade-off.
 
 Clang 16.0.0 supports level 3. Clang 15.X supports levels 0 through 2 inclusive.
 
