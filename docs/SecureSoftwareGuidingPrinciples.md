@@ -15,5 +15,6 @@ The Secure Software Development Guiding Principles (SSDGP) are a series of core 
 9. To publish security advisories consistent with evolving industry best practices.
 10. To actively collaborate with and participate in industry and regulatory initiatives related to securing the software supply chain, and to evangelize adoption of the Secure Software Development Guiding Principles among our industry peers.
 
-Signatures
+Signees
+
 Christopher "CRob" Robinson, OpenSSF TAC Chair and BEST Working Group facilitator
