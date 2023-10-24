@@ -341,11 +341,13 @@ The value of `__builtin_object_size(trailing->c, 1)` is  `-1` ("unknown size"), 
 
 The `-fstrict-flex-arrays` option makes the compiler respect the sizes of trailing array member more strictly. This allows bounds checks added by instrumentation such as `_FORTIFY_SOURCE` or `-fsanitize=bounds` to be able to correctly determine the size of trailing arrays.
 
-The tradeoff is that code that relies on the "struct hack" for arbitrary sized trailing arrays may break as a result. Such code needs to be modified to clearly state that it does not have a specific bound (that is, use `[]` instead of `[4]`). Code that uses `[0]` for a flexible array needs to be modified to use `[]` instead. Code that uses `[1]` for a flexible arrays needs to be modified to use `[]` and also extensively modified to eliminate off-by-one errors. There is normally no significant performance trade-off.
+The tradeoff is that code that relies on the "struct hack" for arbitrary sized trailing arrays may break as a result. Such code needs to be modified to clearly state that it does not have a specific bound (that is, use C99 flexible array notation `[]` instead of `[4]`). Code that uses `[0]` for a flexible array needs to be modified to use `[]` instead. Code that uses `[1]` for a flexible arrays needs to be modified to use `[]` and also extensively modified to eliminate off-by-one errors. There is normally no significant performance trade-off.
 
 Clang 16.0.0 supports level 3. Clang 15.X supports levels 0 through 2 inclusive.
 
-For more information, see [^Guelton2022], [^GCCBug101836], [^Edge2022], and [^CorbetHarden2023].
+For more information, see [^Cook2023], [^Guelton2022], [^GCCBug101836], [^Edge2022], and [^CorbetHarden2023].
+
+[^Cook2023]: Cook, Kees, and Gustavo A.R. Silva, ["Progress on Bounds Checking in C and the Linux Kernel", Linux Security Summit North America 2023](https://www.youtube.com/watch?v=V2kzptQG5_A)
 
 [^Guelton2022]: Guelton, Serge, [The benefits and limitations of flexible array members](https://developers.redhat.com/articles/2022/09/29/benefits-limitations-flexible-array-members), 2022-09-29
 
