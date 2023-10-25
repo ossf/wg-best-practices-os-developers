@@ -16,7 +16,7 @@ This document focuses on recommended options for the GNU Compiler Collection (GC
 When compiling C or C++ code on compilers such as GCC and clang, turn on these flags for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
 
 ~~~~sh
--O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Werror \
+-O2 -Wall -Wformat=2 -Wconversion -Wtrampolines \
 -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
 -fstack-clash-protection -fstack-protector-strong \
@@ -25,7 +25,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -fPIE -pie -fPIC -shared
 ~~~~
 
-Developers should use `-Werror`, but redistributors will probably want to omit `-Werror`. Developers who release source code should ensure that their programs compile and pass their automated tests with all these options, e.g., by setting these as the default options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build programs for production may choose to omit some options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and.rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
+Developers should use [`-Werror`](#-Werror), but redistributors will probably want to omit `-Werror`.
 
 See the discussion below for background and for detailed discussion of each option.
 
@@ -228,6 +228,8 @@ For most target architectures, including 64-bit x86, trampolines are made up of 
 #### Synopsis
 
 Make the compiler treat all or specific warning diagnostics as errors.
+
+Developers should use `-Werror`, but redistributors will probably want to omit `-Werror`. Developers who release source code should ensure that their programs compile and pass their automated tests with all these options, e.g., by setting these as the default options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build programs for production may choose to omit some options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and.rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
 
 A blanket `-Werror` can be used to implement a zero-warning policy, although such policies can also be enforced at CI level. CI-based zero- or bounded-warning policies are often preferable as they can be expanded beyond compiler warning. For example, they can also include warnings from static analysis tools or generate warnings when `FIXME` and `TODO` comments are found.
 
