@@ -233,13 +233,13 @@ For most target architectures, including 64-bit x86, trampolines are made up of 
 
 Warn when an implicit fallthrough occurs in a switch statement that has not been specifically marked as intended.
 
-The `switch` statement in C and C++ allows a case block to fall through to the following case block (unless preceded by break, return, goto, or similar). This is widely considered a design defect in C, because a common mistake is to have a fallthrough occur when it was *not* intended. [^Polacek2017]
+The `switch` statement in C and C++ allows a case block to fall through to the following case block (unless preceded by break, return, goto, or similar). This is widely considered a design defect in C, because a common mistake is to have a fallthrough occur when it was *not* intended[^Polacek17].
 
-This warning flag warns when a fallthrough occurs unless it is specially marked as being *intended*. The Linux kernel project uses this flag; it led to the discovery and fixing of many bugs [^CorbetFallthrough2019].
+This warning flag warns when a fallthrough occurs unless it is specially marked as being *intended*. The Linux kernel project uses this flag; it led to the discovery and fixing of many bugs[^Corbet19].
 
 This warning flag does not have a performance impact. However, sometimes a fallthrough *is* intentional. This flag requires developers annotate those (rare) cases in the source code where a falthrough *is* intentional, to suppress the warning. Obviously, this annotation should *only* be used when it is intentional. C++17 (or later) code should simply use the attribute `[[fallthrough]]` as it is standard (remember to add `;` after it).
 
-The C17 standard [^C2017] does not provide a mechanism to mark intentional fallthroughs. Different tools support different mechanisms for marking one, including attributes and comments in various forms. A portable way to mark one, used by the Linux kernel version 5.10 and later, is to define a keyword-like macro named `fallthrough` to mark an intentional fallthrough that automatically adjusts to the tool (e.g., compiler) format [^StackOverflowFallthrough]:
+The C17 standard[^C2017] does not provide a mechanism to mark intentional fallthroughs. Different tools support different mechanisms for marking one, including attributes and comments in various forms[^Shafik15]. A portable way to mark one, used by the Linux kernel version 5.10 and later, is to define a keyword-like macro named `fallthrough` to mark an intentional fallthrough that automatically adjusts to the tool (e.g., compiler) format :
 
 ~~~~c
 #if __has_attribute(__fallthrough__)
@@ -249,13 +249,13 @@ The C17 standard [^C2017] does not provide a mechanism to mark intentional fallt
 #endif
 ~~~~
 
-[^Polacek2017]: Polacek, Marek, ["-Wimplicit-fallthrough in GCC 7"](https://developers.redhat.com/blog/2017/03/10/wimplicit-fallthrough-in-gcc-7), 2017-03-10
+[^Polacek17]: Polacek, Marek, ["-Wimplicit-fallthrough in GCC 7"](https://developers.redhat.com/blog/2017/03/10/wimplicit-fallthrough-in-gcc-7), Red Hat Developer, 2017-03-10
 
-[^CorbetFallthrough2019]: Corbet, Jonathan.  ["An end to implicit fall-throughs in the kernel"](https://lwn.net/Articles/794944/), 2019-08-01.
+[^Corbet19]: Corbet, Jonathan.  ["An end to implicit fall-throughs in the kernel"](https://lwn.net/Articles/794944/), LWN, 2019-08-01.
 
 [^C2017]: ISO/IEC, [Programming languages — C ("C17")](https://web.archive.org/web/20181230041359/http://www.open-std.org/jtc1/sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf), ISO/IEC 9899:2018, 2017. Note: The official ISO/IEC specification is paywalled and therefore not publicly available. The final specification draft is publicly available.
 
-[^StackOverflowFallthrough]: Stack Overflow, ["GCC 7, -Wimplicit-fallthrough warnings, and portable way to clear them?"](https://stackoverflow.com/questions/27965722/c-force-compile-time-error-warning-on-implicit-fall-through-in-switch)
+[^Shafik15]: Shafik, Yaghmour, ["GCC 7, -Wimplicit-fallthrough warnings, and portable way to clear them?"](https://stackoverflow.com/questions/27965722/c-force-compile-time-error-warning-on-implicit-fall-through-in-switch/27965827#27965827), StackOverflow, 2015-01-15.
 
 ---
 
