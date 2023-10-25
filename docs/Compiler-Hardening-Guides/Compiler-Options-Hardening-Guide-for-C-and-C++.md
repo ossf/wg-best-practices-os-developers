@@ -20,10 +20,21 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
 -fstack-clash-protection -fstack-protector-strong \
--fcf-protection=full -mbranch-protection=standard \
 -Wl,-z,nodlopen -Wl,-z,noexecstack \
 -Wl,-z,relro -Wl,-z,now \
 -fPIE -pie -fPIC -shared
+~~~~
+
+When compiling on x86 architectures, add:
+
+~~~~sh
+-fcf-protection=full
+~~~~
+
+When compiling on ARM, add:
+
+~~~~sh
+-mbranch-protection=standard
 ~~~~
 
 Developers should use `-Werror`, but redistributors will probably want to omit `-Werror`. Developers who release source code should ensure that their programs compile and pass their automated tests with all these options, e.g., by setting these as the default options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build programs for production may choose to omit some options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
@@ -127,7 +138,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
-| [`-fcf-protection=full`](#-fcf-protection=full)                                   |     GCC 8<br/>Clang 7.0.0                  | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x64 architectures |
+| [`-fcf-protection=full`](#-fcf-protection=full)                                   |     GCC 8<br/>Clang 7.0.0                  | Prevent diversion of control,including countering Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks, on many x64 architectures |
 | [`-mbranch-protection=standard`](#-mbranch-protection-standard)                                   |     GCC 9<br/>Clang 8              | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on AArch64 |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen) |           Binutils 2.10            | Restrict `dlopen(3)` calls to shared objects                                 |
 | [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)                                               |           Binutils 2.14            | Enable data execution prevention by marking stack memory as non-executable                   |
