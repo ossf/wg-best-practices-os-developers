@@ -55,7 +55,9 @@ Consequently, modern operating systems deploy various run-time mechanisms to pro
 
 To benefit from the protection mechanism provided by the OS the application binaries must be prepared at build time to be compatible with the mitigations. Typically, this means enabling specific option flags for the compiler or linker when the software is built.
 
-Some mechanisms may require additional configuration and fine tuning, for example due to potential compilation issues for certain unlikely edge cases, or performance overhead the mitigation adds for certain program constructs. This problem is exacerbated in projects that rely on an outdated version of an open source software (OSS) compiler. In general, security mitigations are more likely to be enabled by default in modern versions of compilers included with Linux distributions. Note that the defaults used by the upstream GCC project do not enable some of these mitigations.
+Some mechanisms may require additional configuration and fine tuning, for example due to potential compilation issues for certain unlikely edge cases, or performance overhead the mitigation adds for certain program constructs. Some compiler security features depend on data flow analysis of programs and heuristics, results of which may vary depending on program source code details. As a result, the protection mechanisms implemented by these features may not always provide full coverage.
+
+These problems are exacerbated in projects that rely on an outdated version of an open source software (OSS) compiler. In general, security mitigations are more likely to be enabled by default in modern versions of compilers included with Linux distributions. Note that the defaults used by the upstream GCC project do not enable some of these mitigations.
 
 If compiler options hardening is overlooked or neglected during build time it can become impossible to add hardening to already distributed executables. It is therefore good practice to evaluate which mitigations an application should support, and make conscious, informed decisions whenever not enabling a mitigation weakens the application’s defensive posture. Ensure that the software is *tested* with as many options as practical, to ensure it can be operated that way.
 
@@ -361,6 +363,10 @@ The detection is based on inserting a *canary* value into the stack frame in the
 
 This mitigates potential control-flow hijacking attacks that may lead to arbitrary code execution by corrupting return addresses stored on the stack.
 
+Out-of-date versions of GCC may not detect or defend against overflows of dynamically-sized local variables such as variable-length arrays or buffers allocated using `alloca()` when compiling for 64-bit Arm (Aarch64) processors[^Meta23]. Users of GCC-based toolchains for Aarch64 should ensure they use up-to-date versions of GCC 7 or later that support an alternative stack frame layout that places all local variables below saved registers, with the stack-protector canary between them[^Arm23].
+
+Some versions of GCC[^CVE-2023-4039] may not detect or defend against overflows of dynamically-sized local variables such as variable-length arrays or buffers allocated using alloca() when compiling for 64-bit Arm (Aarch64) processors[^Meta23]. Users of GCC-based toolchains for Aarch64 should, before depending on it, determine if they support an alternative stack frame layout that places all local variables below saved registers, with the stack-protector canary between them[^Arm23].
+
 #### Performance implications
 
 Stack protector supports three different heuristics that are used to determine which functions are instrumented with run-time checks during compilation:
@@ -381,6 +387,12 @@ The performance overhead is dependent on the number of function’s instrumented
 `-fstack-protector-strong` is recommended for all applications with conventional stack behavior. Applications with hand-written assembler optimization that make assumptions about the layout of the stack may be incompatible with stack-protector functionality.
 
 [^Han11]: Shen, Han, [New stack protector option for gcc](https://docs.google.com/document/d/1xXBH6rRZue4f296vGt9YQcuLVQHeE516stHwt8M9xyU), Google Docs, 2011-11-30.
+
+[^CVE-2023-4039]: Common Vulnerability Enumeration Database, [CVE-2023-4039](https://www.cve.org/CVERecord?id=CVE-2023-4039), 2023-09-13.
+
+[^Meta23]: Hebb, Tom, [GCC's -fstack-protector fails to guard dynamic stack allocations on ARM64](https://github.com/metaredteam/external-disclosures/security/advisories/GHSA-x7ch-h5rf-w2mf), GitHub metaredteam/external-disclosures Advisories, 2023-09-12.
+
+[^Arm23]: Arm, [GCC Stack Protector Vulnerability AArch64](https://developer.arm.com/Arm%20Security%20Center/GCC%20Stack%20Protector%20Vulnerability%20AArch64), Arm Security Center, 2023-09-12.
 
 ---
 
@@ -614,7 +626,7 @@ To enable TSan add `-fsanitize=thread` to the compiler flags (`CFLAGS` for C, `C
 
 The run-time behavior of TSan can be influenced using the `TSAN_OPTIONS` environment variable. An up-to-date list of supported options are available on the ThreadSanitizerFlags article on the project's GitHub Wiki[^tsan-flags]. If set to `TSAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program.
 
-When TSan encounters a potential data race it (by default) reports the race by printing a warning message with a description of the program state that lead to the data race. A detailed description of the report format can be found in the ThreadSanitizerReportFormat article on the project's Github Wiki[^tsan-reportformat].
+When TSan encounters a potential data race it (by default) reports the race by printing a warning message with a description of the program state that lead to the data race. A detailed description of the report format can be found in the ThreadSanitizerReportFormat article on the project's GitHub Wiki[^tsan-reportformat].
 
 TSan cannot be used simultaneously with AddressSanitizer (ASan) or LeakSanitizer (LSan). It is not possible to mix TSan-instrumented code produced by GCC with TSan-instrumented code produced Clang as the TSan implementations in GCC and Clang are mutually incompatible. TSan generally requires all code to be compiled with `-fsanitize=thread` to operate correctly.
 
@@ -722,7 +734,7 @@ Debug info files allows the binary to be analyzed in the same way as the origina
 
 ### Strip debug and symbol information
 
-Once the debug info file has been created the debug and symbol information can be stripped from the original binary using either the `objcopy` or `strip`[^binutils-strip] utilities provided by Binutils, or the `llvm-objcopy` or `llvm-strip`[^llvm-strip] equivalents provided by LLVM. The shell snippets below show how the debug and unneeded symbol information can removed from an executable using `objcopy` and `strip` respectively. If code signing is enforced on the application binaries the debug and symbol information must be stripped away before the binaries are signed.
+Once the debug info file has been created the debug and symbol information can be stripped from the original binary using either the `objcopy` or `strip`[^binutils-strip] utilities provided by Binutils, or the `llvm-objcopy` or `llvm-strip`[^llvm-strip] equivalents provided by LLVM. The shell snippets below show how the debug and unneeded symbol information can be removed from an executable using `objcopy` and `strip` respectively. If code signing is enforced on the application binaries the debug and symbol information must be stripped away before the binaries are signed.
 
 ~~~~sh
 strip --strip-unneeded executable_file
@@ -781,7 +793,7 @@ Note that the build ID does not act as a checksum for the executable or debug in
 
 ## Contributors
 
-The OpenSSF Developer BEST Practices Working group thanks Ericsson for their generous intial donation of content to start collaboration on this guide.
+The OpenSSF Developer BEST Practices Working group thanks Ericsson for their generous initial donation of content to start collaboration on this guide.
 
 - Thomas Nyman, Ericsson
 - Robert Byrne, Ericsson
