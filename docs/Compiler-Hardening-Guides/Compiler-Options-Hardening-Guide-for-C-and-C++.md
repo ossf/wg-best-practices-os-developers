@@ -65,7 +65,7 @@ Some organizations require selecting hardening rules. For example, the US govern
 
 **What should you do when compiling compilers?**
 
-If you are compiling a C/C++ compiler, where practical make the generated compiler's default options the *secure* options. For example, when compiling GCC, use `--enable-default-pie` (which enables the flags `-fPIE` and `-pie` by default when using the generated compiler executable) and `--enable-default-ssp` (which enables `-fstack-protector-strong` by default). SImilarly, when compiling clang on Linux systems, set `CLANG_DEFAULT_PIE_ON_LINUX` (which has a similar effect as the option `--enable-default-pie` when compiling GCC).
+If you are compiling a C/C++ compiler, where practical make the generated compiler's default options the *secure* options. For example, when compiling GCC, use `--enable-default-pie` (which enables the flags `-fPIE` and `-pie` by default when using the generated compiler executable) and `--enable-default-ssp` (which enables `-fstack-protector-strong` by default). Similarly, when compiling clang on Linux systems, set `CLANG_DEFAULT_PIE_ON_LINUX` (which has a similar effect as the option `--enable-default-pie` when compiling GCC).
 
 **What does compiler options hardening not do?**
 
