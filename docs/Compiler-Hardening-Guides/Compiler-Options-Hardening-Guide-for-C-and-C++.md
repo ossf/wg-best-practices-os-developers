@@ -117,7 +117,7 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | [`-Wformat=2`](#-Wformat=2)                                                   | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings                                          |
 | [`-Wconversion`](#-Wconversion)<br/>[`-Wsign-conversion`](#-Wsign-conversion) | GCC 2.95.3<br/>Clang 4.0 | Enable implicit conversion warnings                                                 |
 | [`-Wtrampolines`](#-Wtrampolines)                                             |         GCC 4.3          | Enable warnings about trampolines that require executable stacks                    |
-| [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC<br>Clang   | Warn when a switch case falls through                                                 |
+| [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7.1.0<br>Clang   | Warn when a switch case falls through                                                 |
 | [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Make compiler warnings into errors                                                  |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
