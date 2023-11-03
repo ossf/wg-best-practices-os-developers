@@ -101,7 +101,7 @@ Typical compiler configurations do not report warnings from system headers, sinc
 
 [^clang-system-headers]: LLVM team, [Controlling Diagnostics in System Headers](https://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-in-system-headers), Clang Compiler User's Manual, 2017-03-08.
 
-[^gcc-directory-search] GCC team, [Options for Directory Search](https://gcc.gnu.org/onlinedocs/gcc/Directory-Options.html), GCC Manual, 2023-07-27.
+[^gcc-directory-search]: GCC team, [Options for Directory Search](https://gcc.gnu.org/onlinedocs/gcc/Directory-Options.html), GCC Manual, 2023-07-27.
 
 [^clang-isystem]: LLVM team, [Clang command line argument reference¶: -isystem\<directory\>](https://clang.llvm.org/docs/ClangCommandLineReference.html#cmdoption-clang-isystem-directory), Clang documentation, 2017-09-05.
 
