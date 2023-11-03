@@ -321,7 +321,7 @@ This option is unnecessary for security for applications in production that only
 | Compiler Flag                                                         |      Supported since      | Description                                                                                   |
 |:--------------------------------------------------------------------- |:----------------------:|:--------------------------------------------------------------------------------------------- |
 | <span id="-fstrict-flex-arrays">`-fstrict-flex-arrays=0`</span>                             |       GCC 13<br/>Clang 15.0.0       | Consider any trailing array (at the end of a struct) a flexible array |
-| `-fstrict-flex-arrays=1`>                             |       GCC 13<br/>Clang 15.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`, `[0]`, or `[1]     ` |
+| `-fstrict-flex-arrays=1`>                             |       GCC 13<br/>Clang 15.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`, `[0]`, or `[1]` |
 | `-fstrict-flex-arrays=2`                             |       GCC 13<br/>Clang 15.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`, `[0]`, or `[1]` |
 | `-fstrict-flex-arrays=3`                             |       GCC 13<br/>Clang 16.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]` |
 
