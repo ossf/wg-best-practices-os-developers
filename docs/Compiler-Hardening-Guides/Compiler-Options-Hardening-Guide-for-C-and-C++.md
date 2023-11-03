@@ -25,7 +25,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -fPIE -pie -fPIC -shared
 ~~~~
 
-Developers should use `-Werror`, but redistributors will probably want to omit `-Werror`. Developers who release source code should ensure that their programs compile and pass their automated tests with all these options, e.g., by setting these as the default options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build programs for production may choose to omit some options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
+Developers should use `-Werror`, but redistributors will probably want to omit `-Werror`. Developers who release source code should ensure that their programs compile and pass their automated tests with all these options, e.g., by setting these as the default options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build programs for production may choose to omit some options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that are insecure and rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
 
 See the discussion below for background and for detailed discussion of each option.
 
@@ -223,7 +223,7 @@ For C++ warnings about conversions between signed and unsigned integers are disa
 
 #### Synopsis
 
-Check whether the compiler generates trampolines for pointer to nested functions which may interfere with stack virtual memory protection (non-executable stack.)
+Check whether the compiler generates trampolines for pointers to nested functions which may interfere with stack virtual memory protection (non-executable stack.)
 
 A trampoline is a small piece of data or code that is created at run time on the stack when the address of a nested function is taken and is used to call the nested function indirectly.
 
@@ -243,7 +243,7 @@ Make the compiler treat all or specific warning diagnostics as errors.
 
 A blanket `-Werror` can be used to implement a zero-warning policy, although such policies can also be enforced at CI level. CI-based zero- or bounded-warning policies are often preferable as they can be expanded beyond compiler warning. For example, they can also include warnings from static analysis tools or generate warnings when `FIXME` and `TODO` comments are found.
 
-The selective form: `-Werror=`*`<warning-flag>`* can be used for refined warnings-as-error control without introducing a blanket zero-warning policy. This is beneficial to ensure that certain undesirable constructs or defects do not make into produced builds.
+The selective form: `-Werror=`*`<warning-flag>`* can be used for refined warnings-as-error control without introducing a blanket zero-warning policy. This is beneficial to ensure that certain undesirable constructs or defects do not make it into produced builds.
 
 For example, developers can decide to promote warnings that indicate interference with OS defense mechanisms (e.g., `-Werror=trampolines`), undefined behavior (e.g., `-Werror=return-type`), or constructs associated with software weaknesses (e.g., `-Werror=conversion`) to errors.
 
@@ -269,7 +269,7 @@ The `_FORTIFY_SOURCE` mechanisms have three modes of operation:
 - `-D_FORTIFY_SOURCE=2`: stricter checks that also detect behavior that may be unsafe even though it conforms to the C standard; may affect program behavior by disallowing certain programming constructs. An example of such checks is restricting of the `%n` format specifier to read-only format strings.
 - `-D_FORTIFY_SOURCE=3`: Same checks as those covered by `-D_FORTIFY_SOURCE=2` except that checking is enabled even when the compiler is able to estimate the size of the protected object as an expression, not just a compile time constant.
 
-To benefit from `_FORTIFY_SOURCE` checks following requirements must be met:  
+To benefit from `_FORTIFY_SOURCE` checks the following requirements must be met:
 
 - the application must be built with `-O1` optimizations or higher; at least `-O2` is recommended.
 - the compiler should be able to estimate sizes of the destination buffers at compile time. This can be facilitated by applications and libraries by using function attribute extensions supported by GCC and Clang[^Poyarekar23].
@@ -285,8 +285,8 @@ Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligib
 
 `_FORTIFY_SOURCE` is recommended for all application that depend on glibc and should be widely deployed. Most packages in all major Linux distributions enable at least `_FORTIFY_SOURCE=2` and some even enable `_FORTIFY_SOURCE=3`. There are a couple of situations when `_FORTIFY_SOURCE` may break existing applications:
 
-- If the fortified glibc function calls show up as hotspots in your application performance profile, there is a chance that `_FORTIFY_SOURCE` may have a negative performance impact. This is not a common or widespread slowdown[^Poyarekar23] but worth keeping in mind if slowdowns are observed due to this option
-- Applications that use the GNU extension for flexible array members in structs[^gcc-zerolengtharrays] may confuse the compiler into thinking that an object is smaller than it actually is, resulting in spurious aborts. The safe resolution for this is to port these uses to C99 flexible arrays but if that is not possible (e.g. due to the need to support a compiler that does not support C99 flexible arrays), one may need to downgrade or disable `_FORTIFY_SOURCE` protections.
+- If the fortified glibc function calls show up as hotspots in your application performance profile, there is a chance that `_FORTIFY_SOURCE` may have a negative performance impact. This is not a common or widespread slowdown[^Poyarekar23] but worth keeping in mind if slowdowns are observed due to this option.
+- Applications that use the GNU extension for flexible array members in structs[^gcc-zerolengtharrays] may confuse the compiler into thinking that an object is smaller than it actually is, resulting in spurious aborts. The safe resolution for this is to port these uses to C99 flexible arrays but if that is not possible (e.g., due to the need to support a compiler that does not support C99 flexible arrays), one may need to downgrade or disable `_FORTIFY_SOURCE` protections.
 
 [^glibc-fortification]: GNU C Library team, [Source Fortification in the GNU C Library](https://www.gnu.org/software/libc/manual/html_node/Source-Fortification.html), GNU C Library (glibc) manual, 2023-02-01.
 
@@ -310,7 +310,7 @@ These precondition checks can be enabled by defining the `-D_GLIBCXX_ASSERTIONS`
 
 #### Performance implications
 
-Most calls into the C++ standard library have preconditions. Some preconditions can be checked in constant-time, others are more expensive. The checks enabled by `-D_GLIBCXX_ASSERTIONS` are  intended to be lightweight[^Wakely15], i.e., constant-time checks but the exact behavior can differ between standard library versions. In some versions libstdc++ the `-D_GLIBCXX_ASSERTIONS` macro can have a non-trivial impact on performance. Slowdowns of up to 6% have been reported[^Kraus21].
+Most calls into the C++ standard library have preconditions. Some preconditions can be checked in constant-time, others are more expensive. The checks enabled by `-D_GLIBCXX_ASSERTIONS` are  intended to be lightweight[^Wakely15], i.e., constant-time checks but the exact behavior can differ between standard library versions. In some versions of libstdc++ the `-D_GLIBCXX_ASSERTIONS` macro can have a non-trivial impact on performance. Slowdowns of up to 6% have been reported[^Kraus21].
 
 #### When not to use?
 
@@ -337,7 +337,7 @@ This option is unnecessary for security for applications in production that only
 
 Stack clash protection mitigates attacks that aim to bypass the operating system’s *stack guard gap*. The stack guard gap is a security feature in the Linux kernel that protects processes against sequential stack overflows that overflow the stack in order to corrupt adjacent memory regions.
 
-To avoid the stack guard gap from being bypassed each fresh allocation on the stack needs to probe the freshly allocated memory for the stack guard gap if it is present. Stack clash protection ensures a single allocation may not be larger than the stack guard gap size and the compiler translates larger allocations into a series of smaller sub-allocations. In addition, it ensures that any series of sub-allocations can not exceed the stack guard gap size without an intervening probe.
+To avoid the stack guard gap from being bypassed each fresh allocation on the stack needs to probe the freshly allocated memory for the stack guard gap if it is present. Stack clash protection ensures a single allocation may not be larger than the stack guard gap size and the compiler translates larger allocations into a series of smaller sub-allocations. In addition, it ensures that any series of sub-allocations cannot exceed the stack guard gap size without an intervening probe.
 
 Probe instructions can either be implicit or explicit. Implicit probes occur naturally as part of the application’s code, such as when x86 and x86_64 call instructions push the return address onto the stack. Implicit probes do not incur any additional performance cost. Explicit probes, on the other hand, consists of additional probe instructions emitted by the compiler.
 
@@ -410,7 +410,7 @@ The performance overhead is dependent on the number of function’s instrumented
 
 The `nodlopen` option passed to the linker when building shared objects will mark the resulting object as not available to `dlopen(3)` calls. This can help in reducing an attacker's ability to load and manipulate shared objects. Loading new objects or duplicating an already existing shared object in a process can constitute a part of the attack chain in runtime exploitation.
 
-The `nodlopen` restrictions are based on setting the `DF_1_NOOPEN` flags in the object’s `.dynamic` section tags. Since the enforcement of restricted calls is done inside libc when `dlopen(3)` are called it is possible for attackers to bypass check by 1) manipulating the tag embedded in the object if they have the ability to modify the object file on disk, or 2) bypassing `dlopen(3)` and loading shared objects through attacker controlled code, e.g., pieces of shellcode or return-oriented-programming gadgets. However, restrictions on `dlopen(3)` put in place at link time can still be useful in restricting the attacker before they have obtained arbitrary code execution capabilities.
+The `nodlopen` restrictions are based on setting the `DF_1_NOOPEN` flags in the object’s `.dynamic` section tags. Since the enforcement of restricted calls is done inside libc when `dlopen(3)` are called it is possible for attackers to bypass the check by 1) manipulating the tag embedded in the object if they have the ability to modify the object file on disk, or 2) bypassing `dlopen(3)` and loading shared objects through attacker controlled code, e.g., pieces of shellcode or return-oriented-programming gadgets. However, restrictions on `dlopen(3)` put in place at link time can still be useful in restricting the attacker before they have obtained arbitrary code execution capabilities.
 
 #### Performance implications
 
@@ -425,7 +425,7 @@ In some cases it is desirable for applications to manage the loading of librarie
 - Selecting an implementation of an API by different vendors
 - Delay loading of shared libraries to decrease application start times. (See also lazy binding in Section 2.11)
 
-Since `nodlopen` interfere with applications that rely on to `dlopen(3)` to manipulate shared objects they cannot be used with applications that rely on such functionality.
+Since `nodlopen` interferes with applications that rely on to `dlopen(3)` to manipulate shared objects they cannot be used with applications that rely on such functionality.
 
 ---
 
@@ -437,7 +437,7 @@ Since `nodlopen` interfere with applications that rely on to `dlopen(3)` to mani
 
 #### Synopsis
 
-All major modern processor architectures incorporate memory management primitives that give the OS the ability to mark certain memory areas, such as the stack and heap, as non-executable, e.g., the AMD *“non-execute”* (NX) bit and the Intel *“execute disable”* (XD) bit. This mechanism prevents the stack or heap from being used inject malicious code during a run-time attack.
+All major modern processor architectures incorporate memory management primitives that give the OS the ability to mark certain memory areas, such as the stack and heap, as non-executable, e.g., the AMD *“non-execute”* (NX) bit and the Intel *“execute disable”* (XD) bit. This mechanism prevents the stack or heap from being used to inject malicious code during a run-time attack.
 
 The `-Wl,-z,noexecstack` option tells the linker to mark the corresponding program segment as non-executable which enables the OS to configure memory access rights correctly when the program executable is loaded into memory.
 
