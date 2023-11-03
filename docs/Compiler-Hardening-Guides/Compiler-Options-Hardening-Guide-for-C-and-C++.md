@@ -103,7 +103,7 @@ Typical compiler configurations do not report warnings from system headers, sinc
 
 [^clang-system-headers]: LLVM team, [Controlling Diagnostics in System Headers](https://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-in-system-headers), Clang Compiler User's Manual, 2017-03-08.
 
-[^gcc-directory-search] GCC team, [Options for Directory Search](https://gcc.gnu.org/onlinedocs/gcc/Directory-Options.html), GCC Manual, 2023-07-27.
+[^gcc-directory-search]: GCC team, [Options for Directory Search](https://gcc.gnu.org/onlinedocs/gcc/Directory-Options.html), GCC Manual, 2023-07-27.
 
 [^clang-isystem]: LLVM team, [Clang command line argument reference¶: -isystem\<directory\>](https://clang.llvm.org/docs/ClangCommandLineReference.html#cmdoption-clang-isystem-directory), Clang documentation, 2017-09-05.
 
@@ -520,19 +520,19 @@ Marking relocations read-only will mitigate run-time attacks that corrupt Global
 
 RELRO can be instantiated in one of two modes: partial RELRO or full RELRO. Full RELRO is necessary for effective mitigation for GOT overwrite attacks; partial RELRO is not sufficient.
 
-Partial RELRO (`-Wl,-z,relro`) will mark certain ELF section as read-only after initialization by runtime loader. These include `.init_array`, `.fini_array`, `.dynamic`, and the non-PLT portion of `.got`. However, in partial RELRO the auxiliary procedure linkage portion of the GOT (`.got.plt`) is still left writable to facilitate late binding.
+Partial RELRO (`-Wl,-z,relro`) will mark certain ELF sections as read-only after initialization by the runtime loader. These include `.init_array`, `.fini_array`, `.dynamic`, and the non-PLT portion of `.got`. However, in partial RELRO the auxiliary procedure linkage portion of the GOT (`.got.plt`) is still left writable to facilitate late binding.
 
 Full RELRO (`-Wl,-z,relro -Wl,-z,now`) disables lazy binding. This allows `ld.so` to resolve the entire GOT at application startup and mark also the PLT portion of the GOT as read-only.
 
 #### Performance implications
 
-Since lazy binding is primarily intended to speed up application startup times by spreading out the symbol resolution operations throughout the lifetime of the application enabling full RELRO can increase the startup time for applications with large numbers of dynamic dependencies. Performance impact scales with number of dynamically linked functions.
+Since lazy binding is primarily intended to speed up application startup times by spreading out the symbol resolution operations throughout the lifetime of the application, enabling full RELRO can increase the startup time for applications with large numbers of dynamic dependencies. The performance impact scales with the number of dynamically linked functions.
 
 #### When not to use?
 
-Applications that are sensitive to the performance impact on startup time should consider whether the increase in startup time caused by full RELRO impacts the user experience. As an alternative, developers can consider statically linking large library dependencies to the application executable
+Applications that are sensitive to the performance impact on startup time should consider whether the increase in startup time caused by full RELRO impacts the user experience. As an alternative, developers can consider statically linking large library dependencies to the application executable.
 
-Static linking avoids the need for dynamic symbol resolution altogether but can make it more difficult to deploy patches to dependencies compared upgrading shared library. Developers need to consider whether static linking is discouraged in their deployment scenarios, e.g., major Linux distributions generally forbid static linking of shared application dependencies.
+Static linking avoids the need for dynamic symbol resolution altogether but can make it more difficult to deploy patches to dependencies compared to upgrading shared libraries. Developers need to consider whether static linking is discouraged in their deployment scenarios, e.g., major Linux distributions generally forbid static linking of shared application dependencies.
 
 ---
 
@@ -603,7 +603,7 @@ Setting rpath in setuid/setgid programs can lead to privilege escalation under c
 
 ## Sanitizers
 
-Sanitizers are a suite of compiler-based tools designed to detect and pinpoint memory- safety issues and other defects in applications written in C and C++. They provide similar capabilities as dynamic analysis tools built on frameworks such as Valgrind. However, unlike Valgrind, sanitizers leverage compile-time instrumentation to intercept and monitor memory accesses. This allows sanitizers to be more efficient and accurate compared to dynamic analyzers. On average, Sanitizers impose a 2× to 4× slowdown in instrumented binaries, whereas dynamic instrumentation can exhibit slowdowns as large as 20× to 50×[^Kratochvil21]. As a tradeoff, sanitizers must be enabled at compile time whereas Valgrind can be used with unmodified binaries. Table 4 lists sanitizer options supported by GCC and Clang.
+Sanitizers are a suite of compiler-based tools designed to detect and pinpoint memory-safety issues and other defects in applications written in C and C++. They provide similar capabilities as dynamic analysis tools built on frameworks such as Valgrind. However, unlike Valgrind, sanitizers leverage compile-time instrumentation to intercept and monitor memory accesses. This allows sanitizers to be more efficient and accurate compared to dynamic analyzers. On average, Sanitizers impose a 2× to 4× slowdown in instrumented binaries, whereas dynamic instrumentation can exhibit slowdowns as large as 20× to 50×[^Kratochvil21]. As a tradeoff, sanitizers must be enabled at compile time whereas Valgrind can be used with unmodified binaries. Table 4 lists sanitizer options supported by GCC and Clang.
 
 While more efficient compared to dynamic analysis, sanitizers are still prohibitively expensive in terms of performance penalty and memory overhead to be used with Release builds, but excel at providing memory diagnostics in Debug, and in certain cases Test builds. For example, fuzz testing (or “fuzzing”) is a common security assurance activity designed to identify conditions that trigger memory-related bugs. Fuzzing is primarily useful for identifying memory errors that lead to application crashes. However, if fuzz testing is performed in binaries equipped with sanitizer functionality it is possible to also identify bugs which do not crash the application. Another benefit is the enhanced diagnostics information produced by sanitizers.
 
@@ -675,7 +675,7 @@ To enable TSan add `-fsanitize=thread` to the compiler flags (`CFLAGS` for C, `C
 
 The run-time behavior of TSan can be influenced using the `TSAN_OPTIONS` environment variable. An up-to-date list of supported options are available on the ThreadSanitizerFlags article on the project's GitHub Wiki[^tsan-flags]. If set to `TSAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program.
 
-When TSan encounters a potential data race it (by default) reports the race by printing a warning message with a description of the program state that lead to the data race. A detailed description of the report format can be found in the ThreadSanitizerReportFormat article on the project's GitHub Wiki[^tsan-reportformat].
+When TSan encounters a potential data race it (by default) reports the race by printing a warning message with a description of the program state that led to the data race. A detailed description of the report format can be found in the ThreadSanitizerReportFormat article on the project's GitHub Wiki[^tsan-reportformat].
 
 TSan cannot be used simultaneously with AddressSanitizer (ASan) or LeakSanitizer (LSan). It is not possible to mix TSan-instrumented code produced by GCC with TSan-instrumented code produced Clang as the TSan implementations in GCC and Clang are mutually incompatible. TSan generally requires all code to be compiled with `-fsanitize=thread` to operate correctly.
 
@@ -727,9 +727,9 @@ An application’s debugging information can be placed in a debug info file sepa
 There are several reasons why developers may wish to separate the debug information from the executable:
 
 - Avoid inadvertently revealing sensitive implementation details about the application. The availability of symbol information makes binary analysis and reverse engineering of the application’s executable easier.
-- Debug information can be very large – in some cases even larger than the executable code itself! For this reason, most Linux distributions distribute debug information for application packages in separate debug info files
+- Debug information can be very large – in some cases even larger than the executable code itself! For this reason, most Linux distributions distribute debug information for application packages in separate debug info files.
 
-The following series of commands needed to the generate the debug info file, strip the debugging information from the main executable, and to add the debug link section.
+The following series of commands generate the debug info file, strip the debugging information from the main executable, and add the debug link section.
 
 ~~~~sh
 objcopy --only-keep-debug executable_file executable_file.debug
@@ -765,15 +765,13 @@ Whether a particular section is present or absent in an ELF binary indicates wha
 
 ### Creating debug info files
 
-The debug info files are ordinary executables with an identical section layout as the application’s original executable, but without the executable’s data. The debug info file is
-
-created by compiling the application executable with the desired debug information included, then processing the executable with the `objcopy` utility to produce the stripped executable (without debugging information) and the debug info file (without executable data). Both GNU binutils `objcopy`[^binutils-objcopy] and LLVM `llvm-objcopy`[^llvm-objcopy] support the same options for stripping debug information and creating the debug info file. The shell snippet below shows the `objcopy` invocation for creating a debug info file from an executable with debug information.
+The debug info files are ordinary executables with an identical section layout as the application’s original executable, but without the executable’s data. The debug info file is created by compiling the application executable with the desired debug information included, then processing the executable with the `objcopy` utility to produce the stripped executable (without debugging information) and the debug info file (without executable data). Both GNU binutils `objcopy`[^binutils-objcopy] and LLVM `llvm-objcopy`[^llvm-objcopy] support the same options for stripping debug information and creating the debug info file. The shell snippet below shows the `objcopy` invocation for creating a debug info file from an executable with debug information.
 
 ~~~~sh
 objcopy --only-keep-debug executable_file executable_file.debug
 ~~~~
 
-There are no particular requirements for the debug link filename, although a common convention is to name debug info for an executable , e.g., “executable.debug”. While the debug info file can have the same name as the executable it is preferred to use an extension such as “.debug” as it means that the debug info file can be placed in the same directory as the executable.
+There are no particular requirements for the debug link filename, although a common convention is to name debug info for an executable, e.g., “executable.debug”. While the debug info file can have the same name as the executable it is preferred to use an extension such as “.debug” as it means that the debug info file can be placed in the same directory as the executable.
 
 Debug info files allows the binary to be analyzed in the same way as the original binary with debug and symbol information intact. They should be handled with care and not exposed in computing environments where they may be obtained by adversaries.
 
@@ -797,7 +795,7 @@ Removing symbol information used for relocations is discouraged as it may interf
 
 **Stripping additional sections**
 
-Note that `--strip-unneeded` only discards standard ELF sections as unneeded. Since an ELF binary can have any number of additional sections which are unknown to `objcopy` and strip they cannot determine whether such unrecognized sections are safe to remove. This includes for example the .comment section added by GCC.  The shell snippets below show how non-standard sections, such as .comment can be removed in addition to the unneeded sections identified by `--strip-unneeded`. If the application includes custom, application-specific ELF sections with possible sensitive diagnostics information or metadata which is not required at run-time during normal operations developers may wish to strip such additional sections from release binaries.
+Note that `--strip-unneeded` only discards standard ELF sections as unneeded. Since an ELF binary can have any number of additional sections which are unknown to `objcopy` and `strip` they cannot determine whether such unrecognized sections are safe to remove. This includes for example the `.comment` section added by GCC.  The shell snippets below show how non-standard sections, such as `.comment` can be removed in addition to the unneeded sections identified by `--strip-unneeded`. If the application includes custom, application-specific ELF sections with possible sensitive diagnostics information or metadata which is not required at run-time during normal operations developers may wish to strip such additional sections from release binaries.
 
 ~~~~sh
 objcopy --strip-unneeded --remove-section=.comment executable_file
@@ -834,9 +832,9 @@ Note that `.gnu_debuglink` does not contain the full pathname to the debug info;
 
 **Build ID**
 
-A build ID is a unique bit string stored in `.note.gnu.build-id` of the ELF .note section that is (statistically) unique to the binary file. A debugger can use the build ID to identify the corresponding debug info file if the same build ID is also present in the debug info file.
+A build ID is a unique bit string stored in `.note.gnu.build-id` of the ELF `.note` section that is (statistically) unique to the binary file. A debugger can use the build ID to identify the corresponding debug info file if the same build ID is also present in the debug info file.
 
-If the build ID method is used the debug info file’s name is computed from the build ID. GDB searches the global debug directories (typically /usr/lib/debug) for a .build- id/xx/yyyy.debug file, where xx are the first two hex characters of the build ID and yyyy are the rest of the build ID bit string in hex (actual build ID strings are 32 or more hex characters).
+If the build ID method is used the debug info file’s name is computed from the build ID. GDB searches the global debug directories (typically `/usr/lib/debug`) for a `.build-id/xx/yyyy.debug` file, where `xx` are the first two hex characters of the build ID and `yyyy` are the rest of the build ID bit string in hex (actual build ID strings are 32 or more hex characters).
 
 Note that the build ID does not act as a checksum for the executable or debug info file. For more information on the build ID feature please refer to the GDB[^binutils-objcopy] and GNU linker[^binutils-ld] documentation.
 
