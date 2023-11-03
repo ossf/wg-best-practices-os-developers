@@ -125,7 +125,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
 | [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^Guelton20]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. |
 | [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
-| [`-fstrict-flex-arrays=3`](#-fstrict-flex-arrays)                             |       GCC 13<br/>Clang 16.0.0       | Make the compiler respect the sizes of trailing arrays more strictly (this affects bounds checking) |
+| [`-fstrict-flex-arrays=3`](#-fstrict-flex-arrays)                             |       GCC 13<br/>Clang 16.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`                           |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen) |           Binutils 2.10            | Restrict `dlopen(3)` calls to shared objects                                 |
@@ -320,13 +320,16 @@ This option is unnecessary for security for applications in production that only
 
 | Compiler Flag                                                         |      Supported since      | Description                                                                                   |
 |:--------------------------------------------------------------------- |:----------------------:|:--------------------------------------------------------------------------------------------- |
-| <span id="-fstrict-flex-arrays">`-fstrict-flex-arrays=3`</span>                             |       GCC 13<br/>Clang 16.0.0       | Make the compiler respect the sizes of trailing arrays more strictly (this affects bounds checking) |
+| <span id="-fstrict-flex-arrays">`-fstrict-flex-arrays=0`</span>                             |       GCC 13<br/>Clang 15.0.0       | Consider any trailing array (at the end of a struct) a flexible array |
+| `-fstrict-flex-arrays=1`>                             |       GCC 13<br/>Clang 15.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`, `[0]`, or `[1]     ` |
+| `-fstrict-flex-arrays=2`                             |       GCC 13<br/>Clang 15.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`, `[0]`, or `[1]` |
+| `-fstrict-flex-arrays=3`                             |       GCC 13<br/>Clang 16.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]` |
 
 #### Synopsis
 
-Make the compiler respect the sizes of trailing arrays more strictly (this affects bounds checking).
+Modify what the compiler determines is a trailing array. The higher levels make the compiler respect the sizes of trailing arrays more strictly (this affects bounds checking).
 
-By default, GCC and Clang treat all trailing arrays (arrays that are placed as the last member or a structure) as flexible-sized arrays regardless of their actual size for the purposes of `__builtin_object_size()` calculations used by `_FORTIFY_SOURCE`. For example, given:
+By default, GCC and Clang treat all trailing arrays (arrays that are placed as the last member or a structure) as flexible-sized arrays, *regardless* of *declared* size for the purposes of `__builtin_object_size()` calculations used by `_FORTIFY_SOURCE`. This disables various bounds checks that do not always need to be disabled. For example, with the default settings, given:
 
 ~~~~c
 struct trailing_array {
@@ -341,11 +344,19 @@ The value of `__builtin_object_size(trailing->c, 1)` is  `-1` ("unknown size"), 
 
 The `-fstrict-flex-arrays` option makes the compiler respect the sizes of trailing array member more strictly. This allows bounds checks added by instrumentation such as `_FORTIFY_SOURCE` or `-fsanitize=bounds` to be able to correctly determine the size of trailing arrays.
 
-The tradeoff is that code that relies on the "struct hack" for arbitrary sized trailing arrays may break as a result. Such code needs to be modified to clearly state that it does not have a specific bound (that is, use C99 flexible array notation `[]` instead of `[4]`). Code that uses `[0]` for a flexible array needs to be modified to use `[]` instead. Code that uses `[1]` for a flexible arrays needs to be modified to use `[]` and also extensively modified to eliminate off-by-one errors. There is normally no significant performance trade-off.
+The tradeoff is that code that relies on the "struct hack" for arbitrary sized trailing arrays may break as a result. Such code may need to be modified to clearly state that it does not have a specific bound.
 
-Clang 16.0.0 supports level 3. Clang 15.X supports levels 0 through 2 inclusive.
+The C99 flexible array notation `[]` is the standards-based approach for notating when an array bound is not specifically stated. However, some codebases use the GCC zero-length array extension `[0]`, and some codebases use a one-sized array `[1]` to indicate a flexible array member. Option values `1` and `2` were created so programs that use `[0]` and `[1]` for such cases can have some bounds-checking without modifying their source code. [^Zhao2022]
+
+In this guide we recommend using the standard C99 flexible array notation `[]` instead of non-standard `[0]` or misleading `[1]`, and then using level 3 to improve bounds checking in such cases. In this case, code that uses `[0]` for a flexible array will need to be modified to use `[]` instead. Code that uses `[1]` for a flexible arrays needs to be modified to use `[]` and also extensively modified to eliminate off-by-one errors. Using `[1]` is not just misleading, it's error-prone; beware that *existing* code using `[1]` to indicate a flexible array may *currently* have off-by-one errors.
+
+Once in place, bounds-checking can occur in arrays with fixed declared sizes at the end of a struct. In addition, the source code unambiguously indicate, in a standard way, the cases where a flexible array is in use. There is normally no significant performance trade-off for this option (once any necessary changes have been made).
+
+Note that Clang 16.0.0 supports level 3. Clang 15.X supports levels 0 through 2 inclusive.
 
 For more information, see [^Cook2023], [^Guelton2022], [^GCCBug101836], [^Edge2022], and [^CorbetHarden2023].
+
+[^Zhao2022]: Zhao, Qing, "[[GCC13][Patch][V2][1/2]Add a new option -fstrict-flex-array[=n] and attribute strict_flex_array(n) and use it in PR101836"](https://gcc.gnu.org/pipermail/gcc-patches/2022-August/599151.html), 2022-08-01
 
 [^Cook2023]: Cook, Kees, and Gustavo A.R. Silva, ["Progress on Bounds Checking in C and the Linux Kernel", Linux Security Summit North America 2023](https://www.youtube.com/watch?v=V2kzptQG5_A)
 
