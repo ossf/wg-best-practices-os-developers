@@ -789,7 +789,7 @@ Note that `.gnu_debuglink` does not contain the full pathname to the debug info;
 
 A build ID is a unique bit string stored in `.note.gnu.build-id` of the ELF `.note` section that is (statistically) unique to the binary file. A debugger can use the build ID to identify the corresponding debug info file if the same build ID is also present in the debug info file.
 
-If the build ID method is used the debug info file’s name is computed from the build ID. GDB searches the global debug directories (typically `/usr/lib/debug`) for a `d.build-id/xx/yyyy.debug` file, where `xx` are the first two hex characters of the build ID and `yyyy` are the rest of the build ID bit string in hex (actual build ID strings are 32 or more hex characters).
+If the build ID method is used the debug info file’s name is computed from the build ID. GDB searches the global debug directories (typically `/usr/lib/debug`) for a `.build-id/xx/yyyy.debug` file, where `xx` are the first two hex characters of the build ID and `yyyy` are the rest of the build ID bit string in hex (actual build ID strings are 32 or more hex characters).
 
 Note that the build ID does not act as a checksum for the executable or debug info file. For more information on the build ID feature please refer to the GDB[^binutils-objcopy] and GNU linker[^binutils-ld] documentation.
 
