@@ -16,8 +16,8 @@ This document focuses on recommended options for the GNU Compiler Collection (GC
 When compiling C or C++ code on compilers such as GCC and clang, turn on these flags for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
 
 ~~~~sh
--O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Werror \
--D_FORTIFY_SOURCE=3 \
+-O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Wimplicit-fallthrough \
+-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,noexecstack \
@@ -37,9 +37,11 @@ When compiling on ARM, add:
 -mbranch-protection=standard
 ~~~~
 
-Developers should use `-Werror`, but redistributors will probably want to omit `-Werror`. Developers who release source code should ensure that their programs compile and pass their automated tests with all these options, e.g., by setting these as the default options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build programs for production may choose to omit some options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
+Developers should additionally use [`-Werror`](#-Werror), but it is advisable to omit it when distributing source code, as `-Werror` creates a dependency on specific toolchain vendors and versions.
 
 See the discussion below for background and for detailed discussion of each option.
+
+Developers should ensure that their programs compile and pass their automated tests with all these options, e.g., by setting these as the default options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build programs for production may choose to omit some options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
 
 **Why do we need compiler options hardening?**
 
@@ -65,7 +67,9 @@ Consequently, modern operating systems deploy various run-time mechanisms to pro
 
 To benefit from the protection mechanism provided by the OS the application binaries must be prepared at build time to be compatible with the mitigations. Typically, this means enabling specific option flags for the compiler or linker when the software is built.
 
-Some mechanisms may require additional configuration and fine tuning, for example due to potential compilation issues for certain unlikely edge cases, or performance overhead the mitigation adds for certain program constructs. This problem is exacerbated in projects that rely on an outdated version of an open source software (OSS) compiler. In general, security mitigations are more likely to be enabled by default in modern versions of compilers included with Linux distributions. Note that the defaults used by the upstream GCC project do not enable some of these mitigations.
+Some mechanisms may require additional configuration and fine tuning, for example due to potential compilation issues for certain unlikely edge cases, or performance overhead the mitigation adds for certain program constructs. Some compiler security features depend on data flow analysis of programs and heuristics, results of which may vary depending on program source code details. As a result, the protection mechanisms implemented by these features may not always provide full coverage.
+
+These problems are exacerbated in projects that rely on an outdated version of an open source software (OSS) compiler. In general, security mitigations are more likely to be enabled by default in modern versions of compilers included with Linux distributions. Note that the defaults used by the upstream GCC project do not enable some of these mitigations.
 
 If compiler options hardening is overlooked or neglected during build time it can become impossible to add hardening to already distributed executables. It is therefore good practice to evaluate which mitigations an application should support, and make conscious, informed decisions whenever not enabling a mitigation weakens the application’s defensive posture. Ensure that the software is *tested* with as many options as practical, to ensure it can be operated that way.
 
@@ -74,6 +78,10 @@ Some organizations require selecting hardening rules. For example, the US govern
 [^NIST-SP-800-218-1-1]: US NIST, [Secure Software Development Framework (SSDF) Version 1.1: Recommendations for Mitigating the Risk of Software Vulnerabilities](https://csrc.nist.gov/publications/detail/sp/800-218/final), NIST SP 800-218, February 2018.
 
 [^CMU2018]: Carnegie Mellon University (CMU), [Top 10 Secure Coding Practices](https://wiki.sei.cmu.edu/confluence/display/seccode/Top+10+Secure+Coding+Practices), SEI CERT Coding Standards Wiki, 2018-05-02.
+
+**What should you do when compiling compilers?**
+
+If you are compiling a C/C++ compiler, where practical make the generated compiler's default options the *secure* options. For example, when compiling GCC, use `--enable-default-pie` (which enables the flags `-fPIE` and `-pie` by default when using the generated compiler executable) and `--enable-default-ssp` (which enables `-fstack-protector-strong` by default). Similarly, when compiling clang on Linux systems, set `CLANG_DEFAULT_PIE_ON_LINUX` (which has a similar effect as the option `--enable-default-pie` when compiling GCC).
 
 **What does compiler options hardening not do?**
 
@@ -107,6 +115,16 @@ It's important to note that sourcing GCC from third-party vendor may result in y
 
 [^ubuntu-hardening]: Ubuntu, [Ubuntu Security Features](https://wiki.ubuntu.com/Security/Features), Ubuntu Wiki, 2023-08-07.
 
+Typical compiler configurations do not report warnings from system headers, since application developers typically don't control those headers.  In GCC this is because `-Wno-system-headers` is on by default, and clang also normally suppresses warnings from system headers [^clang-system-headers]. You will probably want to also mark third party include files as system headers so you can strongly increase the warning levels. Directories added with the command line option `-isystem` are treated as system header directories by GCC [^gcc-directory-search] and Clang [^clang-isystem]. In a Cmake configuration file you can do this with `include_directories` by adding `SYSTEM` before its parameter [^cmake-include-directories]. There are trade-offs. Silencing warnings from system headers and third party libraries may hide vulnerabilities in them that affect the application. On the other hand, *not* silencing them focuses efforts on issues that the developer typically cannot control, impede progress when using `-Werror` in CI jobs, and often make it difficult to support building with older versions of third party code.
+
+[^clang-system-headers]: LLVM team, [Controlling Diagnostics in System Headers](https://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-in-system-headers), Clang Compiler User's Manual, 2017-03-08.
+
+[^gcc-directory-search]: GCC team, [Options for Directory Search](https://gcc.gnu.org/onlinedocs/gcc/Directory-Options.html), GCC Manual, 2023-07-27.
+
+[^clang-isystem]: LLVM team, [Clang command line argument reference¶: -isystem\<directory\>](https://clang.llvm.org/docs/ClangCommandLineReference.html#cmdoption-clang-isystem-directory), Clang documentation, 2017-09-05.
+
+[^cmake-include-directories]: Kitware, [include_directories¶](https://cmake.org/cmake/help/latest/command/include_directories.html), Cmake Documentation, 2023-10-23.
+
 Compile-time checks enabled by options in Table 1 do not have an impact on the binary code generated by the compiler and consequently do not incur any tradeoffs in terms of performance or other run-time characteristics. Rather, they only issue warnings (or errors if the `-Werror` option is enabled) that inform of potential defects found in the source code.
 
 When such additional warnings are enabled, developers should take time to understand the underlying issues that are flagged by the compiler and address them.
@@ -128,13 +146,14 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | [`-Wformat=2`](#-Wformat=2)                                                   | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings                                          |
 | [`-Wconversion`](#-Wconversion)<br/>[`-Wsign-conversion`](#-Wsign-conversion) | GCC 2.95.3<br/>Clang 4.0 | Enable implicit conversion warnings                                                 |
 | [`-Wtrampolines`](#-Wtrampolines)                                             |         GCC 4.3          | Enable warnings about trampolines that require executable stacks                    |
-| [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Make compiler warnings into errors                                                  |
+| [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7.1.0<br>Clang   | Warn when a switch case falls through                                           |
+| [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Make compiler warnings into errors (use in development, not in source distribution) |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
 
 | Compiler Flag                                                                             |            Supported since            | Description                                                                                  |
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
-| [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^Guelton20]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. |
+| [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher, <br/> may require prepending -U_FORTIFY_SOURCE) | GCC 12.0<br/>Clang 9.0.0[^Guelton20]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. |
 | [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
@@ -225,11 +244,49 @@ For C++ warnings about conversions between signed and unsigned integers are disa
 
 #### Synopsis
 
-Check whether the compiler generates trampolines for pointer to nested functions which may interfere with stack virtual memory protection (non-executable stack.)
+Check whether the compiler generates trampolines for pointers to nested functions which may interfere with stack virtual memory protection (non-executable stack.)
 
 A trampoline is a small piece of data or code that is created at run time on the stack when the address of a nested function is taken and is used to call the nested function indirectly.
 
 For most target architectures, including 64-bit x86, trampolines are made up of code and thus requires the stack to be made executable for the program to work properly. This interferes with the non-executable stack mitigation which is used by all major operating system to prevent code injection attacks (see Section 2.10).
+
+---
+
+### Warn about implicit fallthrough in switch statements
+
+| Compiler Flag                                                                                        |       Supported since       | Description                        |
+|:---------------------------------------------------------------------------------------------------- |:------------------------:|:---------------------------------- |
+| <span id="-Wimplicit-fallthrough">`-Wimplicit-fallthrough`</span>                           |         GCC<br>Clang   | Warn when a switch case falls through                                                 |
+
+<!-- Here "a fallthrough" is a noun, "to fall through" is the verb. -->
+
+#### Synopsis
+
+Warn when an implicit fallthrough occurs in a switch statement that has not been specifically marked as intended.
+
+The `switch` statement in C and C++ allows a case block to fall through to the following case block (unless preceded by break, return, goto, or similar). This is widely considered a design defect in C, because a common mistake is to have a fallthrough occur when it was *not* intended[^Polacek17].
+
+This warning flag warns when a fallthrough occurs unless it is specially marked as being *intended*. The Linux kernel project uses this flag; it led to the discovery and fixing of many bugs[^Corbet19].
+
+This warning flag does not have a performance impact. However, sometimes a fallthrough *is* intentional. This flag requires developers annotate those (rare) cases in the source code where a falthrough *is* intentional, to suppress the warning. Obviously, this annotation should *only* be used when it is intentional. C++17 (or later) code should simply use the attribute `[[fallthrough]]` as it is standard (remember to add `;` after it).
+
+The C17 standard[^C2017] does not provide a mechanism to mark intentional fallthroughs. Different tools support different mechanisms for marking one, including attributes and comments in various forms[^Shafik15]. A portable way to mark one, used by the Linux kernel version 5.10 and later, is to define a keyword-like macro named `fallthrough` to mark an intentional fallthrough that adjusts to the relevant tool (e.g., compiler) mechanism:
+
+~~~~c
+#if __has_attribute(__fallthrough__)
+# define fallthrough                    __attribute__((__fallthrough__))
+#else
+# define fallthrough                    do {} while (0)  /* fallthrough */
+#endif
+~~~~
+
+[^Polacek17]: Polacek, Marek, ["-Wimplicit-fallthrough in GCC 7"](https://developers.redhat.com/blog/2017/03/10/wimplicit-fallthrough-in-gcc-7), Red Hat Developer, 2017-03-10
+
+[^Corbet19]: Corbet, Jonathan.  ["An end to implicit fall-throughs in the kernel"](https://lwn.net/Articles/794944/), LWN, 2019-08-01.
+
+[^C2017]: ISO/IEC, [Programming languages — C ("C17")](https://web.archive.org/web/20181230041359/http://www.open-std.org/jtc1/sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf), ISO/IEC 9899:2018, 2017. Note: The official ISO/IEC specification is paywalled and therefore not publicly available. The final specification draft is publicly available.
+
+[^Shafik15]: Shafik, Yaghmour, ["GCC 7, -Wimplicit-fallthrough warnings, and portable way to clear them?"](https://stackoverflow.com/questions/27965722/c-force-compile-time-error-warning-on-implicit-fall-through-in-switch/27965827#27965827), StackOverflow, 2015-01-15.
 
 ---
 
@@ -243,11 +300,15 @@ For most target architectures, including 64-bit x86, trampolines are made up of 
 
 Make the compiler treat all or specific warning diagnostics as errors.
 
-A blanket `-Werror` can be used to implement a zero-warning policy, although such policies can also be enforced at CI level. CI-based zero- or bounded-warning policies are often preferable as they can be expanded beyond compiler warning. For example, they can also include warnings from static analysis tools or generate warnings when `FIXME` and `TODO` comments are found.
+Developers should use `-Werror`, but it is advisable to omit it when distributing source code as `-Werror` creates a dependency on specific toolchain vendors and versions [^Johnston17]. Such toolchain dependencies, i.e., which compiler version(s) the project is expected to work with, should be clearly noted in the project documentation or the build environment should be completely captured, e.g., via container recipes.
 
-The selective form: `-Werror=`*`<warning-flag>`* can be used for refined warnings-as-error control without introducing a blanket zero-warning policy. This is beneficial to ensure that certain undesirable constructs or defects do not make into produced builds.
+A blanket `-Werror` can be used to implement a zero-warning policy, although such policies can also be enforced at CI level. CI-based zero- or bounded-warning policies are often preferable, for the reasons explained above, and because they can be expanded beyond compiler warnings. For example, they can also include warnings from static analysis tools or generate warnings when `FIXME` and `TODO` comments are found.
+
+The selective form: `-Werror=`*`<warning-flag>`* can be used for refined warnings-as-error control without introducing a blanket zero-warning policy. This is beneficial to ensure that certain undesirable constructs or defects do not make it into produced builds.
 
 For example, developers can decide to promote warnings that indicate interference with OS defense mechanisms (e.g., `-Werror=trampolines`), undefined behavior (e.g., `-Werror=return-type`), or constructs associated with software weaknesses (e.g., `-Werror=conversion`) to errors.
+
+[^Johnston17]: Johnston, Philip. [-Werror is Not Your Friend](https://embeddedartistry.com/blog/2017/05/22/werror-is-not-your-friend/). Embedded Artistry Blog, 2017-05-22.
 
 ---
 
@@ -271,13 +332,15 @@ The `_FORTIFY_SOURCE` mechanisms have three modes of operation:
 - `-D_FORTIFY_SOURCE=2`: stricter checks that also detect behavior that may be unsafe even though it conforms to the C standard; may affect program behavior by disallowing certain programming constructs. An example of such checks is restricting of the `%n` format specifier to read-only format strings.
 - `-D_FORTIFY_SOURCE=3`: Same checks as those covered by `-D_FORTIFY_SOURCE=2` except that checking is enabled even when the compiler is able to estimate the size of the protected object as an expression, not just a compile time constant.
 
-To benefit from `_FORTIFY_SOURCE` checks following requirements must be met:  
+To benefit from `_FORTIFY_SOURCE` checks the following requirements must be met:
 
 - the application must be built with `-O1` optimizations or higher; at least `-O2` is recommended.
 - the compiler should be able to estimate sizes of the destination buffers at compile time. This can be facilitated by applications and libraries by using function attribute extensions supported by GCC and Clang[^Poyarekar23].
 - the application code must use glibc versions of the aforementioned functions (included with standard headers, e.g. `<stdio.h>` and `<string.h>`)
 
 If checks added by `_FORTIFY_SOURCE` detect unsafe behavior at run-time they will print an error message and terminate the application.
+
+A default mode for FORTIFY_SOURCE may be predefined for a given compiler, for instance GCC shipped with Ubuntu 22.04 uses FORTIFY_SOURCE=2 by default. If a mode of FORTIFY_SOURCE is set on the command line which differs from the default, the compiler warns about redefining the FORTIFY_SOURCE macro. To avoid this, the predefined mode can be unset with -U_FORTIFY_SOURCE before setting the desired value.
 
 #### Performance implications
 
@@ -287,8 +350,8 @@ Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligib
 
 `_FORTIFY_SOURCE` is recommended for all application that depend on glibc and should be widely deployed. Most packages in all major Linux distributions enable at least `_FORTIFY_SOURCE=2` and some even enable `_FORTIFY_SOURCE=3`. There are a couple of situations when `_FORTIFY_SOURCE` may break existing applications:
 
-- If the fortified glibc function calls show up as hotspots in your application performance profile, there is a chance that `_FORTIFY_SOURCE` may have a negative performance impact. This is not a common or widespread slowdown[^Poyarekar23] but worth keeping in mind if slowdowns are observed due to this option
-- Applications that use the GNU extension for flexible array members in structs[^gcc-zerolengtharrays] may confuse the compiler into thinking that an object is smaller than it actually is, resulting in spurious aborts. The safe resolution for this is to port these uses to C99 flexible arrays but if that is not possible (e.g. due to the need to support a compiler that does not support C99 flexible arrays), one may need to downgrade or disable `_FORTIFY_SOURCE` protections.
+- If the fortified glibc function calls show up as hotspots in your application performance profile, there is a chance that `_FORTIFY_SOURCE` may have a negative performance impact. This is not a common or widespread slowdown[^Poyarekar23] but worth keeping in mind if slowdowns are observed due to this option.
+- Applications that use the GNU extension for flexible array members in structs[^gcc-zerolengtharrays] may confuse the compiler into thinking that an object is smaller than it actually is, resulting in spurious aborts. The safe resolution for this is to port these uses to C99 flexible arrays but if that is not possible (e.g., due to the need to support a compiler that does not support C99 flexible arrays), one may need to downgrade or disable `_FORTIFY_SOURCE` protections.
 
 [^glibc-fortification]: GNU C Library team, [Source Fortification in the GNU C Library](https://www.gnu.org/software/libc/manual/html_node/Source-Fortification.html), GNU C Library (glibc) manual, 2023-02-01.
 
@@ -312,7 +375,7 @@ These precondition checks can be enabled by defining the `-D_GLIBCXX_ASSERTIONS`
 
 #### Performance implications
 
-Most calls into the C++ standard library have preconditions. Some preconditions can be checked in constant-time, others are more expensive. The checks enabled by `-D_GLIBCXX_ASSERTIONS` are  intended to be lightweight[^Wakely15], i.e., constant-time checks but the exact behavior can differ between standard library versions. In some versions libstdc++ the `-D_GLIBCXX_ASSERTIONS` macro can have a non-trivial impact on performance. Slowdowns of up to 6% have been reported[^Kraus21].
+Most calls into the C++ standard library have preconditions. Some preconditions can be checked in constant-time, others are more expensive. The checks enabled by `-D_GLIBCXX_ASSERTIONS` are  intended to be lightweight[^Wakely15], i.e., constant-time checks but the exact behavior can differ between standard library versions. In some versions of libstdc++ the `-D_GLIBCXX_ASSERTIONS` macro can have a non-trivial impact on performance. Slowdowns of up to 6% have been reported[^Kraus21].
 
 #### When not to use?
 
@@ -339,7 +402,7 @@ This option is unnecessary for security for applications in production that only
 
 Stack clash protection mitigates attacks that aim to bypass the operating system’s *stack guard gap*. The stack guard gap is a security feature in the Linux kernel that protects processes against sequential stack overflows that overflow the stack in order to corrupt adjacent memory regions.
 
-To avoid the stack guard gap from being bypassed each fresh allocation on the stack needs to probe the freshly allocated memory for the stack guard gap if it is present. Stack clash protection ensures a single allocation may not be larger than the stack guard gap size and the compiler translates larger allocations into a series of smaller sub-allocations. In addition, it ensures that any series of sub-allocations can not exceed the stack guard gap size without an intervening probe.
+To avoid the stack guard gap from being bypassed each fresh allocation on the stack needs to probe the freshly allocated memory for the stack guard gap if it is present. Stack clash protection ensures a single allocation may not be larger than the stack guard gap size and the compiler translates larger allocations into a series of smaller sub-allocations. In addition, it ensures that any series of sub-allocations cannot exceed the stack guard gap size without an intervening probe.
 
 Probe instructions can either be implicit or explicit. Implicit probes occur naturally as part of the application’s code, such as when x86 and x86_64 call instructions push the return address onto the stack. Implicit probes do not incur any additional performance cost. Explicit probes, on the other hand, consists of additional probe instructions emitted by the compiler.
 
@@ -369,6 +432,10 @@ The detection is based on inserting a *canary* value into the stack frame in the
 
 This mitigates potential control-flow hijacking attacks that may lead to arbitrary code execution by corrupting return addresses stored on the stack.
 
+Out-of-date versions of GCC may not detect or defend against overflows of dynamically-sized local variables such as variable-length arrays or buffers allocated using `alloca()` when compiling for 64-bit Arm (Aarch64) processors[^Meta23]. Users of GCC-based toolchains for Aarch64 should ensure they use up-to-date versions of GCC 7 or later that support an alternative stack frame layout that places all local variables below saved registers, with the stack-protector canary between them[^Arm23].
+
+Some versions of GCC[^CVE-2023-4039] may not detect or defend against overflows of dynamically-sized local variables such as variable-length arrays or buffers allocated using alloca() when compiling for 64-bit Arm (Aarch64) processors[^Meta23]. Users of GCC-based toolchains for Aarch64 should, before depending on it, determine if they support an alternative stack frame layout that places all local variables below saved registers, with the stack-protector canary between them[^Arm23].
+
 #### Performance implications
 
 Stack protector supports three different heuristics that are used to determine which functions are instrumented with run-time checks during compilation:
@@ -389,6 +456,12 @@ The performance overhead is dependent on the number of function’s instrumented
 `-fstack-protector-strong` is recommended for all applications with conventional stack behavior. Applications with hand-written assembler optimization that make assumptions about the layout of the stack may be incompatible with stack-protector functionality.
 
 [^Han11]: Shen, Han, [New stack protector option for gcc](https://docs.google.com/document/d/1xXBH6rRZue4f296vGt9YQcuLVQHeE516stHwt8M9xyU), Google Docs, 2011-11-30.
+
+[^CVE-2023-4039]: Common Vulnerability Enumeration Database, [CVE-2023-4039](https://www.cve.org/CVERecord?id=CVE-2023-4039), 2023-09-13.
+
+[^Meta23]: Hebb, Tom, [GCC's -fstack-protector fails to guard dynamic stack allocations on ARM64](https://github.com/metaredteam/external-disclosures/security/advisories/GHSA-x7ch-h5rf-w2mf), GitHub metaredteam/external-disclosures Advisories, 2023-09-12.
+
+[^Arm23]: Arm, [GCC Stack Protector Vulnerability AArch64](https://developer.arm.com/Arm%20Security%20Center/GCC%20Stack%20Protector%20Vulnerability%20AArch64), Arm Security Center, 2023-09-12.
 
 ---
 
@@ -423,7 +496,7 @@ There are performance implications but they are typically mild due to hardware a
 
 The `nodlopen` option passed to the linker when building shared objects will mark the resulting object as not available to `dlopen(3)` calls. This can help in reducing an attacker's ability to load and manipulate shared objects. Loading new objects or duplicating an already existing shared object in a process can constitute a part of the attack chain in runtime exploitation.
 
-The `nodlopen` restrictions are based on setting the `DF_1_NOOPEN` flags in the object’s `.dynamic` section tags. Since the enforcement of restricted calls is done inside libc when `dlopen(3)` are called it is possible for attackers to bypass check by 1) manipulating the tag embedded in the object if they have the ability to modify the object file on disk, or 2) bypassing `dlopen(3)` and loading shared objects through attacker controlled code, e.g., pieces of shellcode or return-oriented-programming gadgets. However, restrictions on `dlopen(3)` put in place at link time can still be useful in restricting the attacker before they have obtained arbitrary code execution capabilities.
+The `nodlopen` restrictions are based on setting the `DF_1_NOOPEN` flags in the object’s `.dynamic` section tags. Since the enforcement of restricted calls is done inside libc when `dlopen(3)` are called it is possible for attackers to bypass the check by 1) manipulating the tag embedded in the object if they have the ability to modify the object file on disk, or 2) bypassing `dlopen(3)` and loading shared objects through attacker controlled code, e.g., pieces of shellcode or return-oriented-programming gadgets. However, restrictions on `dlopen(3)` put in place at link time can still be useful in restricting the attacker before they have obtained arbitrary code execution capabilities.
 
 #### Performance implications
 
@@ -438,7 +511,7 @@ In some cases it is desirable for applications to manage the loading of librarie
 - Selecting an implementation of an API by different vendors
 - Delay loading of shared libraries to decrease application start times. (See also lazy binding in Section 2.11)
 
-Since `nodlopen` interfere with applications that rely on to `dlopen(3)` to manipulate shared objects they cannot be used with applications that rely on such functionality.
+Since `nodlopen` interferes with applications that rely on to `dlopen(3)` to manipulate shared objects they cannot be used with applications that rely on such functionality.
 
 ---
 
@@ -450,7 +523,7 @@ Since `nodlopen` interfere with applications that rely on to `dlopen(3)` to mani
 
 #### Synopsis
 
-All major modern processor architectures incorporate memory management primitives that give the OS the ability to mark certain memory areas, such as the stack and heap, as non-executable, e.g., the AMD *“non-execute”* (NX) bit and the Intel *“execute disable”* (XD) bit. This mechanism prevents the stack or heap from being used inject malicious code during a run-time attack.
+All major modern processor architectures incorporate memory management primitives that give the OS the ability to mark certain memory areas, such as the stack and heap, as non-executable, e.g., the AMD *“non-execute”* (NX) bit and the Intel *“execute disable”* (XD) bit. This mechanism prevents the stack or heap from being used to inject malicious code during a run-time attack.
 
 The `-Wl,-z,noexecstack` option tells the linker to mark the corresponding program segment as non-executable which enables the OS to configure memory access rights correctly when the program executable is loaded into memory.
 
@@ -488,19 +561,19 @@ Marking relocations read-only will mitigate run-time attacks that corrupt Global
 
 RELRO can be instantiated in one of two modes: partial RELRO or full RELRO. Full RELRO is necessary for effective mitigation for GOT overwrite attacks; partial RELRO is not sufficient.
 
-Partial RELRO (`-Wl,-z,relro`) will mark certain ELF section as read-only after initialization by runtime loader. These include `.init_array`, `.fini_array`, `.dynamic`, and the non-PLT portion of `.got`. However, in partial RELRO the auxiliary procedure linkage portion of the GOT (`.got.plt`) is still left writable to facilitate late binding.
+Partial RELRO (`-Wl,-z,relro`) will mark certain ELF sections as read-only after initialization by the runtime loader. These include `.init_array`, `.fini_array`, `.dynamic`, and the non-PLT portion of `.got`. However, in partial RELRO the auxiliary procedure linkage portion of the GOT (`.got.plt`) is still left writable to facilitate late binding.
 
 Full RELRO (`-Wl,-z,relro -Wl,-z,now`) disables lazy binding. This allows `ld.so` to resolve the entire GOT at application startup and mark also the PLT portion of the GOT as read-only.
 
 #### Performance implications
 
-Since lazy binding is primarily intended to speed up application startup times by spreading out the symbol resolution operations throughout the lifetime of the application enabling full RELRO can increase the startup time for applications with large numbers of dynamic dependencies. Performance impact scales with number of dynamically linked functions.
+Since lazy binding is primarily intended to speed up application startup times by spreading out the symbol resolution operations throughout the lifetime of the application, enabling full RELRO can increase the startup time for applications with large numbers of dynamic dependencies. The performance impact scales with the number of dynamically linked functions.
 
 #### When not to use?
 
-Applications that are sensitive to the performance impact on startup time should consider whether the increase in startup time caused by full RELRO impacts the user experience. As an alternative, developers can consider statically linking large library dependencies to the application executable
+Applications that are sensitive to the performance impact on startup time should consider whether the increase in startup time caused by full RELRO impacts the user experience. As an alternative, developers can consider statically linking large library dependencies to the application executable.
 
-Static linking avoids the need for dynamic symbol resolution altogether but can make it more difficult to deploy patches to dependencies compared upgrading shared library. Developers need to consider whether static linking is discouraged in their deployment scenarios, e.g., major Linux distributions generally forbid static linking of shared application dependencies.
+Static linking avoids the need for dynamic symbol resolution altogether but can make it more difficult to deploy patches to dependencies compared to upgrading shared libraries. Developers need to consider whether static linking is discouraged in their deployment scenarios, e.g., major Linux distributions generally forbid static linking of shared application dependencies.
 
 ---
 
@@ -571,7 +644,7 @@ Setting rpath in setuid/setgid programs can lead to privilege escalation under c
 
 ## Sanitizers
 
-Sanitizers are a suite of compiler-based tools designed to detect and pinpoint memory- safety issues and other defects in applications written in C and C++. They provide similar capabilities as dynamic analysis tools built on frameworks such as Valgrind. However, unlike Valgrind, sanitizers leverage compile-time instrumentation to intercept and monitor memory accesses. This allows sanitizers to be more efficient and accurate compared to dynamic analyzers. On average, Sanitizers impose a 2× to 4× slowdown in instrumented binaries, whereas dynamic instrumentation can exhibit slowdowns as large as 20× to 50×[^Kratochvil21]. As a tradeoff, sanitizers must be enabled at compile time whereas Valgrind can be used with unmodified binaries. Table 4 lists sanitizer options supported by GCC and Clang.
+Sanitizers are a suite of compiler-based tools designed to detect and pinpoint memory-safety issues and other defects in applications written in C and C++. They provide similar capabilities as dynamic analysis tools built on frameworks such as Valgrind. However, unlike Valgrind, sanitizers leverage compile-time instrumentation to intercept and monitor memory accesses. This allows sanitizers to be more efficient and accurate compared to dynamic analyzers. On average, Sanitizers impose a 2× to 4× slowdown in instrumented binaries, whereas dynamic instrumentation can exhibit slowdowns as large as 20× to 50×[^Kratochvil21]. As a tradeoff, sanitizers must be enabled at compile time whereas Valgrind can be used with unmodified binaries. Table 4 lists sanitizer options supported by GCC and Clang.
 
 While more efficient compared to dynamic analysis, sanitizers are still prohibitively expensive in terms of performance penalty and memory overhead to be used with Release builds, but excel at providing memory diagnostics in Debug, and in certain cases Test builds. For example, fuzz testing (or “fuzzing”) is a common security assurance activity designed to identify conditions that trigger memory-related bugs. Fuzzing is primarily useful for identifying memory errors that lead to application crashes. However, if fuzz testing is performed in binaries equipped with sanitizer functionality it is possible to also identify bugs which do not crash the application. Another benefit is the enhanced diagnostics information produced by sanitizers.
 
@@ -643,7 +716,7 @@ To enable TSan add `-fsanitize=thread` to the compiler flags (`CFLAGS` for C, `C
 
 The run-time behavior of TSan can be influenced using the `TSAN_OPTIONS` environment variable. An up-to-date list of supported options are available on the ThreadSanitizerFlags article on the project's GitHub Wiki[^tsan-flags]. If set to `TSAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program.
 
-When TSan encounters a potential data race it (by default) reports the race by printing a warning message with a description of the program state that lead to the data race. A detailed description of the report format can be found in the ThreadSanitizerReportFormat article on the project's Github Wiki[^tsan-reportformat].
+When TSan encounters a potential data race it (by default) reports the race by printing a warning message with a description of the program state that led to the data race. A detailed description of the report format can be found in the ThreadSanitizerReportFormat article on the project's GitHub Wiki[^tsan-reportformat].
 
 TSan cannot be used simultaneously with AddressSanitizer (ASan) or LeakSanitizer (LSan). It is not possible to mix TSan-instrumented code produced by GCC with TSan-instrumented code produced Clang as the TSan implementations in GCC and Clang are mutually incompatible. TSan generally requires all code to be compiled with `-fsanitize=thread` to operate correctly.
 
@@ -695,9 +768,9 @@ An application’s debugging information can be placed in a debug info file sepa
 There are several reasons why developers may wish to separate the debug information from the executable:
 
 - Avoid inadvertently revealing sensitive implementation details about the application. The availability of symbol information makes binary analysis and reverse engineering of the application’s executable easier.
-- Debug information can be very large – in some cases even larger than the executable code itself! For this reason, most Linux distributions distribute debug information for application packages in separate debug info files
+- Debug information can be very large – in some cases even larger than the executable code itself! For this reason, most Linux distributions distribute debug information for application packages in separate debug info files.
 
-The following series of commands needed to the generate the debug info file, strip the debugging information from the main executable, and to add the debug link section.
+The following series of commands generate the debug info file, strip the debugging information from the main executable, and add the debug link section.
 
 ~~~~sh
 objcopy --only-keep-debug executable_file executable_file.debug
@@ -733,15 +806,13 @@ Whether a particular section is present or absent in an ELF binary indicates wha
 
 ### Creating debug info files
 
-The debug info files are ordinary executables with an identical section layout as the application’s original executable, but without the executable’s data. The debug info file is
-
-created by compiling the application executable with the desired debug information included, then processing the executable with the `objcopy` utility to produce the stripped executable (without debugging information) and the debug info file (without executable data). Both GNU binutils `objcopy`[^binutils-objcopy] and LLVM `llvm-objcopy`[^llvm-objcopy] support the same options for stripping debug information and creating the debug info file. The shell snippet below shows the `objcopy` invocation for creating a debug info file from an executable with debug information.
+The debug info files are ordinary executables with an identical section layout as the application’s original executable, but without the executable’s data. The debug info file is created by compiling the application executable with the desired debug information included, then processing the executable with the `objcopy` utility to produce the stripped executable (without debugging information) and the debug info file (without executable data). Both GNU binutils `objcopy`[^binutils-objcopy] and LLVM `llvm-objcopy`[^llvm-objcopy] support the same options for stripping debug information and creating the debug info file. The shell snippet below shows the `objcopy` invocation for creating a debug info file from an executable with debug information.
 
 ~~~~sh
 objcopy --only-keep-debug executable_file executable_file.debug
 ~~~~
 
-There are no particular requirements for the debug link filename, although a common convention is to name debug info for an executable , e.g., “executable.debug”. While the debug info file can have the same name as the executable it is preferred to use an extension such as “.debug” as it means that the debug info file can be placed in the same directory as the executable.
+There are no particular requirements for the debug link filename, although a common convention is to name debug info for an executable, e.g., “executable.debug”. While the debug info file can have the same name as the executable it is preferred to use an extension such as “.debug” as it means that the debug info file can be placed in the same directory as the executable.
 
 Debug info files allows the binary to be analyzed in the same way as the original binary with debug and symbol information intact. They should be handled with care and not exposed in computing environments where they may be obtained by adversaries.
 
@@ -751,7 +822,7 @@ Debug info files allows the binary to be analyzed in the same way as the origina
 
 ### Strip debug and symbol information
 
-Once the debug info file has been created the debug and symbol information can be stripped from the original binary using either the `objcopy` or `strip`[^binutils-strip] utilities provided by Binutils, or the `llvm-objcopy` or `llvm-strip`[^llvm-strip] equivalents provided by LLVM. The shell snippets below show how the debug and unneeded symbol information can removed from an executable using `objcopy` and `strip` respectively. If code signing is enforced on the application binaries the debug and symbol information must be stripped away before the binaries are signed.
+Once the debug info file has been created the debug and symbol information can be stripped from the original binary using either the `objcopy` or `strip`[^binutils-strip] utilities provided by Binutils, or the `llvm-objcopy` or `llvm-strip`[^llvm-strip] equivalents provided by LLVM. The shell snippets below show how the debug and unneeded symbol information can be removed from an executable using `objcopy` and `strip` respectively. If code signing is enforced on the application binaries the debug and symbol information must be stripped away before the binaries are signed.
 
 ~~~~sh
 strip --strip-unneeded executable_file
@@ -765,7 +836,7 @@ Removing symbol information used for relocations is discouraged as it may interf
 
 **Stripping additional sections**
 
-Note that `--strip-unneeded` only discards standard ELF sections as unneeded. Since an ELF binary can have any number of additional sections which are unknown to `objcopy` and strip they cannot determine whether such unrecognized sections are safe to remove. This includes for example the .comment section added by GCC.  The shell snippets below show how non-standard sections, such as .comment can be removed in addition to the unneeded sections identified by `--strip-unneeded`. If the application includes custom, application-specific ELF sections with possible sensitive diagnostics information or metadata which is not required at run-time during normal operations developers may wish to strip such additional sections from release binaries.
+Note that `--strip-unneeded` only discards standard ELF sections as unneeded. Since an ELF binary can have any number of additional sections which are unknown to `objcopy` and `strip` they cannot determine whether such unrecognized sections are safe to remove. This includes for example the `.comment` section added by GCC.  The shell snippets below show how non-standard sections, such as `.comment` can be removed in addition to the unneeded sections identified by `--strip-unneeded`. If the application includes custom, application-specific ELF sections with possible sensitive diagnostics information or metadata which is not required at run-time during normal operations developers may wish to strip such additional sections from release binaries.
 
 ~~~~sh
 objcopy --strip-unneeded --remove-section=.comment executable_file
@@ -802,15 +873,15 @@ Note that `.gnu_debuglink` does not contain the full pathname to the debug info;
 
 **Build ID**
 
-A build ID is a unique bit string stored in `.note.gnu.build-id` of the ELF .note section that is (statistically) unique to the binary file. A debugger can use the build ID to identify the corresponding debug info file if the same build ID is also present in the debug info file.
+A build ID is a unique bit string stored in `.note.gnu.build-id` of the ELF `.note` section that is (statistically) unique to the binary file. A debugger can use the build ID to identify the corresponding debug info file if the same build ID is also present in the debug info file.
 
-If the build ID method is used the debug info file’s name is computed from the build ID. GDB searches the global debug directories (typically /usr/lib/debug) for a .build- id/xx/yyyy.debug file, where xx are the first two hex characters of the build ID and yyyy are the rest of the build ID bit string in hex (actual build ID strings are 32 or more hex characters).
+If the build ID method is used the debug info file’s name is computed from the build ID. GDB searches the global debug directories (typically `/usr/lib/debug`) for a `.build-id/xx/yyyy.debug` file, where `xx` are the first two hex characters of the build ID and `yyyy` are the rest of the build ID bit string in hex (actual build ID strings are 32 or more hex characters).
 
 Note that the build ID does not act as a checksum for the executable or debug info file. For more information on the build ID feature please refer to the GDB[^binutils-objcopy] and GNU linker[^binutils-ld] documentation.
 
 ## Contributors
 
-The OpenSSF Developer BEST Practices Working group thanks Ericsson for their generous intial donation of content to start collaboration on this guide.
+The OpenSSF Developer BEST Practices Working group thanks Ericsson for their generous initial donation of content to start collaboration on this guide.
 
 - Thomas Nyman, Ericsson
 - Robert Byrne, Ericsson
