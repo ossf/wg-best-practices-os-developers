@@ -24,21 +24,17 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -fstrict-flex-arrays=3 \
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,noexecstack \
--Wl,-z,relro -Wl,-z,now \
--fPIE -pie -fPIC -shared
+-Wl,-z,relro -Wl,-z,now
 ~~~~
 
-When compiling on most x86 architectures (amd64, i386 and x32), add:
+When compiling code in any of the situations in the below table, add the corresponding additional options:
 
-~~~~sh
--fcf-protection=full
-~~~~
-
-When compiling on ARM, add:
-
-~~~~sh
--mbranch-protection=standard
-~~~~
+| When                 | Additional options flags       |
+|:---------------------|:-------------------------------|
+| for executables      | `-fPIE -pie`                   |
+| for shared libraries | `-fPIC shared`                 |
+| for x86_64           | `-fcf-protection=full`         |
+| for aarch64          | `-mbranch-protection=standard` |
 
 Developers should additionally use [`-Werror`](#-Werror), but it is advisable to omit it when distributing source code, as `-Werror` creates a dependency on specific toolchain vendors and versions.
 
