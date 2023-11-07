@@ -318,12 +318,12 @@ This option is unnecessary for security for applications in production that only
 
 ### Enable strict flexible arrays
 
-| Compiler Flag                                                         |      Supported since      | Description                                                                                   |
-|:--------------------------------------------------------------------- |:----------------------:|:--------------------------------------------------------------------------------------------- |
-| <span id="-fstrict-flex-arrays">`-fstrict-flex-arrays=0`</span>                             |       GCC 13<br/>Clang 15.0.0       | Consider any trailing array (at the end of a struct) a flexible array |
-| `-fstrict-flex-arrays=1`>                             |       GCC 13<br/>Clang 15.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`, `[0]`, or `[1]` |
-| `-fstrict-flex-arrays=2`                             |       GCC 13<br/>Clang 15.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`, `[0]`, or `[1]` |
-| `-fstrict-flex-arrays=3`                             |       GCC 13<br/>Clang 16.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]` |
+| Compiler Flag                                                   |     Supported since     | Description                                                                               |
+|:--------------------------------------------------------------- |:-----------------------:|:------------------------------------------------------------------------------------------|
+| <span id="-fstrict-flex-arrays">`-fstrict-flex-arrays=3`</span> | GCC 13<br/>Clang 16.0.0 | Consider trailing array (at the end of struct) as flexible array only if declared as `[]` |
+| `-fstrict-flex-arrays=2`                                        | GCC 13<br/>Clang 15.0.0 | Consider trailing array as a flexible array only if declared as `[]`, or `[0]`            |
+| `-fstrict-flex-arrays=1`                                        | GCC 13<br/>Clang 15.0.0 | Consider trailing array as a flexible array only if declared as `[]`, `[0]`, or `[1]`     |
+| `-fstrict-flex-arrays=0`                                        | GCC 13<br/>Clang 15.0.0 | Consider any trailing array (at the end of a struct) a flexible array (the default)       |
 
 #### Synopsis
 
@@ -351,8 +351,6 @@ The C99 flexible array notation `[]` is the standards-based approach for notatin
 In this guide we recommend using the standard C99 flexible array notation `[]` instead of non-standard `[0]` or misleading `[1]`, and then using level 3 to improve bounds checking in such cases. In this case, code that uses `[0]` for a flexible array will need to be modified to use `[]` instead. Code that uses `[1]` for a flexible arrays needs to be modified to use `[]` and also extensively modified to eliminate off-by-one errors. Using `[1]` is not just misleading, it's error-prone; beware that *existing* code using `[1]` to indicate a flexible array may *currently* have off-by-one errors.
 
 Once in place, bounds-checking can occur in arrays with fixed declared sizes at the end of a struct. In addition, the source code unambiguously indicate, in a standard way, the cases where a flexible array is in use. There is normally no significant performance trade-off for this option (once any necessary changes have been made).
-
-Note that Clang 16.0.0 supports level 3. Clang 15.X supports levels 0 through 2 inclusive.
 
 For more information, see [^Cook2023], [^Guelton2022], [^GCCBug101836], [^Edge2022], and [^CorbetHarden2023].
 
