@@ -25,7 +25,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -fPIE -pie -fPIC -shared
 ~~~~
 
-When compiling on x86 architectures, add:
+When compiling on most x86 architectures (amd64, i386 and x32), add:
 
 ~~~~sh
 -fcf-protection=full
