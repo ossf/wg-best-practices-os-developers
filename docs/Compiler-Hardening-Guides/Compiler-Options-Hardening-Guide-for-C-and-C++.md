@@ -17,7 +17,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 
 ~~~~sh
 -O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Wimplicit-fallthrough \
--D_FORTIFY_SOURCE=3 \
+-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,noexecstack \
@@ -141,7 +141,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 
 | Compiler Flag                                                                             |            Supported since            | Description                                                                                  |
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
-| [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^Guelton20]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. |
+| [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher, <br/> may require prepending -U_FORTIFY_SOURCE) | GCC 12.0<br/>Clang 9.0.0[^Guelton20]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. |
 | [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
@@ -325,6 +325,8 @@ To benefit from `_FORTIFY_SOURCE` checks the following requirements must be met:
 - the application code must use glibc versions of the aforementioned functions (included with standard headers, e.g. `<stdio.h>` and `<string.h>`)
 
 If checks added by `_FORTIFY_SOURCE` detect unsafe behavior at run-time they will print an error message and terminate the application.
+
+A default mode for FORTIFY_SOURCE may be predefined for a given compiler, for instance GCC shipped with Ubuntu 22.04 uses FORTIFY_SOURCE=2 by default. If a mode of FORTIFY_SOURCE is set on the command line which differs from the default, the compiler warns about redefining the FORTIFY_SOURCE macro. To avoid this, the predefined mode can be unset with -U_FORTIFY_SOURCE before setting the desired value.
 
 #### Performance implications
 
