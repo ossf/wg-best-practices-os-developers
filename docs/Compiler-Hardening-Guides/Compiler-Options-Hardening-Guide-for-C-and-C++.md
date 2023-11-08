@@ -341,6 +341,10 @@ Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligib
 - If the fortified glibc function calls show up as hotspots in your application performance profile, there is a chance that `_FORTIFY_SOURCE` may have a negative performance impact. This is not a common or widespread slowdown[^Poyarekar23] but worth keeping in mind if slowdowns are observed due to this option.
 - Applications that use the GNU extension for flexible array members in structs[^gcc-zerolengtharrays] may confuse the compiler into thinking that an object is smaller than it actually is, resulting in spurious aborts. The safe resolution for this is to port these uses to C99 flexible arrays but if that is not possible (e.g., due to the need to support a compiler that does not support C99 flexible arrays), one may need to downgrade or disable `_FORTIFY_SOURCE` protections.
 
+#### Additional Considerations
+
+- Applications that incorrectly use `malloc_usable_size` to use the additional size reported by the function may abort at runtime. This is a bug in the application because the additional size reported by `malloc_usable_size` is not generally safe to dereference and is for diagnostic uses only. The correct fix for such issues is to avoid using `malloc_usable_size`, but if that is not possible, one may call `realloc` to resize the block to its usable size.
+
 [^glibc-fortification]: GNU C Library team, [Source Fortification in the GNU C Library](https://www.gnu.org/software/libc/manual/html_node/Source-Fortification.html), GNU C Library (glibc) manual, 2023-02-01.
 
 [^Poyarekar23]: Poyarekar, Siddhesh, [How to improve application security using _FORTIFY_SOURCE=3](https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3), Red Hat Developer, 2023-02-06.
