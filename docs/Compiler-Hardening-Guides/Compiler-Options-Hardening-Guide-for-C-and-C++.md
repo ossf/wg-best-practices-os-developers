@@ -19,6 +19,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Wimplicit-fallthrough \
 -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
+-fstrict-flex-arrays=3 \
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,noexecstack \
 -Wl,-z,relro -Wl,-z,now \
@@ -143,6 +144,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
 | [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher, <br/> may require prepending -U_FORTIFY_SOURCE) | GCC 12.0<br/>Clang 9.0.0[^Guelton20]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. |
 | [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
+| [`-fstrict-flex-arrays=3`](#-fstrict-flex-arrays)                             |       GCC 13<br/>Clang 16.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`                           |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen) |           Binutils 2.10            | Restrict `dlopen(3)` calls to shared objects                                 |
@@ -374,6 +376,60 @@ This option is unnecessary for security for applications in production that only
 [^Wakely15]: Wakely, Jonathan, [Enable lightweight checks with _GLIBCXX_ASSERTIONS](https://patchwork.ozlabs.org/project/gcc/patch/20150907182755.GP2631@redhat.com/), GCC Mailing List, 2015-09-07
 
 [^Kraus21]: Metzger-Kraus, Christof. [Don't use GLIBCXX_ASSERTIONS in production](https://gitlab.psi.ch/OPAL/src/-/merge_requests/468), Object Oriented Particle Accelerator Library (OPAL) Issue Tracker, 2021-01-16.
+
+---
+
+### Enable strict flexible arrays
+
+| Compiler Flag                                                   |     Supported since     | Description                                                                               |
+|:--------------------------------------------------------------- |:-----------------------:|:------------------------------------------------------------------------------------------|
+| <span id="-fstrict-flex-arrays">`-fstrict-flex-arrays=3`</span> | GCC 13<br/>Clang 16.0.0 | Consider trailing array (at the end of struct) as flexible array only if declared as `[]` |
+| `-fstrict-flex-arrays=2`                                        | GCC 13<br/>Clang 15.0.0 | Consider trailing array as a flexible array only if declared as `[]`, or `[0]`            |
+| `-fstrict-flex-arrays=1`                                        | GCC 13<br/>Clang 15.0.0 | Consider trailing array as a flexible array only if declared as `[]`, `[0]`, or `[1]`     |
+| `-fstrict-flex-arrays=0`                                        | GCC 13<br/>Clang 15.0.0 | Consider any trailing array (at the end of a struct) a flexible array (the default)       |
+
+#### Synopsis
+
+Modify what the compiler determines is a trailing array. The higher levels make the compiler respect the sizes of trailing arrays more strictly[^gcc-Wstrict-flex-arrays] (this affects bounds checking)[^Guelton22].
+
+By default, GCC and Clang treat all trailing arrays (arrays that are placed as the last member or a structure) as flexible-sized arrays, *regardless* of *declared* size for the purposes of `__builtin_object_size()` calculations used by `_FORTIFY_SOURCE`[^Cook21]. This disables various bounds checks that do not always need to be disabled. For example, with the default settings, given:
+
+~~~~c
+struct trailing_array {
+    int a;
+    int b;
+    int c[4];
+};
+struct trailing_array *trailing;
+~~~~
+
+The value of `__builtin_object_size(trailing->c, 1)` is  `-1` ("unknown size"), inhibiting bounds checking. The rationale for this default behavior is to allow for the "struct hack" idiom that allows for trailing arrays to be treated as variable sized (regardless of their declared size)[^Guelton22].
+
+The `-fstrict-flex-arrays` option makes the compiler respect the sizes of trailing array member more strictly. This allows bounds checks added by instrumentation such as `_FORTIFY_SOURCE` or `-fsanitize=bounds`[^gcc-fsanitize-bounds] to be able to correctly determine the size of trailing arrays.
+
+The tradeoff is that code that relies on the "struct hack" for arbitrary sized trailing arrays may break as a result[^Corbet23]. Such code may need to be modified to clearly state that it does not have a specific bound.
+
+The C99 flexible array notation `[]` is the standards-based approach for notating when an array bound is not specifically stated. However, some codebases use the GCC zero-length array extension `[0]`, and some codebases use a one-sized array `[1]` to indicate a flexible array member. Option values `1` and `2` were created so programs that use `[0]` and `[1]` for such cases can have some bounds-checking without modifying their source code.[^Zhao22]
+
+In this guide we recommend using the standard C99 flexible array notation `[]` instead of non-standard `[0]` or misleading `[1]`, and then using `-fstrict-flex-arrays=3` to improve bounds checking in such cases. In this case, code that uses `[0]` for a flexible array will need to be modified to use `[]` instead. Code that uses `[1]` for a flexible arrays needs to be modified to use `[]` and also extensively modified to eliminate off-by-one errors. Using `[1]` is not just misleading[^Edge22], it's error-prone; beware that *existing* code using `[1]` to indicate a flexible array may *currently* have off-by-one errors[^Cook23].
+
+Once in place, bounds-checking can occur in arrays with fixed declared sizes at the end of a struct. In addition, the source code unambiguously indicates, in a standard way, the cases where a flexible array is in use. There is normally no significant performance trade-off for this option (once any necessary changes have been made).
+
+[^gcc-Wstrict-flex-arrays]: GCC team, [Using the GNU Compiler Collection (GCC): Warning Options: `-Wstrict-flex-arrays`](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wstrict-flex-arrays), GCC Manual, 2023-07-27.
+
+[^gcc-fsanitize-bounds]: GCC team, [Program Instrumentation Options: `-Wsanitize=bounds`](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fsanitize_003dbounds), GCC Manual, 2023-07-27.
+
+[^Zhao22]: Zhao, Qing, "[[GCC13][Patch][V2][1/2]Add a new option -fstrict-flex-array[=n] and attribute strict_flex_array(n) and use it in PR101836"](https://gcc.gnu.org/pipermail/gcc-patches/2022-August/599151.html), GCC Mailing List, 2022-08-01.
+
+[^Cook23]: Cook, Kees, and Gustavo A.R. Silva, ["Progress on Bounds Checking in C and the Linux Kernel"](https://www.youtube.com/watch?v=V2kzptQG5_A), Linux Security Summit North America 2023, 2023-05-12.
+
+[^Guelton22]: Guelton, Serge, [The benefits and limitations of flexible array members](https://developers.redhat.com/articles/2022/09/29/benefits-limitations-flexible-array-members), Red Hat Developer, 2022-09-29.
+
+[^Cook21]: Cook, Kees, [GCC Bug 101836 - `__builtin_object_size(P->M, 1) where M is an array and the last member of a struct fails`](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101836), GCC Bugzilla, 2021-08-09.
+
+[^Edge22]: Edge, Jake, [Safer flexible arrays for the kernel](https://lwn.net/Articles/908817/), LWN, 2022-09-22.
+
+[^Corbet23]: Corbet, Jonathan, ["GCC features to help harden the kernel"](https://lwn.net/Articles/946041/), LWN, 2023-09-05.
 
 ---
 
