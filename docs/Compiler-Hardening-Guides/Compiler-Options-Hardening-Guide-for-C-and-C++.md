@@ -357,13 +357,17 @@ Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligib
 
 #### Additional Considerations
 
-- Applications that incorrectly use `malloc_usable_size` to use the additional size reported by the function may abort at runtime. This is a bug in the application because the additional size reported by `malloc_usable_size` is not generally safe to dereference and is for diagnostic uses only. The correct fix for such issues is to avoid using `malloc_usable_size`, but if that is not possible, one may call `realloc` to resize the block to its usable size.
+- Applications that incorrectly use `malloc_usable_size`[^malloc_usable_size] to use the additional size reported by the function may abort at runtime. This is a bug in the application because the additional size reported by `malloc_usable_size` is not generally safe to dereference and is for diagnostic uses only. The correct fix for such issues is to avoid using `malloc_usable_size` as the glibc manual specifically states that it is for diagnostic purposes *only* [^malloc_usable_size]. On many Linux systems these incorrect uses can be detected by running `readelf -Ws <path>` on the ELF binaries and searching for `malloc_usable_size@GLIBC`[^kpyrd23]. If avoiding `malloc_usable_size` is not possible, one may call `realloc` to resize the block to its usable size and to benefit from `_FORTIFY_SOURCE=3`.
 
 [^glibc-fortification]: GNU C Library team, [Source Fortification in the GNU C Library](https://www.gnu.org/software/libc/manual/html_node/Source-Fortification.html), GNU C Library (glibc) manual, 2023-02-01.
 
 [^Poyarekar23]: Poyarekar, Siddhesh, [How to improve application security using _FORTIFY_SOURCE=3](https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3), Red Hat Developer, 2023-02-06.
 
 [^gcc-zerolengtharrays]: GCC team, [Arrays of Length Zero](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/arrays-of-length-zero.html), GCC Manual (experimental 20221114 documentation), 2022-11-14.
+
+[^malloc_usable_size]: Linux Man Pages team, [malloc_usable_size(3)](https://man7.org/linux/man-pages/man3/malloc_usable_size.3.html), Linux manual page, 2023-03-30.
+
+[^kpyrd23]: kpcyrd, [Task Todo List Prepare packages for -D_FORTIFY_SOURCE=3](https://archlinux.org/todo/prepare-packages-for-d_fortify_source3/), Arch Linux Task Todo List, 2023-09-05.
 
 ---
 
