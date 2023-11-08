@@ -823,8 +823,8 @@ An application’s debugging information can be placed in a debug info file sepa
 
 There are several reasons why developers may wish to separate the debug information from the executable:
 
-- Avoid inadvertently revealing sensitive implementation details about the application. The availability of symbol information makes binary analysis and reverse engineering of the application’s executable easier.
-- Debug information can be very large – in some cases even larger than the executable code itself! For this reason, most Linux distributions distribute debug information for application packages in separate debug info files.
+- Debug information can be very large – in some cases even larger than the executable code itself! If separate, it can be omitted where it is not needed. For this reason, most Linux distributions distribute debug information for application packages in separate debug info files.
+- It avoids inadvertently revealing some sensitive implementation details about the application if its source code is not available. The availability of symbol information makes binary analysis and reverse engineering of the application’s executable easier. However, tools like decompilers can work without debug information, so the security of a system must *not* depend on omitting such information.
 
 The following series of commands generate the debug info file, strip the debugging information from the main executable, and add the debug link section.
 
