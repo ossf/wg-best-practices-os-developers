@@ -157,7 +157,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
-| [`-fcf-protection=full`](#-fcf-protection=full)                                   |     GCC 8<br/>Clang 7.0.0                  | Prevent diversion of control, including countering Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks, on many x64 architectures |
+| [`-fcf-protection=full`](#-fcf-protection=full)                                   |     GCC 8<br/>Clang 7.0.0                  | Enable control flow protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x86 architectures |
 | [`-mbranch-protection=standard`](#-mbranch-protection-standard)                                   |     GCC 9<br/>Clang 8              | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on AArch64 |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen) |           Binutils 2.10            | Restrict `dlopen(3)` calls to shared objects                                 |
 | [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)                                               |           Binutils 2.14            | Enable data execution prevention by marking stack memory as non-executable                   |
@@ -469,7 +469,7 @@ The performance overhead is dependent on the number of function’s instrumented
 
 | Compiler Flag                                                                                            | Supported since  | Description                                                  |
 |:-------------------------------------------------------------------------------------------------------- |:-------------:|:------------------------------------------------------------ |
-| <span id="-fcf-protection=full">`-fcf-protection=full`</span><br/>                                   |     GCC 8<br/>Clang 7.0.0          | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x86 architectures |
+| <span id="-fcf-protection=full">`-fcf-protection=full`</span><br/>                                   |     GCC 8<br/>Clang 7.0.0          | Enable control flow protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x86 architectures |
 | <span id="-mbranch-protection-standard">`-mbranch-protection=standard`</span>                        |     GCC 9<br/>Clang 8              | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on AArch64 |
 
 #### Synopsis
