@@ -26,6 +26,18 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -fPIE -pie -fPIC -shared
 ~~~~
 
+When compiling on most x86 architectures (amd64, i386 and x32), add:
+
+~~~~sh
+-fcf-protection=full
+~~~~
+
+When compiling on ARM, add:
+
+~~~~sh
+-mbranch-protection=standard
+~~~~
+
 Developers should additionally use [`-Werror`](#-Werror), but it is advisable to omit it when distributing source code, as `-Werror` creates a dependency on specific toolchain vendors and versions.
 
 See the discussion below for background and for detailed discussion of each option.
@@ -147,6 +159,8 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fstrict-flex-arrays=3`](#-fstrict-flex-arrays)                             |       GCC 13<br/>Clang 16.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`                           |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
+| [`-fcf-protection=full`](#-fcf-protection=full)                                   |     GCC 8<br/>Clang 7.0.0                  | Enable control flow protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x86 architectures |
+| [`-mbranch-protection=standard`](#-mbranch-protection-standard)                                   |     GCC 9<br/>Clang 8              | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on AArch64 |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen) |           Binutils 2.10            | Restrict `dlopen(3)` calls to shared objects                                 |
 | [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)                                               |           Binutils 2.14            | Enable data execution prevention by marking stack memory as non-executable                   |
 | [`-Wl,-z,relro`](#-Wl,-z,relro)<br/>[`-Wl,-z,now`](#-Wl,-z,now)                           |           Binutils 2.15            | Mark relocation table entries resolved at load-time as read-only. `-Wl,-z,now` can impact startup performance.                            |
@@ -504,6 +518,27 @@ The performance overhead is dependent on the number of function’s instrumented
 [^Meta23]: Hebb, Tom, [GCC's -fstack-protector fails to guard dynamic stack allocations on ARM64](https://github.com/metaredteam/external-disclosures/security/advisories/GHSA-x7ch-h5rf-w2mf), GitHub metaredteam/external-disclosures Advisories, 2023-09-12.
 
 [^Arm23]: Arm, [GCC Stack Protector Vulnerability AArch64](https://developer.arm.com/Arm%20Security%20Center/GCC%20Stack%20Protector%20Vulnerability%20AArch64), Arm Security Center, 2023-09-12.
+
+---
+
+### Implement control flow integrity checks
+
+| Compiler Flag                                                                                            | Supported since  | Description                                                  |
+|:-------------------------------------------------------------------------------------------------------- |:-------------:|:------------------------------------------------------------ |
+| <span id="-fcf-protection=full">`-fcf-protection=full`</span><br/>                                   |     GCC 8<br/>Clang 7.0.0          | Enable control flow protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x86 architectures |
+| <span id="-mbranch-protection-standard">`-mbranch-protection=standard`</span>                        |     GCC 9<br/>Clang 8              | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on AArch64 |
+
+#### Synopsis
+
+Return-oriented programming (ROP) uses an initial subversion (such as a buffer overflow) to perform an indirect jump that executes a different sequence of instructions. This is often existing code being misused, so these are often called "code reuse attacks". A countermeasure is to ensure that jump addresses and return addresses are correct. This is not a complete solution, but it makes attacks harder to perform.
+
+#### Performance implications
+
+There are performance implications but they are typically mild due to hardware assistance. The `-fcf-protection=full` flag enables Intel's Control-Flow Enforcement Technology (CET) [^IntelCET], which introduces shadow stack (SHSTK) and indirect branch tracking (IBT). The `-mbranch-protection=standard` flag invokes similar protections in the AArch64. In clang `-mbranch-protection=standard` is equivalent to `-mbranch-protection=bti+pac-ret` and invokes the AArch64 Branch Target Identification (BTI) and Pointer Authentication using key A (pac-ret) [^Armclang].
+
+[^Armclang]: ARM Developer, [Arm Compiler armclang Reference Guide Version 6.12 -mbranch-protection](https://developer.arm.com/documentation/100067/0612/armclang-Command-line-Options/-mbranch-protection).
+
+[^IntelCET]: Intel, ["A Technical Look at Intel’s Control-flow Enforcement Technology"](https://www.intel.com/content/www/us/en/developer/articles/technical/technical-look-control-flow-enforcement-technology.html), 2020-06-13.
 
 ---
 
