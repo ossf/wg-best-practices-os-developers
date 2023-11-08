@@ -342,6 +342,10 @@ To benefit from `_FORTIFY_SOURCE` checks the following requirements must be met:
 
 If checks added by `_FORTIFY_SOURCE` detect unsafe behavior at run-time they will print an error message and terminate the application.
 
+Some applications use `malloc_usable_size` in production, even though the glibc manual specifically states that it is for diagnostic purposes *only*. This is currently incompatible with `_FORTIFY_SOURCE=3`. Applications must remove production use of `malloc_usable_size` to use `_FORTIFY_SOURCE=3`. On many Linux systems these incorrect uses can be detected by running `readelf -Ws <path>` on the ELF binaries and searching for `malloc_usable_size@GLIBC` [^ArchLinuxFortifySource2023].
+
+[^ArchLinuxFortifySource2023]: kpcyrd, ["Task Todo List Prepare packages for -D_FORTIFY_SOURCE=3", 2023-09-05](https://archlinux.org/todo/prepare-packages-for-d_fortify_source3/)
+
 A default mode for FORTIFY_SOURCE may be predefined for a given compiler, for instance GCC shipped with Ubuntu 22.04 uses FORTIFY_SOURCE=2 by default. If a mode of FORTIFY_SOURCE is set on the command line which differs from the default, the compiler warns about redefining the FORTIFY_SOURCE macro. To avoid this, the predefined mode can be unset with -U_FORTIFY_SOURCE before setting the desired value.
 
 #### Performance implications
