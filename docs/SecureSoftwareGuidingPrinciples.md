@@ -7,7 +7,7 @@ The Secure Software Development Guiding Principles (SSDGP) are a series of core 
 1. To employ development practices that are in conformance with modern, industry-accepted secure development methods.
 2. To learn and apply secure software design principles (such as least privilege).
 3. To learn the most common kinds of vulnerabilities and to take steps to make them unlikely or limit their impact.
-4. To check for and address known and potential critical vulnerabilities prior to releasing software, then monitor for vulnerabilities subsequently through out the supported life of the product.
+4. To check for and address known and potential critical vulnerabilities prior to releasing software, then monitor for vulnerabilities subsequently throughout the supported life of the product.
 5. To harden and secure our software development infrastructure against compromise or infiltration against the same principles, practices, and expectations set for the software developed on and built from them.
 6. To prioritize the sourcing of software from suppliers and developers who also pledge to develop in conformance with the Secure Software Development Guiding Principles, and from projects that publicly report security health metrics and adopt controls to prevent tampering of software packages, and that actively address known/discovered malicious software.
 7. To provide software supply chain understandability to consumers of our software consistent with evolving industry standards, practices, and tooling.
