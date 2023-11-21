@@ -952,6 +952,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - Jussi Auvinen, Ericsson
 - Christopher "CRob" Robinson, Intel
 - David A. Wheeler, Linux Foundation
+- David Edelsohn, IBM
 - Gabriel Dos Reis, Microsoft
 - Georg Kunz, Ericsson
 - Jack Kelly, ControlPlane
