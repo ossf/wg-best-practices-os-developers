@@ -9,7 +9,9 @@ This document is intended for:
 - Those who write C or C++ code, to help them ensure that resulting code will work with hardened options, including for embedded devices, Internet of Things devices, smartphones, and personal computers.
 - Those who build C or C++ code for use in production environments, including Linux distributions, device makers, and those who compile C or C++ for their local environment.
 
-This document focuses on recommended options for the GNU Compiler Collection (GCC) and clang, and we expect to expand it to cover compilers that have similar option syntax (such as the Intel compiler).
+This document focuses on recommended options for the GNU Compiler Collection (GCC) and Clang/LLVM, and we expect the recommendations to be applicable to other compilers based on GCC and Clang technology[^gcc-clang-compilers]. In the future, we aim to expand to guide to also cover other compilers, such as Microsoft MSVC.
+
+[^gcc-clang-compilers]: Such as the Intel C/C++ Compiler, the Arm Compiler for Embedded, the Apple Clang compiler included in Xcode, IBM Open XL C/C++ Compiler, the Red Hat Developer Toolset, the Siemens Sourcery Toolchain, and AdaCore GNAT Pro Enterprise.
 
 **TL;DR: What compiler options should I use?**
 
