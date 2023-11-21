@@ -955,6 +955,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - David Edelsohn, IBM
 - Gabriel Dos Reis, Microsoft
 - Georg Kunz, Ericsson
+- George Wilson, IBM
 - Jack Kelly, ControlPlane
 - Randall T. Vasquez, Linux Foundation
 - Robert C. Seacord, Woven by Toyota
