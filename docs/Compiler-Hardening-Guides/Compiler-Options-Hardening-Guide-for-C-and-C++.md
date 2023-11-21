@@ -963,6 +963,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - Robert C. Seacord, Woven by Toyota
 - Siddharth Sharma, Red Hat
 - Siddhesh Poyarekar, Red Hat
+- William Huhn, Intel
 
 ## License
 
