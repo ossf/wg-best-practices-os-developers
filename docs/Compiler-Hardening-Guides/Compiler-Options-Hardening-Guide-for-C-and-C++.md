@@ -258,7 +258,7 @@ For most target architectures, including 64-bit x86, trampolines are made up of 
 
 | Compiler Flag                                                                                        |       Supported since       | Description                        |
 |:---------------------------------------------------------------------------------------------------- |:------------------------:|:---------------------------------- |
-| <span id="-Wimplicit-fallthrough">`-Wimplicit-fallthrough`</span>                           |         GCC<br>Clang   | Warn when a switch case falls through                                                 |
+| <span id="-Wimplicit-fallthrough">`-Wimplicit-fallthrough`</span>                           |         GCC 7<br>Clang 4.0   | Warn when a switch case falls through                                                 |
 
 <!-- Here "a fallthrough" is a noun, "to fall through" is the verb. -->
 
