@@ -44,6 +44,8 @@ See the discussion below for background and for detailed discussion of each opti
 
 Developers should ensure that their programs compile and pass their automated tests with all these options, e.g., by setting these as the default options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build programs for production may choose to omit some options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
 
+*Production* code is code intended for use in the real world with real effects; it should be maximally reliable and performant. *Instrumented test* code is code that is instrumented to improve defect detection and debuggability, and as such, often crashes more and is slower. Test processes should use both instrumented test code and production code.
+
 **Why do we need compiler options hardening?**
 
 Sadly, attackers today attack the software we use every day. Many programming languages' compilers have options to detect potential vulnerabilities while compiling and/or insert runtime protections against potential attacks. These can be important in any language, but these options are *especially* important in C and C++.
