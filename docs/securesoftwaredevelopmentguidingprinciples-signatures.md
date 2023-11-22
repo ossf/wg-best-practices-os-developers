@@ -5,5 +5,4 @@ The following individuals and organizations endorse these [Secure Software Devel
 - OpenSSF Governing Board through unanimous vote
 - Christopher "CRob" Robinson, OpenSSF TAC Chair and BEST Working Group facilitator
 - [David A. Wheeler](https://dwheeler.com), OpenSSF, Director of Open Source Software Security
-- [Dr. Amanda L Martin](https://github.com/hythloda), Linux Foundation, Director of Program Managmenent
-
+- [Dr. Amanda L Martin](https://github.com/hythloda), Linux Foundation, Director of Program Management
