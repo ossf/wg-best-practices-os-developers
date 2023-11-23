@@ -4,4 +4,5 @@ The following individuals and organizations endorse these [Secure Software Devel
 
 - Christopher "CRob" Robinson, OpenSSF TAC Chair and BEST Working Group facilitator
 - [David A. Wheeler](https://dwheeler.com), OpenSSF, Director of Open Source Software Security
+- [Mikaël Barbero](https://mikael.barbero.tech), Head of Security, [Eclipse Foundation](https://eclipse.org)
 - OpenSSF Governing Board through unanimous vote
