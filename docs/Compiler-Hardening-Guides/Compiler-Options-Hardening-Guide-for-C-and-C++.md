@@ -982,6 +982,7 @@ Many more security-relevant compiler options exist than are recommended in this 
 | <span id="-D_LIBCPP_ASSERT">`-D_LIBCPP_ASSERT`</span>   | libc++ 3.3.0 | Deprecated in favor of `_LIBCPP_ENABLE_HARDENED_MODE`[^libcpp_assert]
 | <span id="-D_LIBCPP_ENABLE_ASSERTIONS">`-D_LIBCPP_ENABLE_ASSERTIONS`</span> | libc++ 3.3.0 | Deprecated in favor of `_LIBCPP_ENABLE_HARDENED_MODE`[^libcpp_assert]
 | <span id="-mshstk">`-mshstk`</span>                                         | GCC 8<br/>Clang 6.0 | Enables discouraged shadow stack built-in functions[^gcc_mshstk], which are only needed for programs with an unconventional management of the program stack. CET instrumentation is controlled by [`-fcf-protection`](#-fcf-protection=full).
+| <span id="-fsanitize=safe-stack">`-fsanitize=safe-stack`</span>             | Clang 4.0 | Known compatibility limitations with garbage collection, signal handling, and shared libraries[^clang_safestack].
 
 [^nodump]: The `-Wl,-z,nodump` option sets `DF_1_NODUMP` flag in the object’s `.dynamic` section tags. On Solaris this restricts calls to `dldump(3)` for the object. However, other operating systems ignore the `DF_1_NODUMP` flag. While Binutils implements `-Wl,-z,nodump` for Solaris compatibility a choice was made to not support it in `lld` ([D52096 lld: add -z nodump support](https://reviews.llvm.org/D52096)).
 
@@ -990,5 +991,7 @@ Many more security-relevant compiler options exist than are recommended in this 
 [^libcpp_assert]: The LLVM libc++ has gone through a number of design iterations with its  "safe" mode of operation. Starting with libc++ release 17.0.0 the "safe" mode has been deprecated in favor a new hardened mode of operation that provides a narrower set of checks (security-critical checks that are performant enough to be used in production). For more information see: LLVM team, [Libc++ 17.0.0 Release Notes](https://libcxx.llvm.org/ReleaseNotes/17.html#deprecations-and-removals), Libc++ documentation, 2023-07-27; LLVM Team, [Hardened Mode](https://libcxx.llvm.org/Hardening.html), Libc++ documentation, 2023-07-27 and Varlamov, Konstatin, [Deprecate `_LIBCPP_ENABLE_ASSERTIONS`](https://reviews.llvm.org/D154997), LLVM Phabricator, 2022-07-11.
 
 [^gcc_mshstk]: GCC team, [x86 Built-in Functions](https://gcc.gnu.org/onlinedocs/gcc/x86-Built-in-Functions.html), GCC Manual, 2023-07-27.
+
+[^clang_safestack]: LLVM team, [SafeStack](https://clang.llvm.org/docs/SafeStack.html), Clang documentation, 2023-11-14.
 
 ## References
