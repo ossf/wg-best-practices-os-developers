@@ -48,7 +48,6 @@ In this guide, we use the term *production code* for executable code intended fo
 
 Developers should ensure that both their production code and their instrumented test code pass their automated test suite with all their relevant options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build production code may choose to omit some hardening options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
 
-
 ## Background
 
 ### Why do we need compiler options hardening?
