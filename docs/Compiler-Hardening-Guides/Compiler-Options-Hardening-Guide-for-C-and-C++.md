@@ -42,9 +42,10 @@ Developers should additionally use [`-Werror`](#-Werror), but it is advisable to
 
 See the discussion below for background and for detailed discussion of each option.
 
-Developers should ensure that their programs compile and pass their automated tests with all these options, e.g., by setting these as the default options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build programs for production may choose to omit some options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
+In this guide, we use the term *production code* for executable code intended for use in the real world with real effects; it should be maximally reliable and performant. We use the term *instrumented test code* for executable code that is instrumented to improve defect detection and debuggability, and as such, often crashes more and is slower. Test processes should use both instrumented test code and production code.
 
-*Production* code is code intended for use in the real world with real effects; it should be maximally reliable and performant. *Instrumented test* code is code that is instrumented to improve defect detection and debuggability, and as such, often crashes more and is slower. Test processes should use both instrumented test code and production code.
+Developers should ensure that both their production code and their instrumented test code pass their automated test suite with all their relevant options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build production code may choose to omit some hardening options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
+
 
 **Why do we need compiler options hardening?**
 
