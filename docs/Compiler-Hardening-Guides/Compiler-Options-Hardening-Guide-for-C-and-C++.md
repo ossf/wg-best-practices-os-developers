@@ -9,9 +9,11 @@ This document is intended for:
 - Those who write C or C++ code, to help them ensure that resulting code will work with hardened options, including for embedded devices, Internet of Things devices, smartphones, and personal computers.
 - Those who build C or C++ code for use in production environments, including Linux distributions, device makers, and those who compile C or C++ for their local environment.
 
-This document focuses on recommended options for the GNU Compiler Collection (GCC) and clang, and we expect to expand it to cover compilers that have similar option syntax (such as the Intel compiler).
+This document focuses on recommended options for the GNU Compiler Collection (GCC) and Clang/LLVM, and we expect the recommendations to be applicable to other compilers based on GCC and Clang technology[^gcc-clang-compilers]. In the future, we aim to expand to guide to also cover other compilers, such as Microsoft MSVC.
 
-**TL;DR: What compiler options should I use?**
+[^gcc-clang-compilers]: Such as the Intel C/C++ Compiler, the Arm Compiler for Embedded, the Apple Clang compiler included in Xcode, IBM Open XL C/C++ Compiler, the Red Hat Developer Toolset, the Siemens Sourcery Toolchain, and AdaCore GNAT Pro Enterprise.
+
+## TL;DR: What compiler options should I use?
 
 When compiling C or C++ code on compilers such as GCC and clang, turn on these flags for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
 
@@ -40,14 +42,16 @@ When compiling on ARM, add:
 
 Developers should additionally use [`-Werror`](#-Werror), but it is advisable to omit it when distributing source code, as `-Werror` creates a dependency on specific toolchain vendors and versions.
 
-See the discussion below for background and for detailed discussion of each option.
+See the discussion below for [background](#background) and for [detailed discussion of each option](#recommended-compiler-options).
 
 In this guide, we use the term *production code* for executable code intended for use in the real world with real effects; it should be maximally reliable and performant. We use the term *instrumented test code* for executable code that is instrumented to improve defect detection and debuggability, and as such, often crashes more and is slower. Test processes should use both instrumented test code and production code.
 
 Developers should ensure that both their production code and their instrumented test code pass their automated test suite with all their relevant options. We encourage developers to consider it a bug if the program cannot be compiled with these options. Those who build production code may choose to omit some hardening options that hurt performance if the program only processes trusted data, but remember that it's not helpful to deploy programs that that are insecure and rapidly do the wrong thing. Existing programs may need to be modified over time to work with some of these options.
 
 
-**Why do we need compiler options hardening?**
+## Background
+
+### Why do we need compiler options hardening?
 
 Sadly, attackers today attack the software we use every day. Many programming languages' compilers have options to detect potential vulnerabilities while compiling and/or insert runtime protections against potential attacks. These can be important in any language, but these options are *especially* important in C and C++.
 
@@ -83,11 +87,11 @@ Some organizations require selecting hardening rules. For example, the US govern
 
 [^CMU2018]: Carnegie Mellon University (CMU), [Top 10 Secure Coding Practices](https://wiki.sei.cmu.edu/confluence/display/seccode/Top+10+Secure+Coding+Practices), SEI CERT Coding Standards Wiki, 2018-05-02.
 
-**What should you do when compiling compilers?**
+### What should you do when compiling compilers?
 
 If you are compiling a C/C++ compiler, where practical make the generated compiler's default options the *secure* options. For example, when compiling GCC, use `--enable-default-pie` (which enables the flags `-fPIE` and `-pie` by default when using the generated compiler executable) and `--enable-default-ssp` (which enables `-fstack-protector-strong` by default). Similarly, when compiling clang on Linux systems, set `CLANG_DEFAULT_PIE_ON_LINUX` (which has a similar effect as the option `--enable-default-pie` when compiling GCC).
 
-**What does compiler options hardening not do?**
+### What does compiler options hardening not do?
 
 Compiler options hardening is not a silver bullet; it is not sufficient to rely solely on security features and functions to achieve secure software. Security is an emergent property of the entire system that relies on building and integrating all parts properly. However, if properly used, secure compiler options will complement existing processes, such as static and dynamic analysis, secure coding practices, negative test suites, profiling tools, and most importantly: security hygiene as a part of a solid design and architecture.
 
@@ -150,7 +154,7 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | [`-Wformat=2`](#-Wformat=2)                                                   | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings                                          |
 | [`-Wconversion`](#-Wconversion)<br/>[`-Wsign-conversion`](#-Wsign-conversion) | GCC 2.95.3<br/>Clang 4.0 | Enable implicit conversion warnings                                                 |
 | [`-Wtrampolines`](#-Wtrampolines)                                             |         GCC 4.3          | Enable warnings about trampolines that require executable stacks                    |
-| [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7.1.0<br>Clang   | Warn when a switch case falls through                                           |
+| [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7<br>Clang 4.0   | Warn when a switch case falls through                                           |
 | [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Make compiler warnings into errors (use in development, not in source distribution) |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
