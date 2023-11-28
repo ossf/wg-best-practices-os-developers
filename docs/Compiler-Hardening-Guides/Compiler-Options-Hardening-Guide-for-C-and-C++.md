@@ -956,13 +956,18 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - Jussi Auvinen, Ericsson
 - Christopher "CRob" Robinson, Intel
 - David A. Wheeler, Linux Foundation
+- David Edelsohn, IBM
 - Gabriel Dos Reis, Microsoft
 - Georg Kunz, Ericsson
+- George Wilson, IBM
 - Jack Kelly, ControlPlane
+- Kees Cook, Google
+- Mark Esler, Canonical
 - Randall T. Vasquez, Linux Foundation
 - Robert C. Seacord, Woven by Toyota
 - Siddharth Sharma, Red Hat
 - Siddhesh Poyarekar, Red Hat
+- William Huhn, Intel
 
 ## License
 
