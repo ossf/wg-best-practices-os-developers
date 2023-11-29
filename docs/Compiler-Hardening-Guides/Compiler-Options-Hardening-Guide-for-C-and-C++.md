@@ -92,6 +92,22 @@ If you are compiling a C/C++ compiler, where practical make the generated compil
 
 Compiler options hardening is not a silver bullet; it is not sufficient to rely solely on security features and functions to achieve secure software. Security is an emergent property of the entire system that relies on building and integrating all parts properly. However, if properly used, secure compiler options will complement existing processes, such as static and dynamic analysis, secure coding practices, negative test suites, profiling tools, and most importantly: security hygiene as a part of a solid design and architecture.
 
+### What is our threat model, goal, and objective?
+
+Our threat model is that all software developers make mistakes, and sometimes those mistakes lead to vulnerabilities. In addition, some malicious developers may intentionally create code that *appears* to be an unintentional vulnerability, or *appears* correct but is deceiving (aka [underhanded code](https://www.ida.org/research-and-publications/publications/all/i/in/initial-analysis-of-underhanded-source-code)).
+
+Our goal is to counter vulnerabilities that *appear* to be unintentional (whether or not they're intentional). Our secondary goal is to counter malicious code where its source code's appearance is designed to deceive. Many vulnerabilities are caused by common mistakes. Therefore, when implementing these goals, much of our focus is on detecting and countering *common* mistakes, whether or not they are vulnerabilities in a particular circumstance.
+
+We are not trying to counter software whose source code is clearly written to be malicious. Compilers generally can't counter that, and other countermeasures (such as source code peer review) are more effective countermeasures.
+
+Given these goals, this guidance has the following objectives:
+
+1. *Minimize* the likelihood and/or impact of vulnerabilities that are released in production code.
+2. *Maximize* the detection and/of vulnerabilities during compilation or test (especially when using instrumented test code), so 
+3. Detect [underhanded code](https://www.ida.org/research-and-publications/publications/all/i/in/initial-analysis-of-underhanded-source-code) (especially [Trojan source](https://en.wikipedia.org/wiki/Trojan_Source)), where practical, to make peer review more effective.
+
+This guidance cannot guarantee these results. However, when combined with other measures, they can significantly help.
+
 ## Recommended Compiler Options
 
 This section describes recommendations for compiler and linker option flags that 1) enable compile-time checks that warn developers of potential defects in the source code (Table 1), and 2) enable run-time protection mechanisms, such as checks that are designed to detect when memory vulnerabilities in the application are exploited (Table 2).
