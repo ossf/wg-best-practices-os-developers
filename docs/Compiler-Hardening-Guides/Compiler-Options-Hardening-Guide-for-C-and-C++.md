@@ -103,7 +103,7 @@ We are not trying to counter software whose source code is clearly written to be
 Given these goals, this guidance has the following objectives:
 
 1. *Minimize* the likelihood and/or impact of vulnerabilities that are released in production code.
-2. *Maximize* the detection and/of vulnerabilities during compilation or test (especially when using instrumented test code), so 
+2. *Maximize* the detection of vulnerabilities during compilation or test (especially when using instrumented test code), so they can be repaired before release.
 3. Detect [underhanded code](https://www.ida.org/research-and-publications/publications/all/i/in/initial-analysis-of-underhanded-source-code) (especially [Trojan source](https://en.wikipedia.org/wiki/Trojan_Source)), where practical, to make peer review more effective.
 
 This guidance cannot guarantee these results. However, when combined with other measures, they can significantly help.
