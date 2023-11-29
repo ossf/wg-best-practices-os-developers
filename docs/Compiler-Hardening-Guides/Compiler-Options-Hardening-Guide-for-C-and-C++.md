@@ -34,7 +34,7 @@ When compiling code in any of the situations in the below table, add the corresp
 | When                 | Additional options flags       |
 |:---------------------|:-------------------------------|
 | for executables      | `-fPIE -pie`                   |
-| for shared libraries | `-fPIC shared`                 |
+| for shared libraries | `-fPIC -shared`                |
 | for x86_64           | `-fcf-protection=full`         |
 | for aarch64          | `-mbranch-protection=standard` |
 
