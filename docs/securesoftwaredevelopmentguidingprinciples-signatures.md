@@ -11,3 +11,5 @@ The following individuals and organizations endorse these [Secure Software Devel
 - [Ortelius Open-Source](https://ortelius.io) Governing Board through unanimous vote
 - [John Kjell](https://github.com/jkjell), TestifySec, Director of Open Source
 - [Michael Lieberman](https://github.com/jmlieberman85), Kusari, Co-Founder and CTO
+- [Stephen Chin](https://github.com/steveonjava), JFrog, VP of Developer Relations
+- [Samy Lahfa](https://github.com/akechishiro), Cybersecurity Engineer
