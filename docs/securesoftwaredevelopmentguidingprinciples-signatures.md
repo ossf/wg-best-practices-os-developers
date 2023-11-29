@@ -13,3 +13,4 @@ The following individuals and organizations endorse these [Secure Software Devel
 - [Michael Lieberman](https://github.com/jmlieberman85), Kusari, Co-Founder and CTO
 - [Stephen Chin](https://github.com/steveonjava), JFrog, VP of Developer Relations
 - [Samy Lahfa](https://github.com/akechishiro), Cybersecurity Engineer
+- [Edoardo Dusi](https://github.com/edodusi), SparkFabrik, Developer Relations Engineer
