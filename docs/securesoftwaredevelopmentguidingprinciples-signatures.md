@@ -2,7 +2,7 @@
 
 The following individuals and organizations endorse these [Secure Software Development Guiding Principles](./SecureSoftwareGuidingPrinciples) and commit to following them:
 
-- OpenSSF Governing Board through unanimous vote
+- [OpenSSF Governing Board](https://openssf.org/about/board/) through unanimous vote
 - [Christopher "CRob" Robinson](https://github.com/SecurityCRob), OpenSSF TAC Chair and BEST Working Group facilitator
 - [David A. Wheeler](https://dwheeler.com), OpenSSF, Director of Open Source Software Security
 - [Dr. Amanda L Martin](https://github.com/hythloda), Linux Foundation, Director of Program Management
@@ -15,3 +15,4 @@ The following individuals and organizations endorse these [Secure Software Devel
 - [Samy Lahfa](https://github.com/akechishiro), Rexel, Cybersecurity Engineer
 - [Edoardo Dusi](https://github.com/edodusi), SparkFabrik, Developer Relations Engineer
 - [Rebecca Rumbul](https://www.linkedin.com/in/rebecca-rumbul-96a5441a/), Executive Director, [Rust Foundation](https://rustfoundation.org)
+- [Adrianne Marcum](https://github.com/afmarcum), Linux Foundation, OpenSSF Technical Project Manager
