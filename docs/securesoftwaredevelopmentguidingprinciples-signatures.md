@@ -17,3 +17,4 @@ The following individuals and organizations endorse these [Secure Software Devel
 - [Rebecca Rumbul](https://www.linkedin.com/in/rebecca-rumbul-96a5441a/), Executive Director, [Rust Foundation](https://rustfoundation.org)
 - [Adrianne Marcum](https://github.com/afmarcum), Linux Foundation, OpenSSF Technical Project Manager
 - [Mohsen Fazlian](https://www.linkedin.com/in/mohsen-fazlian-9801003/), Corporate Vice President, GM - Intel Product Assurance and Security on behalf of [Intel Corporation ](https://www.intel.com/content/www/us/en/security/overview.html)
+- [Ryan Ware](https://github.com/ware), OpenSSF Security Tooling WG Chair
