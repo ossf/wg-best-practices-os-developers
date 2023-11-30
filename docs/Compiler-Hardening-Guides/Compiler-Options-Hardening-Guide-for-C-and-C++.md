@@ -37,6 +37,8 @@ When compiling code in any of the situations in the below table, add the corresp
 | for shared libraries | `-fPIC -shared`                |
 | for x86_64           | `-fcf-protection=full`         |
 | for aarch64          | `-mbranch-protection=standard` |
+| for instrumented test code | `-ftrivial-auto-var-init=pattern` |
+| for production code  | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
 
 Developers should additionally use [`-Werror`](#-Werror), but it is advisable to omit it when distributing source code, as `-Werror` creates a dependency on specific toolchain vendors and versions.
 
@@ -170,6 +172,10 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-Wl,-z,relro`](#-Wl,-z,relro)<br/>[`-Wl,-z,now`](#-Wl,-z,now)                           |           Binutils 2.15            | Mark relocation table entries resolved at load-time as read-only. `-Wl,-z,now` can impact startup performance.                            |
 | [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable. Can impact performance on 32-bit architectures.                                                   |
 | [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6<br/>Clang 5.0.0[^Guelton20] | Build as position-independent code. Can impact performance on 32-bit architectures.                                                         |
+| [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                     | GCC 3.0<br/>Clang 7.0.0            | Force retention of null pointer checks                                                       |
+| [`-no-strict-overflow`](#-fno-strict-overflow)                                            |                                    | Integer overflow may occur                                                                   |
+| [`-no-strict-aliasing`](#-fno-strict-aliasing)                                            |                                    | Do not assume strict aliasing                                                                |
+| [`-trivial-auto-var-init`](#trivial-auto-var-init)                                            |                                | Perform trivial auto variable initialization                                                 |
 
 [^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
@@ -709,6 +715,117 @@ Setting rpath in setuid/setgid programs can lead to privilege escalation under c
 [^Kerrisk23]: Kerrisk, Michael, [Building and Using Shared Libraries on Linux, Shared Libraries: The Dynamic Linker](https://man7.org/training/download/shlib_dynlinker_slides.pdf), man7.org, February 2023.
 
 ---
+
+### Do not delete null pointer checks
+
+| Compiler Flag                   | Supported since  | Description                                                       |
+|:------------------------------- |:-------------:|:----------------------------------------------------------------- |
+| <span id="-fno-delete-null-pointer-checks">`-fno-delete-null-pointer-checks`</span> | GCC 3.0<br/>Clang 7.0.   0| Force retention of null pointer checks                                                        |
+
+#### Synopsis
+
+If a code defect references a potentially-null pointer, compilers are allowed to remove the null pointer check, under the theory that since developers never make mistakes, the pointer check is unnecessary.
+
+Since developers *do* make mistakes, without this option, the result is that the source code may *appear* to request a check, one that is necessary for security, but the check will *not* be done by the compiled executable. This option is one of several that are recommended and used by various sources to address real-world errors [^Wang2012].
+
+[^Wang2012]: Wang, Xi, Haogang Chen, Alvin Cheung, Zhihao Jia, Nickolai Zeldovich, and M. Frans Kaashoek, 2012, "Undefined Behavior:What Happened to My Code?", APSys ‘12, ACM, <https://pdos.csail.mit.edu/papers/ub:apsys12.pdf>
+
+An example of this defect occurred in the Linux kernel and led to a serious vulnerability. In the following simplified Linux kernel code, the construct `dev->priv` presumes `dev` is non-null. That means that if `dev` is null, we have undefined behavior.  In this case, the C compiler presumed that `dev` is not null, and threw away the code `if (!dev) return` [^Zdrnja2009]:
+
+~~~~
+static void __devexit agnx_pci_remove (struct pci_dev *pdev)
+{
+  struct ieee80211_hw *dev = pci_get_drvdata(pdev);
+  struct agnx_priv *priv = dev->priv; 
+
+  if (!dev) return;
+
+  ... do stuff using dev ...
+}
+~~~~
+
+[^Zdrnja2009]: Zdrnja, Bojan Zdrnja, 2009-07-17, A new fascinating Linux kernel vulnerability, https://isc.sans.edu/diary/A+new+fascinating+Linux+kernel+vulnerability/6820
+
+The Linux kernel now enables `-fno-delete-null-pointer-checks`; as explained later by Linux Torvalds [^Torvalds2018], "we had buggy code that accessed a pointer before the NULL pointer check, but the bug was "benign" as long as the compiler didn't actually remove the check. ...  Removing the NULL pointer check turned a benign bug into a trivially exploitable one by just mapping user space data at NULL ...  Removing the NULL pointer check turned a benign bug into a trivially exploitable one by just mapping user space data at NULL (which avoided the kernel oops, and then made the kernel use the user value!)... the kernel generally really doesn't want optimizations that are perhaps allowed by the standard, but that result in code generation that doesn't match the source code."
+
+[^Torvalds2018]: Torvalds, Linus, 2018-04-04, https://lkml.org/lkml/2018/4/4/601
+
+The option `-fno-delete-null-pointer-checks` forces the retention of such checks even when in theory they are unnecessary, and is in use in the Linux kernel.
+
+#### Performance implications
+
+There are normally no significant performance implications. Null pointer checks are extremely quick and can often be performed in parallel by the CPU.
+
+---
+
+### Integer overflow may occur
+| Compiler Flag                   | Supported since  | Description                                                       |
+|:------------------------------- |:-------------:|:----------------------------------------------------------------- |
+| <span id="-no-strict-overflow">`-fno-strict-overflow`</span>                        |                                    | Integer overflow may occur                                                           |
+#### Synopsis
+
+In C and C++ unsigned integers have long been defined as "wrapping around". However, for many years C and C++ have assumed that overflows do not occur in many other circumstances. Overflow when doing arithmetic with signed numbers is considered undefined by many versions of the official specifications, This approach also allows the compiler to assume strict pointer semantics: if adding an offset to a pointer does not produce a pointer to the same object. In practice, this means that important security checks written in the source code may be silently ignored when generating executable code.
+
+For example, here is some code from `fs/open.c` of the Linux kernel [^Wang2012]:
+
+~~~~C
+int do_fallocate(..., loff_t offset, loff_t len)
+{
+    struct inode *inode = ...;
+    if (offset < 0 || len <= 0)
+        return -EINVAL;
+    /* Check for wrap through zero too */
+    if ((offset + len > inode->i_sb->s_maxbytes)
+        || (offset + len < 0))
+        return -EFBIG;
+    ...
+}
+~~~~
+
+A developer *might* expect that the computation `offset + len` would produce a useful value for comparison. However, if the compiler is in `strict-overflow` mode, the compiler is free to determine that `offset + len` is always more than 0, and thus it can omit an important security check.
+
+The Linux kernel enables `-no-strict-overflow` to reduce the likelihood that important security checks in the source code will be silently ignored by the compiler.
+
+An alternative option is to use the `-fwrapv` option. With `-fwrapv`, integer signed overflow wraps (and is thus defined).
+
+Note that GCC and Clang interpret this option slightly differently. On clang, this option is considered a synonym for `-fwrapv`. On GCC, this option does not fully enforce two's complement on signed integers, allowing for additional optimizations. [^Wang2012]
+
+---
+
+### Do not assume strict aliasing
+
+| Compiler Flag                   | Supported since  | Description                                                       |
+|:------------------------------- |:-------------:|:----------------------------------------------------------------- |
+| <span id="-no-strict-aliasing">`-fno-strict-aliasing`</span>                        |                                    | Do not assume strict aliasing                                                                |
+#### Synopsis
+
+Pointers can be cast from one type to another. Standards have strict rules for aliasing, requiring that pointers of different types do *not* alias in most cases. However, in practice, many constructs depend on such aliasing even though it is undefined. By default, undefined code can do *anything* and this is undesirable. [^Wang2012]
+
+This option eliminates this problem. It's used by the Linux kernel.
+
+
+---
+
+### Perform trivial auto variable initialization
+
+| Compiler Flag                   | Supported since  | Description                                                       |
+|:------------------------------- |:-------------:|:----------------------------------------------------------------- |
+| <span id="-trivial-auto-var-init">`-trivial-auto-var-init`</span>                   |                                    | Perform trivial auto variable initialization                                                 |
+
+#### Synopsis
+
+This option controls if (and how) automatic variables are initialized. Even with the option, the compiler will consider an automatic variable as uninitialized unless it is explicitly initialized.
+
+This option has three choices:
+
+* `uninitialized` - automatic variables are not initialized. This is the default.
+* `pattern’ - automatic variables are initialized with a value likely to cause a crash if there is a logic bug.
+* `zero` - automatic variables are initialized with zeros, to reduce the risk of a logic bug leading to a security vulnerability or other problems.
+
+<!-- More information
+https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-ftrivial-auto-var-init
+https://reviews.llvm.org/D125142
+-->
 
 ## Sanitizers
 
