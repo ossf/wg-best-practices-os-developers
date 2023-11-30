@@ -16,3 +16,5 @@ The following individuals and organizations endorse these [Secure Software Devel
 - [Edoardo Dusi](https://github.com/edodusi), SparkFabrik, Developer Relations Engineer
 - [Rebecca Rumbul](https://www.linkedin.com/in/rebecca-rumbul-96a5441a/), Executive Director, [Rust Foundation](https://rustfoundation.org)
 - [Adrianne Marcum](https://github.com/afmarcum), Linux Foundation, OpenSSF Technical Project Manager
+- [Mohsen Fazlian](https://www.linkedin.com/in/mohsen-fazlian-9801003/) Corporate Vice President, GM - Intel Product Assurance and Security on behalf of [Intel Corporation ](https://www.intel.com/content/www/us/en/security/overview.html)
+- [Adrianne Marcum](https://github.com/afmarcum), Linux Foundation, OpenSSF Technical Project Manager
