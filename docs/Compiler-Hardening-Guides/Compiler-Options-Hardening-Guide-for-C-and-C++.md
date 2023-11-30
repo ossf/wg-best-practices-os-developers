@@ -732,7 +732,7 @@ Since developers *do* make mistakes, without this option, the result is that the
 
 An example of this defect occurred in the Linux kernel and led to a serious vulnerability. In the following simplified Linux kernel code, the construct `dev->priv` presumes `dev` is non-null. That means that if `dev` is null, we have undefined behavior.  In this case, the C compiler presumed that `dev` is not null, and threw away the code `if (!dev) return` [^Zdrnja2009]:
 
-~~~~C
+~~~C
 static void __devexit agnx_pci_remove (struct pci_dev *pdev)
 {
   struct ieee80211_hw *dev = pci_get_drvdata(pdev);
@@ -742,7 +742,7 @@ static void __devexit agnx_pci_remove (struct pci_dev *pdev)
 
   ... do stuff using dev ...
 }
-~~~~
+~~~
 
 [^Zdrnja2009]: Zdrnja, Bojan Zdrnja, 2009-07-17, A new fascinating Linux kernel vulnerability, <https://isc.sans.edu/diary/A+new+fascinating+Linux+kernel+vulnerability/6820>
 
@@ -770,7 +770,7 @@ In C and C++ unsigned integers have long been defined as "wrapping around". Howe
 
 For example, here is some code from `fs/open.c` of the Linux kernel [^Wang2012]:
 
-~~~~C
+~~~C
 int do_fallocate(..., loff_t offset, loff_t len)
 {
     struct inode *inode = ...;
@@ -782,7 +782,7 @@ int do_fallocate(..., loff_t offset, loff_t len)
         return -EFBIG;
     ...
 }
-~~~~
+~~~
 
 A developer *might* expect that the computation `offset + len` would produce a useful value for comparison. However, if the compiler is in `strict-overflow` mode, the compiler is free to determine that `offset + len` is always more than 0, and thus it can omit an important security check.
 
