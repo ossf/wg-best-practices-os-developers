@@ -278,7 +278,7 @@ This warning flag does not have a performance impact. However, sometimes a fallt
 
 The C17 standard[^C2017] does not provide a mechanism to mark intentional fallthroughs. Different tools support different mechanisms for marking one, including attributes and comments in various forms[^Shafik15]. A portable way to mark one, used by the Linux kernel version 5.10 and later, is to define a keyword-like macro named `fallthrough` to mark an intentional fallthrough that adjusts to the relevant tool (e.g., compiler) mechanism:
 
-~~~C
+~~~c
 #if __has_attribute(__fallthrough__)
 # define fallthrough                    __attribute__((__fallthrough__))
 #else
@@ -420,7 +420,7 @@ Modify what the compiler determines is a trailing array. The higher levels make 
 
 By default, GCC and Clang treat all trailing arrays (arrays that are placed as the last member or a structure) as flexible-sized arrays, *regardless* of *declared* size for the purposes of `__builtin_object_size()` calculations used by `_FORTIFY_SOURCE`[^Cook21]. This disables various bounds checks that do not always need to be disabled. For example, with the default settings, given:
 
-~~~C
+~~~c
 struct trailing_array {
     int a;
     int b;
