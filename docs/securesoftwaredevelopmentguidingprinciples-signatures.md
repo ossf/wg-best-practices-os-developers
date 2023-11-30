@@ -14,4 +14,4 @@ The following individuals and organizations endorse these [Secure Software Devel
 - [Stephen Chin](https://github.com/steveonjava), JFrog, VP of Developer Relations
 - [Samy Lahfa](https://github.com/akechishiro), Rexel, Cybersecurity Engineer
 - [Edoardo Dusi](https://github.com/edodusi), SparkFabrik, Developer Relations Engineer
-- Rebecca Rumbul, Executive Director, [Rust Foundation](https://rustfoundation.org)
+- [Rebecca Rumbul](https://www.linkedin.com/in/rebecca-rumbul-96a5441a/), Executive Director, [Rust Foundation](https://rustfoundation.org)
