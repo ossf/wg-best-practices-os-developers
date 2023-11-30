@@ -173,9 +173,9 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable. Can impact performance on 32-bit architectures.                                                   |
 | [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6<br/>Clang 5.0.0[^Guelton20] | Build as position-independent code. Can impact performance on 32-bit architectures.                                                         |
 | [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                     | GCC 3.0<br/>Clang 7.0.0            | Force retention of null pointer checks                                                       |
-| [`-no-strict-overflow`](#-fno-strict-overflow)                                            |                                    | Integer overflow may occur                                                                   |
-| [`-no-strict-aliasing`](#-fno-strict-aliasing)                                            |                                    | Do not assume strict aliasing                                                                |
-| [`-trivial-auto-var-init`](#trivial-auto-var-init)                                            |                                | Perform trivial auto variable initialization                                                 |
+| [`-fno-strict-overflow`](#-fno-strict-overflow)                                            |                                    | Integer overflow may occur                                                                   |
+| [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                            |                                    | Do not assume strict aliasing                                                                |
+| [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                            |                                | Perform trivial auto variable initialization                                                 |
 
 [^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
@@ -732,7 +732,7 @@ Since developers *do* make mistakes, without this option, the result is that the
 
 An example of this defect occurred in the Linux kernel and led to a serious vulnerability. In the following simplified Linux kernel code, the construct `dev->priv` presumes `dev` is non-null. That means that if `dev` is null, we have undefined behavior.  In this case, the C compiler presumed that `dev` is not null, and threw away the code `if (!dev) return` [^Zdrnja2009]:
 
-~~~~
+~~~~C
 static void __devexit agnx_pci_remove (struct pci_dev *pdev)
 {
   struct ieee80211_hw *dev = pci_get_drvdata(pdev);
@@ -744,11 +744,11 @@ static void __devexit agnx_pci_remove (struct pci_dev *pdev)
 }
 ~~~~
 
-[^Zdrnja2009]: Zdrnja, Bojan Zdrnja, 2009-07-17, A new fascinating Linux kernel vulnerability, https://isc.sans.edu/diary/A+new+fascinating+Linux+kernel+vulnerability/6820
+[^Zdrnja2009]: Zdrnja, Bojan Zdrnja, 2009-07-17, A new fascinating Linux kernel vulnerability, <https://isc.sans.edu/diary/A+new+fascinating+Linux+kernel+vulnerability/6820>
 
 The Linux kernel now enables `-fno-delete-null-pointer-checks`; as explained later by Linux Torvalds [^Torvalds2018], "we had buggy code that accessed a pointer before the NULL pointer check, but the bug was "benign" as long as the compiler didn't actually remove the check. ...  Removing the NULL pointer check turned a benign bug into a trivially exploitable one by just mapping user space data at NULL ...  Removing the NULL pointer check turned a benign bug into a trivially exploitable one by just mapping user space data at NULL (which avoided the kernel oops, and then made the kernel use the user value!)... the kernel generally really doesn't want optimizations that are perhaps allowed by the standard, but that result in code generation that doesn't match the source code."
 
-[^Torvalds2018]: Torvalds, Linus, 2018-04-04, https://lkml.org/lkml/2018/4/4/601
+[^Torvalds2018]: Torvalds, Linus, 2018-04-04, <https://lkml.org/lkml/2018/4/4/601>
 
 The option `-fno-delete-null-pointer-checks` forces the retention of such checks even when in theory they are unnecessary, and is in use in the Linux kernel.
 
@@ -759,9 +759,11 @@ There are normally no significant performance implications. Null pointer checks 
 ---
 
 ### Integer overflow may occur
+
 | Compiler Flag                   | Supported since  | Description                                                       |
 |:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| <span id="-no-strict-overflow">`-fno-strict-overflow`</span>                        |                                    | Integer overflow may occur                                                           |
+| <span id="-fno-strict-overflow">`-fno-strict-overflow`</span>                       |                                    | Integer overflow may occur                                                           |
+
 #### Synopsis
 
 In C and C++ unsigned integers have long been defined as "wrapping around". However, for many years C and C++ have assumed that overflows do not occur in many other circumstances. Overflow when doing arithmetic with signed numbers is considered undefined by many versions of the official specifications, This approach also allows the compiler to assume strict pointer semantics: if adding an offset to a pointer does not produce a pointer to the same object. In practice, this means that important security checks written in the source code may be silently ignored when generating executable code.
@@ -796,13 +798,13 @@ Note that GCC and Clang interpret this option slightly differently. On clang, th
 
 | Compiler Flag                   | Supported since  | Description                                                       |
 |:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| <span id="-no-strict-aliasing">`-fno-strict-aliasing`</span>                        |                                    | Do not assume strict aliasing                                                                |
+| <span id="-fno-strict-aliasing">`-fno-strict-aliasing`</span>                       |                                    | Do not assume strict aliasing                                                                |
+
 #### Synopsis
 
 Pointers can be cast from one type to another. Standards have strict rules for aliasing, requiring that pointers of different types do *not* alias in most cases. However, in practice, many constructs depend on such aliasing even though it is undefined. By default, undefined code can do *anything* and this is undesirable. [^Wang2012]
 
 This option eliminates this problem. It's used by the Linux kernel.
-
 
 ---
 
@@ -810,7 +812,7 @@ This option eliminates this problem. It's used by the Linux kernel.
 
 | Compiler Flag                   | Supported since  | Description                                                       |
 |:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| <span id="-trivial-auto-var-init">`-trivial-auto-var-init`</span>                   |                                    | Perform trivial auto variable initialization                                                 |
+| <span id="-ftrivial-auto-var-init">`-ftrivial-auto-var-init`</span>                 |                                    | Perform trivial auto variable initialization                                                 |
 
 #### Synopsis
 
@@ -818,9 +820,9 @@ This option controls if (and how) automatic variables are initialized. Even with
 
 This option has three choices:
 
-* `uninitialized` - automatic variables are not initialized. This is the default.
-* `pattern’ - automatic variables are initialized with a value likely to cause a crash if there is a logic bug.
-* `zero` - automatic variables are initialized with zeros, to reduce the risk of a logic bug leading to a security vulnerability or other problems.
+- `uninitialized` - automatic variables are not initialized. This is the default.
+- `pattern’ - automatic variables are initialized with a value likely to cause a crash if there is a logic bug.
+- `zero` - automatic variables are initialized with zeros, to reduce the risk of a logic bug leading to a security vulnerability or other problems.
 
 <!-- More information
 https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-ftrivial-auto-var-init
