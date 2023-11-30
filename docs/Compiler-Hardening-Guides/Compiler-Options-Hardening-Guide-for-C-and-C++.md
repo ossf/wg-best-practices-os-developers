@@ -720,7 +720,7 @@ Setting rpath in setuid/setgid programs can lead to privilege escalation under c
 
 | Compiler Flag                   | Supported since  | Description                                                       |
 |:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| <span id="-fno-delete-null-pointer-checks">`-fno-delete-null-pointer-checks`</span> | GCC 3.0<br/>Clang 7.0.   0| Force retention of null pointer checks                                                        |
+| <span id="-fno-delete-null-pointer-checks">`-fno-delete-null-pointer-checks`</span> | GCC 3.0<br/>Clang 7.0.0   | Force retention of null pointer checks                                                        |
 
 #### Synopsis
 
@@ -730,7 +730,7 @@ Since developers *do* make mistakes, without this option, the result is that the
 
 [^Wang2012]: Wang, Xi, Haogang Chen, Alvin Cheung, Zhihao Jia, Nickolai Zeldovich, and M. Frans Kaashoek, 2012, "Undefined Behavior:What Happened to My Code?", APSys ‘12, ACM, <https://pdos.csail.mit.edu/papers/ub:apsys12.pdf>
 
-An example of this defect occurred in the Linux kernel and led to a serious vulnerability. In the following simplified Linux kernel code, the construct `dev->priv` presumes `dev` is non-null. That means that if `dev` is null, we have undefined behavior.  In this case, the C compiler presumed that `dev` is not null, and threw away the code `if (!dev) return` [^Zdrnja2009]:
+An example of this defect occurred in the Linux kernel and led to a serious vulnerability. In the following simplified Linux kernel code, the construct `dev->priv` presumes `dev` is non-null. That means that if `dev` is null, we have undefined behavior.  In this case, the C compiler presumed that `dev` is not null, and threw away the code `if (!dev) return` ([^Zdrnja2009] for more):
 
 ~~~C
 static void __devexit agnx_pci_remove (struct pci_dev *pdev)
@@ -821,7 +821,7 @@ This option controls if (and how) automatic variables are initialized. Even with
 This option has three choices:
 
 - `uninitialized` - automatic variables are not initialized. This is the default.
-- `pattern’ - automatic variables are initialized with a value likely to cause a crash if there is a logic bug.
+- `pattern` - automatic variables are initialized with a value likely to cause a crash if there is a logic bug.
 - `zero` - automatic variables are initialized with zeros, to reduce the risk of a logic bug leading to a security vulnerability or other problems.
 
 <!-- More information
