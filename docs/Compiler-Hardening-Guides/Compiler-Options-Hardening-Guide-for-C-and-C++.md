@@ -696,15 +696,17 @@ Table 3: List of discouraged compiler and linker options.
 
 #### Synopsis
 
-The `-rpath` option records the specified path to a shared object files to the `DT_RPATH` or `DT_RUNPATH` header value in the produced ELF binary. The recorded rpath may override or supplement the system default search path used by the dynamic linker to find the specified library dependency the executable or library requires.
+The `-rpath` option records the specified path to a shared object files to the `DT_RPATH` or `DT_RUNPATH` header value in the produced ELF binary. The recorded rpath may override or supplement the system default search path used by the dynamic linker to find the specified library dependency.
 
-The rpath provided by the original (and default) `DT_RPATH` entry takes precedence over environmental overrides such as `LD_LIBRARY_PATH` and one object’s `DT_RPATH` can be used for resolving dependencies of another object. These were design errors rectified with the introduction of `DT_RUNPATH` value which has a lower precedence with respect to `LD_LIBRARY_PATH` and only affect the search path of an object’s own, immediate dependencies[^Kerrisk23].
+The rpath provided by the original (and default) `DT_RPATH` entry takes precedence over environmental overrides such as `LD_LIBRARY_PATH`, and an object’s `DT_RPATH` can be used for resolving dependencies of another object. These design errors were rectified with `DT_RUNPATH`, which has a lower precedence with respect to `LD_LIBRARY_PATH` and only affects the search path of an object’s own, immediate dependencies[^Kerrisk23].
 
-Setting rpath in release binaries (irrespective of whether `DT_RPATH` or `DT_RUNPATH` is used) is an unsafe programming practice and may under certain conditions lead to security vulnerabilities. For instance, an attacker may be able to supply their own shared files in directories where rpath is pointing to, thereby overriding those libraries that would be supplied by the operating system. This could occur as a result of setting a relative rpath (i.e. `foo.so` rather than `/usr/lib/foo.so`) in environments where an attacker can control the working directory, and point it to a directory where they can place a malicious dependency.
+Setting either `DT_RPATH` or `DT_RUNPATH` in release binaries may lead to security vulnerabilities under certain conditions. An attacker may be able to supply their own shared files in the target directories and override the operating system's libraries, resulting in arbitrary code execution.
 
-The keyword `$ORIGIN` in rpath is expanded (by the dynamic loader) to be path of the directory where the object is found. Attackers who can control the location of the object with a rpath set (e.g., via hard links) can manipulate the `$ORIGIN` to point to a directory which they can control.
+Relative paths (e.g. `.` or `./lib`) are resolved relative to the working directory, which may be set by an attacker to a directory with a malicious dependency.
 
-Setting rpath in setuid/setgid programs can lead to privilege escalation under conditions where untrusted libraries loaded via a set rpath are executed as part of the privileged program. While setuid/setgid binaries ignore environmental overrides to search path (such as `LD_PRELOAD`, `LD_LIBRARY_PATH` etc.) rpath within such binaries can provide an attacker with equivalent capabilities to manipulate the dependency search paths.
+The keyword `$ORIGIN` in rpath is expanded by the dynamic loader to the path of the directory where the object is found, which may be set by an attacker (e.g., via hard links) to a directory with a malicious dependency. On Linux, the `fs.protected_hardlinks` sysctl can help prevent this attack.
+
+Setting rpath in setuid/setgid programs can lead to privilege escalation under conditions where untrusted libraries loaded via a set rpath are executed as part of the privileged program. While setuid/setgid binaries ignore environmental overrides to search path (such as `LD_PRELOAD`, `LD_LIBRARY_PATH` etc.), rpath within such binaries can provide an attacker with equivalent capabilities to manipulate the dependency search paths.
 
 [^Kerrisk23]: Kerrisk, Michael, [Building and Using Shared Libraries on Linux, Shared Libraries: The Dynamic Linker](https://man7.org/training/download/shlib_dynlinker_slides.pdf), man7.org, February 2023.
 
