@@ -1,6 +1,6 @@
 # Secure Software Development Guiding Principles Signatures
 
-The following individuals and organizations endorse these [Secure Software Development Guiding Principles](./SecureSoftwareGuidingPrinciples) and commit to following them:
+The following individuals and organizations endorse these [Secure Software Development Guiding Principles](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/SecureSoftwareGuidingPrinciples.md) and commit to following them:
 
 - [OpenSSF Governing Board](https://openssf.org/about/board/) through unanimous vote
 - [Christopher "CRob" Robinson](https://github.com/SecurityCRob), OpenSSF TAC Chair and BEST Working Group facilitator
