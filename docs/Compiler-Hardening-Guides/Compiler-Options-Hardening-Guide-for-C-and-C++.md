@@ -84,6 +84,15 @@ Some organizations require selecting hardening rules. For example, the US govern
 
 [^CMU2018]: Carnegie Mellon University (CMU), [Top 10 Secure Coding Practices](https://wiki.sei.cmu.edu/confluence/display/seccode/Top+10+Secure+Coding+Practices), SEI CERT Coding Standards Wiki, 2018-05-02.
 
+### How should this guide be applied?
+
+How you apply this guide depends on your circumstances:
+
+* New or nearly-new project ("Green field"): If you're starting a new project, enable everything as soon as you can, preferably before any code is written for it. That way, you'll be immediately notified of any problematic constructs and avoid it in the future.
+* Existing non-trivial project ("Brown field"): It's usually impractical to enable all options at once. The number of warnings will probably be overwhelming. Instead, enable one or a few options at a time, resolve any problems, and repeat over time. Some flags (like `-Wall`) are groups of other flags; consider breaking them down and enabling a few of those specific flags at a time.
+
+Applications should work towards compiling warning-free. This takes time, but warnings indicate a potential problem. Once done, any new warning indicates a potential problem.
+
 ### What should you do when compiling compilers?
 
 If you are compiling a C/C++ compiler, where practical make the generated compiler's default options the *secure* options. For example, when compiling GCC, use `--enable-default-pie` (which enables the flags `-fPIE` and `-pie` by default when using the generated compiler executable) and `--enable-default-ssp` (which enables `-fstack-protector-strong` by default). Similarly, when compiling clang on Linux systems, set `CLANG_DEFAULT_PIE_ON_LINUX` (which has a similar effect as the option `--enable-default-pie` when compiling GCC).
