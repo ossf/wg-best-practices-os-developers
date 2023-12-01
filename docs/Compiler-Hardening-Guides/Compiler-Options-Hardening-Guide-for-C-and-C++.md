@@ -517,7 +517,7 @@ Stack protector supports three different heuristics that are used to determine w
 - `-fstack-protector`: instrument functions that call alloca() or allocate character arrays of n bytes or more in size . The threshold for instrumentation is adjustable via the `--param=ssp-buffer-size=`*`n`* option (default: 8 bytes).  
 - `-fstack-protector-all`: instrument all functions.
 
-The performance overhead is dependent on the number of function’s instrumented and the frequency at which instrumented functions are activated at run-time. Enabling `-fstack-protector-strong` is recommended as it provides the best balance between function coverage and performance. Projects using older compiler versions can consider `-fstack-protector-all` or `-fstack-protector` with a stricter threshold, e.g. `--param=ssp-buffer-size=4`.
+The performance overhead is dependent on the number of function’s instrumented and the frequency at which instrumented functions are activated at run-time. Enabling `-fstack-protector-strong` is recommended as it provides a good balance between function coverage and performance. Projects using older compiler versions can consider `-fstack-protector-all` or `-fstack-protector` with a stricter threshold, e.g. `--param=ssp-buffer-size=4`.
 
 #### When not to use?
 
