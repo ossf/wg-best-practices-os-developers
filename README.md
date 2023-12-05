@@ -51,7 +51,7 @@ To deliver on our Strategy, the BEST Working Group will do the following:
 - Create a Memory Safety W3C-style workshop to assemble development leaders to talk about how to integrate memory safe languages and techniques more deeply into the oss ecosystem.
 - Expand DEI AMA Office Hours to more broadly engage new-to-oss individuals and provide a forum for mentorship and guidance as they launch into and grow within their careers.
 - Identify, curate, produce, and deliver new secure development education such as Developer Manager Training, Implementing/Integrating OSSF tools such as Scorecard, Badges, OSV, OpenVEX, etc), advanced secure development techniques, and more.
-- Evangelize and embed all of our guides across OpenSSF Technical Inititatives and understand what makes sense to integrate into Scorecard
+- Evangelize and embed all of our guides across OpenSSF Technical Initiatives and understand what makes sense to integrate into Scorecard
 
 
 
