@@ -37,7 +37,6 @@ When compiling code in any of the situations in the below table, add the corresp
 | for shared libraries | `-fPIC -shared`                |
 | for x86_64           | `-fcf-protection=full`         |
 | for aarch64          | `-mbranch-protection=standard` |
-| for instrumented test code | `-ftrivial-auto-var-init=pattern` |
 | for production code  | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
 
 Developers should additionally use [`-Werror`](#-Werror), but it is advisable to omit it when distributing source code, as `-Werror` creates a dependency on specific toolchain vendors and versions.
@@ -824,9 +823,14 @@ This option has three choices:
 - `pattern` - automatic variables are initialized with a value likely to cause a crash if there is a logic bug.
 - `zero` - automatic variables are initialized with zeros, to reduce the risk of a logic bug leading to a security vulnerability or other problems.
 
+We recommend using `zero` for production code, to reduce the risk of a logic bug leading to a security vulnerability.
+
+The setting `-ftrivial-auto-var-init=pattern` is sometimes useful when generating instrumented test code. However, the `pattern` value can interfere with *other* tools that are being used to monitor instrumented test code. For example, the `pattern` value interferes with `-fsanitize=memory` in clang 17.0.1. Due to these conflicts, the `pattern` value is not universally recommended for generating instrumented test code.
+
 <!-- More information
 https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-ftrivial-auto-var-init
 https://reviews.llvm.org/D125142
+https://godbolt.org/z/6qTPz9n6h
 -->
 
 ## Sanitizers
