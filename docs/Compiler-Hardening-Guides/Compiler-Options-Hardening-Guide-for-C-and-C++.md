@@ -19,7 +19,7 @@ This document focuses on recommended options for the GNU Compiler Collection (GC
 
 When compiling C or C++ code on compilers such as GCC and clang, turn on these flags for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
 
-~~~~sh
+~~~sh
 -O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Wimplicit-fallthrough \
 -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
@@ -27,7 +27,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,noexecstack \
 -Wl,-z,relro -Wl,-z,now
-~~~~
+~~~
 
 When compiling code in any of the situations in the below table, add the corresponding additional options:
 
@@ -278,13 +278,13 @@ This warning flag does not have a performance impact. However, sometimes a fallt
 
 The C17 standard[^C2017] does not provide a mechanism to mark intentional fallthroughs. Different tools support different mechanisms for marking one, including attributes and comments in various forms[^Shafik15]. A portable way to mark one, used by the Linux kernel version 5.10 and later, is to define a keyword-like macro named `fallthrough` to mark an intentional fallthrough that adjusts to the relevant tool (e.g., compiler) mechanism:
 
-~~~~c
+~~~c
 #if __has_attribute(__fallthrough__)
 # define fallthrough                    __attribute__((__fallthrough__))
 #else
 # define fallthrough                    do {} while (0)  /* fallthrough */
 #endif
-~~~~
+~~~
 
 [^Polacek17]: Polacek, Marek, ["-Wimplicit-fallthrough in GCC 7"](https://developers.redhat.com/blog/2017/03/10/wimplicit-fallthrough-in-gcc-7), Red Hat Developer, 2017-03-10
 
@@ -420,14 +420,14 @@ Modify what the compiler determines is a trailing array. The higher levels make 
 
 By default, GCC and Clang treat all trailing arrays (arrays that are placed as the last member or a structure) as flexible-sized arrays, *regardless* of *declared* size for the purposes of `__builtin_object_size()` calculations used by `_FORTIFY_SOURCE`[^Cook21]. This disables various bounds checks that do not always need to be disabled. For example, with the default settings, given:
 
-~~~~c
+~~~c
 struct trailing_array {
     int a;
     int b;
     int c[4];
 };
 struct trailing_array *trailing;
-~~~~
+~~~
 
 The value of `__builtin_object_size(trailing->c, 1)` is  `-1` ("unknown size"), inhibiting bounds checking. The rationale for this default behavior is to allow for the "struct hack" idiom that allows for trailing arrays to be treated as variable sized (regardless of their declared size)[^Guelton22].
 
@@ -842,11 +842,11 @@ There are several reasons why developers may wish to separate the debug informat
 
 The following series of commands generate the debug info file, strip the debugging information from the main executable, and add the debug link section.
 
-~~~~sh
+~~~sh
 objcopy --only-keep-debug executable_file executable_file.debug
 objcopy --strip-unneeded executable_file
 objcopy --add-gnu-debuglink=executable_file.debug executable_file
-~~~~
+~~~
 
 ### Debug information in the ELF binary format
 
@@ -878,9 +878,9 @@ Whether a particular section is present or absent in an ELF binary indicates wha
 
 The debug info files are ordinary executables with an identical section layout as the application’s original executable, but without the executable’s data. The debug info file is created by compiling the application executable with the desired debug information included, then processing the executable with the `objcopy` utility to produce the stripped executable (without debugging information) and the debug info file (without executable data). Both GNU binutils `objcopy`[^binutils-objcopy] and LLVM `llvm-objcopy`[^llvm-objcopy] support the same options for stripping debug information and creating the debug info file. The shell snippet below shows the `objcopy` invocation for creating a debug info file from an executable with debug information.
 
-~~~~sh
+~~~sh
 objcopy --only-keep-debug executable_file executable_file.debug
-~~~~
+~~~
 
 There are no particular requirements for the debug link filename, although a common convention is to name debug info for an executable, e.g., “executable.debug”. While the debug info file can have the same name as the executable it is preferred to use an extension such as “.debug” as it means that the debug info file can be placed in the same directory as the executable.
 
@@ -894,11 +894,11 @@ Debug info files allows the binary to be analyzed in the same way as the origina
 
 Once the debug info file has been created the debug and symbol information can be stripped from the original binary using either the `objcopy` or `strip`[^binutils-strip] utilities provided by Binutils, or the `llvm-objcopy` or `llvm-strip`[^llvm-strip] equivalents provided by LLVM. The shell snippets below show how the debug and unneeded symbol information can be removed from an executable using `objcopy` and `strip` respectively. If code signing is enforced on the application binaries the debug and symbol information must be stripped away before the binaries are signed.
 
-~~~~sh
+~~~sh
 strip --strip-unneeded executable_file
 
 objcopy --strip-unneeded executable_file
-~~~~
+~~~
 
 The `--strip-unneeded` option in `objcopy` and will remove all symbol information (ELF `.symtab` and `.strtab` sections) from the binary that is not needed for processing relocations. In addition, it will trigger the removal of any symbolic debug information from the binary (ELF `.debug` sections and all sections with the `.debug` prefix).
 
@@ -908,11 +908,11 @@ Removing symbol information used for relocations is discouraged as it may interf
 
 Note that `--strip-unneeded` only discards standard ELF sections as unneeded. Since an ELF binary can have any number of additional sections which are unknown to `objcopy` and `strip` they cannot determine whether such unrecognized sections are safe to remove. This includes for example the `.comment` section added by GCC.  The shell snippets below show how non-standard sections, such as `.comment` can be removed in addition to the unneeded sections identified by `--strip-unneeded`. If the application includes custom, application-specific ELF sections with possible sensitive diagnostics information or metadata which is not required at run-time during normal operations developers may wish to strip such additional sections from release binaries.
 
-~~~~sh
+~~~sh
 objcopy --strip-unneeded --remove-section=.comment executable_file
 
 strip --strip-unneeded --remove-section=.comment executable_file
-~~~~
+~~~
 
 [^binutils-strip]: Binutils team, [strip](https://sourceware.org/binutils/docs/binutils/strip.html), Documentation for binutils, 2023-07-30.
 
@@ -931,9 +931,9 @@ In most cases the debug link is preferrable as it allows the developers to name 
 
 A debug link is a special section (`.gnu_debuglink`) in the executable file that contains the name of the corresponding debug info file and a 32-bit cyclic redundancy checksum (CRC) computed over the debug info file’s full contents. Any executable file format can carry debug link information as long is can contain a section named `.gnu_debuglink`. The shell snippet below shows how a debug link can be added to an executable using `objcopy` (or `llvm-objcopy`).
 
-~~~~sh
+~~~sh
 objcopy --add-gnu-debuglink=executable_file.debug executable_file
-~~~~
+~~~
 
 If the debug information file is built in one location but is going to be later installed at a different location the `--add-gnu-debuglink` option should be used with the path to the built debug information file. The debug info file must exist at the specified path as it is required for the CRC calculation which allows the debugger to validate that the debug info file it loads matches that of the executable.
 
