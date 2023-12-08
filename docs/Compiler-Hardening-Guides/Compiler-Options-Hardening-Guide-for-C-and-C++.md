@@ -89,7 +89,7 @@ Some organizations require selecting hardening rules. For example, the US govern
 How you apply this guide depends on your circumstances:
 
 - New or nearly-new project ("Green field"): If you're starting a new project, enable everything as soon as you can, preferably before any code is written for it. That way, you'll be immediately notified of any problematic constructs and avoid it in the future.
-- Existing non-trivial project ("Brown field"): It's usually impractical to enable all options at once. The number of warnings will probably be overwhelming. Instead, enable one or a few options at a time, resolve any problems, and repeat over time. Some flags (like `-Wall`) are groups of other flags; consider breaking them down and enabling a few of those specific flags at a time.
+- Existing non-trivial project ("Brown field"): It's usually impractical to enable all options at once. First, the number of warnings will probably be overwhelming. Second, while the run-time protection mechanisms will often not cause correctly-working programs to fail, it's still possible for them to cause problems (e.g., due to increased size). Instead, enable one or a few options at a time, resolve any problems, and repeat over time. Some flags (like `-Wall`) are groups of other flags; consider breaking them down and enabling a few of those specific flags at a time.
 
 Applications should work towards compiling warning-free. This takes time, but warnings indicate a potential problem. Once done, any new warning indicates a potential problem.
 
