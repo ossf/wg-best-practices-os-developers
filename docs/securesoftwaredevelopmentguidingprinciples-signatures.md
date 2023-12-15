@@ -19,3 +19,5 @@ The following individuals and organizations endorse these [Secure Software Devel
 - [Mohsen Fazlian](https://www.linkedin.com/in/mohsen-fazlian-9801003/), Corporate Vice President, GM - Intel Product Assurance and Security on behalf of [Intel Corporation ](https://www.intel.com/content/www/us/en/security/overview.html)
 - [Ryan Ware](https://github.com/ware), OpenSSF Security Tooling WG Chair
 - [Katherine Druckman](https://github.com/kdruckman), OpenSSF Marketing Committee Co-Chair
+
+Anyone interested in pledging to follow Principles is encouraged to file a [Pull Request](https://github.com/ossf/wg-best-practices-os-developers/pulls) and add your name or organization to the Signatories.
