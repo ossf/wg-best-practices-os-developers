@@ -18,3 +18,4 @@ The following individuals and organizations endorse these [Secure Software Devel
 - [Adrianne Marcum](https://github.com/afmarcum), Linux Foundation, OpenSSF Technical Project Manager
 - [Mohsen Fazlian](https://www.linkedin.com/in/mohsen-fazlian-9801003/), Corporate Vice President, GM - Intel Product Assurance and Security on behalf of [Intel Corporation ](https://www.intel.com/content/www/us/en/security/overview.html)
 - [Ryan Ware](https://github.com/ware), OpenSSF Security Tooling WG Chair
+- [Katherine Druckman](https://github.com/kdruckman), OpenSSF Marketing Committee Co-Chair
