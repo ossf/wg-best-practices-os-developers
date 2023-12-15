@@ -16,3 +16,5 @@ The Secure Software Development Guiding Principles (SSDGP) are a series of core 
 10. To actively collaborate with and participate in industry and regulatory initiatives related to securing the software supply chain, and to evangelize adoption of the Secure Software Development Guiding Principles among our industry peers.
 
 [Signatures](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/securesoftwaredevelopmentguidingprinciples-signatures.md)
+
+Anyone interested in pledging to follow Principles is encouraged to file a [Pull Request](https://github.com/ossf/wg-best-practices-os-developers/pulls) and add your name or organization to the [Signatories](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/securesoftwaredevelopmentguidingprinciples-signatures.md).
