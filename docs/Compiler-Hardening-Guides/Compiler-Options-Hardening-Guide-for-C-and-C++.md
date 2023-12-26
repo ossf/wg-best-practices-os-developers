@@ -94,11 +94,13 @@ Compiler options hardening is not a silver bullet; it is not sufficient to rely 
 
 ### What is our threat model, goal, and objective?
 
-Our threat model is that all software developers make mistakes, and sometimes those mistakes lead to vulnerabilities. In addition, some malicious developers may intentionally create code that *appears* to be an unintentional vulnerability, or *appears* correct but is deceiving (aka [underhanded code](https://www.ida.org/research-and-publications/publications/all/i/in/initial-analysis-of-underhanded-source-code)).
+Our threat model is that all software developers make mistakes, and sometimes those mistakes lead to vulnerabilities. In addition, some malicious developers may intentionally create code that *appears* to be an unintentional vulnerability, or *appears* correct but is intentionally deceiving to reviewers (aka [underhanded code](https://www.ida.org/research-and-publications/publications/all/i/in/initial-analysis-of-underhanded-source-code)).
 
-Our goal is to counter vulnerabilities that *appear* to be unintentional (whether or not they're intentional). Our secondary goal is to counter malicious code where its source code's appearance is designed to deceive. Many vulnerabilities are caused by common mistakes. Therefore, when implementing these goals, much of our focus is on detecting and countering *common* mistakes, whether or not they are vulnerabilities in a particular circumstance.
+Our primary goal is to counter vulnerabilities that *appear* to be unintentional (whether or not they're intentional). Our secondary goal is to counter malicious code where its source code's appearance is designed to deceive reviewers.
 
-We are not trying to counter software whose source code is clearly written to be malicious. Compilers generally can't counter that, and other countermeasures (such as source code peer review) are more effective countermeasures.
+Many vulnerabilities are caused by common mistakes. Therefore, when implementing these goals, much of our focus is on detecting and countering *common* mistakes, whether or not they are vulnerabilities in a particular circumstance. We especially (but not exclusively) focus on countering memory safety issues, since as discussed above, memory safety issues cause most of the vulnerabilities in C and C++ code.
+
+We are *not* trying to counter software whose source code is clearly written to be malicious. Compilers generally can't counter that, and other countermeasures (such as source code peer review) are more effective countermeasures.
 
 Given these goals, this guidance has the following objectives:
 
