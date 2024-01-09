@@ -2,7 +2,7 @@
 
 _by the [Open Source Security Foundation (OpenSSF)](https://openssf.org)_
 
-If you develop or build software, here are some ready-to-go resources from the OpenSF to help you secure that software.
+If you develop or build software, here are some ready-to-go resources from the OpenSSF to help you secure that software.
 
 ## General software security education
 
@@ -12,6 +12,7 @@ If you develop or build software, here are some ready-to-go resources from the O
 
 * [Concise Guide for Developing More Secure Software](https://best.openssf.org/Concise-Guide-for-Developing-More-Secure-Software) - a short "start here" page for how to develop secure software.
 * [Guide to Implementing a Coordinated Vulnerability Disclosure Process for Open Source Projects](https://github.com/ossf/oss-vulnerability-guide/blob/main/maintainer-guide.md#readme) - we recommend OSS projects use this _before_ you get a vulnerability report!
+* [Source Code Management Best Practices Guide](https://best.openssf.org/SCM-BestPractices/) - Guide for securing and implementing best practices for SCM platforms, including GitHub and GitLab.
 
 You can also see the full list of [Guides released by the OpenSSF](https://openssf.org/resources/guides/).
 
@@ -31,7 +32,10 @@ Use these to evaluate the OSS you intend to use _and_ to evaluate how well your 
 
 ## Specialized guides
 
+As noted above, The [OpenSSF has many guides](https://openssf.org/resources/guides/). Here are some specialized guides:
+
 * [npm Best Practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md)
+* [Compiler Options Hardening Guide for C and C++](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++)
 
 ## Sigstore (digital signing)
 
