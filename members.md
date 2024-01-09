@@ -40,6 +40,10 @@ GitHub Team memberships and repository access are based on the following groups.
 - Riccardo ten Cate, SKF
 - Spyros Gasteratos*, OWASP/CRE
 
+### Toolbelt Leads
+- [Sarah Evans, Dell](https://github.com/sevansdell)
+- [John Kjell, TestifySec](https://github.com/jkjell)
+
 ### Toolbelt Collaborators
 - [Andrea Frittoli, IBM](https://github.com/afrittoli)
 - [Arnaud Le Hors, IBM](https://github.com/lehors)
@@ -59,6 +63,7 @@ GitHub Team memberships and repository access are based on the following groups.
 - [Joshua Lock, Verizon](https://github.com/joshuagl)
 - [Kris Borchers, independent](https://github.com/kborchers)
 - [Marcela Melara, Intel](https://github.com/marcelamelara)
+- [Matthew Coles, Dell](https://github.com/)
 - [Matt Rutkowski, IBM](https://github.com/mrutkows)
 - [Melba Lopez, IBM](https://github.com/melba-lopez)
 - [Michael Leiberman, Kusari](https://github.com/mlieberman85)
