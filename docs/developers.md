@@ -18,12 +18,12 @@ You can also see the full list of [Guides released by the OpenSSF](https://opens
 
 ## OSS Project Evaluation
 
-Use these to evaluate the OSS you intend to use _and_ to evaluate how well your OSS project(s are doing.
+Use these to evaluate the OSS you intend to use _and_ to evaluate how well your OSS projects are doing.
 
 * [Concise Guide for Evaluating Open Source Software](https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software) - before you add a dependency, use this to help you evaluate it.
 * [Security Scorecard](https://github.com/ossf/scorecard) is a tool that automatically scores OSS projects. Supports projects hosted by GitHub and GitLab.
   * You can add [AllStar](https://github.com/ossf/allstar) to your OSS project, which will file an issue for Scorecard policy violations (you can configure what files an issue). See [Allstar's "Quickstart Installation" for more](https://github.com/ossf/allstar#quickstart-installation).
-* [OpenSSF Best Practices badge](https://www.bestpractices.dev/) - This is a questionaire of security best practices, partly automation, that takes ~20 mintues. If you meet enough criteria your OSS project earns a badge!
+* [OpenSSF Best Practices badge](https://www.bestpractices.dev/) - This is a questionaire of security best practices, partly automation, that takes ~20 minutes. If you meet enough criteria your OSS project earns a badge!
 * [Security Reviews](https://github.com/ossf/security-reviews) - collection of known security reviews of OSS projects.
 
 ## Build protection
