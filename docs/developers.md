@@ -32,7 +32,7 @@ Use these to evaluate the OSS you intend to use _and_ to evaluate how well your 
 
 ## Specialized guides
 
-As noted above, The [OpenSSF has many guides](https://openssf.org/resources/guides/). Here are some specialized guides:
+As noted above, the [OpenSSF has many guides](https://openssf.org/resources/guides/). Here are some specialized guides:
 
 * [npm Best Practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md)
 * [Compiler Options Hardening Guide for C and C++](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++)
