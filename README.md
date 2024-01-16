@@ -10,8 +10,8 @@ Our Mission is to provide open source developers with security best practices re
 
 We seek to fortify the open-source ecosystem by championing and embedding best security practices, thereby creating a digital environment where both developers and users can trust and rely on open-source solutions without hesitation.
 
-
 ## Vision
+
 - We envision a world where software developers can easily IDENTIFY good practices, requirements and tools that help them create and maintain secure world-class software, helping foster a community where security knowledge is shared and amplified.  
 - We seek to provide means to LEARN techniques of writing and identifying secure software using methods best suited to learners of all types.
 - We desire to provide tools to help developers ADOPT these good practices seamlessly into their daily work.
@@ -35,7 +35,6 @@ To achieve our Mission and Vision, the BEST Working group will execute on the fo
 - Evangelize and drive adoption of our artifacts (ex: guides, trainings, tools) through community outreach and targeted maintainer engagement.
 - Collaborate with other OpenSSF and open source efforts to provide comprehensive guidance, advice, and tooling for software developers and open source software consumers to use, implement, and evaluate the security qualities of software.
 
-
 ## Roadmap
 
 To deliver on our Strategy, the BEST Working Group will do the following:
@@ -53,8 +52,6 @@ To deliver on our Strategy, the BEST Working Group will do the following:
 - Identify, curate, produce, and deliver new secure development education such as Developer Manager Training, Implementing/Integrating OSSF tools such as Scorecard, Badges, OSV, OpenVEX, etc), advanced secure development techniques, and more.
 - Evangelize and embed all of our guides across OpenSSF Technical Initiatives and understand what makes sense to integrate into Scorecard
 
-
-
 ## Help build a community
 
 - Program to attract open source contributors and incentivize them to use and contribute to the inventory
@@ -66,6 +63,7 @@ Supply a Learning platform
 - A suite of exercises are available for each best practice of the inventory
 
 ## Current Work
+
 We welcome contributions, suggestions and updates to our projects. To contribute please fill in an [issue](https://github.com/ossf/wg-best-practices-os-developers/issues) or create a [pull request](https://github.com/ossf/wg-best-practices-os-developers/pulls).
 
 We typically use the [Simplest Possible Process (SPP)](https://best.openssf.org/spp/Simplest-Possible-Process) to publish and maintain the documents we publish; see the [SPP documentation](https://best.openssf.org/spp/Simplest-Possible-Process) if you have questions about it.
@@ -89,12 +87,12 @@ Our work is organized into several discrete-yet-related projects that help us ac
 * [A Brief Introduction to Developing Secure Software (short presentation)](https://docs.google.com/presentation/d/1GzLX4CYr4HtXrNF6wyO11hzz9EgwriKhnbvVZ9-LG2E/edit)
 
 ## Past Work/Greatest Hits
+
 - _Interactive artwork_ - (incubating) <https://github.com/blabla1337/wg-best-practices-os-developers/tree/main/infinity2>
   - Place where we want to guide developers in what stage they can use what type of tooling or approach. We have tons of great tools and materials but hard to find for devs, using this page and interactive loop we want to guide them to find the right stuff.
 - _Great MFA Distribution Project_ - (archived) <https://github.com/ossf/great-mfa-project>
   - Distribute MFA tokens to OSS developers and best practices on how to easily use them
 - [Recommended compiler option flags for C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b).
-
 
 ## Related Activities
 
@@ -144,8 +142,6 @@ Every 2 weeks, Tuesday 10am EST. The meeting invite is available on the [public 
 |  Security Knowledge Framework -  SKF  | TBD   | Meeting Notes           |  Git Repo | [Slack](https://openssf.slack.com/archives/C04B7EZLTM1) | Mailing List |
 |  The Security Toolbelt  | Every Tuesday Noon/12pm ET  | [Meeting Notes](https://docs.google.com/document/d/1H3Nk0PwmylLg5F7pqrIvyKzTyXAll0-f50B7DdqOh4A/edit#heading=h.a615m7qzeitc)           |  [Git Repo](https://github.com/ossf/toolbelt) | [Slack](https://openssf.slack.com/archives/C057BN7K19B) | [Mailing List](Openssf-sig-sterling-toolchain@lists.openssf.org) |
 
-
-
 ## Meeting Notes
 
 Meeting notes are maintained in a Google Doc found in the above table. If attending please add your name, and if a returning attendee, please change the color of your name from gray to black.
@@ -156,15 +152,17 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 
 - Lead - [Christopher "CRob" Robinson](https://github.com/SecurityCRob)
 - Co-Lead -
-- Backlog Warden - 
+- Backlog Warden -
 - "*" denotes a project/SIG lead
 
 ### Project Maintainers
+
 - [Christopher "CRob" Robinson*, Intel](https://github.com/SecurityCRob)
 - [David A Wheeler, LF/OSSF](https://github.com/david-a-wheeler)
 - [Dave Russo*, Red Hat](https://github.com/drusso-rh)
 
 ### Project Collaborators
+
 - [Arnaud J Le Hors, IBM](https://github.com/lehors)
 - Avishay Balter, Microsoft
 - [Christine Abernathy*, F5](https://github.com/caabernathy)
@@ -182,8 +180,8 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [Thomas Nyman*, Ericsson](https://github.com/thomasnyman)
 - Yotam Perkal, Rezilion
 
-
 ### Project Contributors
+
 - [Chris de Almeida, IBM](https://github.com/ctcpip)
 - [Jeffrey Borek, IBM](https://github.com/jtborek)
 - Ixchel Ruiz, jfrog
@@ -193,34 +191,35 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - Spyros Gasteratos*, OWASP/CRE
 
 ### Toolbelt Collaborators
+
 - [Andrea Frittoli, IBM](https://github.com/afrittoli)
 - [Arnaud Le Hors, IBM](https://github.com/lehors)
 - [Behan Webster, The Linux Foundation](https://github.com/)
 - [Brandon Mitchell, IBM](https://github.com/sudo-bmitch)
-- [Brian Behlendorf, The Linux Foundation](https://github.com/}
+- [Brian Behlendorf, The Linux Foundation](https://github.com/)
 - [Brian Wagner, IBM](https://github.com/wags007)
 - [Christopher "CRob" Robinson, Intel](https://github.com/SecurityCRob)
 - [Daniel Appelquist, Synk](https://github.com/Torgo)
 - [David A Wheeler, LF/OSSF](https://github.com/david-a-wheeler)
-- [Georg Kunz, Ericsson](https://github.com/}
+- [Georg Kunz, Ericsson](https://github.com/)
 - [Jacques Chester, independent](https://github.com/jchester)
 - [Jay White, Microsoft](https://github.com/camaleon2016)
 - [Jeff Borek, IBM](https://github.com/jtborek)
-- [Jon Meadows, Citi](https://github.com/}
-- [Josh Clements, Analog Devices](https://github.com/}
-- [Joshua Lock, Verizon](https://github.com/}
-- [Kris Borchers, independent](https://github.com/}
+- [Jon Meadows, Citi](https://github.com/)
+- [Josh Clements, Analog Devices](https://github.com/)
+- [Joshua Lock, Verizon](https://github.com/)
+- [Kris Borchers, independent](https://github.com/)
 - [Marcela Melara, Intel](https://github.com/marcelamelara)
 - [Matt Rutkowski, IBM](https://github.com/mrutkows)
-- [Melba Lopez, IBM](https://github.com/}
+- [Melba Lopez, IBM](https://github.com/)
 - [Michael Leiberman, Kusari](https://github.com/mlieberman85)
 - [Phil Estes, AWS](https://github.com/estesp)
 - [Ryan Ware, Intel](https://github.com/ware)
 - [Sal Kimmich, EscherCloud AI](https://github.com/salkimmich)
 - [Sarah Evans, Dell](https://github.com/sevansdell)
-- [Steve Taylor, Deployhub/Ortelius/Pyrsia](https://github.com/}
+- [Steve Taylor, Deployhub/Ortelius/Pyrsia](https://github.com/)
 - [Tom Hennen, Google](https://github.com/TomHennen)
-- [Tracy Ragan, Deployhub/Ortelius/CDEvents](https://github.com/}
+- [Tracy Ragan, Deployhub/Ortelius/CDEvents](https://github.com/)
 
 A listing of our current and past group [members](https://github.com/ossf/wg-best-practices-os-developers/blob/main/members.md).
 
