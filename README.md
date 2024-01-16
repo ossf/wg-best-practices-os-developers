@@ -82,6 +82,10 @@ Our work is organized into several discrete-yet-related projects that help us ac
 |  The Security Toolbelt | Assemble a “sterling” collection of capabilities (**software frameworks, specifications, and human and automated processes**) that work together to **automatically list, scan, remediate, and secure the components flowing through the software supply chain** that come together as software is written, built, deployed, consumed, and maintained. Each piece of the collection will represent an **interoperable** link in that supply chain, enabling adaptation and integration into the major upstream language toolchains, developer environments, and CI/CD systems. | [Security Toolbelt](https://github.com/ossf/toolbelt) | [security-toolbelt](https://openssf.slack.com/archives/C057BN7K19B) | [Mailing List](Openssf-sig-sterling-toolchain@lists.openssf.org) |
 | [SKF - Security Knowledge Framework](https://www.securityknowledgeframework.org/) |  Learn to integrate security by design in your web application  | | |
 
+## Related resources
+
+- [A Brief Introduction to Developing Secure Software (short presentation)](https://docs.google.com/presentation/d/1GzLX4CYr4HtXrNF6wyO11hzz9EgwriKhnbvVZ9-LG2E/edit)
+
 ## Past Work/Greatest Hits
 
 - _Interactive artwork_ - (incubating) <https://github.com/blabla1337/wg-best-practices-os-developers/tree/main/infinity2>
