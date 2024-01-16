@@ -84,7 +84,7 @@ Our work is organized into several discrete-yet-related projects that help us ac
 
 ## Related resources
 
-* [A Brief Introduction to Developing Secure Software (short presentation)](https://docs.google.com/presentation/d/1GzLX4CYr4HtXrNF6wyO11hzz9EgwriKhnbvVZ9-LG2E/edit)
+- [A Brief Introduction to Developing Secure Software (short presentation)](https://docs.google.com/presentation/d/1GzLX4CYr4HtXrNF6wyO11hzz9EgwriKhnbvVZ9-LG2E/edit)
 
 ## Past Work/Greatest Hits
 
