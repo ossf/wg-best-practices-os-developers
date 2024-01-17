@@ -203,9 +203,9 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable. Can impact performance on 32-bit architectures.                                                   |
 | [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6<br/>Clang 5.0.0[^Guelton20] | Build as position-independent code. Can impact performance on 32-bit architectures.                                                         |
 | [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                     | GCC 3.0<br/>Clang 7.0.0            | Force retention of null pointer checks                                                       |
-| [`-fno-strict-overflow`](#-fno-strict-overflow)                                            |                                    | Integer overflow may occur                                                                   |
-| [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                            |                                    | Do not assume strict aliasing                                                                |
-| [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                            |                                | Perform trivial auto variable initialization                                                 |
+| [`-fno-strict-overflow`](#-fno-strict-overflow)                                           | GCC 4.2                            | Integer overflow may occur                                                                   |
+| [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 18.0.0        | Do not assume strict aliasing                                                                |
+| [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12<br/>Clang 8.0               | Perform trivial auto variable initialization                                                 |
 
 [^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
@@ -746,9 +746,9 @@ There are normally no significant performance implications. Null pointer checks 
 
 ### Integer overflow may occur
 
-| Compiler Flag                   | Supported since  | Description                                                       |
-|:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| <span id="-fno-strict-overflow">`-fno-strict-overflow`</span>                       |                                    | Integer overflow may occur                                                           |
+| Compiler Flag                                                 | Supported since | Description                                                       |
+|:------------------------------------------------------------- |:---------------:|:----------------------------------------------------------------- |
+| <span id="-fno-strict-overflow">`-fno-strict-overflow`</span> |  GCC 4.2        | Integer overflow may occur                                        |
 
 #### Synopsis
 
@@ -782,9 +782,9 @@ Note that GCC and Clang interpret this option slightly differently. On clang, th
 
 ### Do not assume strict aliasing
 
-| Compiler Flag                   | Supported since  | Description                                                       |
-|:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| <span id="-fno-strict-aliasing">`-fno-strict-aliasing`</span>                       |                                    | Do not assume strict aliasing                                                                |
+| Compiler Flag                                                 | Supported since             | Description                   |
+|:------------------------------------------------------------- |:---------------------------:|:------------------------------|
+| <span id="-fno-strict-aliasing">`-fno-strict-aliasing`</span> | GCC 2.95.3<br/>Clang 18.0.0 | Do not assume strict aliasing |
 
 #### Synopsis
 
@@ -796,9 +796,9 @@ This option eliminates this problem. It's used by the Linux kernel.
 
 ### Perform trivial auto variable initialization
 
-| Compiler Flag                   | Supported since  | Description                                                       |
-|:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| <span id="-ftrivial-auto-var-init">`-ftrivial-auto-var-init`</span>                 |                                    | Perform trivial auto variable initialization                                                 |
+| Compiler Flag                                                       | Supported since     | Description                                  |
+|:--------------------------------------------------------------------|:-------------------:|:---------------------------------------------|
+| <span id="-ftrivial-auto-var-init">`-ftrivial-auto-var-init`</span> | GCC 12<br/>Clang 8.0| Perform trivial auto variable initialization |
 
 #### Synopsis
 
