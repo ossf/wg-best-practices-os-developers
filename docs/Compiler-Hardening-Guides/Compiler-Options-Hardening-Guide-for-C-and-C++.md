@@ -38,7 +38,7 @@ When compiling code in any of the situations in the below table, add the corresp
 | for x86_64           | `-fcf-protection=full`         |
 | for aarch64          | `-mbranch-protection=standard` |
 
-Developers should additionally use [`-Werror`](#-Werror), but it is advisable to omit it when distributing source code, as `-Werror` creates a dependency on specific toolchain vendors and versions.
+We recommend developers to additionally use a blanket [`-Werror`](#-Werror) to treat all warnings as errors during development. However, `-Werror` should not be used in this blanket form when distributing source code, as this use of `-Werror` creates a dependency on specific toolchain vendors and versions. The selective form[`-Werror=`*`<warning-flag>`*](#-Werror-flag) that promotes specific warnings as error in cases that should never occur in the code can be used both during development and when distributing sources.
 
 See the discussion below for [background](#background) and for [detailed discussion of each option](#recommended-compiler-options).
 
@@ -120,7 +120,7 @@ It's important to note that sourcing GCC from third-party vendor may result in y
 
 [^ubuntu-hardening]: Ubuntu, [Ubuntu Security Features](https://wiki.ubuntu.com/Security/Features), Ubuntu Wiki, 2023-08-07.
 
-Typical compiler configurations do not report warnings from system headers, since application developers typically don't control those headers.  In GCC this is because `-Wno-system-headers` is on by default, and clang also normally suppresses warnings from system headers [^clang-system-headers]. You will probably want to also mark third party include files as system headers so you can strongly increase the warning levels. Directories added with the command line option `-isystem` are treated as system header directories by GCC [^gcc-directory-search] and Clang [^clang-isystem]. In a Cmake configuration file you can do this with `include_directories` by adding `SYSTEM` before its parameter [^cmake-include-directories]. There are trade-offs. Silencing warnings from system headers and third party libraries may hide vulnerabilities in them that affect the application. On the other hand, *not* silencing them focuses efforts on issues that the developer typically cannot control, impede progress when using `-Werror` in CI jobs, and often make it difficult to support building with older versions of third party code.
+Typical compiler configurations do not report warnings from system headers, since application developers typically don't control those headers.  In GCC this is because `-Wno-system-headers` is on by default, and clang also normally suppresses warnings from system headers [^clang-system-headers]. You will probably want to also mark third party include files as system headers so you can strongly increase the warning levels. Directories added with the command line option `-isystem` are treated as system header directories by GCC [^gcc-directory-search] and Clang [^clang-isystem]. In a Cmake configuration file you can do this with `include_directories` by adding `SYSTEM` before its parameter [^cmake-include-directories]. There are trade-offs. Silencing warnings from system headers and third party libraries may hide vulnerabilities in them that affect the application. On the other hand, *not* silencing them focuses efforts on issues that the developer typically cannot control, impede progress when using `-Werror` in CI jobs, and often make it difficult to support building with older versions of third party code, making incremental upgrades difficult.
 
 [^clang-system-headers]: LLVM team, [Controlling Diagnostics in System Headers](https://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-in-system-headers), Clang Compiler User's Manual, 2017-03-08.
 
@@ -152,7 +152,7 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | [`-Wconversion`](#-Wconversion)<br/>[`-Wsign-conversion`](#-Wsign-conversion) | GCC 2.95.3<br/>Clang 4.0 | Enable implicit conversion warnings                                                 |
 | [`-Wtrampolines`](#-Wtrampolines)                                             |         GCC 4.3          | Enable warnings about trampolines that require executable stacks                    |
 | [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7<br>Clang 4.0   | Warn when a switch case falls through                                           |
-| [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Make compiler warnings into errors (use in development, not in source distribution) |
+| [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Treat all or selected compiler warnings as errors. Use the blanket form `-Werror` only during development, not in source distribution. |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
 
@@ -296,23 +296,21 @@ The C17 standard[^C2017] does not provide a mechanism to mark intentional fallth
 
 ---
 
-### Make compiler warnings into errors
+### Treat compiler warnings as errors
 
 | Compiler Flag                                                                                        |       Supported since       | Description                        |
 |:---------------------------------------------------------------------------------------------------- |:------------------------:|:---------------------------------- |
-| <span id="-Werror">`-Werror`</span><br/> <span id="-Werror-flag">`-Werror=`*`<warning-flag>`*</span> | GCC 2.95.3<br/>Clang 2.6 | Make compiler warnings into errors |
+| <span id="-Werror">`-Werror`</span><br/> <span id="-Werror-flag">`-Werror=`*`<warning-flag>`*</span> | GCC 2.95.3<br/>Clang 2.6 | Treat compiler warnings as errors |
 
 #### Synopsis
 
 Make the compiler treat all or specific warning diagnostics as errors.
 
-Developers should use `-Werror`, but it is advisable to omit it when distributing source code as `-Werror` creates a dependency on specific toolchain vendors and versions [^Johnston17]. Such toolchain dependencies, i.e., which compiler version(s) the project is expected to work with, should be clearly noted in the project documentation or the build environment should be completely captured, e.g., via container recipes.
+The blanket form: `-Werror` without a selector treats all warnings as errors and can be used to implement a zero-warning policy during development. However, we recommend developers to omit the blanket form when distributing source code as it creates a dependency on specific toolchain vendors and versions [^Johnston17]. If necessary, such toolchain dependencies, i.e., which compiler version(s) the project is expected to work with, should be clearly noted in the project documentation or the build environment should be completely captured, e.g., via container recipes. However, it's better to ensure that source code is not so dependent on a specific toolchain version.
 
-A blanket `-Werror` can be used to implement a zero-warning policy, although such policies can also be enforced at CI level. CI-based zero- or bounded-warning policies are often preferable, for the reasons explained above, and because they can be expanded beyond compiler warnings. For example, they can also include warnings from static analysis tools or generate warnings when `FIXME` and `TODO` comments are found.
+The selective form: `-Werror=`*`<warning-flag>`* can be used for refined warnings-as-error control without introducing a blanket zero-warning policy. This is beneficial to ensure that certain undesirable constructs or defects *never* occur produced builds. The selective form does *not* introduce a dependency on the toolchain or version if the corresponding warning is for a specific construct. For example, developers can decide to promote warnings that indicate interference with OS defense mechanisms (e.g., `-Werror=trampolines`), undefined behavior (e.g., `-Werror=return-type`), or constructs associated with software weaknesses (e.g., `-Werror=conversion`) to errors.
 
-The selective form: `-Werror=`*`<warning-flag>`* can be used for refined warnings-as-error control without introducing a blanket zero-warning policy. This is beneficial to ensure that certain undesirable constructs or defects do not make it into produced builds.
-
-For example, developers can decide to promote warnings that indicate interference with OS defense mechanisms (e.g., `-Werror=trampolines`), undefined behavior (e.g., `-Werror=return-type`), or constructs associated with software weaknesses (e.g., `-Werror=conversion`) to errors.
+Zero-warning policies can also be enforced at CI level. CI-based zero- or bounded-warning policies are often preferable, for the reasons explained above, and because they can be expanded beyond compiler warnings. For example, they can also include warnings from static analysis tools or generate warnings when `FIXME` and `TODO` comments are found.
 
 [^Johnston17]: Johnston, Philip. [-Werror is Not Your Friend](https://embeddedartistry.com/blog/2017/05/22/werror-is-not-your-friend/). Embedded Artistry Blog, 2017-05-22.
 
