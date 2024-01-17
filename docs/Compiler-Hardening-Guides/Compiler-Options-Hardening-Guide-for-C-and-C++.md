@@ -629,25 +629,17 @@ All major modern processor architectures incorporate memory management primitive
 
 The `-Wl,-z,noexecstack` option tells the linker to mark the corresponding program segment as non-executable which enables the OS to configure memory access rights correctly when the program executable is loaded into memory.
 
-However, some language-level programming constructs, such as taking the address of a nested function (a GNU C extension to ISO standard C) requires special compiler handling which may prevent the linker from marking stack segments correctly as non-executable[^gcc-trampolines].
-
-Consequently the `-Wl,-z,noexecstack` option works best when combined with appropriate warning flags (`-Wtrampolines` where available) that indicate whether language constructs interfere with stack virtual memory protection.
-
 #### Performance implications
 
 None, marking the stack and/or heap as non-executable does not have an impact on performance at run time.
 
 #### When not to use?
 
-Applications that leverage just-in-time (JIT) compilation for managed bytecode or interpreted language runtimes may require specific writable memory areas, such as part of the heap to remain executable in order to execute JIT code.
+Some language-level programming constructs, such as taking the address of a nested function (a GNU C extension to ISO standard C) requires special compiler handling which may prevent the linker from marking stack segments correctly as non-executable[^gcc-trampolines].
 
-Such applications require sandboxing techniques to protect the application’s memory integrity from potentially malicious JIT code.
-
-In addition to protection against malicious code injection such applications may also require special mitigations against speculative execution side channels [^Intel18].
+Consequently the `-Wl,-z,noexecstack` option works best when combined with appropriate warning flags (`-Wtrampolines` where available) that indicate whether language constructs interfere with stack virtual memory protection.
 
 [^gcc-trampolines]: GCC team, [Support for Nested Functions.](https://gcc.gnu.org/onlinedocs/gccint/Trampolines.html), GCC Internals, 2023-07-27.
-
-[^Intel18]: Intel, [Managed Runtime Speculative Execution Side Channel Mitigations](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/runtime-speculative-side-channel-mitigations.html), Intel Developer Zone, 2018-03-01.
 
 ---
 
