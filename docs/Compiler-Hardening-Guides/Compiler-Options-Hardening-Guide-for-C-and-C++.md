@@ -825,7 +825,7 @@ This option has three choices:
 
 We recommend using `zero` for production code, to reduce the risk of a logic bug leading to a security vulnerability.
 
-The setting `-ftrivial-auto-var-init=pattern` is sometimes useful when generating instrumented test code. However, the `pattern` value can interfere with *other* tools that are being used to monitor instrumented test code. For example, the `pattern` value interferes with `-fsanitize=memory` in clang 17.0.1. Due to these conflicts, the `pattern` value is not universally recommended for generating instrumented test code.
+This setting can sometimes interfere with other tools that are being used to monitor executable code, since it is expressly setting a value that was not set by the source code.
 
 <!-- More information
 https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-ftrivial-auto-var-init
