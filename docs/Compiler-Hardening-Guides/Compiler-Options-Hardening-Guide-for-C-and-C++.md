@@ -702,42 +702,6 @@ Resource-constrained embedded systems may save memory by *prelinking* executable
 
 ---
 
-## Discouraged Compiler Options
-
-This section describes discouraged compiler and linker option flags that may lead to potential defects with security implications in produced binaries.
-
-Table 3: List of discouraged compiler and linker options.
-
-| Compiler Flag                   | Supported since  | Description                                                       |
-|:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| [`-Wl,-rpath,`*`path_to_so`*](#-Wl,-rpath) | Binutils 2.11 | Hard-code run-time search paths in executable files or libraries |
-
----
-
-### Hard-code run-time search paths in executable files or libraries
-
-| Compiler Flag                   | Supported since  | Description                                                       |
-|:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| <span id="-Wl,-rpath">`-Wl,-rpath,`*`path_to_so`*</span> | Binutils 2.11 | Hard-code run-time search paths in executable files or libraries |
-
-#### Synopsis
-
-The `-rpath` option records the specified path to a shared object files to the `DT_RPATH` or `DT_RUNPATH` header value in the produced ELF binary. The recorded rpath may override or supplement the system default search path used by the dynamic linker to find the specified library dependency.
-
-The rpath provided by the original (and default) `DT_RPATH` entry takes precedence over environmental overrides such as `LD_LIBRARY_PATH`, and an object’s `DT_RPATH` can be used for resolving dependencies of another object. These design errors were rectified with `DT_RUNPATH`, which has a lower precedence with respect to `LD_LIBRARY_PATH` and only affects the search path of an object’s own, immediate dependencies[^Kerrisk23].
-
-Setting either `DT_RPATH` or `DT_RUNPATH` in release binaries may lead to security vulnerabilities under certain conditions. An attacker may be able to supply their own shared files in the target directories and override the operating system's libraries, resulting in arbitrary code execution.
-
-Relative paths (e.g. `.` or `./lib`) are resolved relative to the working directory, which may be set by an attacker to a directory with a malicious dependency.
-
-The keyword `$ORIGIN` in rpath is expanded by the dynamic loader to the path of the directory where the object is found, which may be set by an attacker (e.g., via hard links) to a directory with a malicious dependency. On Linux, the `fs.protected_hardlinks` sysctl can help prevent this attack.
-
-Setting rpath in setuid/setgid programs can lead to privilege escalation under conditions where untrusted libraries loaded via a set rpath are executed as part of the privileged program. While setuid/setgid binaries ignore environmental overrides to search path (such as `LD_PRELOAD`, `LD_LIBRARY_PATH` etc.), rpath within such binaries can provide an attacker with equivalent capabilities to manipulate the dependency search paths.
-
-[^Kerrisk23]: Kerrisk, Michael, [Building and Using Shared Libraries on Linux, Shared Libraries: The Dynamic Linker](https://man7.org/training/download/shlib_dynlinker_slides.pdf), man7.org, February 2023.
-
----
-
 ### Do not delete null pointer checks
 
 | Compiler Flag                   | Supported since  | Description                                                       |
@@ -855,6 +819,44 @@ https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-ftrivial-auto-var
 https://reviews.llvm.org/D125142
 https://godbolt.org/z/6qTPz9n6h
 -->
+
+---
+
+## Discouraged Compiler Options
+
+This section describes discouraged compiler and linker option flags that may lead to potential defects with security implications in produced binaries.
+
+Table 3: List of discouraged compiler and linker options.
+
+| Compiler Flag                   | Supported since  | Description                                                       |
+|:------------------------------- |:-------------:|:----------------------------------------------------------------- |
+| [`-Wl,-rpath,`*`path_to_so`*](#-Wl,-rpath) | Binutils 2.11 | Hard-code run-time search paths in executable files or libraries |
+
+---
+
+### Hard-code run-time search paths in executable files or libraries
+
+| Compiler Flag                   | Supported since  | Description                                                       |
+|:------------------------------- |:-------------:|:----------------------------------------------------------------- |
+| <span id="-Wl,-rpath">`-Wl,-rpath,`*`path_to_so`*</span> | Binutils 2.11 | Hard-code run-time search paths in executable files or libraries |
+
+#### Synopsis
+
+The `-rpath` option records the specified path to a shared object files to the `DT_RPATH` or `DT_RUNPATH` header value in the produced ELF binary. The recorded rpath may override or supplement the system default search path used by the dynamic linker to find the specified library dependency.
+
+The rpath provided by the original (and default) `DT_RPATH` entry takes precedence over environmental overrides such as `LD_LIBRARY_PATH`, and an object’s `DT_RPATH` can be used for resolving dependencies of another object. These design errors were rectified with `DT_RUNPATH`, which has a lower precedence with respect to `LD_LIBRARY_PATH` and only affects the search path of an object’s own, immediate dependencies[^Kerrisk23].
+
+Setting either `DT_RPATH` or `DT_RUNPATH` in release binaries may lead to security vulnerabilities under certain conditions. An attacker may be able to supply their own shared files in the target directories and override the operating system's libraries, resulting in arbitrary code execution.
+
+Relative paths (e.g. `.` or `./lib`) are resolved relative to the working directory, which may be set by an attacker to a directory with a malicious dependency.
+
+The keyword `$ORIGIN` in rpath is expanded by the dynamic loader to the path of the directory where the object is found, which may be set by an attacker (e.g., via hard links) to a directory with a malicious dependency. On Linux, the `fs.protected_hardlinks` sysctl can help prevent this attack.
+
+Setting rpath in setuid/setgid programs can lead to privilege escalation under conditions where untrusted libraries loaded via a set rpath are executed as part of the privileged program. While setuid/setgid binaries ignore environmental overrides to search path (such as `LD_PRELOAD`, `LD_LIBRARY_PATH` etc.), rpath within such binaries can provide an attacker with equivalent capabilities to manipulate the dependency search paths.
+
+[^Kerrisk23]: Kerrisk, Michael, [Building and Using Shared Libraries on Linux, Shared Libraries: The Dynamic Linker](https://man7.org/training/download/shlib_dynlinker_slides.pdf), man7.org, February 2023.
+
+---
 
 ## Sanitizers
 
