@@ -94,7 +94,7 @@ Compiler options hardening is not a silver bullet; it is not sufficient to rely 
 
 ### What is our threat model, goal, and objective?
 
-Our threat model is that all software developers make mistakes, and sometimes those mistakes lead to vulnerabilities. In addition, some malicious developers may intentionally create code that *appears* to be an unintentional vulnerability, or *appears* correct but is intentionally deceiving to reviewers (aka [underhanded code](https://www.ida.org/research-and-publications/publications/all/i/in/initial-analysis-of-underhanded-source-code)).
+Our threat model is that all software developers make mistakes, and sometimes those mistakes lead to vulnerabilities. In addition, some malicious developers may intentionally create code that *appears* to be an unintentional vulnerability, or *appears* correct but is intentionally deceiving to reviewers (aka underhanded code[^Wheeler20]).
 
 Our primary goal is to counter vulnerabilities that *appear* to be unintentional (whether or not they're intentional). Our secondary goal is to counter malicious code where its source code's appearance is designed to deceive reviewers.
 
@@ -106,9 +106,13 @@ Given these goals, this guidance has the following objectives:
 
 1. *Minimize* the likelihood and/or impact of vulnerabilities that are released in production code.
 2. *Maximize* the detection of vulnerabilities during compilation or test (especially when using instrumented test code), so they can be repaired before release.
-3. Detect [underhanded code](https://www.ida.org/research-and-publications/publications/all/i/in/initial-analysis-of-underhanded-source-code) (especially [Trojan source](https://en.wikipedia.org/wiki/Trojan_Source)), where practical, to make peer review more effective.
+3. Detect underhanded code[^Wheeler20] (especially Trojan source[^wp-trojansource]), where practical, to make peer review more effective.
 
 This guidance cannot guarantee these results. However, when combined with other measures, they can significantly help.
+
+[^Wheeler20]: Wheeler, David, [Initial Analysis of Underhanded Source Code](https://www.ida.org/research-and-publications/publications/all/i/in/initial-analysis-of-underhanded-source-code), Institute for Defense Analysis, April 2020.
+
+[^wp-trojansource]: Wikipedia contributors, [Trojan Source](https://en.wikipedia.org/w/index.php?title=Trojan_Source&oldid=1187570322), Wikipedia, 2023-11-30.
 
 ## Recommended Compiler Options
 
