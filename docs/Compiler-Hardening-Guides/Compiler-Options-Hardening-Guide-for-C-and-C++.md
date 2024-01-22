@@ -38,8 +38,9 @@ When compiling code in any of the situations in the below table, add the corresp
 | for x86_64           | `-fcf-protection=full`         |
 | for aarch64          | `-mbranch-protection=standard` |
 | for production code  | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
+| for disabling obsolete C constructs | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion` |
 
-We recommend developers to additionally use a blanket [`-Werror`](#-Werror) to treat all warnings as errors during development. However, `-Werror` should not be used in this blanket form when distributing source code, as this use of `-Werror` creates a dependency on specific toolchain vendors and versions. The selective form[`-Werror=`*`<warning-flag>`*](#-Werror-flag) that promotes specific warnings as error in cases that should never occur in the code can be used both during development and when distributing sources.
+We recommend developers to additionally use a blanket [`-Werror`](#-Werror) to treat all warnings as errors during development. However, `-Werror` should not be used in this blanket form when distributing source code, as this use of `-Werror` creates a dependency on specific toolchain vendors and versions. The selective form[`-Werror=`*`<warning-flag>`*](#-Werror-flag) that promotes specific warnings as error in cases that should never occur in the code can be used both during development and when distributing sources. For example, we encourage developers to promote warnings regarding obsolete C constructs removed by the 1999 C standard to errors (see the "for disabling obsolete C constructs" in the above table). These options often cannot be added by those who independently build the software, because the options may require non-trivial changes to the source code.
 
 See the discussion below for [background](#background) and for [detailed discussion of each option](#recommended-compiler-options).
 
@@ -185,6 +186,7 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | [`-Wtrampolines`](#-Wtrampolines)                                             |         GCC 4.3          | Enable warnings about trampolines that require executable stacks                    |
 | [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7<br>Clang 4.0   | Warn when a switch case falls through                                           |
 | [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Treat all or selected compiler warnings as errors. Use the blanket form `-Werror` only during development, not in source distribution. |
+| [`-Werror=implicit`](#-Werror=implicit)<br/>[`-Werror=incompatible-pointer-types`](#-Werror=incompatible-pointer-types)<br/>[`-Werror=int-conversion`](#-Werror=int-conversion)<br/> | GCC 2.95.3<br/>Clang 2.6 | Treat obsolete C constructs as errors |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
 
@@ -342,13 +344,53 @@ The C17 standard[^C2017] does not provide a mechanism to mark intentional fallth
 
 Make the compiler treat all or specific warning diagnostics as errors.
 
-The blanket form: `-Werror` without a selector treats all warnings as errors and can be used to implement a zero-warning policy during development. However, we recommend developers to omit the blanket form when distributing source code as it creates a dependency on specific toolchain vendors and versions [^Johnston17]. If necessary, such toolchain dependencies, i.e., which compiler version(s) the project is expected to work with, should be clearly noted in the project documentation or the build environment should be completely captured, e.g., via container recipes. However, it's better to ensure that source code is not so dependent on a specific toolchain version.
+The blanket form, `-Werror` without a selector, treats all warnings as errors and can be used to implement a zero-warning policy during development. However, we recommend developers to omit the blanket form when distributing source code as it creates a dependency on specific toolchain vendors and versions [^Johnston17]. If necessary, such toolchain dependencies, i.e., which compiler version(s) the project is expected to work with, should be clearly noted in the project documentation or the build environment should be completely captured, e.g., via container recipes. However, it's better to ensure that source code is not so dependent on a specific toolchain version.
 
-The selective form: `-Werror=`*`<warning-flag>`* can be used for refined warnings-as-error control without introducing a blanket zero-warning policy. This is beneficial to ensure that certain undesirable constructs or defects *never* occur produced builds. The selective form does *not* introduce a dependency on the toolchain or version if the corresponding warning is for a specific construct. For example, developers can decide to promote warnings that indicate interference with OS defense mechanisms (e.g., `-Werror=trampolines`), undefined behavior (e.g., `-Werror=return-type`), or constructs associated with software weaknesses (e.g., `-Werror=conversion`) to errors.
+The selective form, `-Werror=`*`<warning-flag>`* (note the selector), can be used for refined warnings-as-error control without introducing a blanket zero-warning policy. This is beneficial to ensure that certain undesirable constructs or defects *never* occur in produced builds. The selective form does *not* introduce a dependency on the toolchain or version if the corresponding warning is for a specific construct. For example, developers can decide to promote warnings that indicate interference with OS defense mechanisms (e.g., `-Werror=trampolines`), undefined behavior (e.g., `-Werror=return-type`), or constructs associated with software weaknesses (e.g., `-Werror=conversion`) to errors. Using a set of selecting form `-Werror` flags can help ensure that the software is ported to and correctly uses more modern versions of their language (and avoids using more risky or problematic constructs) [^Weimer2023].
 
 Zero-warning policies can also be enforced at CI level. CI-based zero- or bounded-warning policies are often preferable, for the reasons explained above, and because they can be expanded beyond compiler warnings. For example, they can also include warnings from static analysis tools or generate warnings when `FIXME` and `TODO` comments are found.
 
 [^Johnston17]: Johnston, Philip. [-Werror is Not Your Friend](https://embeddedartistry.com/blog/2017/05/22/werror-is-not-your-friend/). Embedded Artistry Blog, 2017-05-22.
+
+---
+
+### Disable obsolete C constructs
+
+| Compiler Flag                                                                             | Supported since            | Description                                                                                      |
+|:----------------------------------------------------------------------------------------- |:--------------------------:|:-------------------------------------------------------------------------------------------------|
+| <span id="-Werror=implicit">`-Werror=implicit`</span>                                     | GCC 2.95.3<br/> Clang 2.6  | Treat declarations that do not specify as type or functions used before being declared as errors |
+| <span id="-Werror=incompatible-pointer-types">`-Werror=incompatible-pointer-types`</span> | GCC 5.5.0<br/> Clang 7.0.0 | Treat conversion between pointers that have incompatible types as errors                         |
+| <span id="-Werror=int-conversion">`-Werror=int-conversion`</span>                         | GCC 2.95.3<br/> Clang 2.6  | Treat implicit integer to pointer and pointer to integer conversions as errors                   |
+
+#### Synopsis
+
+Make the compiler treat obsolete C constructs as errors.
+
+The ISO/IEC 9899:1999 standard, commonly referred to as C99, removed several backwards compatibility features, such as implicit function declarations, implicit return types and certain implicit type conversion from the C language. Such implicit declarations[^DCL31-C] and type conversions[^INT36-C] can be considered dangerous for the correctness and security of C code as they lead to less stringent type checking and consequently can introduce unexpected and erroneous behavior. C99 and later dialects of C consider these issues as errors by default. However, modern compilers still accept these obsolete construct by default unless instructed to pedantically give errors whenever the base standard requires them.
+
+The `-Werror=implicit`, `-Werror=incompatible-pointer-types`, and `-Werror=int-conversion` options instruct the compiler to treat the following obsolete constructs as errors:
+
+- Declarations that do not specify as type, or functions used before being declared as errors.
+- Conversion between pointers that have incompatible types.
+- Implicit integer to pointer and pointer to integer conversions.
+
+Using these options will make the compiler treat the corresponding obsolete construsts as errors regardless of the language standard the compiler is instructed to follow. GCC 14[^gcc-porting-to-14] and Clang 15[^clang-release-notes-15] disable support for these legacy language constructs by default so enabling these options will also prepare the codebase for transitioning to these and later compilers. Some Linux distributions, such as Fedora[^Weimer23], are enforcing the use of the these options when building software for distribution. We recommend developers adopt the options, as enabling them may require may require non-trivial changes to the source code in codebases that rely on the obsolete constructs.
+
+Note that the list of options indicated here do not capture a complete list of removed features. Some changes to the expected changes to compiler default cannot be previewed using compiler flags but require instructing the compiler to support a specific langauge standard (C99 or later dialect) and to give errors whenever the base standard requires a diagnostic[^gcc-pedantic-errors].
+
+Some tools, such as `autoconf`, automatically determine what the compiler supports by generating code and compiling it. Old versions of these tools may not use more modern practices internally, so enabling errors can cause spurious reports that some functionality isn't available. The best solution is to update the tool. Where that isn't an option, consider adding `-Werror` forms *after* the tool has determined the mechanisms supported by the compiler.
+
+[^DCL31-C]: Carnegie Mellon University (CMU), [DCL31-C. Declare identifiers before using them](https://wiki.sei.cmu.edu/confluence/display/c/DCL31-C.+Declare+identifiers+before+using+them), SEI CERT C Coding Standard, 2023-10-09.
+
+[^INT36-C]: Carnegie Mellon University (CMU), [INT36-C. Converting a pointer to integer or integer to pointer](https://wiki.sei.cmu.edu/confluence/display/c/INT36-C.+Converting+a+pointer+to+integer+or+integer+to+pointerm), SEI CERT C Coding Standard, 2023-04-20.
+
+[^gcc-porting-to-14]: GCC team, [Porting to GCC 14](https://gcc.gnu.org/gcc-14/porting_to.html), GCC Supplementary Documentation, 2024-02-19.
+
+[^clang-release-notes-15]: LLVM team, [Clang 15.0.0 Release Notes](https://releases.llvm.org/15.0.0/tools/clang/docs/ReleaseNotes.html), Clang documentation, 2022-09-06.
+
+[^Weimer23]: Weimer, Florian, [Porting to Modern C](https://fedoraproject.org/wiki/Changes/PortingToModernC), Fedora Project Wiki, 2023-12-22.
+
+[^gcc-pedantic-errors]: GCC team, [Using the GNU Compiler Collection (GCC): Warning Options: `-pedantic-errors`](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-pedantic-errors-1), GCC Manual, 2023-07-27.
 
 ---
 
