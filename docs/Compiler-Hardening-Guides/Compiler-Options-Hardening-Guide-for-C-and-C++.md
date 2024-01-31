@@ -29,6 +29,8 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -Wl,-z,relro -Wl,-z,now
 ~~~
 
+Note that support for some options may differ between different compilers, e.g. support for [`-D_FORTIFY_SOURCE`](#-D_FORTIFY_SOURCE=3) varies depending on the compiler[^Guelton20] and C standard library implementations. See the discussion below for [background](#background) and for [detailed discussion of each option](#recommended-compiler-options).
+
 When compiling code in any of the situations in the below table, add the corresponding additional options:
 
 | When                 | Additional options flags       |
@@ -41,8 +43,6 @@ When compiling code in any of the situations in the below table, add the corresp
 | for production code  | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
 
 We recommend developers to additionally use a blanket [`-Werror`](#-Werror) to treat all warnings as errors during development. However, `-Werror` should not be used in this blanket form when distributing source code, as this use of `-Werror` creates a dependency on specific toolchain vendors and versions. The selective form[`-Werror=`*`<warning-flag>`*](#-Werror-flag) that promotes specific warnings as error in cases that should never occur in the code can be used both during development and when distributing sources.
-
-See the discussion below for [background](#background) and for [detailed discussion of each option](#recommended-compiler-options).
 
 In this guide, we use the term *production code* for executable code intended for use in the real world with real effects; it should be maximally reliable and performant. We use the term *instrumented test code* for executable code that is instrumented to improve defect detection and debuggability, and as such, often crashes more and is slower. Test processes should use both instrumented test code and production code.
 
