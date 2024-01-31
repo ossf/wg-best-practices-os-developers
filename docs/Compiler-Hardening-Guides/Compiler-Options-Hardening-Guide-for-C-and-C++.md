@@ -202,7 +202,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)                                               |           Binutils 2.14            | Enable data execution prevention by marking stack memory as non-executable                   |
 | [`-Wl,-z,relro`](#-Wl,-z,relro)<br/>[`-Wl,-z,now`](#-Wl,-z,now)                           |           Binutils 2.15            | Mark relocation table entries resolved at load-time as read-only. `-Wl,-z,now` can impact startup performance.                            |
 | [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable. Can impact performance on 32-bit architectures.                                                   |
-| [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6<br/>Clang 5.0.0[^Guelton20] | Build as position-independent code. Can impact performance on 32-bit architectures.                                                         |
+| [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6<br/>Clang 5.0.0     | Build as position-independent code. Can impact performance on 32-bit architectures.                                                         |
 | [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                     | GCC 3.0<br/>Clang 7.0.0            | Force retention of null pointer checks                                                       |
 | [`-fno-strict-overflow`](#-fno-strict-overflow)                                           | GCC 4.2                            | Integer overflow may occur                                                                   |
 | [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 18.0.0        | Do not assume strict aliasing                                                                |
@@ -677,7 +677,7 @@ Static linking avoids the need for dynamic symbol resolution altogether but can 
 | Compiler Flag                                  |            Supported since            | Description                               |
 |:---------------------------------------------- |:----------------------------------:|:----------------------------------------- |
 | <span id="-fPIE_-pie">`-fPIE -pie`</span>      |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable. |
-| <span id="-fPIC_-shared">`-fPIC -shared`</span> | < Binutils 2.6<br/>Clang 5.0.0[^Guelton20] | Build as position-independent code.       |
+| <span id="-fPIC_-shared">`-fPIC -shared`</span> | < Binutils 2.6<br/>Clang 5.0.0    | Build as position-independent code.       |
 
 #### Synopsis
 
