@@ -20,7 +20,7 @@ This document focuses on recommended options for the GNU Compiler Collection (GC
 When compiling C or C++ code on compilers such as GCC and clang, turn on these flags for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
 
 ~~~sh
--O2 -Wall -Wformat=2 -Wconversion -Wtrampolines -Wimplicit-fallthrough \
+-O2 -Wall -Wformat=2 -Wconversion -Wimplicit-fallthrough \
 -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
 -fstrict-flex-arrays=3 \
@@ -33,6 +33,7 @@ When compiling code in any of the situations in the below table, add the corresp
 
 | When                 | Additional options flags       |
 |:---------------------|:-------------------------------|
+| using GCC            | `-Wtrampolines`                |
 | for executables      | `-fPIE -pie`                   |
 | for shared libraries | `-fPIC -shared`                |
 | for x86_64           | `-fcf-protection=full`         |
