@@ -151,7 +151,7 @@ Meeting notes are maintained in a Google Doc found in the above table. If attend
 The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group activities.
 
 - Lead - [Christopher "CRob" Robinson](https://github.com/SecurityCRob)
-- Co-Lead -
+- Co-Lead - [Randall T. Vasquez*, The Linux Foundation](https://github.com/ran-dall)
 - Backlog Warden -
 - "*" denotes a project/SIG lead
 
@@ -160,6 +160,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [Christopher "CRob" Robinson*, Intel](https://github.com/SecurityCRob)
 - [David A Wheeler, LF/OSSF](https://github.com/david-a-wheeler)
 - [Dave Russo*, Red Hat](https://github.com/drusso-rh)
+- [Randall T. Vasquez*, The Linux Foundation](https://github.com/ran-dall)
 
 ### Project Collaborators
 
@@ -174,7 +175,6 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [Judy Kelly, Red Hat](https://github.com/judyobrienie)
 - [Marta Rybczynska, Syslinbit](https://github.com/mrybczyn)
 - Noam Dotan, Legit Security
-- [Randall T. Vasquez*, Gentoo/Homebrew](https://github.com/ran-dall)
 - [Roberth Strand, Amesto Fortytwo / Cloud Native Norway](https://github.com/roberthstrand)
 - [Sal Kimmich, EscherCloud](https://github.com/salkimmich)
 - [Thomas Nyman*, Ericsson](https://github.com/thomasnyman)
