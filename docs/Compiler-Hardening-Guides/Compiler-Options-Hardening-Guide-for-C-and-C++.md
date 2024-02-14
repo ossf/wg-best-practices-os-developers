@@ -95,10 +95,6 @@ How you apply this guide depends on your circumstances:
 
 Applications should work towards compiling warning-free. This takes time, but warnings indicate a potential problem. Once done, any new warning indicates a potential problem.
 
-### What should you do when compiling compilers?
-
-If you are compiling a C/C++ compiler, where practical make the generated compiler's default options the *secure* options. For example, when compiling GCC, use `--enable-default-pie` (which enables the flags `-fPIE` and `-pie` by default when using the generated compiler executable) and `--enable-default-ssp` (which enables `-fstack-protector-strong` by default). Similarly, when compiling clang on Linux systems, set `CLANG_DEFAULT_PIE_ON_LINUX` (which has a similar effect as the option `--enable-default-pie` when compiling GCC).
-
 ### What does compiler options hardening not do?
 
 Compiler options hardening is not a silver bullet; it is not sufficient to rely solely on security features and functions to achieve secure software. Security is an emergent property of the entire system that relies on building and integrating all parts properly. However, if properly used, secure compiler options will complement existing processes, such as static and dynamic analysis, secure coding practices, negative test suites, profiling tools, and most importantly: security hygiene as a part of a solid design and architecture.
@@ -1095,6 +1091,18 @@ A build ID is a unique bit string stored in `.note.gnu.build-id` of the ELF `.no
 If the build ID method is used the debug info file’s name is computed from the build ID. GDB searches the global debug directories (typically `/usr/lib/debug`) for a `.build-id/xx/yyyy.debug` file, where `xx` are the first two hex characters of the build ID and `yyyy` are the rest of the build ID bit string in hex (actual build ID strings are 32 or more hex characters).
 
 Note that the build ID does not act as a checksum for the executable or debug info file. For more information on the build ID feature please refer to the GDB[^binutils-objcopy] and GNU linker[^binutils-ld] documentation.
+
+### What should you do when compiling compilers?
+
+If you are compiling a C/C++ compiler, where practical make the generated compiler's default options the *secure* options. The below table summarizes relevant options that can be specified when building GCC or Clang that affect the defaults of the compiler:
+
+| Compiler Flag                   | Supported since  | Description                                                       |
+|:--- |:---:|:---- |
+| <span id="--enable-default-pie">`--enable-default-pie`</span>             | GCC 6.1      | Turn on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler |
+| <span id="--enable-default-ssp">`--enable-default-ssp`</span>             | GCC 6.1      | Turn on [`-fstack-protector-strong`](#-fstack-protector-strong) by default for binaries produced by the compiler |
+| <span id="--enable-host-pie">`--enable-default-pie`</span>                | GCC 14       | Build the compiler executables with [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) |
+| <span id="--enable-host-bind-now">`--enable-host-bind-now`</span>         | GCC 14       | Build the compiler executables with [`-Wl,-z,now`](#-Wl,-z,now) |
+| <span id="CLANG_DEFAULT_PIE_ON_LINUX">`CLANG_DEFAULT_PIE_ON_LINUX`</span> | Clang 14.0.0 | Turn on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler |
 
 ## Contributors
 
