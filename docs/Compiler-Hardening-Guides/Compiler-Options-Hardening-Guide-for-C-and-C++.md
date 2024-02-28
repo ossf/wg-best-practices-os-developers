@@ -20,7 +20,7 @@ This document focuses on recommended options for the GNU Compiler Collection (GC
 When compiling C or C++ code on compilers such as GCC and clang, turn on these flags for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
 
 ~~~sh
--O2 -Wall -Wformat=2 -Wconversion -Wimplicit-fallthrough \
+-O2 -Wall -Wformat -Wformat=2 -Wconversion -Wimplicit-fallthrough \
 -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
 -fstrict-flex-arrays=3 \
@@ -177,7 +177,7 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | Compiler Flag                                                                 |       Supported since       | Description                                                                         |
 |:----------------------------------------------------------------------------- |:------------------------:|:----------------------------------------------------------------------------------- |
 | [`-Wall`](#-Wall)<br/>[`-Wextra`](#-Wextra)                                   | GCC 2.95.3<br/>Clang 4.0 | Enable warnings for constructs often associated with defects                        |
-| [`-Wformat=2`](#-Wformat=2)                                                   | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings                                          |
+| [`-Wformat`](#-Wformat)<br/>[`-Wformat=2`](#-Wformat=2)                       | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings                                          |
 | [`-Wconversion`](#-Wconversion)<br/>[`-Wsign-conversion`](#-Wsign-conversion) | GCC 2.95.3<br/>Clang 4.0 | Enable implicit conversion warnings                                                 |
 | [`-Wtrampolines`](#-Wtrampolines)                                             |         GCC 4.3          | Enable warnings about trampolines that require executable stacks                    |
 | [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7<br>Clang 4.0   | Warn when a switch case falls through                                           |
@@ -234,19 +234,22 @@ NOTE: Despite its name the `-Wall` options does NOT enable all possible warning 
 
 ### Enable additional format function warnings
 
-| Compiler Flag                              |       Supported since       | Description                                |
+| Compiler Flag                              | Supported since          | Description                                |
 |:------------------------------------------ |:------------------------:|:------------------------------------------ |
+| <span id="-Wformat">`-Wformat`</span>      | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings |
 | <span id="-Wformat=2">`-Wformat=2`</span>  | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings |
 
 #### Synopsis
 
 Check calls to the `printf` and `scanf` family of functions to ensure that the arguments supplied have types appropriate to the format string specified, and that the conversions specified in the format string make sense.
 
-The `-Wformat=2` form of the option also enables certain additional checks, including:
+In GCC, the `-Wformat=2` form of the option also enables certain additional checks, including:
 
 - Warning if the format string is not a string literal and so cannot be checked, unless the format function takes its format arguments as a va_list (`-Wformat-nonliteral`).
 - Warning about uses of format functions that represent possible security problems (`-Wformat-security`).
 - Warning about `strftime` formats that may yield only a two-digit year (`-Wformat-y2k`).
+
+In Clang, `-Wformat` includes the same diagnostics as `-Wformat=2`, but unlike in GCC `-Wformat=2` in Clang does not include the `-Wformat` diagnostics. Due to this divergent behavior we recommend specifying both `-Wformat` and `-Wformat=2` in projects that may be built with both GCC and Clang.
 
 ---
 
