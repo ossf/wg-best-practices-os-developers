@@ -199,7 +199,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [Brian Behlendorf, The Linux Foundation](https://github.com/)
 - [Brian Wagner, IBM](https://github.com/wags007)
 - [Christopher "CRob" Robinson, Intel](https://github.com/SecurityCRob)
-- [Daniel Appelquist, Synk](https://github.com/Torgo)
+- [Daniel Appelquist, Samsung](https://github.com/Torgo)
 - [David A Wheeler, LF/OSSF](https://github.com/david-a-wheeler)
 - [Georg Kunz, Ericsson](https://github.com/)
 - [Jacques Chester, independent](https://github.com/jchester)
