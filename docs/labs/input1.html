@@ -1,0 +1,29 @@
+<html>
+<head>
+<script src="lab_runner.js"></script>
+</head>
+<body>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html">introduction to
+the labs</a>.
+
+<p>
+In this exercise, we'll perform a simple input validation for
+a server-side program written in JavaScript using the Express framework.
+
+<p>
+<!-- <form class="my-form" onsubmit="run_lab();"> -->
+<form id="lab">
+<pre>
+<textarea id="code" rows="4" cols="50">
+app.get('/user/:user', function (req, res) {
+  res.send('user ' + req.user.name);
+});
+</textarea>
+</pre>
+<input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
