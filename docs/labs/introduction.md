@@ -26,3 +26,6 @@ In most cases you'll be writing for a simulated version of Express,
 a widely-used server-side framework for JavaScript.
 This isn't the full version of Express, it's simply a simulation to
 make the exercises easy.
+
+We *do* use a version of `validator`, retrieved from
+<https://unpkg.com/validator@latest/validator.min.js>
