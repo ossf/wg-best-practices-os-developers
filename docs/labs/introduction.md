@@ -36,3 +36,12 @@ code that would produce the correct answer.
 If you believe that an answer should be accepted as correct, please
 raise an issue on GitHub identifying the problem, the answer you
 think *should* also be accepted, and why you think it should be accepted.
+
+NOTE: At this time these labs are in the OpenSSF Best Practices
+Working Group /docs directory, making them visible to the public.
+The Working Group and its Education SIG have *not* approved
+these materials yet; they're under review.
+We've merged these materials so that they can be properly
+tested and reviewed.
+Please don't create a link to these materials suggesting that they
+are approved until they *are* approved.
