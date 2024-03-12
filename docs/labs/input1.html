@@ -26,29 +26,29 @@ the point is to learn how to write secure software in general.
 <p>
 <!-- https://expressjs.com/en/guide/routing.html -->
 Express allows us to state that when the system receives
-a HTTP request method (e.g., <tt>get</tt>) for a given route
-(e.g., <tt>/invoices</tt>), it must run a list of functions ("handlers").
-The library `express-validator` provides a set of validation functions
-that easily integrates into Express, enabling you to add
-validation checks.
+an HTTP <tt>get</tt> request for a given route
+(e.g., <tt>/invoices</tt>), Express will run a list of functions ("handlers").
+The library <tt>express-validator</tt> provides a set of validation functions
+you can use as handlers so you can add validation checks.
 
 <p>
-The code below sets up what to do for a <tt>get</tt> request on path
+The code below sets up handlers for a <tt>get</tt> request on path
 <tt>/invoices</tt>.
-For example, this code could be triggered by
+This code could be triggered, for example, by requesting
 <tt>http://localhost:3000/invoices?id=1</tt>
 (if it was running at <tt>localhost</tt> and responding to port 3000).
-If there are no validation errors, the code is shows the invoice id.
+If there are no validation errors, the code is supposed to show the invoice id.
 If there is a validation error, it responds with HTTP
 error code 422 ("Unprocessable Content"), a status code suggesting
 that the request was invalid for some reason, along with an error message.
 
 <p>
-Unfortunately, this program doesn't <i>do</i> the input validation.
+Unfortunately, this program doesn't <i>do</i> proper input validation.
 In this application
 <tt>id</tt> is supposed to <i>only</i> be an integer within a restricted range.
+As written below it fails to make that check.
 In fact, as written,
-this program has a vulnerability we haven't covered yet called
+this program has a vulnerability we haven't discussed yet called
 Cross-site Scripting (XSS).
 This vulnerability would be entirely prevented if we did
 better input validation.
@@ -92,8 +92,10 @@ app.get('/user/:user', function (req, res) {
 <p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
 <p>
-<!-- You can use this an example for labs. For multi-line inputs use
-     <textarea id="attempt" rows="2" cols="70">...</textarea>
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="70">...</textarea>
 -->
 <form id="lab">
 <pre>
@@ -104,7 +106,7 @@ const { query, matchedData, validationResult } = require('express-validator');
 
 // Implement requests such as http://localhost:3000/invoices?id=1
 app.get('/invoices',
-<input id="attempt" type="text" size="70" value="  query('id'),">
+<input id="attempt" type="text" size="70" value="  query('id'),"> 
   (req, res) =&gt; { // Execute this code if /invoices seen
     const result = validationResult(req); // Retrieve errors
     if (result.isEmpty()) { // No errors
