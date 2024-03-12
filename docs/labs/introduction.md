@@ -28,7 +28,11 @@ specific issues we're discussing.
 
 Many labs compare your attempt against a pattern for an expected
 correct answer. In many cases you can find an obscure way to write
-code that would produce the correct result yet not counted as a correct
-answer. For example, instead of writing `1` you could write `(2-1)` or
-`0x1`. We are looking for code that is *simple* and *clear*, not just
+code that would produce the correct result yet not be considered correct.
+For example, instead of writing `1` you could write `(2-1)` or
+`0x1`. We believe it's defensible that these other answers are incorrect.
+We are looking for code that is *simple* and *clear*, not just
 code that would produce the correct answer.
+If you believe that an answer should be accepted as correct, please
+raise an issue on GitHub identifying the problem, the answer you
+think *should* also be accepted, and why you think it should be accepted.
