@@ -106,7 +106,7 @@ const { query, matchedData, validationResult } = require('express-validator');
 
 // Implement requests such as http://localhost:3000/invoices?id=1
 app.get('/invoices',
-<input id="attempt" type="text" size="70" value="  query('id'),">
+<input id="attempt" type="text" size="70" value="  query('id'),"> 
   (req, res) =&gt; { // Execute this code if /invoices seen
     const result = validationResult(req); // Retrieve errors
     if (result.isEmpty()) { // No errors

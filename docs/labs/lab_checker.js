@@ -53,16 +53,12 @@ function calcMatch(attempt, correct) {
       }
       catch(e) {
           // This can only happen if the answer pattern is badly wrong.
-          alert(`Unparsable correct answer "${correct}"`);
+          alert(`Lab Error: Unparsable correct answer "${correct}"`);
           return false;
       }
 }
 
-/**
- * Check the document's user input "attempt" to see if matches "correct".
- * Then set "grade" in document depending on that answer.
- */
-function run_check() {
+function retrieve_attempt_and_correct() {
     // Ignore empty lines at beginning & end of both attempt and correct.
     let attempt = trimNewlines(document.getElementById('attempt').value);
 
@@ -70,6 +66,16 @@ function run_check() {
     // However, JavaScript regexes are stateful, so we'd need to be careful,
     // and it's currently so fast that it doesn't matter.
     let correct = trimNewlines(document.getElementById('correct').textContent);
+
+    return [attempt, correct];
+}
+
+/**
+ * Check the document's user input "attempt" to see if matches "correct".
+ * Then set "grade" in document depending on that answer.
+ */
+function run_check() {
+    let [attempt, correct] = retrieve_attempt_and_correct();
 
     // Calculate grade and set in document.
     let isCorrect = calcMatch(attempt, correct);
@@ -83,8 +89,25 @@ function run_check() {
 	// alert shows. If we don't do this, the alert would be confusing
 	// because the underlying page would say we hadn't completed it.
 	setTimeout(function() {
-            alert('Congratulations! You got the correct answer!');
+            alert('Congratulations! Your answer is correct!');
         }, 100);
+    }
+}
+
+/**
+ * Run simple selftest; we presume it runs only during page initialization.
+ * Ensure the initial attempt is incorrect AND the expected value is correct.
+ */
+function run_selftest() {
+    let [attempt, correct] = retrieve_attempt_and_correct();
+    let expected = trimNewlines(
+        document.getElementById('expected').textContent
+    );
+    if (calcMatch(attempt, correct)) {
+        alert('Lab Error: Initial attempt value is correct and should not be!');
+    }
+    if (!calcMatch(expected, correct)) {
+        alert('Lab Error: expected value is incorrect and should be correct!');
     }
 }
 
@@ -94,6 +117,7 @@ function init_page() {
     document.getElementById('attempt').onchange = run_check;
     document.getElementById('attempt').onkeyup = run_check;
     run_check();
+    run_selftest();
 }
 
 // When the requesting web page loads, initialize things
