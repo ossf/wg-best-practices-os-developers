@@ -90,8 +90,11 @@ app.get('/user/:user', function (req, res) {
 -->
 
 <p>
-<h2>Interactive Lab</h2>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
 <p>
+<!-- You can use this an example for labs. For multi-line inputs use
+     <textarea id="attempt" rows="2" cols="70">...</textarea>
+-->
 <form id="lab">
 <pre>
 // Set up Express framework and express-validator library
@@ -101,9 +104,7 @@ const { query, matchedData, validationResult } = require('express-validator');
 
 // Implement requests such as http://localhost:3000/invoices?id=1
 app.get('/invoices',
-<textarea id="attempt" rows="3" cols="80">
-query('id'),
-</textarea>
+<input id="attempt" type="text" size="70" value="  query('id'),">
   (req, res) =&gt; { // Execute this code if /invoices seen
     const result = validationResult(req); // Retrieve errors
     if (result.isEmpty()) { // No errors
@@ -115,7 +116,7 @@ query('id'),
 </pre>
 <!-- Sample expected answer -->
 <div id="expected" style="display:none">
-query('id').isInt({min: 1, max: 9999}),
+  query('id').isInt({min: 1, max: 9999}),
 </div>
 <!-- Full pattern of correct answer -->
 <div id="correct" style="display:none">
@@ -125,8 +126,6 @@ query \( ('id'|"id"|`id`) \) \. isInt \( \{
 </div>
 
 </form>
-<div id="grade">
-</div>
 
 </div><!-- End GitHub pages formatting -->
 </body>

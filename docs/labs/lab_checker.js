@@ -52,6 +52,7 @@ function calcMatch(attempt, correct) {
           return (re.test(attempt));
       }
       catch(e) {
+          // This can only happen if the answer pattern is badly wrong.
           alert(`Unparsable correct answer "${correct}"`);
           return false;
       }
@@ -72,12 +73,19 @@ function run_check() {
 
     // Calculate grade and set in document.
     let isCorrect = calcMatch(attempt, correct);
-    document.getElementById('grade').innerHTML = isCorrect ?
-      '<span class="success">SUCCESS! That is correct.</span>' :
-      '<span class="fail">Sorry, that is not correct.</span>';
-    document.getElementById('attempt').style.backgroundColor = isCorrect ?
-      'lightgreen' : 'yellow';
-
+    let oldGrade = document.getElementById('grade').innerHTML;
+    let newGrade = isCorrect ? 'COMPLETE!' : 'to be completed';
+    document.getElementById('grade').innerHTML = newGrade;
+    document.getElementById('attempt').style.backgroundColor =
+        isCorrect ?  'lightgreen' : 'yellow';
+    if (isCorrect && (oldGrade !== newGrade)) {
+        // Use a timeout so the underlying page will *re-render* before the
+	// alert shows. If we don't do this, the alert would be confusing
+	// because the underlying page would say we hadn't completed it.
+	setTimeout(function() {
+            alert('Congratulations! You got the correct answer!');
+        }, 100);
+    }
 }
 
 function init_page() {
