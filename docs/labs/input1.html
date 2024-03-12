@@ -57,7 +57,8 @@ which says <tt>'/invoices'</tt>,
 add a new comma-separated parameter.
 Start this new parameter by with
 <tt>query('id')</tt> to select the
-<tt>id</tt> parameter for validation.
+<tt>id</tt> parameter for validation (we've filled in this part
+to get you started).
 Add a period (<tt>.</tt>) and the validation requirement
 <tt>IsInt()</tt> (which requires that the named parameter be
 an integer).
@@ -65,7 +66,9 @@ The <tt>IsInt</tt> method takes, as an optional parameter inside
 its parentheses,
 an object providing a minimum and maximum, e.g.,
 <tt>isInt({min: YOUR_MINIMUM, max: YOUR_MAXIMUM})</tt>.
-Remember to indicate the end this parameter with a comma.
+Note: JavaScript names are case-sensitive, so <tt>isint</tt> won't work.
+Remember to indicate the end this parameter with a comma
+(our starter text does this).
 
 <p>
 You can press the <i>Reset</i> button to start over.
