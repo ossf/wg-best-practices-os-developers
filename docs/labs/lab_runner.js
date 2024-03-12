@@ -1,5 +1,9 @@
 // lab_runner - run labs
 
+// This is an early attempt at simulation of Express and express-validator.
+// This turned out to be much harder than expected, so we aren't using
+// this code, and it may get dropped completely.
+
 // We simulate *just* enough of express and express-validator to run labs
 // entirely locally on the client. This way, (1) learners don't need to
 // install *anything*, and (2) we don't have big server bills or security
