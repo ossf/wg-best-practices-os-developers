@@ -1,25 +1,33 @@
-// lab_checker - check if lab entry is correct
+// lab_checker - check and report if lab attempt is correct
+
+// Correct answers are expressed using regular expressions, since
+// many different forms are still correct.
+// To make the regular expressions easier to read, all whitespace
+// (spaces, tabs, and newlines) are replaced with "\s*" ("0+ whitespace").
+// This doesn't support "\ " for space;
+// Use \s to match a whitespace character, and \x20 for a space character.
+// The given pattern much be exactly matched (permitting leading and trailing
+// spaces) - that is, "^\s*" is added at the beginning and "\s*$" at the end.
 
 /**
- * Return HTML response by determining if attempt matches the regex correct.
+ * Return if attempt matches the regex correct.
  * @attempt String from user
  * @correct String of regex describing correct answer
+ *
+ * This shows an alert if "correct" isn't syntactically valid.
  */
 function calcMatch(attempt, correct) {
   try {
-    let re = new RegExp(correct);
-    if (re.test(attempt)) {
-      return '<span class="success">MATCHES</span>';
-    } else {
-      return '<span class="fail">DOES NOT MATCH</span>';
-    }
+    let unsweetened_re = '^\s*' + correct.replace(/\s+/g,'\\s*') + '\s*$';
+    let re = new RegExp(unsweetened_re);
+
+    return (re.test(attempt));
   }
   catch(e) {
-    // alert(e);
-    return '<span class="fail">Invalid regex pattern for correct answer</span>';
+    alert(`Unparsable correct answer "${correct}"`);
+    return false;
   }
 }
-
 
 /**
  * Check the document's user input "attempt" to see if matches "correct".
@@ -34,7 +42,10 @@ function run_check() {
     let correct = document.getElementById('correct').textContent.trim();
 
     // Calculate grade and set in document.
-    document.getElementById('grade').innerHTML = calcMatch(attempt, correct);
+    let isCorrect = calcMatch(attempt, correct);
+    document.getElementById('grade').innerHTML = isCorrect ?
+      '<span class="success">SUCCESS! That is correct.</span>' :
+      '<span class="fail">Sorry, that is not correct.</span>';
 }
 
 function init_page() {

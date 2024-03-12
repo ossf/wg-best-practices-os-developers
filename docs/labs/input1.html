@@ -54,15 +54,18 @@ Please change the code below so the query parameter
 To do that,
 after the first parameter to <tt>app.get</tt>
 which says <tt>'/invoices'</tt>,
-add a new comma-separated parameter beginning with
-the text <tt>query('id')</tt> to select the
-<tt>id</tt>i parameter for validation.
+add a new comma-separated parameter.
+Start this new parameter by with
+<tt>query('id')</tt> to select the
+<tt>id</tt> parameter for validation.
 Add a period (<tt>.</tt>) and the validation requirement
 <tt>IsInt()</tt> (which requires that the named parameter be
 an integer).
-The <tt>IsInt</tt> method takes, as an optional parameter,
+The <tt>IsInt</tt> method takes, as an optional parameter inside
+its parentheses,
 an object providing a minimum and maximum, e.g.,
 <tt>isInt({min: YOUR_MINIMUM, max: YOUR_MAXIMUM})</tt>.
+Remember to indicate the end this parameter with a comma.
 
 <p>
 You can press the <i>Reset</i> button to start over.
@@ -87,18 +90,23 @@ app.get('/user/:user', function (req, res) {
 <p>
 <form id="lab">
 <pre>
+// Set up Express framework and express-validator library
+const express = require("express");
+const app = express();
+const { query, matchedData, validationResult } = require('express-validator');
+
 // Implement requests such as http://localhost:3000/invoices?id=1
 app.get('/invoices',
-<!--
+<!-- We expect this answer:
   query('id').isInt({min: 1, max: 9999}),
 -->
 <textarea id="attempt" rows="3" cols="80">
-
+query('id'),
 </textarea>
-  (req, res) =&gt; {
+  (req, res) =&gt; { // Execute this code if /invoices seen
     const result = validationResult(req); // Retrieve errors
     if (result.isEmpty()) { // No errors
-      const data = matchedData(req);
+      const data = matchedData(req); // Retrieve matching data
       return res.send(`You requested invoice id ${data.id}!`);
     }
     res.status(422).send(`Invalid input`);
@@ -108,7 +116,7 @@ app.get('/invoices',
 ^ *query\('id'\)\.isInt\(\{min: 1, max: 9999\}\) *, *$
 -->
 <div id="correct" style="display:none">
-^ *query\('id'\)\.isInt\(\{min: 1, max: 9999\}\) *, *$
+query \( 'id' \) \. isInt \( \{ min: 1 , max: 9999 \} \) ,
 </div>
 
 </form>
