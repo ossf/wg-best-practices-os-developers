@@ -100,9 +100,6 @@ const { query, matchedData, validationResult } = require('express-validator');
 
 // Implement requests such as http://localhost:3000/invoices?id=1
 app.get('/invoices',
-<!-- We expect this answer:
-  query('id').isInt({min: 1, max: 9999}),
--->
 <textarea id="attempt" rows="3" cols="80">
 query('id'),
 </textarea>
@@ -115,12 +112,14 @@ query('id'),
     res.status(422).send(`Invalid input`);
   })
 </pre>
-<!--
-^ *query\('id'\)\.isInt\(\{min: 1, max: 9999\}\) *, *$
--->
+<!-- Sample expected answer -->
+<div id="expected" style="display:none">
+query('id').isInt({min: 1, max: 9999}),
+</div>
+<!-- Full pattern of correct answer -->
 <div id="correct" style="display:none">
 query \( ('id'|"id"|`id`) \) \. isInt \( \{
-  (min: 1 , max: 9999|max: 9999 , min: 1)
+   (min: 1 , max: 9_?999|max: 9_?999 , min: 1)
 \} \) ,
 </div>
 
