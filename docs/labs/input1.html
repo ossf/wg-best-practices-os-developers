@@ -116,7 +116,9 @@ query('id'),
 ^ *query\('id'\)\.isInt\(\{min: 1, max: 9999\}\) *, *$
 -->
 <div id="correct" style="display:none">
-query \( 'id' \) \. isInt \( \{ min: 1 , max: 9999 \} \) ,
+query \( ('id'|"id"|`id`) \) \. isInt \( \{
+(min: 1 , max: 9999|max: 9999 , min: 1)
+\} \) ,
 </div>
 
 </form>
