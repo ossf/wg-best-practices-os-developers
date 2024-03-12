@@ -6,9 +6,9 @@
 <script src="lab_checker.js"></script>
 </head>
 <body>
-<h1>Lab Exercise Input1</h1>
-<!-- For GitHub Pages formatting -->
+<!-- For GitHub Pages formatting: -->
 <div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise Input1</h1>
 <p>
 This is a lab exercise on developing secure software.
 For more information, see the <a href="introduction.html">introduction to
@@ -17,53 +17,58 @@ the labs</a>.
 <p>
 <h2>Background</h2>
 <p>
-In this exercise, we'll perform a simple input validation for
-a server-side program written in JavaScript using a simulation
-of the Express version 4 framework and the express-validator library.
+In this exercise, we'll add some simple input validation to
+a server-side program written in JavaScript using the
+Express framework (version 4) and the express-validator library.
 The point isn't to learn about these specific technologies;
 the point is to learn how to write secure software in general.
 
 <p>
 <!-- https://expressjs.com/en/guide/routing.html -->
 Express allows us to state that when the system receives
-a HTTP request method (e.g., <tt>get</tt> which gets data) for a given route
-(e.g., <tt>/invoices</tt>), it should run a list of functions ("handlers").
+a HTTP request method (e.g., <tt>get</tt>) for a given route
+(e.g., <tt>/invoices</tt>), it must run a list of functions ("handlers").
 The library `express-validator` provides a set of validation functions
-and an easy integration into Express, so you can validation checks
-as additional handlers.
+that easily integrates into Express, enabling you to add
+validation checks.
 
 <p>
-The code below sets up what to do for a <tt>get</tt> on path
+The code below sets up what to do for a <tt>get</tt> request on path
 <tt>/invoices</tt>.
-If there are no validation errors, it shows the invoice id.
+For example, this code could be triggered by
+<tt>http://localhost:3000/invoices?id=1</tt>
+(if it was running at <tt>localhost</tt> and responding to port 3000).
+If there are no validation errors, the code is shows the invoice id.
 If there is a validation error, it responds with HTTP
 error code 422 ("Unprocessable Content"), a status code suggesting
 that the request was invalid for some reason, along with an error message.
 
 <p>
-Unfortunately, this program doesn't <i>do</i> enough input validation.
+Unfortunately, this program doesn't <i>do</i> the input validation.
 In this application
-<tt>id</tt> is supposed to only be an integer within a restricted range.
-In fact, as written
+<tt>id</tt> is supposed to <i>only</i> be an integer within a restricted range.
+In fact, as written,
 this program has a vulnerability we haven't covered yet called
-Cross-site Scripting (XSS), which we would be entirely prevented if we did
+Cross-site Scripting (XSS).
+This vulnerability would be entirely prevented if we did
 better input validation.
 
 <p>
 <h2>Task</h2>
 <p>
 Please change the code below so the query parameter
-<tt>id</tt> must be an integer between 1 and 9999.
+<tt>id</tt> <i>must</i> be an integer between 1 and 9999 (including
+those numbers).
 
 <p>
 To do that,
 after the first parameter to <tt>app.get</tt>
 which says <tt>'/invoices'</tt>,
 add a new comma-separated parameter.
-Start this new parameter by with
+Start this new parameter with
 <tt>query('id')</tt> to select the
 <tt>id</tt> parameter for validation (we've filled in this part
-to get you started).
+to help get you started).
 Add a period (<tt>.</tt>) and the validation requirement
 <tt>IsInt()</tt> (which requires that the named parameter be
 an integer).
@@ -71,19 +76,10 @@ The <tt>IsInt</tt> method takes, as an optional parameter inside
 its parentheses,
 an object providing a minimum and maximum, e.g.,
 <tt>isInt({min: YOUR_MINIMUM, max: YOUR_MAXIMUM})</tt>.
+Use that to specify the allowed range.
 Note: JavaScript names are case-sensitive, so <tt>isint</tt> won't work.
-Remember to indicate the end this parameter with a comma
+Remember to indicate the end of this parameter with a comma
 (our starter text does this).
-
-<p>
-You can press the <i>Reset</i> button to start over.
-
-<p>
-Once you think you have an answer, press the <i>Submit</i> button.
-This will then run a number of test cases to tell you if you appear to have
-the correct answer.
-Note that this is a simulation of Express and express-validator
-(not the real things).
 
 <p>
 <!-- <form class="my-form" onsubmit="run_lab();"> -->
