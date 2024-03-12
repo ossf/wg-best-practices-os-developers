@@ -32,4 +32,3 @@ code that would produce the correct result yet not counted as a correct
 answer. For example, instead of writing `1` you could write `(2-1)` or
 `0x1`. We are looking for code that is *simple* and *clear*, not just
 code that would produce the correct answer.
-
