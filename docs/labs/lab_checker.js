@@ -1,6 +1,7 @@
 // lab_checker - check and report if lab attempt is correct
 
-// Correct answers are expressed using regular expressions, since
+// Correct answers are embedded in the web page in a div area with
+// id "correct". Answers are expressed using regular expressions, since
 // many different forms are still correct.
 // To make the regular expressions easier to read, all whitespace
 // (spaces, tabs, and newlines) are replaced with "\s*" ("0+ whitespace").
@@ -46,6 +47,9 @@ function run_check() {
     document.getElementById('grade').innerHTML = isCorrect ?
       '<span class="success">SUCCESS! That is correct.</span>' :
       '<span class="fail">Sorry, that is not correct.</span>';
+    document.getElementById('attempt').style.backgroundColor = isCorrect ?
+      'lightgreen' : 'yellow';
+
 }
 
 function init_page() {
