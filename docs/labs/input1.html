@@ -1,0 +1,131 @@
+<html>
+<head>
+<script src="lab_checker.js"></script>
+</head>
+<body>
+<h1>Lab Exercise Input1</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html">introduction to
+the labs</a>.
+
+<p>
+<h2>Background</h2>
+<p>
+In this exercise, we'll perform a simple input validation for
+a server-side program written in JavaScript using a simulation
+of the Express version 4 framework and the express-validator library.
+The point isn't to learn about these specific technologies;
+the point is to learn how to write secure software in general.
+
+<p>
+<!-- https://expressjs.com/en/guide/routing.html -->
+Express allows us to state that when the system receives
+a HTTP request method (e.g., <tt>get</tt> which gets data) for a given route
+(e.g., <tt>/invoices</tt>), it should run a list of functions ("handlers").
+The library `express-validator` provides a set of validation functions
+and an easy integration into Express, so you can validation checks
+as additional handlers.
+
+<p>
+The code below sets up what to do for a <tt>get</tt> on path
+<tt>/invoices</tt>.
+If there are no validation errors, it shows the invoice id.
+If there is a validation error, it responds with HTTP
+error code 422 ("Unprocessable Content"), a status code suggesting
+that the request was invalid for some reason, along with an error message.
+
+<p>
+Unfortunately, this program doesn't <i>do</i> enough input validation.
+In this application
+<tt>id</tt> is supposed to only be an integer within a restricted range.
+In fact, as written
+this program has a vulnerability we haven't covered yet called
+Cross-site Scripting (XSS), which we would be entirely prevented if we did
+better input validation.
+
+<p>
+<h2>Task</h2>
+<p>
+Please change the code below so the query parameter
+<tt>id</tt> must be an integer between 1 and 9999.
+
+<p>
+To do that,
+after the first parameter to <tt>app.get</tt>
+which says <tt>'/invoices'</tt>,
+add a new comma-separated parameter.
+Start this new parameter by with
+<tt>query('id')</tt> to select the
+<tt>id</tt> parameter for validation (we've filled in this part
+to get you started).
+Add a period (<tt>.</tt>) and the validation requirement
+<tt>IsInt()</tt> (which requires that the named parameter be
+an integer).
+The <tt>IsInt</tt> method takes, as an optional parameter inside
+its parentheses,
+an object providing a minimum and maximum, e.g.,
+<tt>isInt({min: YOUR_MINIMUM, max: YOUR_MAXIMUM})</tt>.
+Note: JavaScript names are case-sensitive, so <tt>isint</tt> won't work.
+Remember to indicate the end this parameter with a comma
+(our starter text does this).
+
+<p>
+You can press the <i>Reset</i> button to start over.
+
+<p>
+Once you think you have an answer, press the <i>Submit</i> button.
+This will then run a number of test cases to tell you if you appear to have
+the correct answer.
+Note that this is a simulation of Express and express-validator
+(not the real things).
+
+<p>
+<!-- <form class="my-form" onsubmit="run_lab();"> -->
+<!--
+app.get('/user/:user', function (req, res) {
+  res.send('user ' + req.user.name);
+});
+-->
+
+<p>
+<h2>Interactive Lab</h2>
+<p>
+<form id="lab">
+<pre>
+// Set up Express framework and express-validator library
+const express = require("express");
+const app = express();
+const { query, matchedData, validationResult } = require('express-validator');
+
+// Implement requests such as http://localhost:3000/invoices?id=1
+app.get('/invoices',
+<textarea id="attempt" rows="3" cols="80">
+query('id'),
+</textarea>
+  (req, res) =&gt; { // Execute this code if /invoices seen
+    const result = validationResult(req); // Retrieve errors
+    if (result.isEmpty()) { // No errors
+      const data = matchedData(req); // Retrieve matching data
+      return res.send(`You requested invoice id ${data.id}!`);
+    }
+    res.status(422).send(`Invalid input`);
+  })
+</pre>
+<!-- Sample expected answer -->
+<div id="expected" style="display:none">
+query('id').isInt({min: 1, max: 9999}),
+</div>
+<!-- Full pattern of correct answer -->
+<div id="correct" style="display:none">
+query \( ('id'|"id"|`id`) \) \. isInt \( \{
+   (min: 1 , max: 9_?999|max: 9_?999 , min: 1)
+\} \) ,
+</div>
+
+</form>
+<div id="grade">
+</div>
+
+</body>
+</html>
