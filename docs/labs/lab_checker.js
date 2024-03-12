@@ -1,5 +1,8 @@
 // lab_checker - check and report if lab attempt is correct
 
+// TODO: The current display for failing and success is ugly.
+// We could do better.
+
 // Correct answers are embedded in the web page in a div area with
 // the id "correct".
 // Answers are expressed using regular expression patterns, to make it easy to
