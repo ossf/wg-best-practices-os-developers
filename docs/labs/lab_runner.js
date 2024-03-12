@@ -40,14 +40,22 @@ let req = new Request();
 //  next()
 //}
 
-const Validator = class {
-    constructor() {};
-    isInt() {};
+const regex_int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/;
+
+const ExpressValidator = class {
+    name; // Field to validate
+    constructor(name) {this.name = name;};
+    isInt() {
+        return (req, res) => {
+            // TODO: min and max
+            return regex_int.test(req.parameters[name]);
+	}
+    };
 }
 
 // Express-validator's "query"
 const query = (name) => {
-    return new Validator();
+    return new ExpressValidator(name);
 };
 
 function isInt() {};
@@ -65,6 +73,9 @@ function matchedData(req) {return {}}; // Returns matchedData
 //         }
 //     }"
 // typeof query('id') is string
+
+
+
 
 function run_lab() {
     code = document.getElementById('code').value;
