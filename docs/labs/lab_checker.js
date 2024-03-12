@@ -1,14 +1,25 @@
 // lab_checker - check and report if lab attempt is correct
 
 // Correct answers are embedded in the web page in a div area with
-// id "correct". Answers are expressed using regular expressions, since
-// many different forms are still correct.
-// To make the regular expressions easier to read, all whitespace
-// (spaces, tabs, and newlines) are replaced with "\s*" ("0+ whitespace").
-// This doesn't support "\ " for space;
-// Use \s to match a whitespace character, and \x20 for a space character.
-// The given pattern much be exactly matched (permitting leading and trailing
-// spaces) - that is, "^\s*" is added at the beginning and "\s*$" at the end.
+// the id "correct".
+// Answers are expressed using regular expression patterns, to make it easy to
+// indicate the many different forms that are all correct.
+// Pattern `(a|b)` matches either `a` or `b`, while `foo\(a\)` matches `foo(a)`.
+// Pattern `\{\\\}` matches the literal text `{\}`.
+//
+// To make the correct answer regular expressions easier to read, the
+// correct pattern is preprocessed as follows:
+// * A completely blank line in the middle of a pattern is interpreted as
+//   a required end of line.
+// * Otherwise, any sequence of 1+ whitespace (spaces, tabs, and newlines)
+//   is interpreted as "0 or more whitespace is allowed here".
+//   This can also be expressed as `\s*`, but whitespace is easier to read,
+//   and this circumstance repeatedly occurs in correct answers.
+// * Use \s to match a whitespace character, and \x20 for a space character.
+// * The given pattern much be exactly matched - it's case-sensitive.
+// * The *entire* input must match the correct answer. Leading and trailing
+//   whitespace in the input is ignored, though. That is,
+// * "^\s*" is added at the beginning and "\s*$" at the end.
 
 /**
  * Return if attempt matches the regex correct.
@@ -18,16 +29,20 @@
  * This shows an alert if "correct" isn't syntactically valid.
  */
 function calcMatch(attempt, correct) {
-  try {
-    let unsweetened_re = '^\s*' + correct.replace(/\s+/g,'\\s*') + '\s*$';
-    let re = new RegExp(unsweetened_re);
+    try {
+          let unsweetened_re = (
+            '^\s*' +
+           correct.replace(/\r?\n( *\r?\n)+/g,'\\r?\\n').replace(/\s+/g,'\\s*') +
+            '\s*$'
+          );
+          let re = new RegExp(unsweetened_re);
 
-    return (re.test(attempt));
-  }
-  catch(e) {
-    alert(`Unparsable correct answer "${correct}"`);
-    return false;
-  }
+          return (re.test(attempt));
+      }
+      catch(e) {
+          alert(`Unparsable correct answer "${correct}"`);
+          return false;
+      }
 }
 
 /**
