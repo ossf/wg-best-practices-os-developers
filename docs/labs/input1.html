@@ -29,7 +29,7 @@ Express allows us to state that when the system receives
 an HTTP <tt>get</tt> request for a given route
 (e.g., <tt>/invoices</tt>), Express will run a list of functions ("handlers").
 The library <tt>express-validator</tt> provides a set of validation functions
-you can use as handlers so you can add validation checks.
+to make it easy to add validation checks.
 
 <p>
 The code below sets up handlers for a <tt>get</tt> request on path
@@ -50,7 +50,10 @@ As written below it fails to make that check.
 In fact, as written,
 this program has a vulnerability we haven't discussed yet called
 Cross-site Scripting (XSS).
-This vulnerability would be entirely prevented if we did
+Because of this XSS vulnerability,
+an attacker could provide malicious scripts in <tt>id</tt> which the
+viewer would automatically run!
+This particular vulnerability would be entirely prevented if we did
 better input validation.
 
 <p>
