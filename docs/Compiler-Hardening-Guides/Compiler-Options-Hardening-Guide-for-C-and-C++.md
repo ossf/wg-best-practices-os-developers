@@ -366,7 +366,7 @@ Zero-warning policies can also be enforced at CI level. CI-based zero- or bounde
 
 Make the compiler treat obsolete C constructs as errors.
 
-The ISO/IEC 9899:1999 standard, commonly referred to as C99, removed several backwards compatibility features, such as implicit function declarations, implicit return types and certain implicit type conversion from the C language. Such implicit declarations[^DCL31-C] and type conversions[^INT36-C] can be considered dangerous for the correctness and security of C code as they lead to less stringent type checking and consequently can introduce unexpected and erroneous behavior. C99 and later dialects of C consider these issues as errors by default. However, modern compilers still accept these obsolete construct by default unless instructed to pedantically give errors whenever the base standard requires them.
+The ISO/IEC 9899:1999 standard, commonly referred to as C99, removed several backwards compatibility features, such as implicit function declarations and implicit return types from the C language. Similarly, the earlier C89/C90 standard (ANSI X3.159-1989 / ISO/IEC 9899:1990) removed certain implicit type conversion, such as implicit conversions from integer to pointer types. Such implicit declarations[^DCL31-C] and type conversions (whether implicit or explicit[^INT36-C]) can be considered dangerous for the correctness and security of C code as they lead to less stringent type checking and may rely on implementation-defined behavior. However, modern compilers still accept these obsolete constructs by default unless instructed to pedantically give errors whenever the base standard requires them.
 
 The `-Werror=implicit`, `-Werror=incompatible-pointer-types`, and `-Werror=int-conversion` options instruct the compiler to treat the following obsolete constructs as errors:
 
@@ -382,7 +382,7 @@ Some tools, such as `autoconf`, automatically determine what the compiler suppor
 
 [^DCL31-C]: Carnegie Mellon University (CMU), [DCL31-C. Declare identifiers before using them](https://wiki.sei.cmu.edu/confluence/display/c/DCL31-C.+Declare+identifiers+before+using+them), SEI CERT C Coding Standard, 2023-10-09.
 
-[^INT36-C]: Carnegie Mellon University (CMU), [INT36-C. Converting a pointer to integer or integer to pointer](https://wiki.sei.cmu.edu/confluence/display/c/INT36-C.+Converting+a+pointer+to+integer+or+integer+to+pointerm), SEI CERT C Coding Standard, 2023-04-20.
+[^INT36-C]: Carnegie Mellon University (CMU), [INT36-C. Converting a pointer to integer or integer to pointer](https://wiki.sei.cmu.edu/confluence/display/c/INT36-C.+Converting+a+pointer+to+integer+or+integer+to+pointer), SEI CERT C Coding Standard, 2023-04-20.
 
 [^gcc-porting-to-14]: GCC team, [Porting to GCC 14](https://gcc.gnu.org/gcc-14/porting_to.html), GCC Supplementary Documentation, 2024-02-19.
 
