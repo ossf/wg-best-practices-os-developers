@@ -23,7 +23,9 @@ such as [Eloquent JavaScript](https://eloquentjavascript.net).
 In many cases you'll be writing code that uses Express,
 a widely-used server-side framework for JavaScript, along with
 `express-validator`, a widely-used validation framework for Express.
-However, we'll often fill in other parts, so you can focus on the
+There are frameworks other than Express, and other validation frameworks
+for Express, but had to pick *something*.
+We'll often fill in other parts, so you can focus on the
 specific issues we're discussing.
 
 Many labs compare your attempt against a pattern for an expected
