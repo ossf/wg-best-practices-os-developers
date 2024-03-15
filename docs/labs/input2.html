@@ -8,7 +8,7 @@
 <body>
 <!-- For GitHub Pages formatting: -->
 <div class="container-lg px-3 my-5 markdown-body">
-<h1>Lab Exercise Input1</h1>
+<h1>Lab Exercise Input2</h1>
 <p>
 This is a lab exercise on developing secure software.
 For more information, see the <a href="introduction.html">introduction to
@@ -20,39 +20,32 @@ the labs</a>.
 In this exercise, we'll add some simple input validation to
 a server-side program written in JavaScript using the
 Express framework (version 4) and the express-validator library.
-The point isn't to learn about these specific technologies;
-the point is to learn how to write secure software in general.
+</p>
 
 <p>
-<!-- https://expressjs.com/en/guide/routing.html -->
-Express allows us to state that when the system receives
-an HTTP <tt>get</tt> request for a given route
-(e.g., <tt>/invoices</tt>), Express will run a list of functions ("handlers").
-The library <tt>express-validator</tt> provides a set of validation functions
-to make it easy to add validation checks.
+However, this time we're going to do input validation for a specific
+data value using regular expressions. Many programs have 
+specialized data values that are easily tested using
+regular expressions.
 
 <p>
 The code below sets up handlers for a <tt>get</tt> request on path
 <tt>/invoices</tt>.
 This code could be triggered, for example, by requesting
-<tt>http://localhost:3000/invoices?id=1</tt>
+<tt>http://localhost:3000/part?id=AX-794-7</tt>
 (if it was running at <tt>localhost</tt> and responding to port 3000).
-If there are no validation errors, the code is supposed to show the invoice id.
+If there are no validation errors, the code is supposed to show the part id.
 If there is a validation error, it responds with HTTP
 error code 422 ("Unprocessable Content"), a status code suggesting
 that the request was invalid for some reason, along with an error message.
 
 <p>
-Unfortunately, this program doesn't <i>do</i> proper input validation.
-In this application
-<tt>id</tt> is supposed to <i>only</i> be an integer within a restricted range.
-As written below it fails to make that check.
-In fact, as written,
+In this case, we want to implement proper input validation.
+We want to ensure it's not longer than a certain length and
+that it matches a specific pattern.
+Just like lab input1, as written,
 this program has a vulnerability we haven't discussed yet called
 Cross-site Scripting (XSS).
-Because of this XSS vulnerability,
-an attacker could provide malicious scripts in <tt>id</tt> which the
-viewer would automatically run!
 This particular vulnerability would be entirely prevented if we did
 better input validation.
 
@@ -60,29 +53,48 @@ better input validation.
 <h2>Task</h2>
 <p>
 Please change the code below so the query parameter
-<tt>id</tt> <i>must</i> be an integer between 1 and 9999 (including
-those numbers).
+<tt>id</tt> <i>must</i> be no longer than 80 characters
+and has meets a very specific pattern for part ids in this application.
+In this application, a part id is always
+two uppercase Latin letters (each `A` through `Z`),
+then a dash (`-`), a sequence of one or more digits,
+another dash (`-`), and another sequence of one or more digits.
+
+(as measured in UTF-16 code units)
 
 <p>
 To do that,
 after the first parameter to <tt>app.get</tt>
-which says <tt>'/invoices'</tt>,
+which says <tt>'/parts'</tt>,
 add a new comma-separated parameter.
 Start this new parameter with
 <tt>query('id')</tt> to select the
-<tt>id</tt> parameter for validation (we've filled in this part
-to help get you started).
+<tt>id</tt> parameter for validation (we've have <i>not</i> filled
+in this part in this lab).
 Add a period (<tt>.</tt>) and the validation requirement
-<tt>isInt()</tt> (which requires that the named parameter be
-an integer).
-The <tt>isInt</tt> method takes, as an optional parameter inside
+<tt>isLength()</tt>
+The <tt>isLength</tt> method takes, as an optional parameter inside
 its parentheses,
-an object providing a minimum and maximum, e.g.,
-<tt>isInt({min: YOUR_MINIMUM, max: YOUR_MAXIMUM})</tt>.
-Use that to specify the allowed range.
-Note: JavaScript names are case-sensitive, so <tt>isint</tt> won't work.
-Remember to indicate the end of this parameter with a comma
-(our starter text does this).
+an object providing a minimum and maximum, and we only want a maximum,
+so it should look something like
+<tt>isLength({YOUR_MAXIMUM})</tt>.
+Those familiar with JavaScript will know that the "length" value is
+the length of the string in UTF-16 code units; that's fine
+for our purposes.
+</p>
+
+<p>
+Now we need to verify that it matches a regular expression.
+In this situation, we can do this by appending another
+period (<tt>.</tt>) and the validation requirement
+<tt>matches()</tt>.
+Inside those parenthesis you should supply <tt>/</tt> (slash), the
+text of the regular expression to match, and another <tt>`/</tt> .
+In JavaScript, a pair of `/` surrounds a regular expression.
+Remember to match the <i>entire</i> expression
+(e.g., use `^`).
+Remember, a way to match a single uppercase character is the
+pattern <tt>[A-Z]</tt> ... good luck!
 
 <p>
 <!-- <form class="my-form" onsubmit="run_lab();"> -->
@@ -107,37 +119,30 @@ const express = require("express");
 const app = express();
 const { query, matchedData, validationResult } = require('express-validator');
 
-// Implement requests such as http://localhost:3000/invoices?id=1
-app.get('/invoices',
-<input id="attempt" type="text" size="70" value="  query('id'),"> 
+// Implement requests such as http://localhost:3000/parts?id=1
+app.get('/parts',
+<input id="attempt" type="text" size="70" value="  ,"> 
   (req, res) =&gt; { // Execute this code if /invoices seen
     const result = validationResult(req); // Retrieve errors
     if (result.isEmpty()) { // No errors
       const data = matchedData(req); // Retrieve matching data
-      return res.send(`You requested invoice id ${data.id}!`);
+      return res.send(`You requested part id ${data.id}!`);
     }
     res.status(422).send(`Invalid input`);
   })
 </pre>
 <!-- Sample expected answer -->
 <div id="expected" style="display:none">
-  query('id').isInt({min: 1, max: 9999}),
+  query('id').isLength( {max:80} ) . matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),
 </div>
 <!-- Full pattern of correct answer -->
 <div id="correct" style="display:none">
- query \( ('id'|"id"|`id`) \) \. isInt \(
-       \{ min: 1 , max: 9_?999 \}
+ query \( ('id'|"id"|`id`) \)
+ \. isLength \( \{ max: 80 \} \)
+ \. matches \(
+   \/\^\[A-Z\](\{2\}|\[A-Z\])-\[0-9]\+-\[0-9\]\+\$\/
  \) ,
 </div>
-<!-- TODO: Hints. Examples:
-  ! isInt -> You should use isInt to assert that there's an integer.
-  isInt; ! { -> You should provide a hash {...} to specify a specific range
-  (isint|IsInt|ISINT) -> Upper/lowercase matter. Use isInt instead.
-  max.*min -> JavaScript allows hash entries to be in any order, but
-              this can be confusing to humans. Conventionally minimum
-              values are given before maximum values; please follow that
-              convention.
--->
 
 </form>
 
