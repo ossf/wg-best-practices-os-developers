@@ -4,6 +4,8 @@
 
 // Global variables. We set these on load to provide good response time.
 let correct_re; // Compiled regex of correct answer, precomputed for speed
+let expected; // Expected answer (a correct answer)
+let hints; // Array of hint objects
 
 /**
  * Trim newlines (LF or CRLF) from beginning and end of given String.
@@ -72,6 +74,14 @@ function run_check() {
     }
 }
 
+function show_hint() {
+    alert('TODO: hints not supported yet.');
+}
+
+function show_answer() {
+    alert(`We were expecting an answer like this:\n${expected}`);
+}
+
 /**
  * Run simple selftest; we presume it runs only during page initialization.
  * Must run load_data first, to set up globals like correct_re.
@@ -79,9 +89,6 @@ function run_check() {
  */
 function run_selftest() {
     let attempt = retrieve_attempt();
-    let expected = trimNewlines(
-        document.getElementById('expected').textContent
-    );
     if (calcMatch(attempt, correct_re)) {
         alert('Lab Error: Initial attempt value is correct and should not be!');
     }
@@ -107,6 +114,10 @@ function load_data() {
           // or badly wrong.
           alert("Lab Error: Unparsable correct answer");
       }
+    // Set expected answer. Used for self test and give up.
+    expected = trimNewlines(
+        document.getElementById('expected').textContent
+    );
 }
 
 function init_page() {
@@ -118,6 +129,11 @@ function init_page() {
     // that we always catch changes to the attempt.
     document.getElementById('attempt').onchange = run_check;
     document.getElementById('attempt').onkeyup = run_check;
+    hint_button = document.getElementById('hint_button');
+    if (hint_button) {hint_button.onclick = (() => show_hint());}
+    give_up_button = document.getElementById('give_up_button');
+    if (give_up_button) {give_up_button.onclick = (() => show_answer());}
+    // Run check of the answer so its visual appearance matches its content.
     run_check();
 }
 
