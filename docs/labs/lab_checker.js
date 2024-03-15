@@ -18,13 +18,16 @@ function trimNewlines(s) {
 /*
  * Given a regex as a string, process it to support our extensions and
  * return a compiled regex.
+ * In particular, *ignore* newlines and treat spaces as "allow 0+ spaces".
  */
-function process_regex(regex_string) {
-    let processed_regex_string = ('^' +
-                  (regex_string.replace(/\r?\n( *\r?\n)+/g,'')
-                               .replace(/\s+/g,'\\s*')) +
-                  ' *$');
-    // alert(`Processed="${processed_regex_string}"`);
+function process_regex(regex_string, full_match = true) {
+    let processed_regex_string = (
+                  regex_string.replace(/\r?\n( *\r?\n)+/g,'')
+                              .replace(/\s+/g,'\\s*')
+                  );
+    if (full_match) {
+        processed_regex_string = '^' + processed_regex_string + ' *$';
+    }
     return new RegExp(processed_regex_string);
 }
 
@@ -74,12 +77,65 @@ function run_check() {
     }
 }
 
+/** Return the best-matching hint given attempt. */
+function find_hint(attempt) {
+    // TODO: Use BOTH pattern and antipattern
+    for (hint of hints) {
+      if (hint.pattern_re && hint.pattern_re.test(attempt)) {
+        return hint.text;
+      }
+      if (hint.antipattern_re && !hint.antipattern_re.test(attempt)) {
+        return hint.text;
+      }
+    };
+
+    return 'Sorry, I cannot find a hint that matches your attempt.';
+}
+
+/** Show a hint to the user. */
 function show_hint() {
-    alert('TODO: hints not supported yet.');
+    let attempt = retrieve_attempt();
+    if (calcMatch(attempt, correct_re)) {
+        alert('The answer is already correct!');
+    } else if (!hints) {
+        alert('Sorry, there are no hints for this lab.');
+    } else {
+        alert(find_hint(attempt));
+    }
 }
 
 function show_answer() {
     alert(`We were expecting an answer like this:\n${expected}`);
+}
+
+function process_hints(potential_hints) {
+    // Accept String potential_hints in JSON format.
+    // return a cleaned-up array of objects.
+    let parsed_json = JSON.parse(potential_hints);
+    if (!(parsed_json instanceof Array)) {
+        alert('Error: hints must be JSON array. Use [...].');
+    }
+    let compiled_hints = [];
+    // TODO: Do more sanity checking.
+    for (let hint of parsed_json) {
+        let newHint = { ...hint}; // clone so we can modify it
+        // Precompile all regular expressions
+        if (newHint.pattern) {
+            newHint.pattern_re = process_regex(newHint.pattern, false);
+        } else { // Defensive programming - don't accept external code
+            delete newHint.pattern_re;
+        }
+        if (newHint.antipattern) {
+            newHint.antipattern_re = process_regex(newHint.antipattern, false);
+        } else { // Defensive programming - don't accept external code
+            delete newHint.antipattern_re;
+        }
+        // parsed_json[i] = newHint;
+        compiled_hints.push(newHint); // append result.
+    };
+    // alert(`compiled_hints[0].pattern=${compiled_hints[0].pattern}`);
+    // alert(`compiled_hints[0].pattern_re=${compiled_hints[0].pattern_re}`);
+    return compiled_hints;
 }
 
 /**
@@ -107,7 +163,7 @@ function load_data() {
             let correct = (
                 trimNewlines(document.getElementById('correct').textContent));
             // Set global variable with compiled correct answer
-            correct_re = process_regex(correct);
+            correct_re = process_regex(correct, true);
       }
       catch(e) {
           // This can only happen if the correct answer pattern is missing
@@ -118,6 +174,11 @@ function load_data() {
     expected = trimNewlines(
         document.getElementById('expected').textContent
     );
+    // If there are hints, set up global variable hints.
+    let potential_hints = document.getElementById('hints').textContent;
+    if (potential_hints) {
+        hints = process_hints(potential_hints);
+    };
 }
 
 function init_page() {
