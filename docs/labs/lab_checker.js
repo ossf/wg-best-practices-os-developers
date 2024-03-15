@@ -34,6 +34,19 @@ function trimNewlines(s) {
             .replace(/^\r?\n(\r?\n)+$/, ''));
 }
 
+/*
+ * Given a regex as a string, process it to support our extensions and
+ * return a compiled regex.
+ */
+function process_regex(regex_string) {
+    let processed_regex_string = ('^' +
+                  (regex_string.replace(/\r?\n( *\r?\n)+/g,'')
+                               .replace(/\s+/g,'\\s*')) +
+                  ' *$');
+    // alert(`Processed="${processed_regex_string}"`);
+    return new RegExp(processed_regex_string);
+}
+
 /**
  * Return if attempt matches the regex correct.
  * @attempt String from user
@@ -43,16 +56,11 @@ function trimNewlines(s) {
  */
 function calcMatch(attempt, correct) {
     try {
-          let unsweetened_re = ('^ *' +
-                  (correct.replace(/\r?\n( *\r?\n)+/g,'\\r?\\n')
-                          .replace(/\s+/g,'\\s*')) +
-                  ' *$');
-          let re = new RegExp(unsweetened_re);
-
+          let re = process_regex(correct);
           return (re.test(attempt));
       }
       catch(e) {
-          // This can only happen if the answer pattern is badly wrong.
+          // This can only happen if the correct answer pattern is badly wrong.
           alert(`Lab Error: Unparsable correct answer "${correct}"`);
           return false;
       }
