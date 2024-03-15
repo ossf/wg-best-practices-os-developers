@@ -135,41 +135,41 @@ app.get('/invoices',
 <div id="hints" style="display:none">
 [
   {
-    "pattern": "(isint|IsInt|ISINT)",
+    "present": "(isint|IsInt|ISINT)",
     "text":
       "JavaScript is case-sensitive. Use isInt instead of the case you have."
   },
   {
-    "antipattern": "isInt",
+    "absent": "isInt",
     "text":
       "Use isInt to determine if the parameter is an integer."
   },
   {
-    "antipattern": "isInt \\(.*\\)",
+    "absent": "isInt \\(.*\\)",
     "text":
       "isInt should be followed by (...)."
   },
   {
-    "antipattern": "isInt \\( \\{.*\\} \\)",
+    "absent": "isInt \\( \\{.*\\} \\)",
     "text":
       "Inside isInt({...}) you should have an object."
   },
   {
-    "antipattern": "min",
+    "absent": "min",
     "text":
       "Use min: to specify a minimum value."
   },
   {
-    "antipattern": "max",
+    "absent": "max",
     "text": "Use max: to specify a minimum value."
   },
   {
-    "pattern": "max.*min",
+    "present": "max.*min",
     "text":
       "JavaScript allows hash entries to be in any order, but this can be confusing to humans. Conventionally minimum values are given before maximum values; please follow that convention."
   },
   {
-    "antipattern": ", $",
+    "absent": ", $",
     "text":
       "This is a parameter, it must end with a comma."
   }

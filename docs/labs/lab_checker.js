@@ -79,12 +79,12 @@ function run_check() {
 
 /** Return the best-matching hint given attempt. */
 function find_hint(attempt) {
-    // TODO: Use BOTH pattern and antipattern
+    // TODO: Use BOTH present and absent pattern
     for (hint of hints) {
-      if (hint.pattern_re && hint.pattern_re.test(attempt)) {
+      if (hint.present_re && hint.present_re.test(attempt)) {
         return hint.text;
       }
-      if (hint.antipattern_re && !hint.antipattern_re.test(attempt)) {
+      if (hint.absent_re && !hint.absent_re.test(attempt)) {
         return hint.text;
       }
     };
@@ -120,15 +120,15 @@ function process_hints(potential_hints) {
     for (let hint of parsed_json) {
         let newHint = { ...hint}; // clone so we can modify it
         // Precompile all regular expressions
-        if (newHint.pattern) {
-            newHint.pattern_re = process_regex(newHint.pattern, false);
+        if (newHint.present) {
+            newHint.present_re = process_regex(newHint.present, false);
         } else { // Defensive programming - don't accept external code
-            delete newHint.pattern_re;
+            delete newHint.present_re;
         }
-        if (newHint.antipattern) {
-            newHint.antipattern_re = process_regex(newHint.antipattern, false);
+        if (newHint.absent) {
+            newHint.absent_re = process_regex(newHint.absent, false);
         } else { // Defensive programming - don't accept external code
-            delete newHint.antipattern_re;
+            delete newHint.absent_re;
         }
         // parsed_json[i] = newHint;
         compiled_hints.push(newHint); // append result.
