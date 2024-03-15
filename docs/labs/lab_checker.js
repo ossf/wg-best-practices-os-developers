@@ -79,12 +79,10 @@ function run_check() {
 
 /** Return the best-matching hint given attempt. */
 function find_hint(attempt) {
-    // TODO: Use BOTH present and absent pattern
+    // Find a matching hint (matches present and NOT absent)
     for (hint of hints) {
-      if (hint.present_re && hint.present_re.test(attempt)) {
-        return hint.text;
-      }
-      if (hint.absent_re && !hint.absent_re.test(attempt)) {
+      if ((!hint.present_re || hint.present_re.test(attempt)) &&
+          (!hint.absent_re || !hint.absent_re.test(attempt))) {
         return hint.text;
       }
     };
