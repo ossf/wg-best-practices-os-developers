@@ -2,6 +2,16 @@
 
 // See create_labs.md for more information.
 
+// Hints are currently in JSON.
+// JSON is well-known & easily supported, but it requires a lot of escaping.
+// YAML would be a little clearer, and is a common format,
+// but you still have to escape a lot.
+// NestedText format might be a nice format for hints
+// <https://nestedtext.org/en/stable/>, because it doesn't require
+// any escaping of the data (structural information is a prefix).
+// However, it's an uncommon format and
+// it's not clear how well it's supported on *client-side* JavaScript.
+
 // Global variables. We set these on load to provide good response time.
 let correct_re; // Compiled regex of correct answer, precomputed for speed
 let expected; // Expected answer (a correct answer)

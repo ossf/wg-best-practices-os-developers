@@ -135,6 +135,11 @@ app.get('/invoices',
 <div id="hints" style="display:none">
 [
   {
+    "present": "query \\( .id. \\) [^.]",
+    "text":
+      "After query(\"id\") use a period to invoke a verification method."
+  },
+  {
     "present": "(isint|IsInt|ISINT)",
     "text":
       "JavaScript is case-sensitive. Use isInt instead of the case you have."
@@ -152,7 +157,7 @@ app.get('/invoices',
   {
     "absent": "isInt \\( \\{.*\\} \\)",
     "text":
-      "Inside isInt({...}) you should have an object."
+      "Inside the parenthesis of isInt() you should have an object like {...}."
   },
   {
     "absent": "min",
