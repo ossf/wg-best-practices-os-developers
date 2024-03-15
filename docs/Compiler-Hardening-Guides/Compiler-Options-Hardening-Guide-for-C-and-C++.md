@@ -1145,7 +1145,7 @@ If you are compiling a C/C++ compiler, where practical make the generated compil
 |:--- |:---:|:---- |
 | <span id="--enable-default-pie">`--enable-default-pie`</span>             | GCC 6.1      | Turn on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler |
 | <span id="--enable-default-ssp">`--enable-default-ssp`</span>             | GCC 6.1      | Turn on [`-fstack-protector-strong`](#-fstack-protector-strong) by default for binaries produced by the compiler |
-| <span id="--enable-host-pie">`--enable-default-pie`</span>                | GCC 14       | Build the compiler executables with [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) |
+| <span id="--enable-host-pie">`--enable-host-pie`</span>                   | GCC 14       | Build the compiler executables with [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) |
 | <span id="--enable-host-bind-now">`--enable-host-bind-now`</span>         | GCC 14       | Build the compiler executables with [`-Wl,-z,now`](#-Wl,-z,now) |
 | <span id="CLANG_DEFAULT_PIE_ON_LINUX">`CLANG_DEFAULT_PIE_ON_LINUX`</span> | Clang 14.0.0 | Turn on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler |
 
