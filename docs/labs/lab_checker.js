@@ -1,30 +1,21 @@
 // lab_checker - check and report if lab attempt is correct
 
-// TODO: The current display for failing and success is ugly.
-// We could do better.
+// See create_labs.md for more information.
 
-// Correct answers are embedded in the web page in a div area with
-// the id "correct".
-// Answers are expressed using regular expression patterns, to make it easy to
-// indicate the many different forms that are all correct. E.g.:
-//
-// * Pattern `(a|b)` matches `a` or `b`, while `foo\(a\)` matches `foo(a)`.
-// * Pattern `\{\\\}` matches the literal text `{\}`.
-// * Pattern `9_?999` matches `9`, an optional `_`, then `999`.
-//
-// To make the correct answer regular expressions easier to read, the
-// pattern for correct answers is preprocessed as follows:
-// * A completely blank line in the middle of a pattern is interpreted as
-//   a required end of line.
-// * Otherwise, any sequence of 1+ whitespace (spaces, tabs, and newlines)
-//   is interpreted as "0 or more whitespace is allowed here".
-//   This can also be expressed as `\s*`, but whitespace is easier to read,
-//   and this circumstance repeatedly occurs in correct answers.
-// * Use \s to match a whitespace character, and \x20 for a space character.
-// * The given pattern much be exactly matched - it's case-sensitive.
-// * The *entire* input must match the correct answer. Leading and trailing
-//   newlines are removed. Answers can match with leading and trailing spaces
-//   by default (if your pattern *requires* spaces, then they'll be required).
+// Hints are currently in JSON.
+// JSON is well-known & easily supported, but it requires a lot of escaping.
+// YAML would be a little clearer, and is a common format,
+// but you still have to escape a lot.
+// NestedText format might be a nice format for hints
+// <https://nestedtext.org/en/stable/>, because it doesn't require
+// any escaping of the data (structural information is a prefix).
+// However, it's an uncommon format and
+// it's not clear how well it's supported on *client-side* JavaScript.
+
+// Global variables. We set these on load to provide good response time.
+let correct_re; // Compiled regex of correct answer, precomputed for speed
+let expected; // Expected answer (a correct answer)
+let hints; // Array of hint objects
 
 /**
  * Trim newlines (LF or CRLF) from beginning and end of given String.
@@ -37,13 +28,16 @@ function trimNewlines(s) {
 /*
  * Given a regex as a string, process it to support our extensions and
  * return a compiled regex.
+ * In particular, *ignore* newlines and treat spaces as "allow 0+ spaces".
  */
-function process_regex(regex_string) {
-    let processed_regex_string = ('^' +
-                  (regex_string.replace(/\r?\n( *\r?\n)+/g,'')
-                               .replace(/\s+/g,'\\s*')) +
-                  ' *$');
-    // alert(`Processed="${processed_regex_string}"`);
+function process_regex(regex_string, full_match = true) {
+    let processed_regex_string = (
+                  regex_string.replace(/\r?\n( *\r?\n)+/g,'')
+                              .replace(/\s+/g,'\\s*')
+                  );
+    if (full_match) {
+        processed_regex_string = '^' + processed_regex_string + ' *$';
+    }
     return new RegExp(processed_regex_string);
 }
 
@@ -55,27 +49,18 @@ function process_regex(regex_string) {
  * This shows an alert if "correct" isn't syntactically valid.
  */
 function calcMatch(attempt, correct) {
-    try {
-          let re = process_regex(correct);
-          return (re.test(attempt));
-      }
-      catch(e) {
-          // This can only happen if the correct answer pattern is badly wrong.
-          alert(`Lab Error: Unparsable correct answer "${correct}"`);
-          return false;
-      }
+    // "correct" is a compiled regex
+    if (!correct) { // Defensive test, should never happen.
+        alert('Internal failure, correct value not defined.');
+        return false;
+    } else {
+        return (correct.test(attempt));
+    }
 }
 
-function retrieve_attempt_and_correct() {
-    // Ignore empty lines at beginning & end of both attempt and correct.
-    let attempt = trimNewlines(document.getElementById('attempt').value);
-
-    // We could optimize this by creating the regex once per page.
-    // However, JavaScript regexes are stateful, so we'd need to be careful,
-    // and it's currently so fast that it doesn't matter.
-    let correct = trimNewlines(document.getElementById('correct').textContent);
-
-    return [attempt, correct];
+function retrieve_attempt() {
+    // Ignore empty lines at beginning & end of attempt
+    return trimNewlines(document.getElementById('attempt').value);
 }
 
 /**
@@ -83,10 +68,10 @@ function retrieve_attempt_and_correct() {
  * Then set "grade" in document depending on that answer.
  */
 function run_check() {
-    let [attempt, correct] = retrieve_attempt_and_correct();
+    let attempt = retrieve_attempt();
 
     // Calculate grade and set in document.
-    let isCorrect = calcMatch(attempt, correct);
+    let isCorrect = calcMatch(attempt, correct_re);
     let oldGrade = document.getElementById('grade').innerHTML;
     let newGrade = isCorrect ? 'COMPLETE!' : 'to be completed';
     document.getElementById('grade').innerHTML = newGrade;
@@ -102,30 +87,123 @@ function run_check() {
     }
 }
 
+/** Return the best-matching hint given attempt. */
+function find_hint(attempt) {
+    // Find a matching hint (matches present and NOT absent)
+    for (hint of hints) {
+      if ((!hint.present_re || hint.present_re.test(attempt)) &&
+          (!hint.absent_re || !hint.absent_re.test(attempt))) {
+        return hint.text;
+      }
+    };
+
+    return 'Sorry, I cannot find a hint that matches your attempt.';
+}
+
+/** Show a hint to the user. */
+function show_hint() {
+    let attempt = retrieve_attempt();
+    if (calcMatch(attempt, correct_re)) {
+        alert('The answer is already correct!');
+    } else if (!hints) {
+        alert('Sorry, there are no hints for this lab.');
+    } else {
+        alert(find_hint(attempt));
+    }
+}
+
+function show_answer() {
+    alert(`We were expecting an answer like this:\n${expected}`);
+}
+
+function process_hints(potential_hints) {
+    // Accept String potential_hints in JSON format.
+    // return a cleaned-up array of objects.
+    let parsed_json = JSON.parse(potential_hints);
+    if (!(parsed_json instanceof Array)) {
+        alert('Error: hints must be JSON array. Use [...].');
+    }
+    let compiled_hints = [];
+    // TODO: Do more sanity checking.
+    for (let hint of parsed_json) {
+        let newHint = { ...hint}; // clone so we can modify it
+        // Precompile all regular expressions
+        if (newHint.present) {
+            newHint.present_re = process_regex(newHint.present, false);
+        } else { // Defensive programming - don't accept external code
+            delete newHint.present_re;
+        }
+        if (newHint.absent) {
+            newHint.absent_re = process_regex(newHint.absent, false);
+        } else { // Defensive programming - don't accept external code
+            delete newHint.absent_re;
+        }
+        // parsed_json[i] = newHint;
+        compiled_hints.push(newHint); // append result.
+    };
+    // alert(`compiled_hints[0].pattern=${compiled_hints[0].pattern}`);
+    // alert(`compiled_hints[0].pattern_re=${compiled_hints[0].pattern_re}`);
+    return compiled_hints;
+}
+
 /**
  * Run simple selftest; we presume it runs only during page initialization.
+ * Must run load_data first, to set up globals like correct_re.
  * Ensure the initial attempt is incorrect AND the expected value is correct.
  */
 function run_selftest() {
-    let [attempt, correct] = retrieve_attempt_and_correct();
-    let expected = trimNewlines(
-        document.getElementById('expected').textContent
-    );
-    if (calcMatch(attempt, correct)) {
+    let attempt = retrieve_attempt();
+    if (calcMatch(attempt, correct_re)) {
         alert('Lab Error: Initial attempt value is correct and should not be!');
     }
-    if (!calcMatch(expected, correct)) {
+    if (!calcMatch(expected, correct_re)) {
         alert('Lab Error: expected value is incorrect and should be correct!');
     }
 }
 
+/**
+ * Load data from HTML page and initialize our local variables from it.
+ */
+function load_data() {
+    // Set global correct regex correct_re
+    try {
+            // Ignore empty lines at beginning & end of correct answer
+            let correct = (
+                trimNewlines(document.getElementById('correct').textContent));
+            // Set global variable with compiled correct answer
+            correct_re = process_regex(correct, true);
+      }
+      catch(e) {
+          // This can only happen if the correct answer pattern is missing
+          // or badly wrong.
+          alert("Lab Error: Unparsable correct answer");
+      }
+    // Set expected answer. Used for self test and give up.
+    expected = trimNewlines(
+        document.getElementById('expected').textContent
+    );
+    // If there are hints, set up global variable hints.
+    let potential_hints = document.getElementById('hints').textContent;
+    if (potential_hints) {
+        hints = process_hints(potential_hints);
+    };
+}
+
 function init_page() {
+    load_data();
+    // Run a selftest on page load, to prevent later problems
+    run_selftest();
+    // Set up user interaction.
     // This will cause us to sometimes check twice, but this also ensures
     // that we always catch changes to the attempt.
     document.getElementById('attempt').onchange = run_check;
     document.getElementById('attempt').onkeyup = run_check;
+    hint_button = document.getElementById('hint_button');
+    if (hint_button) {hint_button.onclick = (() => show_hint());}
+    give_up_button = document.getElementById('give_up_button');
+    if (give_up_button) {give_up_button.onclick = (() => show_answer());}
+    // Run check of the answer so its visual appearance matches its content.
     run_check();
-    run_selftest();
 }
 
 // When the requesting web page loads, initialize things

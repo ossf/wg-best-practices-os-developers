@@ -129,15 +129,63 @@ app.get('/invoices',
        \{ min: 1 , max: 9_?999 \}
  \) ,
 </div>
-<!-- TODO: Hints. Examples:
-  ! isInt -> You should use isInt to assert that there's an integer.
-  isInt; ! { -> You should provide a hash {...} to specify a specific range
-  (isint|IsInt|ISINT) -> Upper/lowercase matter. Use isInt instead.
-  max.*min -> JavaScript allows hash entries to be in any order, but
-              this can be confusing to humans. Conventionally minimum
-              values are given before maximum values; please follow that
-              convention.
+<!-- This is JSON, so:
+ -  \ in a regex is written as \\ and make sure
+ - commas must *separate* the entries - last one must NOT have a comma. -->
+<div id="hints" style="display:none">
+[
+  {
+    "present": "query \\( .id. \\) [^.]",
+    "text":
+      "After query(\"id\") use a period to invoke a verification method."
+  },
+  {
+    "present": "(isint|IsInt|ISINT)",
+    "text":
+      "JavaScript is case-sensitive. Use isInt instead of the case you have."
+  },
+  {
+    "absent": "isInt",
+    "text":
+      "Use isInt to determine if the parameter is an integer."
+  },
+  {
+    "absent": "isInt \\(.*\\)",
+    "text":
+      "isInt should be followed by (...)."
+  },
+  {
+    "absent": "isInt \\( \\{.*\\} \\)",
+    "text":
+      "Inside the parenthesis of isInt() you should have an object like {...}."
+  },
+  {
+    "absent": "min",
+    "text":
+      "Use min: to specify a minimum value."
+  },
+  {
+    "absent": "max",
+    "text": "Use max: to specify a minimum value."
+  },
+  {
+    "present": "max.*min",
+    "text":
+      "JavaScript allows hash entries to be in any order, but this can be confusing to humans. Conventionally minimum values are given before maximum values; please follow that convention."
+  },
+  {
+    "absent": ", $",
+    "text":
+      "This is a parameter, it must end with a comma."
+  }
+]
+</div>
+<!--
+
 -->
+
+<button type="button" id="hint_button">Hint</button>
+<button type="button" id="give_up_button">Give up</button>
 
 </form>
 

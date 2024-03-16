@@ -24,10 +24,6 @@ pattern for correct answers is preprocessed as follows:
 * The user's answer must match the *entire* correct value, though it's
   okay if the user's answer has extra whitespace at the end.
   E.g., the correct answer is prepended with `^` and postpended with `\s*$`.
-* If your answer is in JavaScript, you probably want to begin the answer
-  with a space to indicate "0 or more spaces are allowed here".
-  Most tokens should also be separated by a space, to indicate that they're
-  allowed.
 * End-of-line (newline) is *completely* ignored. You can break up patterns
   into multiple lines for readability.
 * Any sequence of 1+ spaces or tabs
@@ -37,6 +33,22 @@ pattern for correct answers is preprocessed as follows:
   Stylistically there will often be a space at the beginning of
   a line to indicate that spaces are optional there, but you don't
   *have* to format text this way.
+* If your answer is in JavaScript, you probably want to begin the answer
+  with a space to indicate "0 or more spaces are allowed here".
+  Most tokens should also be separated by a space, to indicate that they're
+  allowed.
 * Use \s to match a whitespace character, use \x20 for a space character.
   Append "+" if to either if you want to require "1 or more".
-* The given pattern much be exactly matched, and it's case-sensitive.
+
+You can optionally provide hints in a div with `id` of `hints`.
+Hints are JSON array, so it must begin with `[` and end with `]`.
+Inside the array is a comma-separated list of hint objects.
+Every hint object has a `text` field to be displayed.
+A hint object can have a `present` field (a pattern that must be present
+for the hint to be shown), and it can have an
+`absent` field (a pattern that must be absent for the hint to be shown).
+A hint can have both a `present` and `absent` field, or neither.
+The `present` and `absent` field are regular expression patterns, but
+don't have to exactly match (start them with `^` and end them with
+`$` if you want an exact match). Again, one or more spaces are interpreted
+as allowing 0 or more spaces.
