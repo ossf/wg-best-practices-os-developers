@@ -135,8 +135,9 @@ some of the other formats might be useful.
 A negative is that this means bringing in a larger library
 and not using most of its functionality.
 A positive is that YAML is a well-known format.
+Folded style may also make sense.
 
-There are at least two JavaScript libraries for YAML:
+There are at least [two JavaScript libraries](https://socket.dev/npm/category/server/file-formats/yaml-parser) for YAML that look especially promising:
 
 * [eemeli/yaml](https://github.com/eemeli/yaml) is a JavaScript library
   that can read YAML format. It says it works client-side
