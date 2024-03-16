@@ -114,9 +114,6 @@ but we might want to look for alternatives.
 The most obvious ones are YAML and NestedText.
 
 YAML would be clearer than JSON and is a common format.
-[eemeli/yaml](https://github.com/eemeli/yaml) is a JavaScript library
-that can read YAML format and works client-side (ISC license,
-no dependencies); see [its documentation](https://eemeli.org/yaml/#yaml).
 YAML has a number of "sharp edges", so we'd need to be careful about
 how it's used. In particular, its "..." 
 In many cases YAML's "|" (literal scalar) format would probably be best,
@@ -138,6 +135,16 @@ some of the other formats might be useful.
 A negative is that this means bringing in a larger library
 and not using most of its functionality.
 A positive is that YAML is a well-known format.
+
+There are at least two JavaScript libraries for YAML:
+
+* [eemeli/yaml](https://github.com/eemeli/yaml) is a JavaScript library
+  that can read YAML format. It says it works client-side
+  (ISC license, no dependencies), but I didn't immediately see
+  instructions on how to to that.
+  See [its documentation](https://eemeli.org/yaml/#yaml).
+* js-yaml.
+  [Here is a demo of how to use it client-side](https://stackoverflow.com/questions/13785364/reading-from-yaml-file-in-javascript).
 
 An alternative might be to use the less-common
 [NestedText format](https://nestedtext.org/en/stable/).
