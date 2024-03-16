@@ -129,12 +129,14 @@ app.get('/parts',
 </div>
 <!-- Full pattern of correct answer. In many ways this is a worst case,
      using regex to check on a regex, because of the massive number
-     of escapes we must use. -->
+     of escapes we must use. This pattern is very generous, allowing
+     constructs we haven't discussed like \d for digits. Most people would
+     use "+" for "one or more", but we'll allow "{1,}" as well. -->
 <div id="correct0" style="display:none">
  query \( ('id'|"id"|`id`) \)
  \. isLength \( \{ max: 80 ,? \} \)
  \. matches \(
-   \/\^\[A-Z\](\{2\}|\[A-Z\])-(\[0-9\]|\\d)\+-(\[0-9\]|\\d)\+\$\/
+   \/\^\[A-Z\](\{2\}|\[A-Z\])-(\[0-9\]|\\d)(\+|\{1,\})-(\[0-9\]|\\d)(\+|\{1,\})\$\/
  \) ,
 </div>
 <!--
@@ -183,6 +185,14 @@ The following define hints. Hints are expressed in a JSON array, so:
   {
     "present": "matches \\( /.*[^$]/",
     "text": "Match the whole string - end the regular expression with $"
+  },
+  {
+    "present": "matches \\( /\\^\\[A-Z\\]-",
+    "text": "That would match only one letter before the dash, you need two."
+  },
+  {
+    "present": "matches \\( /.*(\\[0-9\\]|\\d)\\*",
+    "text": "You need to match one or more digits; * allows 0 or more. A + would be better suited for this task."
   }
 ]
 </div>
