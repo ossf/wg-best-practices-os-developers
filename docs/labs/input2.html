@@ -56,9 +56,9 @@ Please change the code below so the query parameter
 <tt>id</tt> <i>must</i> be no longer than 80 characters
 and meets this application's part id format requirement.
 In this application, a part id is always
-two uppercase Latin letters (each `A` through `Z`),
-then a dash (`-`), a sequence of one or more digits,
-another dash (`-`), and another sequence of one or more digits.
+two uppercase Latin letters (each <tt>A</tt> through <tt>Z</tt>),
+then a dash (<tt>-</tt>), a sequence of one or more digits,
+another dash (<tt>-</tt>), and another sequence of one or more digits.
 
 <p>
 To do that,
@@ -86,21 +86,13 @@ Now we need to verify that it matches a regular expression.
 In this situation, we can do this by appending another
 period (<tt>.</tt>) and the validation requirement
 <tt>matches()</tt>.
-Inside those parenthesis you should supply <tt>/</tt> (slash), the
-text of the regular expression to match, and another <tt>`/</tt> .
-In JavaScript, a pair of `/` surrounds a regular expression.
+Inside those parenthesis you should supply slash (<tt>/</tt>, the
+text of the regular expression to match, and another slash (<tt>/</tt>).
+In JavaScript, a pair of slashes (<tt>/</tt>) surrounds a regular expression.
 Remember to match the <i>entire</i> expression
-(e.g., use `^`).
+(in other words, use <tt>^</tt> and <tt>$</tt>).
 Remember, a way to match a single uppercase character is the
 pattern <tt>[A-Z]</tt> ... good luck!
-
-<p>
-<!-- <form class="my-form" onsubmit="run_lab();"> -->
-<!--
-app.get('/user/:user', function (req, res) {
-  res.send('user ' + req.user.name);
-});
--->
 
 <p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
