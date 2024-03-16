@@ -115,7 +115,8 @@ The most obvious ones are YAML and NestedText.
 
 YAML would be clearer than JSON and is a common format.
 YAML has a number of "sharp edges", so we'd need to be careful about
-how it's used. In particular, its "..." 
+how it's used. In particular, its "..." construct requires additional
+escaping similar to JSON's requirements.
 In many cases YAML's "|" (literal scalar) format would probably be best,
 because it does *not* have an internal escape mechanism that users
 have to fight against.
