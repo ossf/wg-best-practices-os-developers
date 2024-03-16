@@ -1,5 +1,8 @@
 // lab_checker - check and report if lab attempt is correct
 
+// Copyright (C) Open Source Security Foundation (OpenSSF)
+// SPDX-License-Identifier: MIT
+
 // See create_labs.md for more information.
 
 // Hints are currently in JSON.

@@ -3,6 +3,9 @@
 // NOTE: THIS IS NOT BEING USED AND MAY BE DELETED SOON.
 // IT IS INCLUDED ONLY TO SHOW AN ALTERNATIVE APPROACH.
 
+// Copyright (C) Open Source Security Foundation (OpenSSF)
+// SPDX-License-Identifier: MIT
+
 // This is an early attempt at simulation of Express and express-validator.
 // This turned out to be much harder than expected, so we aren't using
 // this code, and it may get dropped completely.
