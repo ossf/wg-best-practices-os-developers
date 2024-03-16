@@ -16,8 +16,8 @@
 // it's not clear how well it's supported on *client-side* JavaScript.
 
 // Global variables. We set these on load to provide good response time.
-let correct_re; // Compiled regex of correct answer, precomputed for speed
-let expected; // Expected answer (a correct answer)
+let correct_re = []; // Array of compiled regex of correct answer
+let expected = []; // Array of an expected (correct) answer
 let hints; // Array of hint objects
 
 /**
@@ -45,25 +45,34 @@ function process_regex(regex_string, full_match = true) {
 }
 
 /**
- * Return if attempt matches the regex correct.
- * @attempt String from user
- * @correct String of regex describing correct answer
- *
- * This shows an alert if "correct" isn't syntactically valid.
+ * Return true iff attempt matches correct.
+ * @attempt Array of strings that might be correct
+ * @correct Array of compiled regexes describing correct answer
  */
 function calcMatch(attempt, correct) {
-    // "correct" is a compiled regex
     if (!correct) { // Defensive test, should never happen.
-        alert('Internal failure, correct value not defined.');
+        alert('Internal failure, correct value not defined or empty.');
         return false;
-    } else {
-        return (correct.test(attempt));
     }
+    for (let i = 0; i < correct.length; i++) {
+        // If we find a failure, return false immediately (short circuit)
+        if (!correct[i].test(attempt)) return false;
+    }
+    // Everything passed.
+    return true;
 }
 
+/**
+ * Retrieve array of attempted answers
+ */
 function retrieve_attempt() {
-    // Ignore empty lines at beginning & end of attempt
-    return trimNewlines(document.getElementById('attempt').value);
+    let result = [];
+    for (let i = 0; i < correct_re.length; i++) {
+        // Ignore empty lines at beginning & end of attempt
+        result.push(
+            trimNewlines(document.getElementById(`attempt${i}`).value));
+    };
+    return result;
 }
 
 /**
@@ -78,8 +87,10 @@ function run_check() {
     let oldGrade = document.getElementById('grade').innerHTML;
     let newGrade = isCorrect ? 'COMPLETE!' : 'to be completed';
     document.getElementById('grade').innerHTML = newGrade;
-    document.getElementById('attempt').style.backgroundColor =
-        isCorrect ?  'lightgreen' : 'yellow';
+    for (let i = 0; i < correct_re.length; i++) {
+        document.getElementById(`attempt${i}`).style.backgroundColor =
+            isCorrect ?  'lightgreen' : 'yellow';
+    };
     if (isCorrect && (oldGrade !== newGrade)) {
         // Use a timeout so the underlying page will *re-render* before the
 	// alert shows. If we don't do this, the alert would be confusing
@@ -94,12 +105,13 @@ function run_check() {
 function find_hint(attempt) {
     // Find a matching hint (matches present and NOT absent)
     for (hint of hints) {
-      if ((!hint.present_re || hint.present_re.test(attempt)) &&
-          (!hint.absent_re || !hint.absent_re.test(attempt))) {
+      if ((!hint.present_re ||
+           hint.present_re.test(attempt[hint.entry])) &&
+          (!hint.absent_re ||
+           !hint.absent_re.test(attempt[hint.entry]))) {
         return hint.text;
       }
     };
-
     return 'Sorry, I cannot find a hint that matches your attempt.';
 }
 
@@ -129,19 +141,16 @@ function process_hints(potential_hints) {
     let compiled_hints = [];
     // TODO: Do more sanity checking.
     for (let hint of parsed_json) {
-        let newHint = { ...hint}; // clone so we can modify it
+        let newHint = {};
+        newHint.entry = hint.entry ? Number(hint.entry) : 0;
+        newHint.text = hint.text;
         // Precompile all regular expressions
-        if (newHint.present) {
-            newHint.present_re = process_regex(newHint.present, false);
-        } else { // Defensive programming - don't accept external code
-            delete newHint.present_re;
-        }
-        if (newHint.absent) {
-            newHint.absent_re = process_regex(newHint.absent, false);
-        } else { // Defensive programming - don't accept external code
-            delete newHint.absent_re;
-        }
-        // parsed_json[i] = newHint;
+        if (hint.present) {
+            newHint.present_re = process_regex(hint.present, false);
+        };
+        if (hint.absent) {
+            newHint.absent_re = process_regex(hint.absent, false);
+        };
         compiled_hints.push(newHint); // append result.
     };
     // alert(`compiled_hints[0].pattern=${compiled_hints[0].pattern}`);
@@ -168,23 +177,28 @@ function run_selftest() {
  * Load data from HTML page and initialize our local variables from it.
  */
 function load_data() {
-    // Set global correct regex correct_re
-    try {
-            // Ignore empty lines at beginning & end of correct answer
-            let correct = (
-                trimNewlines(document.getElementById('correct').textContent));
-            // Set global variable with compiled correct answer
-            correct_re = process_regex(correct, true);
-      }
-      catch(e) {
-          // This can only happen if the correct answer pattern is missing
-          // or badly wrong.
-          alert("Lab Error: Unparsable correct answer");
-      }
-    // Set expected answer. Used for self test and give up.
-    expected = trimNewlines(
-        document.getElementById('expected').textContent
-    );
+    // Set global correct and expected arrays
+    let current = 0;
+    while (true) {
+        correct_element = document.getElementById('correct' + current);
+        if (!correct_element) break;
+        try {
+                // Ignore empty lines at beginning & end of correct answer
+                let correct = (
+                    trimNewlines(correct_element.textContent));
+                // Append global variable with compiled correct answer
+                correct_re.push(process_regex(correct, true));
+        }
+        catch(e) {
+            // This can only happen if the correct answer pattern is missing
+            // or badly wrong.
+            alert(`Lab Error: Unparsable correct answer $${current}`);
+        }
+        // Set expected answer. Used for self test and give up.
+        expected.push(trimNewlines(
+            document.getElementById('expected' + current).textContent));
+        current++;
+    };
     // If there are hints, set up global variable hints.
     let potential_hints = document.getElementById('hints').textContent;
     if (potential_hints) {
@@ -199,8 +213,14 @@ function init_page() {
     // Set up user interaction.
     // This will cause us to sometimes check twice, but this also ensures
     // that we always catch changes to the attempt.
-    document.getElementById('attempt').onchange = run_check;
-    document.getElementById('attempt').onkeyup = run_check;
+    let current = 0;
+    while (true) {
+        attempt = document.getElementById('attempt' + current);
+        if (!attempt) break;
+        attempt.onchange = run_check;
+        attempt.onkeyup = run_check;
+        current++;
+    }
     hint_button = document.getElementById('hint_button');
     if (hint_button) {hint_button.onclick = (() => show_hint());}
     give_up_button = document.getElementById('give_up_button');

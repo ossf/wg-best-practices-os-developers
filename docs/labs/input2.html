@@ -119,7 +119,7 @@ const { query, matchedData, validationResult } = require('express-validator');
 
 // Implement requests such as http://localhost:3000/parts?id=1
 app.get('/parts',
-<input id="attempt" type="text" size="70" value="  ,"> 
+<input id="attempt0" type="text" size="70" value="  ,"> 
   (req, res) =&gt; { // Execute this code if /invoices seen
     const result = validationResult(req); // Retrieve errors
     if (result.isEmpty()) { // No errors
@@ -130,11 +130,13 @@ app.get('/parts',
   })
 </pre>
 <!-- Sample expected answer -->
-<div id="expected" style="display:none">
-  query('id').isLength( {max:80} ) . matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),
+<div id="expected0" style="display:none">
+  query('id').isLength({max:80}).matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),
 </div>
-<!-- Full pattern of correct answer -->
-<div id="correct" style="display:none">
+<!-- Full pattern of correct answer. In many ways this is a worst case,
+     using regex to check on a regex, because of the massive number
+     of escapes we must use. -->
+<div id="correct0" style="display:none">
  query \( ('id'|"id"|`id`) \)
  \. isLength \( \{ max: 80 \} \)
  \. matches \(
@@ -146,6 +148,11 @@ app.get('/parts',
  - commas must *separate* the entries - last one must NOT have a comma. -->
 <div id="hints" style="display:none">
 [
+  {
+    "absent": "query \\( .id. \\)",
+    "text":
+      "Use query() with an 'id' parameter."
+  },
   {
     "present": "query \\( .id. \\) [^.]",
     "text":
