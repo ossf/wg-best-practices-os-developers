@@ -165,8 +165,20 @@ The following define hints. Hints are expressed in a JSON array, so:
     "text": "Use isLength()."
   },
   {
+    "present": "isLength \\( m",
+    "text": "You need to pass isLength() an object within {...}."
+  },
+  {
     "absent": "matches",
     "text": "Use matches()."
+  },
+  {
+    "present": "matches \\( /[^^]",
+    "text": "Match the whole string - begin the regular expression with ^"
+  },
+  {
+    "present": "matches \\( /.*[^$]/",
+    "text": "Match the whole string - end the regular expression with $"
   }
 ]
 </div>
