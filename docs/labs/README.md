@@ -11,6 +11,9 @@ To submit new or updated labs, create a pull request on the
 [OpenSSF Best Practices WG](https://github.com/ossf/wg-best-practices-os-developers/)
 under the `docs/labs` directory.
 
+You can see the current set of labs at the
+[OpenSSF Best Practices WG labs](https://best.openssf.org/labs/) site.
+
 All code to implement the labs is released under the MIT license.
 All text is released under the Creative Commons Attribution (CC-BY-4.0)
 license.
