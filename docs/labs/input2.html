@@ -73,16 +73,18 @@ Add a period (<tt>.</tt>) and the validation requirement
 <tt>isLength()</tt>
 The <tt>isLength</tt> method takes, as an optional parameter inside
 its parentheses,
-an object providing a minimum and maximum, and we only want a maximum,
+an object providing specific information such as a minimum and a maximum.
+We only want a maximum,
 so it should look something like
-<tt>isLength({YOUR_MAXIMUM})</tt>.
+<tt>isLength({max: YOUR_MAXIMUM})</tt>.
 Those familiar with JavaScript will know that the "length" value is
 the length of the string in UTF-16 code units; that's fine
 for our purposes.
 </p>
 
 <p>
-Now we need to verify that it matches a regular expression.
+We also need to verify that the input matches our pattern,
+which we can verify using a regular expression.
 In this situation, we can do this by appending another
 period (<tt>.</tt>) and the validation requirement
 <tt>matches()</tt>.
