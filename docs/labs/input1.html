@@ -85,6 +85,11 @@ Remember to indicate the end of this parameter with a comma
 (our starter text does this).
 
 <p>
+You can use the buttons below to ask for a hint, reset the
+input to its initial state, or give up (and show an answer) -
+but please try to do this on your own!
+
+<p>
 <!-- <form class="my-form" onsubmit="run_lab();"> -->
 <!--
 app.get('/user/:user', function (req, res) {
@@ -109,7 +114,7 @@ const { query, matchedData, validationResult } = require('express-validator');
 
 // Implement requests such as http://localhost:3000/invoices?id=1
 app.get('/invoices',
-<input id="attempt" type="text" size="70" value="  query('id'),"> 
+<input id="attempt0" type="text" size="70" value="  query('id'),"> 
   (req, res) =&gt; { // Execute this code if /invoices seen
     const result = validationResult(req); // Retrieve errors
     if (result.isEmpty()) { // No errors
@@ -120,11 +125,11 @@ app.get('/invoices',
   })
 </pre>
 <!-- Sample expected answer -->
-<div id="expected" style="display:none">
+<div id="expected0" style="display:none">
   query('id').isInt({min: 1, max: 9999}),
 </div>
 <!-- Full pattern of correct answer -->
-<div id="correct" style="display:none">
+<div id="correct0" style="display:none">
  query \( ('id'|"id"|`id`) \) \. isInt \(
        \{ min: 1 , max: 9_?999 \}
  \) ,
@@ -185,6 +190,7 @@ app.get('/invoices',
 -->
 
 <button type="button" id="hint_button">Hint</button>
+<button type="reset" id="reset_button">Reset</button>
 <button type="button" id="give_up_button">Give up</button>
 
 </form>

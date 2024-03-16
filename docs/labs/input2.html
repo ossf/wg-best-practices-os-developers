@@ -56,9 +56,9 @@ Please change the code below so the query parameter
 <tt>id</tt> <i>must</i> be no longer than 80 characters
 and meets this application's part id format requirement.
 In this application, a part id is always
-two uppercase Latin letters (each `A` through `Z`),
-then a dash (`-`), a sequence of one or more digits,
-another dash (`-`), and another sequence of one or more digits.
+two uppercase Latin letters (each <tt>A</tt> through <tt>Z</tt>),
+then a dash (<tt>-</tt>), a sequence of one or more digits,
+another dash (<tt>-</tt>), and another sequence of one or more digits.
 
 <p>
 To do that,
@@ -86,21 +86,13 @@ Now we need to verify that it matches a regular expression.
 In this situation, we can do this by appending another
 period (<tt>.</tt>) and the validation requirement
 <tt>matches()</tt>.
-Inside those parenthesis you should supply <tt>/</tt> (slash), the
-text of the regular expression to match, and another <tt>`/</tt> .
-In JavaScript, a pair of `/` surrounds a regular expression.
+Inside those parenthesis you should supply slash (<tt>/</tt>, the
+text of the regular expression to match, and another slash (<tt>/</tt>).
+In JavaScript, a pair of slashes (<tt>/</tt>) surrounds a regular expression.
 Remember to match the <i>entire</i> expression
-(e.g., use `^`).
+(in other words, use <tt>^</tt> and <tt>$</tt>).
 Remember, a way to match a single uppercase character is the
 pattern <tt>[A-Z]</tt> ... good luck!
-
-<p>
-<!-- <form class="my-form" onsubmit="run_lab();"> -->
-<!--
-app.get('/user/:user', function (req, res) {
-  res.send('user ' + req.user.name);
-});
--->
 
 <p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
@@ -119,7 +111,7 @@ const { query, matchedData, validationResult } = require('express-validator');
 
 // Implement requests such as http://localhost:3000/parts?id=1
 app.get('/parts',
-<input id="attempt" type="text" size="70" value="  ,"> 
+<input id="attempt0" type="text" size="70" value="  ,"> 
   (req, res) =&gt; { // Execute this code if /invoices seen
     const result = validationResult(req); // Retrieve errors
     if (result.isEmpty()) { // No errors
@@ -130,11 +122,13 @@ app.get('/parts',
   })
 </pre>
 <!-- Sample expected answer -->
-<div id="expected" style="display:none">
-  query('id').isLength( {max:80} ) . matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),
+<div id="expected0" style="display:none">
+  query('id').isLength({max:80}).matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),
 </div>
-<!-- Full pattern of correct answer -->
-<div id="correct" style="display:none">
+<!-- Full pattern of correct answer. In many ways this is a worst case,
+     using regex to check on a regex, because of the massive number
+     of escapes we must use. -->
+<div id="correct0" style="display:none">
  query \( ('id'|"id"|`id`) \)
  \. isLength \( \{ max: 80 \} \)
  \. matches \(
@@ -146,6 +140,11 @@ app.get('/parts',
  - commas must *separate* the entries - last one must NOT have a comma. -->
 <div id="hints" style="display:none">
 [
+  {
+    "absent": "query \\( .id. \\)",
+    "text":
+      "Use query() with an 'id' parameter."
+  },
   {
     "present": "query \\( .id. \\) [^.]",
     "text":
@@ -170,6 +169,7 @@ app.get('/parts',
 </div>
 
 <button type="button" id="hint_button">Hint</button>
+<button type="reset" id="reset_button">Reset</button>
 <button type="button" id="give_up_button">Give up</button>
 
 </form>
