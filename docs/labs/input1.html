@@ -136,8 +136,9 @@ The following define hints. Hints are expressed in a JSON array, so:
   - All field names and value strings must be quoted
   - commas must *separate* the entries - last one must NOT have a comma.
 -->
-<div id="hints" style="display:none">
-[
+<div id="info" style="display:none">
+{
+ "hints": [
   {
     "absent": ", $",
     "text": "This is a parameter, it must end with a comma."
@@ -191,7 +192,8 @@ The following define hints. Hints are expressed in a JSON array, so:
     "text":
       "JavaScript allows hash entries to be in any order, but this can be confusing to humans. Conventionally minimum values are given before maximum values; please follow that convention."
   }
-]
+ ]
+}
 </div>
 <!--
 

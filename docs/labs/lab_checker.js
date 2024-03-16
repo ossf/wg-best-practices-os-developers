@@ -12,7 +12,7 @@
 // Global variables. We set these on load to provide good response time.
 let correct_re = []; // Array of compiled regex of correct answer
 let expected = []; // Array of an expected (correct) answer
-let hints; // Array of hint objects
+let hints = []; // Array of hint objects
 
 /**
  * Trim newlines (LF or CRLF) from beginning and end of given String.
@@ -138,16 +138,15 @@ function reset_form() {
     run_check();
 }
 
-function process_hints(potential_hints) {
+function process_hints(requested_hints) {
     // Accept String potential_hints in JSON format.
     // return a cleaned-up array of objects.
-    let parsed_json = JSON.parse(potential_hints);
-    if (!(parsed_json instanceof Array)) {
+    if (!(requested_hints instanceof Array)) {
         alert('Error: hints must be JSON array. Use [...].');
     }
     let compiled_hints = [];
     // TODO: Do more sanity checking.
-    for (let hint of parsed_json) {
+    for (let hint of requested_hints) {
         let newHint = {};
         newHint.entry = hint.entry ? Number(hint.entry) : 0;
         newHint.text = hint.text;
@@ -160,9 +159,18 @@ function process_hints(potential_hints) {
         };
         compiled_hints.push(newHint); // append result.
     };
-    // alert(`compiled_hints[0].pattern=${compiled_hints[0].pattern}`);
-    // alert(`compiled_hints[0].pattern_re=${compiled_hints[0].pattern_re}`);
     return compiled_hints;
+}
+
+/** Set global values based on info.
+ * @info: String of JSON data
+ */
+function process_info(info) {
+    // TODO: handle parse failures more gracefully
+    let parsed_json = JSON.parse(info);
+    if (parsed_json && parsed_json.hints) {
+        hints = process_hints(parsed_json.hints);
+    };
 }
 
 /**
@@ -206,10 +214,10 @@ function load_data() {
             document.getElementById('expected' + current).textContent));
         current++;
     };
-    // If there are hints, set up global variable hints.
-    let potential_hints = document.getElementById('hints').textContent;
-    if (potential_hints) {
-        hints = process_hints(potential_hints);
+    // If there is info (e.g., hints), set up global variable hints.
+    let info = document.getElementById('info');
+    if (info) {
+        process_info(info.textContent);
     };
 }
 
