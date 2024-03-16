@@ -130,7 +130,7 @@ app.get('/parts',
      of escapes we must use. -->
 <div id="correct0" style="display:none">
  query \( ('id'|"id"|`id`) \)
- \. isLength \( \{ max: 80 \} \)
+ \. isLength \( \{ max: 80 ,? \} \)
  \. matches \(
    \/\^\[A-Z\](\{2\}|\[A-Z\])-(\[0-9\]|\\d)\+-(\[0-9\]|\\d)\+\$\/
  \) ,
