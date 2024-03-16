@@ -72,14 +72,17 @@ Start this new parameter with
 <tt>query('id')</tt> to select the
 <tt>id</tt> parameter for validation (we've filled in this part
 to help get you started).
-Add a period (<tt>.</tt>) and the validation requirement
-<tt>isInt()</tt> (which requires that the named parameter be
+After <tt>query('id')</tt> (and before the terminating comma),
+add a period (<tt>.</tt>) and the validation requirement
+<tt>isInt()</tt> (<tt>isInt</tt> validates that the named parameter is
 an integer).
 The <tt>isInt</tt> method takes, as an optional parameter inside
 its parentheses,
 an object providing a minimum and maximum, e.g.,
 <tt>isInt({min: YOUR_MINIMUM, max: YOUR_MAXIMUM})</tt>.
-Use that to specify the allowed range.
+Set <tt>min</tt> and <tt>max</tt> to specify the allowed range.
+
+<p>
 Note: JavaScript names are case-sensitive, so <tt>isint</tt> won't work.
 Remember to indicate the end of this parameter with a comma
 (our starter text does this).
