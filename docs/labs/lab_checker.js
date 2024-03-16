@@ -222,9 +222,25 @@ function init_page() {
         current++;
     }
     hint_button = document.getElementById('hint_button');
-    if (hint_button) {hint_button.onclick = (() => show_hint());}
+    if (hint_button) {
+        hint_button.onclick = (() => show_hint());
+        if (!hint_button.title) {
+            hint_button.title = 'Provide a hint given current attempt.';
+        }
+    }
+    reset_button = document.getElementById('reset_button');
+    if (reset_button) {
+        if (!reset_button.title) {
+            reset_button.title = 'Reset initial state (throwing away current attempt).';
+        }
+    }
     give_up_button = document.getElementById('give_up_button');
-    if (give_up_button) {give_up_button.onclick = (() => show_answer());}
+    if (give_up_button) {
+        give_up_button.onclick = (() => show_answer());
+        if (!give_up_button.title) {
+            give_up_button.title = 'Give up and show an answer.';
+        }
+    }
     // Run check of the answer so its visual appearance matches its content.
     run_check();
 }
