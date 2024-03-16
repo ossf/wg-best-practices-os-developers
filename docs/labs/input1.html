@@ -139,6 +139,10 @@ The following define hints. Hints are expressed in a JSON array, so:
 <div id="hints" style="display:none">
 [
   {
+    "absent": ", $",
+    "text": "This is a parameter, it must end with a comma."
+  },
+  {
     "absent": "query \\( [\"'`]id[\"'`] \\)",
     "text": "Add query(\"id\") to verify its value."
   },
@@ -186,10 +190,6 @@ The following define hints. Hints are expressed in a JSON array, so:
     "present": "max.*min",
     "text":
       "JavaScript allows hash entries to be in any order, but this can be confusing to humans. Conventionally minimum values are given before maximum values; please follow that convention."
-  },
-  {
-    "absent": ", $",
-    "text": "This is a parameter, it must end with a comma."
   }
 ]
 </div>
