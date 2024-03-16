@@ -131,6 +131,19 @@ function show_answer() {
     alert(`We were expecting an answer like this:\n${expected}`);
 }
 
+/**
+ * Reset form.
+ * We have to implement this in JavaScript to ensure that the final
+ * displayed state matches the final condition. E.g., if the user
+ * had correctly answered it, and we reset, then we need to show
+ * the visual indicators that it's no longer correctly answered.
+ */
+function reset_form() {
+    form = document.getElementById('lab');
+    form.reset();
+    run_check();
+}
+
 function process_hints(potential_hints) {
     // Accept String potential_hints in JSON format.
     // return a cleaned-up array of objects.
@@ -230,6 +243,7 @@ function init_page() {
     }
     reset_button = document.getElementById('reset_button');
     if (reset_button) {
+        reset_button.onclick = (() => reset_form());
         if (!reset_button.title) {
             reset_button.title = 'Reset initial state (throwing away current attempt).';
         }
