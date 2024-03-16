@@ -138,22 +138,23 @@ app.get('/parts',
 <!--
 The following define hints. Hints are expressed in a JSON array, so:
   - \ in a regex is written as \\
+  - " in a regex is written as \"
   - All field names and value strings must be quoted
   - commas must *separate* the entries - last one must NOT have a comma.
 -->
 <div id="hints" style="display:none">
 [
   {
-    "absent": "query \\( .id. \\)",
+    "absent": "query \\( [\"'`]id[\"'`] \\)",
     "text": "Use query() with an 'id' parameter."
   },
   {
-    "present": "query \\( .id. \\) [^.]",
+    "present": "query \\( [\"'`]id[\"'`] \\) [^. ]",
     "text":
       "After query(\"id\") use a period to invoke a verification method."
   },
   {
-    "present": "(islength|IsLength|ISLENGTH)",
+    "present": "(islength|Islength|IsLength|ISLENGTH)",
     "text":
       "JavaScript is case-sensitive. Use isLength instead of the case you have."
   },

@@ -129,22 +129,23 @@ app.get('/invoices',
 <!--
 The following define hints. Hints are expressed in a JSON array, so:
   - \ in a regex is written as \\
+  - " in a regex is written as \"
   - All field names and value strings must be quoted
   - commas must *separate* the entries - last one must NOT have a comma.
 -->
 <div id="hints" style="display:none">
 [
   {
-    "absent": "query \\( .id. \\)",
+    "absent": "query \\( [\"'`]id[\"'`] \\)",
     "text": "Add query(\"id\") to verify its value."
   },
   {
-    "present": "query \\( .id. \\) [^.]",
+    "present": "query \\( [\"'`]id[\"'`] \\) [^. ]",
     "text":
       "After query(\"id\") use a period to invoke a verification method."
   },
   {
-    "present": "(isint|IsInt|ISINT)",
+    "present": "(isint|Isint|IsInt|ISINT)",
     "text":
       "JavaScript is case-sensitive. Use isInt instead of the case you have."
   },
@@ -153,8 +154,17 @@ The following define hints. Hints are expressed in a JSON array, so:
     "text": "Use isInt to determine if the parameter is an integer."
   },
   {
+    "present": " query \\( [\"'`]id[\"'`] \\).*\\([^)]*$",
+    "text":
+       "After query(\"id\") you have an ( but there's no matching )."
+  },
+  {
     "absent": "isInt \\(.*\\)",
     "text": "isInt should be followed by (...)."
+  },
+  {
+    "present": "\\{[^}]*$",
+    "text": "You have started an object using { but there's no matching }."
   },
   {
     "absent": "isInt \\( \\{.*\\} \\)",
