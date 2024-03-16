@@ -23,11 +23,16 @@ for examples.
 An easy way create another lab is to copy
 [input1.html](input1.html) and modify it for your situation.
 
+### Lab inputs
+
 Places where the user can fill in attempts have an id
 of the form `attempt0` (where 0 is the first one, 1 is the second, and so on).
 Correct answers are embedded in the web page in a div area with
 an id of the form `correct0` (where 0 is the first one, 1 is the second,
 and so on). There must be the same number of attempts and correct patterns.
+We suggest including the buttons, as shown in the examples.
+
+### Expressing correct answers
 
 Correct answers are expressed using regular expression (regex) patterns,
 to make it easy to
@@ -59,6 +64,8 @@ read, the regex pattern for each correct answer is preprocessed as follows:
 * Use \s to match a whitespace character, use \x20 for a space character.
   Append "+" to either if you want to require "1 or more".
 
+### Hints
+
 You can optionally provide hints in a div with `id` of `hints`.
 Hints are expressed in a JSON array, so it must begin with `[` and end with `]`.
 Inside the array is a comma-separated list of hint objects, where
@@ -73,11 +80,48 @@ for the hint to be shown), and it can have an
 A hint can have both a `present` and `absent` field, or neither.
 A hint with neither a `present` nor `absent` field always matches;
 you can make this kind of hint to set a default hint.
-The `present` and `absent` field are regular expression patterns, but
-don't have to exactly match (start them with `^` and end them with
+
+The `present` and `absent` field are regular expression patterns that
+are preprocessed similarly to a correct answer.
+*However*,
+don't have to exactly match (start a pattern with `^` and end it with
 `$` if you want an exact match). Again, one or more spaces are interpreted
 as allowing 0 or more spaces.
 
 By default a hint checks `attempt0` against `correct0`; if you want
 to check an entry index other than `0`, add an `entry` field and provide
 the integer value of the entry to check instead.
+
+### Possible future directions
+
+Currently information such as the pattern of correct answers,
+a sample correct answer, and hints, are all embedded in the HTML.
+The hints are further encoded with JSON.
+
+An advantage is that a lab is entirely self-contained.
+However, this approach creates a challenge: you have to add many
+escapes in various places.
+E.g., an &lt; in the material could misinterpreted as a tag.
+This is especially a problem with JSON, where \ and " must be escaped
+all over. JSON is also rather wordy (e.g., you have to quote field names).
+JSON is well-known and easily supported, which is why we started there.
+
+An alternative would be to store such metadata in a separate file.
+If we do that, we might want to change the format.
+JSON is very wordy and forces many escapes, making it a problem for
+our use case.
+
+YAML would be a little clearer, and is a common format.
+[eemeli/yaml](https://github.com/eemeli/yaml) is a JavaScript library
+that can read YAML format and works client-side (ISC license,
+no dependencies); see [its documentation](https://eemeli.org/yaml/#yaml).
+However, YAML has a number of "sharp edges";
+it has escape mechanisms that create surprise interpretations.
+
+An interesting alternative might be to use the less-common
+[NestedText format](https://nestedtext.org/en/stable/).
+This doesn't require
+any escaping of the data (structural information is basically a prefix).
+However, it's an uncommon format and
+it's not clear how well it's supported on *client-side* JavaScript;
+it might require re-implementation if we went that route.
