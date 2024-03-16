@@ -90,19 +90,11 @@ input to its initial state, or give up (and show an answer) -
 but please try to do this on your own!
 
 <p>
-<!-- <form class="my-form" onsubmit="run_lab();"> -->
-<!--
-app.get('/user/:user', function (req, res) {
-  res.send('user ' + req.user.name);
-});
--->
-
-<p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
 <p>
 <!--
 You can use this an example for new labs.
-For multi-line inputs, instead of <input id="attempt" type="text" ...>, use
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
 <textarea id="attempt" rows="2" cols="70">...</textarea>
 -->
 <form id="lab">
@@ -134,30 +126,45 @@ app.get('/invoices',
        \{ min: 1 , max: 9_?999 \}
  \) ,
 </div>
-<!-- This is JSON, so:
- -  \ in a regex is written as \\ and make sure
- - commas must *separate* the entries - last one must NOT have a comma. -->
+<!--
+The following define hints. Hints are expressed in a JSON array, so:
+  - \ in a regex is written as \\
+  - " in a regex is written as \"
+  - All field names and value strings must be quoted
+  - commas must *separate* the entries - last one must NOT have a comma.
+-->
 <div id="hints" style="display:none">
 [
   {
-    "present": "query \\( .id. \\) [^.]",
+    "absent": "query \\( [\"'`]id[\"'`] \\)",
+    "text": "Add query(\"id\") to verify its value."
+  },
+  {
+    "present": "query \\( [\"'`]id[\"'`] \\) [^. ]",
     "text":
       "After query(\"id\") use a period to invoke a verification method."
   },
   {
-    "present": "(isint|IsInt|ISINT)",
+    "present": "(isint|Isint|IsInt|ISINT)",
     "text":
       "JavaScript is case-sensitive. Use isInt instead of the case you have."
   },
   {
     "absent": "isInt",
+    "text": "Use isInt to determine if the parameter is an integer."
+  },
+  {
+    "present": " query \\( [\"'`]id[\"'`] \\).*\\([^)]*$",
     "text":
-      "Use isInt to determine if the parameter is an integer."
+       "After query(\"id\") you have an ( but there's no matching )."
   },
   {
     "absent": "isInt \\(.*\\)",
-    "text":
-      "isInt should be followed by (...)."
+    "text": "isInt should be followed by (...)."
+  },
+  {
+    "present": "\\{[^}]*$",
+    "text": "You have started an object using { but there's no matching }."
   },
   {
     "absent": "isInt \\( \\{.*\\} \\)",
@@ -166,8 +173,7 @@ app.get('/invoices',
   },
   {
     "absent": "min",
-    "text":
-      "Use min: to specify a minimum value."
+    "text": "Use min: to specify a minimum value."
   },
   {
     "absent": "max",
@@ -180,8 +186,7 @@ app.get('/invoices',
   },
   {
     "absent": ", $",
-    "text":
-      "This is a parameter, it must end with a comma."
+    "text": "This is a parameter, it must end with a comma."
   }
 ]
 </div>

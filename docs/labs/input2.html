@@ -135,35 +135,36 @@ app.get('/parts',
    \/\^\[A-Z\](\{2\}|\[A-Z\])-(\[0-9\]|\\d)\+-(\[0-9\]|\\d)\+\$\/
  \) ,
 </div>
-<!-- This is JSON, so:
- -  \ in a regex is written as \\ and make sure
- - commas must *separate* the entries - last one must NOT have a comma. -->
+<!--
+The following define hints. Hints are expressed in a JSON array, so:
+  - \ in a regex is written as \\
+  - " in a regex is written as \"
+  - All field names and value strings must be quoted
+  - commas must *separate* the entries - last one must NOT have a comma.
+-->
 <div id="hints" style="display:none">
 [
   {
-    "absent": "query \\( .id. \\)",
-    "text":
-      "Use query() with an 'id' parameter."
+    "absent": "query \\( [\"'`]id[\"'`] \\)",
+    "text": "Use query() with an 'id' parameter."
   },
   {
-    "present": "query \\( .id. \\) [^.]",
+    "present": "query \\( [\"'`]id[\"'`] \\) [^. ]",
     "text":
       "After query(\"id\") use a period to invoke a verification method."
   },
   {
-    "present": "(islength|IsLength|ISLENGTH)",
+    "present": "(islength|Islength|IsLength|ISLENGTH)",
     "text":
       "JavaScript is case-sensitive. Use isLength instead of the case you have."
   },
   {
     "absent": "isLength",
-    "text":
-      "Use isLength()."
+    "text": "Use isLength()."
   },
   {
     "absent": "matches",
-    "text":
-      "Use matches()."
+    "text": "Use matches()."
   }
 ]
 </div>
