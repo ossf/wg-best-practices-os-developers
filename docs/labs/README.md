@@ -3,7 +3,7 @@
 These are labs for those who are learning how to develop secure software.
 See our [introduction](introduction) for more information.
 
-For example, try out labs [input1](input1.html) and  [input2](input1.htm2).
+For example, try out labs [input1](input1.html) and  [input2](input2.html).
 
 See [create labs](create_labs) if you want to learn how to create labs.
 
