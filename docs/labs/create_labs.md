@@ -118,9 +118,10 @@ read, the regex pattern for each correct answer is preprocessed as follows:
   and specifically a space character.
   As usual, append "+" to either if you want to require "1 or more".
 
-Most YAML forms don't permit leading spaces. If you want to express
+Patterns can be a YAML format.
+Most YAML mechanisms don't permit leading spaces. If you want to express
 at the beginning of a line that you want to match 0 or more spaces, use
-`\s*` to express it.
+`\s*` followed by a space to express it.
 
 ### Other info such as more tests and hints
 
@@ -171,3 +172,33 @@ You can also include an `examples` field, which must then contain
 an array of examples (each example is an array of Strings).
 On load the system will verify that each example will report the
 matching hint (this helps ensure that the hint order is sensible).
+
+You can also add an info field named `debug` with the value `true`.
+If set, the program will present some data that may help you
+debug problems.
+
+### Notes on YAML
+
+The info section supports YAML format.
+
+YAML is a superset of JSON, so if you'd prefer to write in straight JSON,
+you can do that instead.
+JSON is a simple format, which is a bonus.
+However, JSON is noisy for this situation, especially when there
+are many backslashes and double-quotes (as there are in patterns).
+If you use JSON, remember:
+
+* All strings must be surrounded by double-quotes, even field names
+* Commas *must* separate entries.
+* JSON does *not* support trailing commas in arrays and dictionaries.
+* Inside a string use \" for double-quote and \\ for backslash.
+
+In YAML, field keys and simple strings don't require quoting.
+Leading "-&nbsp;-" means an "array of arrays", which happens often
+if you have a single input.
+
+A string can be surrounded by double-quotes; inside that, use
+\" for double-quotes and \\ for backslash.
+
+A string can be surrounded by single-quotes; inside that, use
+'' for a single-quote character (there are otherwise no escapes).
