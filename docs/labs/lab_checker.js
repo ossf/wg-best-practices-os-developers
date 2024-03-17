@@ -133,21 +133,21 @@ function showAnswer() {
  * had correctly answered it, and we reset, then we need to show
  * the visual indicators that it's no longer correctly answered.
  */
-function reset_form() {
+function resetForm() {
     form = document.getElementById('lab');
     form.reset();
     runCheck();
 }
 
-function process_hints(requested_hints) {
+function processHints(requestedHints) {
     // Accept String potential_hints in JSON format.
     // return a cleaned-up array of objects.
-    if (!(requested_hints instanceof Array)) {
+    if (!(requestedHints instanceof Array)) {
         alert('Error: hints must be JSON array. Use [...].');
     }
-    let compiled_hints = [];
+    let compiledHints = [];
     // TODO: Do more sanity checking.
-    for (let hint of requested_hints) {
+    for (let hint of requestedHints) {
         let newHint = {};
         newHint.entry = hint.entry ? Number(hint.entry) : 0;
         newHint.text = hint.text;
@@ -159,30 +159,30 @@ function process_hints(requested_hints) {
             newHint.absent_re = processRegex(hint.absent, false);
         };
         if (hint.examples) {newHint.examples = hint.examples};
-        compiled_hints.push(newHint); // append result.
+        compiledHints.push(newHint); // append result.
     };
-    return compiled_hints;
+    return compiledHints;
 }
 
 /** Set global values based on info.
  * @info: String of JSON data
  */
-function process_info(configuration_info) {
+function processInfo(configuration_info) {
     // TODO: handle parse failures more gracefully & check more
     let parsed_json = JSON.parse(configuration_info);
     // Set global variable
     info = parsed_json;
     if (parsed_json && parsed_json.hints) {
-        hints = process_hints(parsed_json.hints);
+        hints = processHints(parsed_json.hints);
     };
 }
 
 /**
  * Run simple selftest; we presume it runs only during page initialization.
- * Must run load_data first, to set up globals like correct_re.
+ * Must run loadData first, to set up globals like correct_re.
  * Ensure the initial attempt is incorrect AND the expected value is correct.
  */
-function run_selftest() {
+function runSelftest() {
     let attempt = retrieveAttempt();
     if (calcMatch(attempt, correct_re)) {
         alert('Lab Error: Initial attempt value is correct and should not be!');
@@ -223,7 +223,7 @@ function run_selftest() {
 /**
  * Load data from HTML page and initialize our local variables from it.
  */
-function load_data() {
+function loadData() {
     // Set global correct and expected arrays
     let current = 0;
     while (true) {
@@ -249,14 +249,14 @@ function load_data() {
     // If there is info (e.g., hints), set up global variable hints.
     let info_element = document.getElementById('info');
     if (info_element) {
-        process_info(info_element.textContent);
+        processInfo(info_element.textContent);
     };
 }
 
 function initPage() {
-    load_data();
+    loadData();
     // Run a selftest on page load, to prevent later problems
-    run_selftest();
+    runSelftest();
     // Set up user interaction.
     // This will cause us to sometimes check twice, but this also ensures
     // that we always catch changes to the attempt.
@@ -277,7 +277,7 @@ function initPage() {
     }
     resetButton = document.getElementById('resetButton');
     if (resetButton) {
-        resetButton.onclick = (() => reset_form());
+        resetButton.onclick = (() => resetForm());
         if (!resetButton.title) {
             resetButton.title = 'Reset initial state (throwing away current attempt).';
         }

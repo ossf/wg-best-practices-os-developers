@@ -30,7 +30,8 @@ of the form `attempt0` (where 0 is the first one, 1 is the second, and so on).
 Correct answers are embedded in the web page in a div area with
 an id of the form `correct0` (where 0 is the first one, 1 is the second,
 and so on). There must be the same number of attempts and correct patterns.
-We suggest including the buttons, as shown in the examples.
+We suggest including the buttons as shown in the examples
+(the code will automatically set up the buttons if they are present).
 
 ### Expressing correct answers
 
