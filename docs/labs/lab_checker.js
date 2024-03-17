@@ -168,11 +168,17 @@ function processHints(requestedHints) {
  */
 function processInfo(configurationInfo) {
     // TODO: handle parse failures more gracefully & check more
-    let parsedJson = JSON.parse(configurationInfo);
+
+    // This would only allow JSON, but then we don't need to load YAML lib:
+    // let parsedJson = JSON.parse(configurationInfo);
+
+    let parsedData = jsyaml.load(configurationInfo);
+    // alert(`DEBUG: results = ${parsedData}`);
+
     // Set global variable
-    info = parsedJson;
-    if (parsedJson && parsedJson.hints) {
-        hints = processHints(parsedJson.hints);
+    info = parsedData;
+    if (parsedData && parsedData.hints) {
+        hints = processHints(parsedData.hints);
     };
 }
 
