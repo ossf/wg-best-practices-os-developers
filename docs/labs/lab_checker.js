@@ -212,7 +212,7 @@ function runSelftest() {
             for (let example of hint.examples) {
                 actualHint = findHint(example);
                 if (actualHint != hint.text) {
-                    alert(`ERROR: Unexpected hint! Example ${example} should have produced hint ${hint.text} but instead produced ${actualHint}`);
+                    alert(`Lab Error: Unexpected hint! Example ${example} should produce hint ${hint.text} but instead produced ${actualHint}`);
                 };
             };
         };
