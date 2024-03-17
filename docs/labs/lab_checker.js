@@ -16,25 +16,31 @@ let info = {}; // General info
 let hints = []; // Array of hint objects
 
 /**
- * Trim newlines (LF or CRLF) from beginning and end of given String.
+ * Trim newlines (LF or CR) from beginning and end of given String.
  */
 function trimNewlines(s) {
-    return ((s + '').replace(/^\r?\n(\r?\n)+/, '')
-            .replace(/^\r?\n(\r?\n)+$/, ''));
+    return ((s + '').replace(/^[\n\r]+/, '')
+            .replace(/[\n\r]+$/, ''));
 }
 
-/*
- * Given a regex as a string, process it to support our extensions and
- * return a compiled regex.
+/**
+ * Given take a regex string, preprocess it & return compiled regex.
+ * @fullMatch - require full match (insert "^" at beginning, "$" at end).
+ *
  * In particular, *ignore* newlines and treat spaces as "allow 0+ spaces".
+ *
+ * As an optimization, spaces can be preceded or followed by `\s*`
+ * to also means "\s*" (match 0+ spaces).
+ * YAML doesn't like spaces at the beginning or ends of lines,
+ * and we'll encourage that as the alternative.
  */
 function processRegex(regexString, fullMatch = true) {
     let processedRegexString = (
-                  regexString.replace(/\r?\n( *\r?\n)+/g,'')
-                             .replace(/\s+/g,'\\s*')
+                  regexString.replace(/[\n\r]+/g,'')
+                             .replace(/(\\s\*)?\s+(\\s\*)?/g,'\\s*')
                   );
     if (fullMatch) {
-        processedRegexString = '^' + processedRegexString + ' *$';
+        processedRegexString = '^' + processedRegexString + '$';
     }
     return new RegExp(processedRegexString);
 }
@@ -262,15 +268,12 @@ function initPage() {
     loadData();
     // Run a selftest on page load, to prevent later problems
     runSelftest();
-    // Set up user interaction.
-    // This will cause us to sometimes check twice, but this also ensures
-    // that we always catch changes to the attempt.
+    // Set up user interaction for all attempts.
     let current = 0;
     while (true) {
         attempt = document.getElementById('attempt' + current);
         if (!attempt) break;
-        attempt.onchange = runCheck;
-        attempt.onkeyup = runCheck;
+        attempt.oninput = runCheck;
         current++;
     }
     hintButton = document.getElementById('hintButton');
