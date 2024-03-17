@@ -92,6 +92,11 @@ By default a hint checks `attempt0` against `correct0`; if you want
 to check an entry index other than `0`, add an `entry` field and provide
 the integer value of the entry to check instead.
 
+You can also include an `examples` field, which must then contain
+an array of examples (each example is an array of Strings).
+On load the system will verify that each example will report the
+matching hint (this helps ensure that the hint order is sensible).
+
 ### Possible future directions
 
 Currently information such as the pattern of correct answers,

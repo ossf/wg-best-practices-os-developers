@@ -155,7 +155,11 @@ The following define hints. Hints are expressed in a JSON array, so:
   {
     "present": "(isint|Isint|IsInt|ISINT)",
     "text":
-      "JavaScript is case-sensitive. Use isInt instead of the case you have."
+      "JavaScript is case-sensitive. Use isInt instead of the case you have.",
+    "examples": [
+      ["  query('id').isint(),"],
+      ["  query('id').IsInt(),"]
+    ]
   },
   {
     "absent": "isInt",

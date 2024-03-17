@@ -157,6 +157,7 @@ function process_hints(requested_hints) {
         if (hint.absent) {
             newHint.absent_re = process_regex(hint.absent, false);
         };
+        if (hint.examples) {newHint.examples = hint.examples};
         compiled_hints.push(newHint); // append result.
     };
     return compiled_hints;
@@ -182,10 +183,22 @@ function run_selftest() {
     let attempt = retrieve_attempt();
     if (calcMatch(attempt, correct_re)) {
         alert('Lab Error: Initial attempt value is correct and should not be!');
-    }
+    };
     if (!calcMatch(expected, correct_re)) {
         alert('Lab Error: expected value is incorrect and should be correct!');
-    }
+    };
+
+    // Test all examples in hints, to ensure they provide the expected reports.
+    for (let hint of hints) {
+        if (hint.examples) {
+            for (let example of hint.examples) {
+                actualHint = find_hint(example);
+                if (actualHint != hint.text) {
+                    alert(`ERROR: Unexpected hint! Example ${example} should have produced hint ${hint.text} but instead produced ${actualHint}`);
+                };
+            };
+        };
+    };
 }
 
 /**
