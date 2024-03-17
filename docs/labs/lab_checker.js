@@ -25,7 +25,7 @@ function trimNewlines(s) {
 
 /**
  * Given take a regex string, preprocess it & return compiled regex.
- * @fullMatch - require full match (insert "^" at beginning, " *$" at end).
+ * @fullMatch - require full match (insert "^" at beginning, "$" at end).
  *
  * In particular, *ignore* newlines and treat spaces as "allow 0+ spaces".
  *
@@ -40,7 +40,7 @@ function processRegex(regexString, fullMatch = true) {
                              .replace(/(\\s\*)?\s+(\\s\*)?/g,'\\s*')
                   );
     if (fullMatch) {
-        processedRegexString = '^' + processedRegexString + ' *$';
+        processedRegexString = '^' + processedRegexString + '$';
     }
     return new RegExp(processedRegexString);
 }

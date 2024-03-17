@@ -92,7 +92,7 @@ read, the regex pattern for each correct answer is preprocessed as follows:
 
 * The user's answer must match the *entire* correct value, though it's
   okay if the user's answer has extra whitespace at the end.
-  E.g., the correct answer is prepended with `^` and postpended with `\s*$`.
+  E.g., the correct answer is prepended with `^` and postpended with `$`.
 * End-of-line (newline) is *completely* ignored. You can break up patterns
   into multiple lines for readability.
 * Any sequence of 1+ spaces or tabs
@@ -112,7 +112,8 @@ read, the regex pattern for each correct answer is preprocessed as follows:
 * If your answer is in JavaScript, you probably want to begin the answer
   with `\s*` followed by space to indicate "0 or more spaces are allowed here".
   Most tokens should also be separated by a space, to indicate that they're
-  allowed.
+  allowed. You should probably end it with a space and then `\s*`
+  to indicate trailing whitespace is allowed.
 * Use \s to match one whitespace character, use \x20 to match only
   and specifically a space character.
   As usual, append "+" to either if you want to require "1 or more".
