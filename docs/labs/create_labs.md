@@ -64,10 +64,15 @@ read, the regex pattern for each correct answer is preprocessed as follows:
 * Use \s to match a whitespace character, use \x20 for a space character.
   Append "+" to either if you want to require "1 or more".
 
-### Hints
+### Other info such as Hints
 
-You can optionally provide hints in a div with `id` of `hints`.
-Hints are expressed in a JSON array, so it must begin with `[` and end with `]`.
+You can optionally provide other information in a div with an `id` of `info`.
+This must contain a JSON object {...}.
+
+A key reason to do this is to provide hints.
+Hints are expressed in a <tt>hints</tt> field.
+This field must be a JSON array, so its value
+must begin with `[` and end with `]`.
 Inside the array is a comma-separated list of hint objects, where
 each object begins with `{`, has a set of fields, and ends with `}`.
 Each hint object describes a hint, and they are checked in the order given
@@ -97,7 +102,7 @@ an array of examples (each example is an array of Strings).
 On load the system will verify that each example will report the
 matching hint (this helps ensure that the hint order is sensible).
 
-### Possible future directions
+### Possible future directions: Changed location and format
 
 Currently information such as the pattern of correct answers,
 a sample correct answer, and hints, are all embedded in the HTML.
@@ -105,14 +110,18 @@ The hints are further encoded with JSON.
 
 An advantage is that a lab is entirely self-contained.
 However, this approach creates a challenge: you have to add many
-escapes in various places.
-E.g., an &lt; in the material could misinterpreted as a tag.
+escapes in various places because of JSON, and there's also a risk
+that the enclosing HTML could become a problem
+(e.g., an &lt; in the material could misinterpreted as a tag).
 This is especially a problem with JSON, where \ and " must be escaped
 all over. JSON is also rather wordy (e.g., you have to quote field names).
 JSON is well-known and easily supported, which is why we started there.
 
 An alternative would be to store such metadata in a separate file.
-If we do that, we might want to change the format.
+That would prevent the HTML confusion at least, and it would mean
+that tools for editing the overall format (e.g., JSON) would work well.
+
+We might also want to change the format from JSON.
 JSON is very wordy and forces many escapes, making it a problem for
 our use case. It's easy to *use* (because a JSON reader is built-in),
 but we might want to look for alternatives.
