@@ -146,8 +146,9 @@ The following define hints. Hints are expressed in a JSON array, so:
   - All field names and value strings must be quoted
   - commas must *separate* the entries - last one must NOT have a comma.
 -->
-<div id="hints" style="display:none">
-[
+<div id="info" style="display:none">
+{
+ "hints" : [
   {
     "absent": ", $",
     "text": "This is a parameter, it must end with a comma."
@@ -194,7 +195,8 @@ The following define hints. Hints are expressed in a JSON array, so:
     "present": "matches \\( /.*(\\[0-9\\]|\\d)\\*",
     "text": "You need to match one or more digits; * allows 0 or more. A + would be better suited for this task."
   }
-]
+ ]
+}
 </div>
 
 <button type="button" id="hint_button">Hint</button>
