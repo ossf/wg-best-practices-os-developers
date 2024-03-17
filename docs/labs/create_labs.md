@@ -8,15 +8,17 @@ their exercises - they don't need to install anything, they don't need
 to create an account somewhere, and we don't have to run arbitrary code
 provided from users on some server.
 
-The current system we implement is called `lab_checker`,
+The current system we implement is called `checker`,
 There may be other systems you can also use in the future.
 
-## lab_checker
+## checker
 
-The current system we implement, `lab_checker`,
+The current system we implement, `checker`,
 represents a lab exercise in an HTML file.
-You provide a pattern that the correct answer must match
-(it does *not* run arbitrary code written by the user).
+You define a pattern that the correct answer must match
+using regular expressions;
+it does *not* run arbitrary code written by the user.
+You can also provide patterns for various hints.
 
 The HTML file of a given lab is expected to:
 
