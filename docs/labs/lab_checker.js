@@ -114,9 +114,9 @@ function findHint(attempt) {
     // Find a matching hint (matches present and NOT absent)
     for (hint of hints) {
       if ((!hint.presentRe ||
-           hint.presentRe.test(attempt[hint.entry])) &&
+           hint.presentRe.test(attempt[hint.index])) &&
           (!hint.absentRe ||
-           !hint.absentRe.test(attempt[hint.entry]))) {
+           !hint.absentRe.test(attempt[hint.index]))) {
         return hint.text;
       }
     };
@@ -161,7 +161,7 @@ function processHints(requestedHints) {
     // TODO: Do more sanity checking.
     for (let hint of requestedHints) {
         let newHint = {};
-        newHint.entry = hint.entry ? Number(hint.entry) : 0;
+        newHint.index = hint.index ? Number(hint.index) : 0;
         newHint.text = hint.text;
         // Precompile all regular expressions
         if (hint.present) {

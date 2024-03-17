@@ -165,8 +165,8 @@ don't have to exactly match (start a pattern with `^` and end it with
 as allowing 0 or more spaces.
 
 By default a hint checks `attempt0` against `correct0`; if you want
-to check an entry index other than `0`, add an `entry` field and provide
-the integer value of the entry to check instead.
+to check an index other than `0`, add an `index` field and provide
+an integer (its default value is 0).
 
 You can also include an `examples` field, which must then contain
 an array of examples (each example is an array of Strings).
