@@ -28,15 +28,15 @@ function trimNewlines(s) {
  * return a compiled regex.
  * In particular, *ignore* newlines and treat spaces as "allow 0+ spaces".
  */
-function process_regex(regex_string, full_match = true) {
-    let processed_regex_string = (
-                  regex_string.replace(/\r?\n( *\r?\n)+/g,'')
-                              .replace(/\s+/g,'\\s*')
+function processRegex(regexString, full_match = true) {
+    let processedRegexString = (
+                  regexString.replace(/\r?\n( *\r?\n)+/g,'')
+                             .replace(/\s+/g,'\\s*')
                   );
     if (full_match) {
-        processed_regex_string = '^' + processed_regex_string + ' *$';
+        processedRegexString = '^' + processedRegexString + ' *$';
     }
-    return new RegExp(processed_regex_string);
+    return new RegExp(processedRegexString);
 }
 
 /**
@@ -60,7 +60,7 @@ function calcMatch(attempt, correct) {
 /**
  * Retrieve array of attempted answers
  */
-function retrieve_attempt() {
+function retrieveAttempt() {
     let result = [];
     for (let i = 0; i < correct_re.length; i++) {
         // Ignore empty lines at beginning & end of attempt
@@ -74,8 +74,8 @@ function retrieve_attempt() {
  * Check the document's user input "attempt" to see if matches "correct".
  * Then set "grade" in document depending on that answer.
  */
-function run_check() {
-    let attempt = retrieve_attempt();
+function runCheck() {
+    let attempt = retrieveAttempt();
 
     // Calculate grade and set in document.
     let isCorrect = calcMatch(attempt, correct_re);
@@ -97,7 +97,7 @@ function run_check() {
 }
 
 /** Return the best-matching hint given attempt. */
-function find_hint(attempt) {
+function findHint(attempt) {
     // Find a matching hint (matches present and NOT absent)
     for (hint of hints) {
       if ((!hint.present_re ||
@@ -112,13 +112,13 @@ function find_hint(attempt) {
 
 /** Show a hint to the user. */
 function show_hint() {
-    let attempt = retrieve_attempt();
+    let attempt = retrieveAttempt();
     if (calcMatch(attempt, correct_re)) {
         alert('The answer is already correct!');
     } else if (!hints) {
         alert('Sorry, there are no hints for this lab.');
     } else {
-        alert(find_hint(attempt));
+        alert(findHint(attempt));
     }
 }
 
@@ -136,7 +136,7 @@ function show_answer() {
 function reset_form() {
     form = document.getElementById('lab');
     form.reset();
-    run_check();
+    runCheck();
 }
 
 function process_hints(requested_hints) {
@@ -153,10 +153,10 @@ function process_hints(requested_hints) {
         newHint.text = hint.text;
         // Precompile all regular expressions
         if (hint.present) {
-            newHint.present_re = process_regex(hint.present, false);
+            newHint.present_re = processRegex(hint.present, false);
         };
         if (hint.absent) {
-            newHint.absent_re = process_regex(hint.absent, false);
+            newHint.absent_re = processRegex(hint.absent, false);
         };
         if (hint.examples) {newHint.examples = hint.examples};
         compiled_hints.push(newHint); // append result.
@@ -183,7 +183,7 @@ function process_info(configuration_info) {
  * Ensure the initial attempt is incorrect AND the expected value is correct.
  */
 function run_selftest() {
-    let attempt = retrieve_attempt();
+    let attempt = retrieveAttempt();
     if (calcMatch(attempt, correct_re)) {
         alert('Lab Error: Initial attempt value is correct and should not be!');
     };
@@ -211,7 +211,7 @@ function run_selftest() {
     for (let hint of hints) {
         if (hint.examples) {
             for (let example of hint.examples) {
-                actualHint = find_hint(example);
+                actualHint = findHint(example);
                 if (actualHint != hint.text) {
                     alert(`ERROR: Unexpected hint! Example ${example} should have produced hint ${hint.text} but instead produced ${actualHint}`);
                 };
@@ -234,7 +234,7 @@ function load_data() {
                 let correct = (
                     trimNewlines(correct_element.textContent));
                 // Append global variable with compiled correct answer
-                correct_re.push(process_regex(correct, true));
+                correct_re.push(processRegex(correct, true));
         }
         catch(e) {
             // This can only happen if the correct answer pattern is missing
@@ -264,8 +264,8 @@ function init_page() {
     while (true) {
         attempt = document.getElementById('attempt' + current);
         if (!attempt) break;
-        attempt.onchange = run_check;
-        attempt.onkeyup = run_check;
+        attempt.onchange = runCheck;
+        attempt.onkeyup = runCheck;
         current++;
     }
     hint_button = document.getElementById('hint_button');
@@ -290,7 +290,7 @@ function init_page() {
         }
     }
     // Run check of the answer so its visual appearance matches its content.
-    run_check();
+    runCheck();
 }
 
 // When the requesting web page loads, initialize things
