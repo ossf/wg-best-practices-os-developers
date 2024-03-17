@@ -280,8 +280,10 @@ function loadData() {
 
 function initPage() {
     loadData();
+
     // Run a selftest on page load, to prevent later problems
     runSelftest();
+
     // Set up user interaction for all attempts.
     let current = 0;
     while (true) {
@@ -311,6 +313,7 @@ function initPage() {
             giveUpButton.title = 'Give up and show an answer.';
         }
     }
+
     // Run check of the answer so its visual appearance matches its content.
     runCheck();
 }
