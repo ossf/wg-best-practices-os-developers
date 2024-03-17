@@ -111,7 +111,7 @@ function findHint(attempt) {
 }
 
 /** Show a hint to the user. */
-function show_hint() {
+function showHint() {
     let attempt = retrieveAttempt();
     if (calcMatch(attempt, correct_re)) {
         alert('The answer is already correct!');
@@ -122,7 +122,7 @@ function show_hint() {
     }
 }
 
-function show_answer() {
+function showAnswer() {
     alert(`We were expecting an answer like this:\n${expected}`);
 }
 
@@ -253,7 +253,7 @@ function load_data() {
     };
 }
 
-function init_page() {
+function initPage() {
     load_data();
     // Run a selftest on page load, to prevent later problems
     run_selftest();
@@ -268,25 +268,25 @@ function init_page() {
         attempt.onkeyup = runCheck;
         current++;
     }
-    hint_button = document.getElementById('hint_button');
-    if (hint_button) {
-        hint_button.onclick = (() => show_hint());
-        if (!hint_button.title) {
-            hint_button.title = 'Provide a hint given current attempt.';
+    hintButton = document.getElementById('hintButton');
+    if (hintButton) {
+        hintButton.onclick = (() => showHint());
+        if (!hintButton.title) {
+            hintButton.title = 'Provide a hint given current attempt.';
         }
     }
-    reset_button = document.getElementById('reset_button');
-    if (reset_button) {
-        reset_button.onclick = (() => reset_form());
-        if (!reset_button.title) {
-            reset_button.title = 'Reset initial state (throwing away current attempt).';
+    resetButton = document.getElementById('resetButton');
+    if (resetButton) {
+        resetButton.onclick = (() => reset_form());
+        if (!resetButton.title) {
+            resetButton.title = 'Reset initial state (throwing away current attempt).';
         }
     }
-    give_up_button = document.getElementById('give_up_button');
-    if (give_up_button) {
-        give_up_button.onclick = (() => show_answer());
-        if (!give_up_button.title) {
-            give_up_button.title = 'Give up and show an answer.';
+    giveUpButton = document.getElementById('giveUpButton');
+    if (giveUpButton) {
+        giveUpButton.onclick = (() => showAnswer());
+        if (!giveUpButton.title) {
+            giveUpButton.title = 'Give up and show an answer.';
         }
     }
     // Run check of the answer so its visual appearance matches its content.
@@ -294,4 +294,4 @@ function init_page() {
 }
 
 // When the requesting web page loads, initialize things
-window.onload = init_page;
+window.onload = initPage;
