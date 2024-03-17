@@ -19,8 +19,8 @@ let hints = []; // Array of hint objects
  * Trim newlines (LF or CR) from beginning and end of given String.
  */
 function trimNewlines(s) {
-    return ((s + '').replace(/^(\n|\r)+/, '')
-            .replace(/(\n|\r\n?)+$/, ''));
+    return ((s + '').replace(/^[\n\r]+/, '')
+            .replace(/[\n\r]+$/, ''));
 }
 
 /**
@@ -34,7 +34,7 @@ function trimNewlines(s) {
  */
 function processRegex(regexString, fullMatch = true) {
     let processedRegexString = (
-                  regexString.replace(/(\n|\r)+/g,'')
+                  regexString.replace(/[\n\r]+/g,'')
                              .replace(/(\\s\*)?\s+/g,'\\s*')
                   );
     if (fullMatch) {
