@@ -28,14 +28,16 @@ function trimNewlines(s) {
  * @fullMatch - require full match (insert "^" at beginning, " *$" at end).
  *
  * In particular, *ignore* newlines and treat spaces as "allow 0+ spaces".
- * As an optimization, "\s* " also means "\s*" (match 0+ spaces) - YAML
- * doesn't like spaces at the beginning of lines, and we'll encourage that
- * as the alternative.
+ *
+ * As an optimization, spaces can be preceded or followed by `\s*`
+ * to also means "\s*" (match 0+ spaces).
+ * YAML doesn't like spaces at the beginning or ends of lines,
+ * and we'll encourage that as the alternative.
  */
 function processRegex(regexString, fullMatch = true) {
     let processedRegexString = (
                   regexString.replace(/[\n\r]+/g,'')
-                             .replace(/(\\s\*)?\s+/g,'\\s*')
+                             .replace(/(\\s\*)?\s+(\\s\*)?/g,'\\s*')
                   );
     if (fullMatch) {
         processedRegexString = '^' + processedRegexString + ' *$';

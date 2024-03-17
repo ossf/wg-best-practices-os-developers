@@ -99,11 +99,16 @@ read, the regex pattern for each correct answer is preprocessed as follows:
   is interpreted as "0 or more whitespace is allowed here".
   This can also be expressed as `\s*`, but whitespace is much easier to read
   and this circumstance repeatedly occurs in correct answers.
-* You *can* use a space at the beginning of a line to mean "0 or more spaces"
-  but many YAML formats can't be used if there is a space at the
-  beginning of a line. If you want to indicate "0 or more spaces"
+* You *can* use a space at the beginning of a line or end of a line
+  to mean "0 or more spaces".
+  Using a space at the end of a line is a terrible idea, since it's not
+  usually visible.
+  Also, many YAML formats can't be used if there is a space at the
+  beginning or end of a line. If you want to indicate "0 or more spaces"
   at the beginning of a line, we suggest using `\s*` followed by a space
   (this is optimized).
+  Similarly, use space followed by `\s*` at the end of a line to mean
+  0 or more spaces.
 * If your answer is in JavaScript, you probably want to begin the answer
   with `\s*` followed by space to indicate "0 or more spaces are allowed here".
   Most tokens should also be separated by a space, to indicate that they're
