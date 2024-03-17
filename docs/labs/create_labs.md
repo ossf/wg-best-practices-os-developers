@@ -171,7 +171,11 @@ There are at least [two JavaScript libraries](https://socket.dev/npm/category/se
   instructions on how to to that.
   See [its documentation](https://eemeli.org/yaml/#yaml).
 * js-yaml.
-  [Here is a demo of how to use it client-side](https://stackoverflow.com/questions/13785364/reading-from-yaml-file-in-javascript).
+  Here is the [node.js info](https://www.npmjs.com/package/js-yaml?activeTab=code), which points to
+  [GitHub nodeca/js-yaml](https://github.com/nodeca/js-yaml).
+  This has TideLift support.
+  [Here is a demo of how to use it client-side](https://stackoverflow.com/questions/13785364/reading-from-yaml-file-in-javascript),
+  and here is [further discussion](https://stackoverflow.com/questions/9043765/how-to-parse-yaml-in-the-browser).
 
 An alternative might be to use the less-common
 [NestedText format](https://nestedtext.org/en/stable/).
