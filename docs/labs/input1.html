@@ -5,6 +5,141 @@
 <link rel="stylesheet" href="/assets/css/style.css">
 <script src="js-yaml.min.js"></script>
 <script src="lab_checker.js"></script>
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+  query('id').isInt({min: 1, max: 9999}),
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+ query \( ('id'|"id"|`id`) \) \. isInt \(
+       \{ min: 1 , max: 9_?999 ,? \}
+ \) ,
+</script>
+
+<!--
+The following define other info, such as hints.
+This supports YAML, but currently we're using the JSON subset
+so all strings are in "...". As a result:
+  - \ in a regex is written as \\
+  - " in a regex is written as \"
+  - All field names and value strings must be quoted
+  - commas must *separate* the entries - last one must NOT have a comma.
+-->
+<script id="info" type="application/yaml">
+{
+ "hints": [
+  {
+    "absent": ", $",
+    "text": "This is a parameter, it must end with a comma.",
+    "examples": [
+      ["  "]
+    ]
+  },
+  {
+    "absent": "query \\( [\"'`]id[\"'`] \\)",
+    "text": "Add query(\"id\") to verify its value.",
+    "examples": [
+      [","],
+      ["  query(),"]
+    ]
+  },
+  {
+    "present": "query \\( [\"'`]id[\"'`] \\) [^. ]",
+    "text":
+      "After query(\"id\") use a period to invoke a verification method.",
+    "examples": [
+      ["  query('id'),"]
+    ]
+  },
+  {
+    "present": "(isint|Isint|IsInt|ISINT)",
+    "text":
+      "JavaScript is case-sensitive. Use isInt instead of the case you have.",
+    "examples": [
+      ["  query('id').isint(),"],
+      ["  query('id').IsInt(),"]
+    ]
+  },
+  {
+    "absent": "isInt",
+    "text": "Use isInt to determine if the parameter is an integer.",
+    "examples": [
+      ["  query('id').,"]
+    ]
+  },
+  {
+    "present": " query \\( [\"'`]id[\"'`] \\).*\\([^)]*$",
+    "text":
+       "After query(\"id\") you have an ( but there's no matching ).",
+    "examples": [
+      ["  query('id').isInt(,"]
+    ]
+  },
+  {
+    "absent": "isInt \\(.*\\)",
+    "text": "isInt should be followed by (...).",
+    "examples": [
+      ["  query('id').isInt,"]
+    ]
+  },
+  {
+    "present": "\\{[^}]*$",
+    "text": "You have started an object using { but there's no matching }.",
+    "examples": [
+      ["  query('id').isInt({),"]
+    ]
+  },
+  {
+    "absent": "isInt \\( \\{.*\\} \\)",
+    "text":
+      "Inside the parenthesis of isInt() you should have an object like {...}.",
+    "examples": [
+      ["  query('id').isInt(),"]
+    ]
+  },
+  {
+    "absent": "min",
+    "text": "Use min: to specify a minimum value.",
+    "examples": [
+      ["  query('id').isInt({}),"]
+    ]
+  },
+  {
+    "absent": "max",
+    "text": "Use max: to specify a minimum value.",
+    "examples": [
+      ["  query('id').isInt({min: 1}),"]
+    ]
+  },
+  {
+    "present": "max.*min",
+    "text":
+      "JavaScript allows hash entries to be in any order, but this can be confusing to humans. Conventionally minimum values are given before maximum values; please follow that convention.",
+    "examples": [
+      ["  query('id').isInt({max: 9999, min: 1}),"]
+    ]
+  }
+ ],
+ "successes": [
+    [" query ( 'id' ) . isInt ( {min: 1 , max: 9999 } ) ,"],
+    [" query ( `id` ) . isInt ( {min: 1 , max: 9_999 } ) ,   "],
+    ["query ( \"id\" ) . isInt ( {min: 1 , max: 9_999 } ) ,"]
+ ],
+ "failures": [
+    [" query,"],
+    ["query('id').isint({min: 1, max: 9999})"],
+    ["query('id').isInt({min: 1, max: 9999})"]
+ ]
+}
+</script>
+<!--
+
+-->
+
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->
@@ -120,134 +255,6 @@ app.get('/invoices',
     res.status(422).send(`Invalid input`);
   })
 </pre>
-<!-- Sample expected answer -->
-<div id="expected0" style="display:none">
-  query('id').isInt({min: 1, max: 9999}),
-</div>
-<!-- Full pattern of correct answer -->
-<div id="correct0" style="display:none">
- query \( ('id'|"id"|`id`) \) \. isInt \(
-       \{ min: 1 , max: 9_?999 ,? \}
- \) ,
-</div>
-<!--
-The following define hints. Hints are expressed in a JSON array, so:
-  - \ in a regex is written as \\
-  - " in a regex is written as \"
-  - All field names and value strings must be quoted
-  - commas must *separate* the entries - last one must NOT have a comma.
--->
-<div id="info" style="display:none">
-{
- "hints": [
-  {
-    "absent": ", $",
-    "text": "This is a parameter, it must end with a comma.",
-    "examples": [
-      ["  "]
-    ]
-  },
-  {
-    "absent": "query \\( [\"'`]id[\"'`] \\)",
-    "text": "Add query(\"id\") to verify its value.",
-    "examples": [
-      [","],
-      ["  query(),"]
-    ]
-  },
-  {
-    "present": "query \\( [\"'`]id[\"'`] \\) [^. ]",
-    "text":
-      "After query(\"id\") use a period to invoke a verification method.",
-    "examples": [
-      ["  query('id'),"]
-    ]
-  },
-  {
-    "present": "(isint|Isint|IsInt|ISINT)",
-    "text":
-      "JavaScript is case-sensitive. Use isInt instead of the case you have.",
-    "examples": [
-      ["  query('id').isint(),"],
-      ["  query('id').IsInt(),"]
-    ]
-  },
-  {
-    "absent": "isInt",
-    "text": "Use isInt to determine if the parameter is an integer.",
-    "examples": [
-      ["  query('id').,"]
-    ]
-  },
-  {
-    "present": " query \\( [\"'`]id[\"'`] \\).*\\([^)]*$",
-    "text":
-       "After query(\"id\") you have an ( but there's no matching ).",
-    "examples": [
-      ["  query('id').isInt(,"]
-    ]
-  },
-  {
-    "absent": "isInt \\(.*\\)",
-    "text": "isInt should be followed by (...).",
-    "examples": [
-      ["  query('id').isInt,"]
-    ]
-  },
-  {
-    "present": "\\{[^}]*$",
-    "text": "You have started an object using { but there's no matching }.",
-    "examples": [
-      ["  query('id').isInt({),"]
-    ]
-  },
-  {
-    "absent": "isInt \\( \\{.*\\} \\)",
-    "text":
-      "Inside the parenthesis of isInt() you should have an object like {...}.",
-    "examples": [
-      ["  query('id').isInt(),"]
-    ]
-  },
-  {
-    "absent": "min",
-    "text": "Use min: to specify a minimum value.",
-    "examples": [
-      ["  query('id').isInt({}),"]
-    ]
-  },
-  {
-    "absent": "max",
-    "text": "Use max: to specify a minimum value.",
-    "examples": [
-      ["  query('id').isInt({min: 1}),"]
-    ]
-  },
-  {
-    "present": "max.*min",
-    "text":
-      "JavaScript allows hash entries to be in any order, but this can be confusing to humans. Conventionally minimum values are given before maximum values; please follow that convention.",
-    "examples": [
-      ["  query('id').isInt({max: 9999, min: 1}),"]
-    ]
-  }
- ],
- "successes": [
-    [" query ( 'id' ) . isInt ( {min: 1 , max: 9999 } ) ,"],
-    [" query ( `id` ) . isInt ( {min: 1 , max: 9_999 } ) ,   "],
-    ["query ( \"id\" ) . isInt ( {min: 1 , max: 9_999 } ) ,"]
- ],
- "failures": [
-    [" query,"],
-    ["query('id').isint({min: 1, max: 9999})"],
-    ["query('id').isInt({min: 1, max: 9999})"]
- ]
-}
-</div>
-<!--
-
--->
-
 <button type="button" id="hintButton">Hint</button>
 <button type="button" id="resetButton">Reset</button>
 <button type="button" id="giveUpButton">Give up</button>

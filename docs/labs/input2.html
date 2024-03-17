@@ -5,6 +5,92 @@
 <link rel="stylesheet" href="/assets/css/style.css">
 <script src="js-yaml.min.js"></script>
 <script src="lab_checker.js"></script>
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+  query('id').isLength({max:80}).matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),
+</script>
+
+<!-- Full pattern of correct answer.
+     This specific example is a worst case; we're using
+     using regex to check on a regex, requiring a large number of escapes.
+     This pattern is very generous, allowing
+     constructs like \d for digits and {1,} instead of +.  -->
+<script id="correct0" type="plain/text">
+ query \( ('id'|"id"|`id`) \)
+ \. isLength \( \{ max: 80 ,? \} \)
+ \. matches \(
+   \/\^\[A-Z\](\{2\}|\[A-Z\])-(\[0-9\]|\\d)(\+|\{1,\})-(\[0-9\]|\\d)(\+|\{1,\})\$\/
+ \) ,
+</script>
+
+<!--
+The following define hints. Hints are expressed in a JSON array, so:
+  - \ in a regex is written as \\
+  - " in a regex is written as \"
+  - All field names and value strings must be quoted
+  - commas must *separate* the entries - last one must NOT have a comma.
+-->
+<script id="info" type="plain/text">
+{
+ "hints" : [
+  {
+    "absent": ", $",
+    "text": "This is a parameter, it must end with a comma."
+  },
+  {
+    "absent": "query \\( [\"'`]id[\"'`] \\)",
+    "text": "Use query() with an 'id' parameter."
+  },
+  {
+    "present": "query \\( [\"'`]id[\"'`] \\) [^. ]",
+    "text":
+      "After query(\"id\") use a period to invoke a verification method."
+  },
+  {
+    "present": "(islength|Islength|IsLength|ISLENGTH)",
+    "text":
+      "JavaScript is case-sensitive. Use isLength instead of the case you have."
+  },
+  {
+    "absent": "isLength",
+    "text": "Use isLength()."
+  },
+  {
+    "present": "isLength \\( m",
+    "text": "You need to pass isLength() an object within {...}."
+  },
+  {
+    "absent": "matches",
+    "text": "Use matches()."
+  },
+  {
+    "present": "matches \\( /[^^]",
+    "text": "Match the whole string - begin the regular expression with ^"
+  },
+  {
+    "present": "matches \\( /.*[^$]/",
+    "text": "Match the whole string - end the regular expression with $"
+  },
+  {
+    "present": "matches \\( /\\^\\[A-Z\\]-",
+    "text": "That would match only one letter before the dash, you need two."
+  },
+  {
+    "present": "matches \\( /.*(\\[0-9\\]|\\d)\\*",
+    "text": "You need to match one or more digits; * allows 0 or more. A + would be better suited for this task."
+  }
+ ],
+ "successes": [
+    ["query(`id`).isLength( {max:80}).matches(/^[A-Z]{2}-\\d+-[0-9]+$/),"]
+ ],
+ "failures": [
+    ["query('id').isLength().matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),"],
+    ["query('id').isLength({max:80}).matches( /[A-Z]{2}-[0-9]+-[0-9]+/ ),"],
+    ["query(`id`).isLength( {max:80}).matches(/^[A-Z]{2}-\\d+-[0-9]+$/)"]
+ ]
+}
+</script>
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->
@@ -124,90 +210,6 @@ app.get('/parts',
     res.status(422).send(`Invalid input`);
   })
 </pre>
-<!-- Sample expected answer -->
-<div id="expected0" style="display:none">
-  query('id').isLength({max:80}).matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),
-</div>
-<!-- Full pattern of correct answer. In many ways this is a worst case,
-     using regex to check on a regex, because of the massive number
-     of escapes we must use. This pattern is very generous, allowing
-     constructs we haven't discussed like \d for digits. Most people would
-     use "+" for "one or more", but we'll allow "{1,}" as well. -->
-<div id="correct0" style="display:none">
- query \( ('id'|"id"|`id`) \)
- \. isLength \( \{ max: 80 ,? \} \)
- \. matches \(
-   \/\^\[A-Z\](\{2\}|\[A-Z\])-(\[0-9\]|\\d)(\+|\{1,\})-(\[0-9\]|\\d)(\+|\{1,\})\$\/
- \) ,
-</div>
-<!--
-The following define hints. Hints are expressed in a JSON array, so:
-  - \ in a regex is written as \\
-  - " in a regex is written as \"
-  - All field names and value strings must be quoted
-  - commas must *separate* the entries - last one must NOT have a comma.
--->
-<div id="info" style="display:none">
-{
- "hints" : [
-  {
-    "absent": ", $",
-    "text": "This is a parameter, it must end with a comma."
-  },
-  {
-    "absent": "query \\( [\"'`]id[\"'`] \\)",
-    "text": "Use query() with an 'id' parameter."
-  },
-  {
-    "present": "query \\( [\"'`]id[\"'`] \\) [^. ]",
-    "text":
-      "After query(\"id\") use a period to invoke a verification method."
-  },
-  {
-    "present": "(islength|Islength|IsLength|ISLENGTH)",
-    "text":
-      "JavaScript is case-sensitive. Use isLength instead of the case you have."
-  },
-  {
-    "absent": "isLength",
-    "text": "Use isLength()."
-  },
-  {
-    "present": "isLength \\( m",
-    "text": "You need to pass isLength() an object within {...}."
-  },
-  {
-    "absent": "matches",
-    "text": "Use matches()."
-  },
-  {
-    "present": "matches \\( /[^^]",
-    "text": "Match the whole string - begin the regular expression with ^"
-  },
-  {
-    "present": "matches \\( /.*[^$]/",
-    "text": "Match the whole string - end the regular expression with $"
-  },
-  {
-    "present": "matches \\( /\\^\\[A-Z\\]-",
-    "text": "That would match only one letter before the dash, you need two."
-  },
-  {
-    "present": "matches \\( /.*(\\[0-9\\]|\\d)\\*",
-    "text": "You need to match one or more digits; * allows 0 or more. A + would be better suited for this task."
-  }
- ],
- "successes": [
-    ["query(`id`).isLength( {max:80}).matches(/^[A-Z]{2}-\\d+-[0-9]+$/),"]
- ],
- "failures": [
-    ["query('id').isLength().matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),"],
-    ["query('id').isLength({max:80}).matches( /[A-Z]{2}-[0-9]+-[0-9]+/ ),"],
-    ["query(`id`).isLength( {max:80}).matches(/^[A-Z]{2}-\\d+-[0-9]+$/)"]
- ]
-}
-</div>
-
 <button type="button" id="hintButton">Hint</button>
 <button type="button" id="resetButton">Reset</button>
 <button type="button" id="giveUpButton">Give up</button>
