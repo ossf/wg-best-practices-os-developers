@@ -55,7 +55,7 @@ Basically, the text embedded in the `script` sections must
 * `&lt;/script`
 
 If you *need* to include these text sequences inside the `script` region,
-you can typically you can replace `&lt; `with `\x3C` to resolve it.
+you can typically you can replace `&lt;` with `\x3C` to resolve it.
 
 ### Basic lab inputs
 
