@@ -16,22 +16,26 @@ let info = {}; // General info
 let hints = []; // Array of hint objects
 
 /**
- * Trim newlines (LF or CRLF) from beginning and end of given String.
+ * Trim newlines (LF or CR) from beginning and end of given String.
  */
 function trimNewlines(s) {
-    return ((s + '').replace(/^\r?\n(\r?\n)+/, '')
-            .replace(/^\r?\n(\r?\n)+$/, ''));
+    return ((s + '').replace(/^(\n|\r)+/, '')
+            .replace(/(\n|\r\n?)+$/, ''));
 }
 
-/*
- * Given a regex as a string, process it to support our extensions and
- * return a compiled regex.
+/**
+ * Given take a regex string, preprocess it & return compiled regex.
+ * @fullMatch - require full match (insert "^" at beginning, " *$" at end).
+ *
  * In particular, *ignore* newlines and treat spaces as "allow 0+ spaces".
+ * As an optimization, "\s* " also means "\s*" (match 0+ spaces) - YAML
+ * doesn't like spaces at the beginning of lines, and we'll encourage that
+ * as the alternative.
  */
 function processRegex(regexString, fullMatch = true) {
     let processedRegexString = (
-                  regexString.replace(/\r?\n( *\r?\n)+/g,'')
-                             .replace(/\s+/g,'\\s*')
+                  regexString.replace(/(\n|\r)+/g,'')
+                             .replace(/(\\s\*)?\s+/g,'\\s*')
                   );
     if (fullMatch) {
         processedRegexString = '^' + processedRegexString + ' *$';
