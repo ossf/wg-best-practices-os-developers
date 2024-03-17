@@ -12,6 +12,7 @@
 // Global variables. We set these on load to provide good response time.
 let correct_re = []; // Array of compiled regex of correct answer
 let expected = []; // Array of an expected (correct) answer
+let info = {}; // General info
 let hints = []; // Array of hint objects
 
 /**
@@ -166,9 +167,11 @@ function process_hints(requested_hints) {
 /** Set global values based on info.
  * @info: String of JSON data
  */
-function process_info(info) {
-    // TODO: handle parse failures more gracefully
-    let parsed_json = JSON.parse(info);
+function process_info(configuration_info) {
+    // TODO: handle parse failures more gracefully & check more
+    let parsed_json = JSON.parse(configuration_info);
+    // Set global variable
+    info = parsed_json;
     if (parsed_json && parsed_json.hints) {
         hints = process_hints(parsed_json.hints);
     };
@@ -186,6 +189,22 @@ function run_selftest() {
     };
     if (!calcMatch(expected, correct_re)) {
         alert('Lab Error: expected value is incorrect and should be correct!');
+    };
+
+    // Run tests in successes and failures, if present
+    if (info.successes) {
+        for (let example of info.successes) {
+            if (!calcMatch(example, correct_re)) {
+                alert(`Lab Error: success ${example} should pass but fails.`);
+	    };
+        };
+    };
+    if (info.failures) {
+        for (let example of info.failures) {
+            if (calcMatch(example, correct_re)) {
+                alert(`Lab Error: failure ${example} should fail but passes.`);
+	    };
+        };
     };
 
     // Test all examples in hints, to ensure they provide the expected reports.
@@ -228,9 +247,9 @@ function load_data() {
         current++;
     };
     // If there is info (e.g., hints), set up global variable hints.
-    let info = document.getElementById('info');
-    if (info) {
-        process_info(info.textContent);
+    let info_element = document.getElementById('info');
+    if (info_element) {
+        process_info(info_element.textContent);
     };
 }
 

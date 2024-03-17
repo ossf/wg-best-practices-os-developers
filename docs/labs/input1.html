@@ -196,6 +196,16 @@ The following define hints. Hints are expressed in a JSON array, so:
     "text":
       "JavaScript allows hash entries to be in any order, but this can be confusing to humans. Conventionally minimum values are given before maximum values; please follow that convention."
   }
+ ],
+ "successes": [
+    [" query ( 'id' ) . isInt ( {min: 1 , max: 9999 } ) ,"],
+    [" query ( `id` ) . isInt ( {min: 1 , max: 9_999 } ) ,   "],
+    ["query ( \"id\" ) . isInt ( {min: 1 , max: 9_999 } ) ,"]
+ ],
+ "failures": [
+    [" query,"],
+    ["query('id').isint({min: 1, max: 9999})"],
+    ["query('id').isInt({min: 1, max: 9999})"]
  ]
 }
 </div>

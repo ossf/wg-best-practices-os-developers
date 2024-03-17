@@ -64,13 +64,23 @@ read, the regex pattern for each correct answer is preprocessed as follows:
 * Use \s to match a whitespace character, use \x20 for a space character.
   Append "+" to either if you want to require "1 or more".
 
-### Other info such as Hints
+### Other info such as hints
 
 You can optionally provide other information in a div with an `id` of `info`.
 This must contain a JSON object {...}.
 
-A key reason to do this is to provide hints.
-Hints are expressed in a <tt>hints</tt> field.
+One reason to do this is to provide more self-tests, which are
+all verified on page load:
+
+* The field `successes`, if present, is an array of examples.
+  Each example is an array of strings.
+  Every example in `successes` should pass.
+* The field `failures`, if present, is an array of examples.
+  Again, each example is an array of strings.
+  Every example in `failures` should fail.
+
+Another reason to provide info is to provide hints.
+Hints are expressed in a `hints` field.
 This field must be a JSON array, so its value
 must begin with `[` and end with `]`.
 Inside the array is a comma-separated list of hint objects, where
