@@ -73,14 +73,20 @@ much match.
 
 ### Expressing correct answers
 
-Correct answers are expressed using regular expression (regex) patterns,
-to make it easy to
+Correct answers are expressed using a preprocessed form of
+[JavaScript regular expression (regex) patterns](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions).
+This makes it easy to
 indicate the many different forms that are all correct. E.g.:
 
-* Pattern `(a|b)` matches `a` or `b`, while `foo\(a\)` matches `foo(a)`.
-* Pattern `\{\\\}` matches the literal text `{\}`.
+* Pattern `(a|b)` matches `a` or `b`
+* In the pattern append `*` to mean "zero or more",
+  and `+` to mean "one or more"
+* Use `\` to escape many characters, e.g.,
+  pattern `foo\(a\)` matches `foo(a)` and
+  pattern `\{\\\}` matches the literal text `{\}`.
 * Pattern `9_?999` matches `9`, an optional `_`, then `999`.
 
+Regexes are capable, but straightforward regex use might be hard to read.
 To make the correct answer regexes easier to enter and
 read, the regex pattern for each correct answer is preprocessed as follows:
 
@@ -93,15 +99,18 @@ read, the regex pattern for each correct answer is preprocessed as follows:
   is interpreted as "0 or more whitespace is allowed here".
   This can also be expressed as `\s*`, but whitespace is much easier to read
   and this circumstance repeatedly occurs in correct answers.
-  Stylistically there will often be a space at the beginning of
-  a line to indicate that spaces are optional there, but you don't
-  *have* to format text this way.
+* You *can* use a space at the beginning of a line to mean "0 or more spaces"
+  but many YAML formats can't be used if there is a space at the
+  beginning of a line. If you want to indicate "0 or more spaces"
+  at the beginning of a line, we suggest using `\s*` followed by a space
+  (this is optimized).
 * If your answer is in JavaScript, you probably want to begin the answer
-  with a space to indicate "0 or more spaces are allowed here".
+  with `\s*` followed by space to indicate "0 or more spaces are allowed here".
   Most tokens should also be separated by a space, to indicate that they're
   allowed.
-* Use \s to match a whitespace character, use \x20 for a space character.
-  Append "+" to either if you want to require "1 or more".
+* Use \s to match one whitespace character, use \x20 to match only
+  and specifically a space character.
+  As usual, append "+" to either if you want to require "1 or more".
 
 Most YAML forms don't permit leading spaces. If you want to express
 at the beginning of a line that you want to match 0 or more spaces, use
