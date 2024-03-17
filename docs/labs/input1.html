@@ -141,16 +141,26 @@ The following define hints. Hints are expressed in a JSON array, so:
  "hints": [
   {
     "absent": ", $",
-    "text": "This is a parameter, it must end with a comma."
+    "text": "This is a parameter, it must end with a comma.",
+    "examples": [
+      ["  "]
+    ]
   },
   {
     "absent": "query \\( [\"'`]id[\"'`] \\)",
-    "text": "Add query(\"id\") to verify its value."
+    "text": "Add query(\"id\") to verify its value.",
+    "examples": [
+      [","],
+      ["  query(),"]
+    ]
   },
   {
     "present": "query \\( [\"'`]id[\"'`] \\) [^. ]",
     "text":
-      "After query(\"id\") use a period to invoke a verification method."
+      "After query(\"id\") use a period to invoke a verification method.",
+    "examples": [
+      ["  query('id'),"]
+    ]
   },
   {
     "present": "(isint|Isint|IsInt|ISINT)",
@@ -163,39 +173,73 @@ The following define hints. Hints are expressed in a JSON array, so:
   },
   {
     "absent": "isInt",
-    "text": "Use isInt to determine if the parameter is an integer."
+    "text": "Use isInt to determine if the parameter is an integer.",
+    "examples": [
+      ["  query('id').,"]
+    ]
   },
   {
     "present": " query \\( [\"'`]id[\"'`] \\).*\\([^)]*$",
     "text":
-       "After query(\"id\") you have an ( but there's no matching )."
+       "After query(\"id\") you have an ( but there's no matching ).",
+    "examples": [
+      ["  query('id').isInt(,"]
+    ]
   },
   {
     "absent": "isInt \\(.*\\)",
-    "text": "isInt should be followed by (...)."
+    "text": "isInt should be followed by (...).",
+    "examples": [
+      ["  query('id').isInt,"]
+    ]
   },
   {
     "present": "\\{[^}]*$",
-    "text": "You have started an object using { but there's no matching }."
+    "text": "You have started an object using { but there's no matching }.",
+    "examples": [
+      ["  query('id').isInt({),"]
+    ]
   },
   {
     "absent": "isInt \\( \\{.*\\} \\)",
     "text":
-      "Inside the parenthesis of isInt() you should have an object like {...}."
+      "Inside the parenthesis of isInt() you should have an object like {...}.",
+    "examples": [
+      ["  query('id').isInt(),"]
+    ]
   },
   {
     "absent": "min",
-    "text": "Use min: to specify a minimum value."
+    "text": "Use min: to specify a minimum value.",
+    "examples": [
+      ["  query('id').isInt({}),"]
+    ]
   },
   {
     "absent": "max",
-    "text": "Use max: to specify a minimum value."
+    "text": "Use max: to specify a minimum value.",
+    "examples": [
+      ["  query('id').isInt({min: 1}),"]
+    ]
   },
   {
     "present": "max.*min",
     "text":
-      "JavaScript allows hash entries to be in any order, but this can be confusing to humans. Conventionally minimum values are given before maximum values; please follow that convention."
+      "JavaScript allows hash entries to be in any order, but this can be confusing to humans. Conventionally minimum values are given before maximum values; please follow that convention.",
+    "examples": [
+      ["  query('id').isInt({max: 9999, min: 1}),"]
+    ]
   }
+ ],
+ "successes": [
+    [" query ( 'id' ) . isInt ( {min: 1 , max: 9999 } ) ,"],
+    [" query ( `id` ) . isInt ( {min: 1 , max: 9_999 } ) ,   "],
+    ["query ( \"id\" ) . isInt ( {min: 1 , max: 9_999 } ) ,"]
+ ],
+ "failures": [
+    [" query,"],
+    ["query('id').isint({min: 1, max: 9999})"],
+    ["query('id').isInt({min: 1, max: 9999})"]
  ]
 }
 </div>
@@ -203,9 +247,9 @@ The following define hints. Hints are expressed in a JSON array, so:
 
 -->
 
-<button type="button" id="hint_button">Hint</button>
-<button type="button" id="reset_button">Reset</button>
-<button type="button" id="give_up_button">Give up</button>
+<button type="button" id="hintButton">Hint</button>
+<button type="button" id="resetButton">Reset</button>
+<button type="button" id="giveUpButton">Give up</button>
 
 </form>
 

@@ -10,8 +10,9 @@
 // NestedText format might be an improvement.
 
 // Global variables. We set these on load to provide good response time.
-let correct_re = []; // Array of compiled regex of correct answer
+let correctRe = []; // Array of compiled regex of correct answer
 let expected = []; // Array of an expected (correct) answer
+let info = {}; // General info
 let hints = []; // Array of hint objects
 
 /**
@@ -27,15 +28,15 @@ function trimNewlines(s) {
  * return a compiled regex.
  * In particular, *ignore* newlines and treat spaces as "allow 0+ spaces".
  */
-function process_regex(regex_string, full_match = true) {
-    let processed_regex_string = (
-                  regex_string.replace(/\r?\n( *\r?\n)+/g,'')
-                              .replace(/\s+/g,'\\s*')
+function processRegex(regexString, fullMatch = true) {
+    let processedRegexString = (
+                  regexString.replace(/\r?\n( *\r?\n)+/g,'')
+                             .replace(/\s+/g,'\\s*')
                   );
-    if (full_match) {
-        processed_regex_string = '^' + processed_regex_string + ' *$';
+    if (fullMatch) {
+        processedRegexString = '^' + processedRegexString + ' *$';
     }
-    return new RegExp(processed_regex_string);
+    return new RegExp(processedRegexString);
 }
 
 /**
@@ -43,7 +44,7 @@ function process_regex(regex_string, full_match = true) {
  * @attempt Array of strings that might be correct
  * @correct Array of compiled regexes describing correct answer
  */
-function calcMatch(attempt, correct) {
+function calcMatch(attempt, correct = correctRe) {
     if (!correct) { // Defensive test, should never happen.
         alert('Internal failure, correct value not defined or empty.');
         return false;
@@ -59,9 +60,9 @@ function calcMatch(attempt, correct) {
 /**
  * Retrieve array of attempted answers
  */
-function retrieve_attempt() {
+function retrieveAttempt() {
     let result = [];
-    for (let i = 0; i < correct_re.length; i++) {
+    for (let i = 0; i < correctRe.length; i++) {
         // Ignore empty lines at beginning & end of attempt
         result.push(
             trimNewlines(document.getElementById(`attempt${i}`).value));
@@ -73,15 +74,15 @@ function retrieve_attempt() {
  * Check the document's user input "attempt" to see if matches "correct".
  * Then set "grade" in document depending on that answer.
  */
-function run_check() {
-    let attempt = retrieve_attempt();
+function runCheck() {
+    let attempt = retrieveAttempt();
 
     // Calculate grade and set in document.
-    let isCorrect = calcMatch(attempt, correct_re);
+    let isCorrect = calcMatch(attempt, correctRe);
     let oldGrade = document.getElementById('grade').innerHTML;
     let newGrade = isCorrect ? 'COMPLETE!' : 'to be completed';
     document.getElementById('grade').innerHTML = newGrade;
-    for (let i = 0; i < correct_re.length; i++) {
+    for (let i = 0; i < correctRe.length; i++) {
         document.getElementById(`attempt${i}`).style.backgroundColor =
             isCorrect ?  'lightgreen' : 'yellow';
     };
@@ -96,13 +97,13 @@ function run_check() {
 }
 
 /** Return the best-matching hint given attempt. */
-function find_hint(attempt) {
+function findHint(attempt) {
     // Find a matching hint (matches present and NOT absent)
     for (hint of hints) {
-      if ((!hint.present_re ||
-           hint.present_re.test(attempt[hint.entry])) &&
-          (!hint.absent_re ||
-           !hint.absent_re.test(attempt[hint.entry]))) {
+      if ((!hint.presentRe ||
+           hint.presentRe.test(attempt[hint.entry])) &&
+          (!hint.absentRe ||
+           !hint.absentRe.test(attempt[hint.entry]))) {
         return hint.text;
       }
     };
@@ -110,18 +111,18 @@ function find_hint(attempt) {
 }
 
 /** Show a hint to the user. */
-function show_hint() {
-    let attempt = retrieve_attempt();
-    if (calcMatch(attempt, correct_re)) {
+function showHint() {
+    let attempt = retrieveAttempt();
+    if (calcMatch(attempt, correctRe)) {
         alert('The answer is already correct!');
     } else if (!hints) {
         alert('Sorry, there are no hints for this lab.');
     } else {
-        alert(find_hint(attempt));
+        alert(findHint(attempt));
     }
 }
 
-function show_answer() {
+function showAnswer() {
     alert(`We were expecting an answer like this:\n${expected}`);
 }
 
@@ -132,69 +133,86 @@ function show_answer() {
  * had correctly answered it, and we reset, then we need to show
  * the visual indicators that it's no longer correctly answered.
  */
-function reset_form() {
+function resetForm() {
     form = document.getElementById('lab');
     form.reset();
-    run_check();
+    runCheck();
 }
 
-function process_hints(requested_hints) {
-    // Accept String potential_hints in JSON format.
-    // return a cleaned-up array of objects.
-    if (!(requested_hints instanceof Array)) {
+/** Accept hints in JSON format, return cleaned-up array of hints */
+function processHints(requestedHints) {
+    if (!(requestedHints instanceof Array)) {
         alert('Error: hints must be JSON array. Use [...].');
     }
-    let compiled_hints = [];
+    let compiledHints = [];
     // TODO: Do more sanity checking.
-    for (let hint of requested_hints) {
+    for (let hint of requestedHints) {
         let newHint = {};
         newHint.entry = hint.entry ? Number(hint.entry) : 0;
         newHint.text = hint.text;
         // Precompile all regular expressions
         if (hint.present) {
-            newHint.present_re = process_regex(hint.present, false);
+            newHint.presentRe = processRegex(hint.present, false);
         };
         if (hint.absent) {
-            newHint.absent_re = process_regex(hint.absent, false);
+            newHint.absentRe = processRegex(hint.absent, false);
         };
         if (hint.examples) {newHint.examples = hint.examples};
-        compiled_hints.push(newHint); // append result.
+        compiledHints.push(newHint); // append result.
     };
-    return compiled_hints;
+    return compiledHints;
 }
 
 /** Set global values based on info.
  * @info: String of JSON data
  */
-function process_info(info) {
-    // TODO: handle parse failures more gracefully
-    let parsed_json = JSON.parse(info);
-    if (parsed_json && parsed_json.hints) {
-        hints = process_hints(parsed_json.hints);
+function processInfo(configurationInfo) {
+    // TODO: handle parse failures more gracefully & check more
+    let parsedJson = JSON.parse(configurationInfo);
+    // Set global variable
+    info = parsedJson;
+    if (parsedJson && parsedJson.hints) {
+        hints = processHints(parsedJson.hints);
     };
 }
 
 /**
  * Run simple selftest; we presume it runs only during page initialization.
- * Must run load_data first, to set up globals like correct_re.
+ * Must run loadData first, to set up globals like correctRe.
  * Ensure the initial attempt is incorrect AND the expected value is correct.
  */
-function run_selftest() {
-    let attempt = retrieve_attempt();
-    if (calcMatch(attempt, correct_re)) {
+function runSelftest() {
+    let attempt = retrieveAttempt();
+    if (calcMatch(attempt, correctRe)) {
         alert('Lab Error: Initial attempt value is correct and should not be!');
     };
-    if (!calcMatch(expected, correct_re)) {
+    if (!calcMatch(expected, correctRe)) {
         alert('Lab Error: expected value is incorrect and should be correct!');
+    };
+
+    // Run tests in successes and failures, if present
+    if (info.successes) {
+        for (let example of info.successes) {
+            if (!calcMatch(example, correctRe)) {
+                alert(`Lab Error: success ${example} should pass but fails.`);
+	    };
+        };
+    };
+    if (info.failures) {
+        for (let example of info.failures) {
+            if (calcMatch(example, correctRe)) {
+                alert(`Lab Error: failure ${example} should fail but passes.`);
+	    };
+        };
     };
 
     // Test all examples in hints, to ensure they provide the expected reports.
     for (let hint of hints) {
         if (hint.examples) {
             for (let example of hint.examples) {
-                actualHint = find_hint(example);
+                actualHint = findHint(example);
                 if (actualHint != hint.text) {
-                    alert(`ERROR: Unexpected hint! Example ${example} should have produced hint ${hint.text} but instead produced ${actualHint}`);
+                    alert(`Lab Error: Unexpected hint! Example ${example} should produce hint ${hint.text} but instead produced ${actualHint}`);
                 };
             };
         };
@@ -204,18 +222,18 @@ function run_selftest() {
 /**
  * Load data from HTML page and initialize our local variables from it.
  */
-function load_data() {
+function loadData() {
     // Set global correct and expected arrays
     let current = 0;
     while (true) {
-        correct_element = document.getElementById('correct' + current);
-        if (!correct_element) break;
+        correctElement = document.getElementById('correct' + current);
+        if (!correctElement) break;
         try {
                 // Ignore empty lines at beginning & end of correct answer
                 let correct = (
-                    trimNewlines(correct_element.textContent));
+                    trimNewlines(correctElement.textContent));
                 // Append global variable with compiled correct answer
-                correct_re.push(process_regex(correct, true));
+                correctRe.push(processRegex(correct, true));
         }
         catch(e) {
             // This can only happen if the correct answer pattern is missing
@@ -228,16 +246,16 @@ function load_data() {
         current++;
     };
     // If there is info (e.g., hints), set up global variable hints.
-    let info = document.getElementById('info');
-    if (info) {
-        process_info(info.textContent);
+    let infoElement = document.getElementById('info');
+    if (infoElement) {
+        processInfo(infoElement.textContent);
     };
 }
 
-function init_page() {
-    load_data();
+function initPage() {
+    loadData();
     // Run a selftest on page load, to prevent later problems
-    run_selftest();
+    runSelftest();
     // Set up user interaction.
     // This will cause us to sometimes check twice, but this also ensures
     // that we always catch changes to the attempt.
@@ -245,34 +263,34 @@ function init_page() {
     while (true) {
         attempt = document.getElementById('attempt' + current);
         if (!attempt) break;
-        attempt.onchange = run_check;
-        attempt.onkeyup = run_check;
+        attempt.onchange = runCheck;
+        attempt.onkeyup = runCheck;
         current++;
     }
-    hint_button = document.getElementById('hint_button');
-    if (hint_button) {
-        hint_button.onclick = (() => show_hint());
-        if (!hint_button.title) {
-            hint_button.title = 'Provide a hint given current attempt.';
+    hintButton = document.getElementById('hintButton');
+    if (hintButton) {
+        hintButton.onclick = (() => showHint());
+        if (!hintButton.title) {
+            hintButton.title = 'Provide a hint given current attempt.';
         }
     }
-    reset_button = document.getElementById('reset_button');
-    if (reset_button) {
-        reset_button.onclick = (() => reset_form());
-        if (!reset_button.title) {
-            reset_button.title = 'Reset initial state (throwing away current attempt).';
+    resetButton = document.getElementById('resetButton');
+    if (resetButton) {
+        resetButton.onclick = (() => resetForm());
+        if (!resetButton.title) {
+            resetButton.title = 'Reset initial state (throwing away current attempt).';
         }
     }
-    give_up_button = document.getElementById('give_up_button');
-    if (give_up_button) {
-        give_up_button.onclick = (() => show_answer());
-        if (!give_up_button.title) {
-            give_up_button.title = 'Give up and show an answer.';
+    giveUpButton = document.getElementById('giveUpButton');
+    if (giveUpButton) {
+        giveUpButton.onclick = (() => showAnswer());
+        if (!giveUpButton.title) {
+            giveUpButton.title = 'Give up and show an answer.';
         }
     }
     // Run check of the answer so its visual appearance matches its content.
-    run_check();
+    runCheck();
 }
 
 // When the requesting web page loads, initialize things
-window.onload = init_page;
+window.onload = initPage;
