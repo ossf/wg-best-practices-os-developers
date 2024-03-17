@@ -171,3 +171,7 @@ You can also include an `examples` field, which must then contain
 an array of examples (each example is an array of Strings).
 On load the system will verify that each example will report the
 matching hint (this helps ensure that the hint order is sensible).
+
+You can also add an info field named `debug` with the value `true`.
+If set, the program will present some data that may help you
+debug problems.

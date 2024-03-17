@@ -5,10 +5,6 @@
 
 // See create_labs.md for more information.
 
-// Currently a lot of data is in the HTML in <div> sections, and
-// hints are currently in JSON. This may cause problems;
-// NestedText format might be an improvement.
-
 // Global variables. We set these on load to provide good response time.
 let correctRe = []; // Array of compiled regex of correct answer
 let expected = []; // Array of an expected (correct) answer
@@ -22,6 +18,17 @@ function trimNewlines(s) {
     return ((s + '').replace(/^[\n\r]+/, '')
             .replace(/[\n\r]+$/, ''));
 }
+
+
+function escapeHTML(unsafe)
+{
+    return (unsafe
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\"/g, '&quot;')
+            .replace(/\'/g, "&#039;"));
+ }
 
 /**
  * Given take a regex string, preprocess it & return compiled regex.
@@ -145,10 +152,10 @@ function resetForm() {
     runCheck();
 }
 
-/** Accept hints in JSON format, return cleaned-up array of hints */
+/** Accept input array of hints, return cleaned-up array of hints */
 function processHints(requestedHints) {
     if (!(requestedHints instanceof Array)) {
-        alert('Error: hints must be JSON array. Use [...].');
+        alert('Error: hints must be array. E.g., in JSON use [...].');
     }
     let compiledHints = [];
     // TODO: Do more sanity checking.
@@ -170,7 +177,7 @@ function processHints(requestedHints) {
 }
 
 /** Set global values based on info.
- * @info: String of JSON data
+ * @info: String with YAML (including JSON) data to use
  */
 function processInfo(configurationInfo) {
     // TODO: handle parse failures more gracefully & check more
@@ -179,7 +186,11 @@ function processInfo(configurationInfo) {
     // let parsedJson = JSON.parse(configurationInfo);
 
     let parsedData = jsyaml.load(configurationInfo);
-    // alert(`DEBUG: results = ${parsedData}`);
+
+    if (parsedData.debug) {
+        let asJSONString = JSON.stringify(parsedData);
+        alert(`DEBUG: Loaded info as this JSON:\n${asJSONString}`);
+    };
 
     // Set global variable
     info = parsedData;
@@ -262,6 +273,9 @@ function loadData() {
     if (infoElement) {
         processInfo(infoElement.textContent);
     };
+    if (info.debug) {
+        alert(`DEBUG: Pattern for correct answer:\n${correctRe}`);
+    };
 }
 
 function initPage() {
@@ -279,21 +293,21 @@ function initPage() {
     hintButton = document.getElementById('hintButton');
     if (hintButton) {
         hintButton.onclick = (() => showHint());
-        if (!hintButton.title) {
+        if (hintButton.title == null) {
             hintButton.title = 'Provide a hint given current attempt.';
         }
     }
     resetButton = document.getElementById('resetButton');
     if (resetButton) {
         resetButton.onclick = (() => resetForm());
-        if (!resetButton.title) {
+        if (resetButton.title == null) {
             resetButton.title = 'Reset initial state (throwing away current attempt).';
         }
     }
     giveUpButton = document.getElementById('giveUpButton');
     if (giveUpButton) {
         giveUpButton.onclick = (() => showAnswer());
-        if (!giveUpButton.title) {
+        if (giveUpButton.title == null) {
             giveUpButton.title = 'Give up and show an answer.';
         }
     }
