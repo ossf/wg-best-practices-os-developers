@@ -266,15 +266,12 @@ function initPage() {
     loadData();
     // Run a selftest on page load, to prevent later problems
     runSelftest();
-    // Set up user interaction.
-    // This will cause us to sometimes check twice, but this also ensures
-    // that we always catch changes to the attempt.
+    // Set up user interaction for all attempts.
     let current = 0;
     while (true) {
         attempt = document.getElementById('attempt' + current);
         if (!attempt) break;
-        attempt.onchange = runCheck;
-        attempt.onkeyup = runCheck;
+        attempt.oninput = runCheck;
         current++;
     }
     hintButton = document.getElementById('hintButton');
