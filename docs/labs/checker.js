@@ -273,6 +273,26 @@ function loadData() {
     if (infoElement) {
         processInfo(infoElement.textContent);
     };
+
+    // Allow "correct" and "expected" to be defined as info fields.
+    if (info.expected != null) {
+        if (expected.length > 0) {
+            alert("Error: Info defines expected value but it's overridden.");
+	} else if (!(info.expected instanceof Array)) {
+            alert('Error: Info expected hints must be array.');
+        } else {
+            expected = info.expected.map((s) => trimNewlines(s));
+        };
+    };
+    if (info.correct != null) {
+        if (correct.length > 0) {
+            alert("Error: Info defines correct value but it's overridden.");
+	} else if (!(info.correct instanceof Array)) {
+            alert('Error: Info correct hints must be array.');
+        } else {
+            correct = info.correct.map((s) => trimNewlines(s));
+        };
+    };
     if (info.debug) {
         alert(`DEBUG: Pattern for correct answer:\n${correctRe}`);
     };

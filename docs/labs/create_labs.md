@@ -128,24 +128,41 @@ Most YAML mechanisms don't permit leading spaces. If you want to express
 at the beginning of a line that you want to match 0 or more spaces, use
 `\s*` followed by a space to express it.
 
-### Other info such as more tests and hints
+### Other info
 
-You can optionally provide other information in the `id` of `info`.
-This must contain a YAML object (YAML is a superset of JSON,
-so you can also use JSON format `{...}`).
+The id `info` can provide other optional information.
+If present, it must be a YAML object.
+YAML is a superset of JSON,
+so you can also use JSON format `{...}` to describe info.
 
 One reason to do this is to provide more self-tests, which are
 all verified on page load:
 
-* The field `successes`, if present, is an array of examples.
+* Field `successes`: if present, this is an array of examples.
   Each example is an array of strings.
   Every example in `successes` should pass.
-* The field `failures`, if present, is an array of examples.
+* Field `failures`: if present, this is an array of examples.
   Again, each example is an array of strings.
   Every example in `failures` should fail.
 
-Another reason to provide info is to provide hints.
-Hints are expressed in a `hints` field.
+You can provide `correct` and `expected` values this way instead of creating
+separate script regions:
+
+* Field `correct`: If present, this is an array of strings.
+  Each string is a preprocessed regular expression as described above.
+* Field `expected`: If present, this is an array of strings.
+  Each string is an example of a string that would meet the corresponding
+  correct pattern.
+
+The `info` object also has other fields:
+
+* `debug`: If present and `true`, the program will present
+   some data that may help you debug problems.
+* `hints`: If present, this is an array of hints.
+
+### Hints
+
+Hints are expressed in the info `hints` field.
 This field must be an array
 (in JSON its value must begin with `[` and end with `]`).
 Inside the array is a list of hint objects.
@@ -169,18 +186,15 @@ don't have to exactly match (start a pattern with `^` and end it with
 `$` if you want an exact match). Again, one or more spaces are interpreted
 as allowing 0 or more spaces.
 
-By default a hint checks `attempt0` against `correct0`; if you want
-to check an index other than `0`, add an `index` field and provide
-an integer (its default value is 0).
+A hint has a default index of 0, that is, it
+checks `attempt0` against the pattern `correct0`.
+If you want to check an index other than `0`, add an `index` field and provide
+an integer.
 
-You can also include an `examples` field, which must then contain
+A hint can include an `examples` field, which must then contain
 an array of examples (each example is an array of Strings).
 On load the system will verify that each example will report the
 matching hint (this helps ensure that the hint order is sensible).
-
-You can also add an info field named `debug` with the value `true`.
-If set, the program will present some data that may help you
-debug problems.
 
 ### Notes on YAML
 
