@@ -53,9 +53,19 @@ function processRegex(regexString, fullMatch = true) {
 }
 
 /**
- * Return true iff attempt matches correct.
- * @attempt Array of strings that might be correct
- * @correct Array of compiled regexes describing correct answer
+ * Return true iff the indexed attempt matches the indexed correct.
+ * @attempt - Array of strings that might be correct
+ * @index - Integer index (0+)
+ * @correct - Array of compiled regexes describing correct answer
+ */
+function calcOneMatch(attempt, index = 0, correct = correctRe) {
+    return correct[index].test(attempt[index]);
+}
+
+/**
+ * Return true iff all attempt matches all correct.
+ * @attempt - Array of strings that might be correct
+ * @correct - Array of compiled regexes describing correct answer
  */
 function calcMatch(attempt, correct = correctRe) {
     if (!correct) { // Defensive test, should never happen.
@@ -64,7 +74,7 @@ function calcMatch(attempt, correct = correctRe) {
     }
     for (let i = 0; i < correct.length; i++) {
         // If we find a failure, return false immediately (short circuit)
-        if (!correct[i].test(attempt)) return false;
+        if (!calcOneMatch(attempt, i, correctRe)) return false;
     }
     // Everything passed.
     return true;
@@ -91,15 +101,20 @@ function runCheck() {
     let attempt = retrieveAttempt();
 
     // Calculate grade and set in document.
-    let isCorrect = calcMatch(attempt, correctRe);
-    let oldGrade = document.getElementById('grade').innerHTML;
-    let newGrade = isCorrect ? 'COMPLETE!' : 'to be completed';
-    document.getElementById('grade').innerHTML = newGrade;
+    let isCorrect = true;
     for (let i = 0; i < correctRe.length; i++) {
+        let result = calcOneMatch(attempt, i, correctRe);
+        if (!result) isCorrect = false;
         document.getElementById(`attempt${i}`).style.backgroundColor =
             isCorrect ?  'lightgreen' : 'yellow';
     };
+    // isCorrect is now true only if everything matched
+    let oldGrade = document.getElementById('grade').innerHTML;
+    let newGrade = isCorrect ? 'COMPLETE!' : 'to be completed';
+    document.getElementById('grade').innerHTML = newGrade;
+
     if (isCorrect && (oldGrade !== newGrade)) {
+        // Hooray! User has a newly-correct answer!
         // Use a timeout so the underlying page will *re-render* before the
 	// alert shows. If we don't do this, the alert would be confusing
 	// because the underlying page would say we hadn't completed it.
@@ -136,7 +151,7 @@ function showHint() {
 }
 
 function showAnswer() {
-    alert(`We were expecting an answer like this:\n${expected}`);
+    alert(`We were expecting an answer like this:\n${expected.join('\n\n')}`);
 }
 
 /**
@@ -209,8 +224,17 @@ function runSelftest() {
     if (calcMatch(attempt, correctRe)) {
         alert('Lab Error: Initial attempt value is correct and should not be!');
     };
+
     if (!calcMatch(expected, correctRe)) {
         alert('Lab Error: expected value is incorrect and should be correct!');
+        // Provide more info
+        for (let i = 0; i < correctRe.length; i++) {
+            if (!(correctRe[i].test(attempt[i]))) {
+                alert(`Expected value considered incorrect at index ${i}`);
+            } else {
+                alert(`Expected value is fine at index ${i}`);
+            }
+       }
     };
 
     // Run tests in successes and failures, if present

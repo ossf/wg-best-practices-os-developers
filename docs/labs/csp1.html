@@ -1,0 +1,310 @@
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/css/style.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+const helmet = require("helmet");
+</script>
+<!--
+-->
+<script id="expected1" type="plain/text">
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      "script-src": ["'self'", "https://example.com"],
+      "style-src": ["'self'"]
+    },
+  }
+}));
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+\s* const helmet = require \( ("helmet"|'helmet'|`helmet`) \) ; \s*
+</script>
+<!--
+\s* const helmet = require \( ("helmet"|'helmet'|`helmet`) \) ; \s*
+-->
+<script id="correct1" type="plain/text">
+\s* app \. use \( helmet \( \{
+    contentSecurityPolicy: \{
+      directives: \{
+        "script-src": \[ "'self'" , "https://example\.com" \] ,
+        "style-src": \[ "'self'" \] ,?
+      \} ,?
+    \} ,?
+  \} \) \) ;
+\s*
+</script>
+<!--
+\s* app \. use \( helmet \( \{
+    contentSecurityPolicy: \{
+      directives: \{
+        "script-src": \[ "'self'" , "https://example\.com" \] ,
+        "style-src": \[ "'self'" \]
+      \} ,
+    \}
+  \} \) \) ;
+-->
+
+<script id="info" type="application/yaml">
+---
+hints:
+- absent: "; $"
+  text: JavaScript doesn''t require semicolon terminators, but the rest of
+    the code uses them. You should try to match a coding style when modifying
+    existing code unless there''s an important reason not to.
+    Please update the first statment.
+  examples:
+  - - '  const helmet = require("helmet")'
+- absent: "; $"
+  index: 1
+  text: JavaScript doesn''t require semicolon terminators, but the rest of
+    the code uses them. You should try to match a coding style when modifying
+    existing code unless there''s an important reason not to.
+    Please update the second statment.
+</script>
+<!-- More examples:
+- absent: query \( ["'`]id["'`] \)
+  text: Add query("id") to verify its value.
+  examples:
+  - - ","
+  - - "  query(),"
+- present: query \( ["'`]id["'`] \) [^. ]
+  text: After query("id") use a period to invoke a verification method.
+  examples:
+  - - "  query('id'),"
+- present: "(isint|Isint|IsInt|ISINT)"
+  text: JavaScript is case-sensitive. Use isInt instead of the case you have.
+  examples:
+  - - "  query('id').isint(),"
+  - - "  query('id').IsInt(),"
+- absent: isInt
+  text: Use isInt to determine if the parameter is an integer.
+  examples:
+  - - "  query('id').,"
+- present: ' query \( ["''`]id["''`] \).*\([^)]*$'
+  text: After query("id") you have an ( but there's no matching ).
+  examples:
+  - - "  query('id').isInt(,"
+- absent: isInt \(.*\)
+  text: isInt should be followed by (...).
+  examples:
+  - - "  query('id').isInt,"
+- present: "\\{[^}]*$"
+  text: You have started an object using { but there's no matching }.
+  examples:
+  - - "  query('id').isInt({),"
+- absent: isInt \( \{.*\} \)
+  text: Inside the parenthesis of isInt() you should have an object like {...}.
+  examples:
+  - - "  query('id').isInt(),"
+- absent: min
+  text: 'Use min: to specify a minimum value.'
+  examples:
+  - - "  query('id').isInt({}),"
+- absent: max
+  text: 'Use max: to specify a minimum value.'
+  examples:
+  - - "  query('id').isInt({min: 1}),"
+- present: max.*min
+  text: JavaScript allows hash entries to be in any order,
+    but this can be confusing to humans. Conventionally minimum values
+    are given before maximum values; please follow that convention.
+  examples:
+  - - "  query('id').isInt({max: 9999, min: 1}),"
+successes:
+- - " query ( 'id' ) . isInt ( {min: 1 , max: 9999 } ) ,"
+- - " query ( `id` ) . isInt ( {min: 1 , max: 9_999 } ) ,   "
+- - 'query ( "id" ) . isInt ( {min: 1 , max: 9_999 } ) ,'
+failures:
+- - " query,"
+- - 'query(''id'').isint({min: 1, max: 9999})'
+- - 'query(''id'').isInt({min: 1, max: 9999})'
+-->
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise csp1</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html">introduction to
+the labs</a>.
+
+<p>
+<h2>Background</h2>
+<p>
+In this exercise, we'll add security headers to a server-side
+web application.
+This server-side program is written in JavaScript using the
+Express framework (version 4).
+We'll be using the <tt>helmet</tt> library, which
+helps add hardening headers to Express applications.
+
+<p>
+<h2>Task</h2>
+<p>
+Please change the code below so that this server-side web application
+will have many security hardening headers, along with some
+extra configurations we'll explain.
+
+<p>
+You'll first need to load the <tt>helmet</tt> library.
+There are many ways to do this in JavaScript.
+In this case, we'll use a <tt>require</tt> statement to load
+a library.
+Look at the line below to require Express, and create a similar
+line to require helmet.
+
+<p>
+We now need to write code to use helmet to insert hardening headers.
+In Express you can use an <tt>app.use(...)</tt> call to indicate
+something to use on every request.
+You <i>could</i> simply call helmet like this, and it would set up
+many hardening headers:
+
+<pre>
+app.use(helmet());
+</pre>
+
+<p>
+However, it's very common to need to specially configure this
+for your application.
+The helmet() call accepts an optional object that lets you configure things.
+In JavaScript an object is noted as <tt>{</tt> ... <tt>}</tt>,
+where its contents are a comma-separated sequence of key-value pairs.
+Each key-value pair has a field name, a colon (:), and its corresponding value.
+
+<p>
+In this case we want to modify the configuration of the
+Content Security Policy (CSP).
+You can indicate this by setting the field name
+<tt>contentSecurityPolicy</tt> to a value.
+This value is another object. This would look like this:
+
+<pre>
+app.use(helmet({
+  contentSecurityPolicy: {
+  }
+}));
+</pre>
+
+<p>
+The value object for <tt>contentSecurityPolicy</tt>
+can itself have various fields, including
+the field <tt>directives</tt>.
+This field <tt>directives</tt> in turn takes a JavaScript object
+as its value.
+
+<p>
+The object of the <tt>directives</tt> field
+can take many string keys. In our case we'll want to set two:
+
+* "script-src"
+* "style-src"
+
+Note that these keys are strings, so you need to quote them.
+In the case of "script-src", for our purposes set it to the array
+<tt>["'self'", "https://example.com"]</tt>
+while for "style-src" set it to <tt>["'self'"]</tt>.
+
+<!--
+???
+<pre>
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      "script-src": ["'self'", "https://example.com"],
+      "style-src": ["'self'"]
+    },
+  }
+}));
+</pre>
+
+Please change the code below so the query parameter
+<tt>id</tt> <i>must</i> be an integer between 1 and 9999 (including
+those numbers).
+
+<p>
+To do that,
+after the first parameter to <tt>app.get</tt>
+which says <tt>'/invoices'</tt>,
+add a new comma-separated parameter.
+Start this new parameter with
+<tt>query('id')</tt> to select the
+<tt>id</tt> parameter for validation (we've filled in this part
+to help get you started).
+After <tt>query('id')</tt> (and before the terminating comma),
+add a period (<tt>.</tt>) and the validation requirement
+<tt>isInt()</tt> (<tt>isInt</tt> validates that the named parameter is
+an integer).
+The <tt>isInt</tt> method takes, as an optional parameter inside
+its parentheses,
+an object providing a minimum and maximum, e.g.,
+<tt>isInt({min: YOUR_MINIMUM, max: YOUR_MAXIMUM})</tt>.
+Set <tt>min</tt> and <tt>max</tt> to specify the allowed range.
+
+<p>
+Note: JavaScript names are case-sensitive, so <tt>isint</tt> won't work.
+Remember to indicate the end of this parameter with a comma
+(our starter text does this).
+
+<p>
+You can use the buttons below to ask for a hint, reset the
+input to its initial state, or give up (and show an answer) -
+but please try to do this on your own!
+
+<p>
+// Based on https://helmetjs.github.io/
+// npm install helmet ; version 7.1.0
+
+// Use require(), not import..from, so it works in more places.
+//
+// In helmet 7.1.0 the CSP defaults are:
+// Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+// 'unsafe-inline'
+//
+// Run with:
+//   node csp1.js
+// Then view with:
+//   curl --verbose 'http://localhost:3000'
+-->
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+<p>
+<form id="lab">
+<pre>
+const express = require("express");
+<input id="attempt0" type="text" size="70" value="const"> 
+
+const app = express();
+
+// Use Helmet to insert hardening headers
+<textarea id="attempt1" rows="10" cols="70">
+app.use(
+);
+</textarea>
+
+app.get("/", (req, res) => {
+  res.send("Hello world!");
+});
+
+app.listen(3000);
+</pre>
+<button type="button" id="hintButton">Hint</button>
+<button type="button" id="resetButton">Reset</button>
+<button type="button" id="giveUpButton">Give up</button>
+</form>
+
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
