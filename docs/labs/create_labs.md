@@ -128,6 +128,28 @@ Most YAML mechanisms don't permit leading spaces. If you want to express
 at the beginning of a line that you want to match 0 or more spaces, use
 `\s*` followed by a space to express it.
 
+### Expressing JavaScript code patterns
+
+If you're defining a pattern to match an answer that is a
+snippet of JavaScript code, here are some tips:
+
+* Escape regex symbols by putting \ before them.
+  These are <tt>. ( ) [ ] { } | + * ? \ </tt>
+* Most language tokens should be separated by a space, e.g., foo \(
+* If the language *requires* a space, use \s+, e.g.,
+  <tt>const\s+helmet</tt>
+* Put <tt>\s*</tt> at the beginning of each line in the correct pattern,
+  in case we want to move that to YAML later.
+* JavaScript constant strings can be surrounded by <tt>" ' `</tt>
+* JavaScript allows trailing commas at the end of
+  the list in a literal array, as well as in
+  the key-value pairs in object literal syntax.
+  Use <tt> ,? </tt> to permit them.
+* End it with <tt>\s*</tt> to allow trailing whitespace.
+
+It's impractical to match all possibilities, e.g., <tt>1</tt> can be
+written as <tt>(5-4)</tt>, but that would be an absurd thing to do.
+
 ### Other info
 
 The id `info` can provide other optional information.

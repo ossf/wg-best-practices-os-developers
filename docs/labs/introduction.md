@@ -29,9 +29,11 @@ We'll often fill in other parts, so you can focus on the
 specific issues we're discussing.
 
 Many labs compare your attempt against a pattern for an expected
-correct answer. In many cases you can find an obscure way to write
+correct answer. We expect you to write your answer in a
+*simple* and *clear* way that matches the style of any surrounding code.
+In many cases you can find an obscure way to write
 code that would produce the correct result yet not be considered correct.
-For example, instead of writing `1` you could write `(2-1)` or
+For example, instead of writing `1` you could write `(5-4)` or
 `0x1`. We believe it's defensible that these other answers are incorrect.
 We are looking for code that is *simple* and *clear*, not just
 code that would produce the correct answer.

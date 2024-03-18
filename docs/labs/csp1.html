@@ -27,7 +27,7 @@ app.use(helmet({
 
 <!-- Full pattern of correct answer -->
 <script id="correct0" type="plain/text">
-\s* const helmet = require \( ("helmet"|'helmet'|`helmet`) \) ; \s*
+\s* const\s+helmet = require \( ("helmet"|'helmet'|`helmet`) \) ; \s*
 </script>
 <!--
 \s* const helmet = require \( ("helmet"|'helmet'|`helmet`) \) ; \s*
@@ -57,6 +57,24 @@ app.use(helmet({
 <script id="info" type="application/yaml">
 ---
 hints:
+- present: "import"
+  text: Yes, many JavaScript implementations support an import statement.
+    However, in this exercise we will use a require form. Please use that
+    instead.
+  examples:
+  - - 'import express from "express";'
+- absent: "const"
+  text: Start with const.
+- absent: 'const\s+helmet ='
+  text: Create a constant name named helmet using the form const helmet = ...
+  examples:
+  - - 'const'
+  - - 'consthelmet = '
+- present: 'require \( helmet \)'
+  text: The parameter of a requirement statement must be string.
+    Surround the term helment with double-quotes.
+  examples:
+  - - '  const helmet = require(helmet);'
 - absent: "; $"
   text: JavaScript doesn''t require semicolon terminators, but the rest of
     the code uses them. You should try to match a coding style when modifying
@@ -64,6 +82,9 @@ hints:
     Please update the first statment.
   examples:
   - - '  const helmet = require("helmet")'
+- absent: '\s* app \. use \( helmet \( \{'
+  index: 1
+  text: Your code should begin with app.use(helmet({
 - absent: "; $"
   index: 1
   text: JavaScript doesn''t require semicolon terminators, but the rest of
@@ -146,7 +167,8 @@ In this exercise, we'll add security headers to a server-side
 web application.
 This server-side program is written in JavaScript using the
 Express framework (version 4).
-We'll be using the <tt>helmet</tt> library, which
+We'll be using the
+<a href="https://helmetjs.github.io/"><tt>helmet</tt></a> library, which
 helps add hardening headers to Express applications.
 
 <p>
@@ -206,15 +228,50 @@ as its value.
 
 <p>
 The object of the <tt>directives</tt> field
-can take many string keys. In our case we'll want to set two:
+can take one or more keys. In our case we'll want to set two:
 
-* "script-src"
-* "style-src"
+<ul>
+<li>"script-src": This will set the
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src">CSP script-src directive</a>,
+which specifies valid sources for JavaScript for the client to run.
+Like any security setting, you want to minimize these privileges.
+<li>"style-src": This will set the CSP style-src directive, which specifies
+where styles can be loaded from.
+</ul>
 
-Note that these keys are strings, so you need to quote them.
+<p>
+One quirk about JavaScript syntax: keys that have a dash ("-")
+character in it, like these, must be represented as strings
+(surround the term with double quotes).
+
+<p>
 In the case of "script-src", for our purposes set it to the array
-<tt>["'self'", "https://example.com"]</tt>
-while for "style-src" set it to <tt>["'self'"]</tt>.
+<tt>["'self'", "https://example.com"]</tt>.
+This means that JavaScript can be run from either this server
+<i>or</i> from the website
+<tt>https://example.com</tt> - and nowhere else.
+Note that <tt>'self'</tt> is itself quoted.
+We could have also included
+"unsafe-inline" which would allow the use of inline JavaScript.
+However, we won't do that in this example, because it's much safer
+to <i>not</i> include "unsafe-inline".
+When a CSP "script-src" value is set, and it doesn't include
+"unsafe-inline", that means that JavaScript embedded in some HTML
+will <i>not</i> be executed.
+This is great for security; often attackers can trick servers into
+slipping something into some generated HTML, and this means that if
+it's a script, it won't be executed.
+
+<p>
+Set "style-src" to <tt>["'self'"]</tt> - that states that
+styles can <i>only</i> come from this site (and nowhere else).
+Again, we didn't include
+"unsafe-inline", that means that CSS embedded in the HTML will be ignored.
+Again, this is good for security, because it means that even if an attacker
+tricks a server into embedding some CSS commands, those commands will
+be ignored.
+
+<!-- TODO: Discuss inline -->
 
 <!--
 ???
