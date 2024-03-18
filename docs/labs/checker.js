@@ -114,9 +114,9 @@ function findHint(attempt) {
     // Find a matching hint (matches present and NOT absent)
     for (hint of hints) {
       if ((!hint.presentRe ||
-           hint.presentRe.test(attempt[hint.entry])) &&
+           hint.presentRe.test(attempt[hint.index])) &&
           (!hint.absentRe ||
-           !hint.absentRe.test(attempt[hint.entry]))) {
+           !hint.absentRe.test(attempt[hint.index]))) {
         return hint.text;
       }
     };
@@ -161,7 +161,7 @@ function processHints(requestedHints) {
     // TODO: Do more sanity checking.
     for (let hint of requestedHints) {
         let newHint = {};
-        newHint.entry = hint.entry ? Number(hint.entry) : 0;
+        newHint.index = hint.index ? Number(hint.index) : 0;
         newHint.text = hint.text;
         // Precompile all regular expressions
         if (hint.present) {
@@ -273,6 +273,26 @@ function loadData() {
     if (infoElement) {
         processInfo(infoElement.textContent);
     };
+
+    // Allow "correct" and "expected" to be defined as info fields.
+    if (info.expected != null) {
+        if (expected.length > 0) {
+            alert("Error: Info defines expected value but it's overridden.");
+	} else if (!(info.expected instanceof Array)) {
+            alert('Error: Info expected hints must be array.');
+        } else {
+            expected = info.expected.map((s) => trimNewlines(s));
+        };
+    };
+    if (info.correct != null) {
+        if (correct.length > 0) {
+            alert("Error: Info defines correct value but it's overridden.");
+	} else if (!(info.correct instanceof Array)) {
+            alert('Error: Info correct hints must be array.');
+        } else {
+            correct = info.correct.map((s) => trimNewlines(s));
+        };
+    };
     if (info.debug) {
         alert(`DEBUG: Pattern for correct answer:\n${correctRe}`);
     };
@@ -280,8 +300,10 @@ function loadData() {
 
 function initPage() {
     loadData();
+
     // Run a selftest on page load, to prevent later problems
     runSelftest();
+
     // Set up user interaction for all attempts.
     let current = 0;
     while (true) {
@@ -311,6 +333,7 @@ function initPage() {
             giveUpButton.title = 'Give up and show an answer.';
         }
     }
+
     // Run check of the answer so its visual appearance matches its content.
     runCheck();
 }
