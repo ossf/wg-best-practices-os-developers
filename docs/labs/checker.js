@@ -64,7 +64,7 @@ function calcMatch(attempt, correct = correctRe) {
     }
     for (let i = 0; i < correct.length; i++) {
         // If we find a failure, return false immediately (short circuit)
-        if (!correct[i].test(attempt)) return false;
+        if (!correct[i].test(attempt[i])) return false;
     }
     // Everything passed.
     return true;
@@ -209,8 +209,17 @@ function runSelftest() {
     if (calcMatch(attempt, correctRe)) {
         alert('Lab Error: Initial attempt value is correct and should not be!');
     };
+
     if (!calcMatch(expected, correctRe)) {
         alert('Lab Error: expected value is incorrect and should be correct!');
+        // Provide more info
+        for (let i = 0; i < correctRe.length; i++) {
+            if (!(correctRe[i].test(attempt[i]))) {
+                alert(`Expected value considered incorrect at index ${i}`);
+            } else {
+                alert(`Expected value is fine at index ${i}`);
+            }
+       }
     };
 
     // Run tests in successes and failures, if present
