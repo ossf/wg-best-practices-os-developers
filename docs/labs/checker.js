@@ -124,7 +124,9 @@ function runCheck() {
     }
 }
 
-/** Return the best-matching hint given attempt. */
+/** Return the best-matching hint string given an attempt.
+ * @attempt - array of strings of attempt to give hints on
+ */
 function findHint(attempt) {
     // Find a matching hint (matches present and NOT absent)
     for (hint of hints) {
@@ -257,9 +259,13 @@ function runSelftest() {
     for (let hint of hints) {
         if (hint.examples) {
             for (let example of hint.examples) {
-                actualHint = findHint(example);
+		// Create a testAttempt
+                let testAttempt = expected.slice(); // shallow copy of expected
+                testAttempt[hint.index] = example;
+		// What hint does our new testAttempt give?
+                actualHint = findHint(testAttempt);
                 if (actualHint != hint.text) {
-                    alert(`Lab Error: Unexpected hint! Example ${example} should produce hint ${hint.text} but instead produced ${actualHint}`);
+                    alert(`Lab Error: Unexpected hint!\n\nExample:\n${example}\n\nExpected hint:\n${hint.text}\n\nProduced hint:\n${actualHint}\n\nExpected (passing example)=${JSON.stringify(expected)}\n\ntestAttempt=${JSON.stringify(testAttempt)}\nFailing hint=${JSON.stringify(hint)}`);
                 };
             };
         };
