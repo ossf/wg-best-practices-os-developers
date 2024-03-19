@@ -244,8 +244,10 @@ If you use JSON, remember:
 * JSON does *not* support trailing commas in arrays and dictionaries.
 * Inside a string use \" for double-quote and \\ for backslash.
 
-In YAML, field names with just alphanumerics, underscore, and dash
- don't require quoting.
+You can also use full YAML.
+YAML comments start with "#" and continue to the end of the line.
+Field names with just alphanumerics, underscore, and dash
+don't require quoting (unlike JSON).
 Leading "-&nbsp;-" means an "array of arrays", which happens often
 if you have a single input.
 
@@ -275,7 +277,8 @@ YAML has several ways to indicate strings and other scalar data:
   to ensure it's considered a string.
   See the YAML specification for details.
 
-Here is some YAML:
+Here is some YAML followed by its equivalent JSON, to clarify
+how YAML works:
 
 ~~~~yaml
 test1: |
@@ -332,3 +335,38 @@ Here is its JSON equivalent:
 You can use
 [convert yaml to json](https://onlineyamltools.com/convert-yaml-to-json)
 to interactively experiment with YAML.
+
+## Preventing problems
+
+As always, it's best to try to
+make smaller changes, test them, and once they work
+check them in. That way you won't need to debug a long complicated
+set of changes.
+
+Please create tests! You can create test cases for attempts
+(`successes` should pass, `failures` should fail), and test cases
+to ensure the hints work correctly.
+Remember, hints are checked in order - it's possible to create a hint
+that won't trigger because something earlier would always match.
+These tests are automatically checked every time the page is (re)loaded.
+
+## Debugging
+
+Sadly, sometimes things don't work; here are some debugging tips for labs.
+
+IF you open a page and the text entries don't have color, there
+was a serious problem loading things (e.g., the JavaScript code or
+YAML info has a syntax error).
+Use your browser's Developer Tools to show details.
+In Chrome, this is More Tools -> Developer Tools -> (Console Tab).
+In Firefox, this is More Tools -> Web Developer Tools -> (Console Tab).
+You may need to further open specifics to see them.
+If you're running locally, you can ignore the error
+"Failed to load resource: net::ERR_FILE_NOT_FOUND /assets/css/style.css:1",
+this reports an attempt to load a file that's hosted on GitHub pages,
+and that page is unlikely to exist on your local machine.
+
+You can set the optional info "debug" field to true.
+This will display information, particularly on its inputs.
+This can help you track down a problems if you think your
+inputs are being interpreted in a way different than you expect.

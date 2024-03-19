@@ -82,6 +82,7 @@ failures:
 - - " query,"
 - - 'query(''id'').isint({min: 1, max: 9999})'
 - - 'query(''id'').isInt({min: 1, max: 9999})'
+# debug: true
 </script>
 <!--
 
@@ -205,7 +206,9 @@ app.get('/invoices',
 <button type="button" id="hintButton">Hint</button>
 <button type="button" id="resetButton">Reset</button>
 <button type="button" id="giveUpButton">Give up</button>
-
+<br><br>
+<textarea id="debugData" rows="20" cols="70" readonly style="display: none;">
+</textarea>
 </form>
 
 </div><!-- End GitHub pages formatting -->
