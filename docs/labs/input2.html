@@ -36,66 +36,53 @@ The following define hints. Hints are expressed in a JSON array, so:
   - All field names and value strings must be quoted
   - commas must *separate* the entries - last one must NOT have a comma.
 -->
-<script id="info" type="plain/text">
-{
- "hints" : [
-  {
-    "absent": ", $",
-    "text": "This is a parameter, it must end with a comma."
-  },
-  {
-    "absent": "query \\( [\"'`]id[\"'`] \\)",
-    "text": "Use query() with an 'id' parameter."
-  },
-  {
-    "present": "query \\( [\"'`]id[\"'`] \\) [^. ]",
-    "text":
-      "After query(\"id\") use a period to invoke a verification method."
-  },
-  {
-    "present": "(islength|Islength|IsLength|ISLENGTH)",
-    "text":
-      "JavaScript is case-sensitive. Use isLength instead of the case you have."
-  },
-  {
-    "absent": "isLength",
-    "text": "Use isLength()."
-  },
-  {
-    "present": "isLength \\( m",
-    "text": "You need to pass isLength() an object within {...}."
-  },
-  {
-    "absent": "matches",
-    "text": "Use matches()."
-  },
-  {
-    "present": "matches \\( /[^^]",
-    "text": "Match the whole string - begin the regular expression with ^"
-  },
-  {
-    "present": "matches \\( /.*[^$]/",
-    "text": "Match the whole string - end the regular expression with $"
-  },
-  {
-    "present": "matches \\( /\\^\\[A-Z\\]-",
-    "text": "That would match only one letter before the dash, you need two."
-  },
-  {
-    "present": "matches \\( /.*(\\[0-9\\]|\\d)\\*",
-    "text": "You need to match one or more digits; * allows 0 or more. A + would be better suited for this task."
-  }
- ],
- "successes": [
-    ["query(`id`).isLength( {max:80}).matches(/^[A-Z]{2}-\\d+-[0-9]+$/),"]
- ],
- "failures": [
-    ["query('id').isLength({max:80}).matches( /^[A-Z]{2}-[0-9]+- [0-9]+$/ ),"],
-    ["query('id').isLength().matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),"],
-    ["query('id').isLength({max:80}).matches( /[A-Z]{2}-[0-9]+-[0-9]+/ ),"],
-    ["query(`id`).isLength( {max:80}).matches(/^[A-Z]{2}-\\d+-[0-9]+$/)"]
- ]
-}
+<script id="info" type="application/yaml">
+---
+hints:
+- absent: ", $"
+  text: This is a parameter, it must end with a comma.
+- absent: |
+    query \( ["'`]id["'`] \)
+  text: "Use query() with an 'id' parameter."
+- present: |
+    query \( ["'`]id["'`] \) [^. ]
+  text: 'After query("id") use a period to invoke a verification method.'
+- present: |
+    (islength|Islength|IsLength|ISLENGTH)
+  text: >
+    JavaScript is case-sensitive. Use isLength instead of the case you have.
+- absent: isLength
+  text: "Use isLength()."
+- present: |
+    isLength \( m
+  text: "You need to pass isLength() an object within {...}."
+- absent: matches
+  text: "Use matches()."
+- present: |
+    matches \( /[^^]
+  text: "Match the whole string - begin the regular expression with ^"
+- present: |
+    matches \( /.*[^$]/
+  text: "Match the whole string - end the regular expression with $"
+- present: |
+    matches \( /.*[^$]/
+  text: Match the whole string - end the regular expression with $
+- present: |
+    matches \( /\^\[A-Z\]-
+  text: That would match only one letter before the dash, you need two.
+- present: |
+    matches \( /.*(\[0-9\]|\d)\*
+  text: >
+    You need to match one or more digits; * allows 0 or more.
+    A + would be better suited for this task.
+successes:
+- - query(`id`).isLength( {max:80}).matches(/^[A-Z]{2}-\d+-[0-9]+$/),
+- - '  query (`id`) . isLength( {max:80}).matches(/^[A-Z]{2}-\d+-[0-9]+$/ ) ,  '
+failures:
+- - query('id').isLength({max:80}).matches( /^[A-Z]{2}-[0-9]+- [0-9]+$/ ),
+- - query('id').isLength().matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),
+- - query('id').isLength({max:80}).matches( /[A-Z]{2}-[0-9]+-[0-9]+/ ),
+- - query(`id`).isLength( {max:80}).matches(/^[A-Z]{2}-\d+-[0-9]+$/)
 </script>
 </head>
 <body>
