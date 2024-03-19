@@ -204,11 +204,6 @@ function processInfo(configurationInfo) {
 
     let parsedData = jsyaml.load(configurationInfo);
 
-    if (parsedData.debug) {
-        let asJSONString = JSON.stringify(parsedData);
-        alert(`DEBUG: Loaded info as this JSON:\n${asJSONString}`);
-    };
-
     // Set global variable
     info = parsedData;
     if (parsedData && parsedData.hints) {
@@ -323,9 +318,6 @@ function loadData() {
             correct = info.correct.map((s) => trimNewlines(s));
         };
     };
-    if (info.debug) {
-        alert(`DEBUG: Pattern for correct answer:\n${correctRe}`);
-    };
 }
 
 function initPage() {
@@ -363,6 +355,25 @@ function initPage() {
             giveUpButton.title = 'Give up and show an answer.';
         }
     }
+    if (info.debug) {
+        let debugOutput = (
+           "DEBUG DATA:\n\nPATTERN FOR CORRECT ANSWER:\n" +
+           correctRe.join("\n\n") +
+           "\n\nSAMPLE EXPECTED ANSWER:\n" +
+           expected.join("\n\n") +
+           `\n\nINFO SECTION (as JSON):\n${JSON.stringify(info, null, 2)}\n`
+        );
+        debugDataRegion = document.getElementById('debugData');
+        if (debugDataRegion) {
+            // Use textContent to see the raw unfiltered results
+            debugDataRegion.textContent = debugOutput;
+            debugDataRegion.style.display = 'block';
+        } else {
+            // Debug data requested, but we have nowhere to put it.
+            // Show the debug data as an alert instead.
+            alert(debugOutput);
+        };
+    };
 
     // Run check of the answer so its visual appearance matches its content.
     runCheck();
