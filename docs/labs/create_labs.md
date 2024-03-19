@@ -120,7 +120,7 @@ read, the regex pattern for each correct answer is preprocessed as follows:
   (e.g., a `\s*` can be preceded and/or appended by spaces and tabs).
 * You *can* use a space at the end of a line
   to mean "0 or more spaces", but don't do that, since it's not
-  usually visible. Use ` \s*` instead.
+  usually visible. Use a space followed by `\s*` instead.
 * If your answer is in JavaScript, you probably want to begin the answer
   with `\s*` followed by space to indicate "0 or more spaces are allowed here".
   Most tokens should also be separated by a space, to indicate that they're
@@ -274,7 +274,7 @@ YAML has several ways to indicate strings and other scalar data:
 
 Here is some YAML:
 
-~~~~
+~~~~yaml
 test1: |
   \s* foo
     \( x \) \;? \s*
@@ -297,7 +297,8 @@ test8:
 ~~~~
 
 Here is its JSON equivalent:
-~~~~
+
+~~~~json
 {
   "test1": "\\s* foo\n  \\( x \\) \\;? \\s*\n",
   "test2": "This is some text.\nHere is more.\n",
@@ -327,4 +328,4 @@ Here is its JSON equivalent:
 
 You can use
 [convert yaml to json](https://onlineyamltools.com/convert-yaml-to-json)
-to try out YAML.
+to interactively experiment with YAML.
