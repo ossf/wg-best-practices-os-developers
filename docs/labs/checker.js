@@ -11,14 +11,29 @@ let expected = []; // Array of an expected (correct) answer
 let info = {}; // General info
 let hints = []; // Array of hint objects
 
+// This array contains the default pattern preprocessing commands, in order.
+// We process every pattern through these (in order) to create a final regex
+// to be used to match a pattern.
+// We preprocess regexes so the pattern language we use is simpler;
+// we can also use preprocessing to optimize the resulting performance.
+// Each item in the array has two elements: a regex and its replacement.
+// In other words, these are regexes that process regexes
+// (so that we can use a simpler input pattern language)
+// In the future we may allow people to define their *own* sequence of
+// preprocessing commands, to make certain languages easier to handle
+// (e.g., Python).
+let preprocessRegexes = [
+  [/[\n\r]+/g, ''],
+  [/(\\s\*)?\s+(\\s\*)?/g, '\\s*']
+];
+
 /**
- * Trim newlines (LF or CR) from beginning and end of given String.
+ * Trim LF and CR from beginning and end of given String.
  */
 function trimNewlines(s) {
     return ((s + '').replace(/^[\n\r]+/, '')
             .replace(/[\n\r]+$/, ''));
 }
-
 
 function escapeHTML(unsafe)
 {
@@ -42,12 +57,16 @@ function escapeHTML(unsafe)
  * and we'll encourage that as the alternative.
  */
 function processRegex(regexString, fullMatch = true) {
-    let processedRegexString = (
-                  regexString.replace(/[\n\r]+/g,'')
-                             .replace(/(\\s\*)?\s+(\\s\*)?/g,'\\s*')
-                  );
+    let processedRegexString = regexString;
+    for (preprocessRegex of preprocessRegexes) {
+        processedRegexString = processedRegexString.replace(
+          preprocessRegex[0], preprocessRegex[1]
+        );
+    };
     if (fullMatch) {
-        processedRegexString = '^' + processedRegexString + '$';
+        // Use non-capturing group, so if someone uses ..|.. it will
+        // work correctly and the first capturing (...) will be the first.
+        processedRegexString = '^(?:' + processedRegexString + ')$';
     }
     return new RegExp(processedRegexString);
 }
@@ -206,6 +225,18 @@ function processInfo(configurationInfo) {
 
     // Set global variable
     info = parsedData;
+
+    // Set up pattern preprocessing, if set. ADVANCED USERS ONLY.
+    // This must be done *before* we load any patterns.
+    if (info.preprocessing) {
+        preprocessRegexes = []
+        for (let preprocess of info.preprocessing) {
+            let addition = [new RegExp(preprocess[0], 'g'), preprocess[1]]
+            preprocessRegexes.push(addition);
+        };
+    };
+
+    // Set up hints
     if (parsedData && parsedData.hints) {
         hints = processHints(parsedData.hints);
     };
@@ -271,6 +302,14 @@ function runSelftest() {
  * Load data from HTML page and initialize our local variables from it.
  */
 function loadData() {
+    // If there is info (e.g., hints), load it & set up global variable hints.
+    // We must load info *first*, because it can affect how other things
+    // (like pattern preprocessing) is handled.
+    let infoElement = document.getElementById('info');
+    if (infoElement) {
+        processInfo(infoElement.textContent);
+    };
+
     // Set global correct and expected arrays
     let current = 0;
     while (true) {
@@ -292,11 +331,6 @@ function loadData() {
         expected.push(trimNewlines(
             document.getElementById('expected' + current).textContent));
         current++;
-    };
-    // If there is info (e.g., hints), set up global variable hints.
-    let infoElement = document.getElementById('info');
-    if (infoElement) {
-        processInfo(infoElement.textContent);
     };
 
     // Allow "correct" and "expected" to be defined as info fields.
@@ -361,7 +395,8 @@ function initPage() {
            correctRe.join("\n\n") +
            "\n\nSAMPLE EXPECTED ANSWER:\n" +
            expected.join("\n\n") +
-           `\n\nINFO SECTION (as JSON):\n${JSON.stringify(info, null, 2)}\n`
+           `\n\nINFO SECTION (as JSON):\n${JSON.stringify(info, null, 2)}\n\n` +
+           `\nPREPROCESS REGEXES:\n${preprocessRegexes.join("\n")}`
         );
         debugDataRegion = document.getElementById('debugData');
         if (debugDataRegion) {

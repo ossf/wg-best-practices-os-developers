@@ -115,8 +115,12 @@ Another problem is that regexes can be hard to read if they are long
 or must often match whitespace.
 A "whitespace" is a character that is a space character, tab character,
 newline, or return character.
-To make the correct answer regexes easier to enter and
-read, the regex pattern for each correct answer is preprocessed as follows:
+
+Our solution is that we *preprocess* the regular expressions
+to make them easier to enter and read.
+
+By default, the regex pattern for each correct answer
+and each hint is preprocessed as follows:
 
 * The user's `answer` must match the *entire* corresponding
   `correct` value. In other words,
@@ -451,3 +455,33 @@ You can set the optional info "debug" field to true.
 This will display information, particularly on its inputs.
 This can help you track down a problems if you think your
 inputs are being interpreted in a way different than you expect.
+
+## Advanced use: Set preprocessing
+
+For most programming languages the default regex preprocessing
+should be fine.
+
+However, it's possible that the default preprocessing is inconvenient for you.
+In particular, I suspect an alternative might be better for Python.
+Can you can define your own preprocessing sequence.
+This is *advanced* - hopefully you won't need to do it.
+
+To do this, set the `preprocessing` field to an array.
+Each array element should be an array of a regular expression (as a string)
+and the string that will replace each match.
+I suggest using "|-" in YAML (stripping the trailing newlines)
+for the patterns.
+
+Here is an example:
+
+~~~~yaml
+preprocessing:
+  - 
+    - |-
+        [\n\r]+
+    - ""
+  -
+    - |-
+        (\\s\*)?\s+(\\s\*)?
+    - "\\s*"
+~~~~
