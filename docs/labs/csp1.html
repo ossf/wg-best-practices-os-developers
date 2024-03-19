@@ -116,10 +116,12 @@ hints:
       contentSecurityPolicy: {
             directives: {
               "script-src": ["'self'", "https://example.com"],
-- absent: "style-src": \[ "'self'" \]
+- absent: |
+    "style-src": \[ "'self'" \]
   index: 1
-  text: Don't forget to include "style-src": ["'self'"]
-- absent: "; $"
+  text: |
+    Don't forget to include "style-src": ["'self'"]
+- absent: '; $'
   index: 1
   text: JavaScript doesn''t require semicolon terminators, but the rest of
     the code uses them. You should try to match a coding style when modifying
