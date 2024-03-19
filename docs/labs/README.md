@@ -10,6 +10,8 @@ Here are the labs available:
 * [csp1](csp1.html).
 
 See [create labs](create_labs) if you want to learn how to create labs.
+In particular, that page will link to how to
+[create labs using checker](create_checker).
 
 To submit new or updated labs, create a pull request on the
 [OpenSSF Best Practices WG](https://github.com/ossf/wg-best-practices-os-developers/)
