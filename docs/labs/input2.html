@@ -18,13 +18,15 @@
      constructs like \d for digits and {1,} instead of +.  -->
 <script id="correct0" type="plain/text">
 \s* query \( ('id'|"id"|`id`) \)
-\s*  \. isLength \( \{ max: 80 ,? \} \)
-\s*  \. matches \(
-\s* \/\^
-\[A-Z\](\{2\}|\[A-Z\])-
-(\[0-9\]|\\d)(\+|\{1,\})-
+     \. isLength \( \{ max: 80 ,? \} \)
+     \. matches \(
+        \/\^
+\[A-Z\](\{2\}|\[A-Z\])
+-
+(\[0-9\]|\\d)(\+|\{1,\})
+-
 (\[0-9\]|\\d)(\+|\{1,\})\$\/
-\s* \) , \s*
+    \) , \s*
 </script>
 
 <!--
