@@ -8,21 +8,21 @@ their exercises - they don't need to install anything, they don't need
 to create an account somewhere, and we don't have to run arbitrary code
 provided from users on some server.
 
-The current system we implement is called `checker`,
+The current system we implement is called `checker.js`,
 There may be other systems you can also use in the future.
 
-## checker
+## checker.js
 
-The current system we implement, `checker`,
-represents a lab exercise in an HTML file.
+The current system we implement, `checker.js`,
+represents each lab exercise in an HTML file.
 You define a pattern that the correct answer must match
-using regular expressions;
-it does *not* run arbitrary code written by the user.
+using regular expressions (as well as a example of an expected answer).
+This system does *not* run arbitrary code written by the user.
 You can also provide patterns for various hints.
 
 The HTML file of a given lab is expected to:
 
-* Describe the exercise
+* Describe the exercise (in HTML text)
 * Provide the exercise itself as a form
 * Identify where the user will fill in answer(s) (id `attempt0` etc.)
 * Provide information about the lab, in particular:
@@ -30,7 +30,13 @@ The HTML file of a given lab is expected to:
   * Provide the pattern of a correct answer (id `correct0` etc.)
   * Optionally provide other information such as tests and hints (id `info`)
 
-An easy way create another lab is to copy
+The system is implemented by the client-side JavaScript file `checker.js`.
+
+We strongly urge you to first work out the basic lab and what
+a *correct* answer would look like. Others can help you create the pattern
+that describes a correct answer.
+
+An easy way implement a lab is to copy
 [input1.html](input1.html) and modify it for your situation.
 See [input1.html](input1.html) and [input2.html](input2.html)
 for examples.
@@ -40,8 +46,9 @@ At the least, it checks that the initial attempted answer does
 *not* satisfy the correct answer pattern, while the example expected answer
 *does* satisfy the correct answer pattern.
 
-We suggest including the buttons as shown in the examples;
-the code will automatically set up the buttons if they are present.
+We suggest including the buttons (Hint, Reset, and Give up)
+as shown in the examples.
+The code will automatically set up the buttons if they are present.
 
 ### Quick aside: script tag requirements
 
@@ -97,14 +104,17 @@ We've taken several steps to make it easier to read regex patterns.
 One traditional problem with regexes is that they
 often have a lot of backslashes.
 In many formats (e.g., JSON) those backslashes have to be backslashed,
-leading to a problem known as
+leading to a problem sometimes known as
 <a href="https://www.explainxkcd.com/wiki/index.php/1638:_Backslashes"
 >the true name of Ba'all the soul-eater</a>.
 We solve this by allowing patterns to be expressed either directly
-in script tags or in YAML.
+in script tags or in YAML (which has input formats that doesn't require
+backslashing the backslashes).
 
 Another problem is that regexes can be hard to read if they are long
 or must often match whitespace.
+A "whitespace" is a character that is a space character, tab character,
+newline, or return character.
 To make the correct answer regexes easier to enter and
 read, the regex pattern for each correct answer is preprocessed as follows:
 
@@ -130,7 +140,25 @@ read, the regex pattern for each correct answer is preprocessed as follows:
   a space character.
   As usual, append "+" to either if you want to require "1 or more".
 
-Patterns can be a YAML format (described below).
+Typical regex languages do not have a built-in way to indicate
+"all of the following patterns are required, and use this pattern as the
+separator".
+It would be *awesome* if it did
+(e.g., for listing multiple fields in JavaScript object).
+If they're short and there are only two options you can list both.
+You can also require a specific order, explaining the text the order you want
+and possibly providing hints if they use a "wrong" order.
+The *simplest* approach is to require a specific order.
+
+If you *really* want to allow arbitrary orders, you can use
+lookahead matching as described in
+[Matching several things (in no particular order) using a single regex](https://perlancar.wordpress.com/2018/10/05/matching-several-things-in-no-particular-order-using-a-single-regex/).
+This approach has a flaw: it will match some kinds of *wrong* text
+as well as accepting correct text.
+You can greatly reduce this by requiring a strict *general* pattern after
+defining the lookahead patterns for all required specific answers.
+If you need that kind of order flexibility for longer lists, that is the
+best approach I've found.
 
 ### Expressing JavaScript code patterns
 
@@ -152,7 +180,60 @@ snippet of JavaScript code, here are some tips:
 * End it with <tt>\s*</tt> to allow trailing whitespace.
 
 It's impractical to match all possibilities, e.g., <tt>1</tt> can be
-written as <tt>(5-4)</tt>, but that would be an absurd thing to do.
+written as <tt>(5-4)</tt>, but that would be an absurd thing for a
+student to do.
+
+### Example pattern
+
+Here's an example pattern for matching a correct answer:
+
+~~~~regex
+\s* query \( ('id'|"id"|`id`) \) \.
+    isInt \( \{ min: 1 , max: 9_?999 ,? \} \) , \s*
+~~~~
+
+Here's an explanation of this pattern:
+
+1. We start with `\s*` followed by a space
+   to indicate that 0 or more whitespace at the beginning is fine.
+   We could just use a leading space, but that indent might not be noticed,
+   and it doesn't work well with YAML.
+
+2. The word `query` matches the word "query" and nothing else
+   (not even `Query`). Notice the space after it - that means
+   0 or more whitespace is allowed after the word "query".
+
+3. The sequence `\(` matches one open parenthesis.
+   A parentheses have a special meaning it regexes
+   (they group patterns), so to match a literal open parenthesis
+   you must precede it with a backslash.
+   Note the space afterwards, which again will match 0 or more whitespace.
+
+4. The sequence `('id'|"id"|&#96;id&#96;)`
+   uses parentheses to group things together.
+   The `|` means "or".
+   This that one of the following patterns is allowed:
+   `'id'` or `"id"` or `&#96;id&#96` (and nothing else).
+   Again, the space after it means 0+ spaces are allowed.
+
+5. The `\)` matches a literal close parenthesis,
+   while `\.` matches a literal period.
+
+6. The sequence of indented spaces means that 0 or more spaces are allowed
+   here. We've covered patterns like `isInt` and `\(`.
+   A `\{` matches a literal open brace, and so on.
+
+7. The pattern `9_?999` means a nine, an optional `_`
+   (`?` means the preceding pattern is optional), and three more `9`
+   characters. JavaScript numbers allow `_` in them as a separator, and
+   some might use that in a thousands column.
+   Similarly, `,?` means that the (trailing) comma in this position
+   is optional.
+
+8. The final `\s*` with a space before it matches 0 or more spaces.
+   We could end the line with a space, but it wouldn't be visible.
+   By ending the last pattern with `\s*` we make it clear that
+   trailing whitespace is allowed at the end.
 
 ### Other info
 
