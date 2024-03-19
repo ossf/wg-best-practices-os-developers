@@ -11,7 +11,7 @@ let expected = []; // Array of an expected (correct) answer
 let info = {}; // General info
 let hints = []; // Array of hint objects
 
-// This array contains the pattern preprocessing commands, in order.
+// This array contains the default pattern preprocessing commands, in order.
 // We process every pattern through these (in order) to create a final regex
 // to be used to match a pattern.
 // We preprocess regexes so the pattern language we use is simpler;
@@ -28,7 +28,7 @@ let preprocessRegexes = [
 ];
 
 /**
- * Trim newlines (LF or CR) from beginning and end of given String.
+ * Trim LF and CR from beginning and end of given String.
  */
 function trimNewlines(s) {
     return ((s + '').replace(/^[\n\r]+/, '')
@@ -225,6 +225,18 @@ function processInfo(configurationInfo) {
 
     // Set global variable
     info = parsedData;
+
+    // Set up pattern preprocessing, if set. ADVANCED USERS ONLY.
+    // This must be done *before* we load any patterns.
+    if (info.preprocessing) {
+        preprocessRegexes = []
+        for (let preprocess of info.preprocessing) {
+            let addition = [new RegExp(preprocess[0], 'g'), preprocess[1]]
+            preprocessRegexes.push(addition);
+        };
+    };
+
+    // Set up hints
     if (parsedData && parsedData.hints) {
         hints = processHints(parsedData.hints);
     };
@@ -290,6 +302,14 @@ function runSelftest() {
  * Load data from HTML page and initialize our local variables from it.
  */
 function loadData() {
+    // If there is info (e.g., hints), load it & set up global variable hints.
+    // We must load info *first*, because it can affect how other things
+    // (like pattern preprocessing) is handled.
+    let infoElement = document.getElementById('info');
+    if (infoElement) {
+        processInfo(infoElement.textContent);
+    };
+
     // Set global correct and expected arrays
     let current = 0;
     while (true) {
@@ -311,11 +331,6 @@ function loadData() {
         expected.push(trimNewlines(
             document.getElementById('expected' + current).textContent));
         current++;
-    };
-    // If there is info (e.g., hints), set up global variable hints.
-    let infoElement = document.getElementById('info');
-    if (infoElement) {
-        processInfo(infoElement.textContent);
     };
 
     // Allow "correct" and "expected" to be defined as info fields.
@@ -380,7 +395,8 @@ function initPage() {
            correctRe.join("\n\n") +
            "\n\nSAMPLE EXPECTED ANSWER:\n" +
            expected.join("\n\n") +
-           `\n\nINFO SECTION (as JSON):\n${JSON.stringify(info, null, 2)}\n`
+           `\n\nINFO SECTION (as JSON):\n${JSON.stringify(info, null, 2)}\n\n` +
+           `\nPREPROCESS REGEXES:\n${preprocessRegexes.join("\n")}`
         );
         debugDataRegion = document.getElementById('debugData');
         if (debugDataRegion) {

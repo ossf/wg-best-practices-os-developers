@@ -82,6 +82,17 @@ failures:
 - - " query,"
 - - 'query(''id'').isint({min: 1, max: 9999})'
 - - 'query(''id'').isInt({min: 1, max: 9999})'
+# ADVANCED use - define our own preprocessing commands.
+# I suggest using "|-" (stripping the trailing newlines)
+# preprocessing:
+#   - 
+#     - |-
+#         [\n\r]+
+#     - ""
+#   -
+#     - |-
+#         (\\s\*)?\s+(\\s\*)?
+#     - "\\s*"
 # debug: true
 </script>
 <!--
