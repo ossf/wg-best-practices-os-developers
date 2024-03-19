@@ -47,7 +47,9 @@ function processRegex(regexString, fullMatch = true) {
                              .replace(/(\\s\*)?\s+(\\s\*)?/g,'\\s*')
                   );
     if (fullMatch) {
-        processedRegexString = '^' + processedRegexString + '$';
+        // Use non-capturing group, so if someone uses ..|.. it will
+        // work correctly and the first capturing (...) will be the first.
+        processedRegexString = '^(?:' + processedRegexString + ')$';
     }
     return new RegExp(processedRegexString);
 }
