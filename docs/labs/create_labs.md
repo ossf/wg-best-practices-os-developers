@@ -415,7 +415,7 @@ Here is its JSON equivalent:
     }
   ]
 }
-~~~
+~~~~
 
 You can use
 [convert yaml to json](https://onlineyamltools.com/convert-yaml-to-json)
