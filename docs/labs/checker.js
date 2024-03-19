@@ -11,6 +11,22 @@ let expected = []; // Array of an expected (correct) answer
 let info = {}; // General info
 let hints = []; // Array of hint objects
 
+// This array contains the pattern preprocessing commands, in order.
+// We process every pattern through these (in order) to create a final regex
+// to be used to match a pattern.
+// We preprocess regexes so the pattern language we use is simpler;
+// we can also use preprocessing to optimize the resulting performance.
+// Each item in the array has two elements: a regex and its replacement.
+// In other words, these are regexes that process regexes
+// (so that we can use a simpler input pattern language)
+// In the future we may allow people to define their *own* sequence of
+// preprocessing commands, to make certain languages easier to handle
+// (e.g., Python).
+let preprocessRegexes = [
+  [/[\n\r]+/g, ''],
+  [/(\\s\*)?\s+(\\s\*)?/g, '\\s*']
+];
+
 /**
  * Trim newlines (LF or CR) from beginning and end of given String.
  */
@@ -18,7 +34,6 @@ function trimNewlines(s) {
     return ((s + '').replace(/^[\n\r]+/, '')
             .replace(/[\n\r]+$/, ''));
 }
-
 
 function escapeHTML(unsafe)
 {
@@ -42,10 +57,12 @@ function escapeHTML(unsafe)
  * and we'll encourage that as the alternative.
  */
 function processRegex(regexString, fullMatch = true) {
-    let processedRegexString = (
-                  regexString.replace(/[\n\r]+/g,'')
-                             .replace(/(\\s\*)?\s+(\\s\*)?/g,'\\s*')
-                  );
+    let processedRegexString = regexString;
+    for (preprocessRegex of preprocessRegexes) {
+        processedRegexString = processedRegexString.replace(
+          preprocessRegex[0], preprocessRegex[1]
+        );
+    };
     if (fullMatch) {
         // Use non-capturing group, so if someone uses ..|.. it will
         // work correctly and the first capturing (...) will be the first.
