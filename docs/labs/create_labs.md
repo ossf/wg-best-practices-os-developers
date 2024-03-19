@@ -226,10 +226,11 @@ matching hint (this helps ensure that the hint order is sensible).
 
 The info section supports
 [YAML format version 1.2](https://yaml.org/spec/1.2.2/).
-<!--
-YAML 1.2 is an improvement over YAML 1.1, e.g., it doesn't have the
-Norway problem.
--->
+YAML 1.2 was released in 2009 and
+is an improvement over YAML 1.1, e.g., YAML 1.2 doesn't have the
+so-called "Norway problem".
+YAML is a widely-used, widely-understood, and widely-implemented format,
+which is why we use it.
 
 YAML is a superset of JSON, so if you'd prefer to write in straight JSON,
 you can do that instead.
@@ -269,7 +270,9 @@ YAML has several ways to indicate strings and other scalar data:
 
 * Otherwise various rules are used to determine its type and interpretation.
   Sequences of digits (no ".") are considered integers.
-  In many cases simple text (without quote marks) is considered a string.
+  In many cases simple text (without quote marks) is considered a string,
+  but consider quoting the text (using any of the other formats)
+  to ensure it's considered a string.
   See the YAML specification for details.
 
 Here is some YAML:
