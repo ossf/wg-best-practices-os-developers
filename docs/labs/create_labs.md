@@ -92,41 +92,45 @@ indicate the many different forms that are all correct. E.g.:
 * Pattern `9_?999` matches `9`, an optional `_`, then `999`.
 
 Regexes are capable, but straightforward regex use might be hard to read.
+We've taken several steps to make it easier to read regex patterns.
+
+One traditional problem with regexes is that they
+often have a lot of backslashes.
+In many formats (e.g., JSON) those backslashes have to be backslashed,
+leading to a problem known as
+<a href="https://www.explainxkcd.com/wiki/index.php/1638:_Backslashes"
+>the true name of Ba'all the soul-eater</a>.
+We solve this by allowing patterns to be expressed either directly
+in script tags or in YAML.
+
+Another problem is that regexes can be hard to read if they are long
+or must often match whitespace.
 To make the correct answer regexes easier to enter and
 read, the regex pattern for each correct answer is preprocessed as follows:
 
-* The user's answer must match the *entire* correct value, though it's
-  okay if the user's answer has extra whitespace at the end.
-  E.g., the correct answer is prepended with `^` and postpended with `$`.
-* End-of-line (newline) is *completely* ignored. You can break up patterns
+* The user's `answer` must match the *entire* corresponding
+  `correct` value. In other words,
+  the correct answer is prepended with `^` and appended with `$`.
+* End-of-line (newline) in a pattern
+  is *completely* ignored. Thus, you can break up patterns
   into multiple lines for readability.
 * Any sequence of 1+ spaces or tabs
   is interpreted as "0 or more whitespace is allowed here".
-  This can also be expressed as `\s*`, but whitespace is much easier to read
-  and this circumstance repeatedly occurs in correct answers.
-* You *can* use a space at the beginning of a line or end of a line
-  to mean "0 or more spaces".
-  Using a space at the end of a line is a terrible idea, since it's not
-  usually visible.
-  Also, many YAML formats can't be used if there is a space at the
-  beginning or end of a line. If you want to indicate "0 or more spaces"
-  at the beginning of a line, we suggest using `\s*` followed by a space
-  (this is optimized).
-  Similarly, use space followed by `\s*` at the end of a line to mean
-  0 or more spaces.
+  This can also be expressed as `\s*`, and you can combine them
+  (e.g., a `\s*` can be preceded and/or appended by spaces and tabs).
+* You *can* use a space at the end of a line
+  to mean "0 or more spaces", but don't do that, since it's not
+  usually visible. Use ` \s*` instead.
 * If your answer is in JavaScript, you probably want to begin the answer
   with `\s*` followed by space to indicate "0 or more spaces are allowed here".
   Most tokens should also be separated by a space, to indicate that they're
   allowed. You should probably end it with a space and then `\s*`
   to indicate trailing whitespace is allowed.
-* Use \s to match one whitespace character, use \x20 to match only
-  and specifically a space character.
+* Use \s to match one (required) whitespace character, use \x20 require
+  a space character.
   As usual, append "+" to either if you want to require "1 or more".
 
-Patterns can be a YAML format.
-Most YAML mechanisms don't permit leading spaces. If you want to express
-at the beginning of a line that you want to match 0 or more spaces, use
-`\s*` followed by a space to express it.
+Patterns can be a YAML format (described below).
 
 ### Expressing JavaScript code patterns
 
@@ -220,7 +224,12 @@ matching hint (this helps ensure that the hint order is sensible).
 
 ### Notes on YAML
 
-The info section supports YAML format.
+The info section supports
+[YAML format version 1.2](https://yaml.org/spec/1.2.2/).
+<!--
+YAML 1.2 is an improvement over YAML 1.1, e.g., it doesn't have the
+Norway problem.
+-->
 
 YAML is a superset of JSON, so if you'd prefer to write in straight JSON,
 you can do that instead.
@@ -234,12 +243,88 @@ If you use JSON, remember:
 * JSON does *not* support trailing commas in arrays and dictionaries.
 * Inside a string use \" for double-quote and \\ for backslash.
 
-In YAML, field keys and simple strings don't require quoting.
+In YAML, field names with just alphanumerics, underscore, and dash
+ don't require quoting.
 Leading "-&nbsp;-" means an "array of arrays", which happens often
 if you have a single input.
 
-A string can be surrounded by double-quotes; inside that, use
-\" for double-quotes and \\ for backslash.
+YAML has several ways to indicate strings and other scalar data:
 
-A string can be surrounded by single-quotes; inside that, use
-'' for a single-quote character (there are otherwise no escapes).
+* You can use "|" to indicate that the following indented text line(s)
+  are to be taken literally (after removing the amount of indentation of the
+  following list, and each line is its own line).
+  This is probably the best mechanism for
+  non-trivial patterns; you don't need to backslash anything.
+  You probably want to use "\s*" to begin the first line of the pattern.
+
+* A ">" means that the following indented text is to be taken literally,
+  but newlines are converted into spaces. You can use a blank line
+  to indicate a newline.
+
+* A string can be surrounded by double-quotes; inside that, use
+  \" for double-quotes and \\ for backslash.
+
+* A string can be surrounded by single-quotes; inside that, use
+  '' for a single-quote character (there are otherwise no escapes).
+
+* Otherwise various rules are used to determine its type and interpretation.
+  Sequences of digits (no ".") are considered integers.
+  In many cases simple text (without quote marks) is considered a string.
+  See the YAML specification for details.
+
+Here is some YAML:
+
+~~~~
+test1: |
+  \s* foo
+    \( x \) \;? \s*
+test2: >
+  This is
+  some text.
+
+  Here is more.
+test3: "Hello\n\n\\\" there."
+test4: 'Hi\n ''there.'
+test5: Simple text.
+test6:
+  - hello
+test7:
+  - - hello
+test8:
+  - mykey: 7
+    examples:
+      - - another test
+~~~~
+
+Here is its JSON equivalent:
+~~~~
+{
+  "test1": "\\s* foo\n  \\( x \\) \\;? \\s*\n",
+  "test2": "This is some text.\nHere is more.\n",
+  "test3": "Hello\n\n\\\" there.",
+  "test4": "Hi\\n 'there.",
+  "test5": "Simple text.",
+  "test6": [
+    "hello"
+  ],
+  "test7": [
+    [
+      "hello"
+    ]
+  ],
+  "test8": [
+    {
+      "mykey": 7,
+      "examples": [
+        [
+          "another test"
+        ]
+      ]
+    }
+  ]
+}
+~~~
+
+You can use
+[convert yaml to json](https://onlineyamltools.com/convert-yaml-to-json)
+to try out YAML.
