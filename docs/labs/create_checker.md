@@ -478,15 +478,24 @@ regex preprocessing commands.
 This functionality is *advanced* - hopefully you won't need to do it.
 
 To do this, set the `preprocessing` field to an array.
-Each array element should be an array of a regular expression (as a string)
-and the string that will replace each match.
-I suggest using "|-" in YAML (stripping the trailing newlines)
-for the patterns, though the system *will* strip leading and trailing
-newlines from patterns regardless.
-The second parameter will be used exactly as it's provided
-(so in YAML use "..." to make it clear).
-If a third parameter is provided it will be used as the flags,
-otherwise 'g' (global) will be used.
+Each array element should itself be an array of:
+
+1. A regular expression (expressed as a string).
+   I suggest using `|-` in YAML (stripping the trailing newlines)
+   for the patterns, though the system *will* strip leading and trailing
+   newlines from patterns regardless to eliminate likely errors with this.
+2. The string that will replace each match.
+   This be used *exactly* as it's provided, so in YAML, I recommend using
+   "..." to make it clear, or at worst `|-` as a prefix.
+   Many YAML forms leave a trailing newline, which can create surprises.
+3. (Optional) Regex flags. If not provided "g" (global) will be used.
+   Do *not* use multiline (`m`) mode! We do matches of entire phrases
+   by surrounding an attempt with `^(?:` on the left and `)$` on the right.
+   JavaScript's default is that `^` matches the beginning of the string and
+   `$` matches the end. However, setting multiline would break this.
+   We can't replace `^` with `\A` and replace `$` with `\z` because
+   these buffer boundary constructs are not in ECMAScript/JavaScript,
+   though there [is a proposal to add them](https://github.com/tc39/proposal-regexp-buffer-boundaries).
 
 Here is an example:
 
