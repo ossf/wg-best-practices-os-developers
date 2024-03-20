@@ -37,63 +37,63 @@ These are the sections that especially call out for labs:
 
 * Input Validation
   * Input Validation Basics
-     * Input Validation Basics Introduction
-     * How Do You Validate Input?
+   * Input Validation Basics Introduction
+   * How Do You Validate Input?
   * Input Validation: Numbers and Text
-     * Input Validation: A Few Simple Data Types
-     * Sidequest: Text, Unicode, and Locales
-     * Validating Text
-     * Introduction to Regular Expressions
-     * Using Regular Expressions for Text Input Validation
-     * Countering ReDoS Attacks on Regular Expressions
+   * Input Validation: A Few Simple Data Types
+   * Sidequest: Text, Unicode, and Locales
+   * Validating Text
+   * Introduction to Regular Expressions
+   * Using Regular Expressions for Text Input Validation
+   * Countering ReDoS Attacks on Regular Expressions
   * Input Validation: Beyond Numbers and Text
-     * Insecure Deserialization
-     * Input Data Structures (XML, HTML, CSV, JSON, & File Uploads)
-     * Minimizing Attack Surface, Identification, Authentication, and Authorization
-     * Search Paths and Environment Variables (including setuid/setgid Programs)
-     * Special Inputs: Secure Defaults and Secure Startup
+   * Insecure Deserialization
+   * Input Data Structures (XML, HTML, CSV, JSON, & File Uploads)
+   * Minimizing Attack Surface, Identification, Authentication, and Authorization
+   * Search Paths and Environment Variables (including setuid/setgid Programs)
+   * Special Inputs: Secure Defaults and Secure Startup
   * Consider Availability on All Inputs
-     * Consider Availability on All Inputs Introduction
+   * Consider Availability on All Inputs Introduction
 * Processing Data Securely
   * Processing Data Securely: General Issues
-     * Prefer Trusted Data. Treat Untrusted Data as Dangerous
-     * Avoid Default & Hardcoded Credentials
-     * Avoid Incorrect Conversion or Cast
+   * Prefer Trusted Data. Treat Untrusted Data as Dangerous
+   * Avoid Default & Hardcoded Credentials
+   * Avoid Incorrect Conversion or Cast
   * Processing Data Securely: Undefined Behavior / Memory Safety
-     * Countering Out-of-Bounds Reads and Writes (Buffer Overflow)
-     * Double-free, Use-after-free, and Missing Release
-     * Avoid Undefined Behavior
+   * Countering Out-of-Bounds Reads and Writes (Buffer Overflow)
+   * Double-free, Use-after-free, and Missing Release
+   * Avoid Undefined Behavior
   * Processing Data Securely: Calculate Correctly
-     * Avoid Integer Overflow, Wraparound, and Underflow
+   * Avoid Integer Overflow, Wraparound, and Underflow
 * Calling Other Programs
   * Introduction to Securely Calling Programs
-     * Introduction to Securely Calling Programs - The Basics
+   * Introduction to Securely Calling Programs - The Basics
   * Calling Other Programs: Injection and Filenames
-     * SQL Injection
-     * OS Command (Shell) injection
-     * Other Injection Attacks
-     * Filenames (Including Path Traversal and Link Following)
+   * SQL Injection
+   * OS Command (Shell) injection
+   * Other Injection Attacks
+   * Filenames (Including Path Traversal and Link Following)
   * Calling Other Programs: Other Issues
-     * Call APIs for Programs and Check What Is Returned
-     * Handling Errors
-     * Logging
-     * Debug and Assertion Code
-     * Countering Denial-of-Service (DoS) Attacks
+   * Call APIs for Programs and Check What Is Returned
+   * Handling Errors
+   * Logging
+   * Debug and Assertion Code
+   * Countering Denial-of-Service (DoS) Attacks
 * Sending Output
-   * Introduction to Sending Output
-   * Countering Cross-Site Scripting (XSS)
-   * Content Security Policy (CSP)
-   * Other HTTP Hardening Headers
-   * Cookies & Login Sessions
-   * CSRF / XSRF
-   * Open Redirects and Forwards
-   * HTML **target** and JavaScript **window.open()**
-   * Using Inadequately Checked URLs / Server-Side Request Forgery (SSRF)
-   * Same-Origin Policy and Cross-Origin Resource Sharing (CORS)
-   * Format Strings and Templates
-   * Minimize Feedback / Information Exposure
-   * Avoid caching sensitive information
-   * Side-Channel Attacks
+  * Introduction to Sending Output
+  * Countering Cross-Site Scripting (XSS)
+  * Content Security Policy (CSP)
+  * Other HTTP Hardening Headers
+  * Cookies & Login Sessions
+  * CSRF / XSRF
+  * Open Redirects and Forwards
+  * HTML **target** and JavaScript **window.open()**
+  * Using Inadequately Checked URLs / Server-Side Request Forgery (SSRF)
+  * Same-Origin Policy and Cross-Origin Resource Sharing (CORS)
+  * Format Strings and Templates
+  * Minimize Feedback / Information Exposure
+  * Avoid caching sensitive information
+  * Side-Channel Attacks
 
 ## Other information
 
