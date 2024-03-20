@@ -6,8 +6,8 @@ See our [introduction](introduction) for more information.
 Here are the labs available:
 
 * [input1](input1.html)
-* [input2](input2.html).
-* [csp1](csp1.html).
+* [input2](input2.html)
+* [csp1](csp1.html)
 
 See [create labs](create_labs) if you want to learn how to create labs.
 In particular, that page will link to how to

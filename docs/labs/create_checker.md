@@ -15,7 +15,8 @@ The HTML file of a given lab is expected to:
 
 * Describe the exercise (in HTML text)
 * Provide the exercise itself as a form
-* Identify where the user will fill in answer(s) (id `attempt0` etc.)
+* Identify where the user will enter their attempted answer(s)
+  (id `attempt0` etc.)
 * Provide information about the lab, in particular:
   * Provide an example of an expected answer (id `expected0` etc.)
   * Provide the pattern of a correct answer (id `correct0` etc.)
@@ -50,22 +51,23 @@ The code will automatically set up the buttons if they are present.
 
 ## Quick aside: script tag requirements
 
-The data about the test is embedded in the HTML in a
+Data about the lab is embedded in the HTML in a
 `script` tag. Embedding this data simplifies lab maintenance,
-and using `script` is the
+and this approach is the
 [recommended approach for embedding script-supporting elements](https://html.spec.whatwg.org/multipage/scripting.html).
 
-This does create a
-[few quickly restrictions](https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements).
+This technique does create a
+[few quickly restrictions](https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements),
+though it shouldn't matter in practice.
 Basically, the text embedded in the `script` sections must
 *not* include the following text sequences (ignoring case):
 
-* `&lt;!--`
-* `&lt;script`
-* `&lt;/script`
+* `<!--`
+* `<script`
+* `</script`
 
 If you *need* to include these text sequences inside the `script` region,
-you can typically you can replace `&lt;` with `\x3C` to resolve it.
+you can typically you can replace `<` with `\x3C` to resolve it.
 
 ## Basic lab inputs
 
@@ -81,12 +83,17 @@ in order (0, 1, 2, ...).
 The number of attempt fields, expected fields, and correct fields
 much match.
 
-## Expressing correct answers
+## Expressing correct answer patterns
 
-Correct answers are expressed using a preprocessed form of
+Correct answer patterns are expressed using a preprocessed form of
 [JavaScript regular expression (regex) patterns](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions).
-This makes it easy to
-indicate the many different forms that are all correct. E.g.:
+
+### Quick introduction to regular expressions (regexes)
+
+Regular expressions are a widely-used notation to
+indicate patterns.
+In this case, they let us specify
+the many different forms that are all correct. E.g.:
 
 * Pattern `(a|b)` matches `a` or `b`
 * In the pattern append `*` to mean "zero or more",
@@ -96,17 +103,20 @@ indicate the many different forms that are all correct. E.g.:
   pattern `\{\\\}` matches the literal text `{\}`.
 * Pattern `9_?999` matches `9`, an optional `_`, then `999`.
 
-Regexes are capable, but straightforward regex use might be hard to read.
+### How we make regexes readable
+
+Regexes are capable, but straightforward regex use for this problem
+would be hard to read.
 We've taken several steps to make it easier to read regex patterns.
 
 One traditional problem with regexes is that they
 often have a lot of backslashes.
 In many formats (e.g., JSON) those backslashes have to be backslashed,
-leading to a problem sometimes known as
-<a href="https://www.explainxkcd.com/wiki/index.php/1638:_Backslashes"
->the true name of Ba'all the soul-eater</a>.
+leading to a profusion of unreadable backslashes sometimes known as
+[the true name of Ba'al the soul-eater](https://www.explainxkcd.com/wiki/index.php/1638:_Backslashes).
+
 We solve this by allowing patterns to be expressed either directly
-in script tags or in YAML (which has input formats that doesn't require
+in script tags or in YAML (which has input formats that don't require
 backslashing the backslashes).
 
 Another problem is that regexes can be hard to read if they are long
@@ -316,16 +326,17 @@ YAML is a widely-used, widely-understood, and widely-implemented format,
 which is why we use it.
 
 YAML is a superset of JSON, so if you'd prefer to write in straight JSON,
-you can do that instead.
+you can do that.
 JSON is a simple format, which is a bonus.
 However, JSON is noisy for this situation, especially when there
 are many backslashes and double-quotes (as there are in patterns).
 If you use JSON, remember:
 
-* All strings must be surrounded by double-quotes, even field names
+* All strings must be surrounded by double-quotes, even field names.
 * Commas *must* separate entries.
 * JSON does *not* support trailing commas in arrays and dictionaries.
-* Inside a string use \" for double-quote and \\ for backslash.
+* JSON fails to support comments.
+* Inside a string use `\"` for double-quote and `\\` for backslash.
 
 You can also use full YAML.
 YAML comments start with "#" and continue to the end of the line.
