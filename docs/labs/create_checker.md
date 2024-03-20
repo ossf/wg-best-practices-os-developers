@@ -329,7 +329,7 @@ maatching hint (this helps ensure that the hint order is sensible).
 
 Here are examples of hints:
 
-~~~~
+~~~~yaml
 hints:
 - absent: ", $"
   text: This is a parameter, it must end with a comma.
