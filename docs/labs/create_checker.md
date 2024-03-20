@@ -95,17 +95,21 @@ indicate patterns.
 In this case, they let us specify
 the many different forms that are all correct. E.g.:
 
-* Pattern `(a|b)` matches `a` or `b`
-* In the pattern append `*` to mean "zero or more",
-  and `+` to mean "one or more"
-* Use `\` to escape many characters, e.g.,
+* Pattern `(abc|def)` matches `abc` or `def`
+* Append `*` to mean "zero or more",
+  `+` to mean "one or more", and `?` to mean "optional".
+  By default this describes repetition of the previous character;
+  use `(` ... `)` to group a larger sequence of characters.
+* Use backslash (<tt>&#92;</tt>) to escape many characters, e.g.,
   pattern `foo\(a\)` matches `foo(a)` and
   pattern `\{\\\}` matches the literal text `{\}`.
-* Pattern `9_?999` matches `9`, an optional `_`, then `999`.
+* Pattern `9_?999` matches `9`, an optional underscore
+  (<tt>&lowbar;</tt>) because the `?` makes it optional, then `999`.
 
 ### How we make regexes readable
 
-Regexes are capable, but straightforward regex use for this problem
+Regexes are capable and widely used,
+but straightforward regex use for this problem
 would be hard to read.
 We've taken several steps to make it easier to read regex patterns.
 
@@ -179,12 +183,15 @@ snippet of JavaScript code, here are some tips:
 
 * Escape regex symbols by putting \ before them.
   These are <tt>. ( ) [ ] { } | + * ? \ </tt>
-* Most language tokens should be separated by a space, e.g., foo \(
-* If the language *requires* a space, use \s+, e.g.,
-  <tt>const\s+helmet</tt>
+* Most language tokens should be separated by a space, e.g.,
+  <tt>foo&nbsp;&#92;(</tt> which means 0 or more whitespace is allowed
+  after `foo`
+* If the language *requires* a space, use `\s+`, e.g.,
+  <tt>const&#92;s+helmet</tt>
 * Put <tt>\s*</tt> at the beginning of each line in the correct pattern,
   in case we want to move that to YAML later.
-* JavaScript constant strings can be surrounded by <tt>" ' `</tt>
+* JavaScript constant strings can be surrounded by
+  <tt>"</tt> or <tt>'</tt> or <tt>&#96;</tt> (backquote)
 * JavaScript allows trailing commas at the end of
   the list in a literal array, as well as in
   the key-value pairs in object literal syntax.
@@ -221,19 +228,20 @@ Here's an explanation of this pattern:
    you must precede it with a backslash.
    Note the space afterwards, which again will match 0 or more whitespace.
 
-4. The sequence `('id'|"id"|&#96;id&#96;)`
+4. The sequence <tt>('id'|"id"|&#96;id&#96;)</tt>
    uses parentheses to group things together.
    The `|` means "or".
    This that one of the following patterns is allowed:
-   `'id'` or `"id"` or `&#96;id&#96` (and nothing else).
+   `'id'` or `"id"` or <tt>&#96;id&#96</tt> (and nothing else).
    Again, the space after it means 0+ spaces are allowed.
 
 5. The `\)` matches a literal close parenthesis,
    while `\.` matches a literal period.
 
 6. The sequence of indented spaces means that 0 or more spaces are allowed
-   here. We've covered patterns like `isInt` and `\(`.
-   A `\{` matches a literal open brace, and so on.
+   here. The patterns `isInt` and `\(` are the same kinds of patterns
+   we've seen.
+   Similarly, a `\{` matches a literal open brace.
 
 7. The pattern `9_?999` means a nine, an optional `_`
    (`?` means the preceding pattern is optional), and three more `9`
@@ -290,6 +298,8 @@ Each hint object describes a hint, and they are checked in the order given
 If you use JSON format,
 each hint object begins with `{`, has a set of fields, and ends with `}`.
 
+### Format for a hint
+
 Every hint object must have a `text` field to be displayed as the hint.
 A hint object can have a `present` field (a pattern that must be present
 for the hint to be shown), and it can have an
@@ -300,8 +310,8 @@ you can make this kind of hint to set a default hint.
 
 The `present` and `absent` fields are regular expression patterns that
 are preprocessed similarly to a correct answer.
-*However*,
-don't have to exactly match (start a pattern with `^` and end it with
+*However*, they
+don't have to exactly match (start the pattern with `^` and end it with
 `$` if you want an exact match). Again, one or more spaces are interpreted
 as allowing 0 or more spaces.
 
@@ -313,7 +323,37 @@ an integer.
 A hint can include an `examples` field, which must then contain
 an array of examples (each example is an array of Strings).
 On load the system will verify that each example will report the
-matching hint (this helps ensure that the hint order is sensible).
+maatching hint (this helps ensure that the hint order is sensible).
+
+### Examples of hints
+
+Here are examples of hints:
+
+~~~~
+hints:
+- absent: ", $"
+  text: This is a parameter, it must end with a comma.
+  examples:
+  - - "  "
+- present: "(isint|Isint|IsInt|ISINT)"
+  text: JavaScript is case-sensitive. Use isInt instead of the case you have.
+  examples:
+  - - "  query('id').isint(),"
+  - - "  query('id').IsInt(),"
+~~~~
+
+The first hint triggers when the user attempt does *not* contain the
+pattern <tt>,&nbsp;$</tt> (note the term `absent`).
+This pattern matches on a comma, followed by 0 or more whitespace characters,
+followed by the end of the input.
+The index isn't specified, so this will check attempt #0 (the first one).
+So if there's no comma at the end (ignoring trailing whitespace),
+this hint will trigger with the given text.
+The <tt>-&nbsp;-</tt> line is a test case that *should* trigger
+the hint.
+
+The second hint triggers when the user attempt *contains* the given
+pattern (note the term `present`).
 
 ## Notes on YAML
 
@@ -330,6 +370,8 @@ you can do that.
 JSON is a simple format, which is a bonus.
 However, JSON is noisy for this situation, especially when there
 are many backslashes and double-quotes (as there are in patterns).
+For this use case, JSON is probably unnecessarily hard to read and use.
+Still, if you prefer, you can use it.
 If you use JSON, remember:
 
 * All strings must be surrounded by double-quotes, even field names.
@@ -347,16 +389,18 @@ if you have a single input.
 
 YAML has several ways to indicate strings and other scalar data:
 
-* You can use "|" to indicate that the following indented text line(s)
+* You can use `|` to indicate that the following indented text line(s)
   are to be taken literally (after removing the amount of indentation of the
   following list, and each line is its own line).
   This is probably the best mechanism for
   non-trivial patterns; you don't need to backslash anything.
   You probably want to use "\s*" to begin the first line of the pattern.
+  For clarity you might use `|-` instead of `|` (this removes trailing
+  newlines), though it most cases it doesn't matter for this use.
 
 * A ">" means that the following indented text is to be taken literally,
   but newlines are converted into spaces. You can use a blank line
-  to indicate a newline.
+  to indicate a newline. Again, ">-" removes trailing newlines.
 
 * A string can be surrounded by double-quotes; inside that, use
   \" for double-quotes and \\ for backslash.
