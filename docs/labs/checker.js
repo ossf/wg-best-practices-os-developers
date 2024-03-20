@@ -16,8 +16,9 @@ let hints = []; // Array of hint objects
 // to be used to match a pattern.
 // We preprocess regexes so the pattern language we use is simpler;
 // we can also use preprocessing to optimize the resulting performance.
-// Each item in the array has two elements: a regex and its replacement.
-// In other words, these are regexes that process regexes
+// Each item in the array has at least two elements:
+// a regex and its replacement. A third, is present, sets the RegExp modes.
+// In other words, these patterns are regexes that process regexes
 // (so that we can use a simpler input pattern language)
 // People can define their *own* sequence of
 // preprocessing commands, to make their language easier to handle
@@ -47,6 +48,9 @@ function trimNewlines(s) {
             .replace(/[\n\r]+$/, ''));
 }
 
+/**
+ * Escape unsafe HTML, e.g., & becomes &amp;
+ */
 function escapeHTML(unsafe)
 {
     return (unsafe
@@ -60,13 +64,6 @@ function escapeHTML(unsafe)
 /**
  * Given take a regex string, preprocess it & return compiled regex.
  * @fullMatch - require full match (insert "^" at beginning, "$" at end).
- *
- * In particular, *ignore* newlines and treat spaces as "allow 0+ spaces".
- *
- * As an optimization, spaces can be preceded or followed by `\s*`
- * to also means "\s*" (match 0+ spaces).
- * YAML doesn't like spaces at the beginning or ends of lines,
- * and we'll encourage that as the alternative.
  */
 function processRegex(regexString, fullMatch = true) {
     let processedRegexString = regexString;
@@ -148,7 +145,7 @@ function runCheck() {
         // Hooray! User has a newly-correct answer!
         // Use a timeout so the underlying page will *re-render* before the
 	// alert shows. If we don't do this, the alert would be confusing
-	// because the underlying page would say we hadn't completed it.
+	// because the underlying page would show that it wasn't completed.
 	setTimeout(function() {
             alert('Congratulations! Your answer is correct!');
         }, 100);
@@ -262,9 +259,13 @@ function processInfo(configurationInfo) {
 }
 
 /**
- * Run simple selftest; we presume it runs only during page initialization.
- * Must run loadData first, to set up globals like correctRe.
- * Ensure the initial attempt is incorrect AND the expected value is correct.
+ * Run a simple selftest.
+ * Run loadData *before* calling this, to set up globals like correctRe.
+ * This ensures that:
+ * - the initial attempt is incorrect (as expected)
+ * - the expected value is correct (as expected)
+ * - all tests in "successes" succeed and all tests in "failures" fail
+ * - all hints with tests produce their corresponding hint text
  */
 function runSelftest() {
     let attempt = retrieveAttempt();
@@ -277,9 +278,9 @@ function runSelftest() {
         // Provide more info
         for (let i = 0; i < correctRe.length; i++) {
             if (!(correctRe[i].test(attempt[i]))) {
-                alert(`Expected value considered incorrect at index ${i}`);
+                alert(`Lab error: Expected value considered incorrect at index ${i}`);
             } else {
-                alert(`Expected value is fine at index ${i}`);
+                alert(`Lab error: Expected value is fine at index ${i}`);
             }
        }
     };
