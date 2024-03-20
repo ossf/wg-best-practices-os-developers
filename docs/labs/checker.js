@@ -19,12 +19,24 @@ let hints = []; // Array of hint objects
 // Each item in the array has two elements: a regex and its replacement.
 // In other words, these are regexes that process regexes
 // (so that we can use a simpler input pattern language)
-// In the future we may allow people to define their *own* sequence of
-// preprocessing commands, to make certain languages easier to handle
+// People can define their *own* sequence of
+// preprocessing commands, to make their language easier to handle
 // (e.g., Python).
+// Our default pattern preprocessing commands include some optimizations;
+// we want people to get rapid feedback even with complex correct patterns.
 let preprocessRegexes = [
+  // Ignore end-of-line (\n and \r)
   [/[\n\r]+/g, ''],
-  [/(\\s\*)?\s+(\\s\*)?/g, '\\s*']
+
+  // Optimization: remove useless spaces & tabs if they surround "\s+".
+  // This optimizations ONLY occurs when spaces/tabs are on both sides,
+  // to prevent false matches.
+  [/[ \t]+\\s\+[ \t]+/g, '\\s+'],
+
+  // 1+ spaces/tabs are instead interpreted as \s* (0+ whitespace)
+  // The (\\s\*)? expressions before and after it are an optimization -
+  // if you use \s* next to spaces/tabs, they coalesce for speed.
+  [/(\\s\*)?[ \t]+(\\s\*)?/g, '\\s*']
 ];
 
 /**
