@@ -465,21 +465,28 @@ This will display information, particularly on its inputs.
 This can help you track down a problems if you think your
 inputs are being interpreted in a way different than you expect.
 
-## Advanced use: Set preprocessing
+## Advanced use: Select preprocessing commands (e.g., for other languages)
 
 For most programming languages the default regex preprocessing
-should be fine.
+should be fine. However, the *defaults* are *not* a
+good fit for some programming languages such as Python.
+It's also possible that some patterns for correct answers include
+repeating patterns.
 
-However, it's possible that the default preprocessing is inconvenient for you.
-In particular, I suspect an alternative might be better for Python.
-Can you can define your own preprocessing sequence.
-This is *advanced* - hopefully you won't need to do it.
+This `checker.js` system lets you define your own
+regex preprocessing commands.
+This functionality is *advanced* - hopefully you won't need to do it.
 
 To do this, set the `preprocessing` field to an array.
 Each array element should be an array of a regular expression (as a string)
 and the string that will replace each match.
 I suggest using "|-" in YAML (stripping the trailing newlines)
-for the patterns.
+for the patterns, though the system *will* strip leading and trailing
+newlines from patterns regardless.
+The second parameter will be used exactly as it's provided
+(so in YAML use "..." to make it clear).
+If a third parameter is provided it will be used as the flags,
+otherwise 'g' (global) will be used.
 
 Here is an example:
 
@@ -491,6 +498,10 @@ preprocessing:
     - ""
   -
     - |-
-        (\\s\*)?\s+(\\s\*)?
+        [ \t]+\\s\+[ \t]+
+    - "\\s+"
+  -
+    - |-
+        (\\s\*)?[ \t]+(\\s\*)?
     - "\\s*"
 ~~~~

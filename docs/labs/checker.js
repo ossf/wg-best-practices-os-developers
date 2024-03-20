@@ -243,7 +243,14 @@ function processInfo(configurationInfo) {
     if (info.preprocessing) {
         preprocessRegexes = []
         for (let preprocess of info.preprocessing) {
-            let addition = [new RegExp(preprocess[0], 'g'), preprocess[1]]
+            // Use trimNewlines to avoid a nasty hard-to-detect bug.
+            // We want to use "|" on patterns to make them simpler, but by
+            // default that will include a trailing \n which is confusing.
+            let preprocessRegex = new RegExp(trimNewlines(preprocess[0]));
+            let replacement = preprocess[1];
+            // Use 'g' (global) if there isn't a third parameter.
+            let flags = (preprocess.length < 3) ? 'g' : preprocess[2];
+            let addition = [preprocessRegex, flags, replacement];
             preprocessRegexes.push(addition);
         };
     };
