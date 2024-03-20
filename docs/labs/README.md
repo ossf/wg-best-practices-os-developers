@@ -33,18 +33,19 @@ We want to create labs for the secure software development
 fundamentals course;
 [here is its development website](https://github.com/ossf/secure-sw-dev-fundamentals).
 
-These are the sections that especially call out for labs:
+These are the sections that especially call out for labs, along with
+mappings to existing labs or people who have agreed to work on one:
 
 * Input Validation
   * Input Validation Basics
     * Input Validation Basics Introduction
     * How Do You Validate Input?
   * Input Validation: Numbers and Text
-    * Input Validation: A Few Simple Data Types
+    * Input Validation: A Few Simple Data Types - [input1](input1.html)
     * Sidequest: Text, Unicode, and Locales
     * Validating Text
     * Introduction to Regular Expressions
-    * Using Regular Expressions for Text Input Validation
+    * Using Regular Expressions for Text Input Validation - [input2](input2.html)
     * Countering ReDoS Attacks on Regular Expressions
   * Input Validation: Beyond Numbers and Text
     * Insecure Deserialization
@@ -82,7 +83,7 @@ These are the sections that especially call out for labs:
 * Sending Output
   * Introduction to Sending Output
   * Countering Cross-Site Scripting (XSS)
-  * Content Security Policy (CSP)
+  * Content Security Policy (CSP) - [csp1](csp1.html)
   * Other HTTP Hardening Headers
   * Cookies & Login Sessions
   * CSRF / XSRF
