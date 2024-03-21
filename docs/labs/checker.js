@@ -299,7 +299,7 @@ function processInfo(configurationInfo) {
             let preprocessRegex = new RegExp(
                 trimNewlines(preprocess[0]), flags);
             let replacement = preprocess[1];
-            let addition = [preprocessRegex, replacement, flags];
+            let addition = [preprocessRegex, replacement];
             preprocessRegexes.push(addition);
         };
     };
