@@ -3,8 +3,7 @@
 [![GitHub Super-Linter](https://github.com/ossf/wg-best-practices-os-developers/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 Anyone is welcome to join our open discussions related to the group's mission and charter.
-The BEST Working group is officially a [Graduated-level](https://github.com/ossf/tac/blob/main/process/working-group-lifecycle.md) working group within the OpenSSF
-<img align="right" src="https://github.com/ossf/tac/blob/main/files/images/OpenSSF_StagesBadges_graduated.png" width="200" height="200">>
+The BEST Working group is officially a [Graduated-level](https://github.com/ossf/tac/blob/main/process/working-group-lifecycle.md) working group within the OpenSSF <img align="right" src="https://github.com/ossf/tac/blob/main/files/images/OpenSSF_StagesBadges_graduated.png" width="100" height="100">>
 
 
 ## Mission
