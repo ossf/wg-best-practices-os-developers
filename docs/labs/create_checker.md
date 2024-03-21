@@ -57,7 +57,7 @@ and this approach is the
 [recommended approach for embedding script-supporting elements](https://html.spec.whatwg.org/multipage/scripting.html).
 
 This technique does create a
-[few quickly restrictions](https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements),
+[few quirky restrictions](https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements),
 though it shouldn't matter in practice.
 Basically, the text embedded in the `script` sections must
 *not* include the following text sequences (ignoring case):
@@ -513,6 +513,16 @@ You can set the optional info "debug" field to true.
 This will display information, particularly on its inputs.
 This can help you track down a problems if you think your
 inputs are being interpreted in a way different than you expect.
+
+## Additional settings for natural languages other than English
+
+This tool should work fine with languages other than English.
+We expect that there will be a different HTML page for each
+lab and each different natural language.
+
+*However*, it sets some default tooltips for the buttons in English.
+For each button you should set the `title` attribute for the
+given language.
 
 ## Advanced use: Select preprocessing commands (e.g., for other languages)
 
