@@ -104,7 +104,7 @@ the many different forms that are all correct. E.g.:
   pattern `foo\(a\)` matches `foo(a)` and
   pattern `\{\\\}` matches the literal text `{\}`.
 * Pattern `9_?999` matches `9`, an optional underscore
-  (<tt>&lowbar;</tt>) because the `?` makes it optional, then `999`.
+  (<tt>&#95;</tt>) because the `?` makes it optional, then `999`.
 
 ### How we make regexes readable
 
@@ -134,7 +134,7 @@ to make them easier to enter and read.
 By default, the regex pattern for each correct answer
 and each hint is preprocessed as follows:
 
-* The user's `answer` must match the *entire* corresponding
+* The user's `attempt` must match the *entire* corresponding
   `correct` value. In other words,
   the correct answer is prepended with `^` and appended with `$`.
 * End-of-line (newline) in a pattern
@@ -492,17 +492,22 @@ These tests are automatically checked every time the page is (re)loaded.
 
 Sadly, sometimes things don't work; here are some debugging tips for labs.
 
-IF you open a page and the text entries don't have color, there
+If you open a page and the text entries don't have color, there
 was a serious problem loading things (e.g., the JavaScript code or
 YAML info has a syntax error).
 Use your browser's Developer Tools to show details.
 In Chrome, this is More Tools -> Developer Tools -> (Console Tab).
 In Firefox, this is More Tools -> Web Developer Tools -> (Console Tab).
 You may need to further open specifics to see them.
-If you're running locally, you can ignore the error
-"Failed to load resource: net::ERR_FILE_NOT_FOUND /assets/css/style.css:1",
-this reports an attempt to load a file that's hosted on GitHub pages,
-and that page is unlikely to exist on your local machine.
+Note:
+
+* If you see an error in the YAML processing, remember that the reported
+  line numbers are relative to the beginning of the *YAML* data,
+  not of the entire file.
+* If you're running locally, you can ignore the error
+  "Failed to load resource: net::ERR_FILE_NOT_FOUND /assets/css/style.css:1",
+  this reports an attempt to load a file that's hosted on GitHub pages,
+  and that page is unlikely to exist on your local machine.
 
 You can set the optional info "debug" field to true.
 This will display information, particularly on its inputs.
@@ -558,3 +563,15 @@ preprocessing:
         (\\s\*)?[ \t]+(\\s\*)?
     - "\\s*"
 ~~~~
+
+Here is an explanation of each of these preprocessing elements
+in this example:
+
+1. Remove end-of-line characters (`\n` and `\r`)
+2. An optimization. This removes useless spaces and tabs if they surround `\s+`
+   (speeding up matching).
+   This optimization ONLY occurs when spaces/tabs are on both sides,
+   to prevent false matches.
+3. 1+ spaces/tabs are instead interpreted as `\s*` (0+ whitespace).
+   The optional expressions before and after it are an optimization,
+   to coalesce this for speed.

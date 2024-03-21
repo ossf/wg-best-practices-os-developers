@@ -26,11 +26,12 @@ let hints = []; // Array of hint objects
 // Our default pattern preprocessing commands include some optimizations;
 // we want people to get rapid feedback even with complex correct patterns.
 let preprocessRegexes = [
-  // Ignore end-of-line (\n and \r)
+  // Remove end-of-line characters (\n and \r)
   [/[\n\r]+/g, ''],
 
-  // Optimization: remove useless spaces & tabs if they surround "\s+".
-  // This optimizations ONLY occurs when spaces/tabs are on both sides,
+  // Optimization: remove useless spaces & tabs if they surround `\s+`
+  // (speeding up processing).
+  // This optimization ONLY occurs when spaces/tabs are on both sides,
   // to prevent false matches.
   [/[ \t]+\\s\+[ \t]+/g, '\\s+'],
 
