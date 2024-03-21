@@ -392,21 +392,21 @@ function initPage() {
     hintButton = document.getElementById('hintButton');
     if (hintButton) {
         hintButton.onclick = (() => showHint());
-        if (hintButton.title == null) {
+        if (!hintButton.title) {
             hintButton.title = 'Provide a hint given current attempt.';
         }
     }
     resetButton = document.getElementById('resetButton');
     if (resetButton) {
         resetButton.onclick = (() => resetForm());
-        if (resetButton.title == null) {
+        if (!resetButton.title) {
             resetButton.title = 'Reset initial state (throwing away current attempt).';
         }
     }
     giveUpButton = document.getElementById('giveUpButton');
     if (giveUpButton) {
         giveUpButton.onclick = (() => showAnswer());
-        if (giveUpButton.title == null) {
+        if (!giveUpButton.title) {
             giveUpButton.title = 'Give up and show an answer.';
         }
     }
