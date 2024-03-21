@@ -514,6 +514,16 @@ This will display information, particularly on its inputs.
 This can help you track down a problems if you think your
 inputs are being interpreted in a way different than you expect.
 
+## Additional settings for natural languages other than English
+
+This tool should work fine with languages other than English.
+We expect that there will be a different HTML page for each
+lab and each different natural language.
+
+*However*, it sets some default tooltips for the buttons in English.
+For each button you should set the `title` attribute for the
+given language.
+
 ## Advanced use: Select preprocessing commands (e.g., for other languages)
 
 For most programming languages the default regex preprocessing
