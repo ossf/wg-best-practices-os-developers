@@ -57,7 +57,7 @@ and this approach is the
 [recommended approach for embedding script-supporting elements](https://html.spec.whatwg.org/multipage/scripting.html).
 
 This technique does create a
-[few quickly restrictions](https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements),
+[few quirky restrictions](https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements),
 though it shouldn't matter in practice.
 Basically, the text embedded in the `script` sections must
 *not* include the following text sequences (ignoring case):
