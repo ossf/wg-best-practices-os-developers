@@ -14,17 +14,22 @@ let hints = []; // Array of hint objects
 // This array contains the default pattern preprocessing commands, in order.
 // We process every pattern through these (in order) to create a final regex
 // to be used to match a pattern.
-// We preprocess regexes so the pattern language we use is simpler;
-// we can also use preprocessing to optimize the resulting performance.
-// Each item in the array has at least two elements:
-// a regex and its replacement. A third, is present, sets the RegExp modes.
-// In other words, these patterns are regexes that process regexes
-// (so that we can use a simpler input pattern language)
-// People can define their *own* sequence of
+//
+// We preprocess regexes to (1) simplify the pattern language and
+// (2) optimize performance.
+// Each item in this array has two elements:
+// a regex and its replacement string on match.
+// Yes, these preprocess patterns are regexes that process regexes.
+//
+// People can instead define their *own* sequence of
 // preprocessing commands, to make their language easier to handle
-// (e.g., Python).
+// (e.g., Python). Do this by setting `info.preprocessing`.
+// Its format is a sequence of arrays, each element is an array of
+// 2 or 3 strings of form pattern, replacementString [, flags]
+//
 // Our default pattern preprocessing commands include some optimizations;
 // we want people to get rapid feedback even with complex correct patterns.
+//
 let preprocessRegexes = [
   // Remove end-of-line characters (\n and \r)
   [/[\n\r]+/g, ''],
@@ -52,21 +57,45 @@ function trimNewlines(s) {
 /**
  * Escape unsafe HTML, e.g., & becomes &amp;
  */
-function escapeHTML(unsafe)
-{
+function escapeHTML(unsafe) {
     return (unsafe
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
             .replace(/\"/g, '&quot;')
             .replace(/\'/g, "&#039;"));
- }
+}
+
+/*
+ * Show debug output in debug region and maybe via alert box
+ * @debugOutput - the debug information to show
+ * @alwaysAlert - if true, ALWAYS show an alert
+ * This does *not* raise or re-raise an exception; it may be just informative.
+ */
+function showDebugOutput(debugOutput, alwaysAlert = true) {
+    let debugDataRegion = document.getElementById('debugData');
+    let debugOutputString = String(debugOutput);
+    if (debugDataRegion) {
+        // Use textContent to see the raw unfiltered results
+        debugDataRegion.textContent = (
+            String(debugDataRegion.textContent) + debugOutputString + "\n\n");
+        debugDataRegion.style.display = 'block';
+        if (alwaysAlert) alert(debugOutputString);
+    } else {
+        // Debug data requested, but we have nowhere to put it.
+        // Show the debug data as an alert instead.
+        alert(debugOutputString);
+    };
+}
 
 /**
- * Given take a regex string, preprocess it & return compiled regex.
+ * Given take a regex string, preprocess it (using our array of
+ * preprocessing regexes), and return a final compiled regex.
+ * @regexString - String to be converted into a compiled Regex
+ * @description - Description of @regexString's purpose (for error reports)
  * @fullMatch - require full match (insert "^" at beginning, "$" at end).
  */
-function processRegex(regexString, fullMatch = true) {
+function processRegex(regexString, description, fullMatch = true) {
     let processedRegexString = regexString;
     for (preprocessRegex of preprocessRegexes) {
         processedRegexString = processedRegexString.replace(
@@ -78,7 +107,15 @@ function processRegex(regexString, fullMatch = true) {
         // work correctly and the first capturing (...) will be the first.
         processedRegexString = '^(?:' + processedRegexString + ')$';
     }
-    return new RegExp(processedRegexString);
+    try {
+        let compiledRegex = new RegExp(processedRegexString);
+        return compiledRegex;
+    }
+    catch (e) {
+        showDebugOutput(
+            `Lab Error: Cannot process ${description}\nFor regex: /${regexString}/\nDue to:\n${e}`);
+        throw e; // Rethrow, so containing browser also gets it
+    }
 }
 
 /**
@@ -204,17 +241,22 @@ function processHints(requestedHints) {
         alert('Error: hints must be array. E.g., in JSON use [...].');
     }
     let compiledHints = [];
-    // TODO: Do more sanity checking.
-    for (let hint of requestedHints) {
+
+    // This didn't worK: for (const [i, hint] of requestedHints) {...}
+
+    for (let i = 0; i < requestedHints.length; i++) {
+        hint = requestedHints[i];
         let newHint = {};
         newHint.index = hint.index ? Number(hint.index) : 0;
         newHint.text = hint.text;
-        // Precompile all regular expressions
+        // Precompile all regular expressions & report any failures
         if (hint.present) {
-            newHint.presentRe = processRegex(hint.present, false);
+            newHint.presentRe = processRegex(hint.present,
+                `hint[${i}].present`, false);
         };
         if (hint.absent) {
-            newHint.absentRe = processRegex(hint.absent, false);
+            newHint.absentRe = processRegex(hint.absent,
+                `hint[${i}].present`, false);
         };
         if (hint.examples) {newHint.examples = hint.examples};
         compiledHints.push(newHint); // append result.
@@ -226,29 +268,38 @@ function processHints(requestedHints) {
  * @info: String with YAML (including JSON) data to use
  */
 function processInfo(configurationInfo) {
-    // TODO: handle parse failures more gracefully & check more
+    // TODO: Add more checking
 
     // This would only allow JSON, but then we don't need to load YAML lib:
     // let parsedJson = JSON.parse(configurationInfo);
 
-    let parsedData = jsyaml.load(configurationInfo);
+    let parsedData; // Parsed data, *if* we manage to parse it.
+    try {
+        parsedData = jsyaml.load(configurationInfo);
+    }
+    catch (e) {
+        showDebugOutput(
+            `Lab Error: Cannot process YAML of info.\n${e}`);
+        throw e; // Rethrow, so containing browser also gets exception
+    }
 
     // Set global variable
     info = parsedData;
 
     // Set up pattern preprocessing, if set. ADVANCED USERS ONLY.
-    // This must be done *before* we load any patterns.
+    // This must be done *before* we load & process any other patterns.
     if (info.preprocessing) {
-        preprocessRegexes = []
+        preprocessRegexes = [] // Erase defaults, use these instead.
         for (let preprocess of info.preprocessing) {
+            // Use 'g' (global) if there isn't a third parameter.
+            let flags = (preprocess.length < 3) ? 'g' : preprocess[2];
             // Use trimNewlines to avoid a nasty hard-to-detect bug.
             // We want to use "|" on patterns to make them simpler, but by
             // default that will include a trailing \n which is confusing.
-            let preprocessRegex = new RegExp(trimNewlines(preprocess[0]));
+            let preprocessRegex = new RegExp(
+                trimNewlines(preprocess[0]), flags);
             let replacement = preprocess[1];
-            // Use 'g' (global) if there isn't a third parameter.
-            let flags = (preprocess.length < 3) ? 'g' : preprocess[2];
-            let addition = [preprocessRegex, flags, replacement];
+            let addition = [preprocessRegex, replacement, flags];
             preprocessRegexes.push(addition);
         };
     };
@@ -336,18 +387,11 @@ function loadData() {
     while (true) {
         correctElement = document.getElementById('correct' + current);
         if (!correctElement) break;
-        try {
-                // Ignore empty lines at beginning & end of correct answer
-                let correct = (
-                    trimNewlines(correctElement.textContent));
-                // Append global variable with compiled correct answer
-                correctRe.push(processRegex(correct, true));
-        }
-        catch(e) {
-            // This can only happen if the correct answer pattern is missing
-            // or badly wrong.
-            alert(`Lab Error: Unparsable correct answer $${current}`);
-        }
+        // Ignore empty lines at beginning & end of correct answer
+        let correct = trimNewlines(correctElement.textContent);
+        // Append global variable with compiled correct answer
+        correctRe.push(processRegex(correct,
+            `correct answer correct[${current}]`, true));
         // Set expected answer. Used for self test and give up.
         expected.push(trimNewlines(
             document.getElementById('expected' + current).textContent));
@@ -419,16 +463,7 @@ function initPage() {
            `\n\nINFO SECTION (as JSON):\n${JSON.stringify(info, null, 2)}\n\n` +
            `\nPREPROCESS REGEXES:\n${preprocessRegexes.join("\n")}`
         );
-        debugDataRegion = document.getElementById('debugData');
-        if (debugDataRegion) {
-            // Use textContent to see the raw unfiltered results
-            debugDataRegion.textContent = debugOutput;
-            debugDataRegion.style.display = 'block';
-        } else {
-            // Debug data requested, but we have nowhere to put it.
-            // Show the debug data as an alert instead.
-            alert(debugOutput);
-        };
+        showDebugOutput(debugOutput, false);
     };
 
     // Run check of the answer so its visual appearance matches its content.
