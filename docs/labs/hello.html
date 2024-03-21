@@ -1,0 +1,163 @@
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/css/style.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+console.log("Hello, world!");
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+\s* console \. log \( (["'`])Hello,\x20world!\1 \) ; \s*
+</script>
+
+<script id="info" type="application/yaml">
+---
+hints:
+- absent: |-
+    ^ console \. log \(
+  text: ' Please use the form console.log("...");'
+  examples:
+  - - ""
+  - - "foo"
+- present: "Goodbye"
+  text: "You need to change the text Goodbye to something else."
+  examples:
+  - - 'console.log("Goodbye.");'
+- present: "hello"
+  text: "Please capitalize Hello."
+  examples:
+  - - 'console.log("hello.");'
+- present: "World"
+  text: "Please lowercase world."
+  examples:
+  - - 'console.log("Hello, World!");'
+- present: "Hello[^,]"
+  text: "Put a comma immediately after Hello."
+  examples:
+  - - 'console.log("Hello world.");'
+- present: "Hello"
+  absent: "[Ww]orld"
+  text: "There's a Hello, but you need to also mention the world."
+  examples:
+  - - 'console.log("Hello, ");'
+- present: |-
+             world[^\!]
+  text: "Put an exclamation point immediately after world."
+  examples:
+  - - 'console.log("Hello, world.");'
+- present: 'Hello,\s*world!'
+  absent: 'Hello,\x20world!'
+  text: "You need exactly one space between 'Hello,' and 'world!'"
+  examples:
+  - - 'console.log("Hello,     world!");'
+- present: |-
+              ^ console \. log \( Hello
+  text: |-
+          You must quote constant strings using ", ', or `
+  examples:
+  - - 'console.log(Hello, world'
+  - - 'console.log( Hello, world'
+- absent: " ; $"
+  text: >
+    Please end this statement with a semicolon. JavaScript does not
+    require a semicolon in this case,
+    but usually when modifying source code you should
+    follow the style of the current code.
+  examples:
+  - - '  console.log("Hello, world!")  '
+successes:
+- - ' console . log( "Hello, world!" ) ; '
+- - " console . log( 'Hello, world!' ) ; "
+- - " console . log( `Hello, world!` ) ; "
+failures:
+- - ' console . log( Hello, world! ) ; '
+- - ' console . log("hello, world!") ; '
+# ADVANCED use - define our own preprocessing commands.
+# I suggest using "|-" (stripping the trailing newlines)
+# preprocessing:
+#   - 
+#     - |-
+#         [\n\r]+
+#     - ""
+#   -
+#     - |-
+#         (\\s\*)?\s+(\\s\*)?
+#     - "\\s*"
+# debug: true
+</script>
+<!--
+
+-->
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise hello</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html">introduction to
+the labs</a>.
+
+<p>
+<h2>Task</h2>
+<p>
+<b>Please write code to print "Hello, world!" (not including the quotes)
+for JavaScript on Node.js, while also learning how our labs work.</b>
+
+<p>
+<h2>Background</h2>
+<p>
+A
+<a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program"
+>"Hello, World!" program</a>
+is often the first program written in
+a new programming language or system.
+We'll write one so we can see how these labs work.
+
+<p>
+<h2>Task Information</h2>
+<p>
+
+<p>
+Please change this program to print "Hello, world!" and while
+doing so, experiment with the buttons below labelled
+<i>Hint</i>, <i>Reset</i>, and <i>Give up</i>.
+
+<p>
+When you get a correct answer, you'll see a popup notification, the
+background color of the input box will change, and the
+"Interactive Lab" heading with change to say <i>Complete!</i>.
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+<p>
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="70">...</textarea>
+-->
+<form id="lab">
+<pre>
+<input id="attempt0" type="text" size="70"
+       value='console.log("Goodbye.");'>
+</pre>
+<button type="button" id="hintButton">Hint</button>
+<button type="button" id="resetButton">Reset</button>
+<button type="button" id="giveUpButton">Give up</button>
+<br><br>
+<textarea id="debugData" rows="20" cols="70" readonly style="display: none;">
+</textarea>
+</form>
+
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>

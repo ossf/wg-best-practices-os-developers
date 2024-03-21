@@ -13,9 +13,10 @@ how to do that and the labs we'd like created.
 
 Here are the labs available:
 
-* [input1](input1.html)
-* [input2](input2.html)
-* [csp1](csp1.html)
+* [hello](hello.html) - simple "Hello, world!" demo
+* [input1](input1.html) - input validation
+* [input2](input2.html) - input validation
+* [csp1](csp1.html) - Content Security Policy (CSP)
 
 ## How to create and submit labs
 
