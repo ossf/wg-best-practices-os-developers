@@ -129,7 +129,7 @@ function calcOneMatch(attempt, index = 0, correct = correctRe) {
 }
 
 /**
- * Return true iff all attempt matches all correct.
+ * Return true iff all of attempt matches all of correct.
  * @attempt - Array of strings that might be correct
  * @correct - Array of compiled regexes describing correct answer
  */
@@ -242,10 +242,24 @@ function processHints(requestedHints) {
     }
     let compiledHints = [];
 
-    // This didn't worK: for (const [i, hint] of requestedHints) {...}
+    // Hints must only contain these fields, since we ignore the rest.
+    const allowedHintFields = new Set(
+        ['present', 'absent', 'text', 'examples', 'index',
+         'preprocessing']);
 
+    // Process each hint
     for (let i = 0; i < requestedHints.length; i++) {
         hint = requestedHints[i];
+
+        // Complain about unknown fields
+        let usedFields = new Set(Object.keys(hint));
+        let forbiddenFields = usedFields.difference(allowedHintFields);
+        if (forbiddenFields.size != 0) {
+            showDebugOutput(
+                `Unknown field(s) in hint[${i}]: ` +
+		Array.from(forbiddenFields).join(' '));
+	}
+
         let newHint = {};
         newHint.index = hint.index ? Number(hint.index) : 0;
         newHint.text = hint.text;
@@ -258,6 +272,10 @@ function processHints(requestedHints) {
             newHint.absentRe = processRegex(hint.absent,
                 `hint[${i}].present`, false);
         };
+        if (!hint.absent && !hint.present && (i != requestedHints.length - 1)) {
+            showDebugOutput(
+                `Hint[${i} lacks absent and present, yet is not last`);
+	}
         if (hint.examples) {newHint.examples = hint.examples};
         compiledHints.push(newHint); // append result.
     };
@@ -268,8 +286,6 @@ function processHints(requestedHints) {
  * @info: String with YAML (including JSON) data to use
  */
 function processInfo(configurationInfo) {
-    // TODO: Add more checking
-
     // This would only allow JSON, but then we don't need to load YAML lib:
     // let parsedJson = JSON.parse(configurationInfo);
 
@@ -285,6 +301,17 @@ function processInfo(configurationInfo) {
 
     // Set global variable
     info = parsedData;
+
+    const allowedInfoFields = new Set([
+        'hints', 'successes', 'failures', 'correct', 'expected',
+        'debug']);
+    let usedFields = new Set(Object.keys(info));
+    let forbiddenFields = usedFields.difference(allowedInfoFields);
+    if (forbiddenFields.size != 0) {
+        showDebugOutput(
+            `Unknown field(s) in info: ` +
+	    Array.from(forbiddenFields).join(' '));
+    }
 
     // Set up pattern preprocessing, if set. ADVANCED USERS ONLY.
     // This must be done *before* we load & process any other patterns.
