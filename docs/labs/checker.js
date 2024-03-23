@@ -216,6 +216,16 @@ function runCheck() {
 
     if (isCorrect && (oldGrade !== newGrade)) {
         // Hooray! User has a newly-correct answer!
+
+        // Set `correctStamp` id (if present) with timestamp and UUID
+        // This makes it easy to detect someone simply copying a final result.
+        correctStamp = document.getElementById('correctStamp');
+        if (correctStamp) {
+            let timeStamp = (new Date()).toISOString();
+            let uuid = crypto.randomUUID();
+            correctStamp.innerHTML = `${timeStamp} ${uuid}`;
+	}
+
         // Use a timeout so the underlying page will *re-render* before the
 	// alert shows. If we don't do this, the alert would be confusing
 	// because the underlying page would show that it wasn't completed.
