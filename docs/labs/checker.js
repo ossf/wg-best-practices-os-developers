@@ -41,9 +41,12 @@ let preprocessRegexes = [
   [/[ \t]+\\s\+[ \t]+/g, '\\s+'],
 
   // 1+ spaces/tabs are instead interpreted as \s* (0+ whitespace)
-  // The (\\s\*)? expressions before and after it are an optimization -
+  // The (?:\\s\*)? expressions before and after it are an optimization -
   // if you use \s* next to spaces/tabs, they coalesce for speed.
-  [/(\\s\*)?[ \t]+(\\s\*)?/g, '\\s*']
+  // We use non-capturing groups (?:...) for speed. Preprocessing is only
+  // done once on startup, so speed isn't important, but it's often good
+  // to avoid capturing groups when you don't need to.
+  [/(?:\\s\*)?[ \t]+(?:\\s\*)?/g, '\\s*']
 ];
 
 /**
