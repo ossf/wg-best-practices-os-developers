@@ -608,5 +608,8 @@ in this example:
    The optional expressions before and after it are an optimization,
    to coalesce this for speed.
 
+In the preprocessing replacement text, you can use `$` followed by a digit
+to refer to the corresponding capturing group.
+
 If you load `hello.html` you'll automatically run some self-tests on
 the default preprocessor.
