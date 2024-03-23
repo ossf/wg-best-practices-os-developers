@@ -1,0 +1,9 @@
+pre, pre code, pre input, pre textarea {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono",
+                 Menlo, Courier, monospace;
+    font-size: 16px;
+}
+pre input, pre textarea {
+    /* Line up with text surrounding text */
+    margin-left: -5px;
+}

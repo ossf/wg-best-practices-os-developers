@@ -3,8 +3,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
 <script src="js-yaml.min.js"></script>
 <script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
 <!-- Sample expected answer -->
 <script id="expected0" type="plain/text">
@@ -111,7 +113,7 @@ Express framework (version 4) and the express-validator library.
 
 <p>
 However, this time we're going to do input validation for a specific
-data value using regular expressions. Many programs have 
+data value using regular expressions. Many programs have
 specialized data values that are easily tested using
 regular expressions.
 
@@ -191,7 +193,7 @@ For multi-line inputs, instead of <input id="attempt" type="text" ...>, use
 <textarea id="attempt" rows="2" cols="70">...</textarea>
 -->
 <form id="lab">
-<pre>
+<pre><code>
 // Set up Express framework and express-validator library
 const express = require("express");
 const app = express();
@@ -199,7 +201,8 @@ const { query, matchedData, validationResult } = require('express-validator');
 
 // Implement requests such as http://localhost:3000/parts?id=1
 app.get('/parts',
-<input id="attempt0" type="text" size="70" value="  ,"> 
+<input id="attempt0" type="text" size="70" spellcheck="false"
+ value="  ,">
   (req, res) =&gt; { // Execute this code if /invoices seen
     const result = validationResult(req); // Retrieve errors
     if (result.isEmpty()) { // No errors
@@ -208,7 +211,7 @@ app.get('/parts',
     }
     res.status(422).send(`Invalid input`);
   })
-</pre>
+</code></pre>
 <button type="button" id="hintButton">Hint</button>
 <button type="button" id="resetButton">Reset</button>
 <button type="button" id="giveUpButton">Give up</button>
