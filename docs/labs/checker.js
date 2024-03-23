@@ -90,12 +90,11 @@ function showDebugOutput(debugOutput, alwaysAlert = true) {
 
 /**
  * Given take a regex string, preprocess it (using our array of
- * preprocessing regexes), and return a final compiled regex.
+ * preprocessing regexes), and return a processed regex as a String.
  * @regexString - String to be converted into a compiled Regex
- * @description - Description of @regexString's purpose (for error reports)
  * @fullMatch - require full match (insert "^" at beginning, "$" at end).
  */
-function processRegex(regexString, description, fullMatch = true) {
+function processRegexToString(regexString, fullMatch = true) {
     let processedRegexString = regexString;
     for (preprocessRegex of preprocessRegexes) {
         processedRegexString = processedRegexString.replace(
@@ -107,6 +106,18 @@ function processRegex(regexString, description, fullMatch = true) {
         // work correctly and the first capturing (...) will be the first.
         processedRegexString = '^(?:' + processedRegexString + ')$';
     }
+    return processedRegexString;
+}
+
+/**
+ * Given take a regex string, preprocess it (using our array of
+ * preprocessing regexes), and return a final compiled Regexp.
+ * @regexString - String to be converted into a compiled Regexp
+ * @description - Description of @regexString's purpose (for error reports)
+ * @fullMatch - require full match (insert "^" at beginning, "$" at end).
+ */
+function processRegex(regexString, description, fullMatch = true) {
+    let processedRegexString = processRegexToString(regexString, fullMatch);
     try {
         let compiledRegex = new RegExp(processedRegexString);
         return compiledRegex;
@@ -116,6 +127,18 @@ function processRegex(regexString, description, fullMatch = true) {
             `Lab Error: Cannot process ${description}\nFor regex: /${regexString}/\nDue to:\n${e}`);
         throw e; // Rethrow, so containing browser also gets it
     }
+}
+
+/*
+ * Determine if preprocessing produces the expected final regex answer.
+ * @example - 2-element array. LHS is to be processed, RHS is expected result
+ */
+function validProcessing(example) {
+    let [unProcessed, expectedProcessed] = example;
+    let actualProcessed = processRegexToString(unProcessed, false);
+    // alert(`actual\n${actualProcessed}\nexpected\n${expectedProcessed}`);
+    // alert(`actual length\n${actualProcessed.length}\nexpected length\n${expectedProcessed.length}`);
+    return (actualProcessed == expectedProcessed);
 }
 
 /**
@@ -304,7 +327,7 @@ function processInfo(configurationInfo) {
 
     const allowedInfoFields = new Set([
         'hints', 'successes', 'failures', 'correct', 'expected',
-        'debug']);
+         'preprocessing', 'preprocessingTests', 'debug']);
     let usedFields = new Set(Object.keys(info));
     let forbiddenFields = usedFields.difference(allowedInfoFields);
     if (forbiddenFields.size != 0) {
@@ -362,6 +385,13 @@ function runSelftest() {
                 alert(`Lab error: Expected value is fine at index ${i}`);
             }
        }
+    };
+
+    // Run tests of the preprocessing process, if present
+    for (let example of (info.preprocessingTests || [])) {
+        if (!validProcessing(example)) {
+            alert(`Lab Error: preprocessing\n${example.join("\n\n")}\nshould pass but fails.`);
+	    };
     };
 
     // Run tests in successes and failures, if present

@@ -93,6 +93,19 @@ failures:
 #     - |-
 #         (\\s\*)?\s+(\\s\*)?
 #     - "\\s*"
+# Here are tests for default preprocessing. You do not need this in
+# every lab, but it demonstrates how to do it.
+preprocessingTests:
+  -
+    - |-
+        \s* console \. log \( (["'`])Hello,\x20world!\1 \) ; \s*
+    - |-
+        \s*console\s*\.\s*log\s*\(\s*(["'`])Hello,\x20world!\1\s*\)\s*;\s*
+  -
+    - |-
+        \s* foo \s+ bar \\string\\ \s*
+    - |-
+        \s*foo\s+bar\s*\\string\\\s*
 # debug: true
 </script>
 <!--
