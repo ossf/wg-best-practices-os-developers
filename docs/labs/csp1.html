@@ -384,14 +384,15 @@ but please try to do this on your own!
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
 <p>
 <form id="lab">
-<pre>
+<pre><code>
 const express = require("express");
-<input id="attempt0" type="text" size="70" value="const"> 
+<input id="attempt0" type="text" size="70" spellcheck="false"
+value="const"> 
 
 const app = express();
 
 // Use Helmet to insert hardening headers
-<textarea id="attempt1" rows="10" cols="70">
+<textarea id="attempt1" rows="10" cols="70" spellcheck="false">
 app.use(
 );
 </textarea>
@@ -401,7 +402,7 @@ app.get("/", (req, res) => {
 });
 
 app.listen(3000);
-</pre>
+</code></pre>
 <button type="button" id="hintButton">Hint</button>
 <button type="button" id="resetButton">Reset</button>
 <button type="button" id="giveUpButton">Give up</button>
