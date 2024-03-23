@@ -66,6 +66,18 @@ function escapeHTML(unsafe) {
             .replace(/\'/g, "&#039;"));
 }
 
+/* Compute Set difference lhs \ rhs.
+ * @lhs - Set to start with
+ * @rhs - Set to remove from the lhs
+ * Set difference is in Firefox nightly, but is not yet released.
+ * So we compute it ourselves. This is equivalent to lhs.difference(rhs)
+ */
+function setDifference(lhs, rhs) {
+    let lhsArray = Array.from(lhs);
+    let result = lhsArray.filter((x) => {!rhs.has(x)});
+    return new Set(result);
+}
+
 /*
  * Show debug output in debug region and maybe via alert box
  * @debugOutput - the debug information to show
@@ -253,7 +265,7 @@ function processHints(requestedHints) {
 
         // Complain about unknown fields
         let usedFields = new Set(Object.keys(hint));
-        let forbiddenFields = usedFields.difference(allowedHintFields);
+        let forbiddenFields = setDifference(usedFields, allowedHintFields);
         if (forbiddenFields.size != 0) {
             showDebugOutput(
                 `Unknown field(s) in hint[${i}]: ` +
@@ -306,7 +318,7 @@ function processInfo(configurationInfo) {
         'hints', 'successes', 'failures', 'correct', 'expected',
         'debug']);
     let usedFields = new Set(Object.keys(info));
-    let forbiddenFields = usedFields.difference(allowedInfoFields);
+    let forbiddenFields = setDifference(usedFields, allowedInfoFields);
     if (forbiddenFields.size != 0) {
         showDebugOutput(
             `Unknown field(s) in info: ` +
