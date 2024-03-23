@@ -556,6 +556,17 @@ Each array element should itself be an array of:
    these buffer boundary constructs are not in ECMAScript/JavaScript,
    though there [is a proposal to add them](https://github.com/tc39/proposal-regexp-buffer-boundaries).
 
+You can also test preprocessing by setting the info field
+`preprocessingTests` - if you don't set `preprocessing` itself, you're
+testing the default preprocessor.
+The `preprocessingTests` field contains an array of examples that
+test the preprocessor.
+Each example array is two elements long;
+the first is a pattern that could be
+requested, and the second is post-processed pattern that should result.
+There's no need for a "failure" test suite here, because we
+demand exact results for every test case.
+
 Here is an example:
 
 ~~~~yaml
@@ -572,6 +583,17 @@ preprocessing:
     - |-
         (\\s\*)?[ \t]+(\\s\*)?
     - "\\s*"
+preprocessingTests:
+  -
+    - |-
+        \s* console \. log \( (["'`])Hello,\x20world!\1 \) ; \s*
+    - |-
+        \s*console\s*\.\s*log\s*\(\s*(["'`])Hello,\x20world!\1\s*\)\s*;\s*
+  -
+    - |-
+        \s* foo \s+ bar \\string\\ \s*
+    - |-
+        \s*foo\s+bar\s*\\string\\\s*
 ~~~~
 
 Here is an explanation of each of these preprocessing elements
@@ -585,3 +607,6 @@ in this example:
 3. 1+ spaces/tabs are instead interpreted as `\s*` (0+ whitespace).
    The optional expressions before and after it are an optimization,
    to coalesce this for speed.
+
+If you load `hello.html` you'll automatically run some self-tests on
+the default preprocessor.
