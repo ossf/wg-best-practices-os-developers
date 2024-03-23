@@ -1,7 +1,9 @@
-pre, pre code, pre input, pre textarea {
+/* Force pre & code to consistently use the same font */
+.markdown-body pre, .markdown-body pre code, pre, pre code,
+pre input, pre textarea {
     font-family: "SFMono-Regular", Consolas, "Liberation Mono",
                  Menlo, Courier, monospace;
-    font-size: 16px;
+    font-size: medium;
 }
 pre input, pre textarea {
     /* Line up with text surrounding text */
