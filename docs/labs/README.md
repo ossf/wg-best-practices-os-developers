@@ -45,57 +45,57 @@ mappings to existing labs or people who have agreed to work on one:
     * Input Validation: A Few Simple Data Types - [input1](input1.html)
     * Sidequest: Text, Unicode, and Locales
     * Validating Text
-    * Introduction to Regular Expressions
+    * Introduction to Regular Expressions - NEED
     * Using Regular Expressions for Text Input Validation - [input2](input2.html)
-    * Countering ReDoS Attacks on Regular Expressions
+    * Countering ReDoS Attacks on Regular Expressions - NEED
   * Input Validation: Beyond Numbers and Text
-    * Insecure Deserialization
-    * Input Data Structures (XML, HTML, CSV, JSON, & File Uploads)
-    * Minimizing Attack Surface, Identification, Authentication, and Authorization
-    * Search Paths and Environment Variables (including setuid/setgid Programs)
-    * Special Inputs: Secure Defaults and Secure Startup
+    * Insecure Deserialization - NEED
+    * Input Data Structures (XML, HTML, CSV, JSON, & File Uploads) - NEED
+    * Minimizing Attack Surface, Identification, Authentication, and Authorization - NEED
+    * Search Paths and Environment Variables (including setuid/setgid Programs) - NEED
+    * Special Inputs: Secure Defaults and Secure Startup - NEED
   * Consider Availability on All Inputs
-    * Consider Availability on All Inputs Introduction
+    * Consider Availability on All Inputs Introduction - NEED
 * Processing Data Securely
   * Processing Data Securely: General Issues
-    * Prefer Trusted Data. Treat Untrusted Data as Dangerous
-    * Avoid Default & Hardcoded Credentials
-    * Avoid Incorrect Conversion or Cast
+    * Prefer Trusted Data. Treat Untrusted Data as Dangerous - NEED
+    * Avoid Default & Hardcoded Credentials - NEED
+    * Avoid Incorrect Conversion or Cast - NEED
   * Processing Data Securely: Undefined Behavior / Memory Safety
-    * Countering Out-of-Bounds Reads and Writes (Buffer Overflow)
-    * Double-free, Use-after-free, and Missing Release
-    * Avoid Undefined Behavior
+    * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - NEED
+    * Double-free, Use-after-free, and Missing Release - NEED
+    * Avoid Undefined Behavior - NEED
   * Processing Data Securely: Calculate Correctly
-    * Avoid Integer Overflow, Wraparound, and Underflow
+    * Avoid Integer Overflow, Wraparound, and Underflow - NEED
 * Calling Other Programs
   * Introduction to Securely Calling Programs
     * Introduction to Securely Calling Programs - The Basics
   * Calling Other Programs: Injection and Filenames
-    * SQL Injection
-    * OS Command (Shell) injection
-    * Other Injection Attacks
-    * Filenames (Including Path Traversal and Link Following)
+    * SQL Injection - NEED
+    * OS Command (Shell) injection - NEED
+    * Other Injection Attacks - NEED
+    * Filenames (Including Path Traversal and Link Following) - NEED
   * Calling Other Programs: Other Issues
-    * Call APIs for Programs and Check What Is Returned
-    * Handling Errors
-    * Logging
-    * Debug and Assertion Code
-    * Countering Denial-of-Service (DoS) Attacks
+    * Call APIs for Programs and Check What Is Returned - NEED
+    * Handling Errors - NEED
+    * Logging - NEED
+    * Debug and Assertion Code - NEED
+    * Countering Denial-of-Service (DoS) Attacks - NEED
 * Sending Output
-  * Introduction to Sending Output
-  * Countering Cross-Site Scripting (XSS)
+  * Introduction to Sending Output - NEED
+  * Countering Cross-Site Scripting (XSS) - NEED
   * Content Security Policy (CSP) - [csp1](csp1.html)
-  * Other HTTP Hardening Headers
-  * Cookies & Login Sessions
-  * CSRF / XSRF
-  * Open Redirects and Forwards
-  * HTML **target** and JavaScript **window.open()**
-  * Using Inadequately Checked URLs / Server-Side Request Forgery (SSRF)
-  * Same-Origin Policy and Cross-Origin Resource Sharing (CORS)
-  * Format Strings and Templates
-  * Minimize Feedback / Information Exposure
-  * Avoid caching sensitive information
-  * Side-Channel Attacks
+  * Other HTTP Hardening Headers - (probably continue csp1) NEED
+  * Cookies & Login Sessions - NEED
+  * CSRF / XSRF - NEED
+  * Open Redirects and Forwards - NEED
+  * HTML **target** and JavaScript **window.open()** - NEED
+  * Using Inadequately Checked URLs / Server-Side Request Forgery (SSRF) - NEED
+  * Same-Origin Policy and Cross-Origin Resource Sharing (CORS) - NEED
+  * Format Strings and Templates - NEED
+  * Minimize Feedback / Information Exposure - NEED
+  * Avoid caching sensitive information - NEED
+  * Side-Channel Attacks - NEED
 
 ## Other information
 
