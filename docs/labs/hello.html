@@ -83,7 +83,7 @@ failures:
 # ADVANCED use - define our own preprocessing commands.
 # I suggest using "|-" (stripping the trailing newlines)
 # preprocessing:
-#   - 
+#   -
 #     - |-
 #         [\n\r]+
 #     - ""
@@ -146,10 +146,10 @@ For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
 <textarea id="attempt" rows="2" cols="70">...</textarea>
 -->
 <form id="lab">
-<pre>
-<input id="attempt0" type="text" size="70"
+<pre><code>
+<input id="attempt0" type="text" size="70" spellcheck="false"
        value='console.log("Goodbye.");'>
-</pre>
+</code></pre>
 <button type="button" id="hintButton">Hint</button>
 <button type="button" id="resetButton">Reset</button>
 <button type="button" id="giveUpButton">Give up</button>
