@@ -9,3 +9,6 @@ pre input, pre textarea {
     /* Line up with text surrounding text */
     margin-left: -5px;
 }
+.markdown-body pre textarea, pre textarea {
+    resize: both;
+}
