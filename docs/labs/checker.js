@@ -172,7 +172,7 @@ function runCheck() {
         let result = calcOneMatch(attempt, i, correctRe);
         if (!result) isCorrect = false;
         document.getElementById(`attempt${i}`).style.backgroundColor =
-            isCorrect ?  'lightgreen' : 'yellow';
+            result ?  'lightgreen' : 'yellow';
     };
     // isCorrect is now true only if everything matched
     let oldGrade = document.getElementById('grade').innerHTML;
