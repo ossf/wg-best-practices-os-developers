@@ -628,4 +628,3 @@ looks promising. It has an MIT license, only about 2.5kB,
 and you can use a highlighting library such as PrismJS or your own;
 it doesn't do any bracket matching though.
 There are many larger ones such as Ace and CodeMirror.
-
