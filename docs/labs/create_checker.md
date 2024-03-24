@@ -613,3 +613,19 @@ to refer to the corresponding capturing group.
 
 If you load `hello.html` you'll automatically run some self-tests on
 the default preprocessor.
+
+## Potential future directions
+
+Below are notes about potential future directions.
+
+Currently this system uses simple input and textarea tags
+to retrieve data.
+It might be useful to (optionally?) replace that with a code editor.
+[Wikipedia's Comparison of JavaScript-based source code editors](https://en.wikipedia.org/wiki/Comparison_of_JavaScript-based_source_code_editors) lists many options.
+[CodeJar](https://medv.io/codejar/)
+([CodeJar repo](https://github.com/antonmedv/codejar))
+looks promising. It has an MIT license, only about 2.5kB,
+and you can use a highlighting library such as PrismJS or your own;
+it doesn't do any bracket matching though.
+There are many larger ones such as Ace and CodeMirror.
+
