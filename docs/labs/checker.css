@@ -12,3 +12,7 @@ pre input, pre textarea {
 .markdown-body pre textarea, pre textarea {
     resize: both;
 }
+
+.displayNone {
+    display: none;
+}

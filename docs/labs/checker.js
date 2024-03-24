@@ -94,6 +94,8 @@ function showDebugOutput(debugOutput, alwaysAlert = true) {
         // Use textContent to see the raw unfiltered results
         debugDataRegion.textContent = (
             String(debugDataRegion.textContent) + debugOutputString + "\n\n");
+        debugDataRegion.classList.remove('displayNone');
+        // Force display, just in case:
         debugDataRegion.style.display = 'block';
         if (alwaysAlert) alert(debugOutputString);
     } else {
