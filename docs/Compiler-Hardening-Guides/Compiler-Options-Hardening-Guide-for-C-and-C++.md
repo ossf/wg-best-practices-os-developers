@@ -33,15 +33,16 @@ Note that support for some options may differ between different compilers, e.g. 
 
 When compiling code in any of the situations in the below table, add the corresponding additional options:
 
-| When                 | Additional options flags       |
-|:---------------------|:-------------------------------|
-| using GCC            | `-Wtrampolines`                |
-| for executables      | `-fPIE -pie`                   |
-| for shared libraries | `-fPIC -shared`                |
-| for x86_64           | `-fcf-protection=full`         |
-| for aarch64          | `-mbranch-protection=standard` |
-| for production code  | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
-| for disabling obsolete C constructs | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion` |
+| When                                                    | Additional options flags                                                                                 |
+|:------------------------------------------------------- |:---------------------------------------------------------------------------------------------------------|
+| using GCC                                               | `-Wtrampolines`                                                                                          |
+| using GCC and only left-to-right writing in source code | `-Wbidi-chars=any`                                                                                       |
+| for executables                                         | `-fPIE -pie`                                                                                             |
+| for shared libraries                                    | `-fPIC -shared`                                                                                          |
+| for x86_64                                              | `-fcf-protection=full`                                                                                   |
+| for aarch64                                             | `-mbranch-protection=standard`                                                                           |
+| for production code                                     | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
+| for disabling obsolete C constructs                     | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion`                             |
 
 We recommend developers to additionally use a blanket [`-Werror`](#-Werror) to treat all warnings as errors during development. However, `-Werror` should not be used in this blanket form when distributing source code, as this use of `-Werror` creates a dependency on specific toolchain vendors and versions. The selective form[`-Werror=`*`<warning-flag>`*](#-Werror-flag) that promotes specific warnings as error in cases that should never occur in the code can be used both during development and when distributing sources. For example, we encourage developers to promote warnings regarding obsolete C constructs removed by the 1999 C standard to errors (see the "for disabling obsolete C constructs" in the above table). These options often cannot be added by those who independently build the software, because the options may require non-trivial changes to the source code.
 
@@ -102,7 +103,7 @@ Compiler options hardening is not a silver bullet; it is not sufficient to rely 
 
 ### What is our threat model, goal, and objective?
 
-Our threat model is that all software developers make mistakes, and sometimes those mistakes lead to vulnerabilities. In addition, some malicious developers may intentionally create code that *appears* to be an unintentional vulnerability, or *appears* correct but is intentionally deceiving to reviewers (aka underhanded code[^Wheeler20]).
+Our threat model is that all software developers make mistakes, and sometimes those mistakes lead to vulnerabilities. In addition, some malicious developers may intentionally create code that *appears* to be an unintentional vulnerability, or *appears* correct but is intentionally deceiving to reviewers (aka underhanded code[^Wheeler2020]).
 
 Our primary goal is to counter vulnerabilities that *appear* to be unintentional (whether or not they're intentional). Our secondary goal is to counter malicious code where its source code's appearance is designed to deceive reviewers.
 
@@ -114,13 +115,13 @@ Given these goals, this guidance has the following objectives:
 
 1. *Minimize* the likelihood and/or impact of vulnerabilities that are released in production code.
 2. *Maximize* the detection of vulnerabilities during compilation or test (especially when using instrumented test code), so they can be repaired before release.
-3. Detect underhanded code[^Wheeler20] (especially Trojan source[^wp-trojansource]), where practical, to make peer review more effective.
+3. Detect underhanded code[^Wheeler2020] (especially Trojan source[^Boucher2021]), where practical, to make peer review more effective.
 
 This guidance cannot guarantee these results. However, when combined with other measures, they can significantly help.
 
-[^Wheeler20]: Wheeler, David, [Initial Analysis of Underhanded Source Code](https://www.ida.org/research-and-publications/publications/all/i/in/initial-analysis-of-underhanded-source-code), Institute for Defense Analysis, April 2020.
+[^Wheeler2020]: Wheeler, David, [Initial Analysis of Underhanded Source Code](https://www.ida.org/research-and-publications/publications/all/i/in/initial-analysis-of-underhanded-source-code), Institute for Defense Analysis, April 2020.
 
-[^wp-trojansource]: Wikipedia contributors, [Trojan Source](https://en.wikipedia.org/w/index.php?title=Trojan_Source&oldid=1187570322), Wikipedia, 2023-11-30.
+[^Boucher2021]: Boucher, Nicholas and Anderson, Ross, ["Trojan Source: Invisible Vulnerabilities"](https://doi.org/10.48550/arXiv.2111.00169), arXiv:2111.00169 [cs.CR], 2021-10-30. Published in the [32nd USENIX Security Symposium](https://www.usenix.org/conference/usenixsecurity23/presentation/boucher) (USENIX Security '23). For more context see, e.g., Krebs, Brian [‘Trojan Source’ Bug Threatens the Security of All Code](https://krebsonsecurity.com/2021/11/trojan-source-bug-threatens-the-security-of-all-code/), KrebsOnSecurity, 2021-11-01 and the [related Hacker News discussion](https://news.ycombinator.com/item?id=29062982), Wikipedia contributors, [Trojan Source](https://en.wikipedia.org/w/index.php?title=Trojan_Source&oldid=1187570322), Wikipedia, 2023-11-01, and Common Vulnerability Enumeration Database, [CVE-2021-42574](https://www.cve.org/CVERecord?id=CVE-2021-42574), 2021-11-01.
 
 ## Recommended Compiler Options
 
@@ -182,6 +183,7 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | [`-Wconversion`](#-Wconversion)<br/>[`-Wsign-conversion`](#-Wsign-conversion) | GCC 2.95.3<br/>Clang 4.0 | Enable implicit conversion warnings                                                 |
 | [`-Wtrampolines`](#-Wtrampolines)                                             |         GCC 4.3          | Enable warnings about trampolines that require executable stacks                    |
 | [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7<br>Clang 4.0   | Warn when a switch case falls through                                           |
+| [`-Wbidi-chars=any`](#-Wbidi-chars=any)                                       | GCC 12                   | Enable warnings for possibly misleading Unicode bidirectional control characters    |
 | [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Treat all or selected compiler warnings as errors. Use the blanket form `-Werror` only during development, not in source distribution. |
 | [`-Werror=implicit`](#-Werror=implicit)<br/>[`-Werror=incompatible-pointer-types`](#-Werror=incompatible-pointer-types)<br/>[`-Werror=int-conversion`](#-Werror=int-conversion)<br/> | GCC 2.95.3<br/>Clang 2.6 | Treat obsolete C constructs as errors |
 
@@ -331,6 +333,47 @@ The C17 standard[^C2017] does not provide a mechanism to mark intentional fallth
 [^C2017]: ISO/IEC, [Programming languages — C ("C17")](https://web.archive.org/web/20181230041359/http://www.open-std.org/jtc1/sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf), ISO/IEC 9899:2018, 2017. Note: The official ISO/IEC specification is paywalled and therefore not publicly available. The final specification draft is publicly available.
 
 [^Shafik15]: Shafik, Yaghmour, ["GCC 7, -Wimplicit-fallthrough warnings, and portable way to clear them?"](https://stackoverflow.com/questions/27965722/c-force-compile-time-error-warning-on-implicit-fall-through-in-switch/27965827#27965827), StackOverflow, 2015-01-15.
+
+---
+
+### Enable warnings for possibly misleading Unicode bidirectional control characters
+
+| Compiler Flag                                                            | Supported since | Description                                                                                                                                                     |
+|:------------------------------------------------------------------------ |:---------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <span id="-Wbidi-chars=any">`-Wbidi-chars=any`</span>                    | GCC 12          | Enable warnings for any UTF-8 bidirectional control characters in comments, string literals, character constants, and identifiers                               |
+| <span id="-Wbidi-chars=any,ucn">`-Wbidi-chars=any,ucn`</span>            | GCC 12          | As `any` and additionally warn of UCNs corresponding to bidirectional control characters in string literals, character constants, and identifiers               |
+| <span id="-Wbidi-chars=unpaired">`-Wbidi-chars=unpaired`</span>          | GCC 12          | Enable warnings for unpaired UTF-8 bidirectional control characters in comments, string literals, character constants, and identifiers                          |
+| <span id="-Wbidi-chars=unpaired,ucn">`-Wbidi-chars=unpaired,ucn`</span>  | GCC 12          | As `unpaired` and additionally warn of UCNs corresponding to unpaired bidirectional control characters in string literals, character constants, and identifiers |
+
+#### Synopsis
+
+Check for possibly misleading Unicode bidirectional (bidi) control characters in comments, string literals, character constants, and identifiers.
+
+Some writing systems (such as Arabic, Hebrew, Persian, and Urdu) are typically written right-to-left (RTL), while many others (such as English) are written left-to-right (LTR). Some documents must mix writing systems with different orders, e.g. source code with comments in right-to-left writing. Unicode supports various control sequences to support this visual reordering. Unfortunately, attackers can use such control sequences to obfuscate source code to hide vulnerabilities from human reviewers. Careful human review is usually one of the strongest methods available to detect malicious code. Unfortunately, maliciously misleading code, aka *"underhanded code"*, attempts to subvert human review[^Wheeler2020]. *"Trojan Source"*[^Boucher2021] is a specific kind of underhanded code that exploits the Unicode bidirectional algorithm that produce the correct order of characters when bidirectional text is displayed.
+
+The GCC `-Wbidi-chars` option helps to counter Trojan Source attacks[^gcc-Wbidi-chars]. By default its value is `-Wbidi-char=unpaired`, which warns about improperly terminated bidi contexts (this should never happen in source code). However, this default is somewhat permissive.
+
+In many cases using `-Wbidi-char=any` is a stronger defense. This option forbids *any* use of bidirectional control characters in comments, string literals, character constants, and identifiers, completely eliminating the Trojan Source attack. This setting is appropriate when bidi characters are *not* expected in the source code, and their only use would be as part of an attack on reviewers.
+
+Both `-Wbidi-char=any` and `-Wbidi-char=unpaired` can be combined with the `ucn` argument which additionally warns of corresponding bidirectional control characters expressed as universal-character-names (UCNs), i.e., using the `\uXXXX` notation,in string literals, character constants, and identifiers.
+
+Note that this option does *not* interfere with creating internationalized programs. Current best practice is to put human-readable text strings in separate files, not in source code, and then use an internationalization (i18n) framework like `gettext` to retrieve the correct text for the user's locale.
+
+<!-- Implemented in: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103026 -->
+
+[^gcc-Wbidi-chars]: GCC team, [Using the GNU Compiler Collection (GCC): Warning Options: `-Wbidi-chars`](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wbidi-chars_003d),
+
+#### When not to use?
+
+Do *not* use `-Wbidi-chars=any` or `-Wbidi-chars=any,ucn` in cases where some of the source code *is* expected to include bidirectional control characters. This is typically the case where some of the source code text, e.g., comments, are in a right-to-left script such as Arabic, Hebrew, Persian, or Urdu. In such cases, use `-Wbidi-chars=unpaired` (the default) or `-Wbidi-chars=unpaired,ucn` instead.
+
+#### Additional Considerations
+
+It is best to use other static code analysis tools to also warn about Trojan Source, since it's not an issue developers typically consider. Some editors have mechanisms to warn about Trojan Source; using them is recommended where practical. However, it's sometimes difficult to verify whether developers and reviewers have used such tools.
+
+clang-tidy's `misc-misleading-bidirectional` check warns about unterminated bidirectional Unicode sequences, similar to GCC's `-Wbidi-char=unpaired`[^clang-tidy-bidi].
+
+[^clang-tidy-bidi]: LLVM team, [clang-tidy - misc-misleading-bidirectional](https://clang.llvm.org/extra/clang-tidy/checks/misc/misleading-bidirectional.html), Extra Clang Tools Documentation, 2024-03-28.
 
 ---
 
