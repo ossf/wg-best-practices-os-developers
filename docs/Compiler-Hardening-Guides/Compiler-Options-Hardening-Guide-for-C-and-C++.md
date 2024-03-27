@@ -396,9 +396,7 @@ Some tools, such as `autoconf`, automatically determine what the compiler suppor
 
 ---
 
-### Warn on Unicode Unicode bidirectional (bidi) override characters |
-
-| [`-Wbidi-chars=any`](#-Wbidi-chars) | GCC | Warn on Unicode bidirectional (bidi) override characters |
+### Warn on Unicode Unicode bidirectional (bidi) override characters
 
 | Compiler Flag                                                                              | Supported since            | Description                                                                                  |
 | ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
