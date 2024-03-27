@@ -185,7 +185,7 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7<br>Clang 4.0   | Warn when a switch case falls through                                           |
 | [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Treat all or selected compiler warnings as errors. Use the blanket form `-Werror` only during development, not in source distribution. |
 | [`-Werror=implicit`](#-Werror=implicit)<br/>[`-Werror=incompatible-pointer-types`](#-Werror=incompatible-pointer-types)<br/>[`-Werror=int-conversion`](#-Werror=int-conversion)<br/> | GCC 2.95.3<br/>Clang 2.6 | Treat obsolete C constructs as errors |
-| [`-Wbidi-chars=any`](#-Wbidi-chars) | GCC | Warn on Unicode bidirectional (bidi) override characters |
+| [`-Wbidi-chars=any`](#-Wbidi-chars=any)                                       | GCC 12                   | Enable warnings for possibly misleading unicode bidirectional control characters    |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
 
@@ -396,11 +396,14 @@ Some tools, such as `autoconf`, automatically determine what the compiler suppor
 
 ---
 
-### Warn on Unicode Unicode bidirectional (bidi) override characters
+### Enable warnings for possibly misleading unicode bidirectional control characters
 
-| Compiler Flag                                                                              | Supported since            | Description                                                                                  |
-| ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
-| <span id="--Wbidi-chars">`-Wbidi-chars=any`</span>                                | GCC | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows         |
+| Compiler Flag                                                            | Supported since | Description                                                                                                                                                     |
+|:------------------------------------------------------------------------ |:---------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <span id="-Wbidi-chars=any">`-Wbidi-chars=any`</span>                    | GCC 12          | Enable warnings for any UTF-8 bidirectional control characters in comments, string literals, character constants, and identifiers                               |
+| <span id="-Wbidi-chars=any,ucn">`-Wbidi-chars=any,ucn`</span>            | GCC 12          | As `any` and additionally warn of UCNs corresponding to bidirectional control characters in string literals, character constants, and identifiers               |
+| <span id="-Wbidi-chars=unpaired">`-Wbidi-chars=unpaired`</span>          | GCC 12          | Enable warnings for unpaired UTF-8 bidirectional control characters in comments, string literals, character constants, and identifiers                          |
+| <span id="-Wbidi-chars=unpaired,ucn">`-Wbidi-chars=unpaired,ucn`</span>  | GCC 12          | As `unpaired` and additionally warn of UCNs corresponding to unpaired bidirectional control characters in string literals, character constants, and identifiers |
 
 #### Synopsis
 
