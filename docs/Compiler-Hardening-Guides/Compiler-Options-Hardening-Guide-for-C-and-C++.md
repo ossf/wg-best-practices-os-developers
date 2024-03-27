@@ -42,6 +42,7 @@ When compiling code in any of the situations in the below table, add the corresp
 | for aarch64          | `-mbranch-protection=standard` |
 | for production code  | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
 | for disabling obsolete C constructs | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion` |
+| No right-to-left text in source & using GCC | `-Wbidi-chars=any` |
 
 We recommend developers to additionally use a blanket [`-Werror`](#-Werror) to treat all warnings as errors during development. However, `-Werror` should not be used in this blanket form when distributing source code, as this use of `-Werror` creates a dependency on specific toolchain vendors and versions. The selective form[`-Werror=`*`<warning-flag>`*](#-Werror-flag) that promotes specific warnings as error in cases that should never occur in the code can be used both during development and when distributing sources. For example, we encourage developers to promote warnings regarding obsolete C constructs removed by the 1999 C standard to errors (see the "for disabling obsolete C constructs" in the above table). These options often cannot be added by those who independently build the software, because the options may require non-trivial changes to the source code.
 
@@ -184,6 +185,7 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7<br>Clang 4.0   | Warn when a switch case falls through                                           |
 | [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Treat all or selected compiler warnings as errors. Use the blanket form `-Werror` only during development, not in source distribution. |
 | [`-Werror=implicit`](#-Werror=implicit)<br/>[`-Werror=incompatible-pointer-types`](#-Werror=incompatible-pointer-types)<br/>[`-Werror=int-conversion`](#-Werror=int-conversion)<br/> | GCC 2.95.3<br/>Clang 2.6 | Treat obsolete C constructs as errors |
+| [`-Wbidi-chars=any`](#-Wbidi-chars) | GCC | Warn on Unicode bidirectional (bidi) override characters |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
 
@@ -393,6 +395,52 @@ Some tools, such as `autoconf`, automatically determine what the compiler suppor
 [^gcc-pedantic-errors]: GCC team, [Using the GNU Compiler Collection (GCC): Warning Options: `-pedantic-errors`](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-pedantic-errors-1), GCC Manual, 2023-07-27.
 
 ---
+
+### Warn on Unicode Unicode bidirectional (bidi) override characters |
+
+| [`-Wbidi-chars=any`](#-Wbidi-chars) | GCC | Warn on Unicode bidirectional (bidi) override characters |
+
+| Compiler Flag                                                                              | Supported since            | Description                                                                                  |
+| ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
+| <span id="--Wbidi-chars">`-Wbidi-chars=any`</span>                                | GCC | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows         |
+
+#### Synopsis
+
+One kind of attack is "underhanded code", that is, maliciously misleading source code. Typically human review is one of the strongest defense against malicious code; underhanded code attempts to subvert this defense. For a general discussion, see [^Wheeler2020].
+
+"Trojan Source" is a specific kind of underhanded code that exploits the Bidirectional Algorithm in the Unicode Specification. Some natural languages (such as Arabic and Hebrew) are typically written right-to-left (RTL), while many others (such as English) are written left-to-right (LTR). Some texts must mix texts with different orders.  Unicode supports various control sequences to support this visual reordering. Unfortunately, attackers can use these control sequences so they can introduce vulnerabilities in source code that might not be visible to human reviewers.
+
+For more about Trojan Source see [trojansource.com](https://trojansource.codes/), which includes a copy of the paper "Trojan Source: Invisible Vulnerabilities" by Nicholas Boucher and Ross Anderson [^Boucher2021]. More context can be found [this Hacker News discussion](https://news.ycombinator.com/item?id=29062982) and [Wikipedia](https://en.wikipedia.org/wiki/Trojan_Source).  See, in particular, [CVE-2021-42574](https://nvd.nist.gov/vuln/detail/CVE-2021-42574) and [CVE-2021-42694](https://nvd.nist.gov/vuln/detail/CVE-2021-42684).
+
+GCC has a `-Wbidi-chars` option to help counter Trojan Source attacks [^gcc-Wbidi-chars].  By default its value is `-Wbidi-char=unpaired`, which warns about improperly terminated bidi contexts (this should never happen in source code). However, this default is somewhat permissive.
+
+In many cases using `-Wbidi-chars=any` is a stronger defense. This option forbids *any* use of bidirectional control characters, completely eliminating the Trojan Source attack. This setting is appropriate when such characters are *not* expected in the source code, and their only use would be as part of an attack on reviewers. This implements a "least privilege" mechanism for source code processing - if bidi characters are not expected, there's no need to permit them.
+
+Note that this option does *not* interfere with creating internationalized programs. Current best practice is to put human-readable text strings in separate file(s), not in source code, and then use an internationalization (i18n) framework like `gettext` to retrieve the correct text for the user's locale.
+
+<!-- Implemented in: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103026 -->
+
+[^Boucher2021]: [Boucher, Nicholas and Ross Anderson, 2021, "Trojan Source: Invisible Vulnerabilities"](https://arxiv.org/abs/2111.00169)
+
+[^gcc-Wbidi-chars]: GCC team, [Using the GNU Compiler Collection (GCC): Warning Options: `-Wbidi-chars`](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wbidi-chars_003d),
+
+[^Wheeler2020]: [Wheeler, David A., April 2020, *Initial Analysis of Underhanded Source Code*](https://www.ida.org/-/media/feature/publications/i/in/initial-analysis-of-underhanded-source-code/d-13166.ashx).
+
+#### Performance implications
+
+None.
+
+#### When not to use?
+
+Do *not* use `-Wbidi-chars=any` in cases where some of the source code *is* expected to include bidirectional control characters. This is typically the case where some of the source code text is in Arabic or Hebrew. In such cases, use `-Wbidi-chars=unpaired` (the default) instead on GCC. This alternative still provides some defenses.
+
+#### Additional Considerations
+
+It's best to use other tools to also warn about Trojan Source, since it's not an issue developers typically consider. Some editors have mechanisms to warn about Trojan Source; using them is recommended where practical. However, it's sometimes difficult to verify that developers and reviewers have used such tools.
+
+clang-tidy's `misc-misleading-bidirectional` warns about unterminated bidirectional Unicode sequences, similar to GCC's `-Wbidi-char=unpaired` [^clang-tidy-bidi].
+
+[^clang-tidy-bidi]: [clang-tidy - misc-misleading-bidirectional](https://clang.llvm.org/extra/clang-tidy/checks/misc/misleading-bidirectional.html)
 
 ### Fortify sources for unsafe libc usage and buffer overflows
 
