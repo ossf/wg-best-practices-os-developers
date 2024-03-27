@@ -427,10 +427,6 @@ Note that this option does *not* interfere with creating internationalized progr
 
 [^Wheeler2020]: [Wheeler, David A., April 2020, *Initial Analysis of Underhanded Source Code*](https://www.ida.org/-/media/feature/publications/i/in/initial-analysis-of-underhanded-source-code/d-13166.ashx).
 
-#### Performance implications
-
-None.
-
 #### When not to use?
 
 Do *not* use `-Wbidi-chars=any` in cases where some of the source code *is* expected to include bidirectional control characters. This is typically the case where some of the source code text is in Arabic or Hebrew. In such cases, use `-Wbidi-chars=unpaired` (the default) instead on GCC. This alternative still provides some defenses.
