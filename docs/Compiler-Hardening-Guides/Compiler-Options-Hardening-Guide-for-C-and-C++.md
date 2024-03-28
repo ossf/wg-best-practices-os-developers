@@ -33,16 +33,16 @@ Note that support for some options may differ between different compilers, e.g. 
 
 When compiling code in any of the situations in the below table, add the corresponding additional options:
 
-| When                 | Additional options flags       |
-|:---------------------|:-------------------------------|
-| using GCC            | `-Wtrampolines`                |
-| for executables      | `-fPIE -pie`                   |
-| for shared libraries | `-fPIC -shared`                |
-| for x86_64           | `-fcf-protection=full`         |
-| for aarch64          | `-mbranch-protection=standard` |
-| for production code  | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
-| for disabling obsolete C constructs | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion` |
-| No right-to-left text in source & using GCC | `-Wbidi-chars=any` |
+| When                                                    | Additional options flags                                                                                 |
+|:------------------------------------------------------- |:---------------------------------------------------------------------------------------------------------|
+| using GCC                                               | `-Wtrampolines`                                                                                          |
+| using GCC and only left-to-right writing in source code | `-Wbidi-chars=any`                                                                                       |
+| for executables                                         | `-fPIE -pie`                                                                                             |
+| for shared libraries                                    | `-fPIC -shared`                                                                                          |
+| for x86_64                                              | `-fcf-protection=full`                                                                                   |
+| for aarch64                                             | `-mbranch-protection=standard`                                                                           |
+| for production code                                     | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
+| for disabling obsolete C constructs                     | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion`                             |
 
 We recommend developers to additionally use a blanket [`-Werror`](#-Werror) to treat all warnings as errors during development. However, `-Werror` should not be used in this blanket form when distributing source code, as this use of `-Werror` creates a dependency on specific toolchain vendors and versions. The selective form[`-Werror=`*`<warning-flag>`*](#-Werror-flag) that promotes specific warnings as error in cases that should never occur in the code can be used both during development and when distributing sources. For example, we encourage developers to promote warnings regarding obsolete C constructs removed by the 1999 C standard to errors (see the "for disabling obsolete C constructs" in the above table). These options often cannot be added by those who independently build the software, because the options may require non-trivial changes to the source code.
 
