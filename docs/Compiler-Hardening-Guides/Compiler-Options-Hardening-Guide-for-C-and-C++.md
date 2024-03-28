@@ -564,7 +564,7 @@ Once in place, bounds-checking can occur in arrays with fixed declared sizes at 
 
 [^gcc-fsanitize-bounds]: GCC team, [Program Instrumentation Options: `-Wsanitize=bounds`](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fsanitize_003dbounds), GCC Manual, 2023-07-27.
 
-[^Zhao22]: Zhao, Qing, "[[GCC13][Patch][V2][1/2]Add a new option -fstrict-flex-array[=n] and attribute strict_flex_array(n) and use it in PR101836"](https://gcc.gnu.org/pipermail/gcc-patches/2022-August/599151.html), GCC Mailing List, 2022-08-01.
+[^Zhao22]: Zhao, Qing, "[\[GCC13\]\[Patch\]\[V2\]\[1/2\]Add a new option -fstrict-flex-array[=n] and attribute strict_flex_array(n) and use it in PR101836"](https://gcc.gnu.org/pipermail/gcc-patches/2022-August/599151.html), GCC Mailing List, 2022-08-01.
 
 [^Cook23]: Cook, Kees, and Gustavo A.R. Silva, ["Progress on Bounds Checking in C and the Linux Kernel"](https://www.youtube.com/watch?v=V2kzptQG5_A), Linux Security Summit North America 2023, 2023-05-12.
 
