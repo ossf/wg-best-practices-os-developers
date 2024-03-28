@@ -115,13 +115,13 @@ Given these goals, this guidance has the following objectives:
 
 1. *Minimize* the likelihood and/or impact of vulnerabilities that are released in production code.
 2. *Maximize* the detection of vulnerabilities during compilation or test (especially when using instrumented test code), so they can be repaired before release.
-3. Detect underhanded code[^Wheeler20] (especially Trojan source[^wp-trojansource]), where practical, to make peer review more effective.
+3. Detect underhanded code[^Wheeler20] (especially Trojan source[^Boucher21]), where practical, to make peer review more effective.
 
 This guidance cannot guarantee these results. However, when combined with other measures, they can significantly help.
 
 [^Wheeler20]: Wheeler, David, [Initial Analysis of Underhanded Source Code](https://www.ida.org/research-and-publications/publications/all/i/in/initial-analysis-of-underhanded-source-code), Institute for Defense Analysis, April 2020.
 
-[^wp-trojansource]: Wikipedia contributors, [Trojan Source](https://en.wikipedia.org/w/index.php?title=Trojan_Source&oldid=1187570322), Wikipedia, 2023-11-30.
+[^Boucher21]: Boucher, Nicholas and Anderson, Ross, ["Trojan Source: Invisible Vulnerabilities"](https://doi.org/10.48550/arXiv.2111.00169), arXiv:2111.00169 [cs.CR], 2021-10-30. Published in the [32nd USENIX Security Symposium](https://www.usenix.org/conference/usenixsecurity23/presentation/boucher) (USENIX Security '23). For more context see, e.g., Krebs, Brian [‘Trojan Source’ Bug Threatens the Security of All Code](https://krebsonsecurity.com/2021/11/trojan-source-bug-threatens-the-security-of-all-code/), KrebsOnSecurity, 2021-11-01 and the [related Hacker News discussion](https://news.ycombinator.com/item?id=29062982), Wikipedia contributors, [Trojan Source](https://en.wikipedia.org/w/index.php?title=Trojan_Source&oldid=1187570322), Wikipedia, 2023-11-01, and Common Vulnerability Enumeration Database, [CVE-2021-42574](https://www.cve.org/CVERecord?id=CVE-2021-42574), 2021-11-01.
 
 ## Recommended Compiler Options
 
@@ -407,37 +407,35 @@ Some tools, such as `autoconf`, automatically determine what the compiler suppor
 
 #### Synopsis
 
-One kind of attack is "underhanded code", that is, maliciously misleading source code. Typically human review is one of the strongest defense against malicious code; underhanded code attempts to subvert this defense. For a general discussion, see [^Wheeler2020].
+Check for possibly misleading unicode bidirectional (bidi) control characters comments, string literals, character constants, and identifiers.
 
-"Trojan Source" is a specific kind of underhanded code that exploits the Bidirectional Algorithm in the Unicode Specification. Some natural languages (such as Arabic and Hebrew) are typically written right-to-left (RTL), while many others (such as English) are written left-to-right (LTR). Some texts must mix texts with different orders.  Unicode supports various control sequences to support this visual reordering. Unfortunately, attackers can use these control sequences so they can introduce vulnerabilities in source code that might not be visible to human reviewers.
+Some writing systems (such as Arabic and Hebrew) are typically written right-to-left (RTL), while many others (such as English) are written left-to-right (LTR). Some documents must mix writing systems with different orders, e.g. source code with comments in right-to-left writing. Unicode supports various control sequences to support this visual reordering. Unfortunately, attackers can use such control sequences to obfuscate source code to hide vulnerabilities from human reviewers. Typically careful human review is one of the strongest methods available to detect malicious code. Maliciously misleading, so called *"underhanded code"* attempts to subvert human review[^Wheeler20]. *"Trojan Source"*[^Boucher21] is a specific kind of underhanded code that exploits the unicode bidirectional algorithm that produce the correct order of characters when bidirectional text is displayed.
 
-For more about Trojan Source see [trojansource.com](https://trojansource.codes/), which includes a copy of the paper "Trojan Source: Invisible Vulnerabilities" by Nicholas Boucher and Ross Anderson [^Boucher2021]. More context can be found [this Hacker News discussion](https://news.ycombinator.com/item?id=29062982) and [Wikipedia](https://en.wikipedia.org/wiki/Trojan_Source).  See, in particular, [CVE-2021-42574](https://nvd.nist.gov/vuln/detail/CVE-2021-42574) and [CVE-2021-42694](https://nvd.nist.gov/vuln/detail/CVE-2021-42684).
+The GCC `-Wbidi-chars` option that helps to counter Trojan Source attacks[^gcc-Wbidi-chars]. By default its value is `-Wbidi-char=unpaired`, which warns about improperly terminated bidi contexts (this should never happen in source code). However, this default is somewhat permissive.
 
-GCC has a `-Wbidi-chars` option to help counter Trojan Source attacks [^gcc-Wbidi-chars].  By default its value is `-Wbidi-char=unpaired`, which warns about improperly terminated bidi contexts (this should never happen in source code). However, this default is somewhat permissive.
+In many cases using `-Wbidi-char=unpaired` is a stronger defense. This option forbids *any* use of bidirectional control characters comments, string literals, character constants, and identifiers, completely eliminating the Trojan Source attack. This setting is appropriate when bidi characters are *not* expected in the source code, and their only use would be as part of an attack on reviewers.
 
-In many cases using `-Wbidi-chars=any` is a stronger defense. This option forbids *any* use of bidirectional control characters, completely eliminating the Trojan Source attack. This setting is appropriate when such characters are *not* expected in the source code, and their only use would be as part of an attack on reviewers. This implements a "least privilege" mechanism for source code processing - if bidi characters are not expected, there's no need to permit them.
-
-Note that this option does *not* interfere with creating internationalized programs. Current best practice is to put human-readable text strings in separate file(s), not in source code, and then use an internationalization (i18n) framework like `gettext` to retrieve the correct text for the user's locale.
+Both `-Wbidi-char=any` and `-Wbidi-char=unpaired` can be combined with the `ucn` argument which additionally warns of corresponding bidirectional control characters expressed as universal-character-names (UCNs), i.e., using the `\uXXXX` notation,in string literals, character constants, and identifiers.
 
 <!-- Implemented in: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103026 -->
 
-[^Boucher2021]: [Boucher, Nicholas and Ross Anderson, 2021, "Trojan Source: Invisible Vulnerabilities"](https://arxiv.org/abs/2111.00169)
-
 [^gcc-Wbidi-chars]: GCC team, [Using the GNU Compiler Collection (GCC): Warning Options: `-Wbidi-chars`](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wbidi-chars_003d),
-
-[^Wheeler2020]: [Wheeler, David A., April 2020, *Initial Analysis of Underhanded Source Code*](https://www.ida.org/-/media/feature/publications/i/in/initial-analysis-of-underhanded-source-code/d-13166.ashx).
 
 #### When not to use?
 
-Do *not* use `-Wbidi-chars=any` in cases where some of the source code *is* expected to include bidirectional control characters. This is typically the case where some of the source code text is in Arabic or Hebrew. In such cases, use `-Wbidi-chars=unpaired` (the default) instead on GCC. This alternative still provides some defenses.
+Do *not* use `-Wbidi-chars=any` or `-Wbidi-chars=any,ucn` in cases where some of the source code *is* expected to include bidirectional control characters. This is typically the case where some of the source code text, e.g., comments, are in Arabic, Hebrew, Persian, Urdu, or other right-to-left writing. In such cases, use `-Wbidi-chars=unpaired` (the default) or `-Wbidi-chars=unpaired,ucn` instead.
+
+Note that this option does *not* interfere with creating internationalized programs. Current best practice is to put human-readable text strings in separate files, not in source code, and then use an internationalization (i18n) framework like `gettext` to retrieve the correct text for the user's locale.
 
 #### Additional Considerations
 
-It's best to use other tools to also warn about Trojan Source, since it's not an issue developers typically consider. Some editors have mechanisms to warn about Trojan Source; using them is recommended where practical. However, it's sometimes difficult to verify that developers and reviewers have used such tools.
+It is best to use other static code analysis tools to also warn about Trojan Source, since it's not an issue developers typically consider. Some editors have mechanisms to warn about Trojan Source; using them is recommended where practical. However, it's sometimes difficult to verify whether developers and reviewers have used such tools.
 
-clang-tidy's `misc-misleading-bidirectional` warns about unterminated bidirectional Unicode sequences, similar to GCC's `-Wbidi-char=unpaired` [^clang-tidy-bidi].
+clang-tidy's `misc-misleading-bidirectional` check warns about unterminated bidirectional unicode sequences, similar to GCC's `-Wbidi-char=unpaired`[^clang-tidy-bidi].
 
-[^clang-tidy-bidi]: [clang-tidy - misc-misleading-bidirectional](https://clang.llvm.org/extra/clang-tidy/checks/misc/misleading-bidirectional.html)
+---
+
+[^clang-tidy-bidi]: LLVM team, [clang-tidy - misc-misleading-bidirectional](https://clang.llvm.org/extra/clang-tidy/checks/misc/misleading-bidirectional.html), Extra Clang Tools Documentation, 2024-03-28.
 
 ### Fortify sources for unsafe libc usage and buffer overflows
 
