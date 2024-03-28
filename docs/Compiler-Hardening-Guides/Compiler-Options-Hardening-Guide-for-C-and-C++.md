@@ -183,9 +183,9 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | [`-Wconversion`](#-Wconversion)<br/>[`-Wsign-conversion`](#-Wsign-conversion) | GCC 2.95.3<br/>Clang 4.0 | Enable implicit conversion warnings                                                 |
 | [`-Wtrampolines`](#-Wtrampolines)                                             |         GCC 4.3          | Enable warnings about trampolines that require executable stacks                    |
 | [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7<br>Clang 4.0   | Warn when a switch case falls through                                           |
+| [`-Wbidi-chars=any`](#-Wbidi-chars=any)                                       | GCC 12                   | Enable warnings for possibly misleading unicode bidirectional control characters    |
 | [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Treat all or selected compiler warnings as errors. Use the blanket form `-Werror` only during development, not in source distribution. |
 | [`-Werror=implicit`](#-Werror=implicit)<br/>[`-Werror=incompatible-pointer-types`](#-Werror=incompatible-pointer-types)<br/>[`-Werror=int-conversion`](#-Werror=int-conversion)<br/> | GCC 2.95.3<br/>Clang 2.6 | Treat obsolete C constructs as errors |
-| [`-Wbidi-chars=any`](#-Wbidi-chars=any)                                       | GCC 12                   | Enable warnings for possibly misleading unicode bidirectional control characters    |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
 
@@ -336,6 +336,47 @@ The C17 standard[^C2017] does not provide a mechanism to mark intentional fallth
 
 ---
 
+### Enable warnings for possibly misleading unicode bidirectional control characters
+
+| Compiler Flag                                                            | Supported since | Description                                                                                                                                                     |
+|:------------------------------------------------------------------------ |:---------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <span id="-Wbidi-chars=any">`-Wbidi-chars=any`</span>                    | GCC 12          | Enable warnings for any UTF-8 bidirectional control characters in comments, string literals, character constants, and identifiers                               |
+| <span id="-Wbidi-chars=any,ucn">`-Wbidi-chars=any,ucn`</span>            | GCC 12          | As `any` and additionally warn of UCNs corresponding to bidirectional control characters in string literals, character constants, and identifiers               |
+| <span id="-Wbidi-chars=unpaired">`-Wbidi-chars=unpaired`</span>          | GCC 12          | Enable warnings for unpaired UTF-8 bidirectional control characters in comments, string literals, character constants, and identifiers                          |
+| <span id="-Wbidi-chars=unpaired,ucn">`-Wbidi-chars=unpaired,ucn`</span>  | GCC 12          | As `unpaired` and additionally warn of UCNs corresponding to unpaired bidirectional control characters in string literals, character constants, and identifiers |
+
+#### Synopsis
+
+Check for possibly misleading unicode bidirectional (bidi) control characters comments, string literals, character constants, and identifiers.
+
+Some writing systems (such as Arabic and Hebrew) are typically written right-to-left (RTL), while many others (such as English) are written left-to-right (LTR). Some documents must mix writing systems with different orders, e.g. source code with comments in right-to-left writing. Unicode supports various control sequences to support this visual reordering. Unfortunately, attackers can use such control sequences to obfuscate source code to hide vulnerabilities from human reviewers. Typically careful human review is one of the strongest methods available to detect malicious code. Maliciously misleading, so called *"underhanded code"* attempts to subvert human review[^Wheeler20]. *"Trojan Source"*[^Boucher21] is a specific kind of underhanded code that exploits the unicode bidirectional algorithm that produce the correct order of characters when bidirectional text is displayed.
+
+The GCC `-Wbidi-chars` option that helps to counter Trojan Source attacks[^gcc-Wbidi-chars]. By default its value is `-Wbidi-char=unpaired`, which warns about improperly terminated bidi contexts (this should never happen in source code). However, this default is somewhat permissive.
+
+In many cases using `-Wbidi-char=unpaired` is a stronger defense. This option forbids *any* use of bidirectional control characters comments, string literals, character constants, and identifiers, completely eliminating the Trojan Source attack. This setting is appropriate when bidi characters are *not* expected in the source code, and their only use would be as part of an attack on reviewers.
+
+Both `-Wbidi-char=any` and `-Wbidi-char=unpaired` can be combined with the `ucn` argument which additionally warns of corresponding bidirectional control characters expressed as universal-character-names (UCNs), i.e., using the `\uXXXX` notation,in string literals, character constants, and identifiers.
+
+<!-- Implemented in: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103026 -->
+
+[^gcc-Wbidi-chars]: GCC team, [Using the GNU Compiler Collection (GCC): Warning Options: `-Wbidi-chars`](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wbidi-chars_003d),
+
+#### When not to use?
+
+Do *not* use `-Wbidi-chars=any` or `-Wbidi-chars=any,ucn` in cases where some of the source code *is* expected to include bidirectional control characters. This is typically the case where some of the source code text, e.g., comments, are in Arabic, Hebrew, Persian, Urdu, or other right-to-left writing. In such cases, use `-Wbidi-chars=unpaired` (the default) or `-Wbidi-chars=unpaired,ucn` instead.
+
+Note that this option does *not* interfere with creating internationalized programs. Current best practice is to put human-readable text strings in separate files, not in source code, and then use an internationalization (i18n) framework like `gettext` to retrieve the correct text for the user's locale.
+
+#### Additional Considerations
+
+It is best to use other static code analysis tools to also warn about Trojan Source, since it's not an issue developers typically consider. Some editors have mechanisms to warn about Trojan Source; using them is recommended where practical. However, it's sometimes difficult to verify whether developers and reviewers have used such tools.
+
+clang-tidy's `misc-misleading-bidirectional` check warns about unterminated bidirectional unicode sequences, similar to GCC's `-Wbidi-char=unpaired`[^clang-tidy-bidi].
+
+[^clang-tidy-bidi]: LLVM team, [clang-tidy - misc-misleading-bidirectional](https://clang.llvm.org/extra/clang-tidy/checks/misc/misleading-bidirectional.html), Extra Clang Tools Documentation, 2024-03-28.
+
+---
+
 ### Treat compiler warnings as errors
 
 | Compiler Flag                                                                                        |       Supported since       | Description                        |
@@ -395,47 +436,6 @@ Some tools, such as `autoconf`, automatically determine what the compiler suppor
 [^gcc-pedantic-errors]: GCC team, [Using the GNU Compiler Collection (GCC): Warning Options: `-pedantic-errors`](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-pedantic-errors-1), GCC Manual, 2023-07-27.
 
 ---
-
-### Enable warnings for possibly misleading unicode bidirectional control characters
-
-| Compiler Flag                                                            | Supported since | Description                                                                                                                                                     |
-|:------------------------------------------------------------------------ |:---------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <span id="-Wbidi-chars=any">`-Wbidi-chars=any`</span>                    | GCC 12          | Enable warnings for any UTF-8 bidirectional control characters in comments, string literals, character constants, and identifiers                               |
-| <span id="-Wbidi-chars=any,ucn">`-Wbidi-chars=any,ucn`</span>            | GCC 12          | As `any` and additionally warn of UCNs corresponding to bidirectional control characters in string literals, character constants, and identifiers               |
-| <span id="-Wbidi-chars=unpaired">`-Wbidi-chars=unpaired`</span>          | GCC 12          | Enable warnings for unpaired UTF-8 bidirectional control characters in comments, string literals, character constants, and identifiers                          |
-| <span id="-Wbidi-chars=unpaired,ucn">`-Wbidi-chars=unpaired,ucn`</span>  | GCC 12          | As `unpaired` and additionally warn of UCNs corresponding to unpaired bidirectional control characters in string literals, character constants, and identifiers |
-
-#### Synopsis
-
-Check for possibly misleading unicode bidirectional (bidi) control characters comments, string literals, character constants, and identifiers.
-
-Some writing systems (such as Arabic and Hebrew) are typically written right-to-left (RTL), while many others (such as English) are written left-to-right (LTR). Some documents must mix writing systems with different orders, e.g. source code with comments in right-to-left writing. Unicode supports various control sequences to support this visual reordering. Unfortunately, attackers can use such control sequences to obfuscate source code to hide vulnerabilities from human reviewers. Typically careful human review is one of the strongest methods available to detect malicious code. Maliciously misleading, so called *"underhanded code"* attempts to subvert human review[^Wheeler20]. *"Trojan Source"*[^Boucher21] is a specific kind of underhanded code that exploits the unicode bidirectional algorithm that produce the correct order of characters when bidirectional text is displayed.
-
-The GCC `-Wbidi-chars` option that helps to counter Trojan Source attacks[^gcc-Wbidi-chars]. By default its value is `-Wbidi-char=unpaired`, which warns about improperly terminated bidi contexts (this should never happen in source code). However, this default is somewhat permissive.
-
-In many cases using `-Wbidi-char=unpaired` is a stronger defense. This option forbids *any* use of bidirectional control characters comments, string literals, character constants, and identifiers, completely eliminating the Trojan Source attack. This setting is appropriate when bidi characters are *not* expected in the source code, and their only use would be as part of an attack on reviewers.
-
-Both `-Wbidi-char=any` and `-Wbidi-char=unpaired` can be combined with the `ucn` argument which additionally warns of corresponding bidirectional control characters expressed as universal-character-names (UCNs), i.e., using the `\uXXXX` notation,in string literals, character constants, and identifiers.
-
-<!-- Implemented in: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103026 -->
-
-[^gcc-Wbidi-chars]: GCC team, [Using the GNU Compiler Collection (GCC): Warning Options: `-Wbidi-chars`](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wbidi-chars_003d),
-
-#### When not to use?
-
-Do *not* use `-Wbidi-chars=any` or `-Wbidi-chars=any,ucn` in cases where some of the source code *is* expected to include bidirectional control characters. This is typically the case where some of the source code text, e.g., comments, are in Arabic, Hebrew, Persian, Urdu, or other right-to-left writing. In such cases, use `-Wbidi-chars=unpaired` (the default) or `-Wbidi-chars=unpaired,ucn` instead.
-
-Note that this option does *not* interfere with creating internationalized programs. Current best practice is to put human-readable text strings in separate files, not in source code, and then use an internationalization (i18n) framework like `gettext` to retrieve the correct text for the user's locale.
-
-#### Additional Considerations
-
-It is best to use other static code analysis tools to also warn about Trojan Source, since it's not an issue developers typically consider. Some editors have mechanisms to warn about Trojan Source; using them is recommended where practical. However, it's sometimes difficult to verify whether developers and reviewers have used such tools.
-
-clang-tidy's `misc-misleading-bidirectional` check warns about unterminated bidirectional unicode sequences, similar to GCC's `-Wbidi-char=unpaired`[^clang-tidy-bidi].
-
----
-
-[^clang-tidy-bidi]: LLVM team, [clang-tidy - misc-misleading-bidirectional](https://clang.llvm.org/extra/clang-tidy/checks/misc/misleading-bidirectional.html), Extra Clang Tools Documentation, 2024-03-28.
 
 ### Fortify sources for unsafe libc usage and buffer overflows
 
