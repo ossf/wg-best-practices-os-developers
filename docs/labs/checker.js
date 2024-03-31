@@ -227,6 +227,19 @@ function findIndexes(form) {
     }
 }
 
+function makeStamp() {
+    let timeStamp = (new Date()).toISOString();
+    let uuid = crypto.randomUUID();
+    let resultBeginning = `${timeStamp} ${uuid}`;
+    return resultBeginning;
+    // TODO: Add hash. JavaScript has such a function
+    // in the browser, but it's only available in secure contexts and
+    // returns a promise, so it's not clear we should use it.
+    // let digestHex = digestMessage(resultBeginning);
+    // let digestEnding = digestHex.slice(-8);
+    // return `${resultBeginning} ${digestEnding}`;
+}
+
 /**
  * Check the document's user input "attempt" to see if matches "correct".
  * Then set "grade" in document depending on that answer.
@@ -254,9 +267,7 @@ function runCheck() {
         // This makes it easy to detect someone simply copying a final result.
         correctStamp = document.getElementById('correctStamp');
         if (correctStamp) {
-            let timeStamp = (new Date()).toISOString();
-            let uuid = crypto.randomUUID();
-            correctStamp.innerHTML = `${timeStamp} ${uuid}`;
+            correctStamp.innerHTML = makeStamp();
 	}
 
         // Use a timeout so the underlying page will *re-render* before the
