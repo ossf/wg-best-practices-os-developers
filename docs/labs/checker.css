@@ -17,7 +17,7 @@ pre input, pre textarea {
     display: none;
 }
 
-table, th, td {
+th, td {
   border: 1px solid black;
 }
 
