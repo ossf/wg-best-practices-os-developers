@@ -199,6 +199,34 @@ function retrieveAttempt() {
     return result;
 }
 
+const attemptIdPattern = /^attempt(\d+)$/;
+
+/*
+ * Given Node @form in document, return array of indexes of input/textareas
+ */
+function findIndexes(form) {
+    let inputs = form.querySelectorAll(
+        "input[type='text']:not(:read-only),textarea:not(:read-only)");
+    if (!inputs) {
+        // Shouldn't happen. Reaching this means the current form has no inputs.
+        // We'll do a "reasonable thing" - act as if all is in scope.
+        return correctRe.map((_, i) => i);
+    } else {
+        let result = [];
+        // Turn "approach0", "approach1" into [0, 1].
+        for (input of inputs) {
+            // alert(`findIndexes: ${input.id}`);
+            let matchResult = input.id.match(attemptIdPattern);
+            if (matchResult) {
+                let index = Number(matchResult[1]);
+                result.push(index);
+	    }
+        }
+        // alert(`findIndexes = ${result}`);
+        return result;
+    }
+}
+
 /**
  * Check the document's user input "attempt" to see if matches "correct".
  * Then set "grade" in document depending on that answer.
@@ -243,10 +271,13 @@ function runCheck() {
 /** Return the best-matching hint string given an attempt.
  * @attempt - array of strings of attempt to give hints on
  */
-function findHint(attempt) {
+function findHint(attempt, validIndexes = undefined) {
     // Find a matching hint (matches present and NOT absent)
     for (hint of hints) {
-      if ((!hint.presentRe ||
+      if (
+	  ((validIndexes === undefined) ||
+           (validIndexes.includes(hint.index))) &&
+	  (!hint.presentRe ||
            hint.presentRe.test(attempt[hint.index])) &&
           (!hint.absentRe ||
            !hint.absentRe.test(attempt[hint.index]))) {
@@ -266,12 +297,15 @@ function showHint(e) {
     } else if (!hints) {
         alert('Sorry, there are no hints for this lab.');
     } else {
-        alert(findHint(attempt));
+        let validIndexes = findIndexes(e.target.form);
+        alert(findHint(attempt, validIndexes));
     }
 }
 
 function showAnswer(e) {
-    alert(`We were expecting an answer like this:\n${expected.join('\n\n')}`);
+    let formIndexes = findIndexes(e.target.form); // Indexes in this form
+    let goodAnswer = formIndexes.map(i => expected[i]).join('\n\n');
+    alert(`We were expecting an answer like this:\n${goodAnswer}`);
 }
 
 /**
