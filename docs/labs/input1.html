@@ -200,18 +200,19 @@ but please try to do this on your own!
 <!--
 You can use this an example for new labs.
 For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
-<textarea id="attempt" rows="2" cols="70">...</textarea>
+<textarea id="attempt" rows="2" cols="65">...</textarea>
 -->
 <form id="lab">
 <pre></code>
 // Set up Express framework and express-validator library
 const express = require("express");
 const app = express();
-const { query, matchedData, validationResult } = require('express-validator');
+const { query, matchedData, validationResult } =
+    require('express-validator');
 
-// Implement requests such as http://localhost:3000/invoices?id=1
+// Implement requests, e.g., http://localhost:3000/invoices?id=1
 app.get('/invoices',
-<input id="attempt0" type="text" size="70" spellcheck="false"
+<input id="attempt0" type="text" size="65" spellcheck="false"
  value="  query('id'),">
   (req, res) =&gt; { // Execute this code if /invoices seen
     const result = validationResult(req); // Retrieve errors
@@ -227,7 +228,7 @@ app.get('/invoices',
 <button type="button" class="giveUpButton">Give up</button>
 <br><br><!-- These go in the last form if there's more than one: -->
 <p id="correctStamp" class="small">
-<textarea id="debugData" class="displayNone" rows="20" cols="70" readonly>
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
 </textarea>
 </form>
 
