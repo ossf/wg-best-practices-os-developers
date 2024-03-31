@@ -21,8 +21,8 @@
 \^(
 \[YN\]|
 \[NY\]|
-\(Y\|N\)|
-\(N\|Y\)
+\( (\?\:)? Y\|N \)|
+\( (\?\:)? N\|Y \)
 )\$
 </script>
 
@@ -46,7 +46,8 @@
 
 <!-- Full pattern of correct answer -->
 <script id="correct2" type="plain/text">
-\^\((
+\^\( (\?\:)?
+(
 true\|false|
 false\|true
 )\)\$
@@ -63,6 +64,25 @@ false\|true
 \[A-Z\]
 (\+|\[A-Z\]\*)
 \\Z
+</script>
+
+<!-- Sample expected answer.
+Only matches one Latin letters (A through Z), followed by a
+dash ("-"), followed by one or more digits.
+This time, do it for Ruby (not JavaScript or Python).
+ -->
+<script id="expected4" type="plain/text">
+\A[A-Z]-[0-9]+\z
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct4" type="plain/text">
+\\A
+\[A-Z\]
+-
+(\[0-9\]|\\d)
+(\+|(\[0-9\]|\\d)\*)
+\\z
 </script>
 
 <script id="info" type="application/yaml">
@@ -93,10 +113,13 @@ hints:
   absent: |-
     \(
   text: If you use "|" you must parentheses or the precedence will be wrong.
+    For example, "^A|B$" accepts anything beginning with A, and it also
+    accepts anything ending with B. That is not what you want.
   examples:
   - - "^Y|N$"
 - present: " "
-  text: Spaces normally match spaces in a regex; do not use them in this case.
+  text: Spaces normally match spaces in a regex. Do not use them in this case,
+    because a space is not one of the allowed characters.
   examples:
   - - "^[YN] $"
 - absent: |-
@@ -150,6 +173,16 @@ hints:
     \|
   index: 2
   text: Use "|" to express alternatives.
+- present: |-
+    ^\^true\|false\$$
+  index: 2
+  text: No. This would match anything beginning with the term true,
+    or anything ending with the term false. Use parenthesis.
+- present: |-
+    ^\^false\|true\$$
+  index: 2
+  text: No. This would match anything beginning with the term false,
+    or anything ending with the term true. Use parenthesis.
 - absent: |-
     \(
   index: 2
@@ -162,6 +195,23 @@ hints:
     \\z
   index: 3
   text: This is Python. Use \Z at the end, not \z.
+- absent: |-
+    ^\\A
+  index: 4
+  text: This is Ruby. Use \A at the beginning.
+- absent: |-
+    \\z$
+  index: 4
+  text: This is Ruby. Use \z at the beginning.
+- absent: |-
+    \[A-Z\]
+  index: 4
+  text: Use [A-Z] to match one uppercase Latin letter.
+- present: |-
+    \[A-Z\](\*|\+)
+  index: 4
+  text: In this case we are only matching one letter, not many of them.
+    Do not use "*" or "+" after [A-Z].
 # successes:
 # - - " query ( 'id' ) . isInt ( {min: 1 , max: 9999 } ) ,"
 # - - " query ( `id` ) . isInt ( {min: 1 , max: 9_999 } ) ,   "
@@ -292,6 +342,25 @@ For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
 <button type="button" class="giveUpButton">Give up</button>
 </form>
 
+<h3>Part 5</h2>
+<p>
+Create a regular expression
+that only matches one Latin letter (A through Z), followed by a
+dash ("-"), followed by one or more digits.
+This time, do it for Ruby (not JavaScript or Python).
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="70">...</textarea>
+-->
+<form id="lab5">
+<pre></code>
+<input id="attempt4" type="text" size="70" spellcheck="false" value="">
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+</form>
 
 
 <br><br><!-- These go in the last form if there's more than one: -->
