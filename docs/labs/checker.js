@@ -257,7 +257,9 @@ function findHint(attempt) {
 }
 
 /** Show a hint to the user. */
-function showHint() {
+function showHint(e) {
+    // Get data-indexes value using e.target.dataset.indexes
+    // alert(`Form id = ${e.target.form.id}`);
     let attempt = retrieveAttempt();
     if (calcMatch(attempt, correctRe)) {
         alert('The answer is already correct!');
@@ -268,7 +270,7 @@ function showHint() {
     }
 }
 
-function showAnswer() {
+function showAnswer(e) {
     alert(`We were expecting an answer like this:\n${expected.join('\n\n')}`);
 }
 
@@ -279,8 +281,8 @@ function showAnswer() {
  * had correctly answered it, and we reset, then we need to show
  * the visual indicators that it's no longer correctly answered.
  */
-function resetForm() {
-    form = document.getElementById('lab');
+function resetForm(e) {
+    form = e.target.form;
     form.reset();
     runCheck();
 }
@@ -517,23 +519,20 @@ function initPage() {
         attempt.oninput = runCheck;
         current++;
     }
-    hintButton = document.getElementById('hintButton');
-    if (hintButton) {
-        hintButton.onclick = (() => showHint());
+    for (let hintButton of document.querySelectorAll("button.hintButton")) {
+        hintButton.addEventListener('click', (e) => { showHint(e); });
         if (!hintButton.title) {
             hintButton.title = 'Provide a hint given current attempt.';
-        }
+	}
     }
-    resetButton = document.getElementById('resetButton');
-    if (resetButton) {
-        resetButton.onclick = (() => resetForm());
+    for (let resetButton of document.querySelectorAll("button.resetButton")) {
+        resetButton.addEventListener('click', (e) => { resetForm(e); });
         if (!resetButton.title) {
             resetButton.title = 'Reset initial state (throwing away current attempt).';
         }
     }
-    giveUpButton = document.getElementById('giveUpButton');
-    if (giveUpButton) {
-        giveUpButton.onclick = (() => showAnswer());
+    for (let giveUpButton of document.querySelectorAll("button.giveUpButton")) {
+        giveUpButton.addEventListener('click', (e) => { showAnswer(e); });
         if (!giveUpButton.title) {
             giveUpButton.title = 'Give up and show an answer.';
         }
