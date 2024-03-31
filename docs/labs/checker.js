@@ -263,7 +263,13 @@ function runCheck() {
 	// alert shows. If we don't do this, the alert would be confusing
 	// because the underlying page would show that it wasn't completed.
 	setTimeout(function() {
-            alert('Congratulations! Your answer is correct!');
+            let congrats_text;
+            if (correctRe.length > 1) {
+                congrats_text = 'Great work! All your answers are correct!';
+	    } else {
+                congrats_text = 'Congratulations! Your answer is correct!';
+	    }
+            alert(congrats_text);
         }, 100);
     }
 }
