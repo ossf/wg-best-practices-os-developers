@@ -529,7 +529,7 @@ function runSelftest() {
                 let testAttempt = expected.slice(); // shallow copy of expected
                 testAttempt[hint.index] = example;
 		// What hint does our new testAttempt give?
-                actualHint = findHint(testAttempt);
+                actualHint = findHint(testAttempt, [hint.index]);
                 if (actualHint != hint.text) {
                     alert(`Lab Error: Unexpected hint!\n\nExample:\n${example}\n\nExpected hint:\n${hint.text}\n\nProduced hint:\n${actualHint}\n\nExpected (passing example)=${JSON.stringify(expected)}\n\ntestAttempt=${JSON.stringify(testAttempt)}\nFailing hint=${JSON.stringify(hint)}`);
                 };
