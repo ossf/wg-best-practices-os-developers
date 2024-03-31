@@ -222,10 +222,10 @@ app.get('/invoices',
     res.status(422).send(`Invalid input`);
   })
 </code></pre>
-<button type="button" id="hintButton">Hint</button>
-<button type="button" id="resetButton">Reset</button>
-<button type="button" id="giveUpButton">Give up</button>
-<br><br>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+<br><br><!-- These go in the last form if there's more than one: -->
 <pre id="correctStamp"></pre>
 <textarea id="debugData" class="displayNone" rows="20" cols="70" readonly>
 </textarea>

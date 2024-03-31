@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+^[YN]$
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+\^(
+\[YN\]|
+\[NY\]|
+\( (\?\:)? Y\|N \)|
+\( (\?\:)? N\|Y \)
+)\$
+</script>
+
+<!-- Sample expected answer -->
+<script id="expected1" type="plain/text">
+^[A-Z]+$
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct1" type="plain/text">
+\^
+\[A-Z\]
+(\+|\[A-Z\]\*)
+\$
+</script>
+
+<!-- Sample expected answer -->
+<script id="expected2" type="plain/text">
+^(true|false)$
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct2" type="plain/text">
+\^\( (\?\:)?
+(
+true\|false|
+false\|true
+)\)\$
+</script>
+
+<!-- Sample expected answer -->
+<script id="expected3" type="plain/text">
+^[A-Z]+\Z
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct3" type="plain/text">
+\^
+\[A-Z\]
+(\+|\[A-Z\]\*)
+\\Z
+</script>
+
+<!-- Sample expected answer.
+Only matches one Latin letters (A through Z), followed by a
+dash ("-"), followed by one or more digits.
+This time, do it for Ruby (not JavaScript or Python).
+ -->
+<script id="expected4" type="plain/text">
+\A[A-Z]-[0-9]+\z
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct4" type="plain/text">
+\\A
+\[A-Z\]
+-
+(\[0-9\]|\\d)
+(\+|(\[0-9\]|\\d)\*)
+\\z
+</script>
+
+<script id="info" type="application/yaml">
+---
+hints:
+- absent: |-
+    ^\^
+  text: For input validation, start with '^' to indicate a full match.
+  examples:
+  - - "(Y|N)"
+- present: |-
+    \\[Zz]
+  text: The ECMAScript (JavaScript) specification does not support \Z or \z.
+  examples:
+  - - "^Y|N\\z"
+- absent: |-
+    \$$
+  text: For input validation, end with '$' to indicate a full match.
+  examples:
+  - - "^(Y|N)"
+- absent: |-
+    [\|\[]
+  text: Consider using [YN], to match either a Y or an N.
+  examples:
+  - - "^$"
+- present: |-
+    \|
+  absent: |-
+    \(
+  text: If you use "|" you must parentheses or the precedence will be wrong.
+    For example, "^A|B$" accepts anything beginning with A, and it also
+    accepts anything ending with B. That is not what you want.
+  examples:
+  - - "^Y|N$"
+- present: " "
+  text: Spaces normally match spaces in a regex. Do not use them in this case,
+    because a space is not one of the allowed characters.
+  examples:
+  - - "^[YN] $"
+- absent: |-
+    ^\^
+  index: 1
+  text: For input validation, start with '^' to indicate a full match.
+  # examples:
+  # -
+  #   - "^[YN]$"
+  #   - ""
+- absent: |-
+    \$$
+  index: 1
+  text: For input validation, end with '$' to indicate a full match.
+  #   examples:
+  #   -
+  #     - "^[YN]$"
+  #     - "^"
+- absent: |-
+    \[A-Z\]
+  index: 1
+  text: You can use [A-Z] to match one uppercase Latin letter (A through Z).
+  # examples:
+  # -
+  #   - "^[YN]$"
+  #   - "^$"
+- present: |-
+    \^\[A-Z\]\*
+  index: 1
+  text: A "*" matches one or more, not one or more.
+- present: |-
+    \(
+  index: 1
+  text: You do not need parentheses to solve this problem.
+- absent: |-
+    (\[A-Z\]\+|
+     \[A-Z\]\[A-Z\]\*)
+  index: 1
+  text: You can use [A-Z]+ to match one or more uppercase Latin letters.
+  # examples:
+  # -
+  #   - "^[YN]$"
+  #   - "^[A-Z]$"
+- present: "True"
+  index: 2
+  text: Regular expressions are case-sensitive by default; use "true".
+- present: "False"
+  index: 2
+  text: Regular expressions are case-sensitive by default; use "false".
+- absent: |-
+    \|
+  index: 2
+  text: Use "|" to express alternatives.
+- present: |-
+    ^\^true\|false\$$
+  index: 2
+  text: No. This would match anything beginning with the term true,
+    or anything ending with the term false. Use parenthesis.
+- present: |-
+    ^\^false\|true\$$
+  index: 2
+  text: No. This would match anything beginning with the term false,
+    or anything ending with the term true. Use parenthesis.
+- absent: |-
+    \(
+  index: 2
+  text: Use parentheses.
+- present: |-
+    \$
+  index: 3
+  text: This is Python, not ECMAScript (JavaScript). Use \Z at the end, not $.
+- present: |-
+    \\z
+  index: 3
+  text: This is Python. Use \Z at the end, not \z.
+- absent: |-
+    ^\\A
+  index: 4
+  text: This is Ruby. Use \A at the beginning.
+- absent: |-
+    \\z$
+  index: 4
+  text: This is Ruby. Use \z at the beginning.
+- absent: |-
+    \[A-Z\]
+  index: 4
+  text: Use [A-Z] to match one uppercase Latin letter.
+- present: |-
+    \[A-Z\](\*|\+)
+  index: 4
+  text: In this case we are only matching one letter, not many of them.
+    Do not use "*" or "+" after [A-Z].
+# successes:
+# - - " query ( 'id' ) . isInt ( {min: 1 , max: 9999 } ) ,"
+# - - " query ( `id` ) . isInt ( {min: 1 , max: 9_999 } ) ,   "
+# - - 'query ( "id" ) . isInt ( {min: 1 , max: 9_999 } ) ,'
+# failures:
+# - - " query,"
+# - - 'query(''id'').isint({min: 1, max: 9999})'
+# - - 'query(''id'').isInt({min: 1, max: 9999})'
+#
+# Remove all whitespace, so we can make our patterns easier to read
+#
+preprocessing:
+  -
+    - |-
+        \s*
+    - ""
+#   -
+#     - |-
+#         (\\s\*)?\s+(\\s\*)?
+#     - "\\s*"
+# debug: true
+</script>
+<!--
+
+-->
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise regex1</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html">introduction to
+the labs</a>.
+
+<p>
+<h2>Task</h2>
+<p>
+<b>Please create various regular expression (regex) patterns
+that meet the criteria below.</b>
+
+<p>
+<h2>Background</h2>
+<p>
+Regular expressions (regexes) are a widely-used notation for
+expressing text patterns.
+Regexes can be used to validate input; when used correctly,
+they can counter many attacks.
+
+<p>
+<h2>Task Information</h2>
+<p>
+Different regex languages have slightly different notations,
+but they have much in common. Here are some basic rules for regex
+notations:
+
+<ol>
+<li>The most trivial rule is that a letter or digit matches itself. That is, the regex “<tt>d</tt>” matches the letter “<tt>d</tt>”. Most implementations use case-sensitive matches by default, and that is usually what you want.
+<li>Another rule is that square brackets surround a rule that specifies any of a number of characters. If the square brackets surround just alphanumerics, then the pattern matches any of them. So <tt>[brt]</tt> matches a single “<tt>b</tt>”, “<tt>r</tt>”, or “<tt>t</tt>”.
+Inside the brackets you can include
+ranges of symbols separated by dash ("-"), so
+<tt>[A-D]</tt> will match one character, which can be one A, one B, one C,
+or one D.
+You can do this more than once.
+For example,
+the term <tt>[A-Za-z]</tt> will match one character, which can be
+an uppercase Latin letter or a lowercase Latin letter.
+(This text assumes you're not using a long-obsolete character system
+like EBCDIC.)
+<li>If you follow a pattern with “<tt>&#42;</tt>”, that means
+“<i>0 or more times</i>”.
+In almost all regex implementations (except POSIX BRE),
+following a pattern with "<tt>+</tt>" means "<i>1 or more times</i>".
+So <tt>[A-D]*</tt> will match 0 or more letters as long as every letter
+is an A, B, C, or D.
+<li>You can use "<tt>|</tt>" to identify options, any of which are acceptable.
+When validating input, should surround the options with parenthesis,
+because "<tt>|</tt>" has a low precedence.
+So for example, "<tt>(yes|no)</tt>" is a way to match either "yes" or "no".
+</ol>
+
+<p>
+We want to use regexes to <i>validate</i> input.
+That is, the input should <i>completely</i> match the regex pattern.
+In regexes you can do this by prepending some symbol and appending a different
+symbol.
+Unfortunately, different languages use different symbols.
+The following table shows what you should prepend and append.
+
+<p>
+<table>
+<tr>
+<th>Platform
+<th>Prepend
+<th>Append
+<tr>
+<td>POSIX BRE, POSIX ERE, and ECMAScript (JavaScript)
+<td>“^”
+<td>“$”
+<tr>
+<td>Java, .NET, PHP, Perl, and PCRE
+<td>“^” or “\A”
+<td>“\z”
+<tr>
+<td>Golang, Rust crate regex, and RE2
+<td>“^” or “\A”
+<td>“$” or “\z”
+<tr>
+<td>Python
+<td>“^” or “\A”
+<td>“\Z” (not “\z”)
+<tr>
+<td>Ruby
+<td>“\A”
+<td>“\z”
+</table>
+
+<p>
+For example, to validate in JavaScript that the input is only “ab” or “de”, use the regex “^(ab|de)$”. To validate the same thing in Python, use “^(ab|de)\Z” or “\A(ab|de)\Z”.
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+
+<h3>Part 1</h2>
+<p>
+Create a regular expression, for use in ECMAScript (JavaScript),
+that only matches the letters "Y" or "N".
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="70">...</textarea>
+-->
+<form id="lab1">
+<pre></code>
+<input id="attempt0" type="text" size="70" spellcheck="false" value="">
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+</form>
+
+<h3>Part 2</h2>
+<p>
+Create a regular expression, for use in ECMAScript (JavaScript),
+that only matches one or more uppercase Latin letters (A through Z).
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="70">...</textarea>
+-->
+<form id="lab2">
+<pre></code>
+<input id="attempt1" type="text" size="70" spellcheck="false" value="">
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+</form>
+
+<h3>Part 3</h2>
+<p>
+Create a regular expression, for use in ECMAScript (JavaScript),
+that only matches the words "true" or "false".
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="70">...</textarea>
+-->
+<form id="lab3">
+<pre></code>
+<input id="attempt2" type="text" size="70" spellcheck="false" value="">
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+</form>
+
+<h3>Part 4</h2>
+<p>
+Create a regular expression
+that only matches one or more uppercase Latin letters (A through Z).
+However, this time, do it for Python (not JavaScript).
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="70">...</textarea>
+-->
+<form id="lab4">
+<pre></code>
+<input id="attempt3" type="text" size="70" spellcheck="false" value="">
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+</form>
+
+<h3>Part 5</h2>
+<p>
+Create a regular expression
+that only matches one Latin letter (A through Z), followed by a
+dash ("-"), followed by one or more digits.
+This time, do it for Ruby (not JavaScript or Python).
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="70">...</textarea>
+-->
+<form id="lab5">
+<pre></code>
+<input id="attempt4" type="text" size="70" spellcheck="false" value="">
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+</form>
+
+
+<br><br><!-- These go in the last form if there's more than one: -->
+<pre id="correctStamp"></pre>
+<textarea id="debugData" class="displayNone" rows="20" cols="70" readonly>
+</textarea>
+
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>

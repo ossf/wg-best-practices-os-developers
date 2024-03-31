@@ -199,6 +199,78 @@ function retrieveAttempt() {
     return result;
 }
 
+const attemptIdPattern = /^attempt(\d+)$/;
+
+/*
+ * Given Node @form in document, return array of indexes of input/textareas
+ */
+function findIndexes(form) {
+    let inputs = form.querySelectorAll(
+        "input[type='text']:not(:read-only),textarea:not(:read-only)");
+    if (!inputs) {
+        // Shouldn't happen. Reaching this means the current form has no inputs.
+        // We'll do a "reasonable thing" - act as if all is in scope.
+        return correctRe.map((_, i) => i);
+    } else {
+        let result = [];
+        // Turn "approach0", "approach1" into [0, 1].
+        for (input of inputs) {
+            // alert(`findIndexes: ${input.id}`);
+            let matchResult = input.id.match(attemptIdPattern);
+            if (matchResult) {
+                let index = Number(matchResult[1]);
+                result.push(index);
+	    }
+        }
+        // alert(`findIndexes = ${result}`);
+        return result;
+    }
+}
+
+/** Compute cyrb53 non-cryptographic hash */
+// cyrb53 (c) 2018 bryc (github.com/bryc). License: Public domain. Attribution appreciated.
+// A fast and simple 64-bit (or 53-bit) string hash function with decent collision resistance.
+// Largely inspired by MurmurHash2/3, but with a focus on speed/simplicity.
+// See https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript/52171480#52171480
+// https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js
+// https://gist.github.com/jlevy/c246006675becc446360a798e2b2d781
+const cyrb64 = (str, seed = 0) => {
+  let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+  for(let i = 0, ch; i < str.length; i++) {
+    ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1  = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
+  h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2  = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
+  h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  // For a single 53-bit numeric return value we could return
+  // 4294967296 * (2097151 & h2) + (h1 >>> 0);
+  // but we instead return the full 64-bit value:
+  return [h2>>>0, h1>>>0];
+};
+
+// An improved, *insecure* 64-bit hash that's short, fast, and has no dependencies.
+// Output is always 14 characters.
+// https://gist.github.com/jlevy/c246006675becc446360a798e2b2d781
+const cyrb64Hash =  (str, seed = 0) => {
+  const [h2, h1] = cyrb64(str, seed);
+  return h2.toString(36).padStart(7, '0') + h1.toString(36).padStart(7, '0');
+}
+
+/** Create a stamp to indicate completion. */
+function makeStamp() {
+    let timeStamp = (new Date()).toISOString();
+    let uuid = crypto.randomUUID();
+    let resultBeginning = `${timeStamp} ${uuid}`;
+    // Browsers have a SHA-256 cryptographic hash available, but *only*
+    // when they're in a "secure state". We don't need the hash to be
+    // cryptographic, since the data is clearly in view. Use a simple one.
+    let hash = cyrb64Hash(resultBeginning);
+    return `${resultBeginning} ${hash}`;
+}
+
 /**
  * Check the document's user input "attempt" to see if matches "correct".
  * Then set "grade" in document depending on that answer.
@@ -226,16 +298,20 @@ function runCheck() {
         // This makes it easy to detect someone simply copying a final result.
         correctStamp = document.getElementById('correctStamp');
         if (correctStamp) {
-            let timeStamp = (new Date()).toISOString();
-            let uuid = crypto.randomUUID();
-            correctStamp.innerHTML = `${timeStamp} ${uuid}`;
+            correctStamp.innerHTML = makeStamp();
 	}
 
         // Use a timeout so the underlying page will *re-render* before the
 	// alert shows. If we don't do this, the alert would be confusing
 	// because the underlying page would show that it wasn't completed.
 	setTimeout(function() {
-            alert('Congratulations! Your answer is correct!');
+            let congrats_text;
+            if (correctRe.length > 1) {
+                congrats_text = 'Great work! All your answers are correct!';
+	    } else {
+                congrats_text = 'Congratulations! Your answer is correct!';
+	    }
+            alert(congrats_text);
         }, 100);
     }
 }
@@ -243,10 +319,13 @@ function runCheck() {
 /** Return the best-matching hint string given an attempt.
  * @attempt - array of strings of attempt to give hints on
  */
-function findHint(attempt) {
+function findHint(attempt, validIndexes = undefined) {
     // Find a matching hint (matches present and NOT absent)
     for (hint of hints) {
-      if ((!hint.presentRe ||
+      if (
+	  ((validIndexes === undefined) ||
+           (validIndexes.includes(hint.index))) &&
+	  (!hint.presentRe ||
            hint.presentRe.test(attempt[hint.index])) &&
           (!hint.absentRe ||
            !hint.absentRe.test(attempt[hint.index]))) {
@@ -257,19 +336,24 @@ function findHint(attempt) {
 }
 
 /** Show a hint to the user. */
-function showHint() {
+function showHint(e) {
+    // Get data-indexes value using e.target.dataset.indexes
+    // alert(`Form id = ${e.target.form.id}`);
     let attempt = retrieveAttempt();
     if (calcMatch(attempt, correctRe)) {
         alert('The answer is already correct!');
     } else if (!hints) {
         alert('Sorry, there are no hints for this lab.');
     } else {
-        alert(findHint(attempt));
+        let validIndexes = findIndexes(e.target.form);
+        alert(findHint(attempt, validIndexes));
     }
 }
 
-function showAnswer() {
-    alert(`We were expecting an answer like this:\n${expected.join('\n\n')}`);
+function showAnswer(e) {
+    let formIndexes = findIndexes(e.target.form); // Indexes in this form
+    let goodAnswer = formIndexes.map(i => expected[i]).join('\n\n');
+    alert(`We were expecting an answer like this:\n${goodAnswer}`);
 }
 
 /**
@@ -279,8 +363,8 @@ function showAnswer() {
  * had correctly answered it, and we reset, then we need to show
  * the visual indicators that it's no longer correctly answered.
  */
-function resetForm() {
-    form = document.getElementById('lab');
+function resetForm(e) {
+    form = e.target.form;
     form.reset();
     runCheck();
 }
@@ -445,7 +529,7 @@ function runSelftest() {
                 let testAttempt = expected.slice(); // shallow copy of expected
                 testAttempt[hint.index] = example;
 		// What hint does our new testAttempt give?
-                actualHint = findHint(testAttempt);
+                actualHint = findHint(testAttempt, [hint.index]);
                 if (actualHint != hint.text) {
                     alert(`Lab Error: Unexpected hint!\n\nExample:\n${example}\n\nExpected hint:\n${hint.text}\n\nProduced hint:\n${actualHint}\n\nExpected (passing example)=${JSON.stringify(expected)}\n\ntestAttempt=${JSON.stringify(testAttempt)}\nFailing hint=${JSON.stringify(hint)}`);
                 };
@@ -517,23 +601,20 @@ function initPage() {
         attempt.oninput = runCheck;
         current++;
     }
-    hintButton = document.getElementById('hintButton');
-    if (hintButton) {
-        hintButton.onclick = (() => showHint());
+    for (let hintButton of document.querySelectorAll("button.hintButton")) {
+        hintButton.addEventListener('click', (e) => { showHint(e); });
         if (!hintButton.title) {
             hintButton.title = 'Provide a hint given current attempt.';
-        }
+	}
     }
-    resetButton = document.getElementById('resetButton');
-    if (resetButton) {
-        resetButton.onclick = (() => resetForm());
+    for (let resetButton of document.querySelectorAll("button.resetButton")) {
+        resetButton.addEventListener('click', (e) => { resetForm(e); });
         if (!resetButton.title) {
             resetButton.title = 'Reset initial state (throwing away current attempt).';
         }
     }
-    giveUpButton = document.getElementById('giveUpButton');
-    if (giveUpButton) {
-        giveUpButton.onclick = (() => showAnswer());
+    for (let giveUpButton of document.querySelectorAll("button.giveUpButton")) {
+        giveUpButton.addEventListener('click', (e) => { showAnswer(e); });
         if (!giveUpButton.title) {
             giveUpButton.title = 'Give up and show an answer.';
         }

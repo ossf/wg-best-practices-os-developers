@@ -16,3 +16,8 @@ pre input, pre textarea {
 .displayNone {
     display: none;
 }
+
+table, th, td {
+  border: 1px solid black;
+}
+
