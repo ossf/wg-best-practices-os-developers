@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+^[YN]$
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+\^(
+\[YN\]|
+\[NY\]|
+\(Y\|N\)|
+\(N\|Y\)
+)\$
+</script>
+
+<!-- Sample expected answer -->
+<script id="expected1" type="plain/text">
+^(true|false)$
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct1" type="plain/text">
+\^\((
+true\|false|
+false\|true
+)\)\$
+</script>
+
+<script id="info" type="application/yaml">
+---
+hints:
+- absent: |-
+    ^\^
+  text: For input validation, start with '^' to indicate a full match.
+  examples:
+  - - "(Y|N)"
+- absent: |-
+    \$$
+  text: For input validation, end with '$' to indicate a full match.
+  examples:
+  - - "^(Y|N)"
+- present: |-
+    \|
+  absent: |-
+    \(
+  text: If you use "|" you must parentheses or the precedence will be wrong.
+  examples:
+  - - "^Y|N$"
+#   - - "  query(),"
+# - present: query \( ["'`]id["'`] \) [^. ]
+#   text: After query("id") use a period to invoke a verification method.
+#   examples:
+#   - - "  query('id'),"
+# - present: "(isint|Isint|IsInt|ISINT)"
+#   text: JavaScript is case-sensitive. Use isInt instead of the case you have.
+#   examples:
+#   - - "  query('id').isint(),"
+#   - - "  query('id').IsInt(),"
+# - absent: isInt
+#   text: Use isInt to determine if the parameter is an integer.
+#   examples:
+#   - - "  query('id').,"
+# - present: ' query \( ["''`]id["''`] \).*\([^)]*$'
+#   text: After query("id") you have an ( but there's no matching ).
+#   examples:
+#   - - "  query('id').isInt(,"
+# - absent: isInt \(.*\)
+#   text: isInt should be followed by (...).
+#   examples:
+#   - - "  query('id').isInt,"
+# - present: "\\{[^}]*$"
+#   text: You have started an object using { but there's no matching }.
+#   examples:
+#   - - "  query('id').isInt({),"
+# - absent: isInt \( \{.*\} \)
+#   text: Inside the parenthesis of isInt() you should have an object like {...}.
+#   examples:
+#   - - "  query('id').isInt(),"
+# - absent: min
+#   text: 'Use min: to specify a minimum value.'
+#   examples:
+#   - - "  query('id').isInt({}),"
+# - absent: max
+#   text: 'Use max: to specify a minimum value.'
+#   examples:
+#   - - "  query('id').isInt({min: 1}),"
+# - present: max.*min
+#   text: JavaScript allows hash entries to be in any order,
+#     but this can be confusing to humans. Conventionally minimum values
+#     are given before maximum values; please follow that convention.
+#   examples:
+#   - - "  query('id').isInt({max: 9999, min: 1}),"
+# successes:
+# - - " query ( 'id' ) . isInt ( {min: 1 , max: 9999 } ) ,"
+# - - " query ( `id` ) . isInt ( {min: 1 , max: 9_999 } ) ,   "
+# - - 'query ( "id" ) . isInt ( {min: 1 , max: 9_999 } ) ,'
+# failures:
+# - - " query,"
+# - - 'query(''id'').isint({min: 1, max: 9999})'
+# - - 'query(''id'').isInt({min: 1, max: 9999})'
+#
+# Remove all whitespace, so we can make our patterns easier to read
+#
+preprocessing:
+  -
+    - |-
+        \s*
+    - ""
+#   -
+#     - |-
+#         (\\s\*)?\s+(\\s\*)?
+#     - "\\s*"
+# debug: true
+</script>
+<!--
+
+-->
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise regex1</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html">introduction to
+the labs</a>.
+
+<p>
+<h2>Task</h2>
+<p>
+<b>Please create various regex patterns that meet the criteria below.</b>
+
+<p>
+<h2>Background</h2>
+<p>
+
+<p>
+<h2>Task Information</h2>
+<p>
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+
+<h3>Part 1</h2>
+<p>
+Create a regular expression, for use in JavaScript,
+that only matches the letters "Y" or "N".
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="70">...</textarea>
+-->
+<form id="lab1">
+<pre></code>
+<input id="attempt0" type="text" size="70" spellcheck="false" value="">
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+</form>
+
+<h3>Part 2</h2>
+<p>
+Create a regular expression, for use in JavaScript,
+that only matches the words "true" or "false".
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="70">...</textarea>
+-->
+<form id="lab2">
+<pre></code>
+<input id="attempt1" type="text" size="70" spellcheck="false" value="">
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+<br><br><!-- These go in the last form if there's more than one: -->
+<pre id="correctStamp"></pre>
+<textarea id="debugData" class="displayNone" rows="20" cols="70" readonly>
+</textarea>
+</form>
+
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
