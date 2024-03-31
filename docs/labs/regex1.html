@@ -297,10 +297,13 @@ So for example, "<tt>(yes|no)</tt>" is a way to match either "yes" or "no".
 <p>
 We want to use regexes to <i>validate</i> input.
 That is, the input should <i>completely</i> match the regex pattern.
-In regexes you can do this by prepending some symbol and appending a different
+In regexes you can do this by using its default mode
+(not a "multiline" mode), prepending some symbol, and appending a different
 symbol.
-Unfortunately, different languages use different symbols.
-The following table shows what you should prepend and append.
+Unfortunately, different platforms use different regex
+symbols for performing a complete match to an input.
+The following table shows what you should prepend and append for
+many different platforms (for their default regex system).
 
 <p>
 <table>
@@ -331,7 +334,12 @@ The following table shows what you should prepend and append.
 </table>
 
 <p>
-For example, to validate in JavaScript that the input is only “ab” or “de”, use the regex “^(ab|de)$”. To validate the same thing in Python, use “^(ab|de)\Z” or “\A(ab|de)\Z”.
+For example, to validate in ECMAScript (JavaScript)
+that an input is must be either “<tt>ab</tt>” or “<tt>de</tt>”,
+use the regex “<tt>^(ab|de)$</tt>”.
+To validate the same thing in Python, use
+“<tt>^(ab|de)\Z</tt>” or “<tt>\A(ab|de)\Z</tt>” (note that it's
+not quite the same thing).
 
 <p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
@@ -431,7 +439,7 @@ For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
 
 
 <br><br><!-- These go in the last form if there's more than one: -->
-<pre id="correctStamp"></pre>
+<pre id="correctStamp" class=small"></pre>
 <textarea id="debugData" class="displayNone" rows="20" cols="70" readonly>
 </textarea>
 
