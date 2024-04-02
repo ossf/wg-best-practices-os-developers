@@ -10,6 +10,9 @@
 // perceive the background color change).
 const small_success = new Audio('small_applause.mp3');
 const big_success = new Audio('cheering.mp3');
+// Reduce volume so they aren't annoying.
+small_success.volume = 0.2;
+big_success.volume = 0.3;
 
 // Global variables. We set these on load to provide good response time.
 let correctRe = []; // Array of compiled regex of correct answer
