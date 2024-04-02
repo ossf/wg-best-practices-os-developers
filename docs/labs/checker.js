@@ -5,11 +5,19 @@
 
 // See create_labs.md for more information.
 
+// Get audio data for success sounds. These sounds provide additional
+// encouragement *AND* aid accessibility (because the blind will not easily
+// perceive the background color change).
+const small_success = new Audio('small_applause.mp3');
+const big_success = new Audio('cheering.mp3');
+
 // Global variables. We set these on load to provide good response time.
 let correctRe = []; // Array of compiled regex of correct answer
 let expected = []; // Array of an expected (correct) answer
 let info = {}; // General info
 let hints = []; // Array of hint objects
+
+let pastResults = []; // Array of booleans - last check results
 
 // This array contains the default pattern preprocessing commands, in order.
 // We process every pattern through these (in order) to create a final regex
@@ -271,6 +279,9 @@ function makeStamp() {
     return `${resultBeginning} ${hash}`;
 }
 
+const CORRECT_COLOR = 'lightgreen';
+const INCORRECT_COLOR =  'yellow';
+
 /**
  * Check the document's user input "attempt" to see if matches "correct".
  * Then set "grade" in document depending on that answer.
@@ -279,20 +290,28 @@ function runCheck() {
     let attempt = retrieveAttempt();
 
     // Calculate grade and set in document.
-    let isCorrect = true;
+    let anyImprovement = false; // Will be true if some attempt improved
+    let isAllCorrect = true; // Will be true if all answers are correct
     for (let i = 0; i < correctRe.length; i++) {
         let result = calcOneMatch(attempt, i, correctRe);
-        if (!result) isCorrect = false;
-        document.getElementById(`attempt${i}`).style.backgroundColor =
-            result ?  'lightgreen' : 'yellow';
+        if (!result) isAllCorrect = false;
+        if (result && !pastResults[i]) {
+            anyImprovement = true;
+        }
+        pastResults[i] = result;
+        attemptNode = document.getElementById(`attempt${i}`);
+        attemptNode.style.backgroundColor =
+            result ?  CORRECT_COLOR : INCORRECT_COLOR;
+        console.log(`DEBUG1: ${i}, ${result}, ${attemptNode.style.background}`);
     };
-    // isCorrect is now true only if everything matched
+
+    // isAllCorrect is now true only if *everything* matched
     let oldGrade = document.getElementById('grade').innerHTML;
-    let newGrade = isCorrect ? 'COMPLETE!' : 'to be completed';
+    let newGrade = isAllCorrect ? 'COMPLETE!' : 'to be completed';
     document.getElementById('grade').innerHTML = newGrade;
 
-    if (isCorrect && (oldGrade !== newGrade)) {
-        // Hooray! User has a newly-correct answer!
+    if (isAllCorrect && (oldGrade !== newGrade)) {
+        // Hooray! User has a newly-correct complete answer!
 
         // Set `correctStamp` id (if present) with timestamp and UUID
         // This makes it easy to detect someone simply copying a final result.
@@ -311,8 +330,15 @@ function runCheck() {
 	    } else {
                 congrats_text = 'Congratulations! Your answer is correct!';
 	    }
+            big_success.play();
             alert(congrats_text);
         }, 100);
+    } else {
+        // If it's not completely correct, but there was an improvement,
+        // play a small success sound.
+        if (anyImprovement) {
+            small_success.play();
+	}
     }
 }
 
@@ -585,6 +611,7 @@ function loadData() {
             correct = info.correct.map((s) => trimNewlines(s));
         };
     };
+    pastResults.fill(false, 0, correctRe.length -1);
 }
 
 function initPage() {
