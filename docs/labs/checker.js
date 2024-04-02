@@ -305,7 +305,6 @@ function runCheck() {
         attemptNode = document.getElementById(`attempt${i}`);
         attemptNode.style.backgroundColor =
             result ?  CORRECT_COLOR : INCORRECT_COLOR;
-        console.log(`DEBUG1: ${i}, ${result}, ${attemptNode.style.background}`);
     };
 
     // isAllCorrect is now true only if *everything* matched
@@ -333,14 +332,18 @@ function runCheck() {
 	    } else {
                 congrats_text = 'Congratulations! Your answer is correct!';
 	    }
-            big_success.play();
+            try {
+                big_success.play();
+	    } catch(e) {}; // Ignore all play failures, we don't care.
             alert(congrats_text);
         }, 100);
     } else {
         // If it's not completely correct, but there was an improvement,
         // play a small success sound.
         if (anyImprovement) {
-            small_success.play();
+            try {
+                small_success.play();
+	    } catch(e) {}; // Ignore all play failures, we don't care.
 	}
     }
 }
