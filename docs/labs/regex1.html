@@ -88,6 +88,13 @@ This time, do it for Ruby (not JavaScript or Python).
 <script id="info" type="application/yaml">
 ---
 hints:
+- present: |-
+    /
+  text: In JavaScript a constant regular expression is surrounded by
+    forward slashes like /PATTERN/. However, for this exercise we only
+    want the text inside the slashes (the pattern itself).
+  examples:
+  - - "/"
 - absent: |-
     ^\^
   text: For input validation, start with '^' to indicate a full match.
@@ -249,10 +256,9 @@ For more information, see the <a href="introduction.html" target="_blank">introd
 the labs</a>.
 
 <p>
-<h2>Task</h2>
+<h2>Goal</h2>
 <p>
-<b>Please create various regular expression (regex) patterns
-that meet the criteria below.</b>
+<b>Learn how to create simple regular expressions.</b>
 
 <p>
 <h2>Background</h2>
@@ -262,8 +268,6 @@ expressing text patterns.
 Regexes can be used to validate input; when used correctly,
 they can counter many attacks.
 
-<p>
-<h2>Task Information</h2>
 <p>
 Different regex languages have slightly different notations,
 but they have much in common. Here are some basic rules for regex
@@ -294,6 +298,8 @@ with parenthesis, because "<tt>|</tt>" has a low precedence.
 So for example, "<tt>(yes|no)</tt>" is a way to match either "yes" or "no".
 </ol>
 
+<p>
+<h2>Task Information</h2>
 <p>
 We want to use regexes to <i>validate</i> input.
 That is, the input should <i>completely</i> match the regex pattern.
@@ -344,6 +350,9 @@ not quite the same thing).
 <p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
 
+<b>Please create regular expression (regex) patterns
+that meet the criteria below.</b>
+
 <h3>Part 1</h2>
 <p>
 Create a regular expression, for use in ECMAScript (JavaScript),
@@ -353,9 +362,8 @@ You can use this an example for new labs.
 For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
 <textarea id="attempt" rows="2" cols="65">...</textarea>
 -->
-<form id="lab1">
-<pre></code>
-<input id="attempt0" type="text" size="60" spellcheck="false" value="">
+<form id="lab1"><pre><code
+><input id="attempt0" type="text" size="60" spellcheck="false" value="">
 </code></pre>
 <button type="button" class="hintButton">Hint</button>
 <button type="button" class="resetButton">Reset</button>
@@ -372,8 +380,8 @@ For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
 <textarea id="attempt" rows="2" cols="65">...</textarea>
 -->
 <form id="lab2">
-<pre></code>
-<input id="attempt1" type="text" size="60" spellcheck="false" value="">
+<pre><code
+><input id="attempt1" type="text" size="60" spellcheck="false" value="">
 </code></pre>
 <button type="button" class="hintButton">Hint</button>
 <button type="button" class="resetButton">Reset</button>
@@ -390,8 +398,8 @@ For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
 <textarea id="attempt" rows="2" cols="65">...</textarea>
 -->
 <form id="lab3">
-<pre></code>
-<input id="attempt2" type="text" size="60" spellcheck="false" value="">
+<pre><code
+><input id="attempt2" type="text" size="60" spellcheck="false" value="">
 </code></pre>
 <button type="button" class="hintButton">Hint</button>
 <button type="button" class="resetButton">Reset</button>
@@ -409,8 +417,8 @@ For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
 <textarea id="attempt" rows="2" cols="65">...</textarea>
 -->
 <form id="lab4">
-<pre></code>
-<input id="attempt3" type="text" size="60" spellcheck="false" value="">
+<pre><code
+><input id="attempt3" type="text" size="60" spellcheck="false" value="">
 </code></pre>
 <button type="button" class="hintButton">Hint</button>
 <button type="button" class="resetButton">Reset</button>
@@ -429,8 +437,8 @@ For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
 <textarea id="attempt" rows="2" cols="65">...</textarea>
 -->
 <form id="lab5">
-<pre></code>
-<input id="attempt4" type="text" size="60" spellcheck="false" value="">
+<pre><code
+><input id="attempt4" type="text" size="60" spellcheck="false" value="">
 </code></pre>
 <button type="button" class="hintButton">Hint</button>
 <button type="button" class="resetButton">Reset</button>
