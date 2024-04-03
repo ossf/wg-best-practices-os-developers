@@ -11,7 +11,8 @@
 
 <!-- Sample expected answer -->
 <script id="expected0" type="plain/text">
-  query('id').isLength({max:80}).matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),
+  query('id').isLength({max:80}).
+      matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),
 </script>
 
 <!-- Full pattern of correct answer.
@@ -78,6 +79,11 @@ hints:
   text: >
     You need to match one or more digits; * allows 0 or more.
     A + would be better suited for this task.
+- present: |
+    \s*, , $
+  text: >
+    You have two commas at the end. Use only one. You may need to
+    scroll or increase the text area to see both of them.
 successes:
 - - query(`id`).isLength( {max:80}).matches(/^[A-Z]{2}-\d+-[0-9]+$/),
 - - '  query (`id`) . isLength( {max:80}).matches(/^[A-Z]{2}-\d+-[0-9]+$/ ) ,  '
@@ -94,15 +100,16 @@ failures:
 <h1>Lab Exercise input2</h1>
 <p>
 This is a lab exercise on developing secure software.
-For more information, see the <a href="introduction.html">introduction to
+For more information, see the <a href="introduction.html" target="_blank">introduction to
 the labs</a>.
 
 <p>
 <h2>Task</h2>
 <p>
-<b>Please change the code below so the query parameter
-<tt>id</tt> <i>must</i> be no longer than 80 characters
-and meets this application's part id format requirement.</b>
+<b>
+Practice validating specialized text input in a program
+using a regular expression.
+</b>
 
 <p>
 <h2>Background</h2>
@@ -150,17 +157,17 @@ then a dash (<tt>-</tt>), a sequence of one or more digits,
 another dash (<tt>-</tt>), and another sequence of one or more digits.
 
 <p>
-To do that,
-after the first parameter to <tt>app.get</tt>
-which says <tt>'/parts'</tt>,
-add a new comma-separated parameter.
-Start this new parameter with
+To do that:
+<ol>
+<li>After the first parameter to <tt>app.get</tt>
+which says <tt>'/parts'</tt>, add a new comma-separated parameter.
+<li>Start this new parameter with
 <tt>query('id')</tt> to select the
-<tt>id</tt> parameter for validation (we've have <i>not</i> filled
+<tt>id</tt> parameter for validation (we have <i>not</i> filled
 in this part in this lab).
-Add a period (<tt>.</tt>) and the validation requirement
+<li>Add a period (<tt>.</tt>) and the validation requirement
 <tt>isLength()</tt>
-The <tt>isLength</tt> method takes, as an optional parameter inside
+<li>The <tt>isLength</tt> method takes, as an optional parameter inside
 its parentheses,
 an object providing specific information such as a minimum and a maximum.
 We only want a maximum,
@@ -169,33 +176,46 @@ so it should look something like
 Those familiar with JavaScript will know that the "length" value is
 the length of the string in UTF-16 code units; that's fine
 for our purposes.
+</ol>
 </p>
 
 <p>
 We also need to verify that the input matches our pattern,
 which we can verify using a regular expression.
-In this situation, we can do this by appending another
-period (<tt>.</tt>) and the validation requirement
+In this situation, we can do this by:
+<ol>
+<li>appending another period (<tt>.</tt>) and the validation requirement
 <tt>matches()</tt>.
-Inside those parenthesis you should supply slash (<tt>/</tt>, the
+<li>Inside those parenthesis you should supply slash (<tt>/</tt>, the
 text of the regular expression to match, and another slash (<tt>/</tt>).
 In JavaScript, a pair of slashes (<tt>/</tt>) surrounds a regular expression.
-Remember to match the <i>entire</i> expression
+<li>Remember to match the <i>entire</i> expression
 (in other words, use <tt>^</tt> and <tt>$</tt>).
-Remember, a way to match a single uppercase character is the
-pattern <tt>[A-Z]</tt> ... good luck!
+<li>Also, remember that a way to match a single uppercase character is the
+pattern <tt>[A-Z]</tt>
+</ol>
 
 <p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
 <p>
+<b>Please change the code below so the query parameter
+<tt>id</tt> is only accepted if it's no longer than 80 characters
+and meets this application's part id format requirement.
+The format is
+two uppercase Latin letters (each <tt>A</tt> through <tt>Z</tt>),
+then a dash (<tt>-</tt>), a sequence of one or more digits,
+another dash (<tt>-</tt>), and another sequence of one or more digits.
+</b>
+<p>
+
 <!--
 You can use this an example for new labs.
 For multi-line inputs, instead of <input id="attempt" type="text" ...>, use
 <textarea id="attempt" rows="2" cols="65">...</textarea>
 -->
 <form id="lab">
-<pre><code>
-// Set up Express framework and express-validator library
+<pre><code
+>// Set up Express framework and express-validator library
 const express = require("express");
 const app = express();
 const { query, matchedData, validationResult } =
@@ -203,8 +223,8 @@ const { query, matchedData, validationResult } =
 
 // Implement requests, e.g., http://localhost:3000/parts?id=1
 app.get('/parts',
-<input id="attempt0" type="text" size="65" spellcheck="false"
- value="  ,">
+<textarea id="attempt0" rows="2" cols="64" spellcheck="false">
+  ,</textarea>
   (req, res) =&gt; { // Execute this code if /invoices seen
     const result = validationResult(req); // Retrieve errors
     if (result.isEmpty()) { // No errors

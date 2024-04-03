@@ -109,15 +109,13 @@ failures:
 <h1>Lab Exercise input1</h1>
 <p>
 This is a lab exercise on developing secure software.
-For more information, see the <a href="introduction.html">introduction to
+For more information, see the <a href="introduction.html" target="_blank">introduction to
 the labs</a>.
 
 <p>
-<h2>Task</h2>
+<h2>Goal</h2>
 <p>
-<b>Please change the code below so the query parameter
-<tt>id</tt> <i>must</i> be an integer between 1 and 9999 (including
-those numbers).</b>
+Practice validating input of a simple data type.
 
 <p>
 <h2>Background</h2>
@@ -130,18 +128,14 @@ the point is to learn how to write secure software in general.
 
 <p>
 <!-- https://expressjs.com/en/guide/routing.html -->
-Express allows us to state that when the system receives
-an HTTP <tt>get</tt> request for a given route
-(e.g., <tt>/invoices</tt>), Express will run a list of functions ("handlers").
+Express allows us to state that when the system receives a specific request,
+it will run a list of functions ("handlers").
 The library <tt>express-validator</tt> provides a set of validation functions
 to make it easy to add validation checks.
 
 <p>
 The code below sets up handlers for a <tt>get</tt> request on path
 <tt>/invoices</tt>.
-This code could be triggered, for example, by requesting
-<tt>http://localhost:3000/invoices?id=1</tt>
-(if it was running at <tt>localhost</tt> and responding to port 3000).
 If there are no validation errors, the code is supposed to show the invoice id.
 If there is a validation error, it responds with HTTP
 error code 422 ("Unprocessable Content"), a status code suggesting
@@ -164,25 +158,25 @@ better input validation.
 <p>
 <h2>Task Information</h2>
 <p>
-
-<p>
-To complete this task,
-after the first parameter to <tt>app.get</tt>
+To complete this task:
+<ol>
+<li>After the first parameter to <tt>app.get</tt>
 which says <tt>'/invoices'</tt>,
 add a new comma-separated parameter.
-Start this new parameter with
+<li>Start this new parameter with
 <tt>query('id')</tt> to select the
 <tt>id</tt> parameter for validation (we've filled in this part
 to help get you started).
-After <tt>query('id')</tt> (and before the terminating comma),
+<li>After <tt>query('id')</tt> (and before the terminating comma),
 add a period (<tt>.</tt>) and the validation requirement
 <tt>isInt()</tt> (<tt>isInt</tt> validates that the named parameter is
 an integer).
-The <tt>isInt</tt> method takes, as an optional parameter inside
+<li>The <tt>isInt</tt> method takes, as an optional parameter inside
 its parentheses,
 an object providing a minimum and maximum, e.g.,
 <tt>isInt({min: YOUR_MINIMUM, max: YOUR_MAXIMUM})</tt>.
 Set <tt>min</tt> and <tt>max</tt> to specify the allowed range.
+</ol>
 
 <p>
 Note: JavaScript names are case-sensitive, so <tt>isint</tt> won't work.
@@ -197,14 +191,18 @@ but please try to do this on your own!
 <p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
 <p>
+<b>The code below accepts the query parameter <tt>id</tt> as input.
+Please change it so <tt>id</tt> is only accepted if it is
+an integer between 1 and 9999 (including those numbers).</b>
+<p>
 <!--
 You can use this an example for new labs.
 For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
 <textarea id="attempt" rows="2" cols="65">...</textarea>
 -->
 <form id="lab">
-<pre></code>
-// Set up Express framework and express-validator library
+<pre><code
+>// Set up Express framework and express-validator library
 const express = require("express");
 const app = express();
 const { query, matchedData, validationResult } =
