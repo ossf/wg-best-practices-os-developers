@@ -19,6 +19,16 @@ Here are the labs available:
 * [input2](input2.html) - input validation (more complex situations)
 * [csp1](csp1.html) - Content Security Policy (CSP)
 
+## Please contribute labs
+
+We would love to have people contribute relevant labs to help
+people learn how to develop secure software.
+We'd be happy to give you credit through a "wall of fame".
+
+If you're interested, please contact
+[David A. Wheeler](mailto:dwheele&#114;&#64;linuxfoundation&#46;org).
+See below for how to create labs and our lab roadmap.
+
 ## How to create and submit labs
 
 See [create labs](create_labs) if you want to learn how to create labs.
@@ -29,14 +39,16 @@ To submit new or updated labs, create a pull request on the
 [OpenSSF Best Practices WG](https://github.com/ossf/wg-best-practices-os-developers/)
 under the `docs/labs` directory.
 
-## Desired labs
+## Lab Roadmap
 
-We want to create labs for the secure software development
+We plan to create labs for the secure software development
 fundamentals course;
 [here is its development website](https://github.com/ossf/secure-sw-dev-fundamentals).
 
-These are the sections that especially call out for labs, along with
-mappings to existing labs or people who have agreed to work on one:
+Below are the sections where we plan to create labs, along with
+mappings to existing labs or people who have agreed to work on one.
+The items marked "PLANNED-1" are those we intend to do first;
+"PLANNED-2" are planned in a second pass.
 
 * Input Validation
   * Input Validation Basics
@@ -48,55 +60,55 @@ mappings to existing labs or people who have agreed to work on one:
     * Validating Text
     * Introduction to Regular Expressions - [regex1](regex1.html)
     * Using Regular Expressions for Text Input Validation - [input2](input2.html)
-    * Countering ReDoS Attacks on Regular Expressions - NEED
+    * Countering ReDoS Attacks on Regular Expressions - PLANNED-2
   * Input Validation: Beyond Numbers and Text
-    * Insecure Deserialization - NEED
-    * Input Data Structures (XML, HTML, CSV, JSON, & File Uploads) - NEED
-    * Minimizing Attack Surface, Identification, Authentication, and Authorization - NEED
-    * Search Paths and Environment Variables (including setuid/setgid Programs) - NEED
-    * Special Inputs: Secure Defaults and Secure Startup - NEED
+    * Insecure Deserialization - PLANNED-2
+    * Input Data Structures (XML, HTML, CSV, JSON, & File Uploads) - PLANNED-2
+    * Minimizing Attack Surface, Identification, Authentication, and Authorization - PLANNED-2
+    * Search Paths and Environment Variables (including setuid/setgid Programs) - PLANNED-2
+    * Special Inputs: Secure Defaults and Secure Startup - PLANNED-2
   * Consider Availability on All Inputs
-    * Consider Availability on All Inputs Introduction - NEED
+    * Consider Availability on All Inputs Introduction - PLANNED-2
 * Processing Data Securely
   * Processing Data Securely: General Issues
-    * Prefer Trusted Data. Treat Untrusted Data as Dangerous - NEED
-    * Avoid Default & Hardcoded Credentials - NEED
-    * Avoid Incorrect Conversion or Cast - NEED
+    * Prefer Trusted Data. Treat Untrusted Data as Dangerous - PLANNED-2
+    * Avoid Default & Hardcoded Credentials - PLANNED-1
+    * Avoid Incorrect Conversion or Cast - PLANNED-2
   * Processing Data Securely: Undefined Behavior / Memory Safety
-    * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - NEED
-    * Double-free, Use-after-free, and Missing Release - NEED
-    * Avoid Undefined Behavior - NEED
+    * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - PLANNED-1
+    * Double-free, Use-after-free, and Missing Release - PLANNED-1
+    * Avoid Undefined Behavior - PLANNED-2
   * Processing Data Securely: Calculate Correctly
-    * Avoid Integer Overflow, Wraparound, and Underflow - NEED
+    * Avoid Integer Overflow, Wraparound, and Underflow - PLANNED-2
 * Calling Other Programs
   * Introduction to Securely Calling Programs
     * Introduction to Securely Calling Programs - The Basics
   * Calling Other Programs: Injection and Filenames
-    * SQL Injection - NEED
-    * OS Command (Shell) injection - NEED
-    * Other Injection Attacks - NEED
-    * Filenames (Including Path Traversal and Link Following) - NEED
+    * SQL Injection - PLANNED-1
+    * OS Command (Shell) injection - PLANNED-1
+    * Other Injection Attacks - PLANNED-2
+    * Filenames (Including Path Traversal and Link Following) - PLANNED-2
   * Calling Other Programs: Other Issues
-    * Call APIs for Programs and Check What Is Returned - NEED
-    * Handling Errors - NEED
-    * Logging - NEED
-    * Debug and Assertion Code - NEED
-    * Countering Denial-of-Service (DoS) Attacks - NEED
+    * Call APIs for Programs and Check What Is Returned - PLANNED-2
+    * Handling Errors - PLANNED-2
+    * Logging - PLANNED-2
+    * Debug and Assertion Code - PLANNED-1
+    * Countering Denial-of-Service (DoS) Attacks - PLANNED-2
 * Sending Output
-  * Introduction to Sending Output - NEED
-  * Countering Cross-Site Scripting (XSS) - NEED
+  * Introduction to Sending Output - PLANNED-2
+  * Countering Cross-Site Scripting (XSS) - PLANNED-1
   * Content Security Policy (CSP) - [csp1](csp1.html)
-  * Other HTTP Hardening Headers - (probably continue csp1) NEED
-  * Cookies & Login Sessions - NEED
-  * CSRF / XSRF - NEED
-  * Open Redirects and Forwards - NEED
-  * HTML **target** and JavaScript **window.open()** - NEED
-  * Using Inadequately Checked URLs / Server-Side Request Forgery (SSRF) - NEED
-  * Same-Origin Policy and Cross-Origin Resource Sharing (CORS) - NEED
-  * Format Strings and Templates - NEED
-  * Minimize Feedback / Information Exposure - NEED
-  * Avoid caching sensitive information - NEED
-  * Side-Channel Attacks - NEED
+  * Other HTTP Hardening Headers - (probably continue csp1) PLANNED-2
+  * Cookies & Login Sessions - PLANNED-2
+  * CSRF / XSRF - PLANNED-2
+  * Open Redirects and Forwards - PLANNED-2
+  * HTML **target** and JavaScript **window.open()** - PLANNED-2
+  * Using Inadequately Checked URLs / Server-Side Request Forgery (SSRF) - PLANNED-2
+  * Same-Origin Policy and Cross-Origin Resource Sharing (CORS) - PLANNED-2
+  * Format Strings and Templates - PLANNED-1
+  * Minimize Feedback / Information Exposure - PLANNED-2
+  * Avoid caching sensitive information - PLANNED-2
+  * Side-Channel Attacks - PLANNED-2
 
 ## Other information
 
