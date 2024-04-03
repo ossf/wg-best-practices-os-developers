@@ -19,7 +19,7 @@ Here are the labs available:
 * [input2](input2.html) - input validation (more complex situations)
 * [csp1](csp1.html) - Content Security Policy (CSP)
 
-## Please contribute labs!
+## Please contribute labs
 
 We would love to have people contribute relevant labs to help
 people learn how to develop secure software.
