@@ -52,14 +52,14 @@ The items marked "PLANNED-1" are those we intend to do first;
 
 * Input Validation
   * Input Validation Basics
-    * Input Validation Basics Introduction
+    * Input Validation Basics Introduction - [hello](hello.html)
     * How Do You Validate Input?
   * Input Validation: Numbers and Text
     * Input Validation: A Few Simple Data Types - [input1](input1.html)
     * Sidequest: Text, Unicode, and Locales
     * Validating Text
-    * Introduction to Regular Expressions - [regex1](regex1.html)
-    * Using Regular Expressions for Text Input Validation - [input2](input2.html)
+    * Introduction to Regular Expressions
+    * Using Regular Expressions for Text Input Validation - [regex1](regex1.html), [input2](input2.html)
     * Countering ReDoS Attacks on Regular Expressions - PLANNED-2
   * Input Validation: Beyond Numbers and Text
     * Insecure Deserialization - PLANNED-2
