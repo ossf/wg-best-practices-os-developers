@@ -268,7 +268,7 @@ function makeStamp() {
     // when they're in a "secure state". We don't need the hash to be
     // cryptographic, since the data is clearly in view. Use a simple one.
     let hash = cyrb64Hash(resultBeginning);
-    return `${resultBeginning} ${hash}`;
+    return `Completed ${resultBeginning} ${hash}`;
 }
 
 /**
@@ -299,6 +299,8 @@ function runCheck() {
         correctStamp = document.getElementById('correctStamp');
         if (correctStamp) {
             correctStamp.innerHTML = makeStamp();
+            correctStamp.title =
+                'This completion stamp is for instructors using these labs.';
 	}
 
         // Use a timeout so the underlying page will *re-render* before the
