@@ -12,19 +12,13 @@
 <!-- See create_labs.md for how to create your own lab! -->
 
 <!-- Sample expected answer -->
-<script id="expected0" type="plain/text">
-cat
-</script>
+<script id="expected0" type="plain/text">cat</script>
 
 <!-- Full pattern of correct answer -->
-<script id="correct0" type="plain/text">
-cat
-</script>
+<script id="correct0" type="plain/text">cat</script>
 
 <!-- Sample expected answer -->
-<script id="expected1" type="plain/text">
-ABBBB
-</script>
+<script id="expected1" type="plain/text">A+BB*</script>
 
 <!-- Full pattern of correct answer -->
 <script id="correct1" type="plain/text">
@@ -42,6 +36,11 @@ hints:
     ^\^
   text: We are looking for 'cat' anywhere, not just the beginning,
     in this exercise.
+- present: |-
+    C
+  text: Regexes are normally case-sensitive. Use a lowercase c.
+  examples:
+  - - "C"
 - absent: |-
     c
   text: If you are searching for "cat" you need to look for a "c"
