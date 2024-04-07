@@ -15,6 +15,7 @@ Here are the labs available:
 
 * [hello](hello.html) - simple "Hello, world!" demo
 * [input1](input1.html) - input validation (simple types)
+* [regex0](regex0.html) - regular expressions (regexes) - introduction
 * [regex1](regex1.html) - regular expressions (regexes)
 * [input2](input2.html) - input validation (more complex situations)
 * [csp1](csp1.html) - Content Security Policy (CSP)
@@ -58,7 +59,7 @@ The items marked "PLANNED-1" are those we intend to do first;
     * Input Validation: A Few Simple Data Types - [input1](input1.html)
     * Sidequest: Text, Unicode, and Locales
     * Validating Text
-    * Introduction to Regular Expressions
+    * Introduction to Regular Expressions - [regex0](regex0.html)
     * Using Regular Expressions for Text Input Validation - [regex1](regex1.html), [input2](input2.html)
     * Countering ReDoS Attacks on Regular Expressions - PLANNED-2
   * Input Validation: Beyond Numbers and Text

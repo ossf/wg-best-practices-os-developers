@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+cat
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+cat
+</script>
+
+<!-- Sample expected answer -->
+<script id="expected1" type="plain/text">
+ABBBB
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct1" type="plain/text">
+A(\+|A\*)
+B(\+|B\*)
+</script>
+
+<script id="info" type="application/yaml">
+---
+hints:
+- present: |-
+    ^$
+  text: You need to enter a pattern.
+- present: |-
+    ^\^
+  text: We are looking for 'cat' anywhere, not just the beginning,
+    in this exercise.
+- absent: |-
+    c
+  text: If you are searching for "cat" you need to look for a "c"
+  examples:
+  - - "x"
+- absent: |-
+    cat
+  text: The pattern "cat" is needed to search for "cat".
+- absent: |-
+    A
+  index: 1
+  text: You need to mention A.
+- absent: |-
+    B
+  index: 1
+  text: You need to mention B.
+- absent: |-
+    A(\+|A\*)
+  index: 1
+  text: Use "A+" to indicate "one or more A". You could also write "AA*".
+- absent: |-
+    B(\+|B\*)
+  index: 1
+  text: Use "B+" to indicate "one or more B". You could also write "BB*".
+# successes:
+# - - " query ( 'id' ) . isInt ( {min: 1 , max: 9999 } ) ,"
+# - - " query ( `id` ) . isInt ( {min: 1 , max: 9_999 } ) ,   "
+# - - 'query ( "id" ) . isInt ( {min: 1 , max: 9_999 } ) ,'
+# failures:
+# - - " query,"
+# - - 'query(''id'').isint({min: 1, max: 9999})'
+# - - 'query(''id'').isInt({min: 1, max: 9999})'
+#
+# Remove all whitespace, so we can make our patterns easier to read
+#
+preprocessing:
+  -
+    - |-
+        \s*
+    - ""
+#   -
+#     - |-
+#         (\\s\*)?\s+(\\s\*)?
+#     - "\\s*"
+# debug: true
+</script>
+<!--
+
+-->
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise regex0</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html" target="_blank">introduction to
+the labs</a>.
+
+<p>
+<h2>Goal</h2>
+<p>
+<b>Learn how to create simple regular expressions.</b>
+
+<p>
+<h2>Background</h2>
+<p>
+Regular expressions (regexes) are a widely-used notation for
+expressing text patterns.
+We will later see how to use regexes to validate input.
+
+<p>
+Different regex languages have slightly different notations,
+but they have much in common. Here are some basic rules for regex
+notations:
+
+<ol>
+<li>The most trivial rule is that a letter or digit matches itself. That is, the regex “<tt>d</tt>” matches the letter “<tt>d</tt>”. Most implementations use case-sensitive matches by default, and that is usually what you want.
+<li>Another rule is that square brackets surround a rule that specifies any of a number of characters. If the square brackets surround just alphanumerics, then the pattern matches any of them. So <tt>[brt]</tt> matches a single “<tt>b</tt>”, “<tt>r</tt>”, or “<tt>t</tt>”.
+Inside the brackets you can include
+ranges of symbols separated by dash ("-"), so
+<tt>[A-D]</tt> will match one character, which can be one A, one B, one C,
+or one D.
+You can do this more than once.
+For example,
+the term <tt>[A-Za-z]</tt> will match one character, which can be
+an uppercase Latin letter or a lowercase Latin letter.
+(This text assumes you're not using a long-obsolete character system
+like EBCDIC.)
+<li>If you follow a pattern with “<tt>&#42;</tt>”, that means
+“<i>0 or more times</i>”.
+In almost all regex implementations (except POSIX BRE),
+following a pattern with "<tt>+</tt>" means "<i>1 or more times</i>".
+So <tt>[A-D]*</tt> will match 0 or more letters as long as every letter
+is an A, B, C, or D.
+</ol>
+
+<p>
+<h2>Task Information</h2>
+<p>
+We're going to create some simple regular expressions (regexes)
+to look for certain patterns.
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+
+<b>Please create regular expression (regex) patterns
+that meet the criteria below.</b>
+
+<h3>Part 1</h2>
+<p>
+Create a regular expression, for use in ECMAScript (JavaScript),
+that searches for the term "cat" anywhere in a string.
+
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="65">...</textarea>
+-->
+<form id="lab1"><pre><code
+><input id="attempt0" type="text" size="60" spellcheck="false" value="">
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+</form>
+
+<h3>Part 2</h2>
+<p>
+Create a regular expression, for use in ECMAScript (JavaScript),
+that searches for one or more "A" followed by one or more "B".
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="65">...</textarea>
+-->
+<form id="lab2">
+<pre><code
+><input id="attempt1" type="text" size="60" spellcheck="false" value="">
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+</form>
+
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
