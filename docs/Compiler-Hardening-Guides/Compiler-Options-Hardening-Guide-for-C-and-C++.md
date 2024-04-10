@@ -968,7 +968,8 @@ Table 4: Sanitizer options in GCC and Clang.
 
 | Compiler Flag          |     Supported since      | Description                                                                 |
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
-| `-fsanitize=address`   | GCC 4.8<br/>Clang 3.1 | Enables AddressSanitizer to detect memory errors at run-time                || `-fsanitize=thread`    | GCC 4.8<br/>Clang 3.2 | Enables ThreadSanitizer to detect data race bugs at run time                |
+| `-fsanitize=address`   | GCC 4.8<br/>Clang 3.1 | Enables AddressSanitizer to detect memory errors at run-time                |
+| `-fsanitize=thread`    | GCC 4.8<br/>Clang 3.2 | Enables ThreadSanitizer to detect data race bugs at run time                |
 
 AddressSanitizer (ASan) is a memory error detector that can identify memory defects that involve:
 
