@@ -6,11 +6,49 @@ These are the instructions for how to create labs with `checker.js`,
 
 The `checker.js` system
 represents each lab exercise in an HTML file.
-You define a pattern that the correct answer must match
-using regular expressions (as well as a example of an expected answer).
+You define text explaining the lab exercise,
+a form allowing the learner to enter their answer,
+pattern(s) that the correct answer(s) must match,
+and an example of an expected answer.
+
+Everything runs in the user's browser - no installation is needed.
 This system does *not* run arbitrary code written by the user.
 You can also provide patterns for various hints.
 
+There are three basic tasks, which can be done by different people:
+
+1. Identifying the next lab to do.
+   See the [README](./README.md) for the list of labs.
+2. [Creating the lab instructions and correct answer](#creating-the-lab-instructions-and-correct-answer).
+   This is done by a subject matter expert. See below.
+3. [Creating the lab HTML file](#creating-the-lab-html-file).
+   Much of the text below focuses on implementing this part.
+   You'd typically start with an existing lab, like
+   [input1.html](input1.html), and modify it for your situation.
+   See David A. Wheeler who can help you get started.
+
+The text below discusses these in more detail. You can also see our
+[potential future directions](#potential-future-directions).
+
+## Creating the lab instructions and correct answer
+
+We strongly urge you to first work out the basic lab and what
+a *correct* answer would look like. Others can help you create the pattern
+that describes a correct answer.
+
+First consult the [section's text in the fundamentals course](more ~/projects/secure-sw-dev-fundamentals/secure_software_development_fundamentals.md).
+It's probably best to then create some simple program that
+demonstrates it, along with text that explains the task.
+
+Remember that we're assuming that learners know how to program, but we
+do *not* assume they know any particular programming language.
+See [input1.html](input1.html),
+[input2.html](input2.html), and
+[csp1.html](csp1.html) for examples of how to do this.
+
+## Creating the lab HTML file
+
+Each lab is captured in its own HTML file.
 The HTML file of a given lab is expected to:
 
 * Describe the exercise (in HTML text)
@@ -24,11 +62,7 @@ The HTML file of a given lab is expected to:
 
 The system is implemented by the client-side JavaScript file `checker.js`.
 
-## TL;DR
-
-We strongly urge you to first work out the basic lab and what
-a *correct* answer would look like. Others can help you create the pattern
-that describes a correct answer.
+### TL;DR
 
 An easy way implement a lab is to copy
 [input1.html](input1.html) and modify it for your situation.
@@ -49,7 +83,7 @@ We suggest including the buttons (Hint, Reset, and Give up)
 as shown in the examples.
 The code will automatically set up the buttons if they are present.
 
-## Quick aside: script tag requirements
+### Quick aside: script tag requirements
 
 Data about the lab is embedded in the HTML in a
 `script` tag. Embedding this data simplifies lab maintenance,
@@ -69,7 +103,7 @@ Basically, the text embedded in the `script` sections must
 If you *need* to include these text sequences inside the `script` region,
 you can typically you can replace `<` with `\x3C` to resolve it.
 
-## Basic lab inputs
+### Basic lab inputs
 
 The basic inputs are:
 
@@ -83,12 +117,12 @@ in order (0, 1, 2, ...).
 The number of attempt fields, expected fields, and correct fields
 much match.
 
-## Expressing correct answer patterns
+### Expressing correct answer patterns
 
 Correct answer patterns are expressed using a preprocessed form of
 [JavaScript regular expression (regex) patterns](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions).
 
-### Quick introduction to regular expressions (regexes)
+#### Quick introduction to regular expressions (regexes)
 
 Regular expressions are a widely-used notation to
 indicate patterns.
@@ -106,7 +140,7 @@ the many different forms that are all correct. E.g.:
 * Pattern `9_?999` matches `9`, an optional underscore
   (<tt>&#95;</tt>) because the `?` makes it optional, then `999`.
 
-### How we make regexes readable
+#### How we make regexes readable
 
 Regexes are capable and widely used,
 but straightforward regex use for this problem
@@ -176,7 +210,7 @@ defining the lookahead patterns for all required specific answers.
 If you need that kind of order flexibility for longer lists, that is the
 best approach I've found.
 
-## Expressing JavaScript code patterns
+### Expressing JavaScript code patterns
 
 If you're defining a pattern to match an answer that is a
 snippet of JavaScript code, here are some tips:
@@ -202,7 +236,7 @@ It's impractical to match all possibilities, e.g., <tt>1</tt> can be
 written as <tt>(5-4)</tt>, but that would be an absurd thing for a
 student to do.
 
-## Example pattern
+### Example pattern
 
 Here's an example pattern for matching a correct answer:
 
@@ -255,7 +289,7 @@ Here's an explanation of this pattern:
    By ending the last pattern with `\s*` we make it clear that
    trailing whitespace is allowed at the end.
 
-## Other info
+### Other info
 
 The id `info` can provide other optional information.
 If present, it must be a YAML object.
@@ -287,7 +321,7 @@ The `info` object also has other fields:
    some data that may help you debug problems.
 * `hints`: If present, this is an array of hints.
 
-## Hints
+### Hints
 
 Hints are expressed in the info `hints` field.
 This field must be an array
@@ -298,7 +332,7 @@ Each hint object describes a hint, and they are checked in the order given
 If you use JSON format,
 each hint object begins with `{`, has a set of fields, and ends with `}`.
 
-### Format for a hint
+#### Format for a hint
 
 Every hint object must have a `text` field to be displayed as the hint.
 A hint object can have a `present` field (a pattern that must be present
@@ -325,7 +359,7 @@ an array of examples (each example is an array of Strings).
 On load the system will verify that each example will report the
 maatching hint (this helps ensure that the hint order is sensible).
 
-### Examples of hints
+#### Examples of hints
 
 Here are examples of hints:
 
@@ -355,7 +389,7 @@ the hint.
 The second hint triggers when the user attempt *contains* the given
 pattern (note the term `present`).
 
-## Notes on YAML
+### Notes on YAML
 
 The info section supports
 [YAML format version 1.2](https://yaml.org/spec/1.2.2/).
@@ -474,7 +508,7 @@ You can use
 [convert yaml to json](https://onlineyamltools.com/convert-yaml-to-json)
 to interactively experiment with YAML.
 
-## Preventing problems
+### Preventing problems
 
 As always, it's best to try to
 make smaller changes, test them, and once they work
@@ -488,7 +522,7 @@ Remember, hints are checked in order - it's possible to create a hint
 that won't trigger because something earlier would always match.
 These tests are automatically checked every time the page is (re)loaded.
 
-## Debugging
+### Debugging
 
 Sadly, sometimes things don't work; here are some debugging tips for labs.
 
@@ -514,7 +548,7 @@ This will display information, particularly on its inputs.
 This can help you track down a problems if you think your
 inputs are being interpreted in a way different than you expect.
 
-## Additional settings for natural languages other than English
+### Additional settings for natural languages other than English
 
 This tool should work fine with languages other than English.
 We expect that there will be a different HTML page for each
@@ -524,7 +558,7 @@ lab and each different natural language.
 For each button you should set the `title` attribute for the
 given language.
 
-## Advanced use: Select preprocessing commands (e.g., for other languages)
+### Advanced use: Select preprocessing commands (e.g., for other languages)
 
 For most programming languages the default regex preprocessing
 should be fine. However, the *defaults* are *not* a
