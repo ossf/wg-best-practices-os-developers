@@ -19,16 +19,16 @@ There are three basic tasks, which can be done by different people:
 
 1. Identifying the next lab to do.
    See the [README](./README.md) for the list of labs.
-2. [Creating the lab instructions and correct answer](#creating_the_lab_instructions_and_correct_answer).
+2. [Creating the lab instructions and correct answer](#creating-the-lab-instructions-and-correct-answer).
    This is done by a subject matter expert. See below.
-3. [Creating the lab HTML file](#creating_the_lab_html_file).
+3. [Creating the lab HTML file](#creating-the-lab-html-file).
    Much of the text below focuses on implementing this part.
    You'd typically start with an existing lab, like
    [input1.html](input1.html), and modify it for your situation.
    See David A. Wheeler who can help you get started.
 
 The text below discusses these in more detail. You can also see our
-[potential future directions](#potential_future_directions).
+[potential future directions](#potential-future-directions).
 
 ## Creating the lab instructions and correct answer
 
