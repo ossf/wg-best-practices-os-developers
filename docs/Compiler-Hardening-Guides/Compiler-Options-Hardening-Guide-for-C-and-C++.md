@@ -1181,7 +1181,7 @@ If the build ID method is used the debug info file’s name is computed from the
 
 Note that the build ID does not act as a checksum for the executable or debug info file. For more information on the build ID feature please refer to the GDB[^binutils-objcopy] and GNU linker[^binutils-ld] documentation.
 
-### What should you do when compiling compilers?
+## What should you do when compiling compilers?
 
 If you are compiling a C/C++ compiler, where practical make the generated compiler's default options the *secure* options. The below table summarizes relevant options that can be specified when building GCC or Clang that affect the defaults of the compiler:
 
