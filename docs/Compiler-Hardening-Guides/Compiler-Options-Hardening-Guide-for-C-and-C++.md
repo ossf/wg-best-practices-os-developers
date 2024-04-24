@@ -1267,6 +1267,7 @@ Many more security-relevant compiler options exist than are recommended in this 
 | <span id="-D_LIBCPP_ENABLE_ASSERTIONS">`-D_LIBCPP_ENABLE_ASSERTIONS`</span> | libc++ 3.3.0 | Deprecated in favor of `_LIBCPP_ENABLE_HARDENED_MODE`[^libcpp_assert]
 | <span id="-mshstk">`-mshstk`</span>                                         | GCC 8<br/>Clang 6.0 | Enables discouraged shadow stack built-in functions[^gcc_mshstk], which are only needed for programs with an unconventional management of the program stack. CET instrumentation is controlled by [`-fcf-protection`](#-fcf-protection=full).
 | <span id="-fsanitize=safe-stack">`-fsanitize=safe-stack`</span>             | Clang 4.0 | Known compatibility limitations with garbage collection, signal handling, and shared libraries[^clang_safestack].
+| <span id="-fasynchronous-unwind-tables">`-fasynchronous-unwind-tables`</span> | GCC 3.1.1<br/>Clang 7.0  | Generate stack unwind table in DWARF2 format, which improves precision of unwind information[^Song20] and can improve the performance of profilers at the cost of larger binary sizes[^Bastian19], but does not benefit security.
 
 [^nodump]: The `-Wl,-z,nodump` option sets `DF_1_NODUMP` flag in the object’s `.dynamic` section tags. On Solaris this restricts calls to `dldump(3)` for the object. However, other operating systems ignore the `DF_1_NODUMP` flag. While Binutils implements `-Wl,-z,nodump` for Solaris compatibility a choice was made to not support it in `lld` ([D52096 lld: add -z nodump support](https://reviews.llvm.org/D52096)).
 
@@ -1277,5 +1278,9 @@ Many more security-relevant compiler options exist than are recommended in this 
 [^gcc_mshstk]: GCC team, [x86 Built-in Functions](https://gcc.gnu.org/onlinedocs/gcc/x86-Built-in-Functions.html), GCC Manual, 2023-07-27.
 
 [^clang_safestack]: LLVM team, [SafeStack](https://clang.llvm.org/docs/SafeStack.html), Clang documentation, 2023-11-14.
+
+[^Song20]: Song, Fangrui, [Stack unwinding](https://maskray.me/blog/2020-11-08-stack-unwinding), MaskRay blog, 2020-11-18.
+
+[^Bastian19]: Bastian, Théophile and Kell, Stephen and Nardelli, Francesco Zappa, [Reliable and fast DWARF-based stack unwinding](https://doi.org/10.1145/3360572), Proceedings of the ACM Journal of Programming Languages, Volume 3, Issue OOPSLA, Article 146, 2019-10-10.
 
 ## References
