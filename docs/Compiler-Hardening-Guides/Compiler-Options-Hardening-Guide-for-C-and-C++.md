@@ -43,6 +43,7 @@ When compiling code in any of the situations in the below table, add the corresp
 | for aarch64                                             | `-mbranch-protection=standard`                                                                           |
 | for production code                                     | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
 | for treating obsolete C constructs as errors            | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion`                             |
+| for multi-threaded C code using GNU C library pthreads  | `-fexceptions`                                                                                           |
 
 We recommend developers to additionally use a blanket [`-Werror`](#-Werror) to treat all warnings as errors during development. However, `-Werror` should not be used in this blanket form when distributing source code, as this use of `-Werror` creates a dependency on specific toolchain vendors and versions. The selective form[`-Werror=`*`<warning-flag>`*](#-Werror-flag) that promotes specific warnings as error in cases that should never occur in the code can be used both during development and when distributing sources. For example, we encourage developers to promote warnings regarding obsolete C constructs removed by the 1999 C standard to errors (see the "for disabling obsolete C constructs" in the above table). These options often cannot be added by those who independently build the software, because the options may require non-trivial changes to the source code.
 
@@ -207,6 +208,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fno-strict-overflow`](#-fno-strict-overflow)                                           | GCC 4.2                            | Integer overflow may occur                                                                   |
 | [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 18.0.0        | Do not assume strict aliasing                                                                |
 | [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12<br/>Clang 8.0               | Perform trivial auto variable initialization                                                 |
+| [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6           | Enable exception propagation to harden multi-threaded C code                                 |
 
 [^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
@@ -904,6 +906,40 @@ https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-ftrivial-auto-var
 https://reviews.llvm.org/D125142
 https://godbolt.org/z/6qTPz9n6h
 -->
+
+---
+
+### Enable exception propagation to harden multi-threaded C code
+
+| Compiler Flag                                | Supported since          | Description                                                  |
+|:---------------------------------------------|:------------------------:|:-------------------------------------------------------------|
+|<span id="-fexceptions">`-fexceptions`</span> | GCC 2.95.3<br/>Clang 2.6 | Enable exception propagation to harden multi-threaded C code |
+
+#### Synopsis
+
+The `-fexceptions` option, when enabled for C code, makes GCC and Clang generate frame unwind information for all functions. This option is enabled by default for C++ that require exception handling but enabling it for also C code allows glibc's implementation of POSIX thread cancellation[^man7-pthreads] to use the same unwind information instead of `setjmp` / `longjmp` for stack unwinding[^Weimer2017a].
+
+Enabling `-fexception` is recommended for hardening of multi-threaded C code as without it, the implementation Glibc's thread cancellation handlers may spill a completely unprotected function pointer onto the stack[^Weimer2017b]. This function pointer can simplify the exploitation of stack-based buffer overflows even if the thread in question is never canceled[^Weimer2018].
+
+#### Performance implications
+
+Enabling C++ style exception propagation for C code generally does not impact its performance as it does not impact the program's normal control flow. However, on some target architectures such as x86_64, `-fexceptions` causes the compiler to generate frame unwind information for all functions, which can produce significant increases in the size of the produced binaries.
+
+#### When not to use?
+
+When developing single-threaded C code which does not need to interoperate with C++ for resource-constrained systems where the associated binary size increase is undesirable this option can be safely omitted.
+
+#### Additional Considerations
+
+The `-fexceptions` option is also needed for C code that needs to interoperate with C++ code that relies on exceptions. For this reason `-fexceptions` is often enabled by default for C language libraries provided by major Linux distributions.
+
+[^man7-pthreads]: Kerrisk, Michael, [pthread_cancel](https://man7.org/linux/man-pages/man3/pthread_cancel.3.html), man7.org, 2023-12-22.
+
+[^Weimer2017a]: Weimer, Florian, [\[PATCH\] pthread_cleanup_push macro generates warning when -Wclobbered is set](https://sourceware.org/pipermail/libc-alpha/2017-November/088474.html), Libc-alpha mailing list, 2017-11-14.
+
+[^Weimer2017b]: Weimer, Florian, [\[11/12/13/14 Regression\] Indirect call generated for pthread_cleanup_push with constant cleanup function](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=61118#c13), GCC Bugzilla, 2017-11-21.
+
+[^Weimer2018]: Weimer, Florian, [Recommended compiler and linker flags for GCC](https://developers.redhat.com/blog/2018/03/21/compiler-and-linker-flags-gcc), Red Hat Developer, 2018-03-21.
 
 ---
 
