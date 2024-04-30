@@ -10,6 +10,7 @@ let correctRe = []; // Array of compiled regex of correct answer
 let expected = []; // Array of an expected (correct) answer
 let info = {}; // General info
 let hints = []; // Array of hint objects
+let page_definitions = {}; // Definitions used when preprocessing regexes
 
 // This array contains the default pattern preprocessing commands, in order.
 // We process every pattern through these (in order) to create a final regex
@@ -55,6 +56,18 @@ let preprocessRegexes = [
 function trimNewlines(s) {
     return ((s + '').replace(/^[\n\r]+/, '')
             .replace(/[\n\r]+$/, ''));
+}
+
+/**
+ * Apply all page_definitions to string s (which is presumably a regex
+ * in string form). These are simple text replacements.
+ */
+function processDefinitions(s) {
+    let result = s;
+    for (definition in page_definitions) {
+        result = result.replaceAll(definition, page_definitions[definition]);
+    };
+    return result;
 }
 
 /**
@@ -107,12 +120,16 @@ function showDebugOutput(debugOutput, alwaysAlert = true) {
 
 /**
  * Given take a regex string, preprocess it (using our array of
- * preprocessing regexes), and return a processed regex as a String.
+ * definitions and preprocessing regexes),
+ * and return a processed regex as a String.
  * @regexString - String to be converted into a compiled Regex
  * @fullMatch - require full match (insert "^" at beginning, "$" at end).
  */
 function processRegexToString(regexString, fullMatch = true) {
-    let processedRegexString = regexString;
+    // Replace all definitions. This makes regexes much easier to use,
+    // as we can now defined named fragments.
+    let processedRegexString = processDefinitions(regexString);
+    // Preprocess. This lets us define what whitespace etc. means.
     for (preprocessRegex of preprocessRegexes) {
         processedRegexString = processedRegexString.replace(
           preprocessRegex[0], preprocessRegex[1]
@@ -440,13 +457,20 @@ function processInfo(configurationInfo) {
 
     const allowedInfoFields = new Set([
         'hints', 'successes', 'failures', 'correct', 'expected',
-         'preprocessing', 'preprocessingTests', 'debug']);
+         'definitions', 'preprocessing', 'preprocessingTests', 'debug']);
     let usedFields = new Set(Object.keys(info));
     let forbiddenFields = setDifference(usedFields, allowedInfoFields);
     if (forbiddenFields.size != 0) {
         showDebugOutput(
             `Unknown field(s) in info: ` +
 	    Array.from(forbiddenFields).join(' '));
+    }
+    if (info.definitions) {
+	for (let definition of info.definitions) {
+            // Preprocess with all existing definitions
+            newValue = trimNewlines(processDefinitions(definition.value));
+            page_definitions[definition.term] = newValue;
+	}
     }
 
     // Set up pattern preprocessing, if set. ADVANCED USERS ONLY.

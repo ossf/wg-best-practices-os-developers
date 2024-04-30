@@ -28,13 +28,13 @@
 \s*
   if \s+ \(
       (1 \+ 2 \+ 16|19) > s -> s3 -> rrec \. length \)
-  \s+ return \s+ 0 ;
+  \s+ RETURN0
 \s*
 </script>
 <script id="correct1" type="plain/text">
 \s*
   if \s+ \( (1 \+ 2|3) \+ payload \+ 16 > s -> s3 -> rrec \. length \)
-  \s+ return \s+ 0 ;
+  \s+ RETURN0
 \s*
 </script>
 <!--
@@ -57,6 +57,13 @@ hints:
 - absent: |
     \(
   text: Need "(...)" around the condition after an if statement.
+definitions:
+- term: RETURN0
+  value: |
+    return \s+ 0 ;
+- term: RETURN0
+  value: |
+    (RETURN0|\{ RETURN0 \})
 # - present: "import"
 #   text: Yes, many JavaScript implementations support an import statement.
 #     However, in this exercise we will use a require form. Please use that
