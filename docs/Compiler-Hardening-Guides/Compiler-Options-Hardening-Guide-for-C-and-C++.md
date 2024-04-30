@@ -324,9 +324,9 @@ The C17 standard[^C2017] does not provide a mechanism to mark intentional fallth
 
 ~~~c
 #if __has_attribute(__fallthrough__)
-# define fallthrough                    __attribute__((__fallthrough__))
+# define fallthrough()                    __attribute__((__fallthrough__))
 #else
-# define fallthrough                    do {} while (0)  /* fallthrough */
+# define fallthrough()                    do {} while (0)  /* fallthrough */
 #endif
 ~~~
 
