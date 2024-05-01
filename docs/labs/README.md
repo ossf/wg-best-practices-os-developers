@@ -19,6 +19,7 @@ Here are the labs available:
 * [regex1](regex1.html) - regular expressions (regexes)
 * [input2](input2.html) - input validation (more complex situations)
 * [csp1](csp1.html) - Content Security Policy (CSP)
+* [oob1](oob1.html) - Out-of-bounds (OOB)
 
 ## Please contribute labs
 
@@ -76,7 +77,7 @@ The items marked "PLANNED-1" are those we intend to do first;
     * Avoid Default & Hardcoded Credentials - PLANNED-1
     * Avoid Incorrect Conversion or Cast - PLANNED-2
   * Processing Data Securely: Undefined Behavior / Memory Safety
-    * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - PLANNED-1
+    * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - [oob1](oob1.html)
     * Double-free, Use-after-free, and Missing Release - PLANNED-1
     * Avoid Undefined Behavior - PLANNED-2
   * Processing Data Securely: Calculate Correctly
