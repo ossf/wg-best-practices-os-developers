@@ -21,6 +21,8 @@ Here are the labs available:
 * [csp1](csp1.html) - Content Security Policy (CSP)
 * [oob1](oob1.html) - Out-of-bounds (OOB)
 
+We also have a [template](template.html) available.
+
 ## Please contribute labs
 
 We would love to have people contribute relevant labs to help
@@ -36,6 +38,7 @@ See below for how to create labs and our lab roadmap.
 See [create labs](create_labs) if you want to learn how to create labs.
 In particular, that page will link to how to
 [create labs using checker](create_checker).
+We suggest using the [template](template.html) as a start.
 
 To submit new or updated labs, create a pull request on the
 [OpenSSF Best Practices WG](https://github.com/ossf/wg-best-practices-os-developers/)
