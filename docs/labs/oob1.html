@@ -57,6 +57,11 @@ hints:
 - absent: |
     \(
   text: Need "(...)" around the condition after an if statement.
+- absent: |
+    >
+  text: Need comparison "if ( ... > ....)"
+- absent: return
+  text: Need "return 0;" to skip attempts to send a too-long response.
 definitions:
 - term: RETURN0
   value: |
