@@ -232,10 +232,8 @@ dtls1_process_heartbeat(SSL *s)
   unsigned char *p = &s->s3->rrec.data[0], *pl;
   unsigned short hbtype;
   unsigned int payload;
-  unsigned int padding = 16; /* Use minimum padding */
 
   // ... Some details omitted here
- 
 <textarea id="attempt0" rows="3" cols="60" spellcheck="false">
   if ()
     ;
@@ -246,17 +244,10 @@ dtls1_process_heartbeat(SSL *s)
   if ()
     ;
 </textarea>
-
-  // ... Later on there are these lines, which create a buffer
-  // with enough room for a response, but uses a "memcpy" to
-  // copy the payload data. At this point in the code it's assumed
-  // that the payload's asserted length will fit in its created buffer.
-  //   buffer = OPENSSL_malloc(write_length);
-  //   bp = buffer;
-  //   *bp++ = TLS1_HB_RESPONSE;
-  //   s2n(payload, bp);
+  // ... Later on there will be a memory copy ("memcpy")
+  // to copy the payload data into a new buffer. If we
+  // had not checked, it would not be long enough:
   //   memcpy(bp, pl, payload);
-
 </code></pre>
 <button type="button" class="hintButton">Hint</button>
 <button type="button" class="resetButton">Reset</button>
