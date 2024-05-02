@@ -26,28 +26,16 @@
 <!-- Full pattern of correct answer -->
 <script id="correct0" type="plain/text">
 \s*
-  if \s+ \(
-      (1 \+ 2 \+ 16|19) > s -> s3 -> rrec \. length \)
-  \s+ RETURN0
+  if \( (NINETEEN > FULL_LENGTH|FULL_LENGTH < NINETEEN) \)
+  RETURN0
 \s*
 </script>
 <script id="correct1" type="plain/text">
 \s*
-  if \s+ \( (1 \+ 2|3) \+ payload \+ 16 > s -> s3 -> rrec \. length \)
-  \s+ RETURN0
+  if \( (PAYLOAD_LENGTH > FULL_LENGTH|FULL_LENGTH < PAYLOAD_LENGTH) \)
+  RETURN0
 \s*
 </script>
-<!--
-\s* app \. use \( helmet \( \{
-    contentSecurityPolicy: \{
-      directives: \{
-        "script-src": \[ "'self'" ,
-           (["'`])https://example\.com\1 \] ,
-        "style-src": \[ "'self'" \]
-      \} ,
-    \}
-  \} \) \) ;
--->
 
 <script id="info" type="application/yaml">
 ---
@@ -60,12 +48,30 @@ hints:
 - absent: |
     >
   text: Need comparison "if ( ... > ....)"
+- absent: s -> s3 -> rrec \. length
+  text: Need to compare a value with s->s3->rrec.length
 - absent: return
   text: Need "return 0;" to skip attempts to send a too-long response.
 definitions:
+- term: NINETEEN
+  value: |
+      (1 \+ 2 \+ 16|19)
+- term: NINETEEN
+  value: |
+      (NINETEEN|\( NINETEEN \))
+- term: PAYLOAD_LENGTH
+  value: (1 \+ 2|3) \+ payload \+ 16
+- term: PAYLOAD_LENGTH
+  value: (PAYLOAD_LENGTH|payload \+ NINETEEN|NINETEEN \+ payload)
+- term: PAYLOAD_LENGTH
+  value: |
+      (PAYLOAD_LENGTH|\( PAYLOAD_LENGTH \))
 - term: RETURN0
   value: |
     return \s+ 0 ;
+- term: FULL_LENGTH
+  value: |
+    s -> s3 -> rrec \. length
 - term: RETURN0
   value: |
     (RETURN0|\{ RETURN0 \})
