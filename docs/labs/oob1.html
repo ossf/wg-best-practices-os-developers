@@ -167,23 +167,32 @@ of the "Heartbleed" bug in OpenSSL, an example of a buffer overread.</b>
 <p>
 <h2>Background</h2>
 <p>
-In almost all programming languages, the default response a program
-attempts to read or write outside
-of a buffer is either an attempt to resize the buffer or
-an error of some kind (e.g., raising an exception).
+In almost all programming languages, if program
+attempts to read or write outside of a buffer,
+the default is always either an attempt to resize the buffer or
+an error of some kind (e.g., by raising an exception).
 That's because it's extremely easy to accidentally attempt to read
 or write outside of a buffer.
 <p>
-However, C and the built-in arrays of C++ are different.
-In C and C++, attempting to read or write outside a buffer is
-<i>undefined behavior</i> and <i>anything</i> is allowed to happen
+However, C and C++ are different.
+C++ has evolved to become somewhat safer (e.g., through smart pointers),
+In C and C++, attempting to do actions like read or write outside a buffer is
+in many cases
+<i>undefined behavior</i>, and when undefined behavior occurs,
+<i>anything</i> is allowed to happen
 without any kind of protection.
 In practice, what often happens is a read or write (respectively) of
 other data.
+There are
+<a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2771r0.html"
+>proposals to improve C++ memory safety</a>,
+but currently many C++ built-in constructs (like arrays) are not memory safe,
+so we will treat the two languages together here.
 <p>
 The 2014 revelation of the Heartbleed vulnerability
 (CVE-2014-0160) is an example of a buffer overread vulnerability.
 Heartbleed was a vulnerability in OpenSSL, a widely-used toolkit
+written in C
 that implements the cryptographic protocol Secure Sockets Layer
 (SSL) and its successor the Transport Layer Security (TLS).
 Heartbleed affected a huge number of popular websites, including
@@ -202,31 +211,35 @@ by modifying function <tt>dtls1_process_heartbeat</tt>.
 At this point in the code, the construct
 <tt>s->s3->rrec.length</tt>
 indicates how many bytes are available.
-Modify the code below in two places.
+If we don't check for the maximum sizes, we could easily cause
+reading beyond a buffer.
+Modify the code below in two places to fix this.
 <p>
 First, modify the code so that
 if the minimum length of a response <tt>(1 + 2 + 16)</tt> is more than
 the length claimed by
 <tt>s->s3->rrec.length</tt>,
-return return 0 without sending a heartbeat,
+and return 0 without sending a heartbeat,
 This will prevent trying to create a heartbeat when there's not enough
-room to create one.
+room to create a heartbeat at all.
 <p>
 Second, modify the code so that
 if the minimum length of a response with a payload
 <tt>(1 + 2 + payload + 16</tt>
 is more than the total length for a response given in
 <tt>s->s3->rrec.length</tt> then again
-return return 0 without sending a heartbeat,
+return 0 without sending a heartbeat,
 <p>
 This will prevent trying to create a heartbeat when there's not enough
-room to create one.
+room to create one and there was a payload to return as a heartbeat.
 <p>
 Note that this is not terribly difficult to fix.
+The code we add is short.
 The problem is that reading and writing buffers is extremely common,
 but by default such accesses are unsafe in C and C++.
 In practice it is difficult to <i>always</i> check all ranges
-in all possible cases.
+in all possible cases, which is why memory safety vulnerabilities
+are so common in programs written in C or C++.
 <!--
         if (1 + 2 + 16 > s->s3->rrec.length)
                 return 0; /* silently discard */
