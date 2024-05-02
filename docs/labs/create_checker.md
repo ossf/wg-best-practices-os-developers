@@ -27,7 +27,9 @@ There are three basic tasks, which can be done by different people:
    [input1.html](input1.html), and modify it for your situation.
    See David A. Wheeler who can help you get started.
 
-The text below discusses these in more detail. You can also see our
+The text below discusses these in more detail.
+We suggest using the [template](template.html) as a start.
+You can also see our
 [potential future directions](#potential-future-directions).
 
 ## Creating the lab instructions and correct answer
@@ -45,6 +47,8 @@ do *not* assume they know any particular programming language.
 See [input1.html](input1.html),
 [input2.html](input2.html), and
 [csp1.html](csp1.html) for examples of how to do this.
+
+We suggest using the [template](template.html) as a starting point.
 
 ## Creating the lab HTML file
 
@@ -65,12 +69,9 @@ The system is implemented by the client-side JavaScript file `checker.js`.
 ### TL;DR
 
 An easy way implement a lab is to copy
-[input1.html](input1.html) and modify it for your situation.
+use our [template](template.html) and modify it for your situation.
 Modify the `expected0` section to have a sample expected answer, and
 `correct0` to have a full pattern for a correct answer.
-You can comment out the `info` section (put `#` in front of each line)
-to start.
-
 See [input1.html](input1.html) and [input2.html](input2.html)
 for examples.
 
