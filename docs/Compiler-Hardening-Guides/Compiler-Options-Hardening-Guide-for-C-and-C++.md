@@ -21,6 +21,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 
 ~~~sh
 -O2 -Wall -Wformat -Wformat=2 -Wconversion -Wimplicit-fallthrough \
+-Werror=format-security \
 -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
 -fstrict-flex-arrays=3 \
@@ -186,6 +187,7 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7<br>Clang 4.0   | Warn when a switch case falls through                                           |
 | [`-Wbidi-chars=any`](#-Wbidi-chars=any)                                       | GCC 12                   | Enable warnings for possibly misleading Unicode bidirectional control characters    |
 | [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Treat all or selected compiler warnings as errors. Use the blanket form `-Werror` only during development, not in source distribution. |
+| [`-Werror=format-security`](#-Werror=format-security)                         | GCC 2.95.3<br/>Clang 4.0 | Treat format strings that are not string literals and used without arguments as errors                                                 |
 | [`-Werror=implicit`](#-Werror=implicit)<br/>[`-Werror=incompatible-pointer-types`](#-Werror=incompatible-pointer-types)<br/>[`-Werror=int-conversion`](#-Werror=int-conversion)<br/> | GCC 2.95.3<br/>Clang 2.6 | Treat obsolete C constructs as errors |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
@@ -396,6 +398,44 @@ The selective form, `-Werror=`*`<warning-flag>`* (note the selector), can be use
 Zero-warning policies can also be enforced at CI level. CI-based zero- or bounded-warning policies are often preferable, for the reasons explained above, and because they can be expanded beyond compiler warnings. For example, they can also include warnings from static analysis tools or generate warnings when `FIXME` and `TODO` comments are found.
 
 [^Johnston17]: Johnston, Philip. [-Werror is Not Your Friend](https://embeddedartistry.com/blog/2017/05/22/werror-is-not-your-friend/). Embedded Artistry Blog, 2017-05-22.
+
+---
+
+### Treat format strings that are not string literals and used without arguments as errors
+
+| Compiler Flag                                                                             | Supported since            | Description                                                                           |
+|:----------------------------------------------------------------------------------------- |:--------------------------:|:--------------------------------------------------------------------------------------|
+| <span id="-Werror=format-security">`-Werror=format-security`</span>                       | GCC 2.95.3<br/> Clang 4.0  | Treat format strings that are not string literals and used without arguments as errors |
+
+#### Synopsis
+
+Treat calls to printf- and scanf-family of functions where the format string is not a string literal and there are no additional format arguments as errors.
+
+Format strings that can be influenced at run-time from outside the program are likely to cause format string vulnerabilities[^scut2001]. We recommend treating format strings that are not string literals and used without addition arguments as errors as invocations of the form:
+
+~~~C
+printf(fmt);
+printf(gettext("Hello World\n"));
+fprintf(stderr, fmt);
+~~~
+
+always indicates a bug and, if the format string can be controlled by external input, can be used in a format string attack. Code of this form where the format string `fmt` is not expected to contain format specifiers can be rewritten in a safe form using a fixed format string:
+
+~~~C
+printf("%s", fmt);
+printf("%s", gettext("Hello World\n"));
+fprintf(stderr, "%s", fmt);
+~~~
+
+Some Linux distributions, such as Arch Linux[^arch-buildflags], Fedora[^fedora-formatsecurityfaq], and Ubuntu[^ubuntu-compilerflags], are enforcing the use of `-Werror=format-security` when building software for distribution.
+
+[^scut2001]: scut \[TESO\], [Exploiting Format String Vulnerabilities](https://web.archive.org/web/20240402183013/https://cs155.stanford.edu/papers/formatstring-1.2.pdf), version 1.2, 2001-09-01.
+
+[^arch-buildflags]: Arch Linux, [rfc/0003-buildflags.rst](https://gitlab.archlinux.org/archlinux/rfcs/-/blob/2136adc4a86afe37f351f8f564af3dcc6d7681ae/rfcs/0003-buildflags.rstt), ArchLinux RFC, 2023-09-03.
+
+[^fedora-formatsecurityfaq]: Fedora, [Format-Security-FAQ](https://fedoraproject.org/wiki/Format-Security-FAQ), Fedora Wiki, 2013-12-05.
+
+[^ubuntu-compilerflags]: Ubuntu, [ToolChain/CompilerFlags](https://wiki.ubuntu.com/ToolChain/CompilerFlags#A-Wformat_-Wformat-security), Ubuntu Wiki, 2024-03-22.
 
 ---
 
