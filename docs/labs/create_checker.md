@@ -27,7 +27,9 @@ There are three basic tasks, which can be done by different people:
    [input1.html](input1.html), and modify it for your situation.
    See David A. Wheeler who can help you get started.
 
-The text below discusses these in more detail. You can also see our
+The text below discusses these in more detail.
+We suggest using the [template](template.html) as a start.
+You can also see our
 [potential future directions](#potential-future-directions).
 
 ## Creating the lab instructions and correct answer
@@ -45,6 +47,8 @@ do *not* assume they know any particular programming language.
 See [input1.html](input1.html),
 [input2.html](input2.html), and
 [csp1.html](csp1.html) for examples of how to do this.
+
+We suggest using the [template](template.html) as a starting point.
 
 ## Creating the lab HTML file
 
@@ -65,12 +69,9 @@ The system is implemented by the client-side JavaScript file `checker.js`.
 ### TL;DR
 
 An easy way implement a lab is to copy
-[input1.html](input1.html) and modify it for your situation.
+use our [template](template.html) and modify it for your situation.
 Modify the `expected0` section to have a sample expected answer, and
 `correct0` to have a full pattern for a correct answer.
-You can comment out the `info` section (put `#` in front of each line)
-to start.
-
 See [input1.html](input1.html) and [input2.html](input2.html)
 for examples.
 
@@ -557,6 +558,40 @@ lab and each different natural language.
 *However*, it sets some default tooltips for the buttons in English.
 For each button you should set the `title` attribute for the
 given language.
+
+### Advanced use: Definitions
+
+Regular expressions make it easy to describe many patterns.
+However, it's sometimes useful to give certain sequences names, or
+use the same sequence in different circumstances.
+
+Checker allows you to define named terms, and then use them in a regular
+expression.
+This is done in the `definitions` section, which is a sequence
+of a `term` name and its corresponding `value`.
+Any use of the same term in a later definition or a regular expression
+will replaced by its current definition.
+Leading and trailing whitespace in the value is removed.
+
+Here's an example:
+
+~~~~yaml
+definitions:
+- term: RETURN0
+  value: |
+    return \s+ 0 ;
+- term: RETURN0
+  value: |
+    (RETURN0|\{ RETURN0 \})
+~~~~
+
+The first entry defines `RETURN0` as the value `\s+ 0 ;`
+so any future use of RETURN0 will be replaced by that.
+The next entry uses the *same* term name, and declares it to be
+`(RETURN0|\{ RETURN0 \})`.
+The result is that the new value for `RETURN0` will be
+`(\s+ 0 ;|\{ \s+ 0 ; \})` - enabling us to have
+an expression <i>optionally</i> surrounded by curly braces.
 
 ### Advanced use: Select preprocessing commands (e.g., for other languages)
 

@@ -1,6 +1,6 @@
 # Compiler Options Hardening Guide for C and C++
 
-*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2024-04-10*
+*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2024-05-02*
 
 This document is a guide for compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++. The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
 
@@ -21,6 +21,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 
 ~~~sh
 -O2 -Wall -Wformat -Wformat=2 -Wconversion -Wimplicit-fallthrough \
+-Werror=format-security \
 -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
 -fstrict-flex-arrays=3 \
@@ -42,7 +43,8 @@ When compiling code in any of the situations in the below table, add the corresp
 | for x86_64                                              | `-fcf-protection=full`                                                                                   |
 | for aarch64                                             | `-mbranch-protection=standard`                                                                           |
 | for production code                                     | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
-| for disabling obsolete C constructs                     | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion`                             |
+| for treating obsolete C constructs as errors            | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion`                             |
+| for multi-threaded C code using GNU C library pthreads  | `-fexceptions`                                                                                           |
 
 We recommend developers to additionally use a blanket [`-Werror`](#-Werror) to treat all warnings as errors during development. However, `-Werror` should not be used in this blanket form when distributing source code, as this use of `-Werror` creates a dependency on specific toolchain vendors and versions. The selective form[`-Werror=`*`<warning-flag>`*](#-Werror-flag) that promotes specific warnings as error in cases that should never occur in the code can be used both during development and when distributing sources. For example, we encourage developers to promote warnings regarding obsolete C constructs removed by the 1999 C standard to errors (see the "for disabling obsolete C constructs" in the above table). These options often cannot be added by those who independently build the software, because the options may require non-trivial changes to the source code.
 
@@ -185,6 +187,7 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 | [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7<br>Clang 4.0   | Warn when a switch case falls through                                           |
 | [`-Wbidi-chars=any`](#-Wbidi-chars=any)                                       | GCC 12                   | Enable warnings for possibly misleading Unicode bidirectional control characters    |
 | [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Treat all or selected compiler warnings as errors. Use the blanket form `-Werror` only during development, not in source distribution. |
+| [`-Werror=format-security`](#-Werror=format-security)                         | GCC 2.95.3<br/>Clang 4.0 | Treat format strings that are not string literals and used without arguments as errors                                                 |
 | [`-Werror=implicit`](#-Werror=implicit)<br/>[`-Werror=incompatible-pointer-types`](#-Werror=incompatible-pointer-types)<br/>[`-Werror=int-conversion`](#-Werror=int-conversion)<br/> | GCC 2.95.3<br/>Clang 2.6 | Treat obsolete C constructs as errors |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
@@ -207,6 +210,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fno-strict-overflow`](#-fno-strict-overflow)                                           | GCC 4.2                            | Integer overflow may occur                                                                   |
 | [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 18.0.0        | Do not assume strict aliasing                                                                |
 | [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12<br/>Clang 8.0               | Perform trivial auto variable initialization                                                 |
+| [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6           | Enable exception propagation to harden multi-threaded C code                                 |
 
 [^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
@@ -316,15 +320,17 @@ This warning flag warns when a fallthrough occurs unless it is specially marked 
 
 This warning flag does not have a performance impact. However, sometimes a fallthrough *is* intentional. This flag requires developers annotate those (rare) cases in the source code where a fallthrough *is* intentional, to suppress the warning. Obviously, this annotation should *only* be used when it is intentional. C++17 (or later) code should simply use the attribute `[[fallthrough]]` as it is standard (remember to add `;` after it).
 
-The C17 standard[^C2017] does not provide a mechanism to mark intentional fallthroughs. Different tools support different mechanisms for marking one, including attributes and comments in various forms[^Shafik15]. A portable way to mark one, used by the Linux kernel version 5.10 and later, is to define a keyword-like macro named `fallthrough` to mark an intentional fallthrough that adjusts to the relevant tool (e.g., compiler) mechanism:
+The C17 standard[^C2017] does not provide a mechanism to mark intentional fallthroughs. Different tools support different mechanisms for marking one, including attributes and comments in various forms[^Shafik15]. A portable way to mark one is to define a function-like macro named `fallthrough()` to mark an intentional fallthrough that adjusts to the relevant tool (e.g., compiler) mechanism. We suggest using this construct below, inspired by the keyword-like construct used by the Linux kernel version 5.10 and later. We suggest using a function call syntax instead so more editors and other tools will deal with it correctly:
 
 ~~~c
 #if __has_attribute(__fallthrough__)
-# define fallthrough                    __attribute__((__fallthrough__))
+# define fallthrough()                    __attribute__((__fallthrough__))
 #else
-# define fallthrough                    do {} while (0)  /* fallthrough */
+# define fallthrough()                    do {} while (0)  /* fallthrough */
 #endif
 ~~~
+
+This is similar to the keyword-like macro used by the Linux kernel version 6.4 and later[^Howlett23].
 
 [^Polacek17]: Polacek, Marek, ["-Wimplicit-fallthrough in GCC 7"](https://developers.redhat.com/blog/2017/03/10/wimplicit-fallthrough-in-gcc-7), Red Hat Developer, 2017-03-10
 
@@ -333,6 +339,8 @@ The C17 standard[^C2017] does not provide a mechanism to mark intentional fallth
 [^C2017]: ISO/IEC, [Programming languages — C ("C17")](https://web.archive.org/web/20181230041359/http://www.open-std.org/jtc1/sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf), ISO/IEC 9899:2018, 2017. Note: The official ISO/IEC specification is paywalled and therefore not publicly available. The final specification draft is publicly available.
 
 [^Shafik15]: Shafik, Yaghmour, ["GCC 7, -Wimplicit-fallthrough warnings, and portable way to clear them?"](https://stackoverflow.com/questions/27965722/c-force-compile-time-error-warning-on-implicit-fall-through-in-switch/27965827#27965827), StackOverflow, 2015-01-15.
+
+[^Howlett23]: Howlett, Liam,[tools: Rename __fallthrough to fallthrough](https://github.com/torvalds/linux/commit/f7a858bffcddaaf70c71b6b656e7cc21b6107cec), Linux Kernel Source, 2023-04-07.
 
 ---
 
@@ -397,7 +405,45 @@ Zero-warning policies can also be enforced at CI level. CI-based zero- or bounde
 
 ---
 
-### Disable obsolete C constructs
+### Treat format strings that are not string literals and used without arguments as errors
+
+| Compiler Flag                                                                             | Supported since            | Description                                                                           |
+|:----------------------------------------------------------------------------------------- |:--------------------------:|:--------------------------------------------------------------------------------------|
+| <span id="-Werror=format-security">`-Werror=format-security`</span>                       | GCC 2.95.3<br/> Clang 4.0  | Treat format strings that are not string literals and used without arguments as errors |
+
+#### Synopsis
+
+Treat calls to printf- and scanf-family of functions where the format string is not a string literal and there are no additional format arguments as errors.
+
+Format strings that can be influenced at run-time from outside the program are likely to cause format string vulnerabilities[^scut2001]. We recommend treating format strings that are not string literals and used without addition arguments as errors as invocations of the form:
+
+~~~C
+printf(fmt);
+printf(gettext("Hello World\n"));
+fprintf(stderr, fmt);
+~~~
+
+always indicates a bug and, if the format string can be controlled by external input, can be used in a format string attack. Code of this form where the format string `fmt` is not expected to contain format specifiers can be rewritten in a safe form using a fixed format string:
+
+~~~C
+printf("%s", fmt);
+printf("%s", gettext("Hello World\n"));
+fprintf(stderr, "%s", fmt);
+~~~
+
+Some Linux distributions, such as Arch Linux[^arch-buildflags], Fedora[^fedora-formatsecurityfaq], and Ubuntu[^ubuntu-compilerflags], are enforcing the use of `-Werror=format-security` when building software for distribution.
+
+[^scut2001]: scut \[TESO\], [Exploiting Format String Vulnerabilities](https://web.archive.org/web/20240402183013/https://cs155.stanford.edu/papers/formatstring-1.2.pdf), version 1.2, 2001-09-01.
+
+[^arch-buildflags]: Arch Linux, [rfc/0003-buildflags.rst](https://gitlab.archlinux.org/archlinux/rfcs/-/blob/2136adc4a86afe37f351f8f564af3dcc6d7681ae/rfcs/0003-buildflags.rstt), ArchLinux RFC, 2023-09-03.
+
+[^fedora-formatsecurityfaq]: Fedora, [Format-Security-FAQ](https://fedoraproject.org/wiki/Format-Security-FAQ), Fedora Wiki, 2013-12-05.
+
+[^ubuntu-compilerflags]: Ubuntu, [ToolChain/CompilerFlags](https://wiki.ubuntu.com/ToolChain/CompilerFlags#A-Wformat_-Wformat-security), Ubuntu Wiki, 2024-03-22.
+
+---
+
+### Treat obsolete C constructs as errors
 
 | Compiler Flag                                                                             | Supported since            | Description                                                                                      |
 |:----------------------------------------------------------------------------------------- |:--------------------------:|:-------------------------------------------------------------------------------------------------|
@@ -907,6 +953,40 @@ https://godbolt.org/z/6qTPz9n6h
 
 ---
 
+### Enable exception propagation to harden multi-threaded C code
+
+| Compiler Flag                                | Supported since          | Description                                                  |
+|:---------------------------------------------|:------------------------:|:-------------------------------------------------------------|
+|<span id="-fexceptions">`-fexceptions`</span> | GCC 2.95.3<br/>Clang 2.6 | Enable exception propagation to harden multi-threaded C code |
+
+#### Synopsis
+
+The `-fexceptions` option, when enabled for C code, makes GCC and Clang generate frame unwind information for all functions. This option is enabled by default for C++ that require exception handling but enabling it for also C code allows glibc's implementation of POSIX thread cancellation[^man7-pthreads] to use the same unwind information instead of `setjmp` / `longjmp` for stack unwinding[^Weimer2017a].
+
+Enabling `-fexception` is recommended for hardening of multi-threaded C code as without it, the implementation Glibc's thread cancellation handlers may spill a completely unprotected function pointer onto the stack[^Weimer2017b]. This function pointer can simplify the exploitation of stack-based buffer overflows even if the thread in question is never canceled[^Weimer2018].
+
+#### Performance implications
+
+Enabling C++ style exception propagation for C code generally does not impact its performance as it does not impact the program's normal control flow. However, on some target architectures such as x86_64, `-fexceptions` causes the compiler to generate frame unwind information for all functions, which can produce significant increases in the size of the produced binaries.
+
+#### When not to use?
+
+When developing single-threaded C code which does not need to interoperate with C++ for resource-constrained systems where the associated binary size increase is undesirable this option can be safely omitted.
+
+#### Additional Considerations
+
+The `-fexceptions` option is also needed for C code that needs to interoperate with C++ code that relies on exceptions. For this reason `-fexceptions` is often enabled by default for C language libraries provided by major Linux distributions.
+
+[^man7-pthreads]: Kerrisk, Michael, [pthread_cancel](https://man7.org/linux/man-pages/man3/pthread_cancel.3.html), man7.org, 2023-12-22.
+
+[^Weimer2017a]: Weimer, Florian, [\[PATCH\] pthread_cleanup_push macro generates warning when -Wclobbered is set](https://sourceware.org/pipermail/libc-alpha/2017-November/088474.html), Libc-alpha mailing list, 2017-11-14.
+
+[^Weimer2017b]: Weimer, Florian, [\[11/12/13/14 Regression\] Indirect call generated for pthread_cleanup_push with constant cleanup function](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=61118#c13), GCC Bugzilla, 2017-11-21.
+
+[^Weimer2018]: Weimer, Florian, [Recommended compiler and linker flags for GCC](https://developers.redhat.com/blog/2018/03/21/compiler-and-linker-flags-gcc), Red Hat Developer, 2018-03-21.
+
+---
+
 ## Discouraged Compiler Options
 
 This section describes discouraged compiler and linker option flags that may lead to potential defects with security implications in produced binaries.
@@ -1181,7 +1261,7 @@ If the build ID method is used, the debug info file’s name is computed from th
 
 Note that the build ID does not act as a checksum for the executable or debug info file. For more information on the build ID feature please refer to the GDB[^binutils-objcopy] and GNU linker[^binutils-ld] documentation.
 
-### What should you do when compiling compilers?
+## What should you do when compiling compilers?
 
 If you are compiling a C/C++ compiler, where practical make the generated compiler's default options the *secure* options. The below table summarizes relevant options that can be specified when building GCC or Clang that affect the defaults of the compiler:
 
@@ -1231,6 +1311,7 @@ Many more security-relevant compiler options exist than are recommended in this 
 | <span id="-D_LIBCPP_ENABLE_ASSERTIONS">`-D_LIBCPP_ENABLE_ASSERTIONS`</span> | libc++ 3.3.0 | Deprecated in favor of `_LIBCPP_ENABLE_HARDENED_MODE`[^libcpp_assert]
 | <span id="-mshstk">`-mshstk`</span>                                         | GCC 8<br/>Clang 6.0 | Enables discouraged shadow stack built-in functions[^gcc_mshstk], which are only needed for programs with an unconventional management of the program stack. CET instrumentation is controlled by [`-fcf-protection`](#-fcf-protection=full).
 | <span id="-fsanitize=safe-stack">`-fsanitize=safe-stack`</span>             | Clang 4.0 | Known compatibility limitations with garbage collection, signal handling, and shared libraries[^clang_safestack].
+| <span id="-fasynchronous-unwind-tables">`-fasynchronous-unwind-tables`</span> | GCC 3.1.1<br/>Clang 7.0  | Generate stack unwind table in DWARF2 format, which improves precision of unwind information[^Song20] and can improve the performance of profilers at the cost of larger binary sizes[^Bastian19], but does not benefit security.
 
 [^nodump]: The `-Wl,-z,nodump` option sets `DF_1_NODUMP` flag in the object’s `.dynamic` section tags. On Solaris this restricts calls to `dldump(3)` for the object. However, other operating systems ignore the `DF_1_NODUMP` flag. While Binutils implements `-Wl,-z,nodump` for Solaris compatibility a choice was made to not support it in `lld` ([D52096 lld: add -z nodump support](https://reviews.llvm.org/D52096)).
 
@@ -1241,5 +1322,9 @@ Many more security-relevant compiler options exist than are recommended in this 
 [^gcc_mshstk]: GCC team, [x86 Built-in Functions](https://gcc.gnu.org/onlinedocs/gcc/x86-Built-in-Functions.html), GCC Manual, 2023-07-27.
 
 [^clang_safestack]: LLVM team, [SafeStack](https://clang.llvm.org/docs/SafeStack.html), Clang documentation, 2023-11-14.
+
+[^Song20]: Song, Fangrui, [Stack unwinding](https://maskray.me/blog/2020-11-08-stack-unwinding), MaskRay blog, 2020-11-18.
+
+[^Bastian19]: Bastian, Théophile and Kell, Stephen and Nardelli, Francesco Zappa, [Reliable and fast DWARF-based stack unwinding](https://doi.org/10.1145/3360572), Proceedings of the ACM Journal of Programming Languages, Volume 3, Issue OOPSLA, Article 146, 2019-10-10.
 
 ## References
