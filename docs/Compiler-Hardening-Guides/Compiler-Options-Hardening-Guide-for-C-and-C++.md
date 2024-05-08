@@ -379,9 +379,15 @@ Do *not* use `-Wbidi-chars=any` or `-Wbidi-chars=any,ucn` in cases where some of
 
 It is best to use other static code analysis tools to also warn about Trojan Source, since it's not an issue developers typically consider. Some editors have mechanisms to warn about Trojan Source; using them is recommended where practical. However, it's sometimes difficult to verify whether developers and reviewers have used such tools.
 
-clang-tidy's `misc-misleading-bidirectional` check warns about unterminated bidirectional Unicode sequences, similar to GCC's `-Wbidi-chars=unpaired`[^clang-tidy-bidi].
+`clang-tidy` has multiple lints to help identify Trojan Source:
+
+- `misc-misleading-bidirectional` check warns about unterminated bidirectional Unicode sequences, similar to GCC's `-Wbidi-chars=unpaired`[^clang-tidy-bidi].
+- `misc-confusable-identifiers` check warns about characters that are visually similar [^clang-tidy-confusable].
+- `misc-misleading-identifier` check warns about bidirectional Unicode that can change the meaning of the code [^clang-tidy-misleading].
 
 [^clang-tidy-bidi]: LLVM team, [clang-tidy - misc-misleading-bidirectional](https://clang.llvm.org/extra/clang-tidy/checks/misc/misleading-bidirectional.html), Extra Clang Tools Documentation, 2024-03-28.
+[^clang-tidy-confusable]: LLVM team, [clang-tidy - misc-confusable-identifiers](https://clang.llvm.org/extra/clang-tidy/checks/misc/confusable-identifiers.html), Extra Clang Tools Documentation, 2024-03-28.
+[^clang-tidy-misleading]: LLVM team, [clang-tidy - misc-misleading-identifier](https://clang.llvm.org/extra/clang-tidy/checks/misc/misleading-identifier.html), Extra Clang Tools Documentation, 2024-03-28.
 
 ---
 
