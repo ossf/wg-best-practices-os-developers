@@ -359,11 +359,11 @@ Check for possibly misleading Unicode bidirectional (bidi) control characters in
 
 Some writing systems (such as Arabic, Hebrew, Persian, and Urdu) are typically written right-to-left (RTL), while many others (such as English) are written left-to-right (LTR). Some documents must mix writing systems with different orders, e.g. source code with comments in right-to-left writing. Unicode supports various control sequences to support this visual reordering. Unfortunately, attackers can use such control sequences to obfuscate source code to hide vulnerabilities from human reviewers. Careful human review is usually one of the strongest methods available to detect malicious code. Unfortunately, maliciously misleading code, aka *"underhanded code"*, attempts to subvert human review[^Wheeler2020]. *"Trojan Source"*[^Boucher2021] is a specific kind of underhanded code that exploits the Unicode bidirectional algorithm that produce the correct order of characters when bidirectional text is displayed.
 
-The GCC `-Wbidi-chars` option helps to counter Trojan Source attacks[^gcc-Wbidi-chars]. By default its value is `-Wbidi-char=unpaired`, which warns about improperly terminated bidi contexts (this should never happen in source code). However, this default is somewhat permissive.
+The GCC `-Wbidi-chars` option helps to counter Trojan Source attacks[^gcc-Wbidi-chars]. By default its value is `-Wbidi-chars=unpaired`, which warns about improperly terminated bidi contexts (this should never happen in source code). However, this default is somewhat permissive.
 
-In many cases using `-Wbidi-char=any` is a stronger defense. This option forbids *any* use of bidirectional control characters in comments, string literals, character constants, and identifiers, completely eliminating the Trojan Source attack. This setting is appropriate when bidi characters are *not* expected in the source code, and their only use would be as part of an attack on reviewers.
+In many cases using `-Wbidi-chars=any` is a stronger defense. This option forbids *any* use of bidirectional control characters in comments, string literals, character constants, and identifiers, completely eliminating the Trojan Source attack. This setting is appropriate when bidi characters are *not* expected in the source code, and their only use would be as part of an attack on reviewers.
 
-Both `-Wbidi-char=any` and `-Wbidi-char=unpaired` can be combined with the `ucn` argument which additionally warns of corresponding bidirectional control characters expressed as universal-character-names (UCNs), i.e., using the `\uXXXX` notation,in string literals, character constants, and identifiers.
+Both `-Wbidi-chars=any` and `-Wbidi-chars=unpaired` can be combined with the `ucn` argument which additionally warns of corresponding bidirectional control characters expressed as universal-character-names (UCNs), i.e., using the `\uXXXX` notation,in string literals, character constants, and identifiers.
 
 Note that this option does *not* interfere with creating internationalized programs. Current best practice is to put human-readable text strings in separate files, not in source code, and then use an internationalization (i18n) framework like `gettext` to retrieve the correct text for the user's locale.
 
@@ -379,7 +379,7 @@ Do *not* use `-Wbidi-chars=any` or `-Wbidi-chars=any,ucn` in cases where some of
 
 It is best to use other static code analysis tools to also warn about Trojan Source, since it's not an issue developers typically consider. Some editors have mechanisms to warn about Trojan Source; using them is recommended where practical. However, it's sometimes difficult to verify whether developers and reviewers have used such tools.
 
-clang-tidy's `misc-misleading-bidirectional` check warns about unterminated bidirectional Unicode sequences, similar to GCC's `-Wbidi-char=unpaired`[^clang-tidy-bidi].
+clang-tidy's `misc-misleading-bidirectional` check warns about unterminated bidirectional Unicode sequences, similar to GCC's `-Wbidi-chars=unpaired`[^clang-tidy-bidi].
 
 [^clang-tidy-bidi]: LLVM team, [clang-tidy - misc-misleading-bidirectional](https://clang.llvm.org/extra/clang-tidy/checks/misc/misleading-bidirectional.html), Extra Clang Tools Documentation, 2024-03-28.
 
