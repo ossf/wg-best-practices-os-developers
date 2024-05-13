@@ -90,7 +90,7 @@ The items marked "PLANNED-1" are those we intend to do first;
     * Introduction to Securely Calling Programs - The Basics
   * Calling Other Programs: Injection and Filenames
     * SQL Injection - PLANNED-1
-    * OS Command (Shell) injection - PLANNED-1
+    * OS Command (Shell) injection - (PLANNED-1, Marta Rybczynska)
     * Other Injection Attacks - PLANNED-2
     * Filenames (Including Path Traversal and Link Following) - PLANNED-2
   * Calling Other Programs: Other Issues
