@@ -57,11 +57,14 @@ To do this:
 2. Go to the project's settings page
 3. Select "Build > Pipeline editor"
 4. Add the following to the end of the `.gitlab-ci.yml` file:
-~~~~yml
-include:
-  - template: Jobs/Secret-Detection.gitlab-ci.yml
-~~~~
-5. Select the Validate tab, then select Validate pipeline. The message Simulation completed successfully indicates the file is valid.
+
+   ~~~~yml
+   include:
+     - template: Jobs/Secret-Detection.gitlab-ci.yml
+   ~~~~
+
+5. Select the Validate tab, then select Validate pipeline.
+   The message "Simulation completed successfully" indicates the file is valid.
 6. Select the Edit tab.
 7. In the Branch text box, enter the name of the default branch.
 8. Select Commit changes.
