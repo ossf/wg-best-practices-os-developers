@@ -463,7 +463,7 @@ The `-Werror=implicit`, `-Werror=incompatible-pointer-types`, and `-Werror=int-c
 - Conversion between pointers that have incompatible types.
 - Implicit integer to pointer and pointer to integer conversions.
 
-Using these options will make the compiler treat the corresponding obsolete construsts as errors regardless of the language standard the compiler is instructed to follow. GCC 14[^gcc-porting-to-14] and Clang 15[^clang-release-notes-15] disable support for these legacy language constructs by default so enabling these options will also prepare the codebase for transitioning to these and later compilers. Some Linux distributions, such as Fedora[^Weimer2023], are enforcing the use of the these options when building software for distribution. We recommend developers adopt the options, as enabling them may require may require non-trivial changes to the source code in codebases that rely on the obsolete constructs.
+Using these options will make the compiler treat the corresponding obsolete construsts as errors regardless of the language standard the compiler is instructed to follow. GCC 14[^gcc-porting-to-14] and Clang 15[^clang-release-notes-15] disable support for these legacy language constructs by default so enabling these options will also prepare the codebase for transitioning to these and later compilers. Some Linux distributions, such as Fedora[^Weimer2023], are enforcing the use of the these options when building software for distribution. We recommend developers adopt the options, as enabling them may require non-trivial changes to the source code in codebases that rely on the obsolete constructs.
 
 Note that the list of options indicated here do not capture a complete list of removed features. Some changes to the expected changes to compiler default cannot be previewed using compiler flags but require instructing the compiler to support a specific langauge standard (C99 or later dialect) and to give errors whenever the base standard requires a diagnostic[^gcc-pedantic-errors].
 
@@ -863,7 +863,7 @@ static void __devexit agnx_pci_remove (struct pci_dev *pdev)
 
 [^Zdrnja2009]: Zdrnja, Bojan Zdrnja, 2009-07-17, A new fascinating Linux kernel vulnerability, <https://isc.sans.edu/diary/A+new+fascinating+Linux+kernel+vulnerability/6820>
 
-The Linux kernel now enables `-fno-delete-null-pointer-checks`; as explained later by Linux Torvalds [^Torvalds2018], "we had buggy code that accessed a pointer before the NULL pointer check, but the bug was "benign" as long as the compiler didn't actually remove the check. ...  Removing the NULL pointer check turned a benign bug into a trivially exploitable one by just mapping user space data at NULL ...  Removing the NULL pointer check turned a benign bug into a trivially exploitable one by just mapping user space data at NULL (which avoided the kernel oops, and then made the kernel use the user value!)... the kernel generally really doesn't want optimizations that are perhaps allowed by the standard, but that result in code generation that doesn't match the source code."
+The Linux kernel now enables `-fno-delete-null-pointer-checks`; as explained later by Linux Torvalds [^Torvalds2018], "we had buggy code that accessed a pointer before the NULL pointer check, but the bug was "benign" as long as the compiler didn't actually remove the check. ...  Removing the NULL pointer check turned a benign bug into a trivially exploitable one by just mapping user space data at NULL ... (which avoided the kernel oops, and then made the kernel use the user value!)... the kernel generally really doesn't want optimizations that are perhaps allowed by the standard, but that result in code generation that doesn't match the source code."
 
 [^Torvalds2018]: Torvalds, Linus, 2018-04-04, <https://lkml.org/lkml/2018/4/4/601>
 
@@ -1089,7 +1089,7 @@ ASan cannot be used simultaneously with ThreadSanitizer or LeakSanitizer. It is 
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
 | `-fsanitize=thread`    | GCC 4.8<br/>Clang 3.2 | Enables ThreadSanitizer to detect data race bugs at run time                |
 
-ThreadSanitizer (TSan) is a data race detector for C/C++. Data races occur when two (or more) threads of the same process access the same memory location concurrently and without synchronization. If at least one of the accesses is a write the application risks entering an inconsistent internal state. If two or more threads attempt to write to the memory location simultaneously a data race may cause memory corruption. Data races are notoriously difficult to debug since the order of accesses is typically non-deterministic and dependent on the precise timing of events in the offending threads.
+ThreadSanitizer (TSan) is a data race detector for C/C++. Data races occur when two (or more) threads of the same process access the same memory location concurrently and without synchronization. If at least one of the accesses is a write, the application risks entering an inconsistent internal state. If two or more threads attempt to write to the memory location simultaneously, a data race may cause memory corruption. Data races are notoriously difficult to debug since the order of accesses is typically non-deterministic and dependent on the precise timing of events in the offending threads.
 
 To enable TSan add `-fsanitize=thread` to the compiler flags (`CFLAGS` for C, `CXXFLAGS` for C++) and linker flags (`LDFLAGS`). Consider combining TSan with the following compiler flags:
 
@@ -1257,7 +1257,7 @@ Note that `.gnu_debuglink` does not contain the full pathname to the debug info;
 
 A build ID is a unique bit string stored in `.note.gnu.build-id` of the ELF `.note` section that is (statistically) unique to the binary file. A debugger can use the build ID to identify the corresponding debug info file if the same build ID is also present in the debug info file.
 
-If the build ID method is used the debug info file’s name is computed from the build ID. GDB searches the global debug directories (typically `/usr/lib/debug`) for a `.build-id/xx/yyyy.debug` file, where `xx` are the first two hex characters of the build ID and `yyyy` are the rest of the build ID bit string in hex (actual build ID strings are 32 or more hex characters).
+If the build ID method is used, the debug info file’s name is computed from the build ID. GDB searches the global debug directories (typically `/usr/lib/debug`) for a `.build-id/xx/yyyy.debug` file, where `xx` are the first two hex characters of the build ID and `yyyy` are the rest of the build ID bit string in hex (actual build ID strings are 32 or more hex characters).
 
 Note that the build ID does not act as a checksum for the executable or debug info file. For more information on the build ID feature please refer to the GDB[^binutils-objcopy] and GNU linker[^binutils-ld] documentation.
 
