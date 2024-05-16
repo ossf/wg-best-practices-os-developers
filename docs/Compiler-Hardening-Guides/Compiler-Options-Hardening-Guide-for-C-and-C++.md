@@ -1000,7 +1000,7 @@ The `-fexceptions` option is also needed for C code that needs to interoperate w
 
 In object-oriented programming, object methods rely on dynamic dispatching to select the right virtual function to call at runtime. The vtable is the table of virtual function pointers linked to the code of the virtual function to be executed. The vtable can be overwritten by vtable hijacking attack. This option is used to check, at runtime, that each virtual function call is valid for its object type. This check prevents virtual function pointers from being corrupted or overwritten, and stops the application (SIGABRT) if the pointer integrity check fails. This virtual table pointer check is based on the data structure built at application start-up.
 
-This option has three choices [^gccvtv]:
+This option has three choices[^gccvtv]:
 
 - `std` - Built after shared libraries have been loaded and initialized, vtable data imply to process check at normal object initialization time.
 - `preinit` - Built before shared libraries have been loaded and initialized, vtable data enable check before shared libraries are loaded to process check at early execution time.
@@ -1010,15 +1010,15 @@ This option has three choices [^gccvtv]:
 
 ### Performance implications
 
-Caroline Tice played an important role in integrating the vtable verification (VTV) by submitting the commit of this feature in GCC 4.9 [^gccvtvcommit]. She involved on articles that give information about performance penalty. She is describe performance penalty following 3 points: 
+Caroline Tice played an important role in integrating the vtable verification (VTV) by submitting the commit of this feature in GCC 4.9[^gccvtvcommit]. She involved on articles that give information about performance penalty. She is describe performance penalty following 3 points:
 
 - Call verification: Performance penalty between 5% and 10%.
-- Object permission changes: Between 400% and 700% slowdown for permission changes per object file, while a performance loss of 320 ms is noticeable for permission changes per binary. 
+- Object permission changes: Between 400% and 700% slowdown for permission changes per object file, while a performance loss of 320 ms is noticeable for permission changes per binary.
 - Virtual function hashtable size: Storage of virtual function hashtable imply a big waste of space.
 
 Detailed information on virtual table verification and performance penalties can be found in Caroline Tice's GNU Tools Cauldron 2012 talk[^Tice2012] and USENIX Security '14 article[^Tice2014].
 
-In addition to this performance penalty information, GCC's virtual table checking function is tracked by the `-fvtv-counts` flag [^gccvtvcount], which provides counters to evaluate the number of virtual calls checked and the size of virtual table pointer sets for each class. These counters are useful information for assessing the performance penalty on source code. This information is written to two log files:
+In addition to this performance penalty information, GCC's virtual table checking function is tracked by the `-fvtv-counts` flag[^gccvtvcount], which provides counters to evaluate the number of virtual calls checked and the size of virtual table pointer sets for each class. These counters are useful information for assessing the performance penalty on source code. This information is written to two log files:
 
 - `vtv_count_data.log` - The number of virtual calls being verified for each class.
 - `vtv_class_set_sizes.log` - The size of the vtable pointer sets for each class.
@@ -1034,7 +1034,7 @@ Virtual table verification is disabled in the default GCC configuration. GCC mus
 
 Virtual table checking can lead to failures due to incomplete data when a binary is compiled without virtual table checking but linked to libraries compiled with virtual table checking. The `libvtv_stubs` library is available for the linker to disable virtual table checking on libraries compiled without table verification flag.
 
-Additional debugging information is also available using GCC's `-fvtv-debug` flag [^gccvtvdebug]. This flag provides information on binaries compiled with `-fvtable-verify` to gain a better understanding of the action during virtual table verification. It traces the virtual table pointers checked for each class of source code in a log file (vtv_set_ptr_data.log).
+Additional debugging information is also available using GCC's `-fvtv-debug` flag[^gccvtvdebug]. This flag provides information on binaries compiled with `-fvtable-verify` to gain a better understanding of the action during virtual table verification. It traces the virtual table pointers checked for each class of source code in a log file (vtv_set_ptr_data.log).
 
 The location of `-fvtv-counts` and `-fvtv-debug` log files is defined by the `VTV_LOGS_DIR` environment variable. The default location is the current directory.
 
