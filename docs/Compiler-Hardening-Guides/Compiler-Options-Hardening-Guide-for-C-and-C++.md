@@ -1030,7 +1030,7 @@ In addition to this performance penalty information, GCC's virtual table checkin
 
 ### Additional Considerations
 
-Virtual table verification is disabled in the default GCC configuration. GCC must be compiled with the `--enable-vtable-verify` option to enable virtual table verification. The current GCC configuration is given by `gcc -v` or `gcc -###` command.
+Virtual table verification is disabled in the default GCC configuration. GCC must be compiled with the `--enable-vtable-verify` option to enable virtual table verification[^gccvtvenable]. The current GCC configuration is given by `gcc -v` or `gcc -###` command.
 
 Virtual table checking can lead to failures due to incomplete data when a binary is compiled without virtual table checking but linked to libraries compiled with virtual table checking. The `libvtv_stubs` library is available for the linker to disable virtual table checking on libraries compiled without table verification flag.
 
