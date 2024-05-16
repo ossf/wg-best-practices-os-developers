@@ -13,5 +13,5 @@ provided from users on some server.
 The current system we implement is called `checker.js`,
 There may be other systems you can also use in the future.
 
-For more about how to create labs with with checker, see
+For more about how to create labs with checker, see
 [create_checker](./create_checker).
