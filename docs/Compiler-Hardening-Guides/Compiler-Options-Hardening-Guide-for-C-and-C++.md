@@ -1016,15 +1016,15 @@ Caroline Tice played an important role in integrating the vtable verification (V
 - Object permission changes: Between 400% and 700% slowdown for permission changes per object file, while a performance loss of 320 ms is noticeable for permission changes per binary. 
 - Virtual function hashtable size: Storage of virtual function hashtable imply a big waste of space.
 
-Detailed information on virtual table verification and performance penalties can be found in Caroline Tice's articles. [^ticecauldrom2012][^usenixsec14]
+Detailed information on virtual table verification and performance penalties can be found in Caroline Tice's GNU Tools Cauldron 2012 talk[^Tice2012] and USENIX Security '14 article[^Tice2014].
 
 In addition to this performance penalty information, GCC's virtual table checking function is tracked by the `-fvtv-counts` flag [^gccvtvcount], which provides counters to evaluate the number of virtual calls checked and the size of virtual table pointer sets for each class. These counters are useful information for assessing the performance penalty on source code. This information is written to two log files:
 
 - `vtv_count_data.log` - The number of virtual calls being verified for each class.
 - `vtv_class_set_sizes.log` - The size of the vtable pointer sets for each class.
 
-[^ticecauldrom2012]: Tice, Caroline, [Improving Function Pointer Security for Virtual Method Dispatches](https://gcc.gnu.org/wiki/cauldron2012?action=AttachFile&do=get&target=cmtice.pdf#page=38), Google, Inc., July 2012.
-[^usenixsec14]: Tice, Caroline, [Enforcing Forward-Edge Control-Flow Integrity in GCC & LLVM](https://www.usenix.org/sites/default/files/conference/protected-files/sec14_slides_tice.pdf#page=14), Google, Inc., July 2012.
+[^Tice2012]: Tice, Caroline, [Improving Function Pointer Security for Virtual Method Dispatches](https://gcc.gnu.org/wiki/cauldron2012?action=AttachFile&do=get&target=cmtice.pdf#page=38), GNU Tools Cauldron, July 2012.
+[^Tice2014]: Tice, Caroline, [Enforcing Forward-Edge Control-Flow Integrity in GCC & LLVM](https://www.usenix.org/system/files/conference/usenixsecurity14/sec14-paper-tice.pdf), USENIX Security, August 2014.
 [^gccvtvcount]: Team GCC, [Program Instrumentation Options: `-fvtv-counts`](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fvtv-counts), GCC Manual, August 2013
 [^gccvtvcommit]: Tice, Caroline, [Commit the vtable verification feature](https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff;h=2077db1be5b18b94a91095a3fb380bbc4a81e61b), GCC GIT, August 2013
 
