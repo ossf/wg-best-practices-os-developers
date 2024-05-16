@@ -320,7 +320,7 @@ This warning flag warns when a fallthrough occurs unless it is specially marked 
 
 This warning flag does not have a performance impact. However, sometimes a fallthrough *is* intentional. This flag requires developers annotate those (rare) cases in the source code where a fallthrough *is* intentional, to suppress the warning. Obviously, this annotation should *only* be used when it is intentional. C++17 (or later) code should simply use the attribute `[[fallthrough]]` as it is standard (remember to add `;` after it).
 
-The C17 standard[^C2017] does not provide a mechanism to mark intentional fallthroughs. Different tools support different mechanisms for marking one, including attributes and comments in various forms[^Shafik15]. A portable way to mark one is to define a function-like macro named `fallthrough()` to mark an intentional fallthrough that adjusts to the relevant tool (e.g., compiler) mechanism. We suggest using this construct below, inspired by the keyword-like construct used by the Linux kernel version 5.10 and later. We suggest using a function call syntax instead so more editors and other tools will deal with it correctly:
+The C17 standard[^C2017] does not provide a mechanism to mark intentional fallthroughs. Different tools support different mechanisms for marking one, including attributes and comments in various forms[^Shafik15]. A portable way to mark one is to define a function-like macro named `fallthrough()` to mark an intentional fallthrough that adjusts to the relevant tool (e.g., compiler) mechanism. We suggest using this construct below, inspired by the keyword-like construct used by the Linux kernel version 6.4 and later[^Howlett23]. We suggest using a function call syntax instead so more editors and other tools will deal with it correctly:
 
 ~~~c
 #if __has_attribute(__fallthrough__)
@@ -329,8 +329,6 @@ The C17 standard[^C2017] does not provide a mechanism to mark intentional fallth
 # define fallthrough()                    do {} while (0)  /* fallthrough */
 #endif
 ~~~
-
-This is similar to the keyword-like macro used by the Linux kernel version 6.4 and later[^Howlett23].
 
 [^Polacek17]: Polacek, Marek, ["-Wimplicit-fallthrough in GCC 7"](https://developers.redhat.com/blog/2017/03/10/wimplicit-fallthrough-in-gcc-7), Red Hat Developer, 2017-03-10
 
