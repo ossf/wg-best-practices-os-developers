@@ -81,7 +81,7 @@ The items marked "PLANNED-1" are those we intend to do first;
     * Avoid Incorrect Conversion or Cast - PLANNED-2
   * Processing Data Securely: Undefined Behavior / Memory Safety
     * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - [oob1](oob1.html)
-    * Double-free, Use-after-free, and Missing Release - PLANNED-1
+    * Double-free, Use-after-free, and Missing Release - PLANNED-1 (Bennett Pursell)
     * Avoid Undefined Behavior - PLANNED-2
   * Processing Data Securely: Calculate Correctly
     * Avoid Integer Overflow, Wraparound, and Underflow - PLANNED-2
