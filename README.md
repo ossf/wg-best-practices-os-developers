@@ -144,7 +144,7 @@ Every 2 weeks, Tuesday 10am EST. The meeting invite is available on the [public 
 |  Scorecard  | Every 2 weeks, Thursday 1:00p PT/4:00p ET/1800 UTC    | [Meeting Notes](https://docs.google.com/document/d/1b6d3CVJLsl7YnTE7ZaZQHdkdYIvuOQ8rzAmvVdypOWM/edit?usp=sharing)           |  [Git Repo](https://github.com/ossf/scorecard) | [Slack](https://openssf.slack.com/archives/C0235AR8N2C ) | Mailing List |
 |  The Security Toolbelt  | Every Tuesday Noon/12pm ET  | [Meeting Notes](https://docs.google.com/document/d/1H3Nk0PwmylLg5F7pqrIvyKzTyXAll0-f50B7DdqOh4A/edit#heading=h.a615m7qzeitc)           |  [Git Repo](https://github.com/ossf/toolbelt) | [Slack](https://openssf.slack.com/archives/C057BN7K19B) | [Mailing List](Openssf-sig-sterling-toolchain@lists.openssf.org) |
 | Python Hardening Guide SIG | Every two weeks, Monday 11AM ET  | [Meeting Notes](https://docs.google.com/document/d/1JY8FREBPCUUFpuv7-4B9EjeS2MLDpel0dbG5DFWrTns/edit) | [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python) | Slack | Mailing List |
-| EDU.SIG - Course Content Collab | Every week, Monday 1PM ET | [Meeting Notes](https://docs.google.com/document/d/1NPk5HZLfSMLpUsqaqVcbUSmSR66gS8WoJmEqfsCwrrE/edit#heading=h.y1wl36c7u5mn) | slack | Mailing List |
+| EDU.SIG - Course Content Collab | Every week, Monday 1PM ET | [Meeting Notes](https://docs.google.com/document/d/1NPk5HZLfSMLpUsqaqVcbUSmSR66gS8WoJmEqfsCwrrE/edit#heading=h.y1wl36c7u5mn) | [Git Repo](https://github.com/ossf/education) | Slack | Mailing List |
 
 ## Meeting Notes
 
