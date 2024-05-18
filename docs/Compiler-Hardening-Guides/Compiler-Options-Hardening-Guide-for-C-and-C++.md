@@ -68,7 +68,7 @@ Most programming languages prevent such defects by default. A few languages allo
 
 Run-time attacks differ from conventional malware, which carries out its malicious program actions through a dedicated program executable, in that run-time attacks influence benign programs to behave maliciously. A run-time attack that exploits unmitigated memory vulnerabilities can be leveraged by threat actors as the initial attack vectors that allow them to gain a presence on a system, e.g., by injecting malicious code into running programs.
 
-Modern, security-aware C and C++ software development practices, e.g., secure coding standards such as SEI CERT C[^CMU2016C] and C++[^CMU2016CPP], and program analysis aim to proactively avoid introducing memory errors (and other software defects) to applications. However, in practice completely eradicating memory errors in production C and C++ software has turned out to be near-impossible.
+Modern, security-aware C and C++ software development pracs, e.g., secure coding standards such as SEI CERT C[^CMU2016C] and C++[^CMU2016CPP], and program analysis aim to proactively avoid introducing memory errors (and other software defects) to applications. However, in prac completely eradicating memory errors in production C and C++ software has turned out to be near-impossible.
 
 [^CMU2016C]: Carnegie Mellon University (CMU), [SEI CERT C Coding Standard Rules for Developing Safe, Reliable, and Secure Systems, 2016 edition](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=454220), June 2016.
 
@@ -1033,6 +1033,10 @@ In addition to this performance penalty information, GCC's virtual table checkin
 [^usenixsec14]: Tice, Caroline, [Enforcing Forward-Edge Control-Flow Integrity in GCC & LLVM](https://www.usenix.org/sites/default/files/conference/protected-files/sec14_slides_tice.pdf#page=14), Google, Inc., July 2012.
 [^gccvtvcount]: Team GCC, [Program Instrumentation Options: `-fvtv-counts`](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fvtv-counts), GCC Manual, August 2013
 [^gccvtvcommit]: Tice, Caroline, [Commit the vtable verification feature](https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff;h=2077db1be5b18b94a91095a3fb380bbc4a81e61b), GCC GIT, August 2013
+
+#### When not to use?
+
+Using the `-fvtable-verify` flag can lead to ABI breaks.
 
 ### Additional Considerations
 
