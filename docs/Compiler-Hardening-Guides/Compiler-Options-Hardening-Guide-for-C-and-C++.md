@@ -1,6 +1,6 @@
 # Compiler Options Hardening Guide for C and C++
 
-*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2024-05-02*
+*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2024-05-16*
 
 This document is a guide for compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++. The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
 
@@ -321,7 +321,7 @@ This warning flag warns when a fallthrough occurs unless it is specially marked 
 
 This warning flag does not have a performance impact. However, sometimes a fallthrough *is* intentional. This flag requires developers annotate those (rare) cases in the source code where a fallthrough *is* intentional, to suppress the warning. Obviously, this annotation should *only* be used when it is intentional. C++17 (or later) code should simply use the attribute `[[fallthrough]]` as it is standard (remember to add `;` after it).
 
-The C17 standard[^C2017] does not provide a mechanism to mark intentional fallthroughs. Different tools support different mechanisms for marking one, including attributes and comments in various forms[^Shafik15]. A portable way to mark one is to define a function-like macro named `fallthrough()` to mark an intentional fallthrough that adjusts to the relevant tool (e.g., compiler) mechanism. We suggest using this construct below, inspired by the keyword-like construct used by the Linux kernel version 5.10 and later. We suggest using a function call syntax instead so more editors and other tools will deal with it correctly:
+The C17 standard[^C2017] does not provide a mechanism to mark intentional fallthroughs. Different tools support different mechanisms for marking one, including attributes and comments in various forms[^Shafik15]. A portable way to mark one is to define a function-like macro named `fallthrough()` to mark an intentional fallthrough that adjusts to the relevant tool (e.g., compiler) mechanism. We suggest using this construct below, inspired by the keyword-like construct used by the Linux kernel version 6.4 and later[^Howlett23]. We suggest using a function call syntax instead so more editors and other tools will deal with it correctly:
 
 ~~~c
 #if __has_attribute(__fallthrough__)
@@ -330,8 +330,6 @@ The C17 standard[^C2017] does not provide a mechanism to mark intentional fallth
 # define fallthrough()                    do {} while (0)  /* fallthrough */
 #endif
 ~~~
-
-This is similar to the keyword-like macro used by the Linux kernel version 6.4 and later[^Howlett23].
 
 [^Polacek17]: Polacek, Marek, ["-Wimplicit-fallthrough in GCC 7"](https://developers.redhat.com/blog/2017/03/10/wimplicit-fallthrough-in-gcc-7), Red Hat Developer, 2017-03-10
 
@@ -360,11 +358,11 @@ Check for possibly misleading Unicode bidirectional (bidi) control characters in
 
 Some writing systems (such as Arabic, Hebrew, Persian, and Urdu) are typically written right-to-left (RTL), while many others (such as English) are written left-to-right (LTR). Some documents must mix writing systems with different orders, e.g. source code with comments in right-to-left writing. Unicode supports various control sequences to support this visual reordering. Unfortunately, attackers can use such control sequences to obfuscate source code to hide vulnerabilities from human reviewers. Careful human review is usually one of the strongest methods available to detect malicious code. Unfortunately, maliciously misleading code, aka *"underhanded code"*, attempts to subvert human review[^Wheeler2020]. *"Trojan Source"*[^Boucher2021] is a specific kind of underhanded code that exploits the Unicode bidirectional algorithm that produce the correct order of characters when bidirectional text is displayed.
 
-The GCC `-Wbidi-chars` option helps to counter Trojan Source attacks[^gcc-Wbidi-chars]. By default its value is `-Wbidi-char=unpaired`, which warns about improperly terminated bidi contexts (this should never happen in source code). However, this default is somewhat permissive.
+The GCC `-Wbidi-chars` option helps to counter Trojan Source attacks[^gcc-Wbidi-chars]. By default its value is `-Wbidi-chars=unpaired`, which warns about improperly terminated bidi contexts (this should never happen in source code). However, this default is somewhat permissive.
 
-In many cases using `-Wbidi-char=any` is a stronger defense. This option forbids *any* use of bidirectional control characters in comments, string literals, character constants, and identifiers, completely eliminating the Trojan Source attack. This setting is appropriate when bidi characters are *not* expected in the source code, and their only use would be as part of an attack on reviewers.
+In many cases using `-Wbidi-chars=any` is a stronger defense. This option forbids *any* use of bidirectional control characters in comments, string literals, character constants, and identifiers, completely eliminating the Trojan Source attack. This setting is appropriate when bidi characters are *not* expected in the source code, and their only use would be as part of an attack on reviewers.
 
-Both `-Wbidi-char=any` and `-Wbidi-char=unpaired` can be combined with the `ucn` argument which additionally warns of corresponding bidirectional control characters expressed as universal-character-names (UCNs), i.e., using the `\uXXXX` notation,in string literals, character constants, and identifiers.
+Both `-Wbidi-chars=any` and `-Wbidi-chars=unpaired` can be combined with the `ucn` argument which additionally warns of corresponding bidirectional control characters expressed as universal-character-names (UCNs), i.e., using the `\uXXXX` notation,in string literals, character constants, and identifiers.
 
 Note that this option does *not* interfere with creating internationalized programs. Current best practice is to put human-readable text strings in separate files, not in source code, and then use an internationalization (i18n) framework like `gettext` to retrieve the correct text for the user's locale.
 
@@ -380,9 +378,15 @@ Do *not* use `-Wbidi-chars=any` or `-Wbidi-chars=any,ucn` in cases where some of
 
 It is best to use other static code analysis tools to also warn about Trojan Source, since it's not an issue developers typically consider. Some editors have mechanisms to warn about Trojan Source; using them is recommended where practical. However, it's sometimes difficult to verify whether developers and reviewers have used such tools.
 
-clang-tidy's `misc-misleading-bidirectional` check warns about unterminated bidirectional Unicode sequences, similar to GCC's `-Wbidi-char=unpaired`[^clang-tidy-bidi].
+`clang-tidy` has multiple lints to help identify Trojan Source:
+
+- `misc-misleading-bidirectional` check warns about unterminated bidirectional Unicode sequences, similar to GCC's `-Wbidi-chars=unpaired`[^clang-tidy-bidi].
+- `misc-confusable-identifiers` check warns about characters that are visually similar [^clang-tidy-confusable].
+- `misc-misleading-identifier` check warns about bidirectional Unicode that can change the meaning of the code [^clang-tidy-misleading].
 
 [^clang-tidy-bidi]: LLVM team, [clang-tidy - misc-misleading-bidirectional](https://clang.llvm.org/extra/clang-tidy/checks/misc/misleading-bidirectional.html), Extra Clang Tools Documentation, 2024-03-28.
+[^clang-tidy-confusable]: LLVM team, [clang-tidy - misc-confusable-identifiers](https://clang.llvm.org/extra/clang-tidy/checks/misc/confusable-identifiers.html), Extra Clang Tools Documentation, 2024-03-28.
+[^clang-tidy-misleading]: LLVM team, [clang-tidy - misc-misleading-identifier](https://clang.llvm.org/extra/clang-tidy/checks/misc/misleading-identifier.html), Extra Clang Tools Documentation, 2024-03-28.
 
 ---
 
@@ -464,7 +468,9 @@ The `-Werror=implicit`, `-Werror=incompatible-pointer-types`, and `-Werror=int-c
 - Conversion between pointers that have incompatible types.
 - Implicit integer to pointer and pointer to integer conversions.
 
-Using these options will make the compiler treat the corresponding obsolete construsts as errors regardless of the language standard the compiler is instructed to follow. GCC 14[^gcc-porting-to-14] and Clang 15[^clang-release-notes-15] disable support for these legacy language constructs by default so enabling these options will also prepare the codebase for transitioning to these and later compilers. Some Linux distributions, such as Fedora[^Weimer2023], are enforcing the use of the these options when building software for distribution. We recommend developers adopt the options, as enabling them may require may require non-trivial changes to the source code in codebases that rely on the obsolete constructs.
+Using these options will make the compiler treat the corresponding obsolete construsts as errors regardless of the language standard the compiler is instructed to follow. GCC 14[^gcc-porting-to-14] and Clang 15[^clang-release-notes-15] disable support for these legacy language constructs by default so enabling these options will also prepare the codebase for transitioning to these and later compilers. Some Linux distributions, such as Fedora[^Weimer2023], are enforcing the use of the these options when building software for distribution. We recommend developers adopt the options, as enabling them may require non-trivial changes to the source code in codebases that rely on the obsolete constructs.
+
+Note that in particular, `_FORTIFY_SOURCE` is of either limited or entirely neutered effect in the presence of implicit function declarations.
 
 Note that the list of options indicated here do not capture a complete list of removed features. Some changes to the expected changes to compiler default cannot be previewed using compiler flags but require instructing the compiler to support a specific langauge standard (C99 or later dialect) and to give errors whenever the base standard requires a diagnostic[^gcc-pedantic-errors].
 
@@ -864,7 +870,7 @@ static void __devexit agnx_pci_remove (struct pci_dev *pdev)
 
 [^Zdrnja2009]: Zdrnja, Bojan Zdrnja, 2009-07-17, A new fascinating Linux kernel vulnerability, <https://isc.sans.edu/diary/A+new+fascinating+Linux+kernel+vulnerability/6820>
 
-The Linux kernel now enables `-fno-delete-null-pointer-checks`; as explained later by Linux Torvalds [^Torvalds2018], "we had buggy code that accessed a pointer before the NULL pointer check, but the bug was "benign" as long as the compiler didn't actually remove the check. ...  Removing the NULL pointer check turned a benign bug into a trivially exploitable one by just mapping user space data at NULL ...  Removing the NULL pointer check turned a benign bug into a trivially exploitable one by just mapping user space data at NULL (which avoided the kernel oops, and then made the kernel use the user value!)... the kernel generally really doesn't want optimizations that are perhaps allowed by the standard, but that result in code generation that doesn't match the source code."
+The Linux kernel now enables `-fno-delete-null-pointer-checks`; as explained later by Linux Torvalds [^Torvalds2018], "we had buggy code that accessed a pointer before the NULL pointer check, but the bug was "benign" as long as the compiler didn't actually remove the check. ...  Removing the NULL pointer check turned a benign bug into a trivially exploitable one by just mapping user space data at NULL ... (which avoided the kernel oops, and then made the kernel use the user value!)... the kernel generally really doesn't want optimizations that are perhaps allowed by the standard, but that result in code generation that doesn't match the source code."
 
 [^Torvalds2018]: Torvalds, Linus, 2018-04-04, <https://lkml.org/lkml/2018/4/4/601>
 
@@ -1154,7 +1160,7 @@ ASan cannot be used simultaneously with ThreadSanitizer or LeakSanitizer. It is 
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
 | `-fsanitize=thread`    | GCC 4.8<br/>Clang 3.2 | Enables ThreadSanitizer to detect data race bugs at run time                |
 
-ThreadSanitizer (TSan) is a data race detector for C/C++. Data races occur when two (or more) threads of the same process access the same memory location concurrently and without synchronization. If at least one of the accesses is a write the application risks entering an inconsistent internal state. If two or more threads attempt to write to the memory location simultaneously a data race may cause memory corruption. Data races are notoriously difficult to debug since the order of accesses is typically non-deterministic and dependent on the precise timing of events in the offending threads.
+ThreadSanitizer (TSan) is a data race detector for C/C++. Data races occur when two (or more) threads of the same process access the same memory location concurrently and without synchronization. If at least one of the accesses is a write, the application risks entering an inconsistent internal state. If two or more threads attempt to write to the memory location simultaneously, a data race may cause memory corruption. Data races are notoriously difficult to debug since the order of accesses is typically non-deterministic and dependent on the precise timing of events in the offending threads.
 
 To enable TSan add `-fsanitize=thread` to the compiler flags (`CFLAGS` for C, `CXXFLAGS` for C++) and linker flags (`LDFLAGS`). Consider combining TSan with the following compiler flags:
 
@@ -1322,7 +1328,7 @@ Note that `.gnu_debuglink` does not contain the full pathname to the debug info;
 
 A build ID is a unique bit string stored in `.note.gnu.build-id` of the ELF `.note` section that is (statistically) unique to the binary file. A debugger can use the build ID to identify the corresponding debug info file if the same build ID is also present in the debug info file.
 
-If the build ID method is used the debug info file’s name is computed from the build ID. GDB searches the global debug directories (typically `/usr/lib/debug`) for a `.build-id/xx/yyyy.debug` file, where `xx` are the first two hex characters of the build ID and `yyyy` are the rest of the build ID bit string in hex (actual build ID strings are 32 or more hex characters).
+If the build ID method is used, the debug info file’s name is computed from the build ID. GDB searches the global debug directories (typically `/usr/lib/debug`) for a `.build-id/xx/yyyy.debug` file, where `xx` are the first two hex characters of the build ID and `yyyy` are the rest of the build ID bit string in hex (actual build ID strings are 32 or more hex characters).
 
 Note that the build ID does not act as a checksum for the executable or debug info file. For more information on the build ID feature please refer to the GDB[^binutils-objcopy] and GNU linker[^binutils-ld] documentation.
 

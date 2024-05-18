@@ -67,7 +67,7 @@ The items marked "PLANNED-1" are those we intend to do first;
     * Using Regular Expressions for Text Input Validation - [regex1](regex1.html), [input2](input2.html)
     * Countering ReDoS Attacks on Regular Expressions - PLANNED-2
   * Input Validation: Beyond Numbers and Text
-    * Insecure Deserialization - PLANNED-2
+    * Insecure Deserialization - PLANNED-2 (Tepas Jena)
     * Input Data Structures (XML, HTML, CSV, JSON, & File Uploads) - PLANNED-2
     * Minimizing Attack Surface, Identification, Authentication, and Authorization - PLANNED-2
     * Search Paths and Environment Variables (including setuid/setgid Programs) - PLANNED-2
@@ -77,11 +77,11 @@ The items marked "PLANNED-1" are those we intend to do first;
 * Processing Data Securely
   * Processing Data Securely: General Issues
     * Prefer Trusted Data. Treat Untrusted Data as Dangerous - PLANNED-2
-    * Avoid Default & Hardcoded Credentials - PLANNED-1
+    * Avoid Default & Hardcoded Credentials - PLANNED-1 (Tepas Jena)
     * Avoid Incorrect Conversion or Cast - PLANNED-2
   * Processing Data Securely: Undefined Behavior / Memory Safety
     * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - [oob1](oob1.html)
-    * Double-free, Use-after-free, and Missing Release - PLANNED-1
+    * Double-free, Use-after-free, and Missing Release - PLANNED-1 (Bennett Pursell)
     * Avoid Undefined Behavior - PLANNED-2
   * Processing Data Securely: Calculate Correctly
     * Avoid Integer Overflow, Wraparound, and Underflow - PLANNED-2
@@ -89,8 +89,8 @@ The items marked "PLANNED-1" are those we intend to do first;
   * Introduction to Securely Calling Programs
     * Introduction to Securely Calling Programs - The Basics
   * Calling Other Programs: Injection and Filenames
-    * SQL Injection - PLANNED-1
-    * OS Command (Shell) injection - PLANNED-1
+    * SQL Injection - PLANNED-1 (Tepas Jena)
+    * OS Command (Shell) injection - PLANNED-1 (Marta Rybczynska)
     * Other Injection Attacks - PLANNED-2
     * Filenames (Including Path Traversal and Link Following) - PLANNED-2
   * Calling Other Programs: Other Issues
@@ -101,7 +101,7 @@ The items marked "PLANNED-1" are those we intend to do first;
     * Countering Denial-of-Service (DoS) Attacks - PLANNED-2
 * Sending Output
   * Introduction to Sending Output - PLANNED-2
-  * Countering Cross-Site Scripting (XSS) - PLANNED-1
+  * Countering Cross-Site Scripting (XSS) - PLANNED-1 (Tepas Jena)
   * Content Security Policy (CSP) - [csp1](csp1.html)
   * Other HTTP Hardening Headers - (probably continue csp1) PLANNED-2
   * Cookies & Login Sessions - PLANNED-2
