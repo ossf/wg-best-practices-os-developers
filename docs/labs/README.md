@@ -78,42 +78,42 @@ The items marked "PLANNED-1" are those we intend to do first;
   * Processing Data Securely: General Issues
     * [Prefer Trusted Data. Treat Untrusted Data as Dangerous](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#prefer-trusted-data-treat-untrusted-data-as-dangerous) - PLANNED-2
     * [Avoid Default & Hardcoded Credentials](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-default--hardcoded-credentials) - PLANNED-1 (Tepas Jena)
-    * Avoid Incorrect Conversion or Cast - PLANNED-2
+    * [Avoid Incorrect Conversion or Cast](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-incorrect-conversion-or-cast) - PLANNED-2
   * Processing Data Securely: Undefined Behavior / Memory Safety
     * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - [oob1](oob1.html)
-    * Double-free, Use-after-free, and Missing Release - PLANNED-1 (Bennett Pursell)
-    * Avoid Undefined Behavior - PLANNED-2
+    * [Double-free, Use-after-free, and Missing Release](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#double-free-use-after-free-and-missing-release) - PLANNED-1 (Bennett Pursell)
+    * [Avoid Undefined Behavior](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-undefined-behavior) - PLANNED-2
   * Processing Data Securely: Calculate Correctly
-    * Avoid Integer Overflow, Wraparound, and Underflow - PLANNED-2
+    * [Avoid Integer Overflow, Wraparound, and Underflow](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-integer-overflow-wraparound-and-underflow) - PLANNED-2
 * Calling Other Programs
   * Introduction to Securely Calling Programs
     * Introduction to Securely Calling Programs - The Basics
   * Calling Other Programs: Injection and Filenames
-    * SQL Injection - PLANNED-1 (Tepas Jena)
+    * [SQL Injection](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#sql-injection) - PLANNED-1 (Tepas Jena)
     * OS Command (Shell) injection - PLANNED-1 (Marta Rybczynska)
-    * Other Injection Attacks - PLANNED-2
+    * [Other Injection Attacks](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#other-injection-attacks) - PLANNED-2
     * Filenames (Including Path Traversal and Link Following) - PLANNED-2
   * Calling Other Programs: Other Issues
-    * Call APIs for Programs and Check What Is Returned - PLANNED-2
-    * Handling Errors - PLANNED-2
-    * Logging - PLANNED-2
-    * Debug and Assertion Code - PLANNED-1 (Jason Shepherd)
+    * [Call APIs for Programs and Check What Is Returned](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#call-apis-for-programs-and-check-what-is-returned) - PLANNED-2
+    * [Handling Errors](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#handling-errors) - PLANNED-2
+    * [Logging](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#logging) - PLANNED-2
+    * [Debug and Assertion Code](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#debug-and-assertion-code) - PLANNED-1 (Jason Shepherd)
     * Countering Denial-of-Service (DoS) Attacks - PLANNED-2
 * Sending Output
-  * Introduction to Sending Output - PLANNED-2
+  * [Introduction to Sending Output](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#introduction-to-sending-output) - PLANNED-2
   * Countering Cross-Site Scripting (XSS) - PLANNED-1 (Tepas Jena)
   * Content Security Policy (CSP) - [csp1](csp1.html)
   * Other HTTP Hardening Headers - (probably continue csp1) PLANNED-2
-  * Cookies & Login Sessions - PLANNED-2
-  * CSRF / XSRF - PLANNED-2
-  * Open Redirects and Forwards - PLANNED-2
+  * [Cookies Cookies & Login Sessions Login Sessions](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#cookies--login-sessions) - PLANNED-2
+  * [CSRF / XSRF](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#csrf--xsrf) - PLANNED-2
+  * [Open Redirects and Forwards](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#open-redirects-and-forwards) - PLANNED-2
   * HTML **target** and JavaScript **window.open()** - PLANNED-2
   * Using Inadequately Checked URLs / Server-Side Request Forgery (SSRF) - PLANNED-2
   * Same-Origin Policy and Cross-Origin Resource Sharing (CORS) - PLANNED-2
-  * Format Strings and Templates - PLANNED-1 (Jason Shepherd)
-  * Minimize Feedback / Information Exposure - PLANNED-2
-  * Avoid caching sensitive information - PLANNED-2
-  * Side-Channel Attacks - PLANNED-2
+  * [Format Strings and Templates](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#format-strings-and-templates) - PLANNED-1 (Jason Shepherd)
+  * [Minimize Feedback / Information Exposure](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#minimize-feedback--information-exposure) - PLANNED-2
+  * [Avoid caching sensitive information](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-caching-sensitive-information) - PLANNED-2
+  * [Side-Channel Attacks](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#side-channel-attacks) - PLANNED-2
 
 ## Our thanks
 
