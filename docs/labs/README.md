@@ -9,9 +9,9 @@ without Internet access.
 We *want* people to create more labs! Here's more information about
 how to do that and the labs we'd like created.
 
-## Available labs
+## Sample available labs
 
-Here are the labs available:
+Here are some of the labs available, which you can use as examples:
 
 * [hello](hello.html) - simple "Hello, world!" demo
 * [input1](input1.html) - input validation (simple types)
@@ -57,27 +57,27 @@ The items marked "PLANNED-1" are those we intend to do first;
 
 * Input Validation
   * Input Validation Basics
-    * Input Validation Basics Introduction - [hello](hello.html)
-    * How Do You Validate Input?
+    * [Input Validation Basics Introduction](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#input-validation-basics-introduction) - [hello](hello.html)
+    * [How Do You Validate Input?](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#how-do-you-validate-input), [Input Validation: Numbers and Text](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#input-validation-numbers-and-text)
   * Input Validation: Numbers and Text
     * Input Validation: A Few Simple Data Types - [input1](input1.html)
-    * Sidequest: Text, Unicode, and Locales
-    * Validating Text
+    * [Sidequest: Text, Unicode, and Locales](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#sidequest-text-unicode-and-locales)
+    * [Validating Text](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#validating-text)
     * Introduction to Regular Expressions - [regex0](regex0.html)
     * Using Regular Expressions for Text Input Validation - [regex1](regex1.html), [input2](input2.html)
-    * Countering ReDoS Attacks on Regular Expressions - PLANNED-2
+    * [Countering ReDoS Attacks on Regular Expressions](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#countering-redos-attacks-on-regular-expressions) - PLANNED-2
   * Input Validation: Beyond Numbers and Text
-    * Insecure Deserialization - PLANNED-2 (Tepas Jena)
-    * Input Data Structures (XML, HTML, CSV, JSON, & File Uploads) - PLANNED-2
-    * Minimizing Attack Surface, Identification, Authentication, and Authorization - PLANNED-2
-    * Search Paths and Environment Variables (including setuid/setgid Programs) - PLANNED-2
-    * Special Inputs: Secure Defaults and Secure Startup - PLANNED-2
+    * [Insecure Deserialization](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#insecure-deserialization) - PLANNED-2 (Tepas Jena)
+    * [Input Validation: Beyond Numbers and Text](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#input-validation-beyond-numbers-and-text) - PLANNED-2
+    * [Minimizing Attack Surface, Identification, Authentication, and Authorization](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#minimizing-attack-surface-identification-authentication-and-authorization) - PLANNED-2
+    * [Search Paths and Environment Variables (including setuid/setgid Programs)](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#search-paths-and-environment-variables-including-setuidsetgid-programs) - PLANNED-2
+    * [Special Inputs: Secure Defaults and Secure Startup](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#special-inputs-secure-defaults-and-secure-startup) - PLANNED-2
   * Consider Availability on All Inputs
-    * Consider Availability on All Inputs Introduction - PLANNED-2
+    * [Consider Availability on All Inputs Introduction](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#consider-availability-on-all-inputs-introduction) - PLANNED-2
 * Processing Data Securely
   * Processing Data Securely: General Issues
-    * Prefer Trusted Data. Treat Untrusted Data as Dangerous - PLANNED-2
-    * Avoid Default & Hardcoded Credentials - PLANNED-1 (Tepas Jena)
+    * [Prefer Trusted Data. Treat Untrusted Data as Dangerous](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#prefer-trusted-data-treat-untrusted-data-as-dangerous) - PLANNED-2
+    * [Avoid Default & Hardcoded Credentials](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-default--hardcoded-credentials) - PLANNED-1 (Tepas Jena)
     * Avoid Incorrect Conversion or Cast - PLANNED-2
   * Processing Data Securely: Undefined Behavior / Memory Safety
     * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - [oob1](oob1.html)
@@ -97,7 +97,7 @@ The items marked "PLANNED-1" are those we intend to do first;
     * Call APIs for Programs and Check What Is Returned - PLANNED-2
     * Handling Errors - PLANNED-2
     * Logging - PLANNED-2
-    * Debug and Assertion Code - PLANNED-1
+    * Debug and Assertion Code - PLANNED-1 (Jason Shepherd)
     * Countering Denial-of-Service (DoS) Attacks - PLANNED-2
 * Sending Output
   * Introduction to Sending Output - PLANNED-2
@@ -110,10 +110,21 @@ The items marked "PLANNED-1" are those we intend to do first;
   * HTML **target** and JavaScript **window.open()** - PLANNED-2
   * Using Inadequately Checked URLs / Server-Side Request Forgery (SSRF) - PLANNED-2
   * Same-Origin Policy and Cross-Origin Resource Sharing (CORS) - PLANNED-2
-  * Format Strings and Templates - PLANNED-1
+  * Format Strings and Templates - PLANNED-1 (Jason Shepherd)
   * Minimize Feedback / Information Exposure - PLANNED-2
   * Avoid caching sensitive information - PLANNED-2
   * Side-Channel Attacks - PLANNED-2
+
+## Our thanks
+
+Thanks to the following people who have created or offered to create labs
+(sorted by first name):
+
+* Bennett Pursell
+* David A. Wheeler
+* Jason Shepherd
+* Marta Rybczynska
+* Tepas Jena
 
 ## Other information
 
