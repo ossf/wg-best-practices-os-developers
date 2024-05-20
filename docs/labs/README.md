@@ -25,6 +25,8 @@ We also have a [template](template.html) available.
 
 ## Please contribute labs
 
+[Please us create labs!](https://docs.google.com/document/d/1wNoNjLpdkgoXkRDvDBI32tm62rbASlfF6gxwyEkyTYs/edit)
+
 We would love to have people contribute relevant labs to help
 people learn how to develop secure software.
 We'd be happy to give you credit through a "wall of fame".
