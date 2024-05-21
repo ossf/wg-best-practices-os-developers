@@ -71,4 +71,4 @@ In short, to enforce GitHub secret scanning on a repository:
 2. Go to the repo's settings page
 3. Enter "Security" section of the sidebar, click "Code security and analysis".
 4. Under "Code security and analysis", find "GitHub Advanced Security."
-5. Under "Secret scanning", under "Push protection", click Enable.
+5. Under "Secret scanning", under "Push protection", click "Enable".
