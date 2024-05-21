@@ -23,7 +23,7 @@ Once secrets are in a repository, they become available for anyone who
 can view the repository (directly or via a copy).
 Inserting secrets into a source code repository is a mistake, since
 it interferes with the whole point of a secret: keeping it secret.
-This is such a common kind of vulnerability that it is identified as
+This is such a common type of vulnerability that it is identified as
 the Common Weakness Enumeration (CWE)
 [CWE-540: Inclusion of Sensitive Information in Source Code](https://cwe.mitre.org/data/definitions/540.html).
 
