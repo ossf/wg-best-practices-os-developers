@@ -18,7 +18,10 @@ You can also provide patterns for various hints.
 There are three basic tasks, which can be done by different people:
 
 1. Identifying the next lab to do.
-   See the [README](./README.md) for the list of labs.
+   See the [README](./README.md) for the list of labs (pick an unassigned one).
+   Tell [David A. Wheeler](mailto:dwheele&#114;&#64;linuxfoundation&#46;org).
+   which one you want to do; he'll also be happy to answer
+   any questions.
 2. [Creating the lab instructions and correct answer](#creating-the-lab-instructions-and-correct-answer).
    This is done by a subject matter expert. See below.
 3. [Creating the lab HTML file](#creating-the-lab-html-file).
@@ -79,10 +82,15 @@ Whenever a lab is loaded it automatically runs all embedded self-tests.
 At the least, it checks that the initial attempted answer does
 *not* satisfy the correct answer pattern, while the example expected answer
 *does* satisfy the correct answer pattern.
-
 We suggest including the buttons (Hint, Reset, and Give up)
 as shown in the examples.
 The code will automatically set up the buttons if they are present.
+
+To submit new or updated labs, create a pull request on the
+[OpenSSF Best Practices Working Group (WG) repository](https://github.com/ossf/wg-best-practices-os-developers/)
+under the `docs/labs` directory.
+Simply fork the repository, add your proposed lab in the `docs/labs` directory,
+and create a pull request.
 
 ### Quick aside: script tag requirements
 

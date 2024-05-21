@@ -25,7 +25,8 @@ We also have a [template](template.html) available.
 
 ## Please contribute labs
 
-[Please us create labs!](https://docs.google.com/document/d/1wNoNjLpdkgoXkRDvDBI32tm62rbASlfF6gxwyEkyTYs/edit)
+Please us create labs! See "[Please us create labs!](https://docs.google.com/document/d/1wNoNjLpdkgoXkRDvDBI32tm62rbASlfF6gxwyEkyTYs/edit)" for why it's
+important to help us create labs.
 
 We would love to have people contribute relevant labs to help
 people learn how to develop secure software.
@@ -43,8 +44,10 @@ In particular, that page will link to how to
 We suggest using the [template](template.html) as a start.
 
 To submit new or updated labs, create a pull request on the
-[OpenSSF Best Practices WG](https://github.com/ossf/wg-best-practices-os-developers/)
+[OpenSSF Best Practices Working Group (WG) repository](https://github.com/ossf/wg-best-practices-os-developers/)
 under the `docs/labs` directory.
+Simply fork the repository, add your proposed lab in the `docs/labs` directory,
+and create a pull request.
 
 ## Lab Roadmap
 
