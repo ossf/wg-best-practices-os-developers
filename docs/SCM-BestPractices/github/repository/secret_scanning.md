@@ -47,7 +47,7 @@ In short, to enable GitHub secret scanning on a repository:
 
 1. Make sure you have admin permissions
 2. Go to the repo's settings page
-3. Enter "Security" section of the sidebar, click Code security and analysis.
+3. Enter "Security" section of the sidebar, click "Code security and analysis".
 4. Click "Enable for secret scanning"
 5. Click "Save changes"
 
