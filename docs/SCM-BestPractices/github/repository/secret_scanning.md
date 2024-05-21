@@ -11,7 +11,7 @@ and prevents it.
 Turning on secret scanning detects many kinds of secrets being checked
 into a repository and reports it.
 Push protection builds on secret scanning and prevents attempts to add such
-secrets (and creates and alert if that it overridden).
+secrets (and creates an alert if that is overridden).
 
 ## Threat Example(s)
 
