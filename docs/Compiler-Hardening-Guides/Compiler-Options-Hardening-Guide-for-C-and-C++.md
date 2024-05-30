@@ -180,37 +180,37 @@ Table 1: Recommended compiler options that enable strictly compile-time checks.
 
 | Compiler Flag                                                                 |       Supported since       | Description                                                                         |
 |:----------------------------------------------------------------------------- |:------------------------:|:----------------------------------------------------------------------------------- |
-| [`-Wall`](#-Wall)<br/>[`-Wextra`](#-Wextra)                                   | GCC 2.95.3<br/>Clang 4.0 | Enable warnings for constructs often associated with defects                        |
-| [`-Wformat`](#-Wformat)<br/>[`-Wformat=2`](#-Wformat=2)                       | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings                                          |
-| [`-Wconversion`](#-Wconversion)<br/>[`-Wsign-conversion`](#-Wsign-conversion) | GCC 2.95.3<br/>Clang 4.0 | Enable implicit conversion warnings                                                 |
-| [`-Wtrampolines`](#-Wtrampolines)                                             |         GCC 4.3          | Enable warnings about trampolines that require executable stacks                    |
-| [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7<br>Clang 4.0   | Warn when a switch case falls through                                           |
-| [`-Wbidi-chars=any`](#-Wbidi-chars=any)                                       | GCC 12                   | Enable warnings for possibly misleading Unicode bidirectional control characters    |
-| [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6 | Treat all or selected compiler warnings as errors. Use the blanket form `-Werror` only during development, not in source distribution. |
-| [`-Werror=format-security`](#-Werror=format-security)                         | GCC 2.95.3<br/>Clang 4.0 | Treat format strings that are not string literals and used without arguments as errors                                                 |
-| [`-Werror=implicit`](#-Werror=implicit)<br/>[`-Werror=incompatible-pointer-types`](#-Werror=incompatible-pointer-types)<br/>[`-Werror=int-conversion`](#-Werror=int-conversion)<br/> | GCC 2.95.3<br/>Clang 2.6 | Treat obsolete C constructs as errors |
+| [`-Wall`](#-Wall)<br/>[`-Wextra`](#-Wextra)                                   | GCC 2.95.3<br/>Clang 4.0.0 | Enable warnings for constructs often associated with defects                        |
+| [`-Wformat`](#-Wformat)<br/>[`-Wformat=2`](#-Wformat=2)                       | GCC 2.95.3<br/>Clang 4.0.0 | Enable additional format function warnings                                          |
+| [`-Wconversion`](#-Wconversion)<br/>[`-Wsign-conversion`](#-Wsign-conversion) | GCC 2.95.3<br/>Clang 4.0.0 | Enable implicit conversion warnings                                                 |
+| [`-Wtrampolines`](#-Wtrampolines)                                             |         GCC 4.3.0          | Enable warnings about trampolines that require executable stacks                    |
+| [`-Wimplicit-fallthrough`](#-Wimplicit-fallthrough)                           |         GCC 7.0.0<br>Clang 4.0.0   | Warn when a switch case falls through                                           |
+| [`-Wbidi-chars=any`](#-Wbidi-chars=any)                                       | GCC 12.0.0                   | Enable warnings for possibly misleading Unicode bidirectional control characters    |
+| [`-Werror`](#-Werror)<br/>[`-Werror=`*`<warning-flag>`*](#-Werror-flag)       | GCC 2.95.3<br/>Clang 2.6.0 | Treat all or selected compiler warnings as errors. Use the blanket form `-Werror` only during development, not in source distribution. |
+| [`-Werror=format-security`](#-Werror=format-security)                         | GCC 2.95.3<br/>Clang 4.0.0 | Treat format strings that are not string literals and used without arguments as errors                                                 |
+| [`-Werror=implicit`](#-Werror=implicit)<br/>[`-Werror=incompatible-pointer-types`](#-Werror=incompatible-pointer-types)<br/>[`-Werror=int-conversion`](#-Werror=int-conversion)<br/> | GCC 2.95.3<br/>Clang 2.6.0 | Treat obsolete C constructs as errors |
 
 Table 2: Recommended compiler options that enable run-time protection mechanisms.
 
 | Compiler Flag                                                                             |            Supported since            | Description                                                                                  |
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
-| [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher, <br/> may require prepending -U_FORTIFY_SOURCE) | GCC 12.0<br/>Clang 9.0.0[^Guelton20]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. |
-| [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
-| [`-fstrict-flex-arrays=3`](#-fstrict-flex-arrays)                             |       GCC 13<br/>Clang 16.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`                           |
-| [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
+| [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher, <br/> may require prepending -U_FORTIFY_SOURCE) | GCC 12.0.0<br/>Clang 9.0.0[^Guelton20]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. |
+| [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
+| [`-fstrict-flex-arrays=3`](#-fstrict-flex-arrays)                             |       GCC 13.0.0<br/>Clang 16.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`                           |
+| [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8.0.0<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
-| [`-fcf-protection=full`](#-fcf-protection=full)                                   |     GCC 8<br/>Clang 7.0.0                  | Enable control flow protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x86 architectures |
-| [`-mbranch-protection=standard`](#-mbranch-protection-standard)                                   |     GCC 9<br/>Clang 8              | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on AArch64 |
-| [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen) |           Binutils 2.10            | Restrict `dlopen(3)` calls to shared objects                                 |
-| [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)                                               |           Binutils 2.14            | Enable data execution prevention by marking stack memory as non-executable                   |
-| [`-Wl,-z,relro`](#-Wl,-z,relro)<br/>[`-Wl,-z,now`](#-Wl,-z,now)                           |           Binutils 2.15            | Mark relocation table entries resolved at load-time as read-only. `-Wl,-z,now` can impact startup performance.                            |
-| [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable. Can impact performance on 32-bit architectures.                                                   |
-| [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6<br/>Clang 5.0.0     | Build as position-independent code. Can impact performance on 32-bit architectures.                                                         |
-| [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                     | GCC 3.0<br/>Clang 7.0.0            | Force retention of null pointer checks                                                       |
-| [`-fno-strict-overflow`](#-fno-strict-overflow)                                           | GCC 4.2                            | Integer overflow may occur                                                                   |
+| [`-fcf-protection=full`](#-fcf-protection=full)                                   |     GCC 8.0.0<br/>Clang 7.0.0                  | Enable control flow protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x86 architectures |
+| [`-mbranch-protection=standard`](#-mbranch-protection-standard)                                   |     GCC 9.0.0<br/>Clang 8.0.0              | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on AArch64 |
+| [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen) |           Binutils 2.10.0            | Restrict `dlopen(3)` calls to shared objects                                 |
+| [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)                                               |           Binutils 2.14.0            | Enable data execution prevention by marking stack memory as non-executable                   |
+| [`-Wl,-z,relro`](#-Wl,-z,relro)<br/>[`-Wl,-z,now`](#-Wl,-z,now)                           |           Binutils 2.15.0            | Mark relocation table entries resolved at load-time as read-only. `-Wl,-z,now` can impact startup performance.                            |
+| [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16.0<br/>Clang 5.0.0    | Build as position-independent executable. Can impact performance on 32-bit architectures.                                                   |
+| [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6.0<br/>Clang 5.0.0     | Build as position-independent code. Can impact performance on 32-bit architectures.                                                         |
+| [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                     | GCC 3.0.0<br/>Clang 7.0.0            | Force retention of null pointer checks                                                       |
+| [`-fno-strict-overflow`](#-fno-strict-overflow)                                           | GCC 4.2.0                            | Integer overflow may occur                                                                   |
 | [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 18.0.0        | Do not assume strict aliasing                                                                |
-| [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12<br/>Clang 8.0               | Perform trivial auto variable initialization                                                 |
-| [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6           | Enable exception propagation to harden multi-threaded C code                                 |
+| [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12.0.0<br/>Clang 8.0.0               | Perform trivial auto variable initialization                                                 |
+| [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6.0           | Enable exception propagation to harden multi-threaded C code                                 |
 
 [^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
@@ -220,7 +220,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 
 | Compiler Flag                                                           |       Supported since       | Description                                                  |
 |:----------------------------------------------------------------------- |:------------------------:|:------------------------------------------------------------ |
-| <span id="-Wall">`-Wall`</span><br/><span id="-Wextra">`-Wextra`</span> | GCC 2.95.3<br/>Clang 4.0 | Enable warnings for constructs often associated with defects |
+| <span id="-Wall">`-Wall`</span><br/><span id="-Wextra">`-Wextra`</span> | GCC 2.95.3<br/>Clang 4.0.0 | Enable warnings for constructs often associated with defects |
 
 #### Synopsis
 
@@ -244,8 +244,8 @@ NOTE: Despite its name the `-Wall` options does NOT enable all possible warning 
 
 | Compiler Flag                              | Supported since          | Description                                |
 |:------------------------------------------ |:------------------------:|:------------------------------------------ |
-| <span id="-Wformat">`-Wformat`</span>      | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings |
-| <span id="-Wformat=2">`-Wformat=2`</span>  | GCC 2.95.3<br/>Clang 4.0 | Enable additional format function warnings |
+| <span id="-Wformat">`-Wformat`</span>      | GCC 2.95.3<br/>Clang 4.0.0 | Enable additional format function warnings |
+| <span id="-Wformat=2">`-Wformat=2`</span>  | GCC 2.95.3<br/>Clang 4.0.0 | Enable additional format function warnings |
 
 #### Synopsis
 
@@ -265,7 +265,7 @@ In Clang, `-Wformat` includes the same diagnostics as `-Wformat=2`, but unlike i
 
 | Compiler Flag                                                                                             |       Supported since       | Description                         |
 |:--------------------------------------------------------------------------------------------------------- |:------------------------:|:----------------------------------- |
-| <span id="-Wconversion">`-Wconversion`</span><br/><span id="-Wsign-conversion">`-Wsign-conversion`</span> | GCC 2.95.3<br/>Clang 4.0 | Enable implicit conversion warnings |
+| <span id="-Wconversion">`-Wconversion`</span><br/><span id="-Wsign-conversion">`-Wsign-conversion`</span> | GCC 2.95.3<br/>Clang 4.0.0 | Enable implicit conversion warnings |
 
 #### Synopsis
 
@@ -290,7 +290,7 @@ For C++ warnings about conversions between signed and unsigned integers are disa
 
 | Compiler Flag                                   | Supported since | Description                                                      |
 |:----------------------------------------------- |:------------:|:---------------------------------------------------------------- |
-| <span id="-Wtrampolines">`-Wtrampolines`</span> |   GCC 4.3    | Enable warnings about trampolines that require executable stacks |
+| <span id="-Wtrampolines">`-Wtrampolines`</span> |   GCC 4.3.0    | Enable warnings about trampolines that require executable stacks |
 
 #### Synopsis
 
@@ -306,7 +306,7 @@ For most target architectures, including 64-bit x86, trampolines are made up of 
 
 | Compiler Flag                                                                                        |       Supported since       | Description                        |
 |:---------------------------------------------------------------------------------------------------- |:------------------------:|:---------------------------------- |
-| <span id="-Wimplicit-fallthrough">`-Wimplicit-fallthrough`</span>                           |         GCC 7<br>Clang 4.0   | Warn when a switch case falls through                                                 |
+| <span id="-Wimplicit-fallthrough">`-Wimplicit-fallthrough`</span>                           |         GCC 7.0.0<br>Clang 4.0.0   | Warn when a switch case falls through                                                 |
 
 <!-- Here "a fallthrough" is a noun, "to fall through" is the verb. -->
 
@@ -346,10 +346,10 @@ The C17 standard[^C2017] does not provide a mechanism to mark intentional fallth
 
 | Compiler Flag                                                            | Supported since | Description                                                                                                                                                     |
 |:------------------------------------------------------------------------ |:---------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <span id="-Wbidi-chars=any">`-Wbidi-chars=any`</span>                    | GCC 12          | Enable warnings for any UTF-8 bidirectional control characters in comments, string literals, character constants, and identifiers                               |
-| <span id="-Wbidi-chars=any,ucn">`-Wbidi-chars=any,ucn`</span>            | GCC 12          | As `any` and additionally warn of UCNs corresponding to bidirectional control characters in string literals, character constants, and identifiers               |
-| <span id="-Wbidi-chars=unpaired">`-Wbidi-chars=unpaired`</span>          | GCC 12          | Enable warnings for unpaired UTF-8 bidirectional control characters in comments, string literals, character constants, and identifiers                          |
-| <span id="-Wbidi-chars=unpaired,ucn">`-Wbidi-chars=unpaired,ucn`</span>  | GCC 12          | As `unpaired` and additionally warn of UCNs corresponding to unpaired bidirectional control characters in string literals, character constants, and identifiers |
+| <span id="-Wbidi-chars=any">`-Wbidi-chars=any`</span>                    | GCC 12.0.0          | Enable warnings for any UTF-8 bidirectional control characters in comments, string literals, character constants, and identifiers                               |
+| <span id="-Wbidi-chars=any,ucn">`-Wbidi-chars=any,ucn`</span>            | GCC 12.0.0          | As `any` and additionally warn of UCNs corresponding to bidirectional control characters in string literals, character constants, and identifiers               |
+| <span id="-Wbidi-chars=unpaired">`-Wbidi-chars=unpaired`</span>          | GCC 12.0.0          | Enable warnings for unpaired UTF-8 bidirectional control characters in comments, string literals, character constants, and identifiers                          |
+| <span id="-Wbidi-chars=unpaired,ucn">`-Wbidi-chars=unpaired,ucn`</span>  | GCC 12.0.0          | As `unpaired` and additionally warn of UCNs corresponding to unpaired bidirectional control characters in string literals, character constants, and identifiers |
 
 #### Synopsis
 
@@ -393,7 +393,7 @@ It is best to use other static code analysis tools to also warn about Trojan Sou
 
 | Compiler Flag                                                                                        |       Supported since       | Description                        |
 |:---------------------------------------------------------------------------------------------------- |:------------------------:|:---------------------------------- |
-| <span id="-Werror">`-Werror`</span><br/> <span id="-Werror-flag">`-Werror=`*`<warning-flag>`*</span> | GCC 2.95.3<br/>Clang 2.6 | Treat compiler warnings as errors |
+| <span id="-Werror">`-Werror`</span><br/> <span id="-Werror-flag">`-Werror=`*`<warning-flag>`*</span> | GCC 2.95.3<br/>Clang 2.6.0 | Treat compiler warnings as errors |
 
 #### Synopsis
 
@@ -413,7 +413,7 @@ Zero-warning policies can also be enforced at CI level. CI-based zero- or bounde
 
 | Compiler Flag                                                                             | Supported since            | Description                                                                           |
 |:----------------------------------------------------------------------------------------- |:--------------------------:|:--------------------------------------------------------------------------------------|
-| <span id="-Werror=format-security">`-Werror=format-security`</span>                       | GCC 2.95.3<br/> Clang 4.0  | Treat format strings that are not string literals and used without arguments as errors |
+| <span id="-Werror=format-security">`-Werror=format-security`</span>                       | GCC 2.95.3<br/> Clang 4.0.0  | Treat format strings that are not string literals and used without arguments as errors |
 
 #### Synopsis
 
@@ -451,9 +451,9 @@ Some Linux distributions, such as Arch Linux[^arch-buildflags], Fedora[^fedora-f
 
 | Compiler Flag                                                                             | Supported since            | Description                                                                                      |
 |:----------------------------------------------------------------------------------------- |:--------------------------:|:-------------------------------------------------------------------------------------------------|
-| <span id="-Werror=implicit">`-Werror=implicit`</span>                                     | GCC 2.95.3<br/> Clang 2.6  | Treat declarations that do not specify as type or functions used before being declared as errors |
+| <span id="-Werror=implicit">`-Werror=implicit`</span>                                     | GCC 2.95.3<br/> Clang 2.6.0  | Treat declarations that do not specify as type or functions used before being declared as errors |
 | <span id="-Werror=incompatible-pointer-types">`-Werror=incompatible-pointer-types`</span> | GCC 5.5.0<br/> Clang 7.0.0 | Treat conversion between pointers that have incompatible types as errors                         |
-| <span id="-Werror=int-conversion">`-Werror=int-conversion`</span>                         | GCC 2.95.3<br/> Clang 2.6  | Treat implicit integer to pointer and pointer to integer conversions as errors                   |
+| <span id="-Werror=int-conversion">`-Werror=int-conversion`</span>                         | GCC 2.95.3<br/> Clang 2.6.0  | Treat implicit integer to pointer and pointer to integer conversions as errors                   |
 
 #### Synopsis
 
@@ -493,9 +493,9 @@ Some tools, such as `autoconf`, automatically determine what the compiler suppor
 
 | Compiler Flag                                                                              | Supported since            | Description                                                                                  |
 | ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
-| <span id="-D_FORTIFY_SOURCE=1">`-D_FORTIFY_SOURCE=1`</span>                                | GCC 4.0<br/>Clang 5.0.0     | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows         |
-| <span id="-D_FORTIFY_SOURCE=2">`-D_FORTIFY_SOURCE=2`</span><br/>(requires `-O1` or higher) | GCC 4.0<br/>Clang 5.0.0[^Guelton20] | In addition to checks covered by `-D_FORTIFY_SOURCE=1`, also trap code that may be conforming to the C standard but still unsafe |
-| <span id="-D_FORTIFY_SOURCE=3">`-D_FORTIFY_SOURCE=3`</span><br/>(requires `-O1` or higher) | GCC 12.0<br/>Clang 9.0.0[^Guelton20] | Same checks as in `-D_FORTIFY_SOURCE=2`, but with significantly more calls fortified with a potential to impact performance in some rare cases |
+| <span id="-D_FORTIFY_SOURCE=1">`-D_FORTIFY_SOURCE=1`</span>                                | GCC 4.0.0<br/>Clang 5.0.0     | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows         |
+| <span id="-D_FORTIFY_SOURCE=2">`-D_FORTIFY_SOURCE=2`</span><br/>(requires `-O1` or higher) | GCC 4.0.0<br/>Clang 5.0.0[^Guelton20] | In addition to checks covered by `-D_FORTIFY_SOURCE=1`, also trap code that may be conforming to the C standard but still unsafe |
+| <span id="-D_FORTIFY_SOURCE=3">`-D_FORTIFY_SOURCE=3`</span><br/>(requires `-O1` or higher) | GCC 12.0.0<br/>Clang 9.0.0[^Guelton20] | Same checks as in `-D_FORTIFY_SOURCE=2`, but with significantly more calls fortified with a potential to impact performance in some rare cases |
 
 #### Synopsis
 
@@ -550,7 +550,7 @@ Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligib
 
 | Compiler Flag                                                                              | Supported since            | Description                                                                                  |
 | ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
-| <span id="-D_GLIBCXX_ASSERTIONS">`-D_GLIBCXX_ASSERTIONS`</span>                            | libstdc++ 6.0           | (C++ using libcstdc++ only) Precondition checks for libstdc++ calls; can impact performance. |
+| <span id="-D_GLIBCXX_ASSERTIONS">`-D_GLIBCXX_ASSERTIONS`</span>                            | libstdc++ 6.0.0           | (C++ using libcstdc++ only) Precondition checks for libstdc++ calls; can impact performance. |
 
 #### Synopsis
 
@@ -580,10 +580,10 @@ This option is unnecessary for security for applications in production that only
 
 | Compiler Flag                                                   |     Supported since     | Description                                                                               |
 |:--------------------------------------------------------------- |:-----------------------:|:------------------------------------------------------------------------------------------|
-| <span id="-fstrict-flex-arrays">`-fstrict-flex-arrays=3`</span> | GCC 13<br/>Clang 16.0.0 | Consider trailing array (at the end of struct) as flexible array only if declared as `[]` |
-| `-fstrict-flex-arrays=2`                                        | GCC 13<br/>Clang 15.0.0 | Consider trailing array as a flexible array only if declared as `[]`, or `[0]`            |
-| `-fstrict-flex-arrays=1`                                        | GCC 13<br/>Clang 15.0.0 | Consider trailing array as a flexible array only if declared as `[]`, `[0]`, or `[1]`     |
-| `-fstrict-flex-arrays=0`                                        | GCC 13<br/>Clang 15.0.0 | Consider any trailing array (at the end of a struct) a flexible array (the default)       |
+| <span id="-fstrict-flex-arrays">`-fstrict-flex-arrays=3`</span> | GCC 13.0.0<br/>Clang 16.0.0 | Consider trailing array (at the end of struct) as flexible array only if declared as `[]` |
+| `-fstrict-flex-arrays=2`                                        | GCC 13.0.0<br/>Clang 15.0.0 | Consider trailing array as a flexible array only if declared as `[]`, or `[0]`            |
+| `-fstrict-flex-arrays=1`                                        | GCC 13.0.0<br/>Clang 15.0.0 | Consider trailing array as a flexible array only if declared as `[]`, `[0]`, or `[1]`     |
+| `-fstrict-flex-arrays=0`                                        | GCC 13.0.0<br/>Clang 15.0.0 | Consider any trailing array (at the end of a struct) a flexible array (the default)       |
 
 #### Synopsis
 
@@ -634,8 +634,8 @@ Once in place, bounds-checking can occur in arrays with fixed declared sizes at 
 
 | Compiler Flag                                                         |      Supported since      | Description                                                                                   |
 |:--------------------------------------------------------------------- |:----------------------:|:--------------------------------------------------------------------------------------------- |
-| <span id="-fstack-clash-protection">`-fstack-clash-protection`</span> | GCC 8<br/>Clang 11.0.0 | Enable run-time checks for variable-size stack allocation validity                            |
-| `-param stack-clash-protection-guard-size=`*`<gap size>`*             | GCC 8<br/>Clang 11.0.0 | Set the stack guard gap size used to determine the probe granularity of the instrumented code |
+| <span id="-fstack-clash-protection">`-fstack-clash-protection`</span> | GCC 8.0.0<br/>Clang 11.0.0 | Enable run-time checks for variable-size stack allocation validity                            |
+| `-param stack-clash-protection-guard-size=`*`<gap size>`*             | GCC 8.0.0<br/>Clang 11.0.0 | Set the stack guard gap size used to determine the probe granularity of the instrumented code |
 
 #### Synopsis
 
@@ -708,8 +708,8 @@ The performance overhead is dependent on the number of function’s instrumented
 
 | Compiler Flag                                                                                            | Supported since  | Description                                                  |
 |:-------------------------------------------------------------------------------------------------------- |:-------------:|:------------------------------------------------------------ |
-| <span id="-fcf-protection=full">`-fcf-protection=full`</span><br/>                                   |     GCC 8<br/>Clang 7.0.0          | Enable control flow protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x86 architectures |
-| <span id="-mbranch-protection-standard">`-mbranch-protection=standard`</span>                        |     GCC 9<br/>Clang 8              | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on AArch64 |
+| <span id="-fcf-protection=full">`-fcf-protection=full`</span><br/>                                   |     GCC 8.0.0<br/>Clang 7.0.0          | Enable control flow protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x86 architectures |
+| <span id="-mbranch-protection-standard">`-mbranch-protection=standard`</span>                        |     GCC 9.0.0<br/>Clang 8.0.0              | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on AArch64 |
 
 #### Synopsis
 
@@ -729,7 +729,7 @@ There are performance implications but they are typically mild due to hardware a
 
 | Compiler Flag                                                                                            | Supported since  | Description                                                  |
 |:-------------------------------------------------------------------------------------------------------- |:-------------:|:------------------------------------------------------------ |
-|  <span id="-Wl,-z,nodlopen">`-Wl,-z,nodlopen`</span><br/> | Binutils 2.10 | Restrict `dlopen(3)` calls to shared objects |
+|  <span id="-Wl,-z,nodlopen">`-Wl,-z,nodlopen`</span><br/> | Binutils 2.10.0 | Restrict `dlopen(3)` calls to shared objects |
 
 #### Synopsis
 
@@ -758,7 +758,7 @@ Since `nodlopen` interferes with applications that rely on to `dlopen(3)` to man
 
 | Compiler Flag                                                                                                         | Supported since  | Description                                                                         |
 |:--------------------------------------------------------------------------------------------------------------------- |:-------------:|:----------------------------------------------------------------------------------- |
-| <span id="-Wl,-z,noexecstack">`-Wl,-z,noexecstack`</span> | Binutils 2.14 | Enable data execution prevention by marking stack memory as non-executable |
+| <span id="-Wl,-z,noexecstack">`-Wl,-z,noexecstack`</span> | Binutils 2.14.0 | Enable data execution prevention by marking stack memory as non-executable |
 
 #### Synopsis
 
@@ -784,7 +784,7 @@ Consequently the `-Wl,-z,noexecstack` option works best when combined with appro
 
 | Compiler Flag                                                                               | Supported since  | Description                                                       |
 |:------------------------------------------------------------------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| <span id="-Wl,-z,relro">`-Wl,-z,relro`</span><br/><span id="-Wl,-z,now">`-Wl,-z,now`</span> | Binutils 2.15 | Mark relocation table entries resolved at load- time as read-only |
+| <span id="-Wl,-z,relro">`-Wl,-z,relro`</span><br/><span id="-Wl,-z,now">`-Wl,-z,now`</span> | Binutils 2.15.0 | Mark relocation table entries resolved at load- time as read-only |
 
 *“Read-only relocation”* (RELRO) marks relocation table entries as read-only after they have been resolved by the dynamic linker/loader (`ld.so`). Relocation is the process performed by `ld.so` that connects unresolved symbolic references to proper addresses of corresponding in-memory objects.
 
@@ -812,8 +812,8 @@ Static linking avoids the need for dynamic symbol resolution altogether but can 
 
 | Compiler Flag                                  |            Supported since            | Description                               |
 |:---------------------------------------------- |:----------------------------------:|:----------------------------------------- |
-| <span id="-fPIE_-pie">`-fPIE -pie`</span>      |   Binutils 2.16<br/>Clang 5.0.0    | Build as position-independent executable. |
-| <span id="-fPIC_-shared">`-fPIC -shared`</span> | < Binutils 2.6<br/>Clang 5.0.0    | Build as position-independent code.       |
+| <span id="-fPIE_-pie">`-fPIE -pie`</span>      |   Binutils 2.16.0<br/>Clang 5.0.0    | Build as position-independent executable. |
+| <span id="-fPIC_-shared">`-fPIC -shared`</span> | < Binutils 2.6.0<br/>Clang 5.0.0    | Build as position-independent code.       |
 
 #### Synopsis
 
@@ -843,7 +843,7 @@ Resource-constrained embedded systems may save memory by *prelinking* executable
 
 | Compiler Flag                   | Supported since  | Description                                                       |
 |:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| <span id="-fno-delete-null-pointer-checks">`-fno-delete-null-pointer-checks`</span> | GCC 3.0<br/>Clang 7.0.0   | Force retention of null pointer checks                                                        |
+| <span id="-fno-delete-null-pointer-checks">`-fno-delete-null-pointer-checks`</span> | GCC 3.0.0<br/>Clang 7.0.0   | Force retention of null pointer checks                                                        |
 
 #### Synopsis
 
@@ -885,7 +885,7 @@ There are normally no significant performance implications. Null pointer checks 
 
 | Compiler Flag                                                 | Supported since | Description                                                       |
 |:------------------------------------------------------------- |:---------------:|:----------------------------------------------------------------- |
-| <span id="-fno-strict-overflow">`-fno-strict-overflow`</span> |  GCC 4.2        | Integer overflow may occur                                        |
+| <span id="-fno-strict-overflow">`-fno-strict-overflow`</span> |  GCC 4.2.0        | Integer overflow may occur                                        |
 
 #### Synopsis
 
@@ -935,7 +935,7 @@ This option eliminates this problem. It's used by the Linux kernel.
 
 | Compiler Flag                                                       | Supported since     | Description                                  |
 |:--------------------------------------------------------------------|:-------------------:|:---------------------------------------------|
-| <span id="-ftrivial-auto-var-init">`-ftrivial-auto-var-init`</span> | GCC 12<br/>Clang 8.0| Perform trivial auto variable initialization |
+| <span id="-ftrivial-auto-var-init">`-ftrivial-auto-var-init`</span> | GCC 12.0.0<br/>Clang 8.0.0| Perform trivial auto variable initialization |
 
 #### Synopsis
 
@@ -963,7 +963,7 @@ https://godbolt.org/z/6qTPz9n6h
 
 | Compiler Flag                                | Supported since          | Description                                                  |
 |:---------------------------------------------|:------------------------:|:-------------------------------------------------------------|
-|<span id="-fexceptions">`-fexceptions`</span> | GCC 2.95.3<br/>Clang 2.6 | Enable exception propagation to harden multi-threaded C code |
+|<span id="-fexceptions">`-fexceptions`</span> | GCC 2.95.3<br/>Clang 2.6.0 | Enable exception propagation to harden multi-threaded C code |
 
 #### Synopsis
 
@@ -1001,7 +1001,7 @@ Table 3: List of discouraged compiler and linker options.
 
 | Compiler Flag                   | Supported since  | Description                                                       |
 |:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| [`-Wl,-rpath,`*`path_to_so`*](#-Wl,-rpath) | Binutils 2.11 | Hard-code run-time search paths in executable files or libraries |
+| [`-Wl,-rpath,`*`path_to_so`*](#-Wl,-rpath) | Binutils 2.11.0 | Hard-code run-time search paths in executable files or libraries |
 
 ---
 
@@ -1009,7 +1009,7 @@ Table 3: List of discouraged compiler and linker options.
 
 | Compiler Flag                   | Supported since  | Description                                                       |
 |:------------------------------- |:-------------:|:----------------------------------------------------------------- |
-| <span id="-Wl,-rpath">`-Wl,-rpath,`*`path_to_so`*</span> | Binutils 2.11 | Hard-code run-time search paths in executable files or libraries |
+| <span id="-Wl,-rpath">`-Wl,-rpath,`*`path_to_so`*</span> | Binutils 2.11.0 | Hard-code run-time search paths in executable files or libraries |
 
 #### Synopsis
 
@@ -1041,10 +1041,10 @@ Table 4: Sanitizer options in GCC and Clang.
 
 | Compiler Flag          |     Supported since      | Description                                                                 |
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
-| `-fsanitize=address`   | GCC 4.8<br/>Clang 3.1 | Enables AddressSanitizer to detect memory errors at run-time                |
-| `-fsanitize=thread`    | GCC 4.8<br/>Clang 3.2 | Enables ThreadSanitizer to detect data race bugs at run time                |
-| `-fsanitize=leak`      | GCC 4.8<br/>Clang 3.1 | Enables LeakSanitizer to detect memory leaks at run time                    |
-| `-fsanitize=undefined` |   GCC 4.9<br/>Clang 3.3   | Enables UndefinedBehaviorSanitizer to detect undefined behavior at run time |
+| `-fsanitize=address`   | GCC 4.8.0<br/>Clang 3.1.0 | Enables AddressSanitizer to detect memory errors at run-time                |
+| `-fsanitize=thread`    | GCC 4.8.0<br/>Clang 3.2.0 | Enables ThreadSanitizer to detect data race bugs at run time                |
+| `-fsanitize=leak`      | GCC 4.8.0<br/>Clang 3.1.0 | Enables LeakSanitizer to detect memory leaks at run time                    |
+| `-fsanitize=undefined` |   GCC 4.9.0<br/>Clang 3.3.0   | Enables UndefinedBehaviorSanitizer to detect undefined behavior at run time |
 
 [^Kratochvil21]: Kratochvil, Jan, [Memory error checking in C and C++: Comparing Sanitizers and Valgrind](https://developers.redhat.com/blog/2021/05/05/memory-error-checking-in-c-and-c-comparing-sanitizers-and-valgrind),  Red hat Developers, 2021-05-05.
 
@@ -1054,8 +1054,8 @@ Table 4: Sanitizer options in GCC and Clang.
 
 | Compiler Flag          |     Supported since      | Description                                                                 |
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
-| `-fsanitize=address`   | GCC 4.8<br/>Clang 3.1 | Enables AddressSanitizer to detect memory errors at run-time                |
-| `-fsanitize=thread`    | GCC 4.8<br/>Clang 3.2 | Enables ThreadSanitizer to detect data race bugs at run time                |
+| `-fsanitize=address`   | GCC 4.8.0<br/>Clang 3.1.0 | Enables AddressSanitizer to detect memory errors at run-time                |
+| `-fsanitize=thread`    | GCC 4.8.0<br/>Clang 3.2.0 | Enables ThreadSanitizer to detect data race bugs at run time                |
 
 AddressSanitizer (ASan) is a memory error detector that can identify memory defects that involve:
 
@@ -1093,7 +1093,7 @@ ASan cannot be used simultaneously with ThreadSanitizer or LeakSanitizer. It is 
 
 | Compiler Flag          |     Supported since      | Description                                                                 |
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
-| `-fsanitize=thread`    | GCC 4.8<br/>Clang 3.2 | Enables ThreadSanitizer to detect data race bugs at run time                |
+| `-fsanitize=thread`    | GCC 4.8.0<br/>Clang 3.2.0 | Enables ThreadSanitizer to detect data race bugs at run time                |
 
 ThreadSanitizer (TSan) is a data race detector for C/C++. Data races occur when two (or more) threads of the same process access the same memory location concurrently and without synchronization. If at least one of the accesses is a write, the application risks entering an inconsistent internal state. If two or more threads attempt to write to the memory location simultaneously, a data race may cause memory corruption. Data races are notoriously difficult to debug since the order of accesses is typically non-deterministic and dependent on the precise timing of events in the offending threads.
 
@@ -1118,7 +1118,7 @@ TSan cannot be used simultaneously with AddressSanitizer (ASan) or LeakSanitizer
 
 | Compiler Flag          |     Supported since      | Description                                                                 |
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
-| `-fsanitize=leak`      | GCC 4.8<br/>Clang 3.1 | Enables LeakSanitizer to detect memory leaks at run time                    |
+| `-fsanitize=leak`      | GCC 4.8.0<br/>Clang 3.1.0 | Enables LeakSanitizer to detect memory leaks at run time                    |
 
 LeakSanitizer (LSan) is a stand-alone version of the memory leak detection built into ASan. It allows analysis of memory leaks without the associated slowdown introduced by ASan. Unlike ASan, LSan does not require compile-time instrumentation, but consists only of a runtime library. The `-fsanitize=leak` option instructs the linker to link the application executable against the LSan library which overrides `malloc()` and other allocator functions.
 
@@ -1132,7 +1132,7 @@ LSan cannot be used simultaneously with AddressSanitizer (ASan) or ThreadSanitiz
 
 | Compiler Flag          |     Supported since      | Description                                                                 |
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
-| `-fsanitize=undefined`<br/>(requires `-O1` or higher) |   GCC 4.9<br/>Clang 3.3   | Enables UndefinedBehaviorSanitizer to detect undefined behavior at run time |
+| `-fsanitize=undefined`<br/>(requires `-O1` or higher) |   GCC 4.9.0<br/>Clang 3.3.0   | Enables UndefinedBehaviorSanitizer to detect undefined behavior at run time |
 
 UndefinedBehaviorSanitizer (UBSan) is a detector of non-portable or erroneous program constructs which cause behavior which is not clearly defined in the ISO C standard. UBSan provides a large number of sub-options to enable / disable individual checks for different classes of undefined behavior. Consult the GCC[^gcc-instrumentation] and Clang[^clang-ubsan] documentation respectively for up-to-date information on supported sub-options.
 
@@ -1273,10 +1273,10 @@ If you are compiling a C/C++ compiler, where practical make the generated compil
 
 | Compiler Flag                   | Supported since  | Description                                                       |
 |:--- |:---:|:---- |
-| <span id="--enable-default-pie">`--enable-default-pie`</span>             | GCC 6.1      | Turn on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler |
-| <span id="--enable-default-ssp">`--enable-default-ssp`</span>             | GCC 6.1      | Turn on [`-fstack-protector-strong`](#-fstack-protector-strong) by default for binaries produced by the compiler |
-| <span id="--enable-host-pie">`--enable-host-pie`</span>                   | GCC 14       | Build the compiler executables with [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) |
-| <span id="--enable-host-bind-now">`--enable-host-bind-now`</span>         | GCC 14       | Build the compiler executables with [`-Wl,-z,now`](#-Wl,-z,now) |
+| <span id="--enable-default-pie">`--enable-default-pie`</span>             | GCC 6.1.0      | Turn on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler |
+| <span id="--enable-default-ssp">`--enable-default-ssp`</span>             | GCC 6.1.0      | Turn on [`-fstack-protector-strong`](#-fstack-protector-strong) by default for binaries produced by the compiler |
+| <span id="--enable-host-pie">`--enable-host-pie`</span>                   | GCC 14.0.0       | Build the compiler executables with [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) |
+| <span id="--enable-host-bind-now">`--enable-host-bind-now`</span>         | GCC 14.0.0       | Build the compiler executables with [`-Wl,-z,now`](#-Wl,-z,now) |
 | <span id="CLANG_DEFAULT_PIE_ON_LINUX">`CLANG_DEFAULT_PIE_ON_LINUX`</span> | Clang 14.0.0 | Turn on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler |
 
 ## Contributors
@@ -1311,13 +1311,13 @@ Many more security-relevant compiler options exist than are recommended in this 
 
 | Compiler Flag | Supported since  | Rationale |
 |---------------|------------------|-----------|
-| <span id="-Wl,-z,nodump">`-Wl,-z,nodump`</span>         | Binutils 2.10 | Single-purpose feature for Solaris compatibility[^nodump].
-| <span id="-Wl,-z,noexecheap">`-Wl,-z,noexecheap`</span> | Binutils 2.15 (Hardened Gentoo / PaX only ) | Hardened Gentoo / PaX specific Binutils extension[^noexecheap], not present in upstream toolchains.
+| <span id="-Wl,-z,nodump">`-Wl,-z,nodump`</span>         | Binutils 2.10.0 | Single-purpose feature for Solaris compatibility[^nodump].
+| <span id="-Wl,-z,noexecheap">`-Wl,-z,noexecheap`</span> | Binutils 2.15.0 (Hardened Gentoo / PaX only ) | Hardened Gentoo / PaX specific Binutils extension[^noexecheap], not present in upstream toolchains.
 | <span id="-D_LIBCPP_ASSERT">`-D_LIBCPP_ASSERT`</span>   | libc++ 3.3.0 | Deprecated in favor of `_LIBCPP_ENABLE_HARDENED_MODE`[^libcpp_assert]
 | <span id="-D_LIBCPP_ENABLE_ASSERTIONS">`-D_LIBCPP_ENABLE_ASSERTIONS`</span> | libc++ 3.3.0 | Deprecated in favor of `_LIBCPP_ENABLE_HARDENED_MODE`[^libcpp_assert]
-| <span id="-mshstk">`-mshstk`</span>                                         | GCC 8<br/>Clang 6.0 | Enables discouraged shadow stack built-in functions[^gcc_mshstk], which are only needed for programs with an unconventional management of the program stack. CET instrumentation is controlled by [`-fcf-protection`](#-fcf-protection=full).
-| <span id="-fsanitize=safe-stack">`-fsanitize=safe-stack`</span>             | Clang 4.0 | Known compatibility limitations with garbage collection, signal handling, and shared libraries[^clang_safestack].
-| <span id="-fasynchronous-unwind-tables">`-fasynchronous-unwind-tables`</span> | GCC 3.1.1<br/>Clang 7.0  | Generate stack unwind table in DWARF2 format, which improves precision of unwind information[^Song20] and can improve the performance of profilers at the cost of larger binary sizes[^Bastian19], but does not benefit security.
+| <span id="-mshstk">`-mshstk`</span>                                         | GCC 8.0.0<br/>Clang 6.0.0 | Enables discouraged shadow stack built-in functions[^gcc_mshstk], which are only needed for programs with an unconventional management of the program stack. CET instrumentation is controlled by [`-fcf-protection`](#-fcf-protection=full).
+| <span id="-fsanitize=safe-stack">`-fsanitize=safe-stack`</span>             | Clang 4.0.0 | Known compatibility limitations with garbage collection, signal handling, and shared libraries[^clang_safestack].
+| <span id="-fasynchronous-unwind-tables">`-fasynchronous-unwind-tables`</span> | GCC 3.1.1<br/>Clang 7.0.0  | Generate stack unwind table in DWARF2 format, which improves precision of unwind information[^Song20] and can improve the performance of profilers at the cost of larger binary sizes[^Bastian19], but does not benefit security.
 
 [^nodump]: The `-Wl,-z,nodump` option sets `DF_1_NODUMP` flag in the object’s `.dynamic` section tags. On Solaris this restricts calls to `dldump(3)` for the object. However, other operating systems ignore the `DF_1_NODUMP` flag. While Binutils implements `-Wl,-z,nodump` for Solaris compatibility a choice was made to not support it in `lld` ([D52096 lld: add -z nodump support](https://reviews.llvm.org/D52096)).
 
