@@ -46,7 +46,14 @@ Sigstore is a new and simpler approach for artifact signing and signature verifi
 
 ## Funding of OSS projects
 
-* [Secure Open Source Rewards (SOS)](https://sos.dev/) - provides financial grants to OSS projects to enhance their their security. Please read its [FAQ](https://sos.dev/#frequently-asked-questions) before submitting your application.
+* [Alpha-Omega](https://alpha-omega.dev/grants/how-to-apply/)
+  * The mission of Alpha-Omega is to protect society by improving the security of critical open source software through direct maintainer engagement and expert analysis. Through “Alpha”, we provide funding to maintainers intended to improve the project’s overall security quality. Eligible projects include standalone projects, foundations that cover many projects, and core ecosystem services. Their selection is informed by the work of the OpenSSF Securing Critical Projects working group and other sources, discussion with the project team, and the degree of impact funding would have.
+
+* [Open Technology Fund](https://www.opentech.fund/funds/free-and-open-source-software-sustainability-fund/)
+  * The Free and Open Source Software (FOSS) Sustainability Fund is Open Technology Fund’s newest mechanism to support the long-term maintenance of established FOSS projects and the communities that sustain them.
+
+* [Sovereign Tech Fund](https://www.sovereigntechfund.de/programs)
+  * The Sovereign Tech Fund is currently active in three program areas: general funding for open source digital infrastructure, the Bug Resilience Program, and the Contribute Back Challenges
 
 ## For more information about the OpenSSF
 
