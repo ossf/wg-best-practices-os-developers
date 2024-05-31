@@ -32,8 +32,7 @@ Platform
    </td>
    <td>Append
    </td>
-   <td>$ Perm- \
-issive?
+   <td>$&nbsp;Permissive?
    </td>
   </tr>
   <tr>
