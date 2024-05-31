@@ -6,7 +6,7 @@ by the OpenSSF Best Practices Working Group
 
 A key part of developing secure software is input validation, that is, validating that untrusted input (at least) is checked so that _only_ valid data is accepted. For example, if a value is supposed to be an integer, then the software must _only_ accept integers for that value and reject anything else. Sometimes a particular data type (like an integer or email address) is so common that libraries and frameworks include validators for them; in such cases, consider using them. However, many applications have application-specific patterns that also need input validation.
 
-Regular expressions (aka regexes) _can _be a great way to validate input against specialized patterns. They’re widely available, widely understood, flexible, and efficient. However, they must be used _correctly_. A lot of advice is _wrong_ or _omits key points_. In particular:
+Regular expressions (aka regexes) _can_ be a great way to validate input against specialized patterns. They’re widely available, widely understood, flexible, and efficient. However, they must be used _correctly_. A lot of advice is _wrong_ or _omits key points_. In particular:
 
 1. _Only_ data that _completely_ matches that pattern should be accepted (by using a “fullmatch” or by adding the correct anchors at the pattern’s beginning and end).
 2. The “|” operator, which lets you list alternatives, has an operator precedence that requires developers to parenthesize the set of alternatives when using it for input validation.
@@ -123,7 +123,7 @@ For example, to validate in JavaScript that the input is only “ab” or “de�
 In addition, ensure your regex is not vulnerable to a Regular Expression Denial of Service (ReDoS) attack. A ReDoS “[is a Denial of Service attack, that exploits the fact that most Regular Expression implementations may reach extreme situations that cause them to work very slowly (exponentially related to input size)](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS)”. Many regex implementations are “backtracking” implementations, that is, they try all possible matches. In these implementations,  a poorly-written regular expression can be exploited by an attacker to take a vast amount of time.
 
 1. One solution is to use a regex implementation that does not have this vulnerability because it never backtracks. E.g., use Go’s default regex system, RE2, or on .NET enable the RegexOptions.NonBacktracking option. Non-backtracking implementations can sometimes be orders of magnitude faster, but they also omit some features (e.g., backreferences).
-2. Alternatively, create regexes that require no or little backtracking. Where a branch (“|”) occurs, the next character should select one branch. Where there is optional repetition (e.g., “*”), the next character should determine if there is a repetition or not. One common cause of unnecessary backtracking are poorly-written regexes with repetitions in repetitions, e.g., “(a+)*”. Some tools can help find these defects.
+2. Alternatively, create regexes that require no or little backtracking. Where a branch (“|”) occurs, the next character should select one branch. Where there is optional repetition (e.g., “&#x2a;”), the next character should determine if there is a repetition or not. One common cause of unnecessary backtracking are poorly-written regexes with repetitions in repetitions, e.g., “(a+)&#x2a;”. Some tools can help find these defects.
 3. A partial countermeasure is to greatly limit the length of the untrusted input. This can limit the impact of a vulnerability.
 
 ### Detailed Rationale
@@ -184,11 +184,11 @@ However, the [Oracle Java 21 documentation for java.util.regex.Pattern](https://
 
 [As of 2022, 46% of Java programs use JDK 8](https://www.linkedin.com/pulse/why-companies-stuck-java-8-ashutosh-sharma/) (released in 2014) instead of a more recent version, so Java 8’s results are important. The [Java 8 documentation for java.util.regex.Pattern](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) makes it clear that “$” only matches the end of the string (Java 8 is _not_ permissive). Its first part says:
 
-* ^	The beginning of a line
-* $	The end of a line
-* \A	The beginning of the input
-* \Z	The end of the input but for the final terminator, if any
-* \z	The end of the input
+* ^ The beginning of a line
+* $ The end of a line
+* \A The beginning of the input
+* \Z The end of the input but for the final terminator, if any
+* \z The end of the input
 
 By itself this Java 8 text is ambiguous. That’s because the text saying “\z” is “end of the input” in contrast to “$” which is defined as “end of a line”; for a typical reader it’s not clear that this difference in terminology matters. However, this ambiguity is later resolved in the text, which says that “by default, the regular expressions ^ and $ ignore line terminators and only match at the beginning and the end, respectively, of the entire input sequence. If MULTILINE mode is activated then ^ matches at the beginning of input and after any line terminator except at the end of input. When in MULTILINE mode $ matches just before a line terminator or the end of the input sequence.” This added text seems to clearly state that “$” would _not_ match an input with an extra newline at the end by default. As of 2024-03-24, the same text applies to [Pattern for the draft specification for Java SE 20 & JDK 20 (DRAFT 20-valhalla+1-75](https://download.java.net/java/early_access/valhalla/docs/api/java.base/java/util/regex/Pattern.html).
 
@@ -196,7 +196,7 @@ Unfortunately, the [Oracle Java 21 documentation for java.util.regex.Pattern](ht
 
 In April-May 2024, Nikita Koselev ran a number of tests with Java on a variety of versions. He wrote this small Java class to test if “$” is permissive:
 
-```
+~~~~java
 public class RegexMatchTest {
     public static void main(String[] args) {
         // Define the test string and the regex pattern
@@ -216,7 +216,7 @@ public class RegexMatchTest {
         System.out.println("Result: The pattern " + (isMatch ? "matches" : "does not match") + " the string 'x\\n'.");
     }
 }
-```
+~~~~i
 
 All tests indicate that “$” is not permissive in Java implementations. Tests were run on the compilers from Amazon for both Java 8 (8.0.412-amzn, Java version 1.8.0_412, Java runtime version 1.8.0_412-b08) and Java 21 (21.0.3-amzn, Java version 21.0.3, Java runtime version 21.0.3+9-LTS) on Ubuntu. We also tested on Windows 10 with Java 8 and Java 17. In all cases we found that testing if 'x$' matches 'x\n' returned “false” (that is, “$” is _not_ permissive). This was also tested on a Java online system (which we believe uses Java 17) at &lt;[https://onecompiler.com/java/42by2e6vc](https://onecompiler.com/java/42by2e6vc)>.
 
@@ -226,7 +226,7 @@ However, both [Seth Larson’s Regex character “$” doesn't mean “end-of-st
 
 In all implementations we’ve tested, “$” only matches the end of string by default.
 
-#### .NET / C#
+#### .NET / C&#x23;
 
 There are multiple versions of .NET, which can make discussions on .NET complex. “.NET Standard is a formal specification of .NET APIs that are available on multiple .NET implementations. The motivation behind .NET Standard was to establish greater uniformity in the .NET ecosystem. .NET 5 and later versions adopt a different approach to establishing uniformity that eliminates the need for .NET Standard in most scenarios. However, if you want to share code between .NET Framework and any other .NET implementation, such as .NET Core, your library should target .NET Standard 2.0.” ([.NET Standard](https://learn.microsoft.com/en-us/dotnet/standard/net-standard)) There are also various [target frameworks in SDK-style projects](https://learn.microsoft.com/en-us/dotnet/standard/frameworks), specifically .NET 8.
 
@@ -234,15 +234,15 @@ Still, regular expressions are a basic part of .NET (via System.Text.RegularExpr
 
 [Microsoft’s .NET “Regular Expression Language - Quick Reference”](https://learn.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference) says the following, clearly documenting that “$” is permissive:
 
-* ^	By default, the match must start at the beginning of the string; in multiline mode, it must start at the beginning of the line.
+* ^ By default, the match must start at the beginning of the string; in multiline mode, it must start at the beginning of the line.
 
-* $	By default, the match must occur at the end of the string or before \n at the end of the string; in multiline mode, it must occur before the end of the line or before \n at the end of the line.
+* $ By default, the match must occur at the end of the string or before \n at the end of the string; in multiline mode, it must occur before the end of the line or before \n at the end of the line.
 
-* \A	The match must occur at the start of the string.
+* \A The match must occur at the start of the string.
 
-* \Z	The match must occur at the end of the string or before \n at the end of the string.
+* \Z The match must occur at the end of the string or before \n at the end of the string.
 
-* \z	The match must occur at the end of the string.
+* \z The match must occur at the end of the string.
 
 The Regex Hero page “[.NET Regex Reference](https://regexhero.net/reference/)” says the same thing. [Seth Larson’s Regex character “$” doesn't mean “end-of-string”](https://sethmlarson.dev/regex-$-matches-end-of-string-or-newline) (which identified the problem of many people thinking “$” always means “end of string”) and _Mastering Regular Expressions_ by Jeffrey E.F. Friedl (especially 3rd edition pages 129-130) also clearly state that “$” in .NET/C# is permissive.
 
@@ -313,22 +313,21 @@ As of 2024-03-24, [Tutorialspoints incorrectly claims that “$ matches the end 
 
 The [RE2 syntax page](https://github.com/google/re2/wiki/Syntax) notes that the flag “m” enables “^ and $ match begin/end line in addition to begin/end text (default false):
 
-* ^	at beginning of text (and also of a line when m=true)
-* $	at end of text (like \z not \Z) (and also of a line line when m=true)
-* \A	at beginning of text
-* \Z	at end of text, or before newline at end of text (NOT SUPPORTED)
-* \z	at end of text
-
+* ^ at beginning of text (and also of a line when m=true)
+* $ at end of text (like \z not \Z) (and also of a line line when m=true)
+* \A at beginning of text
+* \Z at end of text, or before newline at end of text (NOT SUPPORTED)
+* \z at end of text
 
 #### Ruby
 
 As documented in the [Ruby version 3.3.0 documentation on class Regexp](https://ruby-doc.org/3.3.0/Regexp.html):
 
-* ^: Matches the beginning of a line (any line)
-* $: Matches the end of a line (any line)
-* \A: Matches the beginning of the string
-* \Z: Matches the end of the string; if string ends with a single newline, it matches just before the ending newline
-* \z: Matches the end of the string
+* ^ Matches the beginning of a line (any line)
+* $ Matches the end of a line (any line)
+* \A Matches the beginning of the string
+* \Z Matches the end of the string; if string ends with a single newline, it matches just before the ending newline
+* \z Matches the end of the string
 
 As noted in the [Ruby on Rails guide on security](https://guides.rubyonrails.org/security.html#regular-expressions), “A common pitfall in Ruby's regular expressions is to match the string's beginning and end by ^ and $, instead of \A and \z.” The Brakeman tool warns in many cases when ^ and $ are used in Ruby regular expressions (instead of \A and \z).
 
