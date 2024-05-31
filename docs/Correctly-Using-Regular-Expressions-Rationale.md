@@ -2,7 +2,7 @@
 
 by the OpenSSF Best Practices Working Group
 
-This is rationale for the document [Correctly Using Regular Expressions for Secure Input Validation](./Correctly-Using-Regular-Expressions)
+This is detailed rationale for the document [Correctly Using Regular Expressions for Secure Input Validation](./Correctly-Using-Regular-Expressions).
 
 ## Detailed Rationale
 
@@ -94,9 +94,9 @@ public class RegexMatchTest {
         System.out.println("Result: The pattern " + (isMatch ? "matches" : "does not match") + " the string 'x\\n'.");
     }
 }
-~~~~i
+~~~~
 
-All tests indicate that “$” is not permissive in Java implementations. Tests were run on the compilers from Amazon for both Java 8 (8.0.412-amzn, Java version 1.8.0_412, Java runtime version 1.8.0_412-b08) and Java 21 (21.0.3-amzn, Java version 21.0.3, Java runtime version 21.0.3+9-LTS) on Ubuntu. We also tested on Windows 10 with Java 8 and Java 17. In all cases we found that testing if 'x$' matches 'x\n' returned “false” (that is, “$” is _not_ permissive). This was also tested on a Java online system (which we believe uses Java 17) at &lt;[https://onecompiler.com/java/42by2e6vc](https://onecompiler.com/java/42by2e6vc)>.
+All tests indicate that “$” is not permissive in Java implementations. Tests were run on the compilers from Amazon for both Java 8 (8.0.412-amzn, Java version 1.8.0\_412, Java runtime version 1.8.0\_412-b08) and Java 21 (21.0.3-amzn, Java version 21.0.3, Java runtime version 21.0.3+9-LTS) on Ubuntu. We also tested on Windows 10 with Java 8 and Java 17. In all cases we found that testing if 'x$' matches 'x\n' returned “false” (that is, “$” is _not_ permissive). This was also tested on a Java online system (which we believe uses Java 17) at &lt;[https://onecompiler.com/java/42by2e6vc](https://onecompiler.com/java/42by2e6vc)>.
 
 This assertion that “$” is not permissive is also consistent with the posting [How to do in Java’s “Regex – Match Start or End of String (Line Anchors)”](https://howtodoinjava.com/java/regex/start-end-of-string/) which says that “The dollar $ matches the position after the last character in the string.”
 
