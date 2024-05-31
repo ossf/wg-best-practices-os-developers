@@ -660,8 +660,8 @@ Note that `vm.heap-stack-gap` expresses the gap as multiple of page size whereas
 | Compiler Flag                                                          |       Supported since        | Description                                                                                                      |
 |:---------------------------------------------------------------------- |:-------------------------:|:---------------------------------------------------------------------------------------------------------------- |
 | <span id="-fstack-protector-strong">`-fstack-protector-strong`</span>  | GCC 4.9.0<br/>Clang 5.0.0 | Enable run-time checks for stack-based buffer overflows using strong heuristic                                   |
-| `-fstack-protector-all`                                                |       GCC<br/>Clang       | Enable run-time checks for stack-based buffer overflows for all functions                                        |
-| `-fstack-protector`<br/>`--param=ssp-buffer-size=`*`<n>`*              |       GCC<br/>Clang       | Enable run-time checks for stack-based buffer overflows for functions with character arrays if *n* or more bytes |
+| `-fstack-protector-all`                                                | GCC 4.9.0<br/>Clang 5.0.0 | Enable run-time checks for stack-based buffer overflows for all functions                                        |
+| `-fstack-protector`<br/>`--param=ssp-buffer-size=`*`<n>`*              | GCC 4.9.0<br/>Clang 5.0.0 | Enable run-time checks for stack-based buffer overflows for functions with character arrays if *n* or more bytes |
 
 #### Synopsis
 
