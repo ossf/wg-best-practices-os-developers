@@ -4,17 +4,15 @@ by the OpenSSF Best Practices Working Group
 
 This is detailed rationale for the document [Correctly Using Regular Expressions for Secure Input Validation](./Correctly-Using-Regular-Expressions).
 
-## Detailed Rationale
+If you just want to know what to do, you can stop reading now, and instead consult [Correctly Using Regular Expressions for Secure Input Validation](./Correctly-Using-Regular-Expressions). However, if you want to know _why_ we make these recommendations, here is our detailed rationale, with commentary and supporting evidence. We’ve examined the specifications of various systems, and in some cases, written sample code to verify what implementations do.
 
-If you just want to know what to do, you can stop reading now, and instead consult [Correctly Using Regular Expressions for Secure Input Validation](./Correctly-Using-Regular-Expressions).
-
-However, if you want to know _why_ we make these recommendations, here is our detailed rationale, with commentary and supporting evidence. We’ve examined the specifications of various systems, and in some cases, written sample code to verify what implementations do. The biggest question is determining if a regular expression like /x$/ only matches inputs like “ax” or if it will also match other inputs such as “ax\n”. Similarly, we must check if /^d/ matches only “dog”, or if it will match other beginnings like “\ndog” or “x\ndog”. We also need to determine if there are symbols for beginning of string (typically “\A”) or end of string (typically “\z” though Python uses “\Z”).
+A key question for each platform (such as a programming language) is determining if a regular expression like /x$/ only matches inputs like “ax” or if it will also match other inputs such as “ax\n”. Similarly, we must check if /^d/ matches only “dog”, or if it will match other beginnings like “\ndog” or “x\ndog”. We also need to determine if there are symbols for beginning of string (typically “\A”) or end of string (typically “\z” though Python uses “\Z”).
 
 For more information, see [Seth Larson’s Regex character “$” doesn't mean “end-of-string”](https://sethmlarson.dev/regex-$-matches-end-of-string-or-newline) which identified the problem of many people thinking “$” always means “end of string”. See also _Mastering Regular Expressions_ by Jeffrey E.F. Friedl (especially 3rd edition pages 129-130), which noted these variations but didn’t note that many people misunderstand them. We should also note the xkcd cartoon [I know regular expressions](https://xkcd.com/208/). The [site “regular-expressions.info” section “anchors”](http://regular-expressions.info) discusses this, though its text can be misleading; as of 2024-04-09 near its beginning it says that “
 
 In this rationale, we’ll provide a brief history of regular expression implementations, which explains how we got here. This is followed by a survey of various platforms.
 
-### History
+## History
 
 Some historical context of “how we got here” will explain how we got to this complicated state:
 
@@ -32,6 +30,8 @@ Some historical context of “how we got here” will explain how we got to this
 8. [Seth Larson’s 2024 Regex character “$” doesn't mean “end-of-string”](https://sethmlarson.dev/regex-$-matches-end-of-string-or-newline) noted that many people thought “$” always means “end of string” even though it’s platform-specific.
 
 The error of using the anchor “$” to mean “match end of string” on platforms where it doesn’t mean “end of string” appears to be especially prevalent. As of April 2024, [MITRE’s “CWE-625: Permissive Regular Expression”](https://cwe.mitre.org/data/definitions/625.html) discusses the problem of permissive regexes, and it specifically notes the need for anchors. However, it incorrectly recommends using “$” to match the end of a string in Perl, which is _not_ the end-of-string marker in Perl. Thus, we’ve especially focused on checking where pattern “x$” matches “x\n” (if it does, then by definition it’s permissive). Permissive systems may allow additional matches (e.g., carriage return).
+
+## Information on specific platforms
 
 ### ECMAScript (JavaScript)
 
