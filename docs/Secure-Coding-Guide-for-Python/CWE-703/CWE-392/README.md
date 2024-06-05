@@ -10,26 +10,8 @@ One of the ways of running a task with `ThreadPoolExecutor` is using a `submit()
 
 *[noncompliant01.py](noncompliant01.py):*
 
-```py
-""" Non-compliant Code Example """
-import math
-from concurrent.futures import ThreadPoolExecutor
-
-
-def get_sqrt(a):
-    return math.sqrt(a)
-
-
-def run_thread(var):
-    with ThreadPoolExecutor() as executor:
-        return executor.submit(get_sqrt, var)
-
-#####################
-# exploiting above code example
-#####################
-# get_sqrt will raise ValueError that will be suppressed by the ThreadPoolExecutor
-arg = -1
-result = run_thread(arg)  # The outcome of the task is unknown
+```python
+{% include_relative noncompliant01.py %}
 ```
 
 ## Compliant Solution (exception() method)
@@ -38,30 +20,8 @@ In order to determine whether an exception occurred, we can call the `exception(
 
 *[compliant01.py](compliant01.py):*
 
-```py
-""" Compliant Code Example """
-import math
-from concurrent.futures import ThreadPoolExecutor
-
-
-def get_sqrt(a):
-    return math.sqrt(a)
-
-
-def run_thread(var):
-    with ThreadPoolExecutor() as executor:
-        future = executor.submit(get_sqrt, var)
-        if future.exception() is not None:
-            # handle exception...
-            raise ValueError(f"Invalid argument: {var}")
-        return future
-
-
-#####################
-# exploiting above code example
-#####################
-arg = -1
-result = run_thread(arg)  # Now code execution will be interrupted by ValueError
+```python
+{% include_relative compliant01.py %}
 ```
 
 ## Compliant Solution (result() method)
@@ -70,32 +30,8 @@ The exception that was suppressed by the ThreadPoolExecutor will also be raised 
 
 *[compliant02.py](compliant02.py):*
 
-```py
-""" Compliant Code Example """
-import math
-from concurrent.futures import ThreadPoolExecutor
-
-
-def get_sqrt(a):
-    return math.sqrt(a)
-
-
-def run_thread(var):
-    with ThreadPoolExecutor() as executor:
-        future = executor.submit(get_sqrt, var)
-        try:
-            res = future.result()
-            return res
-        except ValueError as e:
-            # handle exception...
-            raise ValueError(f"Invalid argument: {var}") from None
-
-
-#####################
-# exploiting above code example
-#####################
-arg = -1
-result = run_thread(arg)  # Now code execution will be interrupted by ValueError
+```python
+{% include_relative compliant02.py %}
 ```
 
 A similar example of using the `result()` and `exception()` methods to handle exceptions in the Future objects can be found at [[Ross 2020]](https://skeptric.com/python-futures-exception/index.html).
@@ -106,31 +42,8 @@ Alternatively, the asynchronous tasks can be run by the ThreadPoolExecutor using
 
 *[noncompliant02.py](noncompliant02.py):*
 
-```py
-""" Non-compliant Code Example """
-
-import math
-from concurrent.futures import ThreadPoolExecutor
-
-
-def get_sqrt(a):
-    return math.sqrt(a)
-
-
-def map_threads(x):
-    with ThreadPoolExecutor() as executor:
-        return executor.map(get_sqrt, x)
-
-
-#####################
-# exploiting above code example
-#####################
-
-# get_sqrt will raise ValueError that will be suppressed by the ThreadPoolExecutor
-args = [2, -1, 4]
-results = map_threads(args)
-for result in results:
-    print(result)  # Unhandled ValueError will be raised before all results are read
+```python
+{% include_relative noncompliant02.py %}
 ```
 
 ## Compliant Solution (Custom exception handling)
@@ -139,43 +52,8 @@ Since an exception is raised during iterating over the results, we can handle th
 
 *[compliant03.py](compliant03.py):*
 
-```py
-""" Compliant Code Example """
-
-import math
-from concurrent.futures import ThreadPoolExecutor
-
-
-def get_sqrt(a):
-    return math.sqrt(a)
-
-
-def map_threads(x):
-    with ThreadPoolExecutor() as executor:
-        result_gen = executor.map(get_sqrt, x)
-        ret = list()
-        invalid_arg = 0
-        try:
-            for res in result_gen:
-                ret.append(res)
-                invalid_arg += 1
-            return res
-        except ValueError as e:
-            # handle exception...
-            raise ValueError(
-                f"Invalid argument: {x[invalid_arg]} at list index {invalid_arg}"
-            ) from None
-
-
-#####################
-# exploiting above code example
-#####################
-args = [2, -1, 4]
-results = map_threads(args)
-for result in results:
-    print(
-        result
-    )  # The exception is handled, but the rest of the results are still unavailable
+```python
+{% include_relative compliant03.py %}
 ```
 
 Even after handling the exception, the results of tasks submitted after the erroneous task are still not available. If we were to iterate over the results manually using the `next()` method, we could see that after the task exception, a StopIterator is also raised. This terminates the result generator's useful life, which means further results will not be generated. This mechanism was described in [[PEP 0255]](https://peps.python.org/pep-0255/#specification-generators-and-exception-propagation).
@@ -184,33 +62,8 @@ If we want to make sure all task results will be available, we can either avoid 
 
 *[compliant04.py](compliant04.py):*
 
-```py
-""" Compliant Code Example """
-
-import math
-from concurrent.futures import ThreadPoolExecutor
-
-
-def get_sqrt(a):
-    try:
-        return math.sqrt(a)
-    except ValueError as e:
-        print(f"Invalid argument: {a}")
-        return None
-
-
-def map_threads(x):
-    with ThreadPoolExecutor() as executor:
-        return executor.map(get_sqrt, x)
-
-
-#####################
-# exploiting above code example
-#####################
-args = [2, -1, 4]
-results = map_threads(args)
-for result in results:
-    print(result)  # Now no exception is raised and we can read all of the results
+```python
+{% include_relative compliant04.py %}
 ```
 
 More examples of handling exceptions within and outside the concurrent tasks can be found at [[Brownlee 2022]](https://superfastpython.com/threadpoolexecutor-exception-handling/).
