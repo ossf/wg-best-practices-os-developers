@@ -1,3 +1,6 @@
+#
+# SPDX-License-Identifier: MIT
+#
 """ Compliant Code Example """
 userset = {'Alice', 'Bob', 'Charlie'}
 print(f'Unmodified set: {userset}')

@@ -1,3 +1,6 @@
+#
+# SPDX-License-Identifier: MIT
+#
 """ Non-compliant Code Example """
 userdict = {'Alice': 'active', 'Bob': 'inactive', 'Charlie': 'active'}
 print(f'Unmodified dict: {userdict}')

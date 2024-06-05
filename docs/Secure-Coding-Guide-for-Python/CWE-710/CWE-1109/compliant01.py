@@ -1,3 +1,6 @@
+#
+# SPDX-License-Identifier: MIT
+#
 """ Compliant Code Example """
 numbers = ["one", "two", "three"]
 

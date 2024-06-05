@@ -1,3 +1,6 @@
+#
+# SPDX-License-Identifier: MIT
+#
 """Code to create a simple zip bomb in python for test purposes"""
 import zipfile
 import os

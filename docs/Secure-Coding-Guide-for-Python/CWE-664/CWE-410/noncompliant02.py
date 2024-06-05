@@ -1,3 +1,6 @@
+#
+# SPDX-License-Identifier: MIT
+#
 """ Non-compliant Code Example """
 import logging
 import time

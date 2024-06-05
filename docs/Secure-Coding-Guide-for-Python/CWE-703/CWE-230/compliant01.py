@@ -1,3 +1,6 @@
+#
+# SPDX-License-Identifier: MIT
+#
 """ Non-compliant Code Example """
 
 from decimal import ROUND_DOWN, Decimal

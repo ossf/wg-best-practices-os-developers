@@ -1,3 +1,6 @@
+#
+# SPDX-License-Identifier: MIT
+#
 #!/bin/bash
 # creating the envars.sh file
 

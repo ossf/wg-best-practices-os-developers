@@ -1,3 +1,6 @@
+#
+# SPDX-License-Identifier: MIT
+#
 foo = 50
 bar = 42
 print(f"foo = {foo} = {foo:08b}") # :08b is just for pretty print

@@ -1,3 +1,6 @@
+#
+# SPDX-License-Identifier: MIT
+#
 """ Non-Compliant Code Example """
 import platform
 import pickle

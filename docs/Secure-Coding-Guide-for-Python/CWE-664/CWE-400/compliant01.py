@@ -1,3 +1,6 @@
+#
+# SPDX-License-Identifier: MIT
+#
 """ Compliant Code Example """
 import time
 from concurrent.futures import ThreadPoolExecutor

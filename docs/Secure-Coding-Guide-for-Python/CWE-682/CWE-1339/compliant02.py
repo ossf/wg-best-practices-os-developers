@@ -1,3 +1,6 @@
+#
+# SPDX-License-Identifier: MIT
+#
 from decimal import Decimal
 
 balance = Decimal("3.00")

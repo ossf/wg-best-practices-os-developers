@@ -1,3 +1,6 @@
+#
+# SPDX-License-Identifier: MIT
+#
 balance = 300
 item_cost = 33
 item_count = 5

@@ -1,3 +1,6 @@
+#
+# SPDX-License-Identifier: MIT
+#
 """ Non-compliant Code Example """
 s = str(4 / 2)
 print(f"s: {s}")

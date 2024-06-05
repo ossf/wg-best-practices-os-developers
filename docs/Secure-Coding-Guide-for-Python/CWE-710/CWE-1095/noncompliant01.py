@@ -1,3 +1,6 @@
+#
+# SPDX-License-Identifier: MIT
+#
 """ Non-compliant Code Example """
 userlist = ['Alice', 'Bob', 'Charlie']
 print(f'Unmodified list: {userlist}')
