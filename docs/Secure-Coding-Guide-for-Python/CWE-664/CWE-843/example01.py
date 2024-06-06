@@ -1,6 +1,5 @@
-#
+# SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-#
 """ Code Example """
 
 # https://docs.python.org/3/library/struct.html#format-characters

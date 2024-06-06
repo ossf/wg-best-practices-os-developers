@@ -1,6 +1,5 @@
-#
+# SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-#
 cd
 CWD=$(pwd)
 mkdir -p temp/http

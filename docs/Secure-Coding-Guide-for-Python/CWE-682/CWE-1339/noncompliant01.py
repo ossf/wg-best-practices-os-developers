@@ -1,6 +1,5 @@
-#
+# SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-#
 balance = 3.00
 item_cost = 0.33
 item_count = 5

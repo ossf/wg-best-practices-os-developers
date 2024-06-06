@@ -1,6 +1,5 @@
-#
+# SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-#
 import unicodedata
 
 print("\N{FULL STOP}" * 10)
