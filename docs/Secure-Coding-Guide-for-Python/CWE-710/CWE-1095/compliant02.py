@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: OpenSSF project contributors  
+# SPDX-License-Identifier: MIT
 """ Compliant Code Example """
 userdict = {'Alice': 'active', 'Bob': 'inactive', 'Charlie': 'active'}
 print(f'Unmodified dict: {userdict}')
