@@ -489,7 +489,7 @@ For detailed rationale, along with other information such as contributor credits
 
 ## Contributions and Corrections Welcome
 
-Please feel free to [open an issue](https://github.com/ossf/wg-best-practices-os-developers/issues) with us if you have additions or changes you'd like to see.
+If you have any additions, changes, or corrections you'd like to suggest, please [open an issue](https://github.com/ossf/wg-best-practices-os-developers/issues). We appreciate your contributions!
 
 ## License
 
