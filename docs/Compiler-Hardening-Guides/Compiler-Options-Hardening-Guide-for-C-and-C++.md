@@ -68,7 +68,7 @@ Most programming languages prevent such defects by default. A few languages allo
 
 Run-time attacks differ from conventional malware, which carries out its malicious program actions through a dedicated program executable, in that run-time attacks influence benign programs to behave maliciously. A run-time attack that exploits unmitigated memory vulnerabilities can be leveraged by threat actors as the initial attack vectors that allow them to gain a presence on a system, e.g., by injecting malicious code into running programs.
 
-Modern, security-aware C and C++ software development pracs, e.g., secure coding standards such as SEI CERT C[^CMU2016C] and C++[^CMU2016CPP], and program analysis aim to proactively avoid introducing memory errors (and other software defects) to applications. However, in prac completely eradicating memory errors in production C and C++ software has turned out to be near-impossible.
+Modern, security-aware C and C++ software development practices, e.g., secure coding standards such as SEI CERT C[^CMU2016C] and C++[^CMU2016CPP], and program analysis aim to proactively avoid introducing memory errors (and other software defects) to applications. However, in practice completely eradicating memory errors in production C and C++ software has turned out to be near-impossible.
 
 [^CMU2016C]: Carnegie Mellon University (CMU), [SEI CERT C Coding Standard Rules for Developing Safe, Reliable, and Secure Systems, 2016 edition](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=454220), June 2016.
 
@@ -211,6 +211,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 18.0.0        | Do not assume strict aliasing                                                                |
 | [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12.0.0<br/>Clang 8.0.0               | Perform trivial auto variable initialization                                                 |
 | [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6.0           | Enable exception propagation to harden multi-threaded C code                                 |
+| [`-fvtable-verify=std`](#-fvtable-verify)                                                 | GCC 4.9.4                          | Enable run-time checks for C++ virtual function pointers corruption. Significantly impacts performance.|
 
 [^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
@@ -1015,27 +1016,36 @@ This option has three choices[^gccvtv]:
 
 ### Performance implications
 
-Caroline Tice played an important role in integrating the vtable verification (VTV) by submitting the commit of this feature in GCC 4.9[^gccvtvcommit]. She involved on articles that give information about performance penalty. She is describe performance penalty following 3 points:
+Performance penalty is described following 3 points: [^Tice2012slide][^Tice2014slide]
 
 - Call verification: Performance penalty between 5% and 10%.
 - Object permission changes: Between 400% and 700% slowdown for permission changes per object file, while a performance loss of 320 ms is noticeable for permission changes per binary.
 - Virtual function hashtable size: Storage of virtual function hashtable imply a big waste of space.
 
-Detailed information on virtual table verification and performance penalties can be found in Caroline Tice's GNU Tools Cauldron 2012 talk[^Tice2012] and USENIX Security '14 article[^Tice2014].
+Benchmarks were produced using tools from the `SPEC CPU 2006 C++ benchmark` suite[^SPECCPU2006] (obsolete and replaced by SPEC CPU 2017 as of January 2018 [^SPECCPU2017]). `omnetpp`, `astar` and `xalancbmk` showed a performance penalty of between 2.4% and 19.6%. Four other benchmarks (povray, namd, soplex and dealII) had no significant effect on performance [^Tice2014].
 
-In addition to this performance penalty information, GCC's virtual table checking function is tracked by the `-fvtv-counts` flag[^gccvtvcount], which provides counters to evaluate the number of virtual calls checked and the size of virtual table pointer sets for each class. These counters are useful information for assessing the performance penalty on source code. This information is written to two log files:
+Compile-time optimization such as PGO, devirtualization and statically linked binaries to `libvtv` offer performance advantages. For example, the performance penalty on `xalancbmk` was reduced from 19.6% to 8.6% using these three optimizations[^Tice2014].
+
+This information is presented in graphs in two presentation[^Tice2012slide][^Tice2014slide].
+
+Moreover, GCC's virtual table checking function is tracked by the `-fvtv-counts` flag[^gccvtvcount], which provides counters to evaluate the number of virtual calls checked and the size of virtual table pointer sets for each class. These counters can provide information for assessing the performance penalty on source code. This information is written to two log files:
 
 - `vtv_count_data.log` - The number of virtual calls being verified for each class.
 - `vtv_class_set_sizes.log` - The size of the vtable pointer sets for each class.
 
-[^Tice2012]: Tice, Caroline, [Improving Function Pointer Security for Virtual Method Dispatches](https://gcc.gnu.org/wiki/cauldron2012?action=AttachFile&do=get&target=cmtice.pdf#page=38), GNU Tools Cauldron, July 2012.
-[^Tice2014]: Tice, Caroline, [Enforcing Forward-Edge Control-Flow Integrity in GCC & LLVM](https://www.usenix.org/system/files/conference/usenixsecurity14/sec14-paper-tice.pdf), USENIX Security, August 2014.
+[^Tice2012slide]: Tice, Caroline, [Improving Function Pointer Security for Virtual Method Dispatches (slide)](https://gcc.gnu.org/wiki/cauldron2012?action=AttachFile&do=get&target=cmtice.pdf#page=3
+8), GNU Tools Cauldron, July 2012.
+[^Tice2014slide]: Tice, Caroline, [Enforcing Forward-Edge Control-Flow Integrity in GCC & LLVM (slide)](https://www.usenix.org/sites/default/files/conference/protected-files/sec14_slides_tice.pdf#page=19), USENIX Security, August 2014.
+[^Tice2014]: Tice, Caroline, [Enforcing Forward-Edge Control-Flow Integrity in GCC & LLVM](https://www.usenix.org/system/files/conference/usenixsecurity14/sec14-paper-tice.pdf#page=12) USENIX Security, August 2014
 [^gccvtvcount]: Team GCC, [Program Instrumentation Options: `-fvtv-counts`](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fvtv-counts), GCC Manual, August 2013
 [^gccvtvcommit]: Tice, Caroline, [Commit the vtable verification feature](https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff;h=2077db1be5b18b94a91095a3fb380bbc4a81e61b), GCC GIT, August 2013
+[^SPECCPU2006]: Standard Performance Evaluation Corporation, [SPEC CPU 2006 benchmack](https://www.spec.org/cpu2006/) SPEC, August 2006 
+[^SPECCPU2017]: Standard Performance Evaluation Corporation, [SPEC CPU 2017 benchmack](https://www.spec.org/cpu2017/) SPEC, June 2017
 
 #### When not to use?
 
 Using the `-fvtable-verify` flag can lead to ABI breaks.
+Software that needs to interoperate with libraries built without -fvtable-verify should not enable this option.
 
 ### Additional Considerations
 
@@ -1058,6 +1068,7 @@ https://www.usenix.org/sites/default/files/conference/protected-files/sec14_slid
 https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fvtv-counts
 https://gcc.gnu.org/install/configure.html
 -->
+
 
 ---
 
