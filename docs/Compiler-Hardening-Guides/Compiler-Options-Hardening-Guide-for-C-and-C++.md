@@ -1033,8 +1033,7 @@ Moreover, GCC's virtual table checking function is tracked by the `-fvtv-counts`
 - `vtv_count_data.log` - The number of virtual calls being verified for each class.
 - `vtv_class_set_sizes.log` - The size of the vtable pointer sets for each class.
 
-[^Tice2012slide]: Tice, Caroline, [Improving Function Pointer Security for Virtual Method Dispatches (slide)](https://gcc.gnu.org/wiki/cauldron2012?action=AttachFile&do=get&target=cmtice.pdf#page=3
-8), GNU Tools Cauldron, July 2012.
+[^Tice2012slide]: Tice, Caroline, [Improving Function Pointer Security for Virtual Method Dispatches (slide)](https://gcc.gnu.org/wiki/cauldron2012?action=AttachFile&do=get&target=cmtice.pdf#page=38), GNU Tools Cauldron, July 2012.
 [^Tice2014slide]: Tice, Caroline, [Enforcing Forward-Edge Control-Flow Integrity in GCC & LLVM (slide)](https://www.usenix.org/sites/default/files/conference/protected-files/sec14_slides_tice.pdf#page=19), USENIX Security, August 2014.
 [^Tice2014]: Tice, Caroline, [Enforcing Forward-Edge Control-Flow Integrity in GCC & LLVM](https://www.usenix.org/system/files/conference/usenixsecurity14/sec14-paper-tice.pdf#page=12) USENIX Security, August 2014
 [^gccvtvcount]: Team GCC, [Program Instrumentation Options: `-fvtv-counts`](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fvtv-counts), GCC Manual, August 2013
