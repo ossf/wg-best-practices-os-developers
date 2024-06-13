@@ -998,9 +998,9 @@ The `-fexceptions` option is also needed for C code that needs to interoperate w
 
 | Compiler Flag                                               | Supported since  | Description                                                                                                    |
 |:------------------------------------------------------------|:----------------:|:---------------------------------------------------------------------------------------------------------------|
-| <span id="-fvtable-verify">`-fvtable-verify=std`</span>     | GCC 4.9.4        | Enable run-time checks for C++ virtual function pointers corruption after shared libraries have been loaded  |
-| <span id="-fvtable-verify">`-fvtable-verify=preinit`</span> | GCC 4.9.4        | Enable run-time checks for C++ virtual function pointers corruption before shared libraries have been loaded |
-| <span id="-fvtable-verify">`-fvtable-verify=none`</span>    | GCC 4.9.4        | Disable enable run-time checks for C++ virtual function pointers corruption.                                 |
+| <span id="-fvtable-verify-std">`-fvtable-verify=std`</span>     | GCC 4.9.4        | Enable run-time checks for C++ virtual function pointers corruption after shared libraries have been loaded  |
+| <span id="-fvtable-verify-prenint">`-fvtable-verify=preinit`</span> | GCC 4.9.4        | Enable run-time checks for C++ virtual function pointers corruption before shared libraries have been loaded |
+| <span id="-fvtable-verify-none">`-fvtable-verify=none`</span>    | GCC 4.9.4        | Disable enable run-time checks for C++ virtual function pointers corruption.                                 |
 
 #### Synopsis
 
@@ -1016,13 +1016,13 @@ This option has three choices[^gccvtv]:
 
 ### Performance implications
 
-Performance penalty is described following 3 points: [^Tice2012slide][^Tice2014slide]
+Performance penalty is described following three points: [^Tice2012slide][^Tice2014slide]
 
 - Call verification: Performance penalty between 5% and 10%.
 - Object permission changes: Between 400% and 700% slowdown for permission changes per object file, while a performance loss of 320 ms is noticeable for permission changes per binary.
 - Virtual function hashtable size: Storage of virtual function hashtable imply a big waste of space.
 
-Benchmarks were produced using tools from the `SPEC CPU 2006 C++ benchmark` suite[^SPECCPU2006] (obsolete and replaced by SPEC CPU 2017 as of January 2018 [^SPECCPU2017]). `omnetpp`, `astar` and `xalancbmk` showed a performance penalty of between 2.4% and 19.6%. Four other benchmarks (povray, namd, soplex and dealII) had no significant effect on performance [^Tice2014].
+Benchmarks were produced using tools from the `SPEC CPU 2006 C++ benchmark` suite[^SPECCPU2006] (obsolete and replaced by SPEC CPU 2017 as of January 2018 [^SPECCPU2017]). `omnetpp`, `astar` and `xalancbmk` showed a performance penalty of between 2.4% and 19.6%. Four other benchmarks (`povray`, `namd`, `soplex` and `dealII`) had no significant effect on performance [^Tice2014].
 
 Compile-time optimization such as PGO, devirtualization and statically linked binaries to `libvtv` offer performance advantages. For example, the performance penalty on `xalancbmk` was reduced from 19.6% to 8.6% using these three optimizations[^Tice2014].
 
