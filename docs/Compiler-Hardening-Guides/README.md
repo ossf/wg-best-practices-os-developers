@@ -19,3 +19,8 @@ The group of authors meets online every other week to discuss open items and wor
 The [meeting details](https://github.com/ossf/wg-best-practices-os-developers/tree/main#meeting-times) can be found in the main [README](https://github.com/ossf/wg-best-practices-os-developers/blob/main/README.md) of the Best Practices Working Group.
 
 Pull requests as always welcome!
+
+### Guide Conventions
+
+* Mention versions for compilers/dependencies in the "Supported Since" column until patch version (example: 2.95.3)
+* Mention pre-requisite options in the "Description" column as the last statement, starting the statement with "Requires" keyword (example: see `-D_FORTIFY_SOURCE=3` in the recommended compiler options table)
