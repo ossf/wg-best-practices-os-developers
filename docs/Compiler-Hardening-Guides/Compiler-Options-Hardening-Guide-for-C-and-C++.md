@@ -211,7 +211,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 18.0.0        | Do not assume strict aliasing                                                                |
 | [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12.0.0<br/>Clang 8.0.0               | Perform trivial auto variable initialization                                                 |
 | [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6.0           | Enable exception propagation to harden multi-threaded C code                                 |
-| [`-fvtable-verify=std`](#-fvtable-verify-std)                                                 | GCC 4.9.4                          | Enable run-time checks for C++ virtual function pointers corruption. Significantly impacts performance.|
+| [`-fvtable-verify=std`](#-fvtable-verify-std)                                             | GCC 4.9.4                          | Enable run-time checks for C++ virtual function pointers corruption. Significantly impacts performance.|
 
 [^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
@@ -1011,11 +1011,13 @@ This option has three choices[^gccvtv]:
 - `preinit` - Built before shared libraries have been loaded and initialized, vtable data enable check before shared libraries are loaded to process check at early execution time.
 - `none` - turns off the vtable checks.
 
+This flag 
+
 [^gccvtv]: Team GCC, [Program Instrumentation Options: `-fvtable-verify`](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fvtable-verify), GCC Manual, August 2013
 
 ### Performance implications
 
-Performance penalty is described following three points: [^][^Tice2014slide]
+Performance penalty is described following three points: [^Tice2012slide][^Tice2014slide]
 
 - Call verification: Performance penalty between 5% and 10%.
 - Object permission changes: Between 400% and 700% slowdown for permission changes per object file, while a performance loss of 320 ms is noticeable for permission changes per binary.
@@ -1025,18 +1027,18 @@ Benchmarks were produced using tools from the `SPEC CPU 2006 C++ benchmark` suit
 
 Compile-time optimization such as PGO, devirtualization and statically linked binaries to `libvtv` offer performance advantages. For example, the performance penalty on `xalancbmk` was reduced from 19.6% to 8.6% using these three optimizations[^Tice2014].
 
-This information is presented in graphs in two presentation[^][^Tice2014slide].
+This information is presented in graphs in two presentation[Tice2012slide][^Tice2014slide].
 
 Moreover, GCC's virtual table checking function is tracked by the `-fvtv-counts` flag[^gccvtvcount], which provides counters to evaluate the number of virtual calls checked and the size of virtual table pointer sets for each class. These counters can provide information for assessing the performance penalty on source code. This information is written to two log files:
 
 - `vtv_count_data.log` - The number of virtual calls being verified for each class.
 - `vtv_class_set_sizes.log` - The size of the vtable pointer sets for each class.
 
-[^]: Tice, Caroline, [Improving Function Pointer Security for Virtual Method Dispatches (slide)](https://gcc.gnu.org/wiki/cauldron2012?action=AttachFile&do=get&target=cmtice.pdf#page=38), GNU Tools Cauldron, July 2012.
-[^Tice2014slide]: Tice, Caroline, [Enforcing Forward-Edge Control-Flow Integrity in GCC & LLVM (slide)](https://www.usenix.org/sites/default/files/conference/protected-files/sec14_slides_tice.pdf#page=19), USENIX Security, August 2014.
+[^Tice2012slide]: Tice, Caroline, [Improving Function Pointer Security for Virtual Method Dispatches (slide)](https://gcc.gnu.org/wiki/cauldron2012?action=AttachFile&do=get&target=cmtice.pdf#page=38), GNU Tools Cauldron, July 2012
+[^Tice2014slide]: Tice, Caroline, [Enforcing Forward-Edge Control-Flow Integrity in GCC & LLVM (slide)](https://www.usenix.org/sites/default/files/conference/protected-files/sec14_slides_tice.pdf#page=19), USENIX Security, August 2014
 [^Tice2014]: Tice, Caroline, [Enforcing Forward-Edge Control-Flow Integrity in GCC & LLVM](https://www.usenix.org/system/files/conference/usenixsecurity14/sec14-paper-tice.pdf#page=12) USENIX Security, August 2014
 [^gccvtvcount]: Team GCC, [Program Instrumentation Options: `-fvtv-counts`](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fvtv-counts), GCC Manual, August 2013
-[^SPECCPU2006]: Standard Performance Evaluation Corporation, [SPEC CPU 2006 benchmack](https://www.spec.org/cpu2006/) SPEC, August 2006 
+[^SPECCPU2006]: Standard Performance Evaluation Corporation, [SPEC CPU 2006 benchmack](https://www.spec.org/cpu2006/) SPEC, August 2006
 [^SPECCPU2017]: Standard Performance Evaluation Corporation, [SPEC CPU 2017 benchmack](https://www.spec.org/cpu2017/) SPEC, June 2017
 
 #### When not to use?
@@ -1065,7 +1067,6 @@ https://www.usenix.org/sites/default/files/conference/protected-files/sec14_slid
 https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fvtv-counts
 https://gcc.gnu.org/install/configure.html
 -->
-
 
 ---
 
