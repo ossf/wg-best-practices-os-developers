@@ -211,6 +211,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 18.0.0        | Do not assume strict aliasing                                                                |
 | [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12.0.0<br/>Clang 8.0.0               | Perform trivial auto variable initialization                                                 |
 | [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6.0           | Enable exception propagation to harden multi-threaded C code                                 |
+| [`-fhardened`](#-fhardened)                                                               | GCC 14.0.0                           | Enable pre-determined set of hardening options in GCC                                        |
 
 [^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
@@ -990,6 +991,32 @@ The `-fexceptions` option is also needed for C code that needs to interoperate w
 [^Weimer2017b]: Weimer, Florian, [\[11/12/13/14 Regression\] Indirect call generated for pthread_cleanup_push with constant cleanup function](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=61118#c13), GCC Bugzilla, 2017-11-21.
 
 [^Weimer2018]: Weimer, Florian, [Recommended compiler and linker flags for GCC](https://developers.redhat.com/blog/2018/03/21/compiler-and-linker-flags-gcc), Red Hat Developer, 2018-03-21.
+
+---
+
+## Enable pre-determined set of hardening options in GCC
+
+| Compiler Flag                             | Supported since | Description                                                         |
+|:----------------------------------------- |:---------------:|:------------------------------------------------------------------- |
+| <span id="-fhardened">`-fhardened`</span> | GCC 14.0.0      | Enable pre-determined set of hardening options for C and C++ in GCC |
+| <span id="-Whardened">`-Whardened`</span> | GCC 14.0.0      | Warn if options implied by `-fhardened` are downgraded or disabled  |
+
+The `-fhardened` umbrella option enables a pre-determined set of hardening options for C and C++ on GNU/Linux targets[^gcc-fhardened]. The precise set of options may change between major releases of GCC. The exact set of options for a specific GCC version can be displayed using the `--help=hardened` option.
+
+### Additional Considerations
+
+Options explicitly specified on the compiler command line always take precedence over options implied by `-fhardened`. For example, `-fhardened` in GCC 14 enables [`-fstack-protector-strong`](#-fstack-protector-strong) but specifying `-fstack-protector -fhardened` or `-fhardened -fstack-protector` on the compiler command line will enable the weaker `-fstack-protector` instead of `-fstack-protector-strong`.
+
+By default, GCC will issue a warning when flags implied by `-fhardened` are downgraded or disabled due to options on the command line taking precedence or missing pre-requirements, such as using [`_FORTIFY_SOURCE`](#-D_FORTIFY_SOURCE=3) without optimization level `-O1` or higher:
+
+~~~shell
+warning: '-fstack-protector-strong' is not enabled by '-fhardened' because it was specified on the command line [-Whardened]`
+warning: '_FORTIFY_SOURCE' is not enabled by '-fhardened' because optimizations are turned off [-Whardened]
+~~~
+
+These warnings can be controlled explcitily via the `-Whardened` option.
+
+[^gcc-fhardened]: GCC team, [Program Instrumentation Options: `-fhardened`](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fhardened), GCC Manual, 2024-05-07.
 
 ---
 
