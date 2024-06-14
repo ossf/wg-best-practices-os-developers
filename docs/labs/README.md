@@ -102,7 +102,7 @@ work on.
     * Filenames (Including Path Traversal and Link Following) - PLANNED-2 UNASSIGNED
   * Calling Other Programs: Other Issues
     * [Call APIs for Programs and Check What Is Returned](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#call-apis-for-programs-and-check-what-is-returned) - PLANNED-2 UNASSIGNED
-    * [Handling Errors](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#handling-errors) - PLANNED-2 UNASSIGNED
+    * [Handling Errors](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#handling-errors) - PLANNED-2 (Avishay Balter)
     * [Logging](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#logging) - PLANNED-2 UNASSIGNED
     * [Debug and Assertion Code](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#debug-and-assertion-code) - PLANNED-1 (Jason Shepherd)
     * Countering Denial-of-Service (DoS) Attacks - PLANNED-2 UNASSIGNED
