@@ -68,7 +68,8 @@ See also *CWE-667: Improper Locking* [[MITRE 2024](https://cwe.mitre.org/data/de
 
 ## Deadlock
 
-A deadlock is a situation when one or more threads are waiting for a situation that will never occur, meaning that the program will run indefinitely unless it is forcefully closed by the user as demonstrated in `noncompliant01.py`. 
+A deadlock is a situation when one or more threads are waiting for a situation that will never occur, meaning that the program will run indefinitely unless it is forcefully closed by the user as demonstrated in `noncompliant01.py`.
+
 
 >!INFO
 >`Python 3.13` introduced an option to disable `GIL` when launching python via `PYTHON_GIL=0` or `-X gil=0` [[GitHub swtaarrs 2024](https://github.com/python/cpython/pull/116338)].
