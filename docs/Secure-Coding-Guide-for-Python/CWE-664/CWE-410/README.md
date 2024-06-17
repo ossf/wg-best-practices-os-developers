@@ -8,6 +8,10 @@ Thread pools combine:
 * Protecting the input queue from being overloaded by providing optional time-out functions
 * Handling of failures that occur in a thread without impacting the re-usability of threads [Brownlee 2022]
 
+> [!NOTE]
+> Prerequisite to understand this page:
+> [Intro to multiprocessing and multithreading](../../Intro_to_multiprocessing_and_multithreading/readme.md)
+
 ## Non-Compliant Code Example (Thread-Per-Message)
 
 The `noncompliant01.py` code example demonstrates the Thread-Per-Message design pattern. Each request sent to MessageAPI results in a creation of a new thread.
