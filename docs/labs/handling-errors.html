@@ -34,17 +34,17 @@ throw new Error("Division by zero is not allowed");
 
 <!-- Full pattern of correct answer -->
 <script id="correct0" type="plain/text">
-\s* throw new Error \( ("(.*?)" | '(.*?)' | `(.*?)`) \) ; \s*
+\s* throw new Error \( ("(.*)" | '(.*)' | `(.*)`) \) ; \s*
 </script>
 <script id="correct1" type="plain/text">
-\s* return .\s* a \s* \/ \s* b \s* ; \s*
+\s* return \s* a \/ b \s* ; \s*
 </script>
 <script id="correct2" type="plain/text">
-  \s* try \s* { \s* 
-    const result  \s* =  \s* divide \( \s* 10  \s* ,  \s* 2  \s* \)  \s* ;
-    console.log \(  \s* ("Result:" | 'Result:' | `Result:`)  \s* ,  \s* result  \s* \)  \s* ;
-    \s* } \s* catch \(  \s* error  \s* \)  \s* {  \s*
-      \s* console.error \(  \s* ("Error:" | 'Error:' | `Error:`)  \s* ,  \s* error.message  \s* \)  \s* ;  \s*
+  \s* try \{ \s* 
+    const result = divide \( 10 , 2 \)  \s* ;
+    console.log \(  \s* ("Result:" | 'Result:' | `Result:`) ,  result  \)  \s* ; \s*
+    \s* } catch \(  error  \) \s* {  \s*
+      \s* console.error \(  ("Error:" | 'Error:' | `Error:`)  ,  error.message \)  \s* ;  \s*
       \s* \} \s*
   </script>
 
@@ -63,7 +63,7 @@ hints:
   - - "  throw new ERROR(\"Division by zero is not allowed\");"
 - index: 0
   absent: "throw"
-  text: Try using the throw keyword to raise an exception.
+  text: Try using the throw keyword to raise an exception, E.g., throw new Error(...).
   examples:
   - - "  return { success: false, message: \"Division by zero is not allowed\" };"
   - - " return \"Division by zero is not allowed\" ;"
@@ -128,10 +128,13 @@ the labs</a>.
 <p>
 <h2>Background</h2>
 <p>
-In this exercise, we'll demonstrate how to enhance the robustness of a JavaScript function by transitioning from a return code mechanism to exception handling. The primary goal is to understand how to handle errors more effectively, improving the readability and maintainability of the code.
+In this exercise, we'll demonstrate how to enhance the robustness of a JavaScript function by transitioning from a return code mechanism to exception handling.
+The primary goal is to understand how to handle errors more effectively, improving the readability and maintainability of the code.
 </p>
 Initially, the code uses a return code mechanism to handle potential errors. 
-The <tt>divide</tt> function returns an object indicating whether the operation was successful or if an error occurred. The caller must then check the success property and handle the result or error accordingly. This method works but can clutter the code with repetitive error-checking logic.
+The <tt>divide</tt> function returns an object indicating whether the operation was successful or if an error occurred.
+The caller must then check the success property and handle the result or error accordingly.
+This method works but can clutter the code with repetitive error-checking logic and what's worse, it's easy for callers to ignore the error return code, which can result in surprising failures and security vulnerabilities.
 <p>
 <h2>Task Information</h2>
 <p>
