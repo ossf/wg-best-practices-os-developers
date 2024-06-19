@@ -78,7 +78,7 @@ It is **not production code** and requires code-style or python best practices t
 
 |[CWE-710: Improper Adherence to Coding Standards](https://cwe.mitre.org/data/definitions/710.html)|Prominent CVE|
 |:----------------------------------------------------------------|:----|
-|[CWE-1095: Loop Condition Value Update within the Loop](CWE-710/CWE-1095/.)||
+|[CWE-1095: Loop Condition Value Update within the Loop](CWE-710/CWE-1095/README.md)||
 |[CWE-1109: Use of Same Variable for Multiple Purposes](CWE-710/CWE-1109/.)||
 
 ## Biblography

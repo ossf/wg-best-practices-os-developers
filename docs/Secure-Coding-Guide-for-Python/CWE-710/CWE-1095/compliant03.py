@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: OpenSSF project contributors  
+# SPDX-License-Identifier: MIT
 """ Compliant Code Example """
 userset = {'Alice', 'Bob', 'Charlie'}
 print(f'Unmodified set: {userset}')
