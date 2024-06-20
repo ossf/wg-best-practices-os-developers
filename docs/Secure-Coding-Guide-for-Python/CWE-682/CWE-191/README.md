@@ -28,7 +28,8 @@ Adding `+1` to `9223372036854775807` results in a negative number `-922337203685
 
 An attempt to create `int` from a too big number causes an `OverflowError` and stops.
 
->![INFO]It has been observed that different result may occur depending on `numpy` version for reference we are using `numpy 1.23.1` and Python version: `3.9.12.`
+> [!NOTE]
+> It has been observed that different result may occur depending on `numpy` version for reference we are using `numpy 1.23.1` and Python version: `3.9.12.`
 
 ## Compliant Solution
 
@@ -141,6 +142,8 @@ print(calculate_exponential_value(1000))
 ## Compliant Solution
 
 This `compliant03.py` solution detects the `integer` overflow by catching the appropriate Exception on overflow:
+
+*[compliant03.py](compliant03.py):*
 
 ```python
 """ Compliant Code Example """
