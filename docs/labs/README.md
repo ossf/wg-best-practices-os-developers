@@ -58,20 +58,20 @@ fundamentals course;
 Below are the sections where we plan to create labs, along with
 mappings to existing labs or people who have agreed to work on one.
 The items marked "PLANNED-1" are those we intend to do first;
-"PLANNED-2" are planned in a second pass.
+"PLANNED-2" are planned in a second pass, "PLANNED-0" were done early.
 The ones marked "UNASSIGNED" are ones where no one has (yet) agreed to
 work on.
 
 * Input Validation
   * Input Validation Basics
-    * [Input Validation Basics Introduction](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#input-validation-basics-introduction) - [hello](hello.html)
+    * [Input Validation Basics Introduction](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#input-validation-basics-introduction) - PLANNED-0 [hello](hello.html)
     * [How Do You Validate Input?](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#how-do-you-validate-input), [Input Validation: Numbers and Text](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#input-validation-numbers-and-text)
   * Input Validation: Numbers and Text
-    * Input Validation: A Few Simple Data Types - [input1](input1.html)
+    * Input Validation: A Few Simple Data Types - PLANNED-0 [input1](input1.html)
     * [Sidequest: Text, Unicode, and Locales](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#sidequest-text-unicode-and-locales)
     * [Validating Text](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#validating-text)
-    * Introduction to Regular Expressions - [regex0](regex0.html)
-    * Using Regular Expressions for Text Input Validation - [regex1](regex1.html), [input2](input2.html)
+    * Introduction to Regular Expressions - PLANNED-0 [regex0](regex0.html)
+    * Using Regular Expressions for Text Input Validation - PLANNED-0 [regex1](regex1.html), [input2](input2.html)
     * [Countering ReDoS Attacks on Regular Expressions](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#countering-redos-attacks-on-regular-expressions) - PLANNED-2 UNASSIGNED
   * Input Validation: Beyond Numbers and Text
     * [Insecure Deserialization](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#insecure-deserialization) - PLANNED-2 (Tapas Jena)
@@ -87,11 +87,11 @@ work on.
     * [Avoid Default & Hardcoded Credentials](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-default--hardcoded-credentials) - PLANNED-1 (Tapas Jena)
     * [Avoid Incorrect Conversion or Cast](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-incorrect-conversion-or-cast) - PLANNED-2 (Keith Grant via Vincent Danen)
   * Processing Data Securely: Undefined Behavior / Memory Safety
-    * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - [oob1](oob1.html)
+    * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - PLANNED-0 [oob1](oob1.html)
     * [Double-free, Use-after-free, and Missing Release](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#double-free-use-after-free-and-missing-release) - PLANNED-1 (Bennett Pursell)
     * [Avoid Undefined Behavior](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-undefined-behavior) - PLANNED-2 UNASSIGNED
   * Processing Data Securely: Calculate Correctly
-    * [Avoid Integer Overflow, Wraparound, and Underflow](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-integer-overflow-wraparound-and-underflow) - PLANNED-2 (Petr Matousek via Vincent Danen)
+    * [Avoid Integer Overflow, Wraparound, and Underflow](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-integer-overflow-wraparound-and-underflow) - PLANNED-2, first draft by 2024-07-19 (Petr Matousek via Vincent Danen)
 * Calling Other Programs
   * Introduction to Securely Calling Programs
     * Introduction to Securely Calling Programs - The Basics
@@ -102,14 +102,14 @@ work on.
     * Filenames (Including Path Traversal and Link Following) - PLANNED-2 UNASSIGNED
   * Calling Other Programs: Other Issues
     * [Call APIs for Programs and Check What Is Returned](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#call-apis-for-programs-and-check-what-is-returned) - PLANNED-2 UNASSIGNED
-    * [Handling Errors](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#handling-errors) - PLANNED-2 UNASSIGNED
+    * [Handling Errors](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#handling-errors) - PLANNED-2 (Avishay Balter)
     * [Logging](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#logging) - PLANNED-2 UNASSIGNED
     * [Debug and Assertion Code](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#debug-and-assertion-code) - PLANNED-1 (Jason Shepherd)
     * Countering Denial-of-Service (DoS) Attacks - PLANNED-2 UNASSIGNED
 * Sending Output
   * [Introduction to Sending Output](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#introduction-to-sending-output) - PLANNED-2 UNASSIGNED
   * Countering Cross-Site Scripting (XSS) - PLANNED-1 (Tapas Jena)
-  * Content Security Policy (CSP) - [csp1](csp1.html)
+  * Content Security Policy (CSP) - PLANNED-0 [csp1](csp1.html)
   * Other HTTP Hardening Headers - (probably continue csp1) PLANNED-2 UNASSIGNED
   * [Cookies Cookies & Login Sessions Login Sessions](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#cookies--login-sessions) - PLANNED-2 (Dhananjay Arunesh via Vincent Danen)
   * [CSRF / XSRF](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#csrf--xsrf) - PLANNED-2 UNASSIGNED
@@ -118,7 +118,7 @@ work on.
   * Using Inadequately Checked URLs / Server-Side Request Forgery (SSRF) - PLANNED-2 UNASSIGNED
   * Same-Origin Policy and Cross-Origin Resource Sharing (CORS) - PLANNED-2 UNASSIGNED
   * [Format Strings and Templates](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#format-strings-and-templates) - PLANNED-1 (Jason Shepherd)
-  * [Minimize Feedback / Information Exposure](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#minimize-feedback--information-exposure) - PLANNED-2 UNASSIGNED
+  * [Minimize Feedback / Information Exposure](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#minimize-feedback--information-exposure) - PLANNED-2 (Ibrahim Mukherjee)
   * [Avoid caching sensitive information](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-caching-sensitive-information) - PLANNED-2 UNASSIGNED
   * [Side-Channel Attacks](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#side-channel-attacks) - PLANNED-2 UNASSIGNED
 

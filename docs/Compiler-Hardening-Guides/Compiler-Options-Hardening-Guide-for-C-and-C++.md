@@ -1,6 +1,6 @@
 # Compiler Options Hardening Guide for C and C++
 
-*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2024-05-30*
+*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2024-06-13*
 
 This document is a guide for compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++. The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
 
@@ -194,8 +194,8 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 
 | Compiler Flag                                                                             |            Supported since            | Description                                                                                  |
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
-| [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher, <br/> may require prepending -U_FORTIFY_SOURCE) | GCC 12.0.0<br/>Clang 9.0.0[^Guelton20]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. |
-| [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
+| [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3)| GCC 12.0.0<br/>Clang 9.0.0[^Guelton20]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. Requires `-O1` or higher, may require prepending `-U_FORTIFY_SOURCE`. |
+| [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS) | libstdc++ 6.0.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
 | [`-fstrict-flex-arrays=3`](#-fstrict-flex-arrays)                             |       GCC 13.0.0<br/>Clang 16.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`                           |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8.0.0<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
@@ -211,6 +211,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 18.0.0        | Do not assume strict aliasing                                                                |
 | [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12.0.0<br/>Clang 8.0.0               | Perform trivial auto variable initialization                                                 |
 | [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6.0           | Enable exception propagation to harden multi-threaded C code                                 |
+| [`-fhardened`](#-fhardened)                                                               | GCC 14.0.0                           | Enable pre-determined set of hardening options in GCC                                        |
 
 [^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
@@ -993,6 +994,32 @@ The `-fexceptions` option is also needed for C code that needs to interoperate w
 
 ---
 
+## Enable pre-determined set of hardening options in GCC
+
+| Compiler Flag                             | Supported since | Description                                                         |
+|:----------------------------------------- |:---------------:|:------------------------------------------------------------------- |
+| <span id="-fhardened">`-fhardened`</span> | GCC 14.0.0      | Enable pre-determined set of hardening options for C and C++ in GCC |
+| <span id="-Whardened">`-Whardened`</span> | GCC 14.0.0      | Warn if options implied by `-fhardened` are downgraded or disabled  |
+
+The `-fhardened` umbrella option enables a pre-determined set of hardening options for C and C++ on GNU/Linux targets[^gcc-fhardened]. The precise set of options may change between major releases of GCC. The exact set of options for a specific GCC version can be displayed using the `--help=hardened` option.
+
+### Additional Considerations
+
+Options explicitly specified on the compiler command line always take precedence over options implied by `-fhardened`. For example, `-fhardened` in GCC 14 enables [`-fstack-protector-strong`](#-fstack-protector-strong) but specifying `-fstack-protector -fhardened` or `-fhardened -fstack-protector` on the compiler command line will enable the weaker `-fstack-protector` instead of `-fstack-protector-strong`.
+
+By default, GCC will issue a warning when flags implied by `-fhardened` are downgraded or disabled due to options on the command line taking precedence or missing pre-requirements, such as using [`_FORTIFY_SOURCE`](#-D_FORTIFY_SOURCE=3) without optimization level `-O1` or higher:
+
+~~~shell
+warning: '-fstack-protector-strong' is not enabled by '-fhardened' because it was specified on the command line [-Whardened]`
+warning: '_FORTIFY_SOURCE' is not enabled by '-fhardened' because optimizations are turned off [-Whardened]
+~~~
+
+These warnings can be controlled explcitily via the `-Whardened` option.
+
+[^gcc-fhardened]: GCC team, [Program Instrumentation Options: `-fhardened`](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fhardened), GCC Manual, 2024-05-07.
+
+---
+
 ## Discouraged Compiler Options
 
 This section describes discouraged compiler and linker option flags that may lead to potential defects with security implications in produced binaries.
@@ -1303,7 +1330,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 
 ## License
 
-Copyright 2023, OpenSSF contributors, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+Copyright 2024, OpenSSF contributors, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 ## Appendix: List of Considered Compiler Options
 

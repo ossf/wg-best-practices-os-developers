@@ -2,6 +2,10 @@
 
 The number of threads that can simultaneously run within a `ThreadPoolExecutor` is limited by the `_max_workers` parameter. Submitting tasks whose execution is dependent on other tasks submitted to the same `ThreadPoolExecutor` may result in a *thread-starvation* deadlock. An example of this type of deadlock is shown in the following article [Brownlee, 2021], which describes it as "Deadlock 1: Submit and Wait for a Task Within a Task". Submitting a task will add it to an internal `ThreadPoolExecutor` queue. The task will be removed from the queue when one of the worker threads becomes available, i.e., after finishing its current task. If all workers are busy and all their current tasks are waiting for results from tasks that are waiting in the queue, the program will run indefinitely as no worker will be able to complete its task and take one of the blocking tasks from the queue.
 
+> [!NOTE]
+> Prerequisite to understand this page:
+> [Intro to multiprocessing and multithreading](../../Intro_to_multiprocessing_and_multithreading/readme.md)
+
 ## Non-Compliant Code Example (Interdependent Subtasks)
 
 The `noncompliant01.py` code example shows how a thread-starvation deadlock could happen when one task depends on the results of other, nested tasks. The `ReportTableGenerator` class creates a table out of the input data by building each row concurrently. The client can call the `generate_string_table()` method by providing a list of String arguments. Each argument is parsed in a separate thread that executes the inner method `_create_table_row()`. Creation of the row may consist of multiple steps, such as reformating the string, which could be performed in separate sub-threads. The `_reformat_string()` method is submitted within `_create_table_row()` and uses the same executor. Before the row is built, all of the building threads must return the results.

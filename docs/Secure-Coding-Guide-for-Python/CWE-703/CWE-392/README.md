@@ -2,6 +2,10 @@
 
 Failure to provide a mechanism for reporting that tasks in a thread pool failed as a result of an exceptional condition can make it difficult or impossible to diagnose the problem.
 
+> [!NOTE]
+> Prerequisite to understand this page:
+> [Intro to multiprocessing and multithreading](../../Intro_to_multiprocessing_and_multithreading/readme.md)
+
 **ThreadPoolExecutor** from the `concurrent.futures` module is used in Python to asynchronously execute callable tasks [[Python Docs - concurrent.futures]](https://docs.python.org/3/library/concurrent.futures.html). The `ThreadPoolExecutor` suppresses exceptions raised by tasks to ensure that the failure of a task does not result in the failure of a worker thread in the thread pool. Otherwise, worker threads would close whenever an exception is raised, negatively impacting the performance of the `ThreadPoolExecutor`.
 
 ## Non-Compliant Code Example (submit)
