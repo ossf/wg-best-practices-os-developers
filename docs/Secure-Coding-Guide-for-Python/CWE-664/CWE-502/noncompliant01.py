@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Non-Compliant Code Example """
 import platform
 import pickle

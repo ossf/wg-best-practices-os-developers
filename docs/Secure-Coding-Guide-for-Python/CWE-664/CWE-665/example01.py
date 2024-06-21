@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 futures = [
     sp.execute_task(sp.work_as_admin),  # Thread 1, works as ADMIN
     sp.execute_task(sp.work_as_guest),  # Thread 2, should work as GUEST

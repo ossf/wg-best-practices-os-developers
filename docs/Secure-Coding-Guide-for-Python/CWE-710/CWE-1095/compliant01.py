@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: OpenSSF project contributors  
+# SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """ Compliant Code Example """
 userlist = ['Alice', 'Bob', 'Charlie']
