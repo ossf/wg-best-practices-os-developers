@@ -1345,6 +1345,7 @@ Many more security-relevant compiler options exist than are recommended in this 
 | <span id="-mshstk">`-mshstk`</span>                                         | GCC 8.0.0<br/>Clang 6.0.0 | Enables discouraged shadow stack built-in functions[^gcc_mshstk], which are only needed for programs with an unconventional management of the program stack. CET instrumentation is controlled by [`-fcf-protection`](#-fcf-protection=full).
 | <span id="-fsanitize=safe-stack">`-fsanitize=safe-stack`</span>             | Clang 4.0.0 | Known compatibility limitations with garbage collection, signal handling, and shared libraries[^clang_safestack].
 | <span id="-fasynchronous-unwind-tables">`-fasynchronous-unwind-tables`</span> | GCC 3.1.1<br/>Clang 7.0.0  | Generate stack unwind table in DWARF2 format, which improves precision of unwind information[^Song20] and can improve the performance of profilers at the cost of larger binary sizes[^Bastian19], but does not benefit security.
+| <span id="-fvtable-verify">`-fvtable-verify`</span> |GCC 4.9.4 | Enables run-time checks for C++ virtual function pointers corruption. This option has significant performance overhead[^Tice2014] and breaks ABI with all existing system libraries unless the entire userspace is built with `-fvtable-verify`[^gentoo-vtv]. Believed to be currently unmaintained in GCC.
 
 [^nodump]: The `-Wl,-z,nodump` option sets `DF_1_NODUMP` flag in the object’s `.dynamic` section tags. On Solaris this restricts calls to `dldump(3)` for the object. However, other operating systems ignore the `DF_1_NODUMP` flag. While Binutils implements `-Wl,-z,nodump` for Solaris compatibility a choice was made to not support it in `lld` ([D52096 lld: add -z nodump support](https://reviews.llvm.org/D52096)).
 
@@ -1359,5 +1360,9 @@ Many more security-relevant compiler options exist than are recommended in this 
 [^Song20]: Song, Fangrui, [Stack unwinding](https://maskray.me/blog/2020-11-08-stack-unwinding), MaskRay blog, 2020-11-18.
 
 [^Bastian19]: Bastian, Théophile and Kell, Stephen and Nardelli, Francesco Zappa, [Reliable and fast DWARF-based stack unwinding](https://doi.org/10.1145/3360572), Proceedings of the ACM Journal of Programming Languages, Volume 3, Issue OOPSLA, Article 146, 2019-10-10.
+
+[^Tice2014]: Tice, Caroline, [Enforcing Forward-Edge Control-Flow Integrity in GCC & LLVM](https://www.usenix.org/system/files/conference/usenixsecurity14/sec14-paper-tice.pdf#page=12) USENIX Security, August 2014
+
+[^gentoo-vtv]: Gentoo Foundation, [Local Use Flag: vtv](https://packages.gentoo.org/useflags/vtv) Gentoo Packages, Retrieved 2024-06-27.
 
 ## References
