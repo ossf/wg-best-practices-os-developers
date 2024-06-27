@@ -4,7 +4,11 @@ Ensure that integer overflow is properly handled in order to avoid unexpected be
 
 - Built-in types such as `int`, `float`, or `complex` [[Python 2024]](https://docs.python.org/3.9/library/stdtypes.html). These types are provided by classes and are protected against overflows.
 
-- Primitive types such as `numpy`, `time`, or `ctype`  share issues known from `C` , or `C++`  and are often used to interact with the operating system, or for efficiency. Developers should follow the `C` guidelines for rules to follow.
+- Primitive types share issues known from `C` , or `C++` and appear in `Python` to:
+  - interact with the operating system modules such as `time`.
+  - to be memory efficiency using modules such as `numpy` or `ctype`.
+
+Developers should follow the `C` guidelines when using or interacting wth `C` type variables.
 
 ## Non-Compliant Code Example
 
