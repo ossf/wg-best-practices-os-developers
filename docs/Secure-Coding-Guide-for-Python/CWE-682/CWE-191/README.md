@@ -8,7 +8,7 @@ Ensure that integer overflow is properly handled in order to avoid unexpected be
 
 ## Non-Compliant Code Example
 
-Using a `numpy.int64` can cause an unintentional flip of its sign when reaching the maximum number that can be store as demonstrated in `noncompliant01.py`.
+Using a `numpy.int64` can cause an unintentional flip of its sign when reaching the maximum number that can be stored as demonstrated in `noncompliant01.py`.
 
 *[noncompliant01.py](noncompliant01.py):*
 
@@ -24,12 +24,12 @@ b = numpy.int64(numpy.iinfo(numpy.int64).max + 1)  # OverflowError and stops
 print(b)  # we will never reach this
 ```
 
-Adding `+1` to `9223372036854775807` results in a negative number `-9223372036854775808` throws a `RuntimeWarning`  but continues.
+Adding `+1` to `9223372036854775807` results in a negative number `-9223372036854775808` and throws a `RuntimeWarning`  but continues.
 
 An attempt to create `int` from a too big number causes an `OverflowError` and stops.
 
 > [!NOTE]
-> It has been observed that different result may occur depending on `numpy` version for reference we are using `numpy 1.23.1` and Python version: `3.9.12.`
+> It has been observed that different results may occur depending on the version of `numpy`. For reference, we are using `numpy 1.23.1` and Python `3.9.12.`
 
 ## Compliant Solution
 
@@ -87,7 +87,7 @@ print(get_time_in_future(23**74))
 
 ## Compliant Solution
 
-This `compliant02.py` solution handles `OverflowError` Exception when a to high value is given to `get_time_in_future`.
+This `compliant02.py` solution handles `OverflowError` Exception when a too large value is given to `get_time_in_future`.
 
 *[compliant02.py](compliant02.py):*
 
