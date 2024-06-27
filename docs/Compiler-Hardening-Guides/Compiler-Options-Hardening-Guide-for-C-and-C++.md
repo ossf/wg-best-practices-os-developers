@@ -1365,4 +1365,8 @@ Many more security-relevant compiler options exist than are recommended in this 
 
 [^gentoo-vtv]: Gentoo Foundation, [Local Use Flag: vtv](https://packages.gentoo.org/useflags/vtv) Gentoo Packages, Retrieved 2024-06-27.
 
+## Appendix: Scraper Script
+
+A python script is also present in the [GitHub repository](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Compiler-Hardening-Guides/) that can fetch the recommended options table from the latest version of this guide and convert it to a machine readable format (JSON) for use in tooling.
+
 ## References
