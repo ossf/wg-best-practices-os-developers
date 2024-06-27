@@ -198,7 +198,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS) | libstdc++ 6.0.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
 | [`-fstrict-flex-arrays=3`](#-fstrict-flex-arrays)                             |       GCC 13.0.0<br/>Clang 16.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`                           |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8.0.0<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
-| [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
+| [`-fstack-protector-strong`](#-fstack-protector-strong)                                   | GCC 4.9.0<br/>Clang 6.0.0          | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
 | [`-fcf-protection=full`](#-fcf-protection=full)                                   |     GCC 8.0.0<br/>Clang 7.0.0                  | Enable control flow protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x86 architectures |
 | [`-mbranch-protection=standard`](#-mbranch-protection-standard)                                   |     GCC 9.0.0<br/>Clang 8.0.0              | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on AArch64 |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen) |           Binutils 2.10.0            | Restrict `dlopen(3)` calls to shared objects                                 |
@@ -660,9 +660,9 @@ Note that `vm.heap-stack-gap` expresses the gap as multiple of page size whereas
 
 | Compiler Flag                                                          |       Supported since        | Description                                                                                                      |
 |:---------------------------------------------------------------------- |:-------------------------:|:---------------------------------------------------------------------------------------------------------------- |
-| <span id="-fstack-protector-strong">`-fstack-protector-strong`</span>  | GCC 4.9.0<br/>Clang 5.0.0 | Enable run-time checks for stack-based buffer overflows using strong heuristic                                   |
-| `-fstack-protector-all`                                                |       GCC<br/>Clang       | Enable run-time checks for stack-based buffer overflows for all functions                                        |
-| `-fstack-protector`<br/>`--param=ssp-buffer-size=`*`<n>`*              |       GCC<br/>Clang       | Enable run-time checks for stack-based buffer overflows for functions with character arrays if *n* or more bytes |
+| <span id="-fstack-protector-strong">`-fstack-protector-strong`</span>  | GCC 4.9.0<br/>Clang 6.0.0 | Enable run-time checks for stack-based buffer overflows using strong heuristic                                   |
+| `-fstack-protector-all`                                                | GCC 4.1.2<br/>Clang 6.0.0 | Enable run-time checks for stack-based buffer overflows for all functions                                        |
+| `-fstack-protector`<br/>`--param=ssp-buffer-size=`*`<n>`*              | GCC 4.1.2<br/>Clang 6.0.0 | Enable run-time checks for stack-based buffer overflows for functions with character arrays if *n* or more bytes |
 
 #### Synopsis
 
