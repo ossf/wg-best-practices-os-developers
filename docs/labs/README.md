@@ -75,7 +75,7 @@ work on.
     * [Validating Text](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#validating-text)
     * Introduction to Regular Expressions - DONE-0 [regex0](regex0.html)
     * Using Regular Expressions for Text Input Validation - DONE-0 [regex1](regex1.html), [input2](input2.html)
-    * [Countering ReDoS Attacks on Regular Expressions](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#countering-redos-attacks-on-regular-expressions) - PLANNED-2 UNASSIGNED
+    * [Countering ReDoS Attacks on Regular Expressions](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#countering-redos-attacks-on-regular-expressions) - PLANNED-2 (Camila Vilarinho)
   * Input Validation: Beyond Numbers and Text
     * [Insecure Deserialization](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#insecure-deserialization) - PLANNED-2 (Tapas Jena)
     * [Input Validation: Beyond Numbers and Text](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#input-validation-beyond-numbers-and-text) - PLANNED-2 UNASSIGNED
