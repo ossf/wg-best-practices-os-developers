@@ -11,42 +11,7 @@ This [noncompliant01.py](noncompliant01.py) leaks the global `ENCRYPTION_KEY`  v
 *[noncompliant01.py](noncompliant01.py):*
 
 ```python
-""" Non-compliant Code Example """
-import sys
-
-# Simulating a global include of sensitive information:
-ENCRYPTION_KEY = "FL4G1"
-
-# Simulating a include per language:
-MESSAGE = "Contract '{0.instance_name}' created for "
-
-
-class MicroService:
-    """Fancy MicroService"""
-    def __init__(self, instance_name):
-        self.instance_name = instance_name
-
-
-def front_end(customer):
-    """Display service instance"""
-    message_format = MESSAGE + customer
-    mc = MicroService("big time microservice")
-    print(message_format.format(mc))
-
-
-#####################
-# exploiting above code example
-#####################
-if __name__ == "__main__":
-    if len(sys.argv) > 1:  # running from command line
-        # you can print the global encryption key by using '{0.__init__.__globals__[ENCRYPTION_KEY]}' as
-        # argument.
-        front_end(sys.argv[1])
-    else:
-        # running in your IDE, simulating command line:
-        # Printing the ENCRYPTION_KEY via the global accessible object
-        front_end("{0.__init__.__globals__[ENCRYPTION_KEY]}")
-
+{% include_relative noncompliant01.py %}
 ```
 
 When `front_end("{0.__init__.__globals__[ENCRYPTION_KEY]}")` is called:
@@ -64,47 +29,7 @@ The `compliant01.py` solution uses the string template module and avoids mixing 
 *[compliant01.py](compliant01.py):*
 
 ```python
-""" Compliant Code Example """
-import sys
-from string import Template
-
-# Simulating a global include of sensitive information:
-ENCRYPTION_KEY = "FL4G1"
-
-# Simulating a include per language for international support:
-MESSAGE = Template("Contract '$instance_name' created for '$customer'")
-
-
-class MicroService:
-    """Fancy MicroService"""
-    def __init__(self, instance_name):
-        self.instance_name = instance_name
-
-    def get_instance_name(self) -> str:
-        """return instance_name as string"""
-        return self.instance_name
-
-
-def front_end(customer) -> str:
-    """Display service instance"""
-    mc = MicroService("big time microservice")
-    print(MESSAGE.substitute(instance_name=mc.get_instance_name(),
-                             customer=customer))
-
-
-#####################
-# exploiting above code example
-#####################
-if __name__ == "__main__":
-    if len(sys.argv) > 1:  # running from command line
-        # you can print the global encryption key by using '{0.__init__.__globals__[ENCRYPTION_KEY]}' as
-        # argument.
-        front_end(sys.argv[1])
-    else:
-        # running in your IDE, simulating command line:
-        # Printing the ENCRYPTION_KEY via the global accessible object
-        front_end("{0.__init__.__globals__[ENCRYPTION_KEY]}")
-
+{% include_relative compliant01.py %}
 ```
 
 ## Automated Detection
