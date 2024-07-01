@@ -42,6 +42,7 @@ It is **not production code** and requires code-style or python best practices t
 |:-----------------------------------------------------------------------------------------------------------------------------------------------|:----|
 |[CWE-134: Use of Externally-Controlled Format String](CWE-664/CWE-134/README.md)|[CVE-2022-27177](https://www.cvedetails.com/cve/CVE-2022-27177/),<br/>CVSSv3.1: **9.8**,<br/>EPSS:**00.37**(01.12.2023)|
 |[CWE-197: Numeric Truncation Error](CWE-664/CWE-197/.)||
+|[CWE-197: Control rounding when converting to less precise numbers](CWE-664/CWE-197/01/.)||
 |[CWE-400: Uncontrolled Resource Consumption](CWE-664/CWE-400/README.md)||
 |[CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)](CWE-664/CWE-409/.)||
 |[CWE-410: Insufficient Resource Pool](CWE-664/CWE-410/README.md)||
