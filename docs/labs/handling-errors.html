@@ -34,23 +34,28 @@ throw new Error("Division by zero is not allowed");
 
 <!-- Full pattern of correct answer -->
 <script id="correct0" type="plain/text">
-\s* throw new Error \( ("(.*)" | '(.*)' | `(.*)`) \) ; \s*
+\s* throw new Error \( ("(.*)"|'(.*)'|`(.*)`) \) ; \s*
 </script>
 <script id="correct1" type="plain/text">
-\s* return \s* a \/ b \s* ; \s*
+\s* return a \/ b ; \s*
 </script>
 <script id="correct2" type="plain/text">
-  \s* try \{ \s* 
-    const result = divide \( 10 , 2 \)  \s* ;
-    console.log \(  \s* ("Result:" | 'Result:' | `Result:`) ,  result  \)  \s* ; \s*
-    \s* } catch \(  error  \) \s* {  \s*
-      \s* console.error \(  ("Error:" | 'Error:' | `Error:`)  ,  error.message \)  \s* ;  \s*
-      \s* \} \s*
+\s* try \{
+    const result = divide \( 10 , 2 \) ;
+    console \. log \( ("Result:" | 'Result:' | `Result:`) , result \) ;
+    \} catch \( error \) {
+      console.error \( ("Error:" | 'Error:' | `Error:`) , error \. message \) ;
+      \} \s*
   </script>
 
 <script id="info" type="application/yaml">
 ---
 hints:
+- index: 0
+  absent: "; $"
+  text: >
+    This code uses the convention of terminating each line with a
+    semicolon; please follow the conventions of the code being modified.
 - index: 0
   present: "(Throw|THROW|New|NEW|error|ERROR)"
   text: JavaScript is case-sensitive. use throw new Error(...).
@@ -160,8 +165,7 @@ To complete this task:
 <p>
 Please change the code below so the <tt>divide</tt> function and the calling code use exception handling instead of a return code mechanism. 
 The <tt>divide</tt> function should throw an error when division by zero is attempted. 
-The calling code should use a try...catch block to handle the error and display an appropriate message.
-
+The calling code should use a try...catch block to handle the error, catch any error into a variable named `error`, and display an appropriate message.
 
 <form id="lab">
 <pre><code>
