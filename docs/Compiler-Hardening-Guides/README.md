@@ -7,6 +7,10 @@ This is the working area for Compiler hardening best practices guide.  The [C/C+
 This document is a guide for compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++.
 The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
 
+## Usage in Tools
+
+A python script is also provided (in the `compiler-options-scraper` directory) that can fetch the latest version of the OpenSSF compiler hardening guide from the internet, obtain the recommended options tables from it and convert them to a machine readable JSON for usage in tools.
+
 ## How to Contribute
 
 Contributions to the guide are always welcome, for instance:

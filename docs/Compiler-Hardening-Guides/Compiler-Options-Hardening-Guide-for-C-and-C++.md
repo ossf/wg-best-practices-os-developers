@@ -1360,4 +1360,8 @@ Many more security-relevant compiler options exist than are recommended in this 
 
 [^Bastian19]: Bastian, Théophile and Kell, Stephen and Nardelli, Francesco Zappa, [Reliable and fast DWARF-based stack unwinding](https://doi.org/10.1145/3360572), Proceedings of the ACM Journal of Programming Languages, Volume 3, Issue OOPSLA, Article 146, 2019-10-10.
 
+## Appendix: Scraper Script
+
+A python script is also present in the [GitHub repository](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Compiler-Hardening-Guides/) that can fetch the recommended options table from the latest version of this guide and convert it to a machine readable format (JSON) for use in tooling.
+
 ## References
