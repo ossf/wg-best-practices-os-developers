@@ -3,4 +3,4 @@
 """ Compliant Code Example """
 foo = int(round(0.9))
 type(foo)  # class int
-print(foo)  # 0
+print(foo)  # prints 1

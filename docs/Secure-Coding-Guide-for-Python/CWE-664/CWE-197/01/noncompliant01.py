@@ -2,5 +2,5 @@
 # SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
 foo = int(0.9)
-type(foo)   # class int
-print(foo)  #
+type(foo)  # class int
+print(foo)  # prints 0
