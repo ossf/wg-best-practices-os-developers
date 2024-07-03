@@ -33,6 +33,6 @@ Here is a concise guide for all software developers for secure software developm
 24. **Continuously improve**. Improve scores, look for tips, & apply as appropriate.
 25. **Manage succession**. Have clear governance & work to add active, trustworthy maintainer(s).
 26. **Prefer memory-safe languages**. Many vulnerabilities involve memory safety. Where practical, use memory-safe programming languages (most are) and keep memory safety enabled. Otherwise, use mechanisms like extra tools and peer review to reduce risk.
-27. **Ensure production websites only load from your own domains**. *Linking* to other domains is fine, but don't load JavaScript, CSS, images, etc. from other domains. For a counter-example, consider the [subverted polyfill.io revealed in 2024](https://blog.qualys.com/vulnerabilities-threat-research/2024/06/28/polyfill-io-supply-chain-attack).
+27. **Ensure production websites only load from your own domains**. _Linking_ to other domains is fine, but don't load information from other domains such as JavaScript, CSS, and images. If you do, that domain's subversion might also subvert your site. See the [subverted polyfill.io revealed in 2024](https://blog.qualys.com/vulnerabilities-threat-research/2024/06/28/polyfill-io-supply-chain-attack).
 
 We welcome suggestions and updates! Please open an [issue](https://github.com/ossf/wg-best-practices-os-developers/issues/) or post a [pull request](https://github.com/ossf/wg-best-practices-os-developers/pulls).
