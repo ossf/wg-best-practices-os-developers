@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+  query('id').isLength({max:50}).matches( /^[A-Z0-9]+$/ ),
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+\s* query \( ('id'|"id"|`id`) \)
+\. isLength \( \{ max: 50 ,? \} \)
+\. matches \( \/\^
+\[A-Z0-9\]\+\$\/ \) , \s*
+</script>
+
+
+<script id="info" type="application/yaml">
+---
+hints:
+- absent: ", $"
+  text: This is a parameter, it must end with a comma.
+- absent: |
+    query \( ["'`]id["'`] \)
+  text: "Use query() with an 'id' parameter."
+- present: |
+    query \( ["'`]id["'`] \) [^. ]
+  text: 'After query("id") use a period to invoke a verification method.'
+- present: |
+    (islength|Islength|IsLength|ISLENGTH)
+  text: >
+    JavaScript is case-sensitive. Use isLength instead of the case you have.
+- absent: isLength
+  text: "Limit the maximum length of input strings using isLength()."
+- present: |
+    isLength \( m
+  text: "You need to pass isLength() an object within {...}."
+- absent: matches
+  text: "Use matches()."
+- present: |
+    matches \( /[^^]
+  text: "Match the whole string - begin the regular expression with ^"
+- present: |
+    matches \( /.*[^$]/
+  text: "Match the whole string - end the regular expression with $"
+- present: |
+    matches \( /.*[^$]/
+  text: Match the whole string - end the regular expression with $
+- present: |
+    matches \( /\^\[A-Z\]
+  text: That would match only letters, you need digits as well.
+- present: |
+    matches \( /\^\[a-z\]
+  text: That would match only lower case letters, the format requirement is uppercase letters.
+- present: |
+    matches \( /\^\(\[A-Z0-9\]\+\)\+\$ 
+  text: Remember to fix the regex, the outer + quantifier causes backtracking by trying to match one or more sequences of one or more uppercase alphanumeric characters.
+- present: |
+    matches \( /\^\(\[A-Z0-9\]\+\)\$ 
+  text: Rremove the grouping, you don’t need the parentheses.
+
+# debug: true
+</script>
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise ReDoS</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html" target="_blank">introduction to
+the labs</a>.
+
+<p>
+<h2>Task</h2>
+<p>
+Learn how to identify and fix a code susceptible to ReDoS attack 
+
+<p>
+<h2>Background</h2>
+<p>
+Regular expressions are a way to do input validation, checking whether data matches a specific pattern. Poorly designed expressions may result in potential denial of service conditions (ReDoS ). This attack exploits the fact that most Regular Expression implementations may reach extreme situations, so an attacker can force situations where the regular expression can be run for an extremely long time, exponentially based on the input size.
+<p>
+In this exercise we are going to fix an input validation that uses regular expressions but is susceptible to ReDos attack.
+
+
+<p>
+<h2>Task Information</h2>
+<p>
+
+<p>
+The code below sets up handlers for a get request on path <tt>/parts</tt>. This code could be triggered, for example, by requesting <tt>http://localhost:3000/part?id=AB123</tt> (if it was running at localhost and responding to port 3000). If there are no validation errors, the code is supposed to show the part id. If there is a validation error, it responds with HTTP error code 422 ("Unprocessable Content"), a status code suggesting that the request was invalid for some reason, along with an error message. 
+<p>
+For this lab we want to fix a regex that is susceptible to a ReDos attack, applying these countermeasures: 
+<ol>
+<li>Limit the maximum length of input strings and check the input length first. 
+  <ol>
+    <li>After selecting the id parameter (<tt>query('id')</tt>), use the validation requirement <tt>isLength()</tt> to limit the string size. We'll need to use the maximum optional parameter to set the maximum size required: <tt>isLength({max: YOUR_MAXIMUM})</tt></li>
+  </ol>
+</li>
+<li>Modify the regex so that it doesn’t have the worst-case behavior. Be especially wary of any group “(...)” that contains a branch and/or ends with a repeat and is itself repeated</li>
+</ol>
+
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+<p>
+Change the code below, adding the mitigation steps to avoid ReDos:
+<ol>
+  <li>Limit the maximum length of input strings so the query parameter id is only accepted if it's no longer than <b>50</b> characters</li>
+  <li>Modify the regex so that it doesn’t have the worst-case behavior. The regex should meet this application's part id format requirement that is: one or more uppercase alphanumeric characters.</li>
+</ol>
+<form id="lab">
+  <pre><code
+  >// Set up Express framework and express-validator library
+  const express = require("express");
+  const app = express();
+  const { query, matchedData, validationResult } =
+      require('express-validator');
+  
+  // Implement requests, e.g., http://localhost:3000/parts?id=1
+  app.get('/parts',
+  <input id="attempt0" type="text" size="65" spellcheck="false"
+   value="  query('id').matches( /^([A-Z0-9]+)+$/ ) ,">
+    (req, res) =&gt; { // Execute this code if /parts seen
+      const result = validationResult(req); // Retrieve errors
+      if (result.isEmpty()) { // No errors
+        const data = matchedData(req); // Retrieve matching data
+        return res.send(`You requested part id ${data.id}!`);
+      }
+      res.status(422).send(`Invalid input`);
+    })
+  </code></pre>
+  <button type="button" class="hintButton">Hint</button>
+  <button type="button" class="resetButton">Reset</button>
+  <button type="button" class="giveUpButton">Give up</button>
+  <br><br>
+  <p>
+  <i>This lab was developed by David A. Wheeler at
+  <a href="https://www.linuxfoundation.org/"
+  >The Linux Foundation</a>.</i>
+  <br><br><!-- These go in the last form if there's more than one: -->
+  <p id="correctStamp" class="small">
+  <textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+  </textarea>
+  </form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
