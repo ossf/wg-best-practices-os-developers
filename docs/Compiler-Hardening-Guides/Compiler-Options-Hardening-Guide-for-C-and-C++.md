@@ -722,9 +722,15 @@ Return-oriented programming (ROP) uses an initial subversion (such as a buffer o
 
 There are performance implications but they are typically mild due to hardware assistance. The `-fcf-protection=full` flag enables Intel's Control-Flow Enforcement Technology (CET) [^IntelCET], which introduces shadow stack (SHSTK) and indirect branch tracking (IBT). The `-mbranch-protection=standard` flag invokes similar protections in the AArch64. In clang `-mbranch-protection=standard` is equivalent to `-mbranch-protection=bti+pac-ret` and invokes the AArch64 Branch Target Identification (BTI) and Pointer Authentication using key A (pac-ret) [^Armclang].
 
+#### Additional Considerations
+
+Intel CET shadow stack requires Linux Kernel version 6.6 or higher and glibc version 2.39 or higher. Shadow stack support must, in addition, be enabled at run-time by setting the corresponding hardware capability tunable for glibc via the `GLIBC_TUNABLES` environmental variable [^glibc-tunables]: `export GLIBC_TUNABLES=glibc.cpu.hwcaps=SHSTK`.
+
 [^Armclang]: ARM Developer, [Arm Compiler armclang Reference Guide Version 6.12 -mbranch-protection](https://developer.arm.com/documentation/100067/0612/armclang-Command-line-Options/-mbranch-protection).
 
 [^IntelCET]: Intel, ["A Technical Look at Intel’s Control-flow Enforcement Technology"](https://www.intel.com/content/www/us/en/developer/articles/technical/technical-look-control-flow-enforcement-technology.html), 2020-06-13.
+
+[^glibc-tunables]: GNU C Library team, [Tunables](https://www.gnu.org/software/libc/manual/html_node/Tunables.html), GNU C Library (glibc) manual, 2024-07-22.
 
 ---
 
