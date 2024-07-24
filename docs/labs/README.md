@@ -75,7 +75,7 @@ work on.
     * [Validating Text](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#validating-text)
     * Introduction to Regular Expressions - DONE-0 [regex0](regex0.html)
     * Using Regular Expressions for Text Input Validation - DONE-0 [regex1](regex1.html), [input2](input2.html)
-    * [Countering ReDoS Attacks on Regular Expressions](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#countering-redos-attacks-on-regular-expressions) - PLANNED-2 (Camila Vilarinho)
+    * [Countering ReDoS Attacks on Regular Expressions](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#countering-redos-attacks-on-regular-expressions) - DONE-2 (Camila Vilarinho, 2026-07-19) [redos](redos.html)
   * Input Validation: Beyond Numbers and Text
     * [Insecure Deserialization](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#insecure-deserialization) - PLANNED-2 (Tapas Jena)
     * [Input Validation: Beyond Numbers and Text](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#input-validation-beyond-numbers-and-text) - PLANNED-2 UNASSIGNED
@@ -88,7 +88,7 @@ work on.
   * Processing Data Securely: General Issues
     * [Prefer Trusted Data. Treat Untrusted Data as Dangerous](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#prefer-trusted-data-treat-untrusted-data-as-dangerous) - PLANNED-2 UNASSIGNED
     * [Avoid Default & Hardcoded Credentials](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-default--hardcoded-credentials) - PLANNED-1 (Tapas Jena)
-    * [Avoid Incorrect Conversion or Cast](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-incorrect-conversion-or-cast) - PLANNED-2 (Keith Grant via Vincent Danen)
+    * [Avoid Incorrect Conversion or Cast](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-incorrect-conversion-or-cast) - PLANNED-2 (Keith Grant via Vincent Danen, by 2024-07-26)
   * Processing Data Securely: Undefined Behavior / Memory Safety
     * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - DONE-0 [oob1](oob1.html)
     * [Double-free, Use-after-free, and Missing Release](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#double-free-use-after-free-and-missing-release) - PLANNED-1 (Bennett Pursell)
@@ -101,7 +101,7 @@ work on.
   * Calling Other Programs: Injection and Filenames
     * [SQL Injection](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#sql-injection) - PLANNED-1 (Tapas Jena)
     * OS Command (Shell) injection - PLANNED-1 (Marta Rybczynska)
-    * [Other Injection Attacks](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#other-injection-attacks) - PLANNED-2 (Dhananjay Arunesh via Vincent Danen)
+    * [Other Injection Attacks](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#other-injection-attacks) - PLANNED-2 (Dhananjay Arunesh via Vincent Danen, 2026-07-26)
     * Filenames (Including Path Traversal and Link Following) - PLANNED-2 UNASSIGNED
   * Calling Other Programs: Other Issues
     * [Call APIs for Programs and Check What Is Returned](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#call-apis-for-programs-and-check-what-is-returned) - PLANNED-2 UNASSIGNED
@@ -121,7 +121,7 @@ work on.
   * Using Inadequately Checked URLs / Server-Side Request Forgery (SSRF) - PLANNED-2 UNASSIGNED
   * Same-Origin Policy and Cross-Origin Resource Sharing (CORS) - PLANNED-2 UNASSIGNED
   * [Format Strings and Templates](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#format-strings-and-templates) - PLANNED-1 (Jason Shepherd)
-  * [Minimize Feedback / Information Exposure](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#minimize-feedback--information-exposure) - PLANNED-2 (Ibrahim Mukherjee)
+  * [Minimize Feedback / Information Exposure](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#minimize-feedback--information-exposure) - PLANNED-2 (Ibrahim Mukherjee, 2026-07-31)
   * [Avoid caching sensitive information](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-caching-sensitive-information) - PLANNED-2 UNASSIGNED
   * [Side-Channel Attacks](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#side-channel-attacks) - PLANNED-2 UNASSIGNED
 
