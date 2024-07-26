@@ -20,21 +20,21 @@ unsigned int queue_count = 0;
 
 <!-- Full pattern of correct answer -->
 <script id="correct0" type="plain/text">
-^\s*unsigned\s+int\s+queue_count\s+=\s+0\s*;\s*$
+^ unsigned\s+int\s+queue_count = 0 ; $
 </script>
 
 <script id="info" type="application/yaml">
 ---
 hints:
 - absent: "unsigned"
-  text: The type defined for queue_count should match the return type of get_queue.
+  text: The type defined for queue_count should exactly match the return type of get_queue.
 # debug: true
 </script>
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->
 <div class="container-lg px-3 my-5 markdown-body">
-<h1>Lab Exercise incorrect cast</h1>
+<h1>Lab Exercise incorrect conversion</h1>
 <p>
 This is a lab exercise on developing secure software.
 For more information, see the <a href="https://best.openssf.org/labs/introduction.html" target="_blank">introduction to
@@ -47,7 +47,7 @@ the labs</a>.
 
 </p><p>
 </p><h2>Background</h2>
-<p>In this exercise, we'll identify and correct an unintended type conversion.</p>
+<p>In this exercise, we'll identify and correct an unintended type conversion (aka an unintended type cast).</p>
 <p>In the example below, in the C programming language, we're processing messages stored in a queue. We retrieve the messages with a call to a function called <tt>get_queue</tt>. We pass the <tt>get_queue</tt> function one argument by reference, an array in which messages can be stored, and it returns the number of messages which were written into the array. We then iterate over the messages we've retrieved, and process them by calling <tt>process_message</tt>.</p>
 <p>Unfortunately, because of a mismatch in the type we use for <tt>queue_count</tt> and the return type of <tt>get_queue</tt>, it's possible that we'll try to process the wrong number of messages. Processing too few messages is bad, because it means we're losing information, and attempting to process too many can lead to errors if we treat uninitialized memory in the <tt>messages</tt> array as data, or possibly a segmentation fault if we attempt to read beyond the end of the array.</p>
 <p></p><h2>Task Information</h2>
