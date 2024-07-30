@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://best.openssf.org/labs/template.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+unsigned int queue_count = 0;
+</script>
+<!--
+-->
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+^ unsigned\s+int\s+queue_count = 0 ; $
+</script>
+
+<script id="info" type="application/yaml">
+---
+hints:
+- absent: "unsigned"
+  text: The type defined for queue_count should exactly match the return type of get_queue.
+# debug: true
+</script>
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise incorrect conversion</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="https://best.openssf.org/labs/introduction.html" target="_blank">introduction to
+the labs</a>.
+
+</p><p>
+</p><h2>Task</h2>
+<p>
+<b>Please change the code below to avoid unintended type conversions.</b>
+
+</p><p>
+</p><h2>Background</h2>
+<p>In this exercise, we'll identify and correct an unintended type conversion (aka an unintended type cast).</p>
+<p>In the example below, in the C programming language, we're processing messages stored in a queue. We retrieve the messages with a call to a function called <tt>get_queue</tt>. We pass the <tt>get_queue</tt> function one argument by reference, an array in which messages can be stored, and it returns the number of messages which were written into the array. We then iterate over the messages we've retrieved, and process them by calling <tt>process_message</tt>.</p>
+<p>Unfortunately, because of a mismatch in the type we use for <tt>queue_count</tt> and the return type of <tt>get_queue</tt>, it's possible that we'll try to process the wrong number of messages. Processing too few messages is bad, because it means we're losing information, and attempting to process too many can lead to errors if we treat uninitialized memory in the <tt>messages</tt> array as data, or possibly a segmentation fault if we attempt to read beyond the end of the array.</p>
+<p></p><h2>Task Information</h2>
+<p>
+
+</p><p>Change the code below to avoid unintentional conversions or truncations of the return value of <tt>get_queue</tt>.
+
+</p><p>
+</p><h2>Interactive Lab (<span id="grade">to be completed</span>)</h2>
+<p>
+</p><form id="lab">
+<pre><code>
+/* The function signature of get_queue */
+unsigned int get_queue(message** messages);
+
+/* The part of our code which processes messages... */
+<input id="attempt0" type="text" size="60" spellcheck="false" value="int queue_count = 0;" style="background-color: yellow;">
+message* messages = malloc(sizeof(message) * MAX_MESSAGE_COUNT);
+
+/* Process each message in order */
+for (unsigned int i = 0; i < queue_count; i++) {
+	process_message(messages[i]);
+}
+</code></pre>
+<button type="button" class="hintButton" title="Provide a hint given current attempt.">Hint</button>
+<button type="button" class="resetButton" title="Reset initial state (throwing away current attempt).">Reset</button>
+<button type="button" class="giveUpButton" title="Give up and show an answer.">Give up</button>
+<br><br>
+<p>
+<i>This lab was developed by Keith Grant</i>
+<br><br>
+</p><p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly=""></textarea>
+</p></form>
+</div><!-- End GitHub pages formatting -->
+
+
+</body></html>
