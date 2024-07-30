@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+  dir_to_list = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
+</script>
+<!--
+-->
+<script id="expected1" type="plain/text">
+  subprocess.run(["ls", "-l", dir_to_list])
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+\s*
+  VARIABLE = re.sub(r'[^a-zA-Z0-9]', '', VARIABLE)
+\s*
+</script>
+<script id="correct1" type="plain/text">
+\s*
+  subprocess.run \( ["ls", "-l", VARIABLE ] \)
+\s*
+</script>
+
+<script id="info" type="application/yaml">
+---
+hints:
+- absent: "subprocess.run"
+  text: Use subprocess.run
+- absent: "re.sub"
+  text: Use re.sub to remove unexpected characters
+definitions:
+
+</script>
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise shell-injection</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html" target="_blank">introduction to
+the labs</a>.
+
+<p>
+<h2>Task</h2>
+<p>
+<b>.</b>
+
+<p>
+<h2>Background</h2>
+<p>
+In many cases, programmers run system commands from their applications.
+This happens for multiple reasons: running a complicated tool, avoiding to
+code a functionality that exists in another tool, or just because the application
+(often a web application) is an interface to a tool running on the server system.
+</p>
+
+<p>
+However, quite often the list of parameters of that external tool isn't static.
+One or multiple parameters are given by the end user. This may be the name
+they give to the project, for example. The application need to carefully parse
+the given parameters to make sure they do not contain special characters like
+the end of the command (often ';'). Otherwise, an attacker can craft input
+in such a way that they execute commands of their choice in addition to the
+one present in the application.
+</p>
+
+<p>
+<h2>Task Information</h2>
+<p>
+In this task we are going to fix a shell command injection situation. You may
+want to test the result of different user input separately to see what happens.
+</p>
+
+<p>
+Our scenario is a simple one. In our application in Python, wWe want to list
+files in a temporary directory used by our application for data processing.
+The original code was:
+</p>
+
+<pre><code>
+subprocess.run("ls -l", shell=True)
+</code></pre>
+
+<p>
+Then, another developer added user input for the directory with the raw user
+data in the variable <pre>dir_to_list</pre>...
+</p>
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+<p>
+<form id="lab">
+<pre><code>
+def list_directory(dir_to_list):
+    subprocess.run(f"ls -l {dir_to_list}", shell=True)
+</pre></code>
+
+Rewrite the function to be safe:
+<pre><code>
+
+def list_directory(dir_to_list):
+<textarea id="attempt0" rows="3" cols="60" spellcheck="false">
+  # Validate the user input with a regular expression
+</textarea>
+<textarea id="attempt1" rows="3" cols="60" spellcheck="false">
+  # Then use subprocess in a safer way
+</textarea>
+</code</pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+<br><br>
+<p>
+<i>This lab was developed by Marta Rybczynska.</i>
+<br><br>
+<p>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
