@@ -13,23 +13,23 @@
 
 <!-- Sample expected answer -->
 <script id="expected0" type="plain/text">
-  dir_to_list = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
+  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
 </script>
 <!--
 -->
 <script id="expected1" type="plain/text">
-  subprocess.run(["ls", "-l", dir_to_list])
+  subprocess.run(["ls", "-l", clean_dir])
 </script>
 
 <!-- Full pattern of correct answer -->
 <script id="correct0" type="plain/text">
 \s*
-  VARIABLE = re.sub(r'[^a-zA-Z0-9]', '', VARIABLE)
+  clean_dir = re . sub \( r'\[\^a-zA-Z0-9\]' , (''|"") , dir_to_list \)
 \s*
 </script>
 <script id="correct1" type="plain/text">
 \s*
-  subprocess.run \( ["ls", "-l", VARIABLE ] \)
+  subprocess . run \( \[ ('ls'|"ls") , ('-l'|"-l") , clean_dir \] \)
 \s*
 </script>
 
@@ -39,7 +39,7 @@ hints:
 - absent: "subprocess.run"
   text: Use subprocess.run
 - absent: "re.sub"
-  text: Use re.sub to remove unexpected characters
+  text: Use re.sub(..) to accept only alphanumeric characters (removing the rest)
 definitions:
 
 </script>
@@ -56,25 +56,39 @@ the labs</a>.
 <p>
 <h2>Task</h2>
 <p>
-<b>.</b>
+<b>Eliminate a shell injection vulnerability.</b>
 
 <p>
 <h2>Background</h2>
 <p>
 In many cases, programmers run system commands from their applications.
 This happens for multiple reasons: running a complicated tool, avoiding to
-code a functionality that exists in another tool, or just because the application
-(often a web application) is an interface to a tool running on the server system.
+code a functionality that exists in another tool,
+or just because the application
+(often a web application) is an interface to a tool running
+on the server system.
+Doing this incorrectly, however, can lead to vulnerabilities.
 </p>
 
 <p>
-However, quite often the list of parameters of that external tool isn't static.
-One or multiple parameters are given by the end user. This may be the name
-they give to the project, for example. The application need to carefully parse
+Quite often the list of parameters of that external tool isn't static.
+One or multiple parameters are given by an untrusted end user.
+This may be the name
+they give to the project, for example.
+The application needs to avoid passing these parameters through the shell
+at all if the shell isn't needed.
+</p>
+
+<p>
+In addition,
+the application need to carefully handle
 the given parameters to make sure they do not contain special characters like
-the end of the command (often ';'). Otherwise, an attacker can craft input
+the end of the command (often ';'). Otherwise, an attacker might be
+able to craft input
 in such a way that they execute commands of their choice in addition to the
 one present in the application.
+We need to do that with an allowlist, that is, by expressly listing what
+is allowed (and forbidding everything else).
 </p>
 
 <p>
@@ -85,7 +99,7 @@ want to test the result of different user input separately to see what happens.
 </p>
 
 <p>
-Our scenario is a simple one. In our application in Python, wWe want to list
+Our scenario is a simple one. In our application in Python, we want to list
 files in a temporary directory used by our application for data processing.
 The original code was:
 </p>
@@ -96,32 +110,44 @@ subprocess.run("ls -l", shell=True)
 
 <p>
 Then, another developer added user input for the directory with the raw user
-data in the variable <pre>dir_to_list</pre>...
+data in the variable <pre>dir_to_list</pre> as follows:
+</p>
+
+<pre><code>def list_directory(dir_to_list):
+    subprocess.run(f"ls -l {dir_to_list}", shell=True)
+</pre></code>
+
+<p>
+This is a shell injection vulnerability.
+An attacker can put arbitrary text into the parameter, which will be
+executed by the shell.
+It would safer to <i>not</i> invoke the shell at all, <i>and</i> ensure
+that only safe characters would be considered.
+</p>
+<p>
+To be fair, a typical Python program wouldn't call "ls" directly;
+we'll do that to keep the example simple.
 </p>
 
 <p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
 <p>
-<form id="lab">
-<pre><code>
-def list_directory(dir_to_list):
-    subprocess.run(f"ls -l {dir_to_list}", shell=True)
-</pre></code>
-
-Rewrite the function to be safe:
-<pre><code>
-
-def list_directory(dir_to_list):
-<textarea id="attempt0" rows="3" cols="60" spellcheck="false">
-  # Validate the user input with a regular expression
+Rewrite the following function to be safe:
+<p>
+<pre><code>def list_directory(dir_to_list):
+  # Modify the directory so it only contains a-zA-Z0-9
+<textarea id="attempt0" rows="2" cols="60" spellcheck="false">
+  clean_dir = dir_to_list
 </textarea>
-<textarea id="attempt1" rows="3" cols="60" spellcheck="false">
   # Then use subprocess in a safer way
+<textarea id="attempt1" rows="2" cols="60" spellcheck="false">
+  subprocess.run(f"ls -l {dir_to_list}", shell=True)
 </textarea>
-</code</pre>
+</code></pre>
 <button type="button" class="hintButton">Hint</button>
 <button type="button" class="resetButton">Reset</button>
 <button type="button" class="giveUpButton">Give up</button>
+</form>
 <br><br>
 <p>
 <i>This lab was developed by Marta Rybczynska.</i>
