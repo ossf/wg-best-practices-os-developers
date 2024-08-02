@@ -40,7 +40,7 @@ The http.server module is now launched from the `PYTHONPATH` and only printing "
 
 ## Compliant Solution
 
-Most Python interpreters have `--check-hash-based-pycs` set to default and are skipping integrity validation of byte code against their source code files. Using `--check-hash-based-pycs` always enforces hash-based integrity verification of byte code files against their source code files. A user custom `PYTHONPATH` is suppressed with the `-I` isolation flag.
+Most Python interpreters have `--check-hash-based-pycs` set to `default` and are skipping integrity validation of byte code against their source code files. Using `--check-hash-based-pycs always` enforces hash-based integrity verification of byte code files against their source code files. A user custom `PYTHONPATH` is suppressed with the `-I` isolation flag.
 
 *[compliant01.bash](compliant01.bash):*
 
