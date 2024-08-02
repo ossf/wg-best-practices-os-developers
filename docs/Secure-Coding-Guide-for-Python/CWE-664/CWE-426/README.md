@@ -13,7 +13,7 @@ Byte code files contain a 32-bit 'magic number' to identify the byte code format
 
 ## Non-Compliant Code Example
 
-Setting the `--check-hash-based-pycs` to default or never skips integrity verification of the byte code against its source code and only compares timestamp and size.
+Setting the `--check-hash-based-pycs` to `default` or `never` skips integrity verification of the byte code against its source code and only compares timestamp and size.
 
 *[noncompliant01.bash](noncompliant01.bash):*
 
