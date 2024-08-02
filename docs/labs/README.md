@@ -26,7 +26,7 @@ We also have a [template](template.html) available.
 
 ## Please contribute labs
 
-Please us create labs! See "[Please us create labs!](https://docs.google.com/document/d/1wNoNjLpdkgoXkRDvDBI32tm62rbASlfF6gxwyEkyTYs/edit)" for why it's
+Please help us create labs! See "[Please help us create labs!](https://docs.google.com/document/d/1wNoNjLpdkgoXkRDvDBI32tm62rbASlfF6gxwyEkyTYs/edit)" for why it's
 important to help us create labs.
 
 We would love to have people contribute relevant labs to help
