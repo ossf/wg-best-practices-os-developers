@@ -18,8 +18,15 @@
 <script id="correct0" type="plain/text">
   ^[?]$
 </script>
-  
 
+<!--
+<script id="expected1" type="plain/text">?</script>
+
+<script id="correct1" type="plain/text">
+  ^[?]$
+</script>
+  
+-->
 
 <script id="info" type="application/yaml">
 ---
@@ -71,19 +78,23 @@ String QueryString = "select * from authors where lastname = ?";
 <button type="button" class="resetButton">Reset</button>
 <button type="button" class="giveUpButton">Give up</button>
 <br><br>
-
+<!--
 <p>
 In the following code below create an place holder for "search_lastname" in order to make it a parameterized statement.
+
 <form id="lab2">
 <pre><code>
-String QueryString = "select * from authors where lastname = '" + search_lastname + "';";
-<input id="attempt1" type="text" size="60" spellcheck="false" value="initial text0">
+  <input id="attempt1" type="text" size="100" spellcheck="false"
+ value='String QueryString = "select * from authors where lastname = " + search_lastname + ";'>
+
+
 
 </code></pre>
 <button type="button" class="hintButton">Hint</button>
 <button type="button" class="resetButton">Reset</button>
 <button type="button" class="giveUpButton">Give up</button>
 <br><br>
+-->
 
 <p>
 <i>This lab was developed by David A. Wheeler at
