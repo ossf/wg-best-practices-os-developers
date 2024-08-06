@@ -19,14 +19,14 @@
   ^[?]$
 </script>
 
-<!--
-<script id="expected1" type="plain/text">?</script>
+
+<script id="expected1" type="plain/text">rs = statement.executeQuery(QueryString,lastname);</script>
 
 <script id="correct1" type="plain/text">
-  ^[?]$
+  \s* rs = statement \. executeQuery \( QueryString, \s* lastname \) ; \s*
 </script>
   
--->
+
 
 <script id="info" type="application/yaml">
 ---
@@ -78,23 +78,31 @@ String QueryString = "select * from authors where lastname = ?";
 <button type="button" class="resetButton">Reset</button>
 <button type="button" class="giveUpButton">Give up</button>
 <br><br>
-<!--
+
 <p>
-In the following code below create an place holder for "search_lastname" in order to make it a parameterized statement.
+Looking at the following code from the content repository we can see that this is an example of vulnerable code.
+<br>
+<pre><code> 
+QueryString = "select * from authors where lastname = ' " + search_lastname + " '; "; // VULNERABLE CODE
+rs = statement.executeQuery(QueryString); // VULNERABLE CODE</code></pre>
 
-<form id="lab2">
+Using the following code correctly implement the prepared statement by modifying the line of code.
+ <form id="lab2">
 <pre><code>
-  <input id="attempt1" type="text" size="100" spellcheck="false"
- value='String QueryString = "select * from authors where lastname = " + search_lastname + ";'>
-
-
+  >// Correct Version of a Parameterized statement
+  QueryString = "select * from authors where lastname = %s";
+  lastname = search_lastname;
+  <input id="attempt1" type="text" size="45" spellcheck="false"
+  value='rs = statement.executeQuery(QueryString);'>
+  
+  
 
 </code></pre>
 <button type="button" class="hintButton">Hint</button>
 <button type="button" class="resetButton">Reset</button>
 <button type="button" class="giveUpButton">Give up</button>
 <br><br>
--->
+
 
 <p>
 <i>This lab was developed by David A. Wheeler at
