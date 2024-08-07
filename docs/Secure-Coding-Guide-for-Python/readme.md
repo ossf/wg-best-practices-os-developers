@@ -40,12 +40,13 @@ It is **not production code** and requires code-style or python best practices t
 
 |[CWE-664: Improper Control of a Resource Through its Lifetime](https://cwe.mitre.org/data/definitions/664.html)|Prominent CVE|
 |:-----------------------------------------------------------------------------------------------------------------------------------------------|:----|
-|[CWE-134: Use of Externally-Controlled Format String](CWE-664/CWE-134/README.md)|[CVE-2022-27177](https://www.cvedetails.com/cve/CVE-2022-27177/),<br/>CVSSv3.1: **9.8**,<br/>EPSS:**00.37**(01.12.2023)|
+|[CWE-134: Use of Externally-Controlled Format String](CWE-664/CWE-134/README.md)|[CVE-2022-27177](https://www.cvedetails.com/cve/CVE-2022-27177/),<br/>CVSSv3.1: **9.8**,<br/>EPSS: **00.37** (01.12.2023)|
 |[CWE-197: Numeric Truncation Error](CWE-664/CWE-197/.)||
 |[CWE-197: Control rounding when converting to less precise numbers](CWE-664/CWE-197/01/.)||
 |[CWE-400: Uncontrolled Resource Consumption](CWE-664/CWE-400/README.md)||
 |[CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)](CWE-664/CWE-409/.)||
 |[CWE-410: Insufficient Resource Pool](CWE-664/CWE-410/README.md)||
+|[CWE-426: Untrusted Search Path](CWE-664/CWE-426/README.md)|[CVE-2015-1326](https://www.cvedetails.com/cve/CVE-2015-1326),<br/>CVSSv3.0: **8.8**,<br/>EPSS: **00.20** (23.11.2023)|
 |[CWE-501: Trust Boundary Violation)](CWE-664/CWE-501/README.md)||
 |[CWE-502: Deserialization of Untrusted Data)](CWE-664/CWE-502/.)||
 |[CWE-665: Improper Initialization](CWE-664/CWE-665/README.md)||
@@ -74,7 +75,7 @@ It is **not production code** and requires code-style or python best practices t
 
 |[CWE-707: Improper Neutralization](https://cwe.mitre.org/data/definitions/707.html)|Prominent CVE|
 |:----------------------------------------------------------------|:----|
-|[CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')](CWE-707/CWE-89/.)|[CVE-2019-8600](https://www.cvedetails.com/cve/CVE-2019-8600/),<br/>CVSSv3.1: **9.8**,<br/>EPSS:**01.43**(18.02.2024)|
+|[CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')](CWE-707/CWE-89/.)|[CVE-2019-8600](https://www.cvedetails.com/cve/CVE-2019-8600/),<br/>CVSSv3.1: **9.8**,<br/>EPSS: **01.43** (18.02.2024)|
 |[CWE-117: Improper Output Neutralization for Logs](CWE-707/CWE-117/.)||
 |[CWE-180: Incorrect behavior order: Validate before Canonicalize](CWE-707/CWE-180/.)||
 
