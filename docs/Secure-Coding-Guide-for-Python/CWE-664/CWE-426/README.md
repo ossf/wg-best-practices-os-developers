@@ -15,12 +15,16 @@ Byte code files contain a 32-bit 'magic number' to identify the byte code format
 
 Setting the `--check-hash-based-pycs` to `default` or `never` skips integrity verification of the byte code against its source code and only compares timestamp and size.
 
+The following `noncompliant01.bash` code uses the Python standard library http.server as an example of a python process started from a bash script without hash-based verification:
+
 *[noncompliant01.bash](noncompliant01.bash):*
 
 ```bash
 # Non-compliant Code Example
 python3 -m http.server -b 127.0.0.42 8080
 ```
+
+An attacker can exploit this by manipulating the `PYTHONPATH` to inject their code that can go unnoticed without hash-based verification as shown in the following example:
 
 *[example01.bash](example01.bash)*
 
@@ -52,14 +56,6 @@ python3 -I --check-hash-based-pycs always -m http.server -b 127.0.0.42 8080
 ## Exceptions
 
 **ENV-4P-EX0:** Untrusted entities are not able to change environmental variables or any Python files.
-
-## Risk Assessment
-
-An attacker with access to the environment and filesystem can allow full control over what a Python script can run.
-
-| Rule     | Severity | Likelihood | Remediation Cost | Priority | Level |
-|:---------|:---------|:-----------|:-----------------|:---------|:------|
-| ENV04-P3 | High     | Likely     | Low              | P27      | L1    |
 
 ## Automated Detection
 
