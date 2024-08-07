@@ -54,19 +54,19 @@ the labs</a>.
 <p>
 <h2>Background</h2>
 <p>
-In this exercise, users will modify a prepared statement so that it will become a parameterized statement. Parameterized statments are used to stop SQL injection attacks by seperating SQL code from its data inputs. Parameterized statments are SQL queries which utilize place holders instead of directly embedding user inputs into a query.
+Parameterized statments are used to prevent SQL injection attacks by seperating SQL code from its data inputs. Parameterized statments are SQL queries which utilize place holders instead of directly embedding user inputs into a query. This prevents queries from being injected with malicious code.
 <p>
 <h2>Task Information</h2>
 <p>
 
 <p>
-Please modify the code below inorder to change the Unsecured prepared statement into a secure parameterized statement.
+In this lab, you will study and modify code relating to SQL injection attacks. You will answer a couple of questions related to prepared/parameterized statements.
 
 
 <p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
 <p>
-Looking at the following parameterized statement, identify which charater is the place holder and enter it into the yellow box.
+Looking at the following parameterized statement, which character is acting as the place holder?
 
 <form id="lab">
 <pre><code>
@@ -80,16 +80,16 @@ String QueryString = "select * from authors where lastname = ?";
 <br><br>
 
 <p>
-Looking at the following code from the content repository we can see that this is an example of vulnerable code.
+Looking at the following example code, we can see that this is an example of vulnerable code.(This example was taken directly from the <a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md">Secure Software Development Fundamentals</a> course content.)
 <br>
 <pre><code> 
 QueryString = "select * from authors where lastname = ' " + search_lastname + " '; "; // VULNERABLE CODE
 rs = statement.executeQuery(QueryString); // VULNERABLE CODE</code></pre>
 
-Using the following code correctly implement the prepared statement by modifying the line of code.
+Modify the following code so that the SQL query can be executed safely using a parameterized approach. 
  <form id="lab2">
 <pre><code>
-  >// Correct Version of a Parameterized statement
+  // safer approach using a parameterized statement
   QueryString = "select * from authors where lastname = %s";
   lastname = search_lastname;
   <input id="attempt1" type="text" size="45" spellcheck="false"
