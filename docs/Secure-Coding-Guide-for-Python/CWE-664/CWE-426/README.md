@@ -2,20 +2,20 @@
 
 In an environment where an untrusted or less trusted entity can modify the environment variables, consider validating hash-based byte code [Python 2023 Command line and environment].
 
-Python source code `.py`  files need to be converted into "byte code" `.pyc` or `.pyo` in memory or in a filesystem `__pycache__` before running on the Python Virtual Machine (PVM) [Dec 2009 PEP 3147].
+Python source code `.py` files need to be converted into "byte code" `.pyc` or `.pyo` in memory or in a filesystem `__pycache__` before running on the Python Virtual Machine (PVM) [Dec 2009 PEP 3147].
 Python 3.8 [Dec 2009 PEP 3147] also has a backward compatibility mode supporting delivering only byte code.
 
-Python 3.8 introduced the option to customize the `__pychache__` folder via `-X pycache_prefix=PATH`, or the `PYTHONPYCACHEPREFIX` environment variable. An attacker may manipulate the `PYTHONPYCACHEPREFIX` or `PYTHONPATH` to inject their code that can go unnoticed without hash-based verification. Without `--check-hash-based-pycs` Python only compares the byte code against the source code via time-stamp [Python 2023 The import system] potentially allowing an attack.
+Python 3.8 introduced the option to customize the `__pycache__` folder via `-X pycache_prefix=PATH`, or the `PYTHONPYCACHEPREFIX` environment variable. An attacker may manipulate the `PYTHONPYCACHEPREFIX` or `PYTHONPATH` to inject their code that can go unnoticed without hash-based verification. Without `--check-hash-based-pycs` Python only compares the byte code against the source code via a timestamp [Python 2023 The import system], potentially allowing an attack.
 
-Python 2.6 also introduced the ability to stop Python from writing "byte code" files via `-B` flag or `PYTHONDONTWRITEBYTECODE=1` environment variable is another possibility that does not guarantee full protection.
+Python 2.6 also introduced the ability to stop Python from writing "byte code" files via the `-B` flag or `PYTHONDONTWRITEBYTECODE=1` environment variable. However, this does not guarantee full protection.
 
-Byte code files contain a 32-bit 'magic number' to identify the byte code format to find out if the PVM matches. Byte code also uses a naming convention to match up the CPython interpreter down to its minor version such as `sessions.cpython-39.pyc` for the sessions module complied with CPython 3.9.
+Byte code files contain a 32-bit 'magic number' to identify the byte code format to determine if the PVM matches. Byte code also uses a naming convention to match up the CPython interpreter down to its minor version, such as `sessions.cpython-39.pyc` for the sessions module compiled with CPython 3.9.
 
 ## Non-Compliant Code Example
 
-Setting the `--check-hash-based-pycs` to `default` or `never` skips integrity verification of the byte code against its source code and only compares timestamp and size.
+Setting `--check-hash-based-pycs` to `default` or `never` skips integrity verification of the byte code against its source code and only compares timestamp and size.
 
-The following `noncompliant01.bash` code uses the Python standard library http.server as an example of a python process started from a bash script without hash-based verification:
+The following `noncompliant01.bash` code uses the Python standard library `http.server` as an example of a Python process started from a bash script without hash-based verification:
 
 *[noncompliant01.bash](noncompliant01.bash):*
 
@@ -40,11 +40,13 @@ export PYTHONPATH=$CWD/temp/
 python3 -m http.server -b 127.0.0.42 8080
 ```
 
-The http.server module is now launched from the `PYTHONPATH` and only printing "hello there" instead of launching the webserver.
+The `http.server` module is now launched from the `PYTHONPATH` and only prints "hello there" instead of launching the web server.
 
 ## Compliant Solution
 
-Most Python interpreters have `--check-hash-based-pycs` set to `default` and are skipping integrity validation of byte code against their source code files. Using `--check-hash-based-pycs always` enforces hash-based integrity verification of byte code files against their source code files. A user custom `PYTHONPATH` is suppressed with the `-I` isolation flag.
+In the following compliant solution, a user custom `PYTHONPATH` is suppressed with the `-I` isolation flag. This isolates the environment to avoid malicious code injection via `PYTHONPATH`. Additionally, using `--check-hash-based-pycs always` enforces hash-based integrity verification of byte code files against their source code files.
+
+compliant01.bash:
 
 *[compliant01.bash](compliant01.bash):*
 
