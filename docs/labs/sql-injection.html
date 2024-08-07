@@ -80,7 +80,7 @@ String QueryString = "select * from authors where lastname = ?";
 <br><br>
 
 <p>
-Looking at the following example code, we can see that this is an example of vulnerable code.(This example was taken directly from the <a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md">Secure Software Development Fundamentals</a> course content.)
+Looking at the following example code, we can see that this is an example of vulnerable code. (This example was taken directly from the <a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md">Secure Software Development Fundamentals</a> course content.)
 <br>
 <pre><code> 
 QueryString = "select * from authors where lastname = ' " + search_lastname + " '; "; // VULNERABLE CODE
