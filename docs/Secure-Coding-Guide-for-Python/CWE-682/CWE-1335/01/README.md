@@ -11,19 +11,8 @@ The `example01.py` code demonstrates bit-wise operators available in Python.
 
 *[example01.py](example01.py):*
 
-```py
-foo = 50
-bar = 42
-print(f"foo = {foo} = {foo:08b}") # :08b is just for pretty print
-print(f"foo = {bar} = {bar:08b}\n")
-
-# bit wise operations in Python:
-print(f"foo << 2 = {(foo << 2):08b}")   # binary shift left
-print(f"foo >> 2 = {(foo >> 2):08b}")   # binary shift right
-print(f"~foo     = {(~foo):08b}")       # flipping bits
-print(f"foo & bar  = {(foo & bar):08b}")    # binary AND
-print(f"foo | bar  = {(foo | bar):08b}")    # binary OR
-print(f"foo ^ bar  = {(foo ^ bar):08b}")    # binary XOR
+```python
+{% include_relative example01.py %}
 ```
 
 Output from above example01.py:
@@ -31,7 +20,7 @@ Output from above example01.py:
 ```bash
 foo = 50 = 00110010
 foo = 42 = 00101010
- 
+
 foo << 2 = 11001000
 foo >> 2 = 00001100
 ~foo     = -0110011
@@ -44,10 +33,8 @@ The `example02.py` code demonstrates how Python 2 changes an int to long to prev
 
 *[example02.py](example02.py):*
 
-```py
-for shift in [16, 32, 64]:
-    bar = 5225 << shift
-    print("foo << " + str(shift) + ": type " + str(type(bar)) + " " + str(bin(bar)))
+```python
+{% include_relative example02.py %}
 ```
 
 Left shift in `example02.py` changes type to long class in Python 2:
@@ -72,10 +59,8 @@ Multiplication by `4` can be archived by a `2x` left. The `noncompliant01.py` co
 
 *[noncompliant01.py](noncompliant01.py):*
 
-```py
-""" Non-compliant Code Example """
-
-print(8 << 2 + 10)
+```python
+{% include_relative noncompliant01.py %}
 ```
 
 The `noncompliaint01.py` code results in printing `32768` instead of `42`. Adding brackets `print((8 << 2) + 10)` would fix this specific issue whilst still remaining prune to other issues.
@@ -86,10 +71,8 @@ The statement in `compliant01.py` clarifies the programmer's intention.
 
 *[compliant01.py](compliant01.py):*
 
-```py
-""" Compliant Code Example """
-
-print(8 * 4 + 10)
+```python
+{% include_relative compliant01.py %}
 ```
 
 It is recommended by *[CWE-191, Integer Underflow (Wrap or Wraparound)](../CWE-191/README.md)* to also check for under or overflow.
@@ -100,13 +83,8 @@ In this non-compliant code example is using an arithmetic right shift >>= operat
 
 *[noncompliant02.py](noncompliant02.py):*
 
-```py
-""" Non-compliant Code Example """
-
-foo: int
-foo = -50
-foo >>= 2
-print(foo)
+```python
+{% include_relative noncompliant02.py %}
 ```
 
 The expectation of the `>>= 2` right shift operator is that it fills the leftmost bits of `0011 0010` with two zeros resulting in `0000 1100` or decimal twelve. Instead a potentially expected `-12` in `foo` we have internal processing truncating the values from `-12.5` to `-13`.
@@ -117,13 +95,8 @@ The right shift is replaced by division in `compliant02.py`.
 
 *[compliant02.py](compliant02.py):*
 
-```py
-""" Compliant Code Example """
-
-foo: int
-foo = -50
-foo /= 4
-print(foo)
+```python
+{% include_relative compliant02.py %}
 ```
 
 ## Automated Detection
