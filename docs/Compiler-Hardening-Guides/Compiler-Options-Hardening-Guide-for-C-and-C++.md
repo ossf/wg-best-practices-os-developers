@@ -994,7 +994,7 @@ The `-fexceptions` option is also needed for C code that needs to interoperate w
 
 ---
 
-## Enable pre-determined set of hardening options in GCC
+### Enable pre-determined set of hardening options in GCC
 
 | Compiler Flag                             | Supported since | Description                                                         |
 |:----------------------------------------- |:---------------:|:------------------------------------------------------------------- |
@@ -1003,7 +1003,7 @@ The `-fexceptions` option is also needed for C code that needs to interoperate w
 
 The `-fhardened` umbrella option enables a pre-determined set of hardening options for C and C++ on GNU/Linux targets[^gcc-fhardened]. The precise set of options may change between major releases of GCC. The exact set of options for a specific GCC version can be displayed using the `--help=hardened` option.
 
-### Additional Considerations
+#### Additional Considerations
 
 Options explicitly specified on the compiler command line always take precedence over options implied by `-fhardened`. For example, `-fhardened` in GCC 14 enables [`-fstack-protector-strong`](#-fstack-protector-strong) but specifying `-fstack-protector -fhardened` or `-fhardened -fstack-protector` on the compiler command line will enable the weaker `-fstack-protector` instead of `-fstack-protector-strong`.
 
