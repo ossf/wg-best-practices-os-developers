@@ -12,13 +12,18 @@
 <!-- See create_labs.md for how to create your own lab! -->
 
 <!-- Sample expected answer -->
-<script id="expected0" type="plain/text">?</script>
+<script id="expected0" type="plain/text">String QueryString = "select * from authors where lastname = ?";</script>
 
-<!-- Full pattern of correct answer -->
 <script id="correct0" type="plain/text">
-  ^[?]$
+ (String QueryString)\s\=\s\"select\s+\*\s+from\s+authors\s+where\s+lastname\s\=\s+\?\"\;
 </script>
 
+<!-- Full pattern of correct answer -->
+  <!-- 
+<script id="correct0" type="plain/text">
+  ^[?]$ 
+</script>
+-->
 
 <script id="expected1" type="plain/text">rs = statement.executeQuery(QueryString,lastname);</script>
 
@@ -31,10 +36,33 @@
 <script id="info" type="application/yaml">
 ---
 hints:
-- present: "unknown"
-  text: Unknown is not part of the answer.
+
+- present: |-
+    L
+  text: The variable lastname should be lowercase.
+  index: 1
+  examples:
+  - - "L"
+- absent: |-
+    \s\?
+  text: Write an parameterized statement with the Special character "?" added.
+  index: 1
+
+- present: |-
+    L
+  index: 2
+  text: The variable lastname should be lowercase.
+- absent: |-
+    ,\b
+  index: 2
+  text: The character ',' should be placed after QueryString.
+- absent: |-
+    lastname
+  index: 2
+  text: Enter the variable declared above.
 # debug: true
 </script>
+
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->
@@ -54,7 +82,7 @@ the labs</a>.
 <p>
 <h2>Background</h2>
 <p>
-Parameterized statments are used to prevent SQL injection attacks by seperating SQL code from its data inputs. Parameterized statments are SQL queries which utilize place holders instead of directly embedding user inputs into a query. This prevents queries from being injected with malicious code.
+Parameterized statements are used to prevent SQL injection attacks by seperating SQL code from its data inputs. Parameterized statements are SQL queries which utilize place holders instead of directly embedding user inputs into a query. This prevents queries from being injected with malicious code.
 <p>
 <h2>Task Information</h2>
 <p>
@@ -66,11 +94,12 @@ In this lab, you will study and modify code relating to SQL injection attacks. Y
 <p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
 <p>
-Looking at the following parameterized statement, which character is acting as the place holder?
+Looking at the following vulnerable code, rewrite the statement so it becomes a parameterized statement.
 
 <form id="lab">
 <pre><code>
-String QueryString = "select * from authors where lastname = ?";
+String QueryString = "select * from authors where lastname = ' " + search_lastname + " '; "; // VULNERABLE CODE
+<!--String QueryString = "select * from authors where lastname = ?";-->
 <input id="attempt0" type="text" size="60" spellcheck="false" value="">
 
 </code></pre>
@@ -80,7 +109,7 @@ String QueryString = "select * from authors where lastname = ?";
 <br><br>
 
 <p>
-Looking at the following example code, we can see that this is an example of vulnerable code. (This example was taken directly from the <a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md">Secure Software Development Fundamentals</a> course content.)
+Looking at the following example code, we can see that this is an example of vulnerable code. (This example was taken directly from the <a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md">Secure Software Development Fundamentals</a> course content.) 
 <br>
 <pre><code> 
 QueryString = "select * from authors where lastname = ' " + search_lastname + " '; "; // VULNERABLE CODE
@@ -105,14 +134,14 @@ Modify the following code so that the SQL query can be executed safely using a p
 
 
 <p>
-<i>This lab was developed by David A. Wheeler at
-<a href="https://www.linuxfoundation.org/"
->The Linux Foundation</a>.</i>
+<i>This lab was developed by Elijah Everett, Jeremiah Howard, and Emily Lovell as part of the
+<a href="https://github.com/emmet0r/contributor-catalyst"
+>Contributor Catalyst Program</a>.</i>
 <br><br>
 <p id="correctStamp" class="small">
 <textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
 </textarea>
 </form>
-</div><!-- End GitHub pages formatting -->
+</div>
 </body>
 </html>
