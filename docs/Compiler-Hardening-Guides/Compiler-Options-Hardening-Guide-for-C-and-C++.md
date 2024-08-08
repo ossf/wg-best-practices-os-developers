@@ -27,7 +27,8 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -fstrict-flex-arrays=3 \
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,noexecstack \
--Wl,-z,relro -Wl,-z,now
+-Wl,-z,relro -Wl,-z,now \
+-Wl,--as-needed -Wl,--no-copy-dt-needed-entries
 ~~~
 
 Note that support for some options may differ between different compilers, e.g. support for [`-D_FORTIFY_SOURCE`](#-D_FORTIFY_SOURCE=3) varies depending on the compiler[^Guelton20] and C standard library implementations. See the discussion below for [background](#background) and for [detailed discussion of each option](#recommended-compiler-options).
@@ -212,6 +213,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12.0.0<br/>Clang 8.0.0               | Perform trivial auto variable initialization                                                 |
 | [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6.0           | Enable exception propagation to harden multi-threaded C code                                 |
 | [`-fhardened`](#-fhardened)                                                               | GCC 14.0.0                           | Enable pre-determined set of hardening options in GCC                                        |
+| [`-Wl,--as-needed`](#-Wl,--as-needed)<br/>[`-Wl,--no-copy-dt-needed-entries`](#-Wl,--no-copy-dt-needed-entries) | Binutils 2.20.0 | Allow linker to omit libraries specified on the command line to link against if they are not used |
 
 [^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
@@ -1017,6 +1019,35 @@ warning: '_FORTIFY_SOURCE' is not enabled by '-fhardened' because optimizations 
 These warnings can be controlled explcitily via the `-Whardened` option.
 
 [^gcc-fhardened]: GCC team, [Program Instrumentation Options: `-fhardened`](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fhardened), GCC Manual, 2024-05-07.
+
+---
+
+### Allow linker to omit libraries specified on the command line to link against if they are not used
+
+| Compiler Flag                                                                       | Supported since | Description                                                                                       |
+|:----------------------------------------------------------------------------------- |:---------------:|:------------------------------------------------------------------------------------------------- |
+| <span id="-Wl,--as-needed">`-Wl,--as-needed`</span>                                 | Binutils 2.20.0 | Allow linker to omit libraries specified on the command line to link against if they are not used |
+| <span id="-Wl,--no-copy-dt-needed-entries">`-Wl,--no-copy-dt-needed-entries`</span> | Binutils 2.20.0 | Stop linker from resolving symbols in produced binary to transitive dependencies                  |
+
+The `--as-needed` option tells the GNU linker to only link the libraries containing symbols actually used by the produced binary. This contributes to minimizing the attack surface of the produced binary by precluding the execution of static initializers and deconstructors from unneeded libraries, and can also reduce the set of code available to code-reuse exploits, e.g., return-oriented programming.
+
+The `--as-needed` option is enabled by default by many Linux distributions including Debian[^debian-dsolinking], Gentoo[^Berkholz08], Red Hat[^fedora-hardening], and SUSE Linux[^debian-dsolinking].
+
+The `--no-copy-dt-needed-entries` stops the linker from resolving symbols in the produced binary to transitive library depenendecies. This enforces that the produced binary must be made to explicitly link against all of its actual dependencies. This is the default behavior in the GNU linker since 2.22.
+
+#### Performance implications
+
+The `--as-needed` and `--no-copy-dt-needed-entries` can improve startup times by precluding unneeded libraries from being loaded and avoid the execution of initialization code in such libraries.
+
+#### When not to use?
+
+In rare cases applications may link to libraries solely for the purpose of running their static initializers. As `--as-needed` precludes the produced binary from being linked against libraries from which no symbols are resolved it conflicts with software that relies on such static initialization[^gentoo-as-needed].
+
+[^debian-dsolinking]: Software in the Public Interest, [ToolChain DSOLinking](https://wiki.debian.org/ToolChain/DSOLinking), Debian Wiki,  2018-10-14.
+
+[^Berkholz08]: Berkholz, Donnie, [Bug 234710 - as-needed by default](https://bugs.gentoo.org/234710), Gentoo's Bugzilla, 2008-08-14.
+
+[^gentoo-as-needed]: Gentoo Foundation, [Project:Quality Assurance/As-needed](https://wiki.gentoo.org/wiki/Project:Quality_Assurance/As-needed), Gentoo Wiki, 2022-07-22.
 
 ---
 
