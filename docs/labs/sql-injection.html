@@ -36,15 +36,24 @@
 <script id="info" type="application/yaml">
 ---
 hints:
-
 - present: |-
-    L
+    ;.*;
+  text: You should only have one semi colon.
+  index: 0
+- present: |-
+   search_lastname
+  text: You should replace "search_lastname" with a place holder.
+  index: 0
+  examples:
+  - - "search_lastname"
+- present: |-
+    Lastname
   text: The variable lastname should be lowercase.
   index: 0
   examples:
-  - - "L"
+  - - "Lastname"
 - absent: |-
-    \s\?
+    \?
   text: Write an parameterized statement with the Special character "?" added.
   index: 0
 
@@ -107,7 +116,7 @@ String QueryString = "select * from authors where lastname = ' " + search_lastna
 <button type="button" class="resetButton">Reset</button>
 <button type="button" class="giveUpButton">Give up</button>
 <br><br>
-
+</form>
 <p>
 Looking at the following example code, we can see that this is an example of vulnerable code. (This example was taken directly from the <a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md">Secure Software Development Fundamentals</a> course content.) 
 <br>
@@ -132,7 +141,7 @@ Modify the following code so that the SQL query can be executed safely using a p
 <button type="button" class="giveUpButton">Give up</button>
 <br><br>
 
-
+</form>
 <p>
 <i>This lab was developed by Elijah Everett, Jeremiah Howard, and Emily Lovell as part of the
 <a href="https://github.com/emmet0r/contributor-catalyst"
@@ -141,7 +150,6 @@ Modify the following code so that the SQL query can be executed safely using a p
 <p id="correctStamp" class="small">
 <textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
 </textarea>
-</form>
 </div>
 </body>
 </html>
