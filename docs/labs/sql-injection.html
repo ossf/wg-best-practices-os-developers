@@ -40,25 +40,25 @@ hints:
 - present: |-
     L
   text: The variable lastname should be lowercase.
-  index: 1
+  index: 0
   examples:
   - - "L"
 - absent: |-
     \s\?
   text: Write an parameterized statement with the Special character "?" added.
-  index: 1
+  index: 0
 
 - present: |-
     L
-  index: 2
+  index: 1
   text: The variable lastname should be lowercase.
 - absent: |-
     ,\b
-  index: 2
+  index: 1
   text: The character ',' should be placed after QueryString.
 - absent: |-
     lastname
-  index: 2
+  index: 1
   text: Enter the variable declared above.
 # debug: true
 </script>
