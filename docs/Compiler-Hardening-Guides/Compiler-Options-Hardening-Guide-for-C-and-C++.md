@@ -726,6 +726,12 @@ There are performance implications but they are typically mild due to hardware a
 
 ---
 
+#### Additional Considerations
+
+Intel CET shadow stack requires Linux Kernel version 6.6 or higher and glibc version 2.39 or higher. Shadow stack support must, in addition, be enabled at run-time by setting the corresponding hardware capability tunable for glibc via the `GLIBC_TUNABLES` environmental variable [^glibc-tunables]: `export GLIBC_TUNABLES=glibc.cpu.hwcaps=SHSTK`.
+
+[^glibc-tunables]: GNU C Library team, [Tunables](https://www.gnu.org/software/libc/manual/html_node/Tunables.html), GNU C Library (glibc) manual, 2023-07-31.
+
 ### Restrict dlopen calls to shared objects
 
 | Compiler Flag                                                                                            | Supported since  | Description                                                  |
