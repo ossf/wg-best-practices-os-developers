@@ -2,6 +2,8 @@
 
 These are labs for those who are learning how to develop secure software.
 See our [introduction](introduction) for more information.
+They're designed to support our free course
+[Developing Secure Software (LFD121)](https://training.linuxfoundation.org/training/developing-secure-software-lfd121/).
 
 You can download the labs in these sections, e.g., to run locally
 without Internet access.
