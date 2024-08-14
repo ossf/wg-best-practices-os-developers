@@ -1,7 +1,7 @@
 # Introduction to the Labs
 
 These labs were designed to support the course
-“Developing Secure Software” (LFD121).
+[“Developing Secure Software” (LFD121)](https://training.linuxfoundation.org/training/developing-secure-software-lfd121/).
 
 These simple lab exercises help you learn how to develop secure software.
 They run on your local web browser,
