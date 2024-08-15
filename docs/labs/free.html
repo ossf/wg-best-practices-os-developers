@@ -65,7 +65,8 @@ C and C++ require <i>manual</i> memory management.
 That is, developers using C and C++
 must <i>manually</i> tell the system to release a memory region
 (using <tt>free</tt> and <tt>delete</tt> respectively).
-Manual memory management can have performance benefits.
+Manual memory management can have performance benefits, and it's
+conceptually simple.
 However, manual memory management can also lead to a variety of common types
 of bugs:
 
@@ -77,9 +78,10 @@ been released.
 </ol>
 
 <p>
-Many vulnerabilities have stemmed from manual
-memory management bugs.
-Not all such bugs are vulnerabilities, but many are.
+These bugs often happen because it's difficult to be perfect, all the time,
+as software becomes larger and more complex.
+Many vulnerabilities have stemmed from manual memory management bugs.
+Not <i>all</i> such bugs are vulnerabilities, but many are.
 
 <p>
 <h2>Task Information</h2>
