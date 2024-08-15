@@ -95,6 +95,12 @@ hints:
     want the text inside the slashes (the pattern itself).
   examples:
   - - "/"
+- present: |-
+    ["'`]
+  text: In this exercise we only want the regular expression pattern itself.
+    There is no need to use any kind of quote mark.
+  examples:
+  - - "'"
 - absent: |-
     ^\^
   text: For input validation, start with '^' to indicate a full match.
@@ -308,7 +314,8 @@ In regexes you can do this by using its default mode
 symbol.
 Unfortunately, different platforms use different regex
 symbols for performing a complete match to an input.
-The following table shows what you should prepend and append for
+The following table shows a summarized version of
+what you should prepend and append for
 many different platforms (for their default regex system).
 
 <p>
@@ -348,12 +355,17 @@ To validate the same thing in Python, use
 not quite the same thing).
 
 <p>
+More information is available in the OpenSSF guide
+<a href="https://best.openssf.org/Correctly-Using-Regular-Expressions"
+>Correctly Using Regular Expressions for Secure Input Validation</a>.
+
+<p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
 
 <b>Please create regular expression (regex) patterns
 that meet the criteria below.</b>
 
-<h3>Part 1</h2>
+<h3>Part 1</h3>
 <p>
 Create a regular expression, for use in ECMAScript (JavaScript),
 that only matches the letters "Y" or "N".
@@ -370,7 +382,7 @@ For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
 <button type="button" class="giveUpButton">Give up</button>
 </form>
 
-<h3>Part 2</h2>
+<h3>Part 2</h3>
 <p>
 Create a regular expression, for use in ECMAScript (JavaScript),
 that only matches one or more uppercase Latin letters (A through Z).
@@ -388,7 +400,7 @@ For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
 <button type="button" class="giveUpButton">Give up</button>
 </form>
 
-<h3>Part 3</h2>
+<h3>Part 3</h3>
 <p>
 Create a regular expression, for use in ECMAScript (JavaScript),
 that only matches the words "true" or "false".
@@ -406,7 +418,7 @@ For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
 <button type="button" class="giveUpButton">Give up</button>
 </form>
 
-<h3>Part 4</h2>
+<h3>Part 4</h3>
 <p>
 Create a regular expression
 that only matches one or more uppercase Latin letters (A through Z).
@@ -425,7 +437,7 @@ For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
 <button type="button" class="giveUpButton">Give up</button>
 </form>
 
-<h3>Part 5</h2>
+<h3>Part 5</h3>
 <p>
 Create a regular expression
 that only matches one Latin letter (A through Z), followed by a
