@@ -19,7 +19,7 @@ The `TheadPoolExecutor` provides an interface to a thread pool and resources whi
 The `noncompliant01.py` code is simulating the spawning of processes with the different access rights.
 The `Session(object)` class simulates access control via `User(Enum)thread` defining a `User` object to be either `GUEST = 1` (default) or `ADMIN = 2`. The `set_user()` method  changes access level and `set_user_as_guest()` is to reset access.
 
-In `SessionPool()` we spawn tasks and access control in following order:
+In `SessionPool()` we spawn tasks and access control in the following order:
 
 1) `ADMIN`
 2) `GUEST`
