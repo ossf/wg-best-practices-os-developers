@@ -31,13 +31,14 @@
 ---
 hints:
 - present: |-
-              \s*free[^;]*; asprintf
+    \s*free[^;]*; asprintf
   text: Do not free the input first, you need to use it.
   examples:
     - - |-
-           free(s); asprintf(&result, "pre_%s_post", s);
+           free(s);
+           asprintf(&result, "pre_%s_post", s);
 - present: |-
-             \s* asprintf \(
+    \s* asprintf \(
   absent: free
   text: This fails to free the memory, likely leading to a missing release.
   examples:
@@ -46,11 +47,12 @@ hints:
 - absent: return
   text: This fails to return the result.
 - present: |-
-             \s* return .* free
+    \s* return .* free
   text: Do not do anything after the return, it will not execute.
   examples:
     - - |-
-           return result; free(s);
+           return result;
+           free(s);
 # debug: true
 </script>
 </head>
