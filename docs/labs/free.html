@@ -106,20 +106,20 @@ Not <i>all</i> such bugs are vulnerabilities, but many are.
 
 <p>
 Please change the C code below to fix a simple use-after-free bug.
-This code for the function <tt>tweak</tt> first accepts a
+This code for the function <tt>tweak</tt> accepts a
 string named <tt>s</tt>.
-It calls the function <tt>asprintf</tt> to
+It must call the function <tt>asprintf</tt> to
 create a new string that contains the text
 <tt>pre_</tt>, the input text (<tt>s</tt>), and the text <tt>_post</tt>.
-The function <tt>tweak</tt> eventually returns this new result.
+The function <tt>tweak</tt> must eventually return this new result.
 Unfortunately the current code makes a call to <tt>free</tt> to release
-a memory region <i>before</i> its last use.
+a memory region <i>before</i> the last use of that memory.
 This can lead to a "use-after-free" bug.
-Whether or not this bug can be triggered depends on
-many implementation details, but we don't want it to ever trigger.
+Whether or not this bug can cause a problem depends on
+many implementation details, but we don't want it to ever cause a problem.
 
 <p>
-Please fix it!
+Please fix this code!
 
 <p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
