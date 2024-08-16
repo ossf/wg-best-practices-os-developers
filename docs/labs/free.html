@@ -46,11 +46,20 @@ hints:
            asprintf(&result, ""pre_%s_post"", s);
 - absent: return
   text: This fails to return the result.
+- absent: |-
+    \s* [^;]+;[^;]+;[^;]+; \s*
+  text: There should be 3 statements, each terminated with a semicolon.
+  examples:
+    - - |-
+           asprintf(&result, "pre_%s_post", s);
+           free(s);
+           return result
 - present: |-
-    \s* return .* free
+    \s* return result ; free \s*
   text: Do not do anything after the return, it will not execute.
   examples:
     - - |-
+           asprintf(&result, "pre_%s_post", s);
            return result;
            free(s);
 # debug: true
