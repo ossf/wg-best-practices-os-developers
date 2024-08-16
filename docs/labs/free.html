@@ -15,6 +15,7 @@
 <script id="expected0" type="plain/text">
   asprintf(&result, "pre_%s_post", s);
   free(s);
+  return result;
 </script>
 
 <!-- Full pattern of correct answer -->
@@ -22,6 +23,7 @@
 \s*
   asprintf \( & result , "pre_%s_post" , s \) ;
   free \( s \) ;
+  return result ;
 \s*
 </script>
 
@@ -29,11 +31,26 @@
 ---
 hints:
 - present: |-
-    \s*free
+              \s*free[^;]*; asprintf
   text: Do not free the input first, you need to use it.
+  examples:
+    - - |-
+           free(s); asprintf(&result, "pre_%s_post", s);
 - present: |-
-    \s* asprintf \( & result , "pre_%s_post" , s \) ; \s*
+             \s* asprintf \(
+  absent: free
   text: This fails to free the memory, likely leading to a missing release.
+  examples:
+    - - |-
+           asprintf(&result, ""pre_%s_post"", s);
+- absent: return
+  text: This fails to return the result.
+- present: |-
+             \s* return .* free
+  text: Do not do anything after the return, it will not execute.
+  examples:
+    - - |-
+           return result; free(s);
 # debug: true
 </script>
 </head>
@@ -97,7 +114,9 @@ create a new string that contains the text
 The function <tt>tweak</tt> eventually returns this new result.
 Unfortunately the current code makes a call to <tt>free</tt> to release
 a memory region <i>before</i> its last use.
-This leads to a "use-after-free" bug.
+This can lead to a "use-after-free" bug.
+Whether or not this bug can be triggered depends on
+many implementation details, but we don't want it to ever trigger.
 
 <p>
 Please fix it!
@@ -114,11 +133,11 @@ Please fix it!
 // Return tweaked version of string s. Frees s.
 char *tweak(char *s) {
   char *result; // Put result here
-<textarea id="attempt0" rows="3" cols="60" spellcheck="false">
+<textarea id="attempt0" rows="4" cols="60" spellcheck="false">
   free(s);
   asprintf(&result, "pre_%s_post", s);
+  return result;
 </textarea>
-  return result; // Return final result
 }
 </code></pre>
 <button type="button" class="hintButton">Hint</button>
