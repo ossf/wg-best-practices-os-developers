@@ -93,7 +93,7 @@ work on.
     * [Avoid Incorrect Conversion or Cast](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-incorrect-conversion-or-cast) - DONE-2 (Keith Grant via Vincent Danen, by 2024-07-26) [conversion](conversion.html)
   * Processing Data Securely: Undefined Behavior / Memory Safety
     * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - DONE-0 [oob1](oob1.html)
-    * [Double-free, Use-after-free, and Missing Release](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#double-free-use-after-free-and-missing-release) <!-- was Bennett Pursell --> - PLANNED-1 UNASSIGNED
+    * [Double-free, Use-after-free, and Missing Release](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#double-free-use-after-free-and-missing-release) <!-- was Bennett Pursell --> - DONE-1 (David A. Wheeler) [free](free.html)
     * [Avoid Undefined Behavior](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-undefined-behavior) - PLANNED-2 UNASSIGNED
   * Processing Data Securely: Calculate Correctly
     * [Avoid Integer Overflow, Wraparound, and Underflow](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-integer-overflow-wraparound-and-underflow) - PLANNED-2, first draft by 2024-07-19 (Petr Matousek via Vincent Danen)
