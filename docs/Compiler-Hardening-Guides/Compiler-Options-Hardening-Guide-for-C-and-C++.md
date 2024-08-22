@@ -1349,6 +1349,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - David Edelsohn, IBM
 - Dominik Czarnota, Trail of Bits
 - Florian Berbar
+- Florian Weimer, Red Hat
 - Gabriel Dos Reis, Microsoft
 - Georg Kunz, Ericsson
 - George Wilson, IBM
