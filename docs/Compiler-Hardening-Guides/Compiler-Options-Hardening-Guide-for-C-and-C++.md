@@ -200,8 +200,8 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fstrict-flex-arrays=3`](#-fstrict-flex-arrays)                             |       GCC 13.0.0<br/>Clang 16.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`                           |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8.0.0<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                   | GCC 4.9.0<br/>Clang 6.0.0          | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
-| [`-fcf-protection=full`](#-fcf-protection=full)                                   |     GCC 8.0.0<br/>Clang 7.0.0                  | Enable control flow protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x86 architectures |
-| [`-mbranch-protection=standard`](#-mbranch-protection-standard)                                   |     GCC 9.0.0<br/>Clang 8.0.0              | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on AArch64 |
+| [`-fcf-protection=full`](#-fcf-protection=full)                                           | GCC 8.0.0<br/>Clang 7.0.0          | Enable control-flow protection against return-oriented programming (ROP) and jump-oriented programming (JOP) attacks on x86_64 |
+| [`-mbranch-protection=standard`](#-mbranch-protection-standard)                           | GCC 9.0.0<br/>Clang 8.0.0          | Enable branch protection against ROP and JOP attacks on AArch64 |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen) |           Binutils 2.10.0            | Restrict `dlopen(3)` calls to shared objects                                 |
 | [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)                                               |           Binutils 2.14.0            | Enable data execution prevention by marking stack memory as non-executable                   |
 | [`-Wl,-z,relro`](#-Wl,-z,relro)<br/>[`-Wl,-z,now`](#-Wl,-z,now)                           |           Binutils 2.15.0            | Mark relocation table entries resolved at load-time as read-only. `-Wl,-z,now` can impact startup performance.                            |
@@ -707,16 +707,24 @@ The performance overhead is dependent on the number of function’s instrumented
 
 ---
 
-### Implement control flow integrity checks
+### Enable control-flow and branch protection against return-oriented programming and jump-oriented programming attacks
 
-| Compiler Flag                                                                                            | Supported since  | Description                                                  |
-|:-------------------------------------------------------------------------------------------------------- |:-------------:|:------------------------------------------------------------ |
-| <span id="-fcf-protection=full">`-fcf-protection=full`</span><br/>                                   |     GCC 8.0.0<br/>Clang 7.0.0          | Enable control flow protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x86 architectures |
-| <span id="-mbranch-protection-standard">`-mbranch-protection=standard`</span>                        |     GCC 9.0.0<br/>Clang 8.0.0              | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on AArch64 |
+| Compiler Flag                                                                 | Supported since           | Description                                                                                                                                     |
+|:------------------------------------------------------------------------------|:-------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------- |
+| <span id="-fcf-protection=full">`-fcf-protection=full`</span><br/>            | GCC 8.0.0<br/>Clang 7.0.0 | Enable control-flow protection against return-oriented programming (ROP) and jump-priented programming (JOP) attacks on x86_64                  |
+| <span id="-fcf-protection=branch">`-fcf-protection=branch`</span><br/>        | GCC 8.0.0<br/>Clang 7.0.0 | Enable control-flow protection against JOP on x86_64                                                                                            |
+| <span id="-fcf-protection=return">`-fcf-protection=return`</span><br/>        | GCC 8.0.0<br/>Clang 7.0.0 | Enable control-flow protection against ROP on x86_64                                                                                            |
+| <span id="-fcf-protection=none">`-fcf-protection=none`</span><br/>            | GCC 8.0.0<br/>Clang 7.0.0 | Disable control-flow protections                                                                                                                |
+| <span id="-fcf-protection=check">`-fcf-protection=check`</span><br/>          | GCC 8.0.0<br/>Clang 7.0.0 | Instruct linker to verify all object files in final link with link-time optimization (LTO) are compiled with identical control-flow protections |
+| <span id="-mbranch-protection-standard">`-mbranch-protection=standard`</span> | GCC 9.0.0<br/>Clang 8.0.0 | Enable branch protection to counter ROP and JOP attacks on AArch64                                                                              |
 
 #### Synopsis
 
-Return-oriented programming (ROP) uses an initial subversion (such as a buffer overflow) to perform an indirect jump that executes a different sequence of instructions. This is often existing code being misused, so these are often called "code reuse attacks". A countermeasure is to ensure that jump addresses and return addresses are correct. This is not a complete solution, but it makes attacks harder to perform.
+Return-oriented programming (ROP) uses an initial subversion (such as a buffer overflow) to perform an indirect jump that executes a different sequence of instructions. This is often existing code being misused, so these are often called "code-reuse attacks". A countermeasure is to ensure that return addresses are correct and jump addresses point to known targets for indirect calls or branches. This is not a complete solution, but it makes attacks harder to perform.
+
+Since GCC 14 changing the default control-flow protection value for x86_64 architectures (`full`, equivalent to `branch` and `return`) requires passing `-fcf-protection=none` followed by the desired `-fcf-protection` option, e.g, `-fcf-protection=none -fcf-protection=branch` or `-fcf-protection=none -fcf-protection=return`[^gcc-release-notes-14].
+
+The `-fcf-protection=check` is ignored at compilation time but instructs the linker to verify that all object files in final link with link-time optimization (LTO) are compiled with identical control-flow protections. Mixing object files with different control-flow protections may cause run-time failures.
 
 #### Performance implications
 
@@ -732,7 +740,7 @@ Intel CET shadow stack requires Linux Kernel version 6.6 or higher and glibc ver
 
 [^glibc-tunables]: GNU C Library team, [Tunables](https://www.gnu.org/software/libc/manual/html_node/Tunables.html), GNU C Library (glibc) manual, 2024-07-22.
 
----
+[^gcc-release-notes-14]: GCC team, [GCC 14 Release Series Changes, New Features, and Fixes](https://gcc.gnu.org/gcc-14/changes.html), 2024-08-10.
 
 ### Restrict dlopen calls to shared objects
 
