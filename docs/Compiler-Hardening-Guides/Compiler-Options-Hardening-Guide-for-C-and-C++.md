@@ -1316,6 +1316,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - Christopher "CRob" Robinson, Intel
 - David A. Wheeler, Linux Foundation
 - David Edelsohn, IBM
+- Florian Berbar
 - Gabriel Dos Reis, Microsoft
 - Georg Kunz, Ericsson
 - George Wilson, IBM
