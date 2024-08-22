@@ -1359,6 +1359,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - Merve Gülmez, Ericsson
 - Randall T. Vasquez, Linux Foundation
 - Robert C. Seacord, Woven by Toyota
+- Sam James, Gentoo
 - Siddharth Sharma, Red Hat
 - Siddhesh Poyarekar, Red Hat
 - William Huhn, Intel
