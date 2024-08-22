@@ -1352,6 +1352,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - Georg Kunz, Ericsson
 - George Wilson, IBM
 - Jack Kelly, ControlPlane
+- Jonathan Wakely, Red Hat
 - Kees Cook, Google
 - Mark Esler, Canonical
 - Randall T. Vasquez, Linux Foundation
