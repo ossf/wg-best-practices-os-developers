@@ -1356,6 +1356,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - Kees Cook, Google
 - Mark Esler, Canonical
 - Mayank Ramnani, NYU
+- Merve Gülmez, Ericsson
 - Randall T. Vasquez, Linux Foundation
 - Robert C. Seacord, Woven by Toyota
 - Siddharth Sharma, Red Hat
