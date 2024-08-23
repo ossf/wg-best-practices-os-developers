@@ -222,25 +222,32 @@ const attemptIdPattern = /^attempt(\d+)$/;
  * Given Node @form in document, return array of indexes of input/textareas
  */
 function findIndexes(form) {
-    let inputs = form.querySelectorAll(
-        "input[type='text']:not(:read-only),textarea:not(:read-only)");
-    if (!inputs) {
-        // Shouldn't happen. Reaching this means the current form has no inputs.
-        // We'll do a "reasonable thing" - act as if all is in scope.
-        return correctRe.map((_, i) => i);
-    } else {
-        let result = [];
-        // Turn "approach0", "approach1" into [0, 1].
-        for (input of inputs) {
-            // alert(`findIndexes: ${input.id}`);
-            let matchResult = input.id.match(attemptIdPattern);
-            if (matchResult) {
-                let index = Number(matchResult[1]);
-                result.push(index);
-	    }
+    try {
+        let inputs = form.querySelectorAll(
+            "input[type='text']:not(:read-only),textarea:not(:read-only)");
+        if (!inputs) {
+            // Shouldn't happen. Reaching this means the current form
+            // has no inputs.
+            // We'll do a "reasonable thing" - act as if all is in scope.
+            return correctRe.map((_, i) => i);
+        } else {
+            let result = [];
+            // Turn "approach0", "approach1" into [0, 1].
+            for (input of inputs) {
+                // alert(`findIndexes: ${input.id}`);
+                let matchResult = input.id.match(attemptIdPattern);
+                if (matchResult) {
+                    let index = Number(matchResult[1]);
+                    result.push(index);
+    	        }
+            }
+            // alert(`findIndexes = ${result}`);
+            return result;
         }
-        // alert(`findIndexes = ${result}`);
-        return result;
+    } catch (e) {
+        showDebugOutput(
+            `Lab Error: findIndexes raises exception ${e}`);
+        throw e; // Rethrow, so containing browser also gets it
     }
 }
 
@@ -522,6 +529,13 @@ function runSelftest() {
                 alert(`Lab error: Expected value is fine at index ${i}`);
             }
        }
+    };
+
+    const buttonsNotInForms =
+        document.querySelectorAll('button:not(form button)');
+    if (buttonsNotInForms.length != 0) {
+        showDebugOutput(
+            `Lab Error: Buttons not in a form: ${buttonsNotInForms}`);
     };
 
     // Run tests of the preprocessing process, if present
