@@ -83,8 +83,77 @@ hints:
 - absent: "subprocess.run"
   index: 1
   text: Use subprocess.run
+- present: |-
+    shell = [Tt]rue
+  index: 1
+  text: |-
+    Don't say `shell = True`; we don't want to unnecessarily run the shell.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
+    - subprocess.run(f"ls -l {dir_to_list}", shell=True)
+- present: |-
+    f["']ls\s+-l
+  index: 1
+  text: >-
+    You should generally avoid using string concatenation when creating
+    a command to execute. Formatted strings like f"..." are a form of
+    string concatenation. In addition, you MUST avoid string concatenation
+    in this case. The shell uses spaces to separate arguments, but we're
+    trying to avoid using the shell when it's not needed.
+    You must instead provide the arguments as a list with
+    separate parameters, e.g.,
+    subprocess.run(["ls", "-l", clean_dir]) or similar.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
+    - subprocess.run(f"ls -l {dir_to_list}")
+- present: |-
+    ["']ls\s+-l
+  index: 1
+  text: >-
+    The shell uses spaces to separate arguments, but we're
+    trying to avoid using the shell when it's not needed.
+    You must instead provide the arguments as a list with
+    separate parameters, e.g.,
+    subprocess.run(["ls", "-l", clean_dir]) or similar.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
+    - subprocess.run("ls -l {dir_to_list}")
+- present: |-
+    subprocess \. run \( [A-Za-z0-9"']
+  index: 1
+  text: >-
+    The `subprocess.run` function takes a LIST of parameters as its command.
+    This has the form `subprocess.run([P1, P2, ...])`. Use
+    subprocess.run(["ls", "-l", clean_dir]) or similar.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
+    - subprocess.run("ls", "-l", clean_dir)
+- present: |-
+    \{(dir_to_list|clean_dir)\}
+  index: 1
+  text: >-
+    You don't need {...} in your result. Use
+    subprocess.run(["ls", "-l", clean_dir]) or similar.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
+    - subprocess.run(["ls", "-l", {dir_to_list}])
+- present: |-
+    dir_to_list
+  index: 1
+  text: >-
+    The parameter `dir_to_list` is what was provided, but you don't want
+    to use that. You want to use the cleaned value `clean_dir` instead. Use
+    subprocess.run(["ls", "-l", clean_dir]) or similar.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
+    - subprocess.run(["ls", "-l", dir_to_list])
 definitions:
-
 </script>
 </head>
 <body>
@@ -177,8 +246,8 @@ returns the result of replacing <tt>OLDPATTERN</tt> with
 <tt>REPLACEPATTERN</tt> in <tt>ORIGINAL_VALUE</tt>, where <tt>OLDPATTERN</tt>
 is a regular expression. In Python regular expressions are usually expressed
 using the "raw" string form, that is, using the <tt>r'...'</tt> syntax.
-It should be obvious how to stop invoking the shell in Python's
-<tt>subprocess.run</tt>.
+You need to stop invoking the shell in Python's
+<tt>subprocess.run</tt>, including separating the arguments.
 </p>
 
 <p>
