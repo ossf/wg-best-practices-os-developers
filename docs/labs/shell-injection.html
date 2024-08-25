@@ -100,9 +100,10 @@ hints:
     re \. sub \( r
   text: >
     Python re.sub uses strings to indicate a regex pattern.
-    By convention these strings usually 'raw' strings, so they
-    have the form r'PATTERN'. We would recommend that you have something like
-    re.sub( r'...', ...), even though raw strings don't make this
+    By convention these strings are usually 'raw' strings, so they
+    have the form r'PATTERN'. We would recommend that you use raw strings,
+    in the pattern
+    `re.sub(r'...', ...)` even though raw strings don't make this
     *specific* example easier.
 - absent: |-
     re \. sub \( r['"]
@@ -116,7 +117,8 @@ hints:
   text: >
     Use re.sub(r'[...]', ...) to
     indicate that you want to replace every character matching a
-    certain pattern.
+    certain pattern. Note the square brackets in the regular expression.
+    Replace the `...` with the pattern of characters to be replaced.
   examples:
   -
     - "  clean_dir = re.sub(r'', '', dir_to_list)"
@@ -126,12 +128,24 @@ hints:
   text: >
     Use re.sub(r'[^ALPHANUMERIC_PATTERN]', '', dir_to_list) to
     indicate that you want to replace everything that is not
-    an alphanumeric character. Be sure to replace ALPHANUMERIC_PATTERN
+    an alphanumeric character. Notice the use of the caret symbol `^`;
+    we are replacing everything *not* matching a certain pattern.
+    It's okay to use a caret here, because we aren't validating input,
+    we are filtering (removing) all the input *not* permitted.
+    Be sure to replace ALPHANUMERIC_PATTERN
     with a regular expression pattern that describes alphanumerics!
   examples:
   -
     - "  clean_dir = re.sub(r'[a-zA-Z0-9]', '', dir_to_list)"
     - '  subprocess.run(f"ls -l {dir_to_list}", shell=True)'
+- absent: |-
+    a-zA-Z0-9
+  text: >-
+    Use `a-zA-Z0-9` in your substitution pattern.
+  examples:
+  -
+    - "  clean_dir = re.sub(r'[^]', '', dir_to_list)"
+    - '  subprocess.run(f"ls -l {dir_to_list}")'
 - absent: "subprocess.run"
   index: 1
   text: Use subprocess.run
@@ -221,7 +235,7 @@ hints:
     run \(.*\)
   index: 1
   text: >-
-    You need a pair of matching parentheses in the second input.
+    You need a pair of matching parentheses in the second section.
   examples:
   -
     - "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', clean_dir)"
@@ -230,7 +244,7 @@ hints:
     run \( \[.*\]
   index: 1
   text: >-
-    You need a pair of matching square brackets in the second input.
+    You need a pair of matching square brackets in the second section.
   examples:
   -
     - "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', clean_dir)"
