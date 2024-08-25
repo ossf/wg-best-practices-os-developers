@@ -21,15 +21,22 @@
   subprocess.run(["ls", "-l", clean_dir])
 </script>
 
-<!-- Full pattern of correct answer -->
+<!-- Full pattern of correct answer.
+ In Python, newline and carriage return are whitespace but are *meaningful*
+ outside of (...). So we match specifically on space (\x20) instead.
+ -->
 <script id="correct0" type="plain/text">
 \s*
-  clean_dir = re . sub \( r'\[\^a-zA-Z0-9\]' , r?(''|"") , dir_to_list \)
+  clean_dir\x20*=\x20*re\x20*\.\x20*sub\x20*\(
+     r?('\[\^a-zA-Z0-9\]'|"\[\^a-zA-Z0-9\]") ,
+     r?(''|"") , dir_to_list \)
 \s*
 </script>
+
 <script id="correct1" type="plain/text">
 \s*
-  subprocess . run \( \[ ('ls'|"ls") , ('-l'|"-l") , clean_dir \] \)
+  subprocess\x20*\.\x20*run\x20*\(
+    \[ ('ls'|"ls") , ('-l'|"-l") , clean_dir \] \)
 \s*
 </script>
 
@@ -50,17 +57,17 @@ hints:
   text: >
     Python re.sub uses strings to indicate a regex pattern.
     By convention these strings usually 'raw' strings, so they
-    have the form r'PATTERN'. So you should have something like
-    re.sub( r'...' ...).
+    have the form r'PATTERN'. We would recommend that you have something like
+    re.sub( r'...', ...).
 - absent: |-
-    re \. sub \( r\'
+    re \. sub \( r['"]
   text: >
     Python re.sub uses strings to indicate a regex pattern.
     By convention these strings usually 'raw' strings, so they
     have the form r'PATTERN'. You have the "r" but not the following
-    single quote character (we will use single quotes here).
+    single or double quote character.
 - absent: |-
-    re \. sub \( r\'\[
+    re \. sub \( r?['"]\[
   text: >
     Use re.sub(r'[...]', ...) to
     indicate that you want to replace every character matching a
@@ -70,7 +77,7 @@ hints:
     - clean_dir = re.sub(r'', '', dir_to_list)
     - subprocess.run(f"ls -l {dir_to_list}", shell=True)
 - absent: |-
-    re \. sub \( r\'\[\^
+    re \. sub \( r?\'\[\^
   text: >
     Use re.sub(r'[^ALPHANUMERIC_PATTERN]', '', dir_to_list) to
     indicate that you want to replace everything that is not
@@ -101,9 +108,9 @@ hints:
     string concatenation. In addition, you MUST avoid string concatenation
     in this case. The shell uses spaces to separate arguments, but we're
     trying to avoid using the shell when it's not needed.
-    You must instead provide the arguments as a list with
-    separate parameters, e.g.,
-    subprocess.run(["ls", "-l", clean_dir]) or similar.
+    You must instead provide the arguments as a list that contains
+    separate parameters. The parameters should be something like
+    "ls", "-l", clean_dir
   examples:
   -
     - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
@@ -114,9 +121,9 @@ hints:
   text: >-
     The shell uses spaces to separate arguments, but we're
     trying to avoid using the shell when it's not needed.
-    You must instead provide the arguments as a list with
-    separate parameters, e.g.,
-    subprocess.run(["ls", "-l", clean_dir]) or similar.
+    You must instead provide the arguments as a list that contains
+    separate parameters. The parameters should be something like
+    "ls", "-l", clean_dir
   examples:
   -
     - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
@@ -125,9 +132,11 @@ hints:
     subprocess \. run \( [A-Za-z0-9"']
   index: 1
   text: >-
-    The `subprocess.run` function takes a LIST of parameters as its command.
-    This has the form `subprocess.run([P1, P2, ...])`. Use
-    subprocess.run(["ls", "-l", clean_dir]) or similar.
+    The `subprocess.run` function takes a LIST of parameters as its command,
+    not just comma-separated parameters.
+    This means you need something like
+    the form `subprocess.run([P1, P2, ...])`. Note the square brackets
+    inside the parentheses.
   examples:
   -
     - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
@@ -136,8 +145,9 @@ hints:
     \{(dir_to_list|clean_dir)\}
   index: 1
   text: >-
-    You don't need {...} in your result. Use
-    subprocess.run(["ls", "-l", clean_dir]) or similar.
+    You don't need {...} in your result.
+    Each parameter should be free-standing, not an expression
+    concatenated within a formatted string.
   examples:
   -
     - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
@@ -147,13 +157,47 @@ hints:
   index: 1
   text: >-
     The parameter `dir_to_list` is what was provided, but you don't want
-    to use that. You want to use the cleaned value `clean_dir` instead. Use
-    subprocess.run(["ls", "-l", clean_dir]) or similar.
+    to use that. You want to use the cleaned value `clean_dir` instead.
   examples:
   -
     - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
     - subprocess.run(["ls", "-l", dir_to_list])
-definitions:
+- absent: |-
+    run \(.*\)
+  index: 1
+  text: >-
+    You need a pair of matching parentheses in the second input.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', clean_dir)
+    - subprocess.run(["ls", "-l", clean_dir]
+- absent: |-
+    run \( \[.*\]
+  index: 1
+  text: >-
+    You need a pair of matching square brackets in the second input.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', clean_dir)
+    - subprocess.run(["ls", "-l", clean_dir)
+- absent: |-
+    ^ subprocess . run \( \[ ('ls'|"ls") , ('-l'|"-l") , clean_dir \] \) $
+  index: 1
+  text: >-
+    You are getting close. The `subprocess.run` line should look like
+    subprocess.run(["ls", "-l", clean_dir]) or similar.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', clean_dir)
+    - subprocess.run(["ls", "-l", clean_dir, foo])
+successes:
+-
+  - "clean_dir = re . sub( r'[^a-zA-Z0-9]' , '' , dir_to_list )"
+  - 'subprocess . run ( [ "ls" , "-l" , clean_dir ] )'
+failures:
+-
+  - "  clean_dir =\n re . sub( r'[^a-zA-Z0-9]' , '' , dir_to_list )"
+  - '  subprocess . run ( [ "ls" , "-l" , clean_dir ] )'
 </script>
 </head>
 <body>
