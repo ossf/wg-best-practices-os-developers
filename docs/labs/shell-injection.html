@@ -90,6 +90,8 @@ hints:
     `clean_dir = re.sub(OLDPATTERN, NEWPATTERN, dir_to_list)`
     but `OLDPATTERN` is a string with the regex of the pattern of text you
     want to replace, and `NEWPATTERN` is what you want to replace it with.
+    The OLDPATTERN would probably look like `r'...'` where the `...`
+    is the regular expression matching what you want to eliminate.
   examples:
   -
     - "  clean_dir = re.sub(OLDPATTERN, NEWPATTERN, dir_to_list)"
