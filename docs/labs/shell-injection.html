@@ -26,16 +26,14 @@
  outside of (...). So we match specifically on space (\x20) instead.
  -->
 <script id="correct0" type="plain/text">
-\s*
-  clean_dir\x20*=\x20*re\x20*\.\x20*sub\x20*\(
+\x20\x20clean_dir\x20*=\x20*re\x20*\.\x20*sub\x20*\(
      r?('\[\^a-zA-Z0-9\]'|"\[\^a-zA-Z0-9\]") ,
      r?(''|"") , dir_to_list \)
 \s*
 </script>
 
 <script id="correct1" type="plain/text">
-\s*
-  subprocess\x20*\.\x20*run\x20*\(
+\x20\x20subprocess\x20*\.\x20*run\x20*\(
     \[ ('ls'|"ls") , ('-l'|"-l") , clean_dir \] \)
 \s*
 </script>
@@ -44,14 +42,30 @@
 ---
 hints:
 - absent: |-
+    ^\x20\x20[^\x20]
+  text: >
+    Python is an indentation-sensitive language, so your indentation
+    must be consistent.
+    In this case, your line in the first section
+    must start with exactly 2 spaces followed by a non-space.
+- absent: |-
+    ^\x20\x20[^\x20]
+  index: 1
+  text: >
+    Python is an indentation-sensitive language, so your indentation
+    must be consistent.
+    In this case, your line in the second section
+    must start with exactly 2 spaces followed by
+    a non-space.
+- absent: |-
     re \. sub
   text: >
     Use re.sub(OLDPATTERN, REPLACEPATTERN, dir_to_list) to
     remove anything that is not an alphanumeric character (removing the rest).
   examples:
   -
-    - clean_dir = dir_to_list
-    - subprocess.run(f"ls -l {dir_to_list}", shell=True)
+    - '  clean_dir = dir_to_list'
+    - '  subprocess.run(f"ls -l {dir_to_list}", shell=True)'
 - absent: |-
     re \. sub \( r
   text: >
@@ -74,10 +88,10 @@ hints:
     certain pattern.
   examples:
   -
-    - clean_dir = re.sub(r'', '', dir_to_list)
-    - subprocess.run(f"ls -l {dir_to_list}", shell=True)
+    - "  clean_dir = re.sub(r'', '', dir_to_list)"
+    - '  subprocess.run(f"ls -l {dir_to_list}", shell=True)'
 - absent: |-
-    re \. sub \( r?\'\[\^
+    re \. sub \( r?['"]\[\^
   text: >
     Use re.sub(r'[^ALPHANUMERIC_PATTERN]', '', dir_to_list) to
     indicate that you want to replace everything that is not
@@ -85,8 +99,8 @@ hints:
     with a regular expression pattern that describes alphanumerics!
   examples:
   -
-    - clean_dir = re.sub(r'[a-zA-Z0-9]', '', dir_to_list)
-    - subprocess.run(f"ls -l {dir_to_list}", shell=True)
+    - "  clean_dir = re.sub(r'[a-zA-Z0-9]', '', dir_to_list)"
+    - '  subprocess.run(f"ls -l {dir_to_list}", shell=True)'
 - absent: "subprocess.run"
   index: 1
   text: Use subprocess.run
@@ -97,8 +111,8 @@ hints:
     Don't say `shell = True`; we don't want to unnecessarily run the shell.
   examples:
   -
-    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
-    - subprocess.run(f"ls -l {dir_to_list}", shell=True)
+    - "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)"
+    - '  subprocess.run(f"ls -l {dir_to_list}", shell=True)'
 - present: |-
     f["']ls\s+-l
   index: 1
@@ -113,8 +127,8 @@ hints:
     "ls", "-l", clean_dir
   examples:
   -
-    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
-    - subprocess.run(f"ls -l {dir_to_list}")
+    - "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)"
+    - '  subprocess.run(f"ls -l {dir_to_list}")'
 - present: |-
     ["']ls\s+-l
   index: 1
@@ -126,8 +140,8 @@ hints:
     "ls", "-l", clean_dir
   examples:
   -
-    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
-    - subprocess.run("ls -l {dir_to_list}")
+    - "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)"
+    - '  subprocess.run("ls -l {dir_to_list}")'
 - present: |-
     subprocess \. run \( [A-Za-z0-9"']
   index: 1
@@ -139,8 +153,8 @@ hints:
     inside the parentheses.
   examples:
   -
-    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
-    - subprocess.run("ls", "-l", clean_dir)
+    - "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)"
+    - '  subprocess.run("ls", "-l", clean_dir)'
 - present: |-
     \{(dir_to_list|clean_dir)\}
   index: 1
@@ -150,8 +164,18 @@ hints:
     concatenated within a formatted string.
   examples:
   -
-    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
-    - subprocess.run(["ls", "-l", {dir_to_list}])
+    - "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)"
+    - '  subprocess.run(["ls", "-l", {dir_to_list}])'
+- present: |-
+    dir_to_list\"
+  index: 1
+  text: >-
+    You have a double-quote after `dir_to_list`; you don't want that.
+- present: |-
+    clean_dir\"
+  index: 1
+  text: >-
+    You have a double-quote after `clean_dir`; you don't want that.
 - present: |-
     dir_to_list
   index: 1
@@ -160,8 +184,8 @@ hints:
     to use that. You want to use the cleaned value `clean_dir` instead.
   examples:
   -
-    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
-    - subprocess.run(["ls", "-l", dir_to_list])
+    - "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)"
+    - '  subprocess.run(["ls", "-l", dir_to_list])'
 - absent: |-
     run \(.*\)
   index: 1
@@ -169,8 +193,8 @@ hints:
     You need a pair of matching parentheses in the second input.
   examples:
   -
-    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', clean_dir)
-    - subprocess.run(["ls", "-l", clean_dir]
+    - "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', clean_dir)"
+    - '  subprocess.run(["ls", "-l", clean_dir]'
 - absent: |-
     run \( \[.*\]
   index: 1
@@ -178,8 +202,8 @@ hints:
     You need a pair of matching square brackets in the second input.
   examples:
   -
-    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', clean_dir)
-    - subprocess.run(["ls", "-l", clean_dir)
+    - "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', clean_dir)"
+    - '  subprocess.run(["ls", "-l", clean_dir)'
 - absent: |-
     ^ subprocess . run \( \[ ('ls'|"ls") , ('-l'|"-l") , clean_dir \] \) $
   index: 1
@@ -188,16 +212,19 @@ hints:
     subprocess.run(["ls", "-l", clean_dir]) or similar.
   examples:
   -
-    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', clean_dir)
-    - subprocess.run(["ls", "-l", clean_dir, foo])
+    - "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', clean_dir)"
+    - '  subprocess.run(["ls", "-l", clean_dir, foo])'
 successes:
 -
-  - "clean_dir = re . sub( r'[^a-zA-Z0-9]' , '' , dir_to_list )"
-  - 'subprocess . run ( [ "ls" , "-l" , clean_dir ] )'
+  - "  clean_dir = re . sub( r'[^a-zA-Z0-9]' , '' , dir_to_list )"
+  - '  subprocess . run ( [ "ls" , "-l" , clean_dir ] )'
 failures:
 -
   - "  clean_dir =\n re . sub( r'[^a-zA-Z0-9]' , '' , dir_to_list )"
   - '  subprocess . run ( [ "ls" , "-l" , clean_dir ] )'
+-
+  - "clean_dir = re . sub( r'[^a-zA-Z0-9]' , '' , dir_to_list )"
+  - 'subprocess . run ( [ "ls" , "-l" , clean_dir ] )'
 </script>
 </head>
 <body>
