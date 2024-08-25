@@ -22,18 +22,22 @@
 </script>
 
 <!-- Full pattern of correct answer.
- In Python, newline and carriage return are whitespace but are *meaningful*
- outside of (...). So we match specifically on space (\x20) instead.
- -->
+  In Python, newline and carriage return are whitespace but are *meaningful*
+  outside of (...). So we match specifically on space (\x20) instead.
+  This makes our patterns harder to read, unfortunately.
+  It's conventional to use raw strings in Python for regexes, so we allow
+  and encourage them, but we'll accept *not* using raw strings since they
+  don't add value in this situation.
+-->
 <script id="correct0" type="plain/text">
-\x20\x20clean_dir\x20*=\x20*re\x20*\.\x20*sub\x20*\(
+[\n\r]*\x20\x20clean_dir\x20*=\x20*re\x20*\.\x20*sub\x20*\(
      r?('\[\^a-zA-Z0-9\]'|"\[\^a-zA-Z0-9\]") ,
      r?(''|"") , dir_to_list \)
 \s*
 </script>
 
 <script id="correct1" type="plain/text">
-\x20\x20subprocess\x20*\.\x20*run\x20*\(
+[\n\r]*\x20\x20subprocess\x20*\.\x20*run\x20*\(
     \[ ('ls'|"ls") , ('-l'|"-l") , clean_dir \] \)
 \s*
 </script>
@@ -42,7 +46,7 @@
 ---
 hints:
 - absent: |-
-    ^\x20\x20[^\x20]
+    ^[\n\r]*\x20\x20[^\x20]
   text: >
     Python is an indentation-sensitive language, so your indentation
     must be consistent.
@@ -67,12 +71,37 @@ hints:
     - '  clean_dir = dir_to_list'
     - '  subprocess.run(f"ls -l {dir_to_list}", shell=True)'
 - absent: |-
+    clean_dir = re \. sub \(
+  present: |-
+    re \. sub
+  text: >
+    You need to compute a new string using re.sub and assign the result
+    to `clean_dir`. Your first line should look like
+    `clean_dir = re.sub(OLDPATTERN, NEWPATTERN, dir_to_list)`.
+  examples:
+  -
+    - '  clean_dir re.sub = dir_to_list'
+    - '  subprocess.run(f"ls -l {dir_to_list}", shell=True)'
+- present: PATTERN
+  text: >
+    We use `PATTERN` as a placeholder (metavariable) for the
+    expression you should use.  The answer won't actually say PATTERN
+    anywhere. Your first line should look like
+    `clean_dir = re.sub(OLDPATTERN, NEWPATTERN, dir_to_list)`
+    but `OLDPATTERN` is a string with the regex of the pattern of text you
+    want to replace, and `NEWPATTERN` is what you want to replace it with.
+  examples:
+  -
+    - "  clean_dir = re.sub(OLDPATTERN, NEWPATTERN, dir_to_list)"
+    - '  subprocess.run(f"ls -l {dir_to_list}", shell=True)'
+- absent: |-
     re \. sub \( r
   text: >
     Python re.sub uses strings to indicate a regex pattern.
     By convention these strings usually 'raw' strings, so they
     have the form r'PATTERN'. We would recommend that you have something like
-    re.sub( r'...', ...).
+    re.sub( r'...', ...), even though raw strings don't make this
+    *specific* example easier.
 - absent: |-
     re \. sub \( r['"]
   text: >
@@ -216,15 +245,24 @@ hints:
     - '  subprocess.run(["ls", "-l", clean_dir, foo])'
 successes:
 -
-  - "  clean_dir = re . sub( r'[^a-zA-Z0-9]' , '' , dir_to_list )"
+  - "  clean_dir = re . sub( '[^a-zA-Z0-9]' , '' , dir_to_list )"
+  - '  subprocess . run ( [ "ls" , "-l" , clean_dir ] )'
+-
+  - "\r\n\n  clean_dir = re . sub( r'[^a-zA-Z0-9]' , '' , dir_to_list )"
   - '  subprocess . run ( [ "ls" , "-l" , clean_dir ] )'
 failures:
+# Newline in middle of assignment
 -
   - "  clean_dir =\n re . sub( r'[^a-zA-Z0-9]' , '' , dir_to_list )"
   - '  subprocess . run ( [ "ls" , "-l" , clean_dir ] )'
+# Failure to indent
 -
   - "clean_dir = re . sub( r'[^a-zA-Z0-9]' , '' , dir_to_list )"
   - 'subprocess . run ( [ "ls" , "-l" , clean_dir ] )'
+# Indent too far
+-
+  - "   clean_dir = re . sub( r'[^a-zA-Z0-9]' , '' , dir_to_list )"
+  - '   subprocess . run ( [ "ls" , "-l" , clean_dir ] )'
 </script>
 </head>
 <body>
