@@ -12,25 +12,22 @@
 <!-- See create_labs.md for how to create your own lab! -->
 
 <!-- Sample expected answer -->
-<script id="expected0" type="plain/text">String QueryString = "select * from authors where lastname = ?";</script>
-
-<script id="correct0" type="plain/text">
- (String QueryString)\s\=\s\"select\s+\*\s+from\s+authors\s+where\s+lastname\s\=\s+\?\"\;
+<script id="expected0" type="plain/text">
+String QueryString = "select * from authors where lastname=?";
 </script>
 
-<!-- Full pattern of correct answer -->
-  <!-- 
 <script id="correct0" type="plain/text">
-  ^[?]$ 
+\s* String\s+QueryString =
+   \"select\s+\*\s+from\s+authors\s+where\s+lastname\s*\=\s*\?\s*\" \; \s*
 </script>
--->
 
-<script id="expected1" type="plain/text">rs = statement.executeQuery(QueryString,lastname);</script>
+<script id="expected1" type="plain/text">
+rs = statement.executeQuery(QueryString,lastname);
+</script>
 
 <script id="correct1" type="plain/text">
-  \s* rs = statement \. executeQuery \( QueryString, \s* lastname \) ; \s*
+  \s* rs = statement \. executeQuery \( QueryString , lastname \) ; \s*
 </script>
-  
 
 
 <script id="info" type="application/yaml">
@@ -56,7 +53,6 @@ hints:
     \?
   text: Write an parameterized statement with the Special character "?" added.
   index: 0
-
 - present: |-
     L
   index: 1
@@ -85,7 +81,7 @@ the labs</a>.
 <p>
 <h2>Goal</h2>
 <p>
-<b> Pratice constructing parameterized statements to prevent SQL injection attacks.
+<b>Practice constructing parameterized statements to prevent SQL injection attacks.
 </b>
 
 <p>
@@ -103,45 +99,28 @@ In this lab, you will study and modify code relating to SQL injection attacks. Y
 <p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
 <p>
-Looking at the following vulnerable code, rewrite the statement so it becomes a parameterized statement.
+Looking at the following example code, we can see that this is an
+example of vulnerable code. (This example was taken directly from
+the <a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md">Secure
+Software Development Fundamentals</a> course content.)
+Rewrite these statements so this sequence uses a parameterized statement.
 
 <form id="lab">
-<pre><code>
-String QueryString = "select * from authors where lastname = ' " + search_lastname + " '; "; // VULNERABLE CODE
-<!--String QueryString = "select * from authors where lastname = ?";-->
-<input id="attempt0" type="text" size="60" spellcheck="false" value="">
-
+<pre><code><textarea id="attempt0" rows="4" cols="60" spellcheck="false"
+>  String QueryString =
+     "select * from authors where lastname = ' " +
+     search_lastname + " '; ";
+</textarea>
+  // Execute the query.
+<textarea id="attempt1" rows="3" cols="60" spellcheck="false"
+>  rs = statement.executeQuery(QueryString);
+</textarea>
 </code></pre>
 <button type="button" class="hintButton">Hint</button>
 <button type="button" class="resetButton">Reset</button>
 <button type="button" class="giveUpButton">Give up</button>
-<br><br>
 </form>
-<p>
-Looking at the following example code, we can see that this is an example of vulnerable code. (This example was taken directly from the <a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md">Secure Software Development Fundamentals</a> course content.) 
-<br>
-<pre><code> 
-QueryString = "select * from authors where lastname = ' " + search_lastname + " '; "; // VULNERABLE CODE
-rs = statement.executeQuery(QueryString); // VULNERABLE CODE</code></pre>
-
-Modify the following code so that the SQL query can be executed safely using a parameterized approach. 
- <form id="lab2">
-<pre><code>
-  // safer approach using a parameterized statement
-  QueryString = "select * from authors where lastname = %s";
-  lastname = search_lastname;
-  <input id="attempt1" type="text" size="45" spellcheck="false"
-  value='rs = statement.executeQuery(QueryString);'>
-  
-  
-
-</code></pre>
-<button type="button" class="hintButton">Hint</button>
-<button type="button" class="resetButton">Reset</button>
-<button type="button" class="giveUpButton">Give up</button>
 <br><br>
-
-</form>
 <p>
 <i>This lab was developed by Elijah Everett, Jeremiah Howard, and Emily Lovell as part of the
 <a href="https://github.com/emmet0r/contributor-catalyst"
