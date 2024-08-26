@@ -24,7 +24,7 @@
 <!-- Full pattern of correct answer -->
 <script id="correct0" type="plain/text">
 \s*
-  clean_dir = re . sub \( r'\[\^a-zA-Z0-9\]' , (''|"") , dir_to_list \)
+  clean_dir = re . sub \( r'\[\^a-zA-Z0-9\]' , r?(''|"") , dir_to_list \)
 \s*
 </script>
 <script id="correct1" type="plain/text">
@@ -36,12 +36,124 @@
 <script id="info" type="application/yaml">
 ---
 hints:
+- absent: |-
+    re \. sub
+  text: >
+    Use re.sub(OLDPATTERN, REPLACEPATTERN, dir_to_list) to
+    remove anything that is not an alphanumeric character (removing the rest).
+  examples:
+  -
+    - clean_dir = dir_to_list
+    - subprocess.run(f"ls -l {dir_to_list}", shell=True)
+- absent: |-
+    re \. sub \( r
+  text: >
+    Python re.sub uses strings to indicate a regex pattern.
+    By convention these strings usually 'raw' strings, so they
+    have the form r'PATTERN'. So you should have something like
+    re.sub( r'...' ...).
+- absent: |-
+    re \. sub \( r\'
+  text: >
+    Python re.sub uses strings to indicate a regex pattern.
+    By convention these strings usually 'raw' strings, so they
+    have the form r'PATTERN'. You have the "r" but not the following
+    single quote character (we will use single quotes here).
+- absent: |-
+    re \. sub \( r\'\[
+  text: >
+    Use re.sub(r'[...]', ...) to
+    indicate that you want to replace every character matching a
+    certain pattern.
+  examples:
+  -
+    - clean_dir = re.sub(r'', '', dir_to_list)
+    - subprocess.run(f"ls -l {dir_to_list}", shell=True)
+- absent: |-
+    re \. sub \( r\'\[\^
+  text: >
+    Use re.sub(r'[^ALPHANUMERIC_PATTERN]', '', dir_to_list) to
+    indicate that you want to replace everything that is not
+    an alphanumeric character. Be sure to replace ALPHANUMERIC_PATTERN
+    with a regular expression pattern that describes alphanumerics!
+  examples:
+  -
+    - clean_dir = re.sub(r'[a-zA-Z0-9]', '', dir_to_list)
+    - subprocess.run(f"ls -l {dir_to_list}", shell=True)
 - absent: "subprocess.run"
+  index: 1
   text: Use subprocess.run
-- absent: "re.sub"
-  text: Use re.sub(..) to accept only alphanumeric characters (removing the rest)
+- present: |-
+    shell = [Tt]rue
+  index: 1
+  text: |-
+    Don't say `shell = True`; we don't want to unnecessarily run the shell.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
+    - subprocess.run(f"ls -l {dir_to_list}", shell=True)
+- present: |-
+    f["']ls\s+-l
+  index: 1
+  text: >-
+    You should generally avoid using string concatenation when creating
+    a command to execute. Formatted strings like f"..." are a form of
+    string concatenation. In addition, you MUST avoid string concatenation
+    in this case. The shell uses spaces to separate arguments, but we're
+    trying to avoid using the shell when it's not needed.
+    You must instead provide the arguments as a list with
+    separate parameters, e.g.,
+    subprocess.run(["ls", "-l", clean_dir]) or similar.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
+    - subprocess.run(f"ls -l {dir_to_list}")
+- present: |-
+    ["']ls\s+-l
+  index: 1
+  text: >-
+    The shell uses spaces to separate arguments, but we're
+    trying to avoid using the shell when it's not needed.
+    You must instead provide the arguments as a list with
+    separate parameters, e.g.,
+    subprocess.run(["ls", "-l", clean_dir]) or similar.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
+    - subprocess.run("ls -l {dir_to_list}")
+- present: |-
+    subprocess \. run \( [A-Za-z0-9"']
+  index: 1
+  text: >-
+    The `subprocess.run` function takes a LIST of parameters as its command.
+    This has the form `subprocess.run([P1, P2, ...])`. Use
+    subprocess.run(["ls", "-l", clean_dir]) or similar.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
+    - subprocess.run("ls", "-l", clean_dir)
+- present: |-
+    \{(dir_to_list|clean_dir)\}
+  index: 1
+  text: >-
+    You don't need {...} in your result. Use
+    subprocess.run(["ls", "-l", clean_dir]) or similar.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
+    - subprocess.run(["ls", "-l", {dir_to_list}])
+- present: |-
+    dir_to_list
+  index: 1
+  text: >-
+    The parameter `dir_to_list` is what was provided, but you don't want
+    to use that. You want to use the cleaned value `clean_dir` instead. Use
+    subprocess.run(["ls", "-l", clean_dir]) or similar.
+  examples:
+  -
+    - clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)
+    - subprocess.run(["ls", "-l", dir_to_list])
 definitions:
-
 </script>
 </head>
 <body>
@@ -104,13 +216,11 @@ files in a temporary directory used by our application for data processing.
 The original code was:
 </p>
 
-<pre><code>
-subprocess.run("ls -l", shell=True)
-</code></pre>
+<pre><code>  subprocess.run("ls -l", shell=True)</code></pre>
 
 <p>
 Then, another developer added user input for the directory with the raw user
-data in the variable <pre>dir_to_list</pre> as follows:
+data in the variable <tt>dir_to_list</tt> as follows:
 </p>
 
 <pre><code>def list_directory(dir_to_list):
@@ -121,12 +231,29 @@ data in the variable <pre>dir_to_list</pre> as follows:
 This is a shell injection vulnerability.
 An attacker can put arbitrary text into the parameter, which will be
 executed by the shell.
-It would safer to <i>not</i> invoke the shell at all, <i>and</i> ensure
-that only safe characters would be considered.
+It would safer to ensure
+that only safe characters would be considered, <i>and</i> to
+<i>not</i> invoke the shell at all.
+By taking both steps, we make it much harder for an attacker
+to find a way to work around it.
 </p>
+
 <p>
-To be fair, a typical Python program wouldn't call "ls" directly;
-we'll do that to keep the example simple.
+We can offer a few hints.
+You'll need to modify a string to only contain alphanumerics.
+Python's <tt>re.sub(OLDPATTERN, REPLACEPATTERN, ORIGINAL_VALUE)</tt>
+returns the result of replacing <tt>OLDPATTERN</tt> with
+<tt>REPLACEPATTERN</tt> in <tt>ORIGINAL_VALUE</tt>, where <tt>OLDPATTERN</tt>
+is a regular expression. In Python regular expressions are usually expressed
+using the "raw" string form, that is, using the <tt>r'...'</tt> syntax.
+You need to stop invoking the shell in Python's
+<tt>subprocess.run</tt>, including separating the arguments.
+</p>
+
+<p>
+To be fair, a typical Python program wouldn't call "ls" directly.
+We'll do that to keep the example simple, since there are times when
+you need to invoke a shell.
 </p>
 
 <p>
@@ -134,6 +261,7 @@ we'll do that to keep the example simple.
 <p>
 Rewrite the following function to be safe:
 <p>
+<form id="lab">
 <pre><code>def list_directory(dir_to_list):
   # Modify the directory so it only contains a-zA-Z0-9
 <textarea id="attempt0" rows="2" cols="60" spellcheck="false">
@@ -147,7 +275,6 @@ Rewrite the following function to be safe:
 <button type="button" class="hintButton">Hint</button>
 <button type="button" class="resetButton">Reset</button>
 <button type="button" class="giveUpButton">Give up</button>
-</form>
 <br><br>
 <p>
 <i>This lab was developed by Marta Rybczynska.</i>

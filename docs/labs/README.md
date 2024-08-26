@@ -2,6 +2,8 @@
 
 These are labs for those who are learning how to develop secure software.
 See our [introduction](introduction) for more information.
+They're designed to support our free course
+[Developing Secure Software (LFD121)](https://training.linuxfoundation.org/training/developing-secure-software-lfd121/).
 
 You can download the labs in these sections, e.g., to run locally
 without Internet access.
@@ -26,7 +28,7 @@ We also have a [template](template.html) available.
 
 ## Please contribute labs
 
-Please us create labs! See "[Please us create labs!](https://docs.google.com/document/d/1wNoNjLpdkgoXkRDvDBI32tm62rbASlfF6gxwyEkyTYs/edit)" for why it's
+Please help us create labs! See "[Please help us create labs!](https://docs.google.com/document/d/1wNoNjLpdkgoXkRDvDBI32tm62rbASlfF6gxwyEkyTYs/edit)" for why it's
 important to help us create labs.
 
 We would love to have people contribute relevant labs to help
@@ -91,7 +93,7 @@ work on.
     * [Avoid Incorrect Conversion or Cast](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-incorrect-conversion-or-cast) - DONE-2 (Keith Grant via Vincent Danen, by 2024-07-26) [conversion](conversion.html)
   * Processing Data Securely: Undefined Behavior / Memory Safety
     * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - DONE-0 [oob1](oob1.html)
-    * [Double-free, Use-after-free, and Missing Release](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#double-free-use-after-free-and-missing-release) - PLANNED-1 (Bennett Pursell)
+    * [Double-free, Use-after-free, and Missing Release](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#double-free-use-after-free-and-missing-release) <!-- was Bennett Pursell --> - DONE-1 (David A. Wheeler) [free](free.html)
     * [Avoid Undefined Behavior](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-undefined-behavior) - PLANNED-2 UNASSIGNED
   * Processing Data Securely: Calculate Correctly
     * [Avoid Integer Overflow, Wraparound, and Underflow](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-integer-overflow-wraparound-and-underflow) - PLANNED-2, first draft by 2024-07-19 (Petr Matousek via Vincent Danen)
@@ -121,7 +123,7 @@ work on.
   * Using Inadequately Checked URLs / Server-Side Request Forgery (SSRF) - PLANNED-2 UNASSIGNED
   * Same-Origin Policy and Cross-Origin Resource Sharing (CORS) - PLANNED-2 UNASSIGNED
   * [Format Strings and Templates](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#format-strings-and-templates) - PLANNED-1 (Jason Shepherd)
-  * [Minimize Feedback / Information Exposure](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#minimize-feedback--information-exposure) - PLANNED-2 (Ibrahim Mukherjee, 2026-07-31)
+  * [Minimize Feedback / Information Exposure](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#minimize-feedback--information-exposure) - PLANNED-2 (Ibrahim Mukherjee, 2026-08-07)
   * [Avoid caching sensitive information](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-caching-sensitive-information) - PLANNED-2 UNASSIGNED
   * [Side-Channel Attacks](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#side-channel-attacks) - PLANNED-2 UNASSIGNED
 
@@ -130,7 +132,6 @@ work on.
 Thanks to the following people who have created or offered to create labs
 (sorted by given/first name):
 
-* Bennett Pursell
 * David A. Wheeler
 * Dhananjay Arunesh
 * Keith Grant
