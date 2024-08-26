@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">String QueryString = "select * from authors where lastname = ?";</script>
+
+<script id="correct0" type="plain/text">
+ (String QueryString)\s\=\s\"select\s+\*\s+from\s+authors\s+where\s+lastname\s\=\s+\?\"\;
+</script>
+
+<!-- Full pattern of correct answer -->
+  <!-- 
+<script id="correct0" type="plain/text">
+  ^[?]$ 
+</script>
+-->
+
+<script id="expected1" type="plain/text">rs = statement.executeQuery(QueryString,lastname);</script>
+
+<script id="correct1" type="plain/text">
+  \s* rs = statement \. executeQuery \( QueryString, \s* lastname \) ; \s*
+</script>
+  
+
+
+<script id="info" type="application/yaml">
+---
+hints:
+- present: |-
+    ;.*;
+  text: You should only have one semicolon.
+  index: 0
+- present: |-
+   search_lastname
+  text: You should replace "search_lastname" with a placeholder.
+  index: 0
+  examples:
+  - - "search_lastname"
+- present: |-
+    Lastname
+  text: The variable lastname should be lowercase.
+  index: 0
+  examples:
+  - - "Lastname"
+- absent: |-
+    \?
+  text: Write an parameterized statement with the Special character "?" added.
+  index: 0
+
+- present: |-
+    L
+  index: 1
+  text: The variable lastname should be lowercase.
+- absent: |-
+    ,\b
+  index: 1
+  text: The character ',' should be placed after QueryString.
+- absent: |-
+    lastname
+  index: 1
+  text: Enter the variable declared above.
+# debug: true
+</script>
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise sql-injection</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html" target="_blank">introduction to
+the labs</a>.
+
+<p>
+<h2>Goal</h2>
+<p>
+<b> Pratice constructing parameterized statements to prevent SQL injection attacks.
+</b>
+
+<p>
+<h2>Background</h2>
+<p>
+Parameterized statements are used to prevent SQL injection attacks by seperating SQL code from its data inputs. Parameterized statements are SQL queries which utilize place holders instead of directly embedding user inputs into a query. This prevents queries from being injected with malicious code.
+<p>
+<h2>Task Information</h2>
+<p>
+
+<p>
+In this lab, you will study and modify code relating to SQL injection attacks. You will answer a couple of questions related to prepared/parameterized statements.
+
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+<p>
+Looking at the following vulnerable code, rewrite the statement so it becomes a parameterized statement.
+
+<form id="lab">
+<pre><code>
+String QueryString = "select * from authors where lastname = ' " + search_lastname + " '; "; // VULNERABLE CODE
+<!--String QueryString = "select * from authors where lastname = ?";-->
+<input id="attempt0" type="text" size="60" spellcheck="false" value="">
+
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+<br><br>
+</form>
+<p>
+Looking at the following example code, we can see that this is an example of vulnerable code. (This example was taken directly from the <a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md">Secure Software Development Fundamentals</a> course content.) 
+<br>
+<pre><code> 
+QueryString = "select * from authors where lastname = ' " + search_lastname + " '; "; // VULNERABLE CODE
+rs = statement.executeQuery(QueryString); // VULNERABLE CODE</code></pre>
+
+Modify the following code so that the SQL query can be executed safely using a parameterized approach. 
+ <form id="lab2">
+<pre><code>
+  // safer approach using a parameterized statement
+  QueryString = "select * from authors where lastname = %s";
+  lastname = search_lastname;
+  <input id="attempt1" type="text" size="45" spellcheck="false"
+  value='rs = statement.executeQuery(QueryString);'>
+  
+  
+
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+<br><br>
+
+</form>
+<p>
+<i>This lab was developed by Elijah Everett, Jeremiah Howard, and Emily Lovell as part of the
+<a href="https://github.com/emmet0r/contributor-catalyst"
+>Contributor Catalyst Program</a>.</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</div>
+</body>
+</html>
