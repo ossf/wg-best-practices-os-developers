@@ -89,7 +89,7 @@ work on.
 * Processing Data Securely
   * Processing Data Securely: General Issues
     * [Prefer Trusted Data. Treat Untrusted Data as Dangerous](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#prefer-trusted-data-treat-untrusted-data-as-dangerous) - PLANNED-2 UNASSIGNED
-    * [Avoid Default & Hardcoded Credentials](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-default--hardcoded-credentials) - PLANNED-1 (@J Howard, 2024-08-13)
+    * [Avoid Default & Hardcoded Credentials](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-default--hardcoded-credentials) - PLANNED-1 UNASSIGNED <!-- Was @J Howard, 2024-08-13 -->
     * [Avoid Incorrect Conversion or Cast](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-incorrect-conversion-or-cast) - DONE-2 (Keith Grant via Vincent Danen, by 2024-07-26) [conversion](conversion.html)
   * Processing Data Securely: Undefined Behavior / Memory Safety
     * Countering Out-of-Bounds Reads and Writes (Buffer Overflow) - DONE-0 [oob1](oob1.html)
@@ -101,7 +101,7 @@ work on.
   * Introduction to Securely Calling Programs
     * Introduction to Securely Calling Programs - The Basics
   * Calling Other Programs: Injection and Filenames
-    * [SQL Injection](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#sql-injection) - PLANNED-1 (@Elijah Everett, 2024-08-13) [sql-injection](sql-injection.html)
+    * [SQL Injection](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#sql-injection) - DONE-1 (@Elijah Everett, 2024-08-13) [sql-injection](sql-injection.html)
     * OS Command (Shell) injection - DONE-1 (Marta Rybczynska) [shell-injection](shell-injection.html)
     * [Other Injection Attacks](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#other-injection-attacks) - PLANNED-2 (Dhananjay Arunesh via Vincent Danen, 2026-07-26)
     * Filenames (Including Path Traversal and Link Following) - PLANNED-2 UNASSIGNED
@@ -113,7 +113,7 @@ work on.
     * Countering Denial-of-Service (DoS) Attacks - PLANNED-2 UNASSIGNED
 * Sending Output
   * [Introduction to Sending Output](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#introduction-to-sending-output) - PLANNED-2 UNASSIGNED
-  * [Countering Cross-Site Scripting (XSS)](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#countering-cross-site-scripting-xss) - PLANNED-1 (@Emily Lovell, 2024-08-13)
+  * [Countering Cross-Site Scripting (XSS)](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#countering-cross-site-scripting-xss) - PLANNED-1 UNASSIGNED <!-- Was @Emily Lovell, 2024-08-13 -->
   * Content Security Policy (CSP) - DONE-0 [csp1](csp1.html)
   * Other HTTP Hardening Headers - (probably continue csp1) PLANNED-2 UNASSIGNED
   * [Cookies Cookies & Login Sessions Login Sessions](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#cookies--login-sessions) - PLANNED-2 (Dhananjay Arunesh via Vincent Danen)
