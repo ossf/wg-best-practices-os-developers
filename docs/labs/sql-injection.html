@@ -28,6 +28,15 @@
   ResultSet results = pstmt.executeQuery( );
 </script>
 
+<!--
+Note: Java Statement has an "executeQuery" method, of form:
+  ResultSet executeQuery(String sql)
+It requires exactly one parameter and does NOT accept added parameters.
+So `executeQuery(sql, search_lastname)` is not legal Java.
+
+See:
+https://docs.oracle.com/en/java/javase/22/docs/api/java.sql/java/sql/Statement.html
+-->
 <script id="correct1" type="plain/text">
 \s* pstmt \. setString \( 1 , search_lastname \) \;
 \s* ResultSet\s+results = pstmt \. executeQuery \( \) \; \s*
@@ -78,7 +87,7 @@ hints:
   present: execute
   index: 1
   text: Use `executeQuery` not `execute` so we can receive and use a
-    potential series of results.
+    potential series of results (a `ResultSet`).
 - absent: |-
     \s* ResultSet\s+results = pstmt \. executeQuery \( \) \; \s*
   index: 1
