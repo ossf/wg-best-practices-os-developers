@@ -113,6 +113,17 @@ hints:
     By convention these strings usually 'raw' strings, so they
     have the form `r'PATTERN'`. You have the "r" but not the following
     single or double quote character.
+- present: |-
+    re \. sub \( r?['"]\(
+  text: >
+    It is syntactically *legal* to use unnecessary parentheses in a
+    regular expression, e.g., `([^a-zA-Z0-9])`. However, it's usually best
+    to make regular expressions as simple as possible. So please don't use
+    unnecessary parentheses.
+  examples:
+  -
+    - "  clean_dir = re.sub(r'([^a-zA-Z0-9])', '', dir_to_list)"
+    - '  subprocess.run(f"ls -l {dir_to_list}", shell=True)'
 - absent: |-
     re \. sub \( r?['"]\[
   text: >
