@@ -83,7 +83,10 @@ hints:
   - - "  return { result: a / b };"
 - index: 2
   absent: '\s*try\s*{\s* '
-  text: Use a try block to catch any exceptions that might be thrown.
+  text: >-
+    Use a try block to catch any exceptions that might be thrown.
+    It should look something like `try { ... } catch(err) {...}`
+    (fill in the `...` sections).
   examples:
   - - "  const result = divide(10, 2);"
 - index: 2
@@ -98,7 +101,9 @@ hints:
   - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result.result ); "
 - index: 2
   absent: '.*? catch .*? '
-  text: Handle the error within the catch block.
+  text: >-
+    Handle the error within the catch block. You need `catch(err) {...}`
+    after `try {...}` to catch an error in the try block.
   examples:
   - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); }"
 - index: 2
@@ -107,15 +112,12 @@ hints:
   examples:
   - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch {}"
 - index: 2
-  absent: '\s* catch \s* \( err \) { \s* '
-  text: Catch an object named err within the catch block.
-  examples:
-  - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (foo) {"
-- index: 2
   absent: |-
     catch \( err \)
   text: >-
     Please use `catch(err) {...}` for purposes of this lab.
+  examples:
+  - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (foo) {"
 - index: 2
   present: |-
     console \. error \( ["'][^"']*["'] , result \. message
