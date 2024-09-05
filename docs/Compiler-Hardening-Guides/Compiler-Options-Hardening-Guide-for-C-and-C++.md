@@ -797,7 +797,17 @@ Some language-level programming constructs, such as taking the address of a nest
 
 Consequently the `-Wl,-z,noexecstack` option works best when combined with appropriate warning flags ([`-Wtrampolines`](#-Wtrampolines) where available) that indicate whether stack virtual memory protection interferes with language constructs.
 
+#### Additional Considerations
+
+Modern compilers perform this marking automatically through the `p_flags` field in the `PT_GNU_STACK` program header entry and the linker consults the entries for consituent objects when deciding the marking for the produced binary. If the marking is missing the kernel or the dynamic linker needs to assume the binary might need executable stack.
+
+In Linux prior to kernel version 5.8 a missing `PT_GNU_STACK` marking on x86_64 will also expose other readable pages (such as the program `.data` section) as executable[^Hernandez2013], not just their stack memory. While this behavior has since changed[^Cook2020], we recommend enabling `-Wl,-z,noexecstack` explicitly during linking to ensure produced binaries benefit from data execution prevention for both the stack and other program data as widely as possible and guarding against compatibility issues by using the [`-Wtrampolines`](#-Wtrampolines) in tandem when available.
+
 [^gcc-trampolines]: GCC team, [Support for Nested Functions.](https://gcc.gnu.org/onlinedocs/gccint/Trampolines.html), GCC Internals, 2023-07-27.
+
+[^Hernandez2013]: Hernandez, Alejandro, [A Short Tale About executable_stack in elf_read_implies_exec() in the Linux Kernel](https://ioactive.com/a-short-tale-about-executable_stack-in-elf_read_implies_exec-in-the-linux-kernel/), IOActive, 2013-11-27.
+
+[^Cook2020]: Cook, Kees, [x86/elf: Disable automatic READ_IMPLIES_EXEC on 64-bit](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=9fccc5c0c99f238aa1b0460fccbdb30a887e7036), Linux Kernel Source, 2020-03-26.
 
 ---
 
