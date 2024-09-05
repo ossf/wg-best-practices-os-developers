@@ -120,16 +120,17 @@ hints:
   - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (foo) {"
 - index: 2
   present: |-
-    console \. error \( ["'][^"']*["'] , result \. message
+    catch .* console \. error \( ["'][^"']*["'] , result
   text: >-
     When reporting the error, you need to report it in the catch block,
     which catches it as the variable `err`.
-    Thus, you need to use `err.message` not `result.message, since
-    the error is in `err.message`. Note that 
+    Thus, you need to use `err.message` not `result` or `result.message`,
+    since the error is in `err.message`. Note that 
     the variable `result` is out of scope in the catch block anyway;
     it was declared in the try block.
   examples:
   - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (err) { console.error('Error', result.message);"
+  - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (err) { console.error('Error', result );"
 # debug: true
 </script>
 </head>
