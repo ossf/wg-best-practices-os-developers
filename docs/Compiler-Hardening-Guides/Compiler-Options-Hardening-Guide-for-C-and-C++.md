@@ -297,11 +297,15 @@ For C++ warnings about conversions between signed and unsigned integers are disa
 
 #### Synopsis
 
-Check whether the compiler generates trampolines for pointers to nested functions which may interfere with stack virtual memory protection (non-executable stack.)
+Check whether the compiler generates trampolines for pointers to nested functions[^gnuc-nestedfuncs] (a GNU C extension to ISO standard C) which stack virtual memory protection (non-executable stack) may interfere with.
 
 A trampoline is a small piece of data or code that is created at run time on the stack when the address of a nested function is taken and is used to call the nested function indirectly.
 
-For most target architectures, including 64-bit x86, trampolines are made up of code and thus requires the stack to be made executable for the program to work properly. This interferes with the non-executable stack mitigation which is used by all major operating system to prevent code injection attacks (see Section 2.10).
+For most target architectures, including 64-bit x86, trampolines are made up of code and thus requires the stack to be made executable for the program to work properly. The non-executable stack mitigation (see [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)) used by all major operating system to prevent code injection attacks may interfere with the operation such trampolines causing a non-compatible programs to crash when they transfer control flow to a trampoline on a non-executable stack.
+
+Enabling `-Wtrampolines` warns of programming constructs which are not compatible with the non-executable stack mitigation.
+
+[^gnuc-nestedfuncs]: Stallman, Richard, [Nested Functions](https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Nested-Functions.html), GNU C Language Introduction and Reference Manual, 2023-10-15.
 
 ---
 
@@ -775,9 +779,9 @@ None, marking the stack and/or heap as non-executable does not have an impact on
 
 #### When not to use?
 
-Some language-level programming constructs, such as taking the address of a nested function (a GNU C extension to ISO standard C) requires special compiler handling which may prevent the linker from marking stack segments correctly as non-executable[^gcc-trampolines].
+Some language-level programming constructs, such as taking the address of a nested function[^gnuc-nestedfuncs] (a GNU C extension to ISO standard C) requires special compiler handling which may not work correctly if the linker mark stack segments as non-executable[^gcc-trampolines].
 
-Consequently the `-Wl,-z,noexecstack` option works best when combined with appropriate warning flags (`-Wtrampolines` where available) that indicate whether language constructs interfere with stack virtual memory protection.
+Consequently the `-Wl,-z,noexecstack` option works best when combined with appropriate warning flags ([`-Wtrampolines`](#-Wtrampolines) where available) that indicate whether stack virtual memory protection interferes with language constructs.
 
 [^gcc-trampolines]: GCC team, [Support for Nested Functions.](https://gcc.gnu.org/onlinedocs/gccint/Trampolines.html), GCC Internals, 2023-07-27.
 
