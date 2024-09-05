@@ -111,6 +111,23 @@ hints:
   text: Catch an object named err within the catch block.
   examples:
   - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (foo) {"
+- index: 2
+  absent: |-
+    catch \( err \)
+  text: >-
+    Please use `catch(err) {...}` for purposes of this lab.
+- index: 2
+  present: |-
+    console \. error \( ["'][^"']*["'] , result \. message
+  text: >-
+    When reporting the error, you need to report it in the catch block,
+    which catches it as the variable `err`.
+    Thus, you need to use `err.message` not `result.message, since
+    the error is in `err.message`. Note that 
+    the variable `result` is out of scope in the catch block anyway;
+    it was declared in the try block.
+  examples:
+  - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (err) { console.error('Error', result.message);"
 # debug: true
 </script>
 </head>
