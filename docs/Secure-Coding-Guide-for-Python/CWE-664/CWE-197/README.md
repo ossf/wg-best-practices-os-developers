@@ -151,4 +151,3 @@ while counter <= target:
 |[Wikipedia 2024]|Repeating Decimals, available from:[https://en.wikipedia.org/wiki/Repeating_decimal](https://en.wikipedia.org/wiki/Repeating_decimal), [Last accessed August 2024] |
 |[Albing and Vossen, 2017]|Albin, C. and Vossen, JP (2017) 6.13 Looping with Floating Point Values. In: Bleiel, J., Brown, K. and Head, R. eds. bash Cookbook: Solutions and Examples for bash Users, 2d Edition. Sebastopol: O'Reilly Media, Inc., pp.159-160|
 |[Bloch 2005]|Puzzle 34, "Down for the Count", available from: [https://web.archive.org/web/20220511061752/https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Bloch05](https://web.archive.org/web/20220511061752/https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Bloch05), [Last accessed August 2024] |
-
