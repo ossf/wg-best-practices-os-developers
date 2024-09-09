@@ -38,7 +38,9 @@
 
 <script id="correct1" type="plain/text">
 [\n\r]*\x20\x20subprocess\x20*\.\x20*run\x20*\(
-    \[ ('ls'|"ls") , ('-l'|"-l") , clean_dir \] \)
+    \[ ('ls'|"ls") , ('-l'|"-l") , clean_dir \]
+    ( , shell = False )?
+    \)
 \s*
 </script>
 
@@ -277,6 +279,9 @@ successes:
 -
   - "\r\n\n  clean_dir = re . sub( r'[^a-zA-Z0-9]' , '' , dir_to_list )"
   - '  subprocess . run ( [ "ls" , "-l" , clean_dir ] )'
+-
+  - "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)"
+  - '  subprocess.run(["ls", "-l", clean_dir], shell=False)'
 failures:
 # Newline in middle of assignment
 -
