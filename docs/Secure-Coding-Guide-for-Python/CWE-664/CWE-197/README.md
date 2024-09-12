@@ -17,7 +17,7 @@ while value <= 1:
     value += 0.1
 ```
 
- **Output of exampl01.py:**
+ **Output of example01.py:**
 
 ```bash
 <class 'float'> 0.0
@@ -68,9 +68,11 @@ while counter <= 10:
     counter += 1
 ```
 
-## Non-Compliant Code Example
+The use of `range(10)` is more compact and prohibits `float`.
 
-The `example02.py` code demonstrates more precision limites in floating numbers.
+## Non-Compliant Code Example - Infinite Loop
+
+Python `float` has a limit in precision as demonstrated in `example02.py`
 
 [*example02.py:*](example02.py)
 
@@ -104,7 +106,7 @@ while counter <= target:  # never ends
 
 The code will loop forever due to missing precision in the initial calculation of `COUNTER = 1.0 + 1e-16`.
 
-## Compliant Solution
+## Compliant Solution - Infinite Loop
 
 Use of an `int` loop counter that is only converted to `float` when required is demonstrated in `compliant2.py`.
 
@@ -120,7 +122,7 @@ while counter <= target:
     counter += 1
 ```
 
-## Defnitions
+## Definitions
 
 |Definition|Explanation|Reference|
 |:---|:---|:---|
@@ -141,7 +143,7 @@ while counter <= target:
 |[MITRE CWE](http://cwe.mitre.org/)|Class [CWE-197: Numeric Truncation Error](https://cwe.mitre.org/data/definitions/197.html)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[NUM09-J. Do not use floating-point variables as loop counters](https://wiki.sei.cmu.edu/confluence/display/java/NUM09-J.+Do+not+use+floating-point+variables+as+loop+counters)|
 |[SEI CERT C Coding Standard](https://web.archive.org/web/20220511061752/https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[FLP30-C. Do not use floating-point variables as loop counters](https://web.archive.org/web/20220511061752/https://wiki.sei.cmu.edu/confluence/display/c/FLP30-C.+Do+not+use+floating-point+variables+as+loop+counters)|
-|[ISO/IEC TR 24772:2010]||
+|[ISO/IEC TR 24772:2019]|Programming languages — Guidance to avoiding vulnerabilities in programming languages, available from [https://www.iso.org/standard/71091.html](https://www.iso.org/standard/71091.html)|
 
 ## Biblography
 
