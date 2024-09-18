@@ -1,7 +1,9 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
-value = float(0.0)
-while value <= 1:
-    print(value)
-    value = value + float(1.0/9.0)
+counter = 0.0
+while counter <= 1.0:
+    if counter == 0.8:
+        print("we reached 0.8")  
+        break  # never going to reach this
+    counter += 0.1
