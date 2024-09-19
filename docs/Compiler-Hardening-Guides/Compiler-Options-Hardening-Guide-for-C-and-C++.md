@@ -498,11 +498,11 @@ Some tools, such as `autoconf`, automatically determine what the compiler suppor
 
 ### Fortify sources for unsafe libc usage and buffer overflows
 
-| Compiler Flag                                                                              | Supported since            | Description                                                                                  |
-| ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
-| <span id="-D_FORTIFY_SOURCE=1">`-D_FORTIFY_SOURCE=1`</span>                                | GCC 4.0.0<br/>Clang 5.0.0     | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows         |
-| <span id="-D_FORTIFY_SOURCE=2">`-D_FORTIFY_SOURCE=2`</span><br/>(requires `-O1` or higher) | GCC 4.0.0<br/>Clang 5.0.0[^Guelton20] | In addition to checks covered by `-D_FORTIFY_SOURCE=1`, also trap code that may be conforming to the C standard but still unsafe |
-| <span id="-D_FORTIFY_SOURCE=3">`-D_FORTIFY_SOURCE=3`</span><br/>(requires `-O1` or higher) | GCC 12.0.0<br/>Clang 9.0.0[^Guelton20] | Same checks as in `-D_FORTIFY_SOURCE=2`, but with significantly more calls fortified with a potential to impact performance in some rare cases |
+| Compiler Flag                                               | Supported since                        | Description                                                                                                                                                               |
+| ----------------------------------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <span id="-D_FORTIFY_SOURCE=1">`-D_FORTIFY_SOURCE=1`</span> | GCC 4.0.0<br/>Clang 5.0.0              | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows                                                                              |
+| <span id="-D_FORTIFY_SOURCE=2">`-D_FORTIFY_SOURCE=2`</span> | GCC 4.0.0<br/>Clang 5.0.0[^Guelton20]  | In addition to checks covered by `-D_FORTIFY_SOURCE=1`, also trap code that may be conforming to the C standard but still unsafe. Requires `-O1` or higher.               |
+| <span id="-D_FORTIFY_SOURCE=3">`-D_FORTIFY_SOURCE=3`</span> | GCC 12.0.0<br/>Clang 9.0.0[^Guelton20] | Same checks as in `-D_FORTIFY_SOURCE=2`, but with significantly more calls fortified with a potential to impact performance in some rare cases. Requires `-O1` or higher. |
 
 #### Synopsis
 
