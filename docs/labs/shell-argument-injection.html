@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise argument-injection</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html" target="_blank">introduction to
+the labs</a>.
+
+<p>
+<h2>Task</h2>
+<p>
+<b>Eliminate an argument injection vulnerability in a Node.js application</b>
+
+<p>
+<h2>Background</h2>
+<p>
+Node.js developers often need to execute system commands or external 
+tools from their applications. This may be to leverage existing 
+functionality, interface with system utilities, or process data.
+However, if not implemented carefully, this can lead to serious
+security vulnerabilities.
+</p>
+
+<p>
+Argument injection is a type of attack related to command injection.
+It occurs when user-supplied input is passed unchecked into commands 
+executed by an application. Attackers can craft malicious arguments 
+that exploit flaws in how the command parses input, potentially 
+leading to unintended command execution or file manipulation.
+</p>
+
+<p>
+To prevent argument injection, applications need to carefully
+validate and sanitize any user input before it's used in command
+execution. This includes using allowlists to restrict allowed 
+characters, separating arguments properly, and avoiding shell 
+execution when possible.
+</p>
+
+<p>
+<h2>Task Information</h2>
+<p>
+In this task, we will fix an argument injection vulnerability 
+in a Node.js application that uses the `git blame` command.
+The original code was:
+</p>
+
+<pre><code lang="javascript">
+const { exec } = require('child_process');
+
+function blameFile(filePath) {
+  return new Promise((resolve, reject) => {
+    exec(`git blame ${filePath}`, (error, stdout, stderr) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(stdout);
+    });
+  });
+}
+</code></pre>
+
+<p>
+This code is vulnerable to argument injection.
+An attacker could provide input like <tt>--output=/tmp/malicious</tt>
+to write arbitrary files on the server or execute unintended git commands.
+</p>
+
+<p>
+Your task is to modify this function to prevent argument injection
+while still allowing valid file paths. You should:
+    <ul>
+        <li>Validate and sanitize the <tt>filePath</tt> input.</li>
+        <li>Use a secure process execution function instead of <tt>exec</tt> to avoid shell interpretation.</li>
+        <li>Separate the command and its arguments.</li>
+        <li>Disallow an argument injection invocation</li>
+    </ul>
+</p>
+
+Here are some hints:
+<ul>
+  <li>Use a regular expression to validate the file path. Allow only alphanumeric characters, underscores, hyphens, and forward slashes.</li>
+  <li>The <tt>path</tt> module in Node.js can help you work with file paths safely.</li>
+  <li>The <tt>execFile</tt> function takes the command and arguments as separate parameters.</li>
+  <li>Use the special shell double dash <tt>--</tt> to separate command-line arguments from positional arguments when the shell interprets a command string</li>
+</ul>
+
+<p>
+Remember, the goal is to make it much harder for an attacker to inject malicious 
+arguments while still allowing the function to work with valid file paths.
+</p>
+
+<p>
+Use the “hint” and “give up” buttons if necessary.
+</p>
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+<p>
+Rewrite the following function to be safe:
+<p>
+<form id="lab">
+<pre><code>
+const { exec } = require('child_process');
+
+function blameFile(filePath) {
+  return new Promise((resolve, reject) => {
+  
+  # Allow invoking the `git blame` command in a safe and
+  # secure way from user input providing a file path
+
+<textarea id="attempt0" rows="2" cols="60" spellcheck="false">
+    exec(`git blame ${filePath}`, (error, stdout, stderr) => {
+</textarea>
+
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(stdout);
+    });
+  });
+}
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+<br><br>
+<p>
+<i>This lab was developed by Liran Tal.</i>
+<br><br>
+<p>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
