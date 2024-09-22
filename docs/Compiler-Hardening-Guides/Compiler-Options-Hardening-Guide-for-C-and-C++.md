@@ -1375,6 +1375,27 @@ If you are compiling a C/C++ compiler, where practical make the generated compil
 | <span id="--enable-host-bind-now">`--enable-host-bind-now`</span>         | GCC 14.0.0       | Build the compiler executables with [`-Wl,-z,now`](#-Wl,-z,now) |
 | <span id="CLANG_DEFAULT_PIE_ON_LINUX">`CLANG_DEFAULT_PIE_ON_LINUX`</span> | Clang 14.0.0 | Turn on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler |
 
+## What should you do when compiling linkers?
+
+If you are compiling a linker, where practical make the generated linker's default options the *secure* options. The below table summarizes relevant options that can be specifed when building GNU Binutils that affect the defaults of the linker:
+
+| Linker Flag                   | Supported since  | Description                                                       |
+|:--- |:---:|:---- |
+| <span id="--disable-default-execstack">`--disable-default-execstack`</span> | Binutils 2.39 | Require the `GNU_STACK` ELF note for executable stacks, rather than enabling them by default. |
+| <span id="--enable-warn-execstack">`--enable-warn-execstack`</span>         | Binutils 2.39 | Warn if an executable stack is requested with `GNU_STACK`. |
+| <span id="--enable-error-execstack">`--enable-error-execstack`</span>       | Binutils 2.42 | Error out if an executable stack is requested, even with `GNU_STACK`. |
+| <span id="--enable-warn-rwx-segments">`--enable-warn-rwx-segments`</span>   | Binutils 2.39 | Warn if a segment has unsafe permissions. |
+| <span id="--enable-error-rwx-segments">`--enable-error-rwx-segments`</span> | Binutils 2.42 | Error out if a segment has unsafe permissions. |
+| <span id="--enable-relro">`--enable-relro`</span>                           | Binutils 2.27 | Default to passing `-Wl,-z,relro`. |
+| <span id="--enable-textrel-check=">`--enable-textrel-check=`</span>         | Binutils 2.35 | Controls whether TEXTRELs are fatal errors (`=error`), warnings (`=warn`), or ignored (`=no`). |
+| <span id="--enable-secureplt">`--enable-secureplt`</span>                   | Binutils 2.16 | Make the PLT read-only. Applies only to the Alpha and PowerPC architectures. |
+
+Some background on the introduction of these options to GNU Binutils is available from Nick Clifton, its Chief Maintainer[^Clifton22].
+
+Note that LLVM recommends using Clang configuration files to pass the relevant options to the linker via the compiler driver, so no such options exist here.
+
+[^Clifton22]: Clifton, Nick, [The linker’s warnings about executable stacks and segments](https://www.redhat.com/en/blog/linkers-warnings-about-executable-stacks-and-segments), Red Hat Blog, 2022-09-14.
+
 ## Contributors
 
 The OpenSSF Developer BEST Practices Working group thanks Ericsson for their generous initial donation of content to start collaboration on this guide.
