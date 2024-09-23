@@ -123,7 +123,7 @@ In addition, ensure your regex is not vulnerable to a Regular Expression Denial 
 
 1. One solution is to use a regex implementation that does not have this vulnerability because it never backtracks. E.g., use Go’s default regex system, RE2, or on .NET enable the RegexOptions.NonBacktracking option. Non-backtracking implementations can sometimes be orders of magnitude faster, but they also omit some features (e.g., backreferences).
 2. Alternatively, create regexes that require no or little backtracking. Where a branch (“&#x7c;”) occurs, the next character should select one branch. Where there is optional repetition (e.g., “&#x2a;”), the next character should determine if there is a repetition or not. One common cause of unnecessary backtracking are poorly-written regexes with repetitions in repetitions, e.g., “(a+)&#x2a;”. Some tools can help find these defects.
-3. A partial countermeasure is to greatly limit the length of the untrusted input. This can limit the impact of a vulnerability.
+3. A partial countermeasure is to greatly limit the length of the untrusted input and/or the number of repetitions. This can limit the impact of a vulnerability.
 
 ## Detailed Rationale
 
