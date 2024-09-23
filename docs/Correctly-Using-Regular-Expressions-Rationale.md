@@ -175,7 +175,7 @@ Setting both PCRE2_ANCHORED and PCRE2_ENDANCHORED forces a full-string match, bu
 The [Python3 language documentation on re](https://docs.python.org/3/library/re.html) notes that its operations are “similar to those found in Perl” - but note that they are _similar_ not _identical_. In this library:
 
 * ^ (Caret.) Matches the start of the string, and in MULTILINE mode also matches immediately after each newline.
-* $ Matches the end of the string or just before the newline at the end of the string (it is *permissive*), and in MULTILINE mode it also matches before a newline.
+* $ Matches the end of the string or just before the newline at the end of the string (it is _permissive_), and in MULTILINE mode it also matches before a newline.
 * \A Matches only at the start of the string.
 * \Z Matches only at the end of the string. Note that this is spelled \Z not \z, and there is no \z.
 
