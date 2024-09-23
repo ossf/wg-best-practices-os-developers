@@ -34,11 +34,15 @@ security vulnerabilities.
 </p>
 
 <p>
-Argument injection is a type of attack related to command injection.
+Argument injection is a sub-class of command injection vulnerabilities.
 It occurs when user-supplied input is passed unchecked into commands 
-executed by an application. Attackers can craft malicious arguments 
-that exploit flaws in how the command parses input, potentially 
-leading to unintended command execution or file manipulation.
+executed by an application, with the difference that the user-supplied
+input is used as arguments to the command rather than the command 
+itself or rather than creating a new command. In this scenario,
+attackers may craft malicious command-line arguments that exploit
+flags to a command (such as `--output=` or `--shell=...`) with the 
+aim of manipulating the command's behavior or executing unintended
+commands altogether.
 </p>
 
 <p>
