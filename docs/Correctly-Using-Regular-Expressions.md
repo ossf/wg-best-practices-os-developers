@@ -102,7 +102,7 @@ Platform
    </td>
    <td>“\Z” (not “$” nor “\z”)
    </td>
-   <td>No
+   <td>Yes
    </td>
   </tr>
   <tr>
@@ -112,7 +112,7 @@ Platform
    </td>
    <td>“\z” (not “$”)
    </td>
-   <td>No
+   <td>Yes
    </td>
   </tr>
 </table>
