@@ -30,6 +30,56 @@
 \(\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*,\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*,\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*\)\s*=>\s*\{
 \s*
 </script>
+
+<script id="info" type="application/yaml">
+---
+hints:
+- absent: |-
+    ^[\n\r]*\s*execFile\s*\(
+  text: >
+    Use the `execFile` function instead of `exec` to avoid shell interpretation.
+    Your line should start with `execFile(`.
+- absent: |-
+    execFile\s*\(\s*'git'\s*,
+  text: >
+    Separate the command and its arguments. The first argument to `execFile`
+    should be the command 'git'.
+- absent: |-
+    \[\s*'blame'\s*,\s*'--'\s*,\s*filePath\s*\]
+  text: >
+    Pass the arguments as an array. Include '--' before the file path to
+    prevent argument injection. Your array should look like
+    `['blame', '--', filePath]`.
+- absent: |-
+    \{\s*shell\s*:\s*false\s*\}
+  text: >
+    Explicitly set `shell: false` in the options object to prevent
+    shell interpretation.
+- present: exec\s*\(
+  text: >
+    The `exec` function is vulnerable to command injection. Replace it
+    with `execFile` to improve security.
+- absent: |-
+    \(\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*,\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*,\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*\)\s*=>
+  text: >
+    Maintain the callback function structure with three parameters
+    (typically named error, stdout, and stderr, but any valid variable
+    names are acceptable).
+successes:
+-
+  - "    execFile('git', ['blame', '--', filePath], { shell: false }, (error, stdout, stderr) => {"
+failures:
+# Using exec instead of execFile
+-
+  - "    exec(`git blame ${filePath}`, (error, stdout, stderr) => {"
+# Missing '--' argument
+-
+  - "    execFile('git', ['blame', filePath], { shell: false }, (error, stdout, stderr) => {"
+# Incorrect argument order
+-
+  - "    execFile('git blame', [filePath], { shell: false }, (error, stdout, stderr) => {"
+</script>
+
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->
