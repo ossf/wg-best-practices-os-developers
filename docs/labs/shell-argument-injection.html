@@ -169,12 +169,14 @@ to write arbitrary files on the server or execute unintended git commands.
 
 <p>
 Your task is to modify this function to prevent argument injection
-while still allowing valid file paths. You should:
+while still allowing valid file paths. You should
+validate and sanitize the <tt>filePath</tt> input;
+for purposes of this exercise we'll assume that's already been done
+before this function is called.
+You should:
     <ul>
-        <li>Validate and sanitize the <tt>filePath</tt> input.</li>
         <li>Use a secure process execution function instead of <tt>exec</tt> to avoid shell interpretation.</li>
         <li>Separate the command and its arguments.</li>
-        <li>Disallow an argument injection invocation</li>
     </ul>
 </p>
 
@@ -182,13 +184,13 @@ Here are some hints:
 <ul>
   <li>Use a regular expression to validate the file path. Allow only alphanumeric characters, underscores, hyphens, and forward slashes.</li>
   <li>The <tt>path</tt> module in Node.js can help you work with file paths safely.</li>
-  <li>The <tt>execFile</tt> function takes the command and arguments as separate parameters.</li>
+  <li>The <tt>execFile</tt> function takes three parameters: the command, a list of arguments, and (optionally) options. We would encourage expressly providing an option to disable unnecessarily calling the shell, using <tt>shell: false</tt>, but since that's the default it's not required.
+</li>
   <li>Use the special shell double dash <tt>--</tt> to separate command-line arguments from positional arguments when the shell interprets a command string</li>
 </ul>
 
 <p>
-Remember, the goal is to make it much harder for an attacker to inject malicious 
-arguments while still allowing the function to work with valid file paths.
+Remember, the goal is to make it much harder for an attacker to inject malicious arguments while still allowing the function to work with valid file paths.
 </p>
 
 <p>
