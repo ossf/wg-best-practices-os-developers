@@ -50,7 +50,7 @@ It is **not production code** and requires code-style or python best practices t
 |[CWE-501: Trust Boundary Violation)](CWE-664/CWE-501/README.md)||
 |[CWE-502: Deserialization of Untrusted Data)](CWE-664/CWE-502/.)||
 |[CWE-665: Improper Initialization](CWE-664/CWE-665/README.md)||
-|[CWE-681: Improper Control of a Resource Through its Lifetime](CWE-664/CWE-681/.)||
+|[CWE-681: Incorrect Conversion between Numeric Types](CWE-664/CWE-681/README.md)||
 |[CWE-833: Deadlock](CWE-664/CWE-833/README.md)||
 |[CWE-843: Access of Resource Using Incompatible Type ('Type Confusion')](CWE-664/CWE-843/.)||
 |[XXX-005: Consider hash-based integrity verification of byte code files against their source code files](CWE-664/XXX-005/.)||
@@ -66,6 +66,10 @@ It is **not production code** and requires code-style or python best practices t
 |[CWE-184: Incomplete List of Disallowed Input](CWE-693/CWE-184/.)||
 |[CWE-330: Use of Insufficiently Random Values](CWE-693/CWE-330/.)||
 |[CWE-798: Use of hardcoded credentials](CWE-693/CWE-798/.)||
+
+|[CWE-697: Incorrect Comparison](https://cwe.mitre.org/data/definitions/703.html)|Prominent CVE|
+|:----------------------------------------------------------------|:----|
+|[CWE-595: Comparison of Object References Instead of Object Contents](CWE-697/CWE-595/README.md)||
 
 |[CWE-703: Improper Check or Handling of Exceptional Conditions](https://cwe.mitre.org/data/definitions/703.html)|Prominent CVE|
 |:----------------------------------------------------------------|:----|
