@@ -102,7 +102,7 @@ work on.
     * Introduction to Securely Calling Programs - The Basics
   * Calling Other Programs: Injection and Filenames
     * [SQL Injection](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#sql-injection) - DONE-1 (@Elijah Everett, 2024-08-13) [sql-injection](sql-injection.html)
-    * OS Command (Shell) injection - DONE-1 (Marta Rybczynska) [shell-injection](shell-injection.html)
+    * OS Command (Shell) injection - DONE-1 (Marta Rybczynska) [shell-injection](shell-injection.html) [argument-injection](argument-injection.html)
     * [Other Injection Attacks](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#other-injection-attacks) - PLANNED-2 (Dhananjay Arunesh via Vincent Danen, 2026-07-26)
     * Filenames (Including Path Traversal and Link Following) - PLANNED-2 UNASSIGNED
   * Calling Other Programs: Other Issues
@@ -136,6 +136,7 @@ Thanks to the following people who have created or offered to create labs
 * Dhananjay Arunesh
 * Keith Grant
 * Jason Shepherd
+* Liran Tal
 * Marta Rybczynska
 * Petr Matousek
 * Tapas Jena
