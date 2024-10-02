@@ -132,10 +132,15 @@ work on.
 Thanks to the following people who have created or offered to create labs
 (sorted by given/first name):
 
-* David A. Wheeler
+* Avishay Balter (Microsoft)
+* David A. Wheeler (Linux Foundation)
 * Dhananjay Arunesh
-* Keith Grant
+* Elijah Everett
+* Emily Lovell
 * Jason Shepherd
+* Jeremiah Howard
+* Keith Grant
+* Liran Tal
 * Marta Rybczynska
 * Petr Matousek
 * Tapas Jena
