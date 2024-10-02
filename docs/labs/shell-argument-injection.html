@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- expected answer -->
+<script id="expected0" type="plain/text">
+  execFile('git', ['blame', '--', filePath], { shell: false }, (error, stdout, stderr) => {
+</script>
+
+<!-- Full pattern of correct answer.
+  In Python, newline and carriage return are whitespace but are *meaningful*
+  outside of (...). So we match specifically on space (\x20) instead.
+  This makes our patterns harder to read, unfortunately.
+  It's conventional to use raw strings in Python for regexes, so we allow
+  and encourage them, but we'll accept *not* using raw strings since they
+  don't add value in this situation.
+-->
+<script id="correct0" type="plain/text">
+[\n\r]*\s*execFile\s*\(\s*
+'git'\s*,\s*
+\[\s*'blame'\s*,\s*'--'\s*,\s*filePath\s*\]\s*,\s*
+\{\s*shell\s*:\s*false\s*\}\s*,\s*
+\(\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*,\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*,\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*\)\s*=>\s*\{
+\s*
+</script>
+
+<script id="info" type="application/yaml">
+---
+hints:
+- absent: |-
+    ^[\n\r]*\s*execFile\s*\(
+  text: >
+    Use the `execFile` function instead of `exec` to avoid shell interpretation.
+    Your line should start with `execFile(`.
+- absent: |-
+    execFile\s*\(\s*'git'\s*,
+  text: >
+    Separate the command and its arguments. The first argument to `execFile`
+    should be the command 'git'.
+- absent: |-
+    \[\s*'blame'\s*,\s*'--'\s*,\s*filePath\s*\]
+  text: >
+    Pass the arguments as an array. Include '--' before the file path to
+    prevent argument injection. Your array should look like
+    `['blame', '--', filePath]`.
+- absent: |-
+    \{\s*shell\s*:\s*false\s*\}
+  text: >
+    Explicitly set `shell: false` in the options object to prevent
+    shell interpretation.
+- present: exec\s*\(
+  text: >
+    The `exec` function is vulnerable to command injection. Replace it
+    with `execFile` to improve security.
+- absent: |-
+    \(\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*,\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*,\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*\)\s*=>
+  text: >
+    Maintain the callback function structure with three parameters
+    (typically named error, stdout, and stderr, but any valid variable
+    names are acceptable).
+successes:
+-
+  - "    execFile('git', ['blame', '--', filePath], { shell: false }, (error, stdout, stderr) => {"
+failures:
+# Using exec instead of execFile
+-
+  - "    exec(`git blame ${filePath}`, (error, stdout, stderr) => {"
+# Missing '--' argument
+-
+  - "    execFile('git', ['blame', filePath], { shell: false }, (error, stdout, stderr) => {"
+# Incorrect argument order
+-
+  - "    execFile('git blame', [filePath], { shell: false }, (error, stdout, stderr) => {"
+</script>
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise argument-injection</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html" target="_blank">introduction to
+the labs</a>.
+
+<p>
+<h2>Task</h2>
+<p>
+<b>Eliminate an argument injection vulnerability in a Node.js application</b>
+
+<p>
+<h2>Background</h2>
+<p>
+Node.js developers often need to execute system commands or external 
+tools from their applications. This may be to leverage existing 
+functionality, interface with system utilities, or process data.
+However, if not implemented carefully, this can lead to serious
+security vulnerabilities.
+</p>
+
+<p>
+Argument injection is a sub-class of command injection vulnerabilities.
+It occurs when user-supplied input is passed unchecked into commands 
+executed by an application, with the difference that the user-supplied
+input is used as arguments to the command rather than the command 
+itself or rather than creating a new command. In this scenario,
+attackers may craft malicious command-line arguments that exploit
+flags to a command (such as `--output=` or `--shell=...`) with the 
+aim of manipulating the command's behavior or executing unintended
+commands altogether.
+</p>
+
+<p>
+To prevent argument injection, applications need to carefully
+validate and sanitize any user input before it's used in command
+execution. This includes using allowlists to restrict allowed 
+characters, separating arguments properly, and avoiding shell 
+execution when possible.
+</p>
+
+<p>
+<h2>Task Information</h2>
+<p>
+In this task, we will fix an argument injection vulnerability 
+in a Node.js application that uses the `git blame` command.
+</p>
+
+<p>
+This code is vulnerable to argument injection.
+An attacker could provide input like <tt>--output=/tmp/malicious</tt>
+to write arbitrary files on the server or execute unintended git commands.
+</p>
+
+<p>
+Your task is to modify this function to prevent argument injection
+while still allowing valid file paths. You should:
+    <ul>
+        <li>Validate and sanitize the <tt>filePath</tt> input.</li>
+        <li>Use a secure process execution function instead of <tt>exec</tt> to avoid shell interpretation.</li>
+        <li>Separate the command and its arguments.</li>
+        <li>Disallow an argument injection invocation</li>
+    </ul>
+</p>
+
+Here are some hints:
+<ul>
+  <li>Use a regular expression to validate the file path. Allow only alphanumeric characters, underscores, hyphens, and forward slashes.</li>
+  <li>The <tt>path</tt> module in Node.js can help you work with file paths safely.</li>
+  <li>The <tt>execFile</tt> function takes the command and arguments as separate parameters.</li>
+  <li>Use the special shell double dash <tt>--</tt> to separate command-line arguments from positional arguments when the shell interprets a command string</li>
+</ul>
+
+<p>
+Remember, the goal is to make it much harder for an attacker to inject malicious 
+arguments while still allowing the function to work with valid file paths.
+</p>
+
+<p>
+Use the “hint” and “give up” buttons if necessary.
+</p>
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+<p>
+Rewrite the following function to be safe:
+<p>
+<form id="lab">
+<pre><code>
+const { exec } = require('child_process');
+
+function blameFile(filePath) {
+  return new Promise((resolve, reject) => {
+  
+  # Allow invoking the `git blame` command in a safe and
+  # secure way from user input providing a file path
+
+<textarea id="attempt0" rows="2" cols="60" spellcheck="false">
+    exec(`git blame ${filePath}`, (error, stdout, stderr) => {
+</textarea>
+
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(stdout);
+    });
+  });
+}
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+<br><br>
+<p>
+<i>This lab was developed by Liran Tal.</i>
+<br><br>
+<p>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
