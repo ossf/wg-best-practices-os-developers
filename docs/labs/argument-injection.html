@@ -18,7 +18,7 @@
 \s* execFile \(
  ('git'|"git"|`git`) ,
  \[ ('blame'|"blame"|`blame`) , ('--'|"--"|`--`) , filePath \] ,
- (\{ shell : false \} ,)?
+ (\{ (shell : false)? \} ,)?
  \( [a-zA-Z_$][a-zA-Z0-9_$]* ,
     [a-zA-Z_$][a-zA-Z0-9_$]* , [a-zA-Z_$][a-zA-Z0-9_$]* \) => \{ \s*
 </script>
@@ -52,6 +52,13 @@ hints:
   text: >
     Pass the arguments as an array, like this:
     `execFile('git', ['blame', ...])`.
+- present: |-
+    --
+  absent: |-
+    ['"\`]--['"`]
+  text: >
+    To pass `--` you need to pass it as a constant string. Typically this
+    is notated as `'--'` or `"--"`.
 - absent: |-
     \[ ['"\`]blame['"`] , ['"\`]--['"`] ,
   text: >
@@ -122,6 +129,8 @@ successes:
   - "    execFile('git', ['blame', '--', filePath], { shell: false }, (error, stdout, stderr) => {"
   # Allow omitting shell:false since that is the default
   - "    execFile('git', ['blame', '--', filePath], (error, stdout, stderr) => {"
+  # Allow empty options, since shell:false is the default
+  - "    execFile('git', ['blame', '--', filePath], {}, (error, stdout, stderr) => {"
 failures:
 # Using exec instead of execFile
 -
@@ -207,7 +216,7 @@ You should:
 
 Here are some hints:
 <ul>
-  <li>The <tt>execFile</tt> function takes three parameters: the command, a list containing the arguments, and (optionally) options.
+  <li>The <tt>execFile</tt> function takes four parameters: the command, a list containing the arguments, options, and callback information. By convention the callback information is usually <tt>(error, stdout, stderr)</tt> in this circumstance.
   <li>We encourage expressly providing an option that disables calling the shell unnecessarily, using <tt>shell: false</tt> as its third option. That's the default, so it's not strictly necessary, but it might help later developers and reviewers realize it's intentional.
 </li>
   <li>Use the special shell double dash <tt>--</tt> to separate command-line arguments from positional arguments when the shell interprets a command string</li>
