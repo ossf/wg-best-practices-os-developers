@@ -95,6 +95,14 @@ hints:
     as `false` and not `False`.
 - absent: |-
     \{ shell : false \}
+  present: |-
+    shell : false
+  text: >
+    When passing options to execFile, you must provide those options as
+    a JavaScript object. That means you must surround them with `{...}`
+    like this: `{shell: false}`.
+- absent: |-
+    \{ shell : false \}
   text: >
     We encourage you to explicitly set `shell: false` in the options
     object to prevent shell interpretation. That is something like this:
@@ -199,9 +207,8 @@ You should:
 
 Here are some hints:
 <ul>
-  <li>Use a regular expression to validate the file path. Allow only alphanumeric characters, underscores, hyphens, and forward slashes.</li>
-  <li>The <tt>path</tt> module in Node.js can help you work with file paths safely.</li>
-  <li>The <tt>execFile</tt> function takes three parameters: the command, a list of arguments, and (optionally) options. We would encourage expressly providing an option to disable unnecessarily calling the shell, using <tt>shell: false</tt>, but since that's the default it's not required.
+  <li>The <tt>execFile</tt> function takes three parameters: the command, a list of arguments, and (optionally) options.
+  <li>We encourage expressly providing an option that disables calling the shell unnecessarily, using <tt>shell: false</tt> as its third option. That's the default, so it's not strictly necessary, but it might help later developers and reviewers realize it's intentional.
 </li>
   <li>Use the special shell double dash <tt>--</tt> to separate command-line arguments from positional arguments when the shell interprets a command string</li>
 </ul>
