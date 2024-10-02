@@ -14,21 +14,13 @@
   execFile('git', ['blame', '--', filePath], { shell: false }, (error, stdout, stderr) => {
 </script>
 
-<!-- Full pattern of correct answer.
-  In Python, newline and carriage return are whitespace but are *meaningful*
-  outside of (...). So we match specifically on space (\x20) instead.
-  This makes our patterns harder to read, unfortunately.
-  It's conventional to use raw strings in Python for regexes, so we allow
-  and encourage them, but we'll accept *not* using raw strings since they
-  don't add value in this situation.
--->
 <script id="correct0" type="plain/text">
-[\n\r]*\s*execFile\s*\(\s*
-'git'\s*,\s*
-\[\s*'blame'\s*,\s*'--'\s*,\s*filePath\s*\]\s*,\s*
-\{\s*shell\s*:\s*false\s*\}\s*,\s*
-\(\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*,\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*,\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*\)\s*=>\s*\{
-\s*
+\s* execFile \(
+ ('git'|"git"|`git`) ,
+ \[ ('blame'|"blame"|`blame`) , ('--'|"--"|`--`) , filePath \] ,
+ (\{ shell : false \})? ,
+ \( [a-zA-Z_$][a-zA-Z0-9_$]* ,
+    [a-zA-Z_$][a-zA-Z0-9_$]* , [a-zA-Z_$][a-zA-Z0-9_$]* \) => \{ \s*
 </script>
 
 <script id="info" type="application/yaml">
@@ -68,6 +60,8 @@ hints:
 successes:
 -
   - "    execFile('git', ['blame', '--', filePath], { shell: false }, (error, stdout, stderr) => {"
+  # Allow omitting shell:false since that is the default
+  - "    execFile('git', ['blame', '--', filePath], (error, stdout, stderr) => {"
 failures:
 # Using exec instead of execFile
 -
