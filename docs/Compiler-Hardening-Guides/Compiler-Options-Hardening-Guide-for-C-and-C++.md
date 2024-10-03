@@ -1379,6 +1379,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - Robert Byrne, Ericsson
 - Jussi Auvinen, Ericsson
 - Christopher "CRob" Robinson, Intel
+- Daniel Stenberg, wolfSSL
 - David A. Wheeler, Linux Foundation
 - David Edelsohn, IBM
 - Dominik Czarnota, Trail of Bits
