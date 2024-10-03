@@ -843,6 +843,10 @@ Applications that are sensitive to the performance impact on startup time should
 
 Static linking avoids the need for dynamic symbol resolution altogether but can make it more difficult to deploy patches to dependencies compared to upgrading shared libraries. Developers need to consider whether static linking is discouraged in their deployment scenarios, e.g., major Linux distributions generally forbid static linking of shared application dependencies.
 
+#### Additional considerations
+
+To benefit from partial and full RELRO both the application executable and any libraries that are linked to the application must be built with the appropriate compiler options. If `ld.so` loads any non-RELRO libraries, RELRO will be disabled for that application.
+
 ---
 
 ### Build as position-independent code
