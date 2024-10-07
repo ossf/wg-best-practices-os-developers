@@ -1,6 +1,6 @@
 # Compiler Options Hardening Guide for C and C++
 
-*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2024-09-19*
+*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2024-10-04*
 
 This document is a guide for compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++. The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
 
@@ -807,7 +807,7 @@ Consequently the `-Wl,-z,noexecstack` option works best when combined with appro
 
 Modern compilers perform this marking automatically through the `p_flags` field in the `PT_GNU_STACK` program header entry and the linker consults the entries for consituent objects when deciding the marking for the produced binary. If the marking is missing the kernel or the dynamic linker needs to assume the binary might need executable stack.
 
-In Linux prior to kernel version 5.8 a missing `PT_GNU_STACK` marking on x86_64 will also expose other readable pages (such as the program `.data` section) as executable[^Hernandez2013], not just their stack memory. While this behavior has since changed[^Cook2020], we recommend enabling `-Wl,-z,noexecstack` explicitly during linking to ensure produced binaries benefit from data execution prevention for both the stack and other program data as widely as possible and guarding against compatibility issues by using the [`-Wtrampolines`](#-Wtrampolines) in tandem when available.
+In Linux prior to kernel version 5.8 a missing `PT_GNU_STACK` marking on x86_64 will also expose other readable pages (such as the program `.data` section) as executable[^Hernandez2013], not just their stack memory. While this behavior has since changed for x86_64[^Cook2020], we recommend enabling `-Wl,-z,noexecstack` explicitly during linking to ensure produced binaries benefit from data execution prevention for both the stack and other program data as widely as possible and guarding against compatibility issues by using the [`-Wtrampolines`](#-Wtrampolines) in tandem when available. For example, binaries on 32-bit x86 architectures must be equipped with a `PT_GNU_STACK` marking to benefit from data execution prevention for stack and other program data even on more recent Linux kernel versions.
 
 [^gcc-trampolines]: GCC team, [Support for Nested Functions.](https://gcc.gnu.org/onlinedocs/gccint/Trampolines.html), GCC Internals, 2023-07-27.
 
@@ -842,6 +842,10 @@ Since lazy binding is primarily intended to speed up application startup times b
 Applications that are sensitive to the performance impact on startup time should consider whether the increase in startup time caused by full RELRO impacts the user experience. As an alternative, developers can consider statically linking large library dependencies to the application executable.
 
 Static linking avoids the need for dynamic symbol resolution altogether but can make it more difficult to deploy patches to dependencies compared to upgrading shared libraries. Developers need to consider whether static linking is discouraged in their deployment scenarios, e.g., major Linux distributions generally forbid static linking of shared application dependencies.
+
+#### Additional considerations
+
+To benefit from partial and full RELRO both the application executable and any libraries that are linked to the application must be built with the appropriate compiler options. If `ld.so` loads any non-RELRO libraries, RELRO will be disabled for that application.
 
 ---
 
@@ -1371,6 +1375,27 @@ If you are compiling a C/C++ compiler, where practical make the generated compil
 | <span id="--enable-host-bind-now">`--enable-host-bind-now`</span>         | GCC 14.0.0       | Build the compiler executables with [`-Wl,-z,now`](#-Wl,-z,now) |
 | <span id="CLANG_DEFAULT_PIE_ON_LINUX">`CLANG_DEFAULT_PIE_ON_LINUX`</span> | Clang 14.0.0 | Turn on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler |
 
+## What should you do when compiling linkers?
+
+If you are compiling a linker, where practical make the generated linker's default options the *secure* options. The below table summarizes relevant options that can be specifed when building GNU Binutils that affect the defaults of the linker:
+
+| Linker Flag                   | Supported since  | Description                                                       |
+|:--- |:---:|:---- |
+| <span id="--disable-default-execstack">`--disable-default-execstack`</span> | Binutils 2.39 | Require the `GNU_STACK` ELF note for executable stacks, rather than enabling them by default. |
+| <span id="--enable-warn-execstack">`--enable-warn-execstack`</span>         | Binutils 2.39 | Warn if an executable stack is requested with `GNU_STACK`. |
+| <span id="--enable-error-execstack">`--enable-error-execstack`</span>       | Binutils 2.42 | Error out if an executable stack is requested, even with `GNU_STACK`. |
+| <span id="--enable-warn-rwx-segments">`--enable-warn-rwx-segments`</span>   | Binutils 2.39 | Warn if a segment has unsafe permissions. |
+| <span id="--enable-error-rwx-segments">`--enable-error-rwx-segments`</span> | Binutils 2.42 | Error out if a segment has unsafe permissions. |
+| <span id="--enable-relro">`--enable-relro`</span>                           | Binutils 2.27 | Default to passing `-Wl,-z,relro`. |
+| <span id="--enable-textrel-check=">`--enable-textrel-check=`</span>         | Binutils 2.35 | Controls whether TEXTRELs are fatal errors (`=error`), warnings (`=warn`), or ignored (`=no`). |
+| <span id="--enable-secureplt">`--enable-secureplt`</span>                   | Binutils 2.16 | Make the PLT read-only. Applies only to the Alpha and PowerPC architectures. |
+
+Some background on the introduction of these options to GNU Binutils is available from Nick Clifton, its Chief Maintainer[^Clifton22].
+
+Note that LLVM recommends using Clang configuration files to pass the relevant options to the linker via the compiler driver, so no such options exist here.
+
+[^Clifton22]: Clifton, Nick, [The linker’s warnings about executable stacks and segments](https://www.redhat.com/en/blog/linkers-warnings-about-executable-stacks-and-segments), Red Hat Blog, 2022-09-14.
+
 ## Contributors
 
 The OpenSSF Developer BEST Practices Working group thanks Ericsson for their generous initial donation of content to start collaboration on this guide.
@@ -1379,6 +1404,7 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - Robert Byrne, Ericsson
 - Jussi Auvinen, Ericsson
 - Christopher "CRob" Robinson, Intel
+- Daniel Stenberg, wolfSSL
 - David A. Wheeler, Linux Foundation
 - David Edelsohn, IBM
 - Dominik Czarnota, Trail of Bits
