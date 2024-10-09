@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+conn = DriverManager.getConnection(url,
+    System.getenv("USERNAME"), System.getenv("PASSWORD"));
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+\s* conn = DriverManager \. getConnection \( url \,
+  System \. getenv \( "USERNAME" \) \,
+  System \. getenv \( "PASSWORD" \) \) \; \s*
+</script>
+
+<script id="info" type="application/yaml">
+---
+hints:
+- absent: |
+    ^ \s* conn = DriverManager \. getConnection \( url \,
+  text: >
+    Your answer should start with 
+    `conn = DriverManager.getConnection( url,`
+    just as the initial value did. You might want to use the `Reset` button.
+- absent: |
+    System \. getenv
+  text: >
+    Use `System.getenv` to retrieve an environment variable value.
+    For example, use `System.getenv("USERNAME")` to retrieve the username.
+- present: |
+    System \. getenv \( \"admin\" \)
+  text: >
+    You need to pass to
+    `System.getenv` the name of an environment variable value, not the
+    result you might get.
+    Do not use constructs like `System.getenv("admin")`.
+    Instead, for example,
+    use `System.getenv("USERNAME")` to retrieve the username.
+- absent: |
+    System \. getenv \( \"PASSWORD\" \)
+  text: >
+    Use `System.getenv` to retrieve an environment variable value.
+    For example, use `System.getenv("USERNAME")` to retrieve the username.
+- present: "admin"
+  text: >
+    The term 'admin' should not be in your code.
+    You should be retrieving both the username and the password
+    from somewhere else, in this case, from environment variables.
+- present: |
+    (system|Getenv|GetEnv)
+  text: >
+    Java is case-sensitive. You need to use
+    `System.getenv` and not some other variation of uppercase or lowercase.
+- absent: |-
+    \; \s* $
+  text: >
+    Java statements must end with a semicolon.
+- absent: |
+    \) \) \; \s* $
+  text: >
+    Double-check your closing parentheses at the end of the statement.
+- present: |
+    new\s+String
+  text: >
+    You do not need to construct a new string to retrieve an
+    environment variable value.
+- present: |
+    ^ conn = DriverManager \. getConnection \( url \) \; \s* $
+  text: >
+    In some sense this is correct, as long as the url is not hardcoded.
+    However, it's often better if administrators can easily change the
+    username or password separately, and it makes out point clearer.
+    Please provide the username and password and separate values.
+- present: |
+    ^ \s* conn = DriverManager \. getConnection \( url \,
+      System \. getenv \( "PASSWORD" \) \,
+      System \. getenv \( "USERNAME" \) \) \; \s* $
+  text: >
+    The order of parameters is wrong. Provide the url, then the username,
+    then the password. You're providing the url, then the password, then
+    the username, which swaps the second and third parameters.
+# debug: true
+</script>
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise hardcoded</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html" target="_blank">introduction to
+the labs</a>.
+
+<p>
+<h2>Task</h2>
+<p>
+<b>Please eliminate the hardcoded credentials in the sample code.</b>
+
+<p>
+<h2>Background</h2>
+<p>
+In this exercise, we'll remove a hardcoded credential (in this case a
+password) embedded in the code.
+
+<p>
+<h2>Task Information</h2>
+<p>
+
+<p>
+Please change the Java code below to eliminate hardcoded credentials.
+The code logs in to a database system, but uses
+the hardcoded username "admin" with hardcoded password "admin".
+At the very least, the password should <i>not</i> be exposed by
+being hardcoded into the source code.
+A credential that needs to be kept secret, like a password,
+is too exposed and too hard to change when it's hardcoded into the code.
+It would also be wiser to <i>not</i> hardcode the username, since
+the username might change.
+
+<p>
+For our purposes, we'll modify the code to retrieve the username and
+password as environment variable values.
+The username (second parameter)
+will be in environment variable <tt>USERNAME</tt> while
+the password (third parameter)
+will be in environment variable <tt>PASSWORD</tt>.
+In Java the expression <tt>System.getenv("FOO")</tt> retrieves
+the value of environment variable <tt>FOO</tt>.
+
+<p>
+Environment variables aren't a perfect solution, since they are typically
+accessible to the entire program.
+Other better mechanisms may be available on your platform.
+In this example we'll use environment variables because they're
+portable, easy to use, and
+<i>certainly</i> better than using a hardcoded credential.
+Note: Java also supports including the username and password in the url, but
+for purposes of illustration we will not use that alternative.
+
+<p>
+Use the “hint” and “give up” buttons if necessary.
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+<p>
+Please modify the Java code below to eliminate the hardcoded password
+and the hardcoded username.
+<p>
+<form id="lab">
+<pre><code
+><textarea id="attempt0" rows="3" cols="60" spellcheck="false"
+>conn = DriverManager.getConnection(url,
+     "admin", "admin");</textarea></code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+<br><br>
+<p>
+<i>This lab was developed by David A. Wheeler at
+<a href="https://www.linuxfoundation.org/"
+>The Linux Foundation</a>.</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
