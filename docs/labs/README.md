@@ -113,7 +113,7 @@ work on.
     * Countering Denial-of-Service (DoS) Attacks - PLANNED-2 UNASSIGNED
 * Sending Output
   * [Introduction to Sending Output](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#introduction-to-sending-output) - PLANNED-2 UNASSIGNED
-  * [Countering Cross-Site Scripting (XSS)](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#countering-cross-site-scripting-xss) - PLANNED-1 UNASSIGNED
+  * [Countering Cross-Site Scripting (XSS)](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#countering-cross-site-scripting-xss) - DONE-1 (David A. Wheeler) [xss](xss.html)
   * Content Security Policy (CSP) - DONE-0 [csp1](csp1.html)
   * Other HTTP Hardening Headers - (probably continue csp1) PLANNED-2 UNASSIGNED
   * [Cookies Cookies & Login Sessions Login Sessions](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#cookies--login-sessions) - PLANNED-2 (Dhananjay Arunesh via Vincent Danen)
