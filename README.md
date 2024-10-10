@@ -155,45 +155,47 @@ Meeting notes are maintained in a Google Doc found in the above table. If attend
 
 The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group activities.
 
-- Lead - [Christopher "CRob" Robinson](https://github.com/SecurityCRob)
-- Co-Lead - [Randall T. Vasquez*, The Linux Foundation](https://github.com/ran-dall)
+- Co-chair - [Avishay Balter, Microsoft](https://github.com/balteravishay)
+- Co-chair - [Georg Kunz, Ericsson](https://github.com/gkunz)
 - Backlog Warden -
 - "*" denotes a project/SIG lead
 
 ### Project Maintainers
 
-- [Christopher "CRob" Robinson*, Intel](https://github.com/SecurityCRob)
+- [Christopher "CRob" Robinson*, OpenSSF](https://github.com/SecurityCRob)
 - [David A Wheeler, LF/OSSF](https://github.com/david-a-wheeler)
 - [Dave Russo*, Red Hat](https://github.com/drusso-rh)
-- [Randall T. Vasquez*, The Linux Foundation](https://github.com/ran-dall)
+- [Georg Kunz, Ericsson](https://github.com/gkunz)
+- [Avishay Balter, Microsoft](https://github.com/balteravishay)
 
 ### Project Collaborators
 
-- [Arnaud J Le Hors, IBM](https://github.com/lehors)
-- Avishay Balter, Microsoft
 - [Christine Abernathy*, F5](https://github.com/caabernathy)
 - [Daniel Applequist*, Snyk](https://github.com/Torgo)
-- [Georg Kunz, Ericsson](https://github.com/gkunz)
-- [Glenn ten Cate*, OWASP/SKF](https://github.com/)
-- [Jay White, Microsoft](https://github.com/camaleon2016)
-- Jonathan Leitschuh*, Dan Kaminsky Fellowship @ Human Security
-- [Judy Kelly, Red Hat](https://github.com/judyobrienie)
 - [Marta Rybczynska, Syslinbit](https://github.com/mrybczyn)
-- Noam Dotan, Legit Security
-- [Roberth Strand, Amesto Fortytwo / Cloud Native Norway](https://github.com/roberthstrand)
-- [Sal Kimmich, EscherCloud](https://github.com/salkimmich)
 - [Thomas Nyman*, Ericsson](https://github.com/thomasnyman)
 - Yotam Perkal, Rezilion
-
+- [Chris de Almeida, IBM](https://github.com/ctcpip)
+  
 ### Project Contributors
 
-- [Chris de Almeida, IBM](https://github.com/ctcpip)
+- [Arnaud J Le Hors, IBM](https://github.com/lehors)
 - [Jeffrey Borek, IBM](https://github.com/jtborek)
 - Ixchel Ruiz, jfrog
 - Laurent Simon*, Google/Scorecard
 - [Matt Rutkowski, IBM](https://github.com/mrutkows)
 - Riccardo ten Cate, SKF
 - Spyros Gasteratos*, OWASP/CRE
+- [Glenn ten Cate*, OWASP/SKF](https://github.com/)
+- [Jay White, Microsoft](https://github.com/camaleon2016)
+- Jonathan Leitschuh*, Dan Kaminsky Fellowship @ Human Security
+- [Judy Kelly, Red Hat](https://github.com/judyobrienie)
+- [Roberth Strand, Amesto Fortytwo / Cloud Native Norway](https://github.com/roberthstrand)
+- [Sal Kimmich, EscherCloud](https://github.com/salkimmich)
+- [Helge Wehder, Ericsson](https://github.com/myteron)
+- Noam Dotan, Legit Security
+- [Eddie Knight, Sonotype](https://github.com/)
+- [Randall T. Vasquez*, The Linux Foundation](https://github.com/ran-dall)
 
 ### Toolbelt Collaborators
 
