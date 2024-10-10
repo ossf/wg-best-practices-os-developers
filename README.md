@@ -168,7 +168,6 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [Georg Kunz, Ericsson](https://github.com/gkunz)
 - [Avishay Balter, Microsoft](https://github.com/balteravishay)
 
-  
 ### Project Collaborators
 
 - [Christine Abernathy*, F5](https://github.com/caabernathy)
