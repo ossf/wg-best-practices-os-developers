@@ -195,6 +195,7 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [Helge Wehder, Ericsson](https://github.com/myteron)
 - Noam Dotan, Legit Security
 - [Eddie Knight, Sonotype](https://github.com/)
+- [Randall T. Vasquez*, The Linux Foundation](https://github.com/ran-dall)
 
 ### Toolbelt Collaborators
 
