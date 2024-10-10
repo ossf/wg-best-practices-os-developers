@@ -194,9 +194,9 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [Roberth Strand, Amesto Fortytwo / Cloud Native Norway](https://github.com/roberthstrand)
 - [Sal Kimmich, EscherCloud](https://github.com/salkimmich)
 - [Helge Wehder, Ericsson](https://github.com/myteron)
--  Noam Dotan, Legit Security
-- [Eddie Knight, Sonotype](https://github.com/ 
-    
+- Noam Dotan, Legit Security
+- [Eddie Knight, Sonotype](https://github.com/)
+
 ### Toolbelt Collaborators
 
 - [Andrea Frittoli, IBM](https://github.com/afrittoli)
