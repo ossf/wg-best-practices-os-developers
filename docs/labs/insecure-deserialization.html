@@ -23,10 +23,10 @@
 
 <!-- Full pattern of correct answer -->
 <script id="correct0" type="plain/text">
- const\s+data = JSON\.parse\(base64Decoded\)\; \s*
+ const\s+data = JSON \. parse \( base64Decoded \) \; \s*
 </script>
 <script id="correct1" type="plain/text">
- if \(data\.username && typeof\s+data\.username == ('string'|"string"|`string`) && data\.username\.length < 20\) \{ \s*
+ if \( data \. username && typeof\s+data \. username == ('string'|"string"|`string`) && data \. username \. length < 20 \) \{ \s*
 </script>
 
 <script id="info" type="application/yaml">
@@ -34,6 +34,21 @@
 hints:
 - present: "json"
   text: the JSON built-in global object is witten in uppercase.
+- absent: data.username
+  index: 1
+  text: Check if the data object has a property called username. You can do this by referencing data.username.
+- absent: \&\&
+  index: 1
+  text: To combine multiple conditions in JavaScript use &&. This operator means 'and', so both conditions must be true for the entire statement to pass.
+- absent: typeof
+  index: 1
+  text: Use typeof to check the type of the operand's value.
+- present: typeof data.username == 'String'
+  index: 1
+  text: When using typeof, JavaScript expects "string" all lowercase.
+- absent: length
+  index: 1
+  text: check if the length of the string is smaller than 20 characters.
 
 # debug: true
 </script>
