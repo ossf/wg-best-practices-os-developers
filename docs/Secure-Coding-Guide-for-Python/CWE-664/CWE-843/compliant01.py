@@ -3,7 +3,7 @@
 """ Compliant Code Example """
 
 
-def shopping_bag(price: int, qty: int) -> int:
+def shopping_bag(price: int, qty: str) -> int:
     return int(price) * int(qty)
 
 

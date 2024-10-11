@@ -21,7 +21,7 @@ class MicroService:
         return self.instance_name
 
 
-def front_end(customer) -> str:
+def front_end(customer):
     """Display service instance"""
     mc = MicroService("big time microservice")
     print(MESSAGE.substitute(instance_name=mc.get_instance_name(),
