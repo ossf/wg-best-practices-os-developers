@@ -53,7 +53,7 @@ app.use(helmet({
         "script-src": \[ "'self'" ,
            (["'`])https://example\.com\1 \] ,
         "style-src": \[ "'self'" \]
-      \} ,
+      \} ,?
     \}
   \} \) \) ;
 -->
@@ -129,9 +129,15 @@ hints:
   text: JavaScript doesn''t require semicolon terminators, but the rest of
     the code uses them. You should try to match a coding style when modifying
     existing code unless there''s an important reason not to.
-    Please update the second statment.
+    Please update the second statement to use a semicolon terminator.
+- absent: |-
+    \} \} \) \) ; $
+  index: 1
+  text: The correct answer is expected to end with `} } ) ) ;` ignoring
+    whitespace. Check that you have matching parentheses and braces.
 - text: I do not have more specific hints to provide. Please ensure that
-    the parentheses, braces, and brackets pair correctly.
+    the parentheses, braces, and brackets pair correctly, as that is
+    often the problem.
 # debug: true
 </script>
 
@@ -315,7 +321,7 @@ Set "style-src" to <tt>["'self'"]</tt> - that states that
 styles can <i>only</i> come from this site (and nowhere else).
 Again, we didn't include
 "unsafe-inline", that means that CSS embedded in the HTML will be ignored.
-Again, this is good for security, because it means that even if an attacker
+This is good for security, because it means that even if an attacker
 tricks a server into embedding some CSS commands, those commands will
 be ignored.
 
