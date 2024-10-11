@@ -111,9 +111,10 @@ That way, those special characters are rendered harmless.
 <p>
 In <i>theory</i> you could call an escape routine every time you
 make a call to generate an output.
-In <i>practice</i> this approach is insecure,
-because it's too easy to accidentally forget to call the escape routine.
-It's instead safer to use mechanisms which escape <i>by default</i>.
+In <i>practice</i> this approach is insecure.
+Sooner or later a developer will accidentally forget to
+call the escape routine while generating output.
+It's much safer to use mechanisms which escape <i>by default</i>.
 <p>
 <a href="https://pypi.org/project/Flask/"
 >Flask</a> is a lightweight server-side web application framework
@@ -129,13 +130,12 @@ This may change in a future version of Jinja, but even so,
 this serves as a great example.
 In short, sometimes libraries must be specially configured to be
 less dangerous to use.
-This isn't ideal, but it can still be used.
-You simply need to ensure that you correctly
+This isn't ideal, but such libraries can still be used.
+You simply need to ensure that you <i>correctly</i>
 configure the library to be used securely.
 <p>
-It turns out that
 <a href="https://flask.palletsprojects.com/en/3.0.x/quickstart/#rendering-templates"
->Flask by default configures Jinja2 to automatically escape of HTML</a>.
+>Flask by default configures Jinja2 to automatically escape HTML</a>.
 So as far
 as users of <i>Flask</i> are concerned, the Jinja templating system <i>does</i>
 automatically escape HTML by default.
@@ -207,10 +207,10 @@ are surrounded by <tt>{{ ... }}</tt>.
 Unfortunately, this template below has a vulnerability.
 Its "| safe" marking tells the templating system that the data is
 safe and shouldn't be escaped.
-However, when the data <i>should</i> be escaped
-(as is often the case), this would lead to a vulnerability.
-For example, this would often lead to a vulnerability
-if an attacker can slip characters like "&lt;" into a name,
+However, as shown in the code above, the person's name is from an untrusted
+user. Thus the person's name (as with most data) is <i>not</i> safe.
+Currently an attacker can slip characters like "&lt;" into a name as a
+way to attack others.
 Please fix this vulnerability.
 
 <!--
@@ -245,9 +245,9 @@ In Flask this typically done with its
 <p>
 A instance of a <tt>Markup</tt> class is created by calling
 <tt>Markup</tt>.
-Whatever string is passed during its original construction
+A string is passed during its original construction
 is assumed to be safe and is <i>not</i> escaped.
-You can concatenate a normal string to a Markup value, but those additions
+You can concatenate a normal string to a Markup value, and those additions
 <i>will</i> be escaped.
 <a href="https://tedboy.github.io/flask/generated/generated/flask.Markup.html"
 >For example</a>, computing
@@ -255,8 +255,10 @@ You can concatenate a normal string to a Markup value, but those additions
 produces a Markup instance containing the Unicode string value
 <tt>'&lt;em&gt;Hello&lt;/em&gt; &amp;lt;foo&amp;gt;'</tt> -
 note how the first part isn't escaped but the latter part <i>is</i> escaped.
-Since every concatenation will be escaped by default, the default is
-the safe (escaping) operation.
+You can even create a Markup instance with an empty string, and every
+concatenation of a normal string will be escaped.
+Since every concatenation to a Markup value of a normal string
+will be escaped by default, the default is the safe (escaping) operation.
 The code also clearly indicates what is considered safe and what is not.
 The Markup class supports many other methods not described here
 to simplify control over what is escaped.
