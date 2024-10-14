@@ -109,7 +109,7 @@ work on.
     * [Call APIs for Programs and Check What Is Returned](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#call-apis-for-programs-and-check-what-is-returned) - PLANNED-2 UNASSIGNED
     * [Handling Errors](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#handling-errors) - DONE-2 (Avishay Balter) [handling-errors](handling-errors.html)
     * [Logging](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#logging) - PLANNED-2 UNASSIGNED
-    * [Debug and Assertion Code](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#debug-and-assertion-code) - PLANNED-1 (Jason Shepherd)
+    * [Debug and Assertion Code](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#debug-and-assertion-code) - PLANNED-1 UNASSIGNED <!-- was: Jason Shepherd -->
     * Countering Denial-of-Service (DoS) Attacks - PLANNED-2 UNASSIGNED
 * Sending Output
   * [Introduction to Sending Output](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#introduction-to-sending-output) - PLANNED-2 UNASSIGNED
@@ -122,7 +122,7 @@ work on.
   * HTML **target** and JavaScript **window.open()** - PLANNED-2 UNASSIGNED
   * Using Inadequately Checked URLs / Server-Side Request Forgery (SSRF) - PLANNED-2 UNASSIGNED
   * Same-Origin Policy and Cross-Origin Resource Sharing (CORS) - PLANNED-2 UNASSIGNED
-  * [Format Strings and Templates](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#format-strings-and-templates) - PLANNED-1 (Jason Shepherd)
+  * [Format Strings and Templates](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#format-strings-and-templates) - PLANNED-1 (Jason Shepherd, [draft](https://github.com/ossf/wg-best-practices-os-developers/pull/618))
   * [Minimize Feedback / Information Exposure](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#minimize-feedback--information-exposure) - PLANNED-2 (Ibrahim Mukherjee, 2026-08-07)
   * [Avoid caching sensitive information](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#avoid-caching-sensitive-information) - PLANNED-2 UNASSIGNED
   * [Side-Channel Attacks](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#side-channel-attacks) - PLANNED-2 UNASSIGNED
