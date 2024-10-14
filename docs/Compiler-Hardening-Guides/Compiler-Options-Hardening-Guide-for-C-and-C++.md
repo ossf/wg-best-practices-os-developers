@@ -1010,7 +1010,7 @@ https://godbolt.org/z/6qTPz9n6h
 
 The `-fexceptions` option, when enabled for C code, makes GCC and Clang generate frame unwind information for all functions. This option is enabled by default for C++ that require exception handling but enabling it for also C code allows glibc's implementation of POSIX thread cancellation[^man7-pthreads] to use the same unwind information instead of `setjmp` / `longjmp` for stack unwinding[^Weimer2017a].
 
-Enabling `-fexception` is recommended for hardening of multi-threaded C code as without it, the implementation Glibc's thread cancellation handlers may spill a completely unprotected function pointer onto the stack[^Weimer2017b]. This function pointer can simplify the exploitation of stack-based buffer overflows even if the thread in question is never canceled[^Weimer2018].
+Enabling `-fexceptions` is recommended for hardening of multi-threaded C code as without it, the implementation Glibc's thread cancellation handlers may spill a completely unprotected function pointer onto the stack[^Weimer2017b]. This function pointer can simplify the exploitation of stack-based buffer overflows even if the thread in question is never canceled[^Weimer2018].
 
 #### Performance implications
 
