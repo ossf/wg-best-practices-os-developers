@@ -21,6 +21,7 @@
 
 <script id="info" type="application/yaml">
 ---
+hints:
 - absent: "user_input"
   text: Make sure the user_input is included in the replacement fields passed to the format function
   examples:
@@ -100,10 +101,7 @@ Use the “hint” and “give up” buttons if necessary.
 <p>
 <form id="lab">
 <pre><code
-> # Application configuration which should be kept secret from a user
-CONFIG = {
-    'SECRET_KEY': 'super secret key'
-}
+> # CONFIG includes a secret key that must not be revealed
 
 # A event object with a single attribute used by the malicious format string to gain access to the
 # secret application configuration below
