@@ -128,13 +128,13 @@ Use the “hint” and “give up” buttons if necessary.
 <p>
 Change the code below, adding the mitigation steps to prevent Insecure Deserialization:
 <ol>
-  <li>Use a deserialization approach that prevents code execution.</li>
-  <li>Validate the username making sure a reply is only sent if it's a <b>string</b> and no longer than <b>20 characters</b>.</li>
+  <li>Use a deserialization approach that prevents code execution of untrusted code.</li>
+  <li>Validate the username making sure a reply is only sent if it's a <b>string</b> and less than <b>20 characters</b>.</li>
 </ol>
 <form id="lab">
 
-<pre><code>
-const express = require('express');
+<pre><code
+>const express = require('express');
 const cookieParser = require('cookie-parser');
 
 const app = express();
