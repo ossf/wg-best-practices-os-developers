@@ -34,6 +34,18 @@
 hints:
 - present: "json"
   text: the JSON built-in global object is witten in uppercase.
+- absent: |
+    JSON \. parse
+  text: Make a call to `JSON.parse` with the data retrieved, e.g.,
+    `JSON.parse(base64Decoded)` should be stored in `data`.
+- present: |
+    \+
+  text: You should not have any concatenation (`+`) in the first section.
+- absent: |
+    ; $
+  text: JavaScript does not *require* semicolons at the end of this
+    statement, but since the other statements use semicolon termination,
+    you should also terminate the statement with a semicolon to be consistent.
 - absent: data.username
   index: 1
   text: Check if the data object has a property called username. You can do this by referencing data.username.
@@ -49,7 +61,7 @@ hints:
 - absent: length
   index: 1
   text: check if the length of the string is smaller than 20 characters.
-
+    Use the expression `data.username.length &lt; 20` to determine this.
 # debug: true
 </script>
 </head>
@@ -83,14 +95,13 @@ The code below is called after an application login page. After login, a cookie 
 <p>
 If you take a closer look at this code, you’ll see that it’s using <tt>eval()</tt> to deserialize the data from the cookie. This can be very dangerous as <tt>eval()</tt> evaluates a string as JavaScript code, which means any code inside that string will be executed, opening the possibility of Remote Code Execution (RCE) and Code Injection attacks.  
 <p>
-For this lab we want to fix this by using an approach that prevents executing code from the attacker. We will also add some simple input validation to make sure the data we receive is what we are expecting and nothing more than that. 
+For this lab we want to fix this by using an approach that prevents executing code from the attacker. We will also add some simple input validation to make sure the data we receive from inside the JSON data is what we are expecting.
 <ol>
   <li>
     Replace <tt>eval()</tt> with <tt>JSON.parse()</tt>. JSON.parse( ) does not execute any JavaScript code like functions or methods, making it a much more secure approach for deserialization.
   </li>
-  <li>Besides checking if <tt>data.username</tt> exists, also check that the username is a string and not bigger than 20 characters.</li>
+  <li>Besides checking if <tt>data.username</tt> exists, perform simple validations of its value. Ensure it is a string (<tt>typeof data.username == 'string'</tt>) and that it's less than 20 characters long (<tt>data.username.length &lt; 20</tt>).</li>
 </ol>
-
 
 <p>
 Use the “hint” and “give up” buttons if necessary.
@@ -123,10 +134,10 @@ app.get('/', (req, res) => {
       <input id="attempt0" type="text" size="60" spellcheck="false"
              value="const data = eval('(' + base64Decoded + ')');">
 
-      <input id="attempt1" type="text" size="60" spellcheck="false"
-             value="if (data.username) {">
-        // To prevent XSS, avoid res.send with untrusted data
-        res.render('index', {username: data.username});
+      <textarea id="attempt1" rows="3" cols="60" spellcheck="false"
+>if (data.username) {</textarea>
+            // To prevent XSS, avoid res.send with untrusted data
+            res.render('index', {username: data.username});
       }
 
     } catch (err) {
