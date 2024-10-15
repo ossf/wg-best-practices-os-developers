@@ -6,7 +6,7 @@ Python removes assertions when a script is run with the `-O`  and `-OO` options 
 
 ## Non-Compliant Code Example
 
-The code is checking for invalid arguments by using assertions. In this example, any positive integer between 1-709 inclusive is valid, and any other argument is invalid.
+The code is checking for invalid arguments by using assertions. In this example, any positive integer between `1-709` inclusive is valid, and any other argument is invalid.
 
 If the script is run normally, the assertions will catch the invalid arguments. If the script is run in optimized mode, assertions are removed from the bytecode and the function will not work as intended. To simplify the exploit code, the specific exception raised by the argument is caught.
 
@@ -150,4 +150,4 @@ except (AssertionError, OverflowError, TypeError, ValueError) as e:
 
 |||
 |:---|:---|
-|[[Python 3.9 Documentation](https://docs.python.org/3.9/using/cmdline.html?highlight=pythonoptimize#cmdoption-o)]|Python Software Foundation. (2024). Command line and environment - cmdoption -o [online].<br>Available from: [https://docs.python.org/3.9/using/cmdline.html?highlight=pythonoptimize#cmdoption-o](https://docs.python.org/3.9/using/cmdline.html?highlight=pythonoptimize#cmdoption-o)<br>[accessed 10 October 2024].|
+|[[Python 3.9 Documentation](https://docs.python.org/3.9/)]|Python Software Foundation. (2024). Command line and environment - cmdoption -o [online].<br>Available from: [https://docs.python.org/3.9/using/cmdline.html?highlight=pythonoptimize#cmdoption-o](https://docs.python.org/3.9/using/cmdline.html?highlight=pythonoptimize#cmdoption-o)<br>[accessed 10 October 2024].|
