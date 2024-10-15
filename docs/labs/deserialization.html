@@ -32,6 +32,9 @@
 <script id="info" type="application/yaml">
 ---
 hints:
+- absent: |
+    ^ const data =
+  text: The first section should begin with `const data =`
 - present: "json"
   text: the JSON built-in global object is witten in uppercase.
 - absent: |
@@ -43,10 +46,15 @@ hints:
   text: You should not have any concatenation (`+`) in the first section.
 - absent: |
     ; $
-  text: JavaScript does not *require* semicolons at the end of this
-    statement, but since the other statements use semicolon termination,
-    you should also terminate the statement with a semicolon to be consistent.
-- absent: data.username
+  text: JavaScript does not require semicolons at the end of a
+    statement, but since the other statements terminate with semicolons,
+    you should also terminate your statement with a semicolon to be consistent.
+- absent: |
+    ^ if \(
+  index: 1
+  text: The second section should start with `if (` followed by a condition.
+- absent: |
+    data \. username
   index: 1
   text: Check if the data object has a property called username. You can do this by referencing data.username.
 - absent: \&\&
@@ -55,13 +63,21 @@ hints:
 - absent: typeof
   index: 1
   text: Use typeof to check the type of the operand's value.
-- present: typeof data.username == 'String'
+    You should have `typeof data.username == 'string'`
+    or similar.
+- present: |
+    typeof data \. username == 'String'
   index: 1
   text: When using typeof, JavaScript expects "string" all lowercase.
 - absent: length
   index: 1
   text: check if the length of the string is smaller than 20 characters.
     Use the expression `data.username.length &lt; 20` to determine this.
+- present: |
+    (\&\&|\() \(
+  index: 1
+  text: For purposes of this lab, don't use extra parentheses
+    around each term in the condition.
 # debug: true
 </script>
 </head>
