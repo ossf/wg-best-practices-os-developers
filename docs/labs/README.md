@@ -109,7 +109,7 @@ work on.
     * [Call APIs for Programs and Check What Is Returned](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#call-apis-for-programs-and-check-what-is-returned) - PLANNED-2 UNASSIGNED
     * [Handling Errors](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#handling-errors) - DONE-2 (Avishay Balter) [handling-errors](handling-errors.html)
     * [Logging](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#logging) - PLANNED-2 UNASSIGNED
-    * [Debug and Assertion Code](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#debug-and-assertion-code) - PLANNED-1 UNASSIGNED <!-- was: Jason Shepherd -->
+    * [Debug and Assertion Code](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#debug-and-assertion-code) - DONE-1 (David A. Wheeler) <!-- was: Jason Shepherd --> [assert](assert.html)
     * Countering Denial-of-Service (DoS) Attacks - PLANNED-2 UNASSIGNED
 * Sending Output
   * [Introduction to Sending Output](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#introduction-to-sending-output) - PLANNED-2 UNASSIGNED
