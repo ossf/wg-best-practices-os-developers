@@ -102,7 +102,7 @@ Use the “hint” and “give up” buttons if necessary.
 Change the code below, adding the mitigation steps to prevent Insecure Deserialization:
 <ol>
   <li>Use a deserialization approach that prevents code execution.</li>
-  <li>Validate the username making sure it is used only if it's a <b>string</b> and no longer than <b>20 characters</b>.</li>
+  <li>Validate the username making sure a reply is only sent if it's a <b>string</b> and no longer than <b>20 characters</b>.</li>
 </ol>
 <form id="lab">
 
@@ -120,14 +120,17 @@ app.get('/', (req, res) => {
     try {
       const base64Decoded = Buffer.from(
         req.cookies.profile, 'base64').toString('utf8');
-      <input id="attempt0" type="text" size="60" spellcheck="false" value="const data = eval('(' + base64Decoded + ')');">
+      <input id="attempt0" type="text" size="60" spellcheck="false"
+             value="const data = eval('(' + base64Decoded + ')');">
 
-      <input id="attempt1" type="text" size="60" spellcheck="false" value="if (data.username) {">
-        res.send(`Hello ${data.username}`);
+      <input id="attempt1" type="text" size="60" spellcheck="false"
+             value="if (data.username) {">
+        // To prevent XSS, avoid res.send with untrusted data
+        res.render('index', {username: data.username});
       }
 
     } catch (err) {
-      res.send('An error occurred: ' + err.message);
+      res.send('An error occurred.');
     }
   } else {
     res.send("Please Login");
