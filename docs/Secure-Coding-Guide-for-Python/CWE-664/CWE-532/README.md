@@ -228,6 +228,6 @@ process_order("10 Grafton Street")
 |||
 |:---|:---|
 |(Python Software Foundation 2023)|[logging - Logging facilty for Python](https://docs.python.org/3/library/logging.html) [accessed 11 May 2023]|
-|California Consumer Privacy Act (CCPA) USA|[CCPA DIVISION 3. OBLIGATIONS [1427 - 3273.16]](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150)|
-|General Data Protection Regulation (GDPR)|[Fines / Penalties - General Data Protection Regulation (GDPR) (gdpr-info.eu)](https://gdpr-info.eu/issues/fines-penalties/)|
-|European Commission International Data Protection|Rules on international data transfers(https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/rules-international-data-transfers_en)|
+|California Consumer Privacy Act (CCPA) USA|[CCPA DIVISION 3. OBLIGATIONS [1427 - 3273.16]](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150) [accessed 16 October 2024]|
+|General Data Protection Regulation (GDPR)|[Fines / Penalties - General Data Protection Regulation (GDPR) (gdpr-info.eu)](https://gdpr-info.eu/issues/fines-penalties/) [accessed 16 October 2024]|
+|European Commission International Data Protection|[Rules on international data transfers](https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/rules-international-data-transfers_en) [accessed 16 October 2024]|
