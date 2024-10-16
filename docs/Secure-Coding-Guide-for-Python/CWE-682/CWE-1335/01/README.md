@@ -120,10 +120,10 @@ The right shift is replaced by division in `compliant02.py`.
 ```py
 """ Compliant Code Example """
 
-foo: int
-foo = -50
-foo /= 4
-print(foo)
+foo: int = -50
+bar: float = foo / 4
+print(bar)
+
 ```
 
 ## Automated Detection

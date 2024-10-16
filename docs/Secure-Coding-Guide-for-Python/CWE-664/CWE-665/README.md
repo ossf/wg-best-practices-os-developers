@@ -118,6 +118,7 @@ ThreadPoolExecutor-0_1: Working concurrently as User.ADMIN
 The two worker threads have been initialized only once using the initializer method. `ThreadPoolExecutor-0_1` has completed the `work_as_admin()` task and has been reused to complete one of the `work_as_guest()`. Because the local values have been changed by the first task, the changed values persisted to the second task.
 
 Table listing a possible execution order:
+
 |Task|Workder Thread|Executed Method|User|
 |:---|:---|:---|:---|
 |1|0|`work_as_admin()`|ADMIN|
@@ -206,8 +207,6 @@ for future in futures:
 ```
 
 The increased thread pool size circumvents the problem for this specific example. However, the problem has not been resolved since expanding the number of submitted tasks will cause it to reoccur. For example, if we change the `fututes` list as follows:
-
-*[example01.py](example01.py):*
 
 ```py
 futures = [
