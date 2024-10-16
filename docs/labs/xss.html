@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+    autoescape=select_autoescape()
+</script>
+<script id="expected1" type="plain/text">
+  <h1>Hello {{ person }}!</h1>
+</script>
+<script id="expected2" type="plain/text">
+  result = Markup('Original name=') + name
+</script>
+
+<!-- Full pattern of correct answer -->
+<!-- TODO -->
+<script id="correct0" type="plain/text">
+\s* autoescape = select_autoescape \( \) \s*
+</script>
+<script id="correct1" type="plain/text">
+\s* < h1 >Hello\x20{{ person }}!< /h1 > \s*
+</script>
+<script id="correct2" type="plain/text">
+\s* result = Markup \( ('Original name='|"Original name=") \) \+ name \s*
+</script>
+
+<script id="info" type="application/yaml">
+---
+hints:
+- absent: |-
+    autoescape
+  text: Add an `autoescape=` parameter.
+- present: |-
+    autoescape [^:\x20]
+  text: The name `autoescape` needs to be followed by `=`.
+- present: |-
+    (Autoescape|AUTOESCAPE)
+  text: The name `autoescape` must be in all lowercase.
+- present: |-
+    ([Aa]uto_[Ee]scape|AUTO_ESCAPE)
+  text: Use `autoescape` in all lowercase with no underscores.
+- present: |-
+    \| safe
+  index: 1
+  text: The text `| safe` indicates that this text is trusted and should
+    not be escaped further. However, in context this data could be provided
+    from an attacker and is NOT safe. Remove the marking.
+- present: |-
+    \|
+  index: 1
+  text: The `|` is used to separate the computed value from the safe marking,
+    but we will not use that marking. Remove the vertical bar.
+- present: |-
+    Markup \(.*\+.*\)
+  index: 2
+  text: Having a concatenation (+) *inside* the call to Markup
+    is a vulnerability.
+    The call to Markup presumes we are passing text that is *not* supposed
+    be escaped. If it is supposed to be escaped, it should be concatenated
+    outside the initial construction of the Markup object.
+- absent: |-
+    \+
+  index: 2
+  text: Our expected answer includes concatentation using `+`.
+    We expect something like `Markup('Original name='` followed by `+`
+    followed by the variable containing the data that needs to be escaped.
+# debug: true
+</script>
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise xss</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html" target="_blank">introduction to
+the labs</a>.
+
+<p>
+<h2>Task</h2>
+<p>
+<b>Please practice countering Cross-Site Scripting (XSS) with Flask and the templating engine Jinja2.</b>
+
+<p>
+<h2>Background</h2>
+<p>
+In this exercise, we'll implement
+mechanisms to broadly counter Cross-Site Scripting (XSS) attacks,
+as
+<a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#countering-cross-site-scripting-xss"
+>described in our course</a>.
+We noted that "The standard way to counter XSS is
+to escape all output that might
+be from an attacker and is not specifically approved. ...  In most
+cases, the best solution for XSS is to choose a framework or library
+that automatically escapes HTML output for you."
+That is, we want to use a system that automatically escapes
+characters like "&lt;" by converting them into "&amp;lt;" 
+unless we specifically note otherwise.
+That way, those special characters are rendered harmless.
+<p>
+In <i>theory</i> you could call an escape routine every time you
+make a call to generate an output.
+In <i>practice</i> this approach is insecure.
+Sooner or later a developer will accidentally forget to
+call the escape routine while generating output.
+It's much safer to use mechanisms which escape <i>by default</i>.
+<p>
+<a href="https://pypi.org/project/Flask/"
+>Flask</a> is a lightweight server-side web application framework
+for the Python programming language.
+Programs using Flask often use the
+<a href="https://flask.palletsprojects.com/en/3.0.x/quickstart/#rendering-templates">Jinja2 template library</a>.
+<a href="https://jinja.palletsprojects.com/en/3.1.x/api/#autoescaping"
+>Jinja2 has a mechanism for automatically escaping HTML</a>.
+<p>
+Jinja2's version 3.1.x series does <i>not</i>
+enable this "autoescape" mode by default.
+This may change in a future version of Jinja, but even so,
+this serves as a great example.
+In short, sometimes libraries must be specially configured to be
+less dangerous to use.
+This isn't ideal, but such libraries can still be used.
+You simply need to ensure that you <i>correctly</i>
+configure the library to be used securely.
+<p>
+<a href="https://flask.palletsprojects.com/en/3.0.x/quickstart/#rendering-templates"
+>Flask by default configures Jinja2 to automatically escape HTML</a>.
+So as far
+as users of <i>Flask</i> are concerned, the Jinja templating system <i>does</i>
+automatically escape HTML by default.
+
+<p>
+<h2>Task Information</h2>
+<p>
+Please change the code below to counter XSS vulnerabilities.
+Use the “hint” and “give up” buttons if necessary.
+This is a multi-part task; the specific task instructions are interspersed
+below.
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+
+<h3>Part 1</h3>
+<p>
+In this part, you are <i>not</i> using Flask.
+You're instead using Python and directly using the Jinja2 templating engine.
+The version of Jinja2 we're considering
+<a href="https://jinja.palletsprojects.com/en/3.1.x/api/#basics"
+>does <i>not</i> automatically escape unless it's configured to do so</a>.
+Modify the Jinja2 configuration to automatically escape HTML, by passing
+the field named <tt>autoescape</tt> with
+<tt>select_autoescape()</tt> as its value.
+
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="65">...</textarea>
+-->
+<form id="lab1"><pre><code
+>from jinja2 import Environment, PackageLoader, select_autoescape
+env = Environment(
+    loader=PackageLoader("yourapp"),
+<input id="attempt0" type="text" size="60" spellcheck="false" value="">
+)
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+</form>
+
+<h3>Part 2</h3>
+<p>
+In this part
+we <i>are</i> using Flask. Flask configures Jinja2 to automatically
+escape HTML. The code below
+(based on the
+<a href="https://flask.palletsprojects.com/en/3.0.x/quickstart/#rendering-templates"
+>Flask quickstart</a>)
+uses Flask's template rendering system, which
+in turn calls Jinja2 to render the result:
+</p>
+
+<pre><code
+>from flask import render_template
+@app.route('/hello/')
+@app.route('/hello/<name>')
+def hello(name=None):
+    return render_template('hello.html', person=name)</code></pre>
+
+<p>
+The sample code above uses the template <tt>hello.html</tt>, which is
+shown below.
+Note that values to be substituted in the template
+are surrounded by <tt>{{ ... }}</tt>.
+<p>
+Unfortunately, this template below has a vulnerability.
+Its "| safe" marking tells the templating system that the data is
+safe and shouldn't be escaped.
+However, as shown in the code above, the person's name is from an untrusted
+user. Thus the person's name (as with most data) is <i>not</i> safe.
+Currently an attacker can slip characters like "&lt;" into a name as a
+way to attack others.
+Please fix this vulnerability.
+
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="65">...</textarea>
+-->
+<form id="lab2">
+<pre><code
+>&lt;!doctype html&gt;
+&lt;title&gt;Hello from Flask&lt;/title&gt;
+{% if person %}
+<input id="attempt1" type="text" size="50" spellcheck="false"
+ value="  &lt;h1&gt;Hello {{ person | safe }}!&lt;/h1&gt;">
+{% endif %}
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+</form>
+
+
+<h3>Part 3</h3>
+<p>
+In this part we continue to use Flask.
+However,
+sometimes you need more sophisticated control over what is and is not escaped.
+Most web application frameworks have a type or class that records
+HTML values, and lets you specify what is to be escaped or not.
+In Flask this typically done with its
+<a href="https://flask.palletsprojects.com/en/3.0.x/templating/#controlling-autoescaping">Markup</a> class.
+<p>
+A instance of a <tt>Markup</tt> class is created by calling
+<tt>Markup</tt>.
+A string is passed during its original construction
+is assumed to be safe and is <i>not</i> escaped.
+You can concatenate a normal string to a Markup value, and those additions
+<i>will</i> be escaped.
+<a href="https://tedboy.github.io/flask/generated/generated/flask.Markup.html"
+>For example</a>, computing
+<tt>Markup("&lt;em&gt;Hello&lt;/em&gt; ") + "&lt;foo&gt;"</tt>
+produces a Markup instance containing the Unicode string value
+<tt>'&lt;em&gt;Hello&lt;/em&gt; &amp;lt;foo&amp;gt;'</tt> -
+note how the first part isn't escaped but the latter part <i>is</i> escaped.
+You can even create a Markup instance with an empty string, and every
+concatenation of a normal string will be escaped.
+Since every concatenation to a Markup value of a normal string
+will be escaped by default, the default is the safe (escaping) operation.
+The code also clearly indicates what is considered safe and what is not.
+The Markup class supports many other methods not described here
+to simplify control over what is escaped.
+The templating system will directly include an instance of
+Markup without further escapes, because
+the Markup instance has already escaped whatever is supposed to be escaped.
+<p>
+The Python code below tries to use <tt>Markup</tt> to include a <tt>name</tt>.
+However, it's incorrect and insecure.
+The problem is that <tt>name</tt> is an untrusted value and
+it shouldn't be passed directly to <tt>Markup</tt> as part of its trusted value.
+Modify the code below so that <tt>result</tt> will include the <i>escaped</i>
+version of <tt>name</tt>. Note that in Python <tt>+</tt> is the
+string concatenation operation.
+
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="65">...</textarea>
+-->
+<form id="lab3">
+<pre><code
+><input id="attempt2" type="text" size="60" spellcheck="false"
+ value="  result = Markup('Original name=' + name)">
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+</form>
+
+<p>
+<i>This lab was developed by David A. Wheeler at
+<a href="https://www.linuxfoundation.org/"
+>The Linux Foundation</a>.</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
