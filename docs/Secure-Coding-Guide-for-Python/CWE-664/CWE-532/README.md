@@ -54,7 +54,7 @@ main()
 
 ## Example Solution
 
-The `example01.py` solution uses a custom filter in Python's logging module to automatically mask sensitive data in the logs. While this is a good solution for central handling in large software project it does require that all modules use the same string such as password=, variation's such as pass= or pass: won't work and continue to print the plain text password.
+The `example01.py` solution uses a custom filter in Python's logging module to automatically mask sensitive data in the logs. While this is a good solution for central handling in large software project it does require that all modules use the same string such as `password=`, variation's such as `pass=` or pass: won't work and continue to print the plain text password.
 
 *[example01.py](example01.py):*
 
@@ -147,8 +147,8 @@ main()
 
 For security purposes, sensitive information should never be printed to the console in log messages (for instance, a passenger's age). In Python's logging module, there are five logging levels:
 
-* DEBUG
-* INFO
+* `DEBUG`
+* `INFO`
 * WARNING (default)
 * ERROR
 * CRITICAL
@@ -221,7 +221,7 @@ process_order("10 Grafton Street")
 
 |Tool|Version|Checker|Description|
 |:----|:----|:----|:----|
-|[Pylint](https://pylint.pycqa.org/)|2023.10.1|[W1203:logging-fstring-interpolation](W1203:logging-fstring-interpolation)|Use lazy % formatting in logging functions|
+|[Pylint](https://pylint.pycqa.org/)|2023.10.1|[W1203:logging-fstring-interpolation](https://pylint.readthedocs.io/en/latest/user_guide/messages/warning/logging-fstring-interpolation.html)|Use lazy % formatting in logging functions|
 
 ## Biblography
 
