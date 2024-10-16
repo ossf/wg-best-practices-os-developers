@@ -48,10 +48,10 @@ read_file(f"{uuid.uuid4()}.txt")
 
 The file opening and reading should be surrounded by the `try/except` block. This way, we can catch the generic `OSError` and handle the error differently depending on its cause (such as the file not existing or it being a directory instead).
 
-*[compliant01.py](compliant.py):*
+*[compliant01.py](compliant01.py):*
 
 ```py
-""" Non-compliant Code Example """
+""" Compliant Code Example """
   
 import os
 import uuid
@@ -168,15 +168,6 @@ def read_file(file):
 # Attempting to read a random non-existent file
 read_file(f"{uuid.uuid4()}.txt")
 ```
-
-## Risk Assessment
-
-Failure to check the return values of methods that perform file I/O can result in unexpected behavior.
-
-|||||||
-|:---|:---|:---|:---|:---|:---|
-|Rule|Severity|Likelihood|Remediation Cost|Priority|Level|
-|FIO02-P3|Medium|Probable|Medium|P8|L2|
 
 ## Automated Detection
 
