@@ -54,7 +54,7 @@ if Decimal("2").compare(t) == 0:
 |[MITRE CWE](http://cwe.mitre.org/)|Base:<br>[CWE-681, Incorrect Conversion between Numeric Types](https://cwe.mitre.org/data/definitions/681.html)|
 |[SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[NUM11-J. Do not compare or inspect the string representation of floating-point values](https://wiki.sei.cmu.edu/confluence/display/java/NUM11-J.+Do+not+compare+or+inspect+the+string+representation+of+floating-point+values)|
 
-## Related Guidelines
+## Bibliography
 
 |||
 |:---|:---|
