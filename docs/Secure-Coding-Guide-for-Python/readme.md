@@ -61,6 +61,10 @@ It is **not production code** and requires code-style or python best practices t
 |[CWE-1335: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations](CWE-682/CWE-1335/01/README.md)||
 |[CWE-1339: Insufficient Precision or Accuracy of a Real Number](CWE-682/CWE-1339/.)                            ||
 
+|[CWE-691: Insufficient Control Flow Management](https://cwe.mitre.org/data/definitions/691.html)|Prominent CVE|
+|:---------------------------------------------------------------------------------------------------------------|:----|
+|[CWE-617: Reachable Assertion](CWE-691/CWE-617/README.md)||
+
 |[CWE-693: Protection Mechanism Failure](https://cwe.mitre.org/data/definitions/693.html)|Prominent CVE|
 |:----------------------------------------------------------------|:----|
 |[CWE-184: Incomplete List of Disallowed Input](CWE-693/CWE-184/.)||
