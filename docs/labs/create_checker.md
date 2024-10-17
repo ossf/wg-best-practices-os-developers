@@ -371,7 +371,7 @@ On load the system will verify that each example will report the
 matching hint (this helps ensure that the hint order is sensible).
 
 At the time of this writing, all examples are loaded and used as tests
-to ensure that the hint requested is actually the one reported. 
+to ensure that the hint requested is actually the one reported.
 If your example is for a later index, provide test values that
 don't trigger earlier index values. Currently those values are ignored,
 but future versions will probably use them when checking the examples.
@@ -671,7 +671,7 @@ Here is an example:
 
 ~~~~yaml
 preprocessing:
-  - 
+  -
     - |-
         [\n\r]+
     - ""
