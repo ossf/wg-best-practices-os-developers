@@ -1133,6 +1133,10 @@ While more efficient compared to dynamic analysis, sanitizers are still prohibit
 
 As with all testing practices, sanitizers cannot absolutely prove the absence of bugs. However, when used appropriately and regularly they can help in identifying latent memory, concurrency, and undefined behavior-related bugs which may be difficult to pinpoint.
 
+Sanitizers should not be used for hardening in production environments, particularly for Set User ID (SUID) binaries, as they expose operational parameters via environmental variables which can be manipulated to clobber root-owned files and privilege escalation[^Nagy2016].
+
+[^Nagy2016]: Nagy , Szabolcs, [Address Sanitizer local root](https://www.openwall.com/lists/oss-security/2016/02/17/9), Openwall mailing list, 2016-02-16.
+
 Table 4: Sanitizer options in GCC and Clang.
 
 | Compiler Flag          |     Supported since      | Description                                                                 |
