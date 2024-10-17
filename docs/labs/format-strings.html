@@ -9,43 +9,45 @@
 <script src="checker.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
-
 <script id="expected0" type="plain/text">
-    return '{format_string}, {event.level}'.format(format_string=user_input, event=event)
+def format_event(new_event):
+  return '{event.level},{event.message}'.format(event=new_event)
 </script>
+<!--
+  return '{event.level},{event.message}'.format(event=new_event)
+-->
 
 <!-- Full pattern of correct answer -->
-<script id="correct0" type="plain/text">
-\s*return\s'\{format_string\},\s\{event\.level\}'\.format\(format_string=user_input,\sevent=event\)\s*
+<script id="correct0" type="plain/text"
+>(\r?\n)*def\x20+format_event\x20*\( new_event \)\x20*:(\r?\n)\x20+return\x20+'{event\.level},{event\.message}'\x20*\.\x20*format\x20*\( event = new_event \)
+\s*
 </script>
+<!--
+\x20+return\x20+'{event\.level},{event\.message}'\.format\( event = new_event \)
+\s*
+-->
 
 <script id="info" type="application/yaml">
 ---
-- absent: "user_input"
-  text: Make sure the user_input is included in the replacement fields passed to the format function
-  examples:
-  - - "'some format'.format(user_input=user_input)"
-  - - "'some format'.format(user_input)"
+hints:
+- present: |
+    def format_event \( user_input
+  text: The `user_format` should no longer be used, so we should
+    remove it from the list of parameters being passed into the function
+    being defined by `def`.
+    The first line should read `def format_event(new_event):`
+- present: "user_input"
+  text: Do not support a user-provided format at all.
+    In this case there is no need for it.
 - absent: "event"
-  text: Make sure the event is included in the replacement fields passed to the format function
-  examples:
-  - - "'some format'.format(user_input=user_input, event=event)"
-  - - "'some format'.format(user_input, event)"
-- absent: \{(0|format_string)\}
-  text: Make sure the braces for the format_string replacement field are in the format string
-  examples:
-  - - "'{event}'.format(format_string=user_input)"
-  - - "'{0}.format(user_input)"
-- absent: \{(1|event)\}
-  text: Make sure the braces for the event replacement field are in the format string
-  examples:
-  - - "'{format_string}, {event.level}'.format(format_string=user_input, event=event)"
-  - - "'{0}, {1.level}'.format(user_input, event)"
-- absent: \{(1\.level|event\.level)\}
-  text: Make sure the level attribute of the event replacement field is in the format string
-  examples:
-  - - "'{format_string}, {event.level}'.format(format_string=user_input, event=event)"
-  - - "'{0}, {1.level}'.format(user_input, event)"
+  text: We want to see `event`, e.g.,
+    return '{event.level},...'.format(event=new_event)
+- present: '\{0'
+  text: For our purposes we want to use named parameters, so do not
+    use `{0}` or similar.
+- absent: |
+    \'\{event.level\},\{event.message\}\'
+  text: The constant text `'{event.level},{event.message}'` should be present.
 # debug: true
 </script>
 </head>
@@ -61,36 +63,33 @@ the labs</a>.
 <p>
 <h2>Task</h2>
 <p>
-<b>Practice using string templates in a secure way.</b>
+<b>Practice eliminating string formatting vulnerabilities in Python.</b>
 
 <p>
 <h2>Background</h2>
 <p>
 In this exercise, we'll adjust our string formatting so that it doesn't allow a user to control
 the <a href="https://docs.python.org/3/tutorial/inputoutput.html#the-string-format-method"><tt>
-format string</tt></a>. If a user can control the <tt>format string</tt> they can access
-variables which they shouldn't. Particularly if those variable's values can be returned to the user
+format string</tt></a>.
+
+<p>If a user can control the <tt>format string</tt> in Python they can access
+value which they shouldn't. Particularly if those variable's values can be returned to the user
 as output, it could lead to information disclosure beyond what was intended by the developer.
 
 <p>
 <h2>Task Information</h2>
 <p>
-
-<p>
 Please change the code below so the string formatting cannot disclose arbitrary
-program values. The server-side program is written in Python and allows a user to specify a
-<tt>format string</tt> to control the output format of an event.
+program values.
 
 <p>
-You could adjust the program so that it only formats the event, and does not include any user input,
-However it is considered safe to include user input in the output as long as they cannot control
-the <tt>format string</tt> itself.
+The server-side program is written in Python and allows a user to specify a <tt>format string</tt> to control the output format of an event, shown here as <tt>user_format</tt>. The developer probably expected the user to provide a format string like <tt>'{event.level}'</tt> to control what is shown and where.
 
 <p>
-Adjust the value returned by the <tt>format_event</tt> function so the the user controlled
-<tt>user_input</tt> variable is only used as a
-<a href="https://docs.python.org/3/library/string.html#format-string-syntax"><tt>replacement field</tt></a>
-and is not used as the <tt>format string</tt>.
+However, in many programming languages, allowing an untrusted user to control a format sting is a vulnerability. Format strings are miniature programming languages; running code provided by an untrusted user is dangerous. In the case of Python, an attacker might be able to provide a sneaky format string value like <tt>'{event.__init__.__globals__[CONFIG][SECRET_KEY]}'</tt> and reveal a secret value like a password or secret key.
+
+<p>
+In this case, as in many, there is no need for an untrusted user to control the format string at all. Where we can, we should use a constant format that cannot be controlled by a potential attacker. For purposes of this lab, instead of letting the user control the formatting string, set the format to the fixed value <tt>'{event.level},{event.message}'</tt> and don't forget to remove the no-longer-needed format parameter.
 
 <p>
 Use the “hint” and “give up” buttons if necessary.
@@ -99,24 +98,10 @@ Use the “hint” and “give up” buttons if necessary.
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
 <p>
 <form id="lab">
-<pre><code
-> # Application configuration which should be kept secret from a user
-CONFIG = {
-    'SECRET_KEY': 'super secret key'
-}
-
-# A event object with a single attribute used by the malicious format string to gain access to the
-# secret application configuration below
-class Event(object):
-    def __init__(self, level):
-        self.level = level
-
-def format_event(user_input, event):
-<input id="attempt0" type="text" size="60" spellcheck="false" value="    return user_input.format(event=event)">
-
-event = Event('level')
-format_event('{event.__init__.__globals__[CONFIG][SECRET_KEY]}', event)
-</code></pre>
+<pre><code><textarea id="attempt0" rows="3" cols="60" spellcheck="false"
+>def format_event(user_format, new_event):
+   return user_format.format(event=new_event)</textarea
+></code></pre>
 <button type="button" class="hintButton">Hint</button>
 <button type="button" class="resetButton">Reset</button>
 <button type="button" class="giveUpButton">Give up</button>
@@ -125,7 +110,8 @@ format_event('{event.__init__.__globals__[CONFIG][SECRET_KEY]}', event)
 <i>This lab was developed by Jason Shepherd at
 <a href="https://access.redhat.com"
 >Red Hat</a>.</i> with an modified version of the example code from Armin Ronacher's
-<a href="https://lucumr.pocoo.org/2016/12/29/careful-with-str-format/">Be Careful with Python's New-Style String Format</a> article.
+<a href="https://lucumr.pocoo.org/2016/12/29/careful-with-str-format/">Be Careful with Python's New-Style String Format</a> article, and
+modified by David A. Wheeler.
 <br><br>
 <p id="correctStamp" class="small">
 <textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
