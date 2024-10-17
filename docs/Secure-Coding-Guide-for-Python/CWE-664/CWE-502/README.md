@@ -97,11 +97,11 @@ message = p3.uncan(PAYLOAD)
 The deserializating `Preserver.uncan()` method has no solution to verify the content prior to unpickling it and runs the PAYLOAD even before turning it into an object. On Windows you have `calc.exe`  and on Unix a bunch of commands such as `uname -a and ls -la /etc/shadow`.
 
 > [!CAUTION]
-> The `compliant01.py` code only demonstrates integrity protection with hmac.
+> The `example01.py` code only demonstrates integrity protection with hmac.
 > The pickled object is not encrypted and key-handling is inappropriate!
 > Consider using proper key management with `x509` and encryption [[pyca/cryptography 2023]](https://cryptography.io/en/latest/).
 
-*[compliant01.py](compliant01.py):*
+*[example01.py](example01.py):*
 
 ```py
 """ Compliant Code Example """
@@ -198,11 +198,11 @@ The integrity verification in `compliant01.py` throws an exception `ValueError: 
 
 Text-based formats, such as `JSON` and `YAML`, should always be preferred. They have a lower set of capabilities and reduce the attack surface [python.org comparison-with-json 2023] when compared to `pickle`.
 
-The `compliant02.py`  code only allows serializing and deserialization of object data and not object methods as in `noncompliant01.py` or `compliant01.py`.
+The `compliant01.py`  code only allows serializing and deserialization of object data and not object methods as in `noncompliant01.py` or `compliant01.py`.
 
 Consider converting binary data into text using `Base64` encoding for performance and size irrelevant operations.
 
-*[compliant02.py](compliant02.py):*
+*[compliant01.py](compliant01.py):*
 
 ```py
 """ Compliant Code Example """

@@ -5,17 +5,17 @@ import re
 import unicodedata
 import sys
 
-sys.stdout.reconfigure(encoding='UTF-8')
+sys.stdout.reconfigure(encoding="UTF-8")
 
 
 class TagFilter:
     """Input validation for human language"""
 
     def filter_string(self, input_string: str) -> str:
-        """ Normalize and validate untrusted string
+        """Normalize and validate untrusted string
 
-            Parameters:
-                input_string(string): String to validate
+        Parameters:
+            input_string(string): String to validate
         """
         # normalize
         _str = unicodedata.normalize("NFKC", input_string)
@@ -30,6 +30,7 @@ class TagFilter:
         _filtered_str = "".join(re.findall(r"[/\w<>\s-]+", _str))
         if len(_str) - len(_filtered_str) != 0:
             raise ValueError("Invalid input string")
+        return _filtered_str
 
 
 #####################
