@@ -129,4 +129,10 @@ In addition, ensure your regex is not vulnerable to a Regular Expression Denial 
 
 For detailed rationale, along with other information such as contributor credits, see [Correctly Using Regular Expressions for Secure Input Validation - Rationale](./Correctly-Using-Regular-Expressions-Rationale).
 
+## Contributions and Corrections Welcome
+
+If you have any additions, changes, or corrections you'd like to suggest, please [open an issue](https://github.com/ossf/wg-best-practices-os-developers/issues). We appreciate your contributions!
+
+## License
+
 This document is released under the [Creative Commons CC-BY-4.0 license](https://creativecommons.org/licenses/by/4.0/).
