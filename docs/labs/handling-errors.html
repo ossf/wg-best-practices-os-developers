@@ -79,8 +79,12 @@ hints:
   present: "{ (.*?)} "
   text: Try simply returning the result of the division.
   examples:
-  - - "  return { success: true, result: a / b };"
-  - - "  return { result: a / b };"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - "  return { success: true, result: a / b };"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - "  return { result: a / b };"
 - index: 2
   absent: '\s*try\s*{\s* '
   text: >-
@@ -88,36 +92,54 @@ hints:
     It should look something like `try { ... } catch(err) {...}`
     (fill in the `...` sections).
   examples:
-  - - "  const result = divide(10, 2);"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - "  const result = divide(10, 2);"
 - index: 2
   present: '\s* try \s* { .*? if \( result.success \) .*?'
   text: You may assume that the result is successful within the try block.
   examples:
-  - - " try { const result = divide(10 ,2); if( result.success) { console.log ( \"Result:\", result ); "
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); if( result.success) { console.log ( \"Result:\", result ); "
 - index: 2
   present: '.*? result.result .*?'
   text: The result is not an object, it is a number.
   examples:
-  - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result.result ); "
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result.result ); "
 - index: 2
   absent: '.*? catch .*? '
   text: >-
     Handle the error within the catch block. You need `catch(err) {...}`
     after `try {...}` to catch an error in the try block.
   examples:
-  - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); }"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); }"
 - index: 2
   absent: '\s* catch \s* \( .*? \) { \s* '
   text: Use 'catch (...) {...}' to catch an error object within the catch block.
   examples:
-  - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch {}"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch {}"
 - index: 2
   absent: |-
     catch \( err \)
   text: >-
     Please use `catch(err) {...}` for purposes of this lab.
   examples:
-  - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (foo) {"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (foo) {"
 - index: 2
   present: |-
     catch .* console \. error \( ["'][^"']*["'] , result
@@ -129,8 +151,14 @@ hints:
     the variable `result` is out of scope in the catch block anyway;
     it was declared in the try block.
   examples:
-  - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (err) { console.error('Error', result.message);"
-  - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (err) { console.error('Error', result );"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (err) { console.error('Error', result.message);"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (err) { console.error('Error', result );"
 # debug: true
 </script>
 </head>

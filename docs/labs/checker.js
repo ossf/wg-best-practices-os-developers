@@ -425,12 +425,14 @@ function processHints(requestedHints) {
         newHint.text = hint.text;
         // Precompile all regular expressions & report any failures
         if (hint.present) {
+            newHint.present = hint.present;
             newHint.presentRe = processRegex(hint.present,
                 `hint[${i}].present`, false);
         };
         if (hint.absent) {
+            newHint.absent = hint.absent;
             newHint.absentRe = processRegex(hint.absent,
-                `hint[${i}].present`, false);
+                `hint[${i}].absent`, false);
         };
         if (!hint.absent && !hint.present && (i != requestedHints.length - 1)) {
             showDebugOutput(
@@ -565,11 +567,11 @@ function runSelftest() {
     for (let hint of hints) {
         if (hint.examples) {
             for (let example of hint.examples) {
-		// Create a testAttempt
-                let testAttempt = expected.slice(); // shallow copy of expected
-                testAttempt[hint.index] = example;
-		// What hint does our new testAttempt give?
-                actualHint = findHint(testAttempt, [hint.index]);
+		// We directly pass our example.
+		// This means that examples will need to contain multiple
+		// values if the index > 0. We only return hints with the
+		// given hint index.
+                actualHint = findHint(example, [hint.index]);
                 if (actualHint != hint.text) {
                     alert(`Lab Error: Unexpected hint!\n\nExample:\n${example}\n\nExpected hint:\n${hint.text}\n\nProduced hint:\n${actualHint}\n\nExpected (passing example)=${JSON.stringify(expected)}\n\ntestAttempt=${JSON.stringify(testAttempt)}\nFailing hint=${JSON.stringify(hint)}`);
                 };
