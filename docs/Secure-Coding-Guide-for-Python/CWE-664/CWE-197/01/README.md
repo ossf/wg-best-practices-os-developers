@@ -44,7 +44,7 @@ print(round(1.5))  # prints 2
 
 ## Compliant Solution (float to int)
 
-Using the `Decimal` class from the `decimal` module allows more control over rounding by choosing one of the `8` rounding modes.
+Using the `Decimal` class from the `decimal` module allows more control over rounding by choosing one of the `8` rounding modes [[python decimal 2024]](https://docs.python.org/3/library/decimal.html#rounding-modes).
 
 [*compliant01.py:*](compliant01.py)
 
