@@ -139,26 +139,26 @@ hints:
     ^\^
   index: 1
   text: For input validation, start with '^' to indicate a full match.
-  # examples:
-  # -
-  #   - "^[YN]$"
-  #   - ""
+  examples:
+  -
+    - "^[YN]$"
+    - ""
 - absent: |-
     \$$
   index: 1
   text: For input validation, end with '$' to indicate a full match.
-  #   examples:
-  #   -
-  #     - "^[YN]$"
-  #     - "^"
+  examples:
+  -
+    - "^[YN]$"
+    - "^"
 - absent: |-
     \[A-Z\]
   index: 1
   text: You can use [A-Z] to match one uppercase Latin letter (A through Z).
-  # examples:
-  # -
-  #   - "^[YN]$"
-  #   - "^$"
+  examples:
+  -
+    - "^[YN]$"
+    - "^$"
 - present: |-
     \^\[A-Z\]\*
   index: 1
@@ -172,10 +172,10 @@ hints:
      \[A-Z\]\[A-Z\]\*)
   index: 1
   text: You can use [A-Z]+ to match one or more uppercase Latin letters.
-  # examples:
-  # -
-  #   - "^[YN]$"
-  #   - "^[A-Z]$"
+  examples:
+  -
+    - "^[YN]$"
+    - "^[A-Z]$"
 - present: "True"
   index: 2
   text: Regular expressions are case-sensitive by default; use "true".
