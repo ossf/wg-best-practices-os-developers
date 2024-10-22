@@ -5,7 +5,7 @@ and non-compliant code with `CPython >= 3.9` using modules listed on
 
 [Python Module Index](https://docs.python.org/3.9/py-modindex.html) [Python 2023].
 
-This page is in initiative by Ericsson to improve secure coding in Python by providing a location for study. Its structure is based on
+This page is in initiative by OpenSSF  to improve secure coding in Python by providing a location for study. Its structure is based on
 Common Weakness Enamurator (CWE) [Pillar Weakness](https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness) [mitre.org 2023].
 It currently contains *only* the code examples, documentation will follow.
 
