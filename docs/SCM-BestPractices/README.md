@@ -126,6 +126,7 @@ For recommendations only applicable to GitHub or GitLab visit one of the followi
 * Repository Should Not Allow Committer Approvals [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">](gitlab/project/repository_allows_committer_approvals_policy.md) [GitLab](gitlab/project/repository_allows_committer_approvals_policy.md)
 * Webhook Configured Without SSL Verification [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">](gitlab/project/project_webhook_doesnt_require_ssl.md) [GitLab](gitlab/project/project_webhook_doesnt_require_ssl.md)
 * Project Should Have Fewer Than Three Owners [<img src="https://user-images.githubusercontent.com/287526/230376963-ae9b8a47-4a74-4746-bc83-5b34cc520d40.svg" alt="GitLab" height="20" width="20">](gitlab/project/project_has_too_many_admins.md) [GitLab](gitlab/project/project_has_too_many_admins.md)
+* Secret Scanning Should be Enabled [<img src="https://user-images.githubusercontent.com/287526/230375178-2f1f8844-5609-4ef3-b9ac-141c20c43406.svg" alt="GitHub" height="20" width="20">](github/repository/forking_allowed_for_repository.md) [GitHub](github/repository/secret_scanning.md)
 
 ### Operations
 
