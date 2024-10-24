@@ -3,7 +3,7 @@
 This page aims to explain the concepts that could be found in the following rules:
 
 - [CWE-410: Insufficient Resource Pool](../CWE-664/CWE-410/README.md)
-- [CWE-833: Deadlock - Development Environment - eTeamSpace (ericsson.com)](../CWE-664/CWE-833/README.md)
+- [CWE-833: Deadlock](../CWE-664/CWE-833/README.md)
 - [CWE-400: Uncontrolled Resource Consumption](../CWE-664/CWE-400/README.md)
 - [CWE-392: Missing Report of Error Condition](../CWE-703/CWE-392/README.md)
 - [CWE-665: Improper Initialization](../CWE-664/CWE-665/README.md)
