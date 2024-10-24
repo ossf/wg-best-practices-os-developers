@@ -1,6 +1,8 @@
 # CWE-000: Title goes here
 
-Introduction paragraph...
+Introduction sentence, this will be displayed in search engines.
+
+Introduction paragraph, expanding on the introduction sentence...
 
 [*example01.py:*](example01.py)
 
@@ -28,11 +30,13 @@ Introduction to the code example...
 # Code goes here
 
 #####################
-# Exploiting above code example
+# Trying to exploit above code example
 #####################
 
 # Code goes here
 ```
+
+Short explanation of expected outcome of running the code example, e.g. "The code will ... throw an exception, print x..., loop forever..."
 
 ## Compliant Solution
 
@@ -46,11 +50,13 @@ Introduction to the code example...
 # Code goes here
 
 #####################
-# Exploiting above code example
+# Trying to exploit above code example
 #####################
 
 # Code goes here
 ```
+
+Short explanation of expected outcome of running the code example, e.g. "The code will ... throw an exception, print x..., loop forever..."
 
 ## Automated Detection
 
