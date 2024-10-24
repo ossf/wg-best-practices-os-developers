@@ -54,7 +54,7 @@ main()
 
 ## Example Solution
 
-The `example01.py` solution uses a custom filter in Python's logging module to automatically mask sensitive data in the logs. While this is a good solution for central handling in large software project it does require that all modules use the same string such as `password=`, variation's such as `pass=` or pass: won't work and continue to print the plain text password.
+The `example01.py` solution uses a custom filter in Python's logging module to automatically mask sensitive data in the logs. While this is a good solution for central handling in large software project it does require that all modules use the same string such as `password=`, variations such as `pass=` or pass: won't work and continue to print the plain text password.
 
 *[example01.py](example01.py):*
 
@@ -149,11 +149,11 @@ For security purposes, sensitive information should never be printed to the cons
 
 * `DEBUG`
 * `INFO`
-* WARNING (default)
-* ERROR
-* CRITICAL
+* `WARNING` (default)
+* `ERROR`
+* `CRITICAL`
 
-If we set the level to DEBUG or INFO we will see the info and debug logs being printed to the console.
+If we set the level to `DEBUG` or `INFO` we will see the info and debug logs being printed to the console.
 The `noncompliant02.py` code has the log level set to DEBUG is causing the customer's address to appear in the console.
 
 *[noncompliant02.py](noncompliant02.py):*
