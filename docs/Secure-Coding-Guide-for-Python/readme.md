@@ -49,6 +49,7 @@ It is **not production code** and requires code-style or python best practices t
 |[CWE-426: Untrusted Search Path](CWE-664/CWE-426/README.md)|[CVE-2015-1326](https://www.cvedetails.com/cve/CVE-2015-1326),<br/>CVSSv3.0: **8.8**,<br/>EPSS: **00.20** (23.11.2023)|
 |[CWE-501: Trust Boundary Violation)](CWE-664/CWE-501/README.md)||
 |[CWE-502: Deserialization of Untrusted Data)](CWE-664/CWE-502/.)||
+|[CWE-532: Insertion of Sensitive Information into Log File](CWE-664/CWE-532/.)||
 |[CWE-665: Improper Initialization](CWE-664/CWE-665/README.md)||
 |[CWE-681: Incorrect Conversion between Numeric Types](CWE-664/CWE-681/README.md)||
 |[CWE-833: Deadlock](CWE-664/CWE-833/README.md)||
@@ -81,6 +82,7 @@ It is **not production code** and requires code-style or python best practices t
 |[CWE-390: Detection of Error Condition without Action](CWE-703/CWE-390/)||
 |[CWE-392: Missing Report of Error Condition](CWE-703/CWE-392/README.md)||
 |[CWE-754: Improper Check for Unusual or Exceptional Conditions](CWE-703/CWE-754/.)||
+|[CWE-755: Improper Handling of Exceptional Conditions](CWE-703/CWE-755/.)||
 
 |[CWE-707: Improper Neutralization](https://cwe.mitre.org/data/definitions/707.html)|Prominent CVE|
 |:----------------------------------------------------------------|:----|
