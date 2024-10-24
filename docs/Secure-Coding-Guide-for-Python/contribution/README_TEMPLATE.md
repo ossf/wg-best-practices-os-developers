@@ -70,7 +70,7 @@ Short explanation of expected outcome of running the code example, e.g. "The cod
 |||
 |:---|:---|
 |[MITRE CWE](http://cwe.mitre.org/)|Pillar: [CWE-000: Name of the pillar (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/000.html)|
-|[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE-000: Numeric Truncation Error](https://cwe.mitre.org/data/definitions/000.html)|
+|[MITRE CWE](http://cwe.mitre.org/)|Base/Class (choose which one it is based on the abstraction on the CWE page): [CWE-000: Numeric Truncation Error](https://cwe.mitre.org/data/definitions/000.html)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[Reference Goes here](http://YOUR_LINK)|
 |[SEI CERT C Coding Standard](https://web.archive.org/web/20220511061752/https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[Reference Goes here](http://YOUR_LINK)|
 |[ISO/IEC TR 24772:2019]|[Reference Goes here](http://YOUR_LINK)|
