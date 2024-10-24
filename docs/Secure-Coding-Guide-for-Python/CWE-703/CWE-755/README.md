@@ -17,9 +17,9 @@ The full list of OS exceptions can be found in the Python documentation [[Python
 
 It is important to handle those exceptions when performing file I/O operations.
 
-## Non-Compliant Code Example (os.remove()/os.unlink())
+## Non-Compliant Code Example (`os.remove()`/`os.unlink()`)
 
-This code example demonstrates an attempt to read a non-existent file using the os module. The `read_file()` function opens a file and reads its content using `os.open()` and `os.read()`. If the file does not exist, an `OSError`  or `FileNotFoundError` will be raised when trying to access the randomly generated file name.
+This code example demonstrates an attempt to read a non-existent file using the `os` module. The `read_file()` function opens a file and reads its content using `os.open()` and `os.read()`. If the file does not exist, an `OSError`  or `FileNotFoundError` will be raised when trying to access the randomly generated file name.
 
 *[noncompliant01.py](noncompliant01.py):*
 
@@ -44,7 +44,7 @@ def read_file(file):
 read_file(f"{uuid.uuid4()}.txt")
 ```
 
-## Compliant Solution (try/except blocks)
+## Compliant Solution (`try/except` blocks)
 
 The file opening and reading should be surrounded by the `try/except` block. This way, we can catch the generic `OSError` and handle the error differently depending on its cause (such as the file not existing or it being a directory instead).
 
@@ -82,7 +82,7 @@ def read_file(file):
 read_file(f"{uuid.uuid4()}.txt")
 ```
 
-## Non-Compliant Code Example (pathlib.Path.unlink())
+## Non-Compliant Code Example (`pathlib.Path.unlink()`)
 
 The `pathlib` module also provides functions for opening and reading files. The `Path.read_text()` method attempts to read the content of the file represented by the `Path` object. If the file does not exist, it will raise a `FileNotFoundError`. In this code example, this exception is expected when attempting to read a randomly generated non-existent file.
 
@@ -109,7 +109,7 @@ def read_file(file):
 read_file(f"{uuid.uuid4()}.txt")
 ```
 
-The `pathlib.Path.unlink()` function has an optional parameter `missing_ok` that will suppress the `FileNotFoundError on file deletion`, if the parameter's value is `True` . However, without proper handling, using this parameter will cause the script to fail silently.
+The `pathlib.Path.unlink()` function has an optional parameter `missing_ok` that will suppress the `FileNotFoundError` on file deletion, if the parameter's value is `True` . However, without proper handling, using this parameter will cause the script to fail silently.
 
 *[noncompliant03.py](noncompliant03.py):*
 
@@ -133,9 +133,9 @@ def delete_temporary_file(file):
 delete_temporary_file(f"{uuid.uuid4()}.txt")
 ```
 
-## Compliant Solution (pathlib module)
+## Compliant Solution (`pathlib` module)
 
-Since the `pathlib` module uses the same exceptions as the os module, error handling can be implemented in the same way.
+Since the `pathlib` module uses the same exceptions as the `os` module, error handling can be implemented in the same way.
 
 *[compliant02.py](compliant02.py):*
 
