@@ -342,9 +342,12 @@ This warning flag does not have a performance impact. However, sometimes a fallt
 The C17 standard[^C2017] does not provide a mechanism to mark intentional fallthroughs. Different tools support different mechanisms for marking one, including attributes and comments in various forms[^Shafik15]. A portable way to mark one is to define a function-like macro named `fallthrough()` to mark an intentional fallthrough that adjusts to the relevant tool (e.g., compiler) mechanism. We suggest using this construct below, inspired by the keyword-like construct used by the Linux kernel version 6.4 and later[^Howlett23]. We suggest using a function call syntax instead so more editors and other tools will deal with it correctly:
 
 ~~~c
-#if __has_attribute(__fallthrough__)
-# define fallthrough()                    __attribute__((__fallthrough__))
-#else
+#ifdef __has_attribute
+# if __has_attribute(__fallthrough__)
+#  define fallthrough()                    __attribute__((__fallthrough__))
+# endif
+#endif
+#ifndef fallthrough
 # define fallthrough()                    do {} while (0)  /* fallthrough */
 #endif
 ~~~
