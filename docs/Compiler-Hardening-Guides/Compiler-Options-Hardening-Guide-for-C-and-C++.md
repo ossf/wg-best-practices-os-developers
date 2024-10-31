@@ -65,7 +65,19 @@ Applications written in the C and C++ programming languages are prone to exhibit
 
 [^Cimpanu2020]: Cimpanu, Catalin, [Chrome: 70% of all security bugs are memory safety issues](https://www.zdnet.com/article/chrome-70-of-all-security-bugs-are-memory-safety-issues/), ZDNet, 2020-05-22
 
-Most programming languages prevent such defects by default. A few languages allow programs to temporarily suspend these protections in special circumstances, but they are intended for use in a few lines, not the whole program. There have been calls to rewrite C and C++ programs in other languages, but this is expensive and time-consuming, has its own risks, is sometimes impractical today (especially for less-common CPUs). Even with universal agreement, it would take decades to rewrite all such code. Consequently, it's important to take other steps to reduce the likelihood of defects becoming vulnerabilities. Aggressive use of compiler options can sometimes detect vulnerabilities or help counter their run-time effects.
+Most high-level programming languages are *"memory safe"* and prevent such defects by default. Many of these languages allow programs to temporarily suspend memory-safety protections in special circumstances, such as when calling into operating system APIs written in C, but such suspensions are intended to be limited for a few lines of code, not for the whole program. There have been calls to rewrite C and C++ programs in memory-safe languages. This has happened in some cases[^Prossimo2024]; however, such rewriting is expensive and time-consuming, has its own risks, and is sometimes impractical today, especially for uncommon CPUs. Even if universally agreed upon, rewriting all C and C++ code would take decades and incur massive monetary costs. One rough estimate of such rewrites puts the cost at $2.4 trillion US dollars[^Wheeler2024], which would make rewriting C and C++ a problem of similar scale (in terms of monetary investment required) as keeping global climate change goals within reach[^Volcovici2024]. Consequently, not all C and C++ can be revised or discarded[^Claburn2024]. For example, Google anticipates *"a residual amount of mature and stable memory-unsafe code will remain for the foreseeable future"*[^Rebert2024].
+
+[^Claburn2024]: Claburn, Thomas, [Google's memory safety plan includes rehab for unsafe languages: Large C and C++ codebases will be around for the 'foreseeable future'](https://www.theregister.com/2024/10/16/google_legacy_code/), The Register, 2024-10-16.
+
+[^Prossimo2024]: Internet Security Research Group, [Prossimo](https://www.memorysafety.org/), Prossimo project homepage. 2024-10-22.
+
+[^Rebert2024]: Rebert, Alex; Carruth, Chandler; Engel, Jen, and Qin, Andy, [Safer with Google: Advancing Memory Safety](https://security.googleblog.com/2024/10/safer-with-google-advancing-memory.html), Google Security Blog, 2024-10-15.
+
+[^Volcovici2024]: Volcovici, Valerie, [UN climate chief calls for $2.4 trillion in climate finance](https://www.reuters.com/sustainability/sustainable-finance-reporting/un-climate-chief-calls-24-trillion-climate-finance-2024-02-02/), Reuters, 2024-02-02.
+
+[^Wheeler2024]: Wheeler, David A., [Improving Memory Safety without a Trillion Dollars](https://docs.google.com/presentation/d/1EDQL-6MUKrqbILBtYjpiF96uW5LXcnIuE-HxzyCIr68/edit), 2024.
+
+Consequently, it's important to accept that C and C++ will continue to be used, and to take *other* steps to reduce risks. To reduce risk, we must reduce the likelihood of defects becoming vulnerabilities, or reduce the impact of such defects. Aggressive use of compiler options can sometimes detect vulnerabilities or help counter their run-time effects.
 
 Run-time attacks differ from conventional malware, which carries out its malicious program actions through a dedicated program executable, in that run-time attacks influence benign programs to behave maliciously. A run-time attack that exploits unmitigated memory vulnerabilities can be leveraged by threat actors as the initial attack vectors that allow them to gain a presence on a system, e.g., by injecting malicious code into running programs.
 
