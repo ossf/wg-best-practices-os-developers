@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+  asprintf(&result, "pre_%s_post", s);
+  free(s);
+  return result;
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+\s*
+  asprintf \( & result , "pre_%s_post" , s \) ;
+  free \( s \) ;
+  return result ;
+\s*
+</script>
+
+<script id="info" type="application/yaml">
+---
+hints:
+- present: |-
+    \s*free[^;]*; asprintf
+  text: Do not free the input first, you need to use it.
+  examples:
+    - - |-
+           free(s);
+           asprintf(&result, "pre_%s_post", s);
+- present: |-
+    \s* asprintf \(
+  absent: free
+  text: This fails to free the memory, likely leading to a missing release.
+  examples:
+    - - |-
+           asprintf(&result, ""pre_%s_post"", s);
+- absent: return
+  text: This fails to return the result.
+- absent: |-
+    \s* [^;]+;[^;]+;[^;]+; \s*
+  text: There should be 3 statements, each terminated with a semicolon.
+  examples:
+    - - |-
+           asprintf(&result, "pre_%s_post", s);
+           free(s);
+           return result
+- present: |-
+    \s* return result ; free \s*
+  text: Do not do anything after the return, it will not execute.
+  examples:
+    - - |-
+           asprintf(&result, "pre_%s_post", s);
+           return result;
+           free(s);
+# debug: true
+</script>
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise free</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html" target="_blank">introduction to
+the labs</a>.
+
+<p>
+<h2>Task</h2>
+<p>
+<b>Please fix the code below to fix a simple use-after-free bug.</b>
+
+<p>
+<h2>Background</h2>
+<p>
+Practically all programming languages allow developers to
+quickly allocate memory and store data in that memory region.
+Once the program is finished using that memory,
+most programming languages automatically reclaim it.
+
+<p>
+However, the programming languages
+C and C++ require <i>manual</i> memory management.
+That is, developers using C and C++
+must <i>manually</i> tell the system to release a memory region
+(using <tt>free</tt> and <tt>delete</tt> respectively).
+Manual memory management can have performance benefits, and it's
+conceptually simple.
+However, manual memory management can also lead to a variety of common types
+of bugs:
+
+<ol>
+<li>Double-free: Release the same memory region more than once.
+<li>Use-after-free: Use the memory (for reading or writing) after it's
+been released.
+<li>Missing release: Fail to release memory after it's no longer used.
+</ol>
+
+<p>
+These bugs often happen because it's difficult to be perfect, all the time,
+as software becomes larger and more complex.
+Many vulnerabilities have stemmed from manual memory management bugs.
+Not <i>all</i> such bugs are vulnerabilities, but many are.
+
+<p>
+<h2>Task Information</h2>
+<p>
+
+<p>
+Please change the C code below to fix a simple use-after-free bug.
+This code for the function <tt>tweak</tt> accepts a
+string named <tt>s</tt>.
+It must call the function <tt>asprintf</tt> to
+create a new string that contains the text
+<tt>pre_</tt>, the input text (<tt>s</tt>), and the text <tt>_post</tt>.
+The function <tt>tweak</tt> must eventually return this new result.
+Unfortunately the current code makes a call to <tt>free</tt> to release
+a memory region <i>before</i> the last use of that memory.
+This can lead to a "use-after-free" bug.
+Whether or not this bug can cause a problem depends on
+many implementation details, but we don't want it to ever cause a problem.
+
+<p>
+Please fix this code!
+Use the “hint” and “give up” buttons if necessary.
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+<p>
+<form id="lab">
+<pre><code
+>#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdio.h&gt;
+
+// Return tweaked version of string s. Frees s.
+char *tweak(char *s) {
+  char *result; // Put result here
+<textarea id="attempt0" rows="4" cols="60" spellcheck="false">
+  free(s);
+  asprintf(&result, "pre_%s_post", s);
+  return result;
+</textarea>
+}
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+<br><br>
+<p>
+<i>This lab was developed by David A. Wheeler at
+<a href="https://www.linuxfoundation.org/"
+>The Linux Foundation</a>.</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>

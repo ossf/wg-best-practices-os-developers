@@ -364,9 +364,17 @@ If you want to check an index other than `0`, add an `index` field and provide
 an integer.
 
 A hint can include an `examples` field, which must then contain
-an array of examples (each example is an array of Strings).
+an array of examples which are used as tests.
+Each example is an array of Strings; each element
+corresponds to the indexes.
 On load the system will verify that each example will report the
-maatching hint (this helps ensure that the hint order is sensible).
+matching hint (this helps ensure that the hint order is sensible).
+
+At the time of this writing, all examples are loaded and used as tests
+to ensure that the hint requested is actually the one reported.
+If your example is for a later index, provide test values that
+don't trigger earlier index values. Currently those values are ignored,
+but future versions will probably use them when checking the examples.
 
 #### Examples of hints
 
@@ -397,6 +405,21 @@ the hint.
 
 The second hint triggers when the user attempt *contains* the given
 pattern (note the term `present`).
+
+The "examples" shown here are for a common case: the index is 0.
+Once you have multiple index, you'll need to use a longer form for
+examples with larger indexes:
+
+~~~~yaml
+  examples:
+  -
+    - "  VALUE FOR INDEX0"
+    - "  VALUE FOR INDEX1"
+  -
+    - "  VALUE FOR INDEX0"
+    - "  VALUE FOR INDEX1"
+~~~~yaml
+
 
 ### Notes on YAML
 
@@ -648,7 +671,7 @@ Here is an example:
 
 ~~~~yaml
 preprocessing:
-  - 
+  -
     - |-
         [\n\r]+
     - ""
