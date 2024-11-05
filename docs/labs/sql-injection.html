@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+  String QueryString = "select * from authors where lastname=?";
+  PreparedStatement pstmt = connection.prepareStatement(QueryString);
+</script>
+
+<script id="correct0" type="plain/text">
+\s* String\s+QueryString =
+   \"select\s+\*\s+from\s+authors\s+where\s+lastname\s*\=\s*\?\s*;?\s*\" \;
+\s* PreparedStatement\s+pstmt = connection \. prepareStatement \( QueryString \) \; \s*
+</script>
+
+<script id="expected1" type="plain/text">
+  pstmt.setString(1, search_lastname);
+  ResultSet results = pstmt.executeQuery( );
+</script>
+
+<!--
+Note: Java Statement has an "executeQuery" method, of form:
+  ResultSet executeQuery(String sql)
+It requires exactly one parameter and does NOT accept added parameters.
+So `executeQuery(sql, search_lastname)` is not legal Java.
+
+See:
+https://docs.oracle.com/en/java/javase/22/docs/api/java.sql/java/sql/Statement.html
+-->
+<script id="correct1" type="plain/text">
+\s* pstmt \. setString \( 1 , search_lastname \) \;
+\s* ResultSet\s+results = pstmt \. executeQuery \( \) \; \s*
+</script>
+
+
+<script id="info" type="application/yaml">
+---
+hints:
+- present: |-
+   search_lastname
+  text: You should replace "search_lastname" with a placeholder.
+  index: 0
+  examples:
+  - - "search_lastname"
+- absent: |-
+    \?
+  text: Write an parameterized statement with the Special character "?" added.
+  index: 0
+- present: |-
+    \+
+  index: 0
+  text: There is no need for string concatenation. Use a simple constant string
+    using the form "...".
+  examples:
+  -
+    - |
+        String QueryString =
+          "select * from authors where lastname = " + "?" + " ; ";
+    - ""
+- absent: |-
+    \s* PreparedStatement\s+pstmt = connection \.
+        prepareStatement \( QueryString \) \; \s*
+  text: Your second line should have the form
+    `PreparedStatement pstmt = connection.prepareStatement(QueryString);`
+- absent: search_lastname
+  present: lastname
+  index: 1
+  text: The term `lastname` is the name of the database field to be searched, However,
+    you want to search for a specific value in that field.
+    That value is held in the variable `search_lastname`, not in `lastname`.
+- absent: |-
+    pstmt \. setString \( 1 , search_lastname \) \;
+  index: 1
+  text: Start the second section with a statement like
+    `pstmt.setString(1, search_lastname);`
+- absent: executeQuery
+  present: execute
+  index: 1
+  text: Use `executeQuery` not `execute` so we can receive and use a
+    potential series of results (a `ResultSet`).
+- absent: |-
+    \s* ResultSet\s+results = pstmt \. executeQuery \( \) \; \s*
+  index: 1
+  text: After using `setString` execute the query and place the results in `results`,
+    something like `ResultSet results = pstmt.executeQuery();`
+# debug: true
+</script>
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise sql-injection</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html" target="_blank">introduction to
+the labs</a>.
+
+<p>
+<h2>Goal</h2>
+<p>
+<b>Practice constructing parameterized statements to prevent SQL injection attacks.
+</b>
+
+<p>
+<h2>Background</h2>
+<p>
+Parameterized statements are used to prevent SQL injection attacks by seperating SQL code from its data inputs. Parameterized statements are SQL queries which utilize place holders instead of directly embedding user inputs into a query. This prevents queries from being injected with malicious code.
+<p>
+<h2>Task Information</h2>
+<p>
+
+<p>
+In this lab, you will study and modify code relating to SQL injection attacks. You will answer a couple of questions related to prepared/parameterized statements.
+
+<p>
+Use the “hint” and “give up” buttons if necessary.
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+<p>
+Looking at the following example code in Java, we can see that this is an
+example of vulnerable code. (This example was taken directly from
+the <a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md">Secure
+Software Development Fundamentals</a> course content.)
+Rewrite these statements so this sequence uses a prepared statement
+(a kind of parameterized statement).
+In the first part, create variable named <tt>pstmt</tt> of type
+<tt>PreparedStatement</tt>.
+In the second part, use <tt>setString</tt> to set what we're searching for,
+and put the results in a variable named <tt>results</tt> with type <tt>ResultSet</tt>.
+Use <tt>executeQuery</tt> to execute the query, since in this case we want
+a collection of results.
+
+<form id="lab">
+<pre><code
+> // Prepare to execute a query.
+<textarea id="attempt0" rows="4" cols="60" spellcheck="false"
+>  String QueryString =
+     "select * from authors where lastname = ' " +
+     search_lastname + " '; ";
+</textarea>
+  // Execute the query.
+<textarea id="attempt1" rows="3" cols="60" spellcheck="false"
+>  rs = statement.executeQuery(QueryString);
+</textarea>
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+</form>
+<br><br>
+<p>
+<i>This lab was developed by Elijah Everett, Jeremiah Howard, and Emily Lovell as part of the
+<a href="https://github.com/emmet0r/contributor-catalyst"
+>Contributor Catalyst Program</a>, as well as by David A. Wheeler.</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</div>
+</body>
+</html>

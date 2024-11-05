@@ -222,25 +222,32 @@ const attemptIdPattern = /^attempt(\d+)$/;
  * Given Node @form in document, return array of indexes of input/textareas
  */
 function findIndexes(form) {
-    let inputs = form.querySelectorAll(
-        "input[type='text']:not(:read-only),textarea:not(:read-only)");
-    if (!inputs) {
-        // Shouldn't happen. Reaching this means the current form has no inputs.
-        // We'll do a "reasonable thing" - act as if all is in scope.
-        return correctRe.map((_, i) => i);
-    } else {
-        let result = [];
-        // Turn "approach0", "approach1" into [0, 1].
-        for (input of inputs) {
-            // alert(`findIndexes: ${input.id}`);
-            let matchResult = input.id.match(attemptIdPattern);
-            if (matchResult) {
-                let index = Number(matchResult[1]);
-                result.push(index);
-	    }
+    try {
+        let inputs = form.querySelectorAll(
+            "input[type='text']:not(:read-only),textarea:not(:read-only)");
+        if (!inputs) {
+            // Shouldn't happen. Reaching this means the current form
+            // has no inputs.
+            // We'll do a "reasonable thing" - act as if all is in scope.
+            return correctRe.map((_, i) => i);
+        } else {
+            let result = [];
+            // Turn "approach0", "approach1" into [0, 1].
+            for (input of inputs) {
+                // alert(`findIndexes: ${input.id}`);
+                let matchResult = input.id.match(attemptIdPattern);
+                if (matchResult) {
+                    let index = Number(matchResult[1]);
+                    result.push(index);
+    	        }
+            }
+            // alert(`findIndexes = ${result}`);
+            return result;
         }
-        // alert(`findIndexes = ${result}`);
-        return result;
+    } catch (e) {
+        showDebugOutput(
+            `Lab Error: findIndexes raises exception ${e}`);
+        throw e; // Rethrow, so containing browser also gets it
     }
 }
 
@@ -418,12 +425,14 @@ function processHints(requestedHints) {
         newHint.text = hint.text;
         // Precompile all regular expressions & report any failures
         if (hint.present) {
+            newHint.present = hint.present;
             newHint.presentRe = processRegex(hint.present,
                 `hint[${i}].present`, false);
         };
         if (hint.absent) {
+            newHint.absent = hint.absent;
             newHint.absentRe = processRegex(hint.absent,
-                `hint[${i}].present`, false);
+                `hint[${i}].absent`, false);
         };
         if (!hint.absent && !hint.present && (i != requestedHints.length - 1)) {
             showDebugOutput(
@@ -524,6 +533,13 @@ function runSelftest() {
        }
     };
 
+    const buttonsNotInForms =
+        document.querySelectorAll('button:not(form button)');
+    if (buttonsNotInForms.length != 0) {
+        showDebugOutput(
+            `Lab Error: Buttons not in a form: ${buttonsNotInForms}`);
+    };
+
     // Run tests of the preprocessing process, if present
     for (let example of (info.preprocessingTests || [])) {
         if (!validProcessing(example)) {
@@ -551,11 +567,11 @@ function runSelftest() {
     for (let hint of hints) {
         if (hint.examples) {
             for (let example of hint.examples) {
-		// Create a testAttempt
-                let testAttempt = expected.slice(); // shallow copy of expected
-                testAttempt[hint.index] = example;
-		// What hint does our new testAttempt give?
-                actualHint = findHint(testAttempt, [hint.index]);
+		// We directly pass our example.
+		// This means that examples will need to contain multiple
+		// values if the index > 0. We only return hints with the
+		// given hint index.
+                actualHint = findHint(example, [hint.index]);
                 if (actualHint != hint.text) {
                     alert(`Lab Error: Unexpected hint!\n\nExample:\n${example}\n\nExpected hint:\n${hint.text}\n\nProduced hint:\n${actualHint}\n\nExpected (passing example)=${JSON.stringify(expected)}\n\ntestAttempt=${JSON.stringify(testAttempt)}\nFailing hint=${JSON.stringify(hint)}`);
                 };

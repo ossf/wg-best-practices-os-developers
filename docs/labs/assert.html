@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+        if (bindingResult.hasErrors()) {
+            return "form";
+        }
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+\s* if \( bindingResult \. hasErrors \( \) \) \{
+            return "form" ;
+        \} \s*
+</script>
+
+<script id="info" type="application/yaml">
+---
+hints:
+- present: |
+    assert
+  text: The whole point of this exercise is to NOT use `assert`
+    as a way to validate input from untrusted users.
+  examples:
+    - - |
+           assert !bindingResult.hasErrors();
+- absent: |
+    ^\s*if
+  text: Begin with `if` so you can return a result if there are errors.
+  examples:
+    - - |
+           return "form";
+- present: (bindingresult|BindingResult)
+  text: Java is case-sensitive. Use `bindingResult`, not
+    `bindingresult` nor `BindingResult`.
+- present: (haserrors|HasErrors)
+  text: Java is case-sensitive. Use `hasErrors`, not
+    `haserrors` nor `HasErrors`.
+# https://docs.oracle.com/javase/specs/jls/se23/html/jls-14.html#jls-14.9
+- present: |
+    ^\s*if\s*[^\(\s]
+  text: In Java, after the keyword `if` you must have an open left parenthesis.
+    Conventionally there is one space between the `if` keyword and the
+    open left parenthesis.
+  examples:
+    - - |
+           if bindingResult.hasErrors
+- present: |
+    ^\s*if\s*\(\s*\!binding
+  text: You have an extraneous `!` (not operator).
+    Use the expression if (bindingResult.hasErrors()) ...
+  examples:
+    - - |
+           if (!bindingResult.hasErrors())
+- absent: |
+    ^ if \( bindingResult \. hasErrors \( \) \)
+  text: Begin the answer with the text
+    `if (bindingResult.hasErrors())` so that a statement will
+    be executed if that condition is true.
+- present: |
+    if \( bindingResult \. hasErrors \( \) \) [^\{\s]
+  text: Follow the conditional with an open brace, e.g.,
+    `if (bindingResult.hasErrors()) {...`.
+- absent: |
+    return "form"
+  text: You need to use `return "form";` somewhere.
+- present: |
+    return "form"
+  absent:
+    return "form" ;
+  text: You need to use `;` (semicolon) after `return "form"` because
+    in Java statements must be followed by a semicolon.
+- absent: |
+    \} $
+  text: The answer needs to end with `}` (closing brace).
+successes:
+  - - |
+        if ( bindingResult.hasErrors() ) {
+            return "form";
+        }
+    - |
+        if ( bindingResult . hasErrors ( ) ) { return "form" ; }
+failures:
+  - |
+        if ( bindingResult . hasErrors ( ) ) { return "form" }
+  - |
+        if ( ! bindingResult . hasErrors ( ) ) { return "form" ; }
+  - |
+        if bindingResult . hasErrors ( ) { return "form" ; }
+  - |
+        if ( bindingResult . hasErrors ) { return "form" ; }
+# debug: true
+</script>
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise assert</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html" target="_blank">introduction to
+the labs</a>.
+
+<p>
+<h2>Task</h2>
+<p>
+<b>Please fix the sample code so attackers cannot easily trigger an assertion.</b>
+
+<p>
+<h2>Background</h2>
+<p>
+In this exercise, we'll modify a Java server-side web application that
+uses the <a href="https://en.wikipedia.org/wiki/Spring_Framework"
+>Spring framework</a>.
+<!--
+Spring Framework is OSS (Apache 2.0 licensed) and listed
+as a top one at <https://radixweb.com/blog/best-java-frameworks>.
+We aren't advocating any specific framework, just using
+real-world frameworks as an example.
+-->
+
+<p>
+<h2>Task Information</h2>
+<p>
+
+<p>
+The sample code below raises an assertion if the input fails to validate.
+This approach <i>does</i> validate the input and reject input that fails to
+validate. However, as implemented, failed assertions halt the
+<i>entire</i> program. Attackers
+can trivially provide input that fails validation, making it
+easy for attackers to shut down an entire program.
+
+<p>
+Please change the code below so that <i>instead</i> of asserting that
+there are no form validation errors, check if there are errors, and
+return the string <tt>"form"</tt> if it does (causing the
+framework to redisplay the input form).
+When incorrect input arrives it's usually better to redisplay an input form
+instead of crashing the entire program.
+
+<p>
+Use the “hint” and “give up” buttons if necessary.
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+<p>
+<form id="lab">
+<pre><code
+>@Controller
+public class WebController implements WebMvcConfigurer {
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/results").setViewName("results");
+    }
+
+    @GetMapping("/")
+    public String showForm(PersonForm personForm) {
+        return "form";
+    }
+
+    @PostMapping("/")
+    public String checkPersonInfo(@Valid PersonForm personForm,
+                                  BindingResult bindingResult) {
+<textarea id="attempt0" rows="3" cols="60" spellcheck="false"
+>        assert !bindingResult.hasErrors();</textarea>
+
+        return "redirect:/results";
+    }
+}
+
+// If you use a textarea:
+</code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+<br><br>
+<p>
+<i>This lab was developed by David A. Wheeler at
+<a href="https://www.linuxfoundation.org/"
+>The Linux Foundation</a>.</i>
+It is based on the
+<a href="https://spring.io/guides/gs/validating-form-input"
+>validating-form-input</a> section in the Spring.io guides.
+
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>

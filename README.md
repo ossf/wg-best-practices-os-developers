@@ -76,16 +76,17 @@ Our work is organized into several discrete-yet-related projects that help us ac
 
 | Effort                  |     Description           |       Git Repo        | Slack Channel | Mailing List |
 | ------------------      | ------------------------  |  -------------------  |  -----------  |  ----------  |
-| Best Practices Guides   | Longer reference documents on implementing specific secure techniques   | - [Compiler Annotations for C and C++ (incubating)](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Annotations-for-C-and-C++.html), </p> - [Compiler Options Hardening Guide for C and C++](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++), </p> - [Existing Guidelines for Developing and Distributing Secure Software](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Existing%20Guidelines%20for%20Developing%20and%20Distributing%20Secure%20Software.md), </p> - [Package Manager Best Practices (incubating)](https://github.com/ossf/package-manager-best-practices), </p> - [npm Best Practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md), </p> - [Source Code Management Platform Configuration Best Practices](docs/SCM-BestPractices/README.md), </p> - [Secure Coding Guide for Python](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python), | [SCM Slack](https://openssf.slack.com/archives/C058EC1EZ5Y) | |
+| Best Practices Guides   | Longer reference documents on implementing specific secure techniques   | - [Compiler Annotations for C and C++ (incubating)](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Annotations-for-C-and-C++.html), </p> - [Compiler Options Hardening Guide for C and C++](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++), </p> - [Existing Guidelines for Developing and Distributing Secure Software](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Existing%20Guidelines%20for%20Developing%20and%20Distributing%20Secure%20Software.md), </p> - [Package Manager Best Practices (incubating)](https://github.com/ossf/package-manager-best-practices), </p> - [npm Best Practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md), </p> - [Source Code Management Platform Configuration Best Practices](docs/SCM-BestPractices/README.md), </p> - [Secure Coding Guide for Python](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python), | - [#wg-best-practices-compilers](https://openssf.slack.com/archives/C07LH7RH8MT), </p> - [#wg-best-practices-scm](https://openssf.slack.com/archives/C058EC1EZ5Y) | |
 |  Concise Guides SIGs   |  Quick Guidance around Open Source Software Develpment Good Practices | - [Concise Guide for Developing More Secure Software](https://best.openssf.org/Concise-Guide-for-Developing-More-Secure-Software), </p> - [Concise Guide for Evaluating Open Source Software](https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software) |  | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) |
 | Education SIG - (incubating) | To provide industry standard secure software development training materials that will educate learners of all levels and backgrounds on how to create, compose, deploy, and maintain software securely using best practices in cyber and application security. | [EDU.SIG](https://github.com/ossf/education/)  | [stream-01-security-education](https://openssf.slack.com/archives/C03FW3YGXH9)  |  [Mailing List](https://lists.openssf.org/g/openssf-sig-education)  |
 |[OpenSSF Best Practices Badge - formerly CII Best Practices badge](https://www.bestpractices.dev/) | Identifies FLOSS best practices & implements a badging system for those practices, | | | |
 | [OpenSSF Scorecard](https://scorecard.dev/) | Automate analysis on the security posture of open source projects | [OpenSSF Scorecard](https://github.com/ossf/scorecard) | [#scorecard](https://openssf.slack.com/archives/C0235AR8N2C) | [Contribute!](https://github.com/ossf/scorecard?tab=readme-ov-file#contribute) |
 | [OpenSSF Scorecard — Allstar](https://github.com/ossf/allstar) | Monitors GitHub organizations or repositories for adherence to security best practices | [Allstar](https://github.com/ossf/allstar) | [#allstar](https://openssf.slack.com/archives/C02UQ2RL0HM) | [Contribute!](https://github.com/ossf/scorecard?tab=readme-ov-file#contribute) |
+| [OpenSSF Security Baseline](https://github.com/ossf/security-baseline) | Provide avenue for particpants to help evolve the OpenSSF security baseline into a security baseline that can be applied to a broad range of software-based projects |[OpenSSF Security Baseline](https://github.com/ossf/security-baseline) | [#sig-security-baseline](https://app.slack.com/client/T019QHUBYQ3/C07DC6TT2QY) | [Mailing List](https://lists.openssf.org/g/openssf-sig-security-baseline) |
 | [Secure Software Development Fundamentals - online course](https://openssf.org/training/courses/)  |Teach software developers fundamentals of developing secure software  | [GitHub](https://github.com/ossf/secure-sw-dev-fundamentals) | | |
 | Memory Safety SIG | The Memory Safety SIG is a group working within the OpenSSF's Best Practices Working Group formed to advance and deliver upon The OpenSSF's Mobilization Plan - Stream 4.   |[Git Repo](https://github.com/ossf/Memory-Safety) | [Slack](https://openssf.slack.com/archives/C03G8NZH58R) | [Mailing List](https://lists.openssf.org/g/openssf-sig-memory-safety) |
 |  The Security Toolbelt | Assemble a “sterling” collection of capabilities (**software frameworks, specifications, and human and automated processes**) that work together to **automatically list, scan, remediate, and secure the components flowing through the software supply chain** that come together as software is written, built, deployed, consumed, and maintained. Each piece of the collection will represent an **interoperable** link in that supply chain, enabling adaptation and integration into the major upstream language toolchains, developer environments, and CI/CD systems. | [Security Toolbelt](https://github.com/ossf/toolbelt) | [security-toolbelt](https://openssf.slack.com/archives/C057BN7K19B) | [Mailing List](Openssf-sig-sterling-toolchain@lists.openssf.org) |
-| Python Hardening Guide SIG | A group working to document a secure coding guide for python and associates code examples | [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python) | Slack | Mailing List |
+| Python Hardening Guide SIG | A group working to document a secure coding guide for python and associates code examples | [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python) | [#secure-coding-guide-for-python](https://openssf.slack.com/archives/C07LH7RH8MT) |  |
 
 ## Related resources
 
@@ -138,12 +139,12 @@ Every 2 weeks, Tuesday 10am EST. The meeting invite is available on the [public 
 | Effort       |    Meeting Times                                         |    Meeting Notes/Agenda    |       Git Repo        | Slack Channel | Mailing List |
 | :----------: | :------------------------------------------------------: | :------------------------: | :-------------------: | :-----------: | :----------: |
 |   Full WG    | Every two weeks, Tuesday 7:00a PT/10:00a ET/1400 UTC   | [Meeting Notes](https://docs.google.com/document/d/1UClGUnOSkOH_wab6Lx43KUdkaK37L8sbWJ_GPZvc1YY/edit?usp=sharing)           |  [Git Repo](https://github.com/ossf/wg-best-practices-os-developers) | [Slack](https://openssf.slack.com/archives/C01AHCRP8BT) | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) |
-| C/C++ Compiler Hardening Options | Every two weeks, Thursday 6:00a PT/9:00a ET/1300 UTC | [Meeting Notes](https://docs.google.com/document/d/1JY8FREBPCUUFpuv7-4B9EjeS2MLDpel0dbG5DFWrTns)           |  [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Compiler_Hardening_Guides/Compiler-Options-Hardening-Guide-for-C-and-C%2B%2B.md) | [Slack](https://openssf.slack.com/archives/C01AHCRP8BT) | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) |
+| C/C++ Compiler Hardening Options | Every two weeks, Thursday 6:00a PT/9:00a ET/1300 UTC | [Meeting Notes](https://docs.google.com/document/d/1JY8FREBPCUUFpuv7-4B9EjeS2MLDpel0dbG5DFWrTns)           |  [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Compiler_Hardening_Guides/Compiler-Options-Hardening-Guide-for-C-and-C%2B%2B.md) | [Slack](https://openssf.slack.com/archives/C058E884WN7) | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) |
 |   EDU.SIG   | Every 2 weeks, Wednesday 6:00a PT/9:00a ET/1400 UTC   | [Meeting Notes](https://docs.google.com/document/d/1NPk5HZLfSMLpUsqaqVcbUSmSR66gS8WoJmEqfsCwrrE/edit#heading=h.yi1fmphbeqoj)                       |  [Git Repo](https://github.com/ossf/education) | [Slack](https://openssf.slack.com/archives/C03FW3YGXH9) | [Mailing List](https://lists.openssf.org/g/openssf-sig-education) |
-|  Memory Safety SIG   | Every 2 weeks, Thursday 10:00a PT/1:00p ET/1500 UTC           | [Meeting Notes](https://docs.google.com/document/d/1KgWw0co9xvUfCqQYW6Qei2lii2Fl-t-L7gYkAZBYDWg/edit?usp=sharing)                       |  [Git Repo](https://github.com/ossf/Memory-Safety) | [Slack](https://openssf.slack.com/archives/C03G8NZH58R) | [Mailing List](https://lists.openssf.org/g/openssf-sig-memory-safety) |
+|  Memory Safety SIG   | Every 2 weeks, Thursday 10:00a PT/1:00p ET/1500 UTC           | [Meeting Notes](https://docs.google.com/document/d/1RnIzqeKyrOJvs6vQ8xGH6TjZDoEFaGUs1NkAx--v_3Y/edit?usp=sharing)                       |  [Git Repo](https://github.com/ossf/Memory-Safety) | [Slack](https://openssf.slack.com/archives/C03G8NZH58R) | [Mailing List](https://lists.openssf.org/g/openssf-sig-memory-safety) |
 |  Scorecard  | Every 2 weeks, Thursday 1:00p PT/4:00p ET/1800 UTC    | [Meeting Notes](https://docs.google.com/document/d/1b6d3CVJLsl7YnTE7ZaZQHdkdYIvuOQ8rzAmvVdypOWM/edit?usp=sharing)           |  [Git Repo](https://github.com/ossf/scorecard) | [Slack](https://openssf.slack.com/archives/C0235AR8N2C ) | Mailing List |
-|  The Security Toolbelt  | Every Tuesday Noon/12pm ET  | [Meeting Notes](https://docs.google.com/document/d/1H3Nk0PwmylLg5F7pqrIvyKzTyXAll0-f50B7DdqOh4A/edit#heading=h.a615m7qzeitc)           |  [Git Repo](https://github.com/ossf/toolbelt) | [Slack](https://openssf.slack.com/archives/C057BN7K19B) | [Mailing List](Openssf-sig-sterling-toolchain@lists.openssf.org) |
-| Python Hardening Guide SIG | Every two weeks, Monday 11AM ET  | [Meeting Notes](https://docs.google.com/document/d/1JY8FREBPCUUFpuv7-4B9EjeS2MLDpel0dbG5DFWrTns/edit) | [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python) | Slack | Mailing List |
+| Security Baseline  | Every other Tuesday @ 10:00am EST  | [Meeting Minutes](https://docs.google.com/document/d/16tL1Ln7owIRXSoCKgyYHCs9-JP9iw-ouyk8koGAeHA0/)  | [Git Repo](https://github.com/ossf/security-baseline) | [Slack](https://openssf.slack.com/archives/C07DC6TT2QY) | [Mailing List](https://lists.openssf.org/g/openssf-sig-security-baseline) |
+| Python Hardening Guide SIG | Every two weeks, Monday 11AM ET  | [Meeting Notes](https://docs.google.com/document/d/1JY8FREBPCUUFpuv7-4B9EjeS2MLDpel0dbG5DFWrTns/edit) | [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python) | [Slack](https://openssf.slack.com/archives/C07LH7RH8MT) | Mailing List |
 | EDU.SIG - Course Content Collab | Every week, Monday 1PM ET | [Meeting Notes](https://docs.google.com/document/d/1NPk5HZLfSMLpUsqaqVcbUSmSR66gS8WoJmEqfsCwrrE/edit#heading=h.y1wl36c7u5mn) | [Git Repo](https://github.com/ossf/education) | Slack | Mailing List |
 
 ## Meeting Notes
@@ -154,45 +155,47 @@ Meeting notes are maintained in a Google Doc found in the above table. If attend
 
 The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group activities.
 
-- Lead - [Christopher "CRob" Robinson](https://github.com/SecurityCRob)
-- Co-Lead - [Randall T. Vasquez*, The Linux Foundation](https://github.com/ran-dall)
+- Co-chair - [Avishay Balter, Microsoft](https://github.com/balteravishay)
+- Co-chair - [Georg Kunz, Ericsson](https://github.com/gkunz)
 - Backlog Warden -
 - "*" denotes a project/SIG lead
 
 ### Project Maintainers
 
-- [Christopher "CRob" Robinson*, Intel](https://github.com/SecurityCRob)
+- [Christopher "CRob" Robinson*, OpenSSF](https://github.com/SecurityCRob)
 - [David A Wheeler, LF/OSSF](https://github.com/david-a-wheeler)
 - [Dave Russo*, Red Hat](https://github.com/drusso-rh)
-- [Randall T. Vasquez*, The Linux Foundation](https://github.com/ran-dall)
+- [Georg Kunz, Ericsson](https://github.com/gkunz)
+- [Avishay Balter, Microsoft](https://github.com/balteravishay)
 
 ### Project Collaborators
 
-- [Arnaud J Le Hors, IBM](https://github.com/lehors)
-- Avishay Balter, Microsoft
 - [Christine Abernathy*, F5](https://github.com/caabernathy)
 - [Daniel Applequist*, Snyk](https://github.com/Torgo)
-- [Georg Kunz, Ericsson](https://github.com/gkunz)
-- [Glenn ten Cate*, OWASP/SKF](https://github.com/)
-- [Jay White, Microsoft](https://github.com/camaleon2016)
-- Jonathan Leitschuh*, Dan Kaminsky Fellowship @ Human Security
-- [Judy Kelly, Red Hat](https://github.com/judyobrienie)
 - [Marta Rybczynska, Syslinbit](https://github.com/mrybczyn)
-- Noam Dotan, Legit Security
-- [Roberth Strand, Amesto Fortytwo / Cloud Native Norway](https://github.com/roberthstrand)
-- [Sal Kimmich, EscherCloud](https://github.com/salkimmich)
 - [Thomas Nyman*, Ericsson](https://github.com/thomasnyman)
 - Yotam Perkal, Rezilion
-
+- [Chris de Almeida, IBM](https://github.com/ctcpip)
+  
 ### Project Contributors
 
-- [Chris de Almeida, IBM](https://github.com/ctcpip)
+- [Arnaud J Le Hors, IBM](https://github.com/lehors)
 - [Jeffrey Borek, IBM](https://github.com/jtborek)
 - Ixchel Ruiz, jfrog
 - Laurent Simon*, Google/Scorecard
 - [Matt Rutkowski, IBM](https://github.com/mrutkows)
 - Riccardo ten Cate, SKF
 - Spyros Gasteratos*, OWASP/CRE
+- [Glenn ten Cate*, OWASP/SKF](https://github.com/)
+- [Jay White, Microsoft](https://github.com/camaleon2016)
+- Jonathan Leitschuh*, Dan Kaminsky Fellowship @ Human Security
+- [Judy Kelly, Red Hat](https://github.com/judyobrienie)
+- [Roberth Strand, Amesto Fortytwo / Cloud Native Norway](https://github.com/roberthstrand)
+- [Sal Kimmich, EscherCloud](https://github.com/salkimmich)
+- [Helge Wehder, Ericsson](https://github.com/myteron)
+- Noam Dotan, Legit Security
+- [Eddie Knight, Sonotype](https://github.com/)
+- [Randall T. Vasquez*, The Linux Foundation](https://github.com/ran-dall)
 
 ### Toolbelt Collaborators
 

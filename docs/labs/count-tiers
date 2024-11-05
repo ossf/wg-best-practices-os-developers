@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# This simple script lets us quickly report lab status
+
+echo 'Per tier here is done; planned and assigned; planned and unassigned:'
+
+for tier in 0 1 2; do
+  printf "$tier:\n"
+  for status in "DONE-$tier" \
+	        "PLANNED-$tier.*\)$" "PLANNED-$tier.*UNASSIGNED" ; do
+    printf '  %d\n' $(grep -E -- "$status" < README.md | wc -l)
+  done
+done

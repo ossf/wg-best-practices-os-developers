@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: MIT
 """ Compliant Code Example """
 
-foo: int
-foo = -50
-foo /= 4
-print(foo)
+foo: int = -50
+bar: float = foo / 4
+print(bar)

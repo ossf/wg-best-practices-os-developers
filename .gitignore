@@ -103,3 +103,8 @@ jspm_packages/
 
 # Optional npm cache directory
 .npm
+
+# Jekyll-generated site, metadata, and cache
+_site
+docs/.jekyll-metadata
+docs/.sass-cache/

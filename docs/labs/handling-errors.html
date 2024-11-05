@@ -25,11 +25,9 @@ throw new Error("Division by zero is not allowed");
   try {
     const result = divide(10, 2);
     console.log("Result:", result);
-  } catch (error) {
-    console.error("Error:", error.message);
+  } catch (err) {
+    console.error("Error:", err.message);
 }
-   
-
 </script>
 
 <!-- Full pattern of correct answer -->
@@ -43,10 +41,10 @@ throw new Error("Division by zero is not allowed");
 \s* try \{
     const result = divide \( 10 , 2 \) ;
     console \. log \( ("Result:" | 'Result:' | `Result:`) , result \) ;
-    \} catch \( error \) {
-      console.error \( ("Error:" | 'Error:' | `Error:`) , error \. message \) ;
+    \} catch \( err \) {
+      console.error \( ("Error:" | 'Error:' | `Error:`) , err \. message \) ;
       \} \s*
-  </script>
+</script>
 
 <script id="info" type="application/yaml">
 ---
@@ -68,7 +66,7 @@ hints:
   - - "  throw new ERROR(\"Division by zero is not allowed\");"
 - index: 0
   absent: "throw"
-  text: Try using the throw keyword to raise an exception, E.g., throw new Error(...).
+  text: Try using the throw keyword to raise an exception, E.g., throw new Error("Message").
   examples:
   - - "  return { success: false, message: \"Division by zero is not allowed\" };"
   - - " return \"Division by zero is not allowed\" ;"
@@ -81,45 +79,93 @@ hints:
   present: "{ (.*?)} "
   text: Try simply returning the result of the division.
   examples:
-  - - "  return { success: true, result: a / b };"
-  - - "  return { result: a / b };"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - "  return { success: true, result: a / b };"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - "  return { result: a / b };"
 - index: 2
   absent: '\s*try\s*{\s* '
-  text: Use a try block to catch any exceptions that might be thrown.
+  text: >-
+    Use a try block to catch any exceptions that might be thrown.
+    It should look something like `try { ... } catch(err) {...}`
+    (fill in the `...` sections).
   examples:
-  - - "  const result = divide(10, 2);"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - "  const result = divide(10, 2);"
 - index: 2
   present: '\s* try \s* { .*? if \( result.success \) .*?'
   text: You may assume that the result is successful within the try block.
   examples:
-  - - " try { const result = divide(10 ,2); if( result.success) { console.log ( \"Result:\", result ); "
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); if( result.success) { console.log ( \"Result:\", result ); "
 - index: 2
   present: '.*? result.result .*?'
   text: The result is not an object, it is a number.
   examples:
-  - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result.result ); "
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result.result ); "
 - index: 2
   absent: '.*? catch .*? '
-  text: Handle the error within the catch block.
+  text: >-
+    Handle the error within the catch block. You need `catch(err) {...}`
+    after `try {...}` to catch an error in the try block.
   examples:
-  - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); }"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); }"
 - index: 2
   absent: '\s* catch \s* \( .*? \) { \s* '
-  text: Catch an error object within the catch block.
+  text: Use 'catch (...) {...}' to catch an error object within the catch block.
   examples:
-  - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch {}"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch {}"
 - index: 2
-  absent: '\s* console.error \(\s* "Error:" \s* , .*?.message \) '
-  text: The error is an object with a message property.
+  absent: |-
+    catch \( err \)
+  text: >-
+    Please use `catch(err) {...}` for purposes of this lab.
   examples:
-  - - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (error) { console.error( \"Error:\", result);  } "
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (foo) {"
+- index: 2
+  present: |-
+    catch .* console \. error \( ["'][^"']*["'] , result
+  text: >-
+    When reporting the error, you need to report it in the catch block,
+    which catches it as the variable `err`.
+    Thus, you need to use `err.message` not `result` or `result.message`,
+    since the error is in `err.message`. Note that 
+    the variable `result` is out of scope in the catch block anyway;
+    it was declared in the try block.
+  examples:
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (err) { console.error('Error', result.message);"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (err) { console.error('Error', result );"
 # debug: true
 </script>
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->
 <div class="container-lg px-3 my-5 markdown-body">
-<h1>Lab Exercise Handling Errors</h1>
+<h1>Lab Exercise handling-errors</h1>
 <p>
 This is a lab exercise on developing secure software.
 For more information, see the <a href="introduction.html" target="_blank">introduction to
@@ -151,31 +197,30 @@ By throwing an error when an invalid operation is detected (in this case, divisi
 To complete this task:
 </p>
 <ol>
-<li> Locate the function in your code that uses return codes to indicate success or failure. In our case, the function is <tt>divide</tt>.</li>
-<li> Modify the function to throw an error when an invalid operation is detected. In our case, we throw an error when the parameter <tt>b</tt> is zero.</li>
-<li> Set the error message to "Division by zero is not allowed".</li>
-<li> Update the success path to return the result of the division operation.</li>
-<li> Modify the calling code to use a try block to wrap the call to the <tt>divide</tt> function.</li>
-<li> Within the try block, log the result of the division operation if no error is thrown.</li>
-<li> Add a catch block to handle any errors that might be thrown by the <tt>divide</tt> function.</li>
-<li> For both the success and error paths, log the appropriate message to console or to error.</li>
+<li>Locate the function in your code that uses return codes to indicate success or failure. In our case, the function is <tt>divide</tt>.</li>
+<li>Modify the function to throw an error when an invalid operation is detected. In our case, we throw an error when the parameter <tt>b</tt> is zero.</li>
+<li>Set the error message to "Division by zero is not allowed".</li>
+<li>Update the success path to return the result of the division operation.</li>
+<li>Modify the calling code to use a try block to wrap the call to the <tt>divide</tt> function.</li>
+<li>Within the try block, log the result of the division operation if no error is thrown.</li>
+<li>Add a catch block to handle any errors that might be thrown by the <tt>divide</tt> function.</li>
+<li>For both the success and error paths, log the appropriate message to console or to error.</li>
 </ol>
+<p>
+Use the “hint” and “give up” buttons if necessary.
 <p>
 <h2>Interactive Lab (<span id="grade"></span>)</h2>
 <p>
 Please change the code below so the <tt>divide</tt> function and the calling code use exception handling instead of a return code mechanism. 
 The <tt>divide</tt> function should throw an error when division by zero is attempted. 
-The calling code should use a try...catch block to handle the error, catch any error into a variable named `error`, and display an appropriate message.
+The calling code should use a try...catch block to handle the error, stgore the result in a constant named <tt>result</tt>, catch any error into a variable named `error`, and display an appropriate message.
 
 <form id="lab">
-<pre><code>
-
-// Implement a simple division method that returns the result of a / b
+<pre><code>// Implement a simple division method that returns the result of a / b
 function divide(a, b) {
   if (b === 0) {
     <input id="attempt0" type="text" size="65" spellcheck="false"
  value='return { success: false, message: "Division by zero is not allowed" };'>
-      
   } else {
     <input id="attempt1" type="text" size="65" spellcheck="false"
  value='return { success: true, result: a / b };'>
@@ -183,18 +228,14 @@ function divide(a, b) {
 }
 
 // This code calls the divide function and logs the result or error
-<textarea id="attempt2" rows="10" cols="60" spellcheck="false">
+<textarea id="attempt2" rows="8" cols="60" spellcheck="false">
 const result = divide(10, 2);
 if (result.success) {
   console.log("Result:", result.result);
 } else {
-    console.error("Error:", result.message);
+  console.error("Error:", result.message);
 }
-
-</textarea>
-
-
-</code></pre>
+</textarea></code></pre>
 <button type="button" class="hintButton">Hint</button>
 <button type="button" class="resetButton">Reset</button>
 <button type="button" class="giveUpButton">Give up</button>
