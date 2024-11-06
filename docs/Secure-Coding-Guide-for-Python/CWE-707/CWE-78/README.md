@@ -123,7 +123,7 @@ list_dir("temp")
 
 ```
 
-In `noncompliant02.py` we have the attacker create a file toast.sh file that contains the commands to run. The attacker also creates a folder named `. -exec bash toast.sh {} +` that will later become part of the shell `find` command forming `find . -exec bash toast.sh {} +`.
+In `noncompliant02.py` the attacker creates a `toast.sh` file that contains the commands to run. The attacker also creates a folder named `. -exec bash toast.sh {} +` that will later become part of the shell `find` command forming `find . -exec bash toast.sh {} +`.
 
 The result is that `list_dir(dirname)` will run the `toast.sh` as a shell script. The `toast.sh` file does not require execute rights and can contain any quantity of shell command complexity.
 
