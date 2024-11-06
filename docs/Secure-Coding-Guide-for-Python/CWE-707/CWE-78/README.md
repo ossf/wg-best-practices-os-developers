@@ -69,7 +69,7 @@ if "posix" in os.name:
 
 ```
 
-Instead of listing files we have the `noncompliant01.py` code print the first line of `/etc/passwd` on Linux  or start `net user` under Windows.
+Instead of listing files, the code in `noncompliant01.py` prints the first line of `/etc/passwd` on Linux or starts `net user` under Windows.
 
 ## Non-Compliant Code Example (Read, Write)
 
