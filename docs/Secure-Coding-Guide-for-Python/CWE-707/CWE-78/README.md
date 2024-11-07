@@ -35,7 +35,7 @@ Any variation of using input from a lesser trusted source as part of a command l
 
 ## Non-Compliant Code Example (Read Only)
 
-This scenario demonstrates a potential remote command execution. The `FileOperations.list_dir()` method allows an attacker to inject commands into the string dirname such as `head -1 /etc/passwd` under Linux or `net user` under Windows. Note that older versions of `Python < 3.9.12` allowed to turn a non-interactive shell into an active shell in Windows by providing `cmd.exe /C` as an argument  [[python.org 3.12.5 - Subprocess management]](https://docs.python.org/3/library/subprocess.html).
+This scenario demonstrates a potential remote command execution. The `FileOperations.list_dir()` method allows an attacker to inject commands into the string dirname such as `head -1 /etc/passwd` under Linux or `net user` under Windows. Older versions of `Python < 3.9.12` allow to turn a non-interactive shell into an active shell in Windows by providing `cmd.exe /C` as an argument [[python.org 3.12.5 - Subprocess management]](https://docs.python.org/3/library/subprocess.html).
 
 *[noncompliant01.py](noncompliant01.py):*
 
@@ -69,7 +69,9 @@ if "posix" in os.name:
 
 ```
 
-Instead of listing files, the code in `noncompliant01.py` prints the first line of `/etc/passwd` on Linux or starts `net user` under Windows.
+The code in `noncompliant01.py` prints the first line of `/etc/passwd` on Linux or starts `net user` under Windows.
+The `FileOperations().list_dir()` method allows an attacker to add commands via `;` in Linux and `&` in Windows. 
+
 
 ## Non-Compliant Code Example (Read, Write)
 
