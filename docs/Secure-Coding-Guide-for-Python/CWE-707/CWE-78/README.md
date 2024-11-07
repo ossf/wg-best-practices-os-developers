@@ -70,7 +70,7 @@ if "posix" in os.name:
 ```
 
 The code in `noncompliant01.py` prints the first line of `/etc/passwd` on Linux or starts `net user` under Windows.
-The `FileOperations().list_dir()` method allows an attacker to add commands via `;` in Linux and `&` in Windows. 
+The `FileOperations().list_dir()` method allows an attacker to add commands via `;` in Linux and `&` in Windows.
 
 ## Non-Compliant Code Example (Read, Write)
 
