@@ -1,26 +1,18 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
-import locale
-ORIGINAL_NUMBER = 12.345  # This will read as 12,345 in German
+import io
  
-def compare_number(number):
-    locale.setlocale(locale.LC_ALL, 'de_DE.utf8')
-    input_number = locale.atof(input("Enter a number: "))
-    # Test if inputted number equals current number
-    if number == input_number:
-        return True
-    else:
-        return False
-
-
+LOREM = """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."""
+ 
+output  = io.BytesIO()
+wrapper = io.TextIOWrapper(output, encoding='utf-8', line_buffering=True)
+wrapper.write(LOREM)
+wrapper.seek(0, 0)
+print(f"{len(output.getvalue().decode('utf-16le'))} characters in string")
 #####################
-# Trying to exploit above code example
+# exploiting above code example
 #####################
-
-print(f"Locale is {locale.getlocale()}")
-print(f"Do the numbers match? {compare_number(ORIGINAL_NUMBER)}")
-
-## Locale is ('English_Ireland', '1252')
-## Enter a number: 12.345
-## Do the numbers match? False
+# UnicodeDecodeError: 'utf-16-le' codec can't decode byte 0x2e in position 1336: truncated data

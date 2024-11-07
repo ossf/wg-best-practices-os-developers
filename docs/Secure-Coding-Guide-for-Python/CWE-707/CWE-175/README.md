@@ -4,6 +4,21 @@ Locale-dependent programs may produce unexpected behavior or security bypasses i
 
 In Python, the `locale` module will never perform case conversions or character classifications according to the locale [[Python 3.9 locale](https://docs.python.org/3.9/library/locale.html)]. Python follows the Unicode conventions for text [[Python Issue 34928](https://bugs.python.org/issue34928)], and this behavior may not match the user's expectation in their native language. Some characters, such as the German ß (eszett), Greek Σ (sigma) also have particular rules in Unicode that may not match native usage and need to be handled carefully. Also, be aware of differences in other languages that use right-to-left ordering (e.g. Arabic) and languages which use CJK characters.
 
+>[!NOTE]
+> Running the code examples for this rule might generate the following error message: `locale.Error: unsupported locale setting`
+> It's usually thrown when the locales used for the examples are not available on the OS. For these examples, you will need the following locales:
+>
+> * de_DE.utf8
+> * en_IE.utf8
+> * tr_TR.utf8
+> * uk_UA.utf8
+>
+> The method of installing locales depends on the OS. To install locales on Debian, do the following:
+>
+> 1. run `sudo dpkg-reconfigure locales`
+> 2. select the needed locales (make sure they are uncommented in /etc/locale.gen)
+> 3. run `sudo locale-gen`
+
 For example, Python does not handle the Turkish dotted-i as expected.
 
 [*example01.py:*](example01.py)
@@ -95,7 +110,7 @@ else:
 
 Set the locale to the locale the program was developed or validated against, to ensure that locale-dependent programs are not affected by running on a system with a different locale.
 
-*[compliant02.py](compliant02.py):*
+*[example02.py](example02.py):*
 
 ```python
 """ Compliant Code Example """
@@ -104,14 +119,17 @@ CURRENT_LOCALE = 'en_IE.utf8'
 locale.setlocale(locale.LC_ALL, CURRENT_LOCALE)
 ```
 
-## Non-Compliant Code Example (Data Input - Numbers)
-
 For example, reading values from a data file values might be misinterpreted if the developer is unaware that the program locale does not accommodate the data locale.
 
 This simple code example does not set a locale and sets `ORIGINAL_NUMBER` for comparison to 12.345 (twelve point three-four-five). In Ireland, a comma is a thousands separator and a dot is a decimal separator. In Germany these are reversed, so a comma is a decimal separator and a decimal is a thousands separator.
 The user may assume they are using the English (Ireland) locale as it is not set. A German (Germany) locale is set in `compare_number()`. 12.345 is input at the prompt, they will not match as the German locale interprets this as 12,345 (twelve thousand, three hundred and forty-five).
 
-*[noncompliant02.py](noncompliant02.py):*
+Ensure that there is no mismatch between the locale of the running program and the input data. Agree on one locale to be used for data input or permit the user to specify a locale when parsing data.
+In this case, after displaying the issue, the agreed upon locale is set and the number is intepreted correctly as long as the user follows the format of the locale.
+
+When using `setlocale()`, ensure that it is not set in libraries or set more than once in multi-threaded programs. [[Python 3.9 locale](https://docs.python.org/3.9/library/locale.html)]
+
+*[example03.py](example03.py):*
 
 ```python
 """ Non-compliant Code Example """
@@ -119,66 +137,34 @@ import locale
 ORIGINAL_NUMBER = 12.345  # This will read as 12,345 in German
  
 def compare_number(number):
-    locale.setlocale(locale.LC_ALL, 'de_DE.utf8')
     input_number = locale.atof(input("Enter a number: "))
     # Test if inputted number equals current number
-    if number == input_number:
-        return True
-    else:
-        return False
-
-#####################
-# Trying to exploit above code example
-#####################
+    return number == input_number
 
 print(f"Locale is {locale.getlocale()}")
 print(f"Do the numbers match? {compare_number(ORIGINAL_NUMBER)}")
 
 ## Locale is ('English_Ireland', '1252')
-## Enter a number: 12.345
+## Enter a number: 12,345
 ## Do the numbers match? False
-```
 
-## Compliant Solution (Data Input - Numbers)
+# After setting the locale
 
-Ensure that there is no mismatch between the locale of the running program and the input data. Agree on one locale to be used for data input or permit the user to specify a locale when parsing data.
-In this case, the compliant code has set the locale at the start of the program.
-
-When using `setlocale()`, ensure that it is not set in libraries or set more than once in multi-threaded programs. [[Python 3.9 locale](https://docs.python.org/3.9/library/locale.html)]
-
-*[compliant03.py](compliant03.py):*
-
-```python
-""" Compliant Code Example """
-import locale
 locale.setlocale(locale.LC_ALL, 'de_DE.utf8')
-ORIGINAL_NUMBER = 12.345  # This will read as 12,345 in German
- 
-def compare_number(number):
-    input_number = locale.atof(input("Enter a number: "))
-    # Test if inputted number equals current number
-    if number == input_number:
-        return True
-    else:
-        return False
- 
-#####################
-# Trying to exploit above code example
-#####################
-
 print(f"Locale is {locale.getlocale()}")
 print(f"Do the numbers match? {compare_number(ORIGINAL_NUMBER)}")
 
 ## Locale is ('de_DE', 'UTF-8')
 ## Enter a number: 12,345
 ## Do the numbers match? True
+
 ```
 
 ## Non-Compliant Code Example (Encoding)
 
 The developer should be aware of the text encoding that is used for input data and output data in the program. The code example attempts to use UTF-16 LE encoding to read the LOREM `TextIOWrapper` stream which raises a `UnicodeDecodeError` exception as it was created with UTF-8.
 
-*[noncompliant03.py](noncompliant03.py):*
+*[noncompliant02.py](noncompliant02.py):*
 
 ```python
 """ Non-compliant Code Example """
@@ -203,7 +189,7 @@ print(f"{len(output.getvalue().decode('utf-16le'))} characters in string")
 
 The correct text encoding, UTF-8 for the LOREM `TextIOWrapper` stream has been included in the program. Ensure the encoding of data is known and explicitly stated when parsing and creating data.
 
-*[compliant04.py](compliant04.py):*
+*[compliant02.py](compliant02.py):*
 
 ```python
 """ Compliant Code Example """
