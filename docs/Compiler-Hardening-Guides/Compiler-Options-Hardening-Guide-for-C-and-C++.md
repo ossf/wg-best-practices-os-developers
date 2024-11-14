@@ -220,7 +220,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16.0<br/>Clang 5.0.0    | Build as position-independent executable. Can impact performance on 32-bit architectures.                                                   |
 | [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6.0<br/>Clang 5.0.0     | Build as position-independent code. Can impact performance on 32-bit architectures.                                                         |
 | [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                     | GCC 3.0.0<br/>Clang 7.0.0            | Force retention of null pointer checks                                                       |
-| [`-fno-strict-overflow`](#-fno-strict-overflow)                                           | GCC 4.2.0                            | Integer overflow may occur                                                                   |
+| [`-fno-strict-overflow`](#-fno-strict-overflow)                                           | GCC 4.2.0                            | Define behavior for signed integer and pointer arithmetic overflows                        |
 | [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 2.9.0        | Do not assume strict aliasing                                                                |
 | [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12.0.0<br/>Clang 8.0.0               | Perform trivial auto variable initialization                                                 |
 | [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6.0           | Enable exception propagation to harden multi-threaded C code                                 |
@@ -539,7 +539,9 @@ To benefit from `_FORTIFY_SOURCE` checks the following requirements must be met:
 
 If checks added by `_FORTIFY_SOURCE` detect unsafe behavior at run-time they will print an error message and terminate the application.
 
-A default mode for FORTIFY_SOURCE may be predefined for a given compiler, for instance GCC shipped with Ubuntu 22.04 uses FORTIFY_SOURCE=2 by default. If a mode of FORTIFY_SOURCE is set on the command line which differs from the default, the compiler warns about redefining the FORTIFY_SOURCE macro. To avoid this, the predefined mode can be unset with -U_FORTIFY_SOURCE before setting the desired value.
+A default mode for FORTIFY_SOURCE may be predefined for a given compiler, for instance GCC shipped with Ubuntu 22.04 uses FORTIFY_SOURCE=2 by default. If a mode of FORTIFY_SOURCE is set on the command line which differs from the default, the compiler warns about redefining the FORTIFY_SOURCE macro. To avoid this, some build systems provide 
+
+the predefined mode can be unset with -U_FORTIFY_SOURCE before setting the desired value.
 
 #### Performance implications
 
@@ -937,11 +939,14 @@ There are normally no significant performance implications. Null pointer checks 
 
 ---
 
-### Integer overflow may occur
+### Define behavior for signed integer and pointer arithmetic overflows
 
-| Compiler Flag                                                 | Supported since | Description                                                       |
-|:------------------------------------------------------------- |:---------------:|:----------------------------------------------------------------- |
-| <span id="-fno-strict-overflow">`-fno-strict-overflow`</span> |  GCC 4.2.0        | Integer overflow may occur                                        |
+| Compiler Flag                                                 | Supported since | Description                                                                                                                              |
+|:------------------------------------------------------------- |:---------------:|:---------------------------------------------------------------------------------------------------------------------------------------- |
+| <span id="-fno-strict-overflow">`-fno-strict-overflow`</span> |  GCC 8.5.0      | Signed integer overflows on addition, subtraction and multiplication and pointer arithmetic wraps around twos-completment representation |
+| <span id="-fwrapv">`-fwrapv`</span>                           |  GCC 3.4.0      | Signed integer overflows on addition, subtraction and multiplication wraps around using twos-completment representation                  |
+| <span id="-fwrapv-pointer">`-fwrapv-pointer`</span>           |  GCC 8.5.0      | Pointer arithmetic and multiplication wraps around using twos-completment representation                                                 |
+| <span id="-ftrapv">`-ftrapv`</span>                           |  GCC 3.3.0      | Signed integer overflows on addition, subtraction and multiplication trap with `SIGABRT`                                                 |
 
 #### Synopsis
 
@@ -967,9 +972,9 @@ A developer *might* expect that the computation `offset + len` would produce a u
 
 The Linux kernel enables `-no-strict-overflow` to reduce the likelihood that important security checks in the source code will be silently ignored by the compiler.
 
-An alternative option is to use the `-fwrapv` option. With `-fwrapv`, integer signed overflow wraps (and is thus defined).
+Alternatives to `-no-strict-overflow` are the `-fwrapv` and `-ftrapv` options. With `-fwrapv`, integer signed overflow wraps (and is thus defined). With `-ftrapv`, signed integer overflows trap, e.g., on x86 an overflow causes a `SIGABRT` signal to the application.
 
-Note that GCC and Clang interpret this option slightly differently. On clang, this option is considered a synonym for `-fwrapv`. On GCC, this option does not fully enforce two's complement on signed integers, allowing for additional optimizations. [^Wang2012]
+Since GCC 8.5 `-no-strict-overflow` is equivalent to `-fwrapv -fwrapv-pointer` while GCC recommends `-fsanitize=signed-integer-overflow` for diagnosing signed integer overflow issues during testing and debugging. In prior GCC versions `-no-strict-overflow` does not fully enforce two's complement on signed integers, allowing for additional optimizations[^Wang2012]. In Clang, `-no-strict-overflow` option is considered a synonym for `-fwrapv`.
 
 ---
 
