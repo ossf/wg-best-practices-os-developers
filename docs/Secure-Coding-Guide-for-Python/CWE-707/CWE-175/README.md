@@ -121,7 +121,7 @@ locale.setlocale(locale.LC_ALL, CURRENT_LOCALE)
 
 For example, reading values from a data file values might be misinterpreted if the developer is unaware that the program locale does not accommodate the data locale.
 
-This simple code example does not set a locale and sets `ORIGINAL_NUMBER` for comparison to 12.345 (twelve point three-four-five). In Ireland, a comma is a thousands separator and a dot is a decimal separator. In Germany these are reversed, so a comma is a decimal separator and a decimal is a thousands separator.
+The `example03.py` code does not set a locale and sets `ORIGINAL_NUMBER` for comparison to 12.345 (twelve point three-four-five). In Ireland, a comma is a thousands separator and a dot is a decimal separator. In Germany these are reversed, so a comma is a decimal separator and a decimal is a thousands separator.
 The user may assume they are using the English (Ireland) locale as it is not set. A German (Germany) locale is set in `compare_number()`. 12.345 is input at the prompt, they will not match as the German locale interprets this as 12,345 (twelve thousand, three hundred and forty-five).
 
 Ensure that there is no mismatch between the locale of the running program and the input data. Agree on one locale to be used for data input or permit the user to specify a locale when parsing data.
