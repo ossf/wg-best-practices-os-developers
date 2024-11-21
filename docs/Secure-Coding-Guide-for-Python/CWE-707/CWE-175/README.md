@@ -30,6 +30,7 @@ WORD = "Title"
 print(word.upper())
 locale.setlocale(locale.LC_ALL, "tr_TR.utf8")
 print(word.upper())
+
 ```
 
 This code example incorrectly assumes that the uppercasing rules in Turkish will be followed. The expected output is "TİTLE" (with captial dotted-i), but instead the value outputted by the code is "TITLE" (with capital dotless-i). The only way to ensure capitalization is handled correctly is either manually mapping upper-case characters or using an external library, such as [PyICU](https://pypi.org/project/PyICU/).
@@ -47,10 +48,12 @@ In this example, `strftime("%B")` in the English (Ireland) locale returns "March
 
 ```python
 """ Non-compliant Code Example """
-import datetime, locale
- 
+import datetime
+import locale
+
 dt = datetime.datetime(2022, 3, 9, 12, 55, 35, 000000)
- 
+
+
 def get_date(date):
     # Return year month day tuple e.g. 2022, March, 09
     return date.strftime("%Y"), date.strftime("%B"), date.strftime("%d")
@@ -59,21 +62,23 @@ def get_date(date):
 # Trying to exploit above code example
 #####################
 
+
 CURRENT_LOCALE = 'en_IE.utf8'
 OTHER_LOCALE = 'uk_UA.utf8'
- 
+
 locale.setlocale(locale.LC_ALL, CURRENT_LOCALE)
 # Month is 'March'
 curryear, currmonth, currdate = get_date(dt)
- 
+
 locale.setlocale(locale.LC_ALL, OTHER_LOCALE)
 # Month is 'березень', i.e. berezen’
 otheryear, othermonth, otherdate = get_date(dt)
- 
+
 if currmonth == othermonth:
     print("Locale-dependent months are equal")
 else:
     print("Locale-dependent months are not equal")
+
 ```
 
 ## Compliant Solution (`datetime`)
@@ -85,9 +90,13 @@ When using `setlocale()`, ensure that it is not set in libraries or set more tha
 
 ```python
 """ Compliant Code Example """
-import datetime, locale
- 
+import datetime
+import locale
+
 dt = datetime.datetime(2022, 3, 9, 12, 55, 35, 000000)
+
+CURRENT_LOCALE = 'en_IE.utf8'
+OTHER_LOCALE = 'uk_UA.utf8'
 
 #####################
 # Trying to exploit above code example
@@ -99,11 +108,12 @@ currmonth = dt.month
 locale.setlocale(locale.LC_ALL, OTHER_LOCALE)
 # Month is 'березень', i.e. berezen’
 othermonth = dt.month
- 
+
 if currmonth == othermonth:
     print("Locale-independent months are equal")
 else:
     print("Locale-independent months are not equal")
+
 ```
 
 ## Compliant Solution (Explicit Locale)
@@ -113,10 +123,11 @@ Set the locale to the locale the program was developed or validated against, to 
 *[example02.py](example02.py):*
 
 ```python
-""" Compliant Code Example """
+""" Code Example """
 import locale
 CURRENT_LOCALE = 'en_IE.utf8'
 locale.setlocale(locale.LC_ALL, CURRENT_LOCALE)
+
 ```
 
 For example, reading values from a data file values might be misinterpreted if the developer is unaware that the program locale does not accommodate the data locale.
@@ -132,21 +143,24 @@ When using `setlocale()`, ensure that it is not set in libraries or set more tha
 *[example03.py](example03.py):*
 
 ```python
-""" Non-compliant Code Example """
+""" Code Example """
 import locale
 ORIGINAL_NUMBER = 12.345  # This will read as 12,345 in German
- 
+
+
 def compare_number(number):
     input_number = locale.atof(input("Enter a number: "))
     # Test if inputted number equals current number
     return number == input_number
 
+
 print(f"Locale is {locale.getlocale()}")
 print(f"Do the numbers match? {compare_number(ORIGINAL_NUMBER)}")
 
-## Locale is ('English_Ireland', '1252')
-## Enter a number: 12,345
-## Do the numbers match? False
+# Console output:
+# Locale is ('English_Ireland', '1252')
+# Enter a number: 12,345
+# Do the numbers match? False
 
 # After setting the locale
 
@@ -154,9 +168,10 @@ locale.setlocale(locale.LC_ALL, 'de_DE.utf8')
 print(f"Locale is {locale.getlocale()}")
 print(f"Do the numbers match? {compare_number(ORIGINAL_NUMBER)}")
 
-## Locale is ('de_DE', 'UTF-8')
-## Enter a number: 12,345
-## Do the numbers match? True
+# Console output:
+# Locale is ('de_DE', 'UTF-8')
+# Enter a number: 12,345
+# Do the numbers match? True
 
 ```
 
@@ -169,12 +184,12 @@ The developer should be aware of the text encoding that is used for input data a
 ```python
 """ Non-compliant Code Example """
 import io
- 
+
 LOREM = """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."""
- 
-output  = io.BytesIO()
+
+output = io.BytesIO()
 wrapper = io.TextIOWrapper(output, encoding='utf-8', line_buffering=True)
 wrapper.write(LOREM)
 wrapper.seek(0, 0)
@@ -183,6 +198,7 @@ print(f"{len(output.getvalue().decode('utf-16le'))} characters in string")
 # exploiting above code example
 #####################
 # UnicodeDecodeError: 'utf-16-le' codec can't decode byte 0x2e in position 1336: truncated data
+
 ```
 
 ## Compliant Solution (Encoding)
@@ -194,12 +210,12 @@ The correct text encoding, UTF-8 for the LOREM `TextIOWrapper` stream has been i
 ```python
 """ Compliant Code Example """
 import io
- 
+
 LOREM = """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."""
- 
-output  = io.BytesIO()
+
+output = io.BytesIO()
 wrapper = io.TextIOWrapper(output, encoding='utf-8', line_buffering=True)
 wrapper.write(LOREM)
 wrapper.seek(0, 0)
@@ -208,6 +224,7 @@ print(f"{len(output.getvalue().decode('utf-8'))} characters in string")
 # exploiting above code example
 #####################
 # 1337 characters in string
+
 ```
 
 ## Automated Detection
