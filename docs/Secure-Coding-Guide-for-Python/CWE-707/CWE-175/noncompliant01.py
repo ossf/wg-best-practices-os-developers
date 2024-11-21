@@ -14,6 +14,7 @@ def get_date(date):
 # Trying to exploit above code example
 #####################
 
+
 CURRENT_LOCALE = 'en_IE.utf8'
 OTHER_LOCALE = 'uk_UA.utf8'
  
