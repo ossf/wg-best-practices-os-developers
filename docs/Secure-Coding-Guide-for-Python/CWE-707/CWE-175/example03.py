@@ -15,6 +15,7 @@ compare_number(12.345)
 """ Non-compliant Code Example """
 import locale
 ORIGINAL_NUMBER = 12.345  # This will read as 12,345 in German
+
  
 def compare_number(number):
     input_number = locale.atof(input("Enter a number: "))
