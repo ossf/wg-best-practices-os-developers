@@ -1,7 +1,8 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
-import datetime, locale
+import datetime
+import locale
  
 dt = datetime.datetime(2022, 3, 9, 12, 55, 35, 000000)
  
