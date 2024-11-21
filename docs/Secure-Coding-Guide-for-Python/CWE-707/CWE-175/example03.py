@@ -21,6 +21,7 @@ def compare_number(number):
     input_number = locale.atof(input("Enter a number: "))
     # Test if inputted number equals current number
     return number == input_number
+    
 
 print(f"Locale is {locale.getlocale()}")
 print(f"Do the numbers match? {compare_number(ORIGINAL_NUMBER)}")
