@@ -1,6 +1,6 @@
 # Compiler Options Hardening Guide for C and C++
 
-*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2024-10-17*
+*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2024-10-31*
 
 This document is a guide for compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++. The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
 
@@ -65,7 +65,19 @@ Applications written in the C and C++ programming languages are prone to exhibit
 
 [^Cimpanu2020]: Cimpanu, Catalin, [Chrome: 70% of all security bugs are memory safety issues](https://www.zdnet.com/article/chrome-70-of-all-security-bugs-are-memory-safety-issues/), ZDNet, 2020-05-22
 
-Most programming languages prevent such defects by default. A few languages allow programs to temporarily suspend these protections in special circumstances, but they are intended for use in a few lines, not the whole program. There have been calls to rewrite C and C++ programs in other languages, but this is expensive and time-consuming, has its own risks, is sometimes impractical today (especially for less-common CPUs). Even with universal agreement, it would take decades to rewrite all such code. Consequently, it's important to take other steps to reduce the likelihood of defects becoming vulnerabilities. Aggressive use of compiler options can sometimes detect vulnerabilities or help counter their run-time effects.
+Most high-level programming languages are *"memory safe"* and prevent such defects by default. Many of these languages allow programs to temporarily suspend memory-safety protections in special circumstances, such as when calling into operating system APIs written in C, but such suspensions are intended to be limited for a few lines of code, not for the whole program. There have been calls to rewrite C and C++ programs in memory-safe languages. This has happened in some cases[^Prossimo2024]; however, such rewriting is expensive and time-consuming, has its own risks, and is sometimes impractical today, especially for uncommon CPUs. Even if universally agreed upon, rewriting all C and C++ code would take decades and incur massive monetary costs. One rough estimate of such rewrites puts the cost at $2.4 trillion US dollars[^Wheeler2024], which would make rewriting C and C++ a problem of similar scale (in terms of monetary investment required) as keeping global climate change goals within reach[^Volcovici2024]. Consequently, not all C and C++ can be revised or discarded[^Claburn2024]. For example, Google anticipates *"a residual amount of mature and stable memory-unsafe code will remain for the foreseeable future"*[^Rebert2024].
+
+[^Claburn2024]: Claburn, Thomas, [Google's memory safety plan includes rehab for unsafe languages: Large C and C++ codebases will be around for the 'foreseeable future'](https://www.theregister.com/2024/10/16/google_legacy_code/), The Register, 2024-10-16.
+
+[^Prossimo2024]: Internet Security Research Group, [Prossimo](https://www.memorysafety.org/), Prossimo project homepage. 2024-10-22.
+
+[^Rebert2024]: Rebert, Alex; Carruth, Chandler; Engel, Jen, and Qin, Andy, [Safer with Google: Advancing Memory Safety](https://security.googleblog.com/2024/10/safer-with-google-advancing-memory.html), Google Security Blog, 2024-10-15.
+
+[^Volcovici2024]: Volcovici, Valerie, [UN climate chief calls for $2.4 trillion in climate finance](https://www.reuters.com/sustainability/sustainable-finance-reporting/un-climate-chief-calls-24-trillion-climate-finance-2024-02-02/), Reuters, 2024-02-02.
+
+[^Wheeler2024]: Wheeler, David A., [Improving Memory Safety without a Trillion Dollars](https://docs.google.com/presentation/d/1EDQL-6MUKrqbILBtYjpiF96uW5LXcnIuE-HxzyCIr68/edit), 2024.
+
+Consequently, it's important to accept that C and C++ will continue to be used, and to take *other* steps to reduce risks. To reduce risk, we must reduce the likelihood of defects becoming vulnerabilities, or reduce the impact of such defects. Aggressive use of compiler options can sometimes detect vulnerabilities or help counter their run-time effects.
 
 Run-time attacks differ from conventional malware, which carries out its malicious program actions through a dedicated program executable, in that run-time attacks influence benign programs to behave maliciously. A run-time attack that exploits unmitigated memory vulnerabilities can be leveraged by threat actors as the initial attack vectors that allow them to gain a presence on a system, e.g., by injecting malicious code into running programs.
 
@@ -330,9 +342,12 @@ This warning flag does not have a performance impact. However, sometimes a fallt
 The C17 standard[^C2017] does not provide a mechanism to mark intentional fallthroughs. Different tools support different mechanisms for marking one, including attributes and comments in various forms[^Shafik15]. A portable way to mark one is to define a function-like macro named `fallthrough()` to mark an intentional fallthrough that adjusts to the relevant tool (e.g., compiler) mechanism. We suggest using this construct below, inspired by the keyword-like construct used by the Linux kernel version 6.4 and later[^Howlett23]. We suggest using a function call syntax instead so more editors and other tools will deal with it correctly:
 
 ~~~c
-#if __has_attribute(__fallthrough__)
-# define fallthrough()                    __attribute__((__fallthrough__))
-#else
+#ifdef __has_attribute
+# if __has_attribute(__fallthrough__)
+#  define fallthrough()                    __attribute__((__fallthrough__))
+# endif
+#endif
+#ifndef fallthrough
 # define fallthrough()                    do {} while (0)  /* fallthrough */
 #endif
 ~~~
@@ -1377,7 +1392,8 @@ If you are compiling a C/C++ compiler, where practical make the generated compil
 | <span id="--enable-default-ssp">`--enable-default-ssp`</span>             | GCC 6.1.0      | Turn on [`-fstack-protector-strong`](#-fstack-protector-strong) by default for binaries produced by the compiler |
 | <span id="--enable-host-pie">`--enable-host-pie`</span>                   | GCC 14.0.0       | Build the compiler executables with [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) |
 | <span id="--enable-host-bind-now">`--enable-host-bind-now`</span>         | GCC 14.0.0       | Build the compiler executables with [`-Wl,-z,now`](#-Wl,-z,now) |
-| <span id="CLANG_DEFAULT_PIE_ON_LINUX">`CLANG_DEFAULT_PIE_ON_LINUX`</span> | Clang 14.0.0 | Turn on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler |
+
+Note that LLVM recommends using Clang configuration files[^clang-config] to pass the relevant defaults to the compiler. Command-line options provided in a configuration file are prepended to the rest of the options on the command line.
 
 ## What should you do when compiling linkers?
 
@@ -1397,6 +1413,8 @@ If you are compiling a linker, where practical make the generated linker's defau
 Some background on the introduction of these options to GNU Binutils is available from Nick Clifton, its Chief Maintainer[^Clifton22].
 
 Note that LLVM recommends using Clang configuration files to pass the relevant options to the linker via the compiler driver, so no such options exist here.
+
+[^clang-config]: LLVM team, [Configuration files](https://clang.llvm.org/docs/UsersManual.html#configuration-files), Clang Compiler User’s Manual, 2024-09-17.
 
 [^Clifton22]: Clifton, Nick, [The linker’s warnings about executable stacks and segments](https://www.redhat.com/en/blog/linkers-warnings-about-executable-stacks-and-segments), Red Hat Blog, 2022-09-14.
 
@@ -1449,6 +1467,7 @@ Many more security-relevant compiler options exist than are recommended in this 
 | <span id="-fasynchronous-unwind-tables">`-fasynchronous-unwind-tables`</span> | GCC 3.1.1<br/>Clang 7.0.0  | Generate stack unwind table in DWARF2 format, which improves precision of unwind information[^Song20] and can improve the performance of profilers at the cost of larger binary sizes[^Bastian19], but does not benefit security.
 | <span id="-fvtable-verify">`-fvtable-verify`</span> |GCC 4.9.4 | Enables run-time checks for C++ virtual function pointers corruption. This option has significant performance overhead[^Tice2014] and breaks ABI with all existing system libraries unless the entire userspace is built with `-fvtable-verify`[^gentoo-vtv]. Believed to be currently unmaintained in GCC.
 | <span id="-mmitigate-rop">`-mmitigate-rop`</span> | GCC 6.1 | Avoids combination of particular opcodes which can be reinterpretted as a return opcode in an attempt to mitigate Return Oriented Programming (ROP) attacks[^gcc-mmitigate-rop].  Was considered to be ineffective and security-theatre-esque, so was deprecated in GCC 9.1[^Bizjak2018].
+| <span id="CLANG_DEFAULT_PIE_ON_LINUX">`CLANG_DEFAULT_PIE_ON_LINUX`</span> | Clang 14.0.0 | When compiling Clang, turns on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler. Superceded by default provided via configuration files[^clang-config].
 
 [^nodump]: The `-Wl,-z,nodump` option sets `DF_1_NODUMP` flag in the object’s `.dynamic` section tags. On Solaris this restricts calls to `dldump(3)` for the object. However, other operating systems ignore the `DF_1_NODUMP` flag. While Binutils implements `-Wl,-z,nodump` for Solaris compatibility a choice was made to not support it in `lld` ([D52096 lld: add -z nodump support](https://reviews.llvm.org/D52096)).
 

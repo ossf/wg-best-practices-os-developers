@@ -5,9 +5,10 @@ and non-compliant code with `CPython >= 3.9` using modules listed on
 
 [Python Module Index](https://docs.python.org/3.9/py-modindex.html) [Python 2023].
 
-This page is in initiative by Ericsson to improve secure coding in Python by providing a location for study. Its structure is based on
+This page is an initiative by the OpenSSF to improve secure coding in Python by providing a location for study. Its structure is based on
 Common Weakness Enamurator (CWE) [Pillar Weakness](https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness) [mitre.org 2023].
-It currently contains *only* the code examples, documentation will follow.
+
+Some rules only contain code examples, documentation will follow.
 
 ## Disclaimer
 
@@ -47,13 +48,13 @@ It is **not production code** and requires code-style or python best practices t
 |[CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)](CWE-664/CWE-409/.)||
 |[CWE-410: Insufficient Resource Pool](CWE-664/CWE-410/README.md)||
 |[CWE-426: Untrusted Search Path](CWE-664/CWE-426/README.md)|[CVE-2015-1326](https://www.cvedetails.com/cve/CVE-2015-1326),<br/>CVSSv3.0: **8.8**,<br/>EPSS: **00.20** (23.11.2023)|
-|[CWE-501: Trust Boundary Violation)](CWE-664/CWE-501/README.md)||
-|[CWE-502: Deserialization of Untrusted Data)](CWE-664/CWE-502/.)||
-|[CWE-532: Insertion of Sensitive Information into Log File](CWE-664/CWE-532/.)||
+|[CWE-501: Trust Boundary Violation)](CWE-664/CWE-501/README.md)|[CVE-2023-28597](https://www.cvedetails.com/cve/CVE-2023-28597),<br/>CVSSv3.0: **7.5**,<br/>EPSS: **00.11** (05.11.2024)|
+|[CWE-502: Deserialization of Untrusted Data)](CWE-664/CWE-502/.)|[CVE-2018-8021](https://www.cvedetails.com/cve/CVE-2018-8021),<br/>CVSSv3.0: **9.8**,<br/>EPSS: **93.54** (05.11.2024)|
+|[CWE-532: Insertion of Sensitive Information into Log File](CWE-664/CWE-532/README.md)|[CVE-2023-45585](https://www.cvedetails.com/cve/CVE-2023-45585),<br/>CVSSv3.1: **9.8**,<br/>EPSS: **0.04** (01.11.2024)|
 |[CWE-665: Improper Initialization](CWE-664/CWE-665/README.md)||
 |[CWE-681: Incorrect Conversion between Numeric Types](CWE-664/CWE-681/README.md)||
 |[CWE-833: Deadlock](CWE-664/CWE-833/README.md)||
-|[CWE-843: Access of Resource Using Incompatible Type ('Type Confusion')](CWE-664/CWE-843/.)||
+|[CWE-843: Access of Resource Using Incompatible Type ('Type Confusion')](CWE-664/CWE-843/.)|[CVE-2021-29513](https://www.cvedetails.com/cve/CVE-2021-29513),<br/>CVSSv3.1: **7.8**,<br/>EPSS: **00.05** (05.11.2024)|
 |[XXX-005: Consider hash-based integrity verification of byte code files against their source code files](CWE-664/XXX-005/.)||
 
 |[CWE-682: Incorrect Calculation](https://cwe.mitre.org/data/definitions/682.html)|Prominent CVE|
@@ -82,10 +83,11 @@ It is **not production code** and requires code-style or python best practices t
 |[CWE-390: Detection of Error Condition without Action](CWE-703/CWE-390/)||
 |[CWE-392: Missing Report of Error Condition](CWE-703/CWE-392/README.md)||
 |[CWE-754: Improper Check for Unusual or Exceptional Conditions](CWE-703/CWE-754/.)||
-|[CWE-755: Improper Handling of Exceptional Conditions](CWE-703/CWE-755/.)||
+|[CWE-755: Improper Handling of Exceptional Conditions](CWE-703/CWE-755/README.md)|[CVE-2024-39560](https://www.cvedetails.com/cve/CVE-2024-39560),<br/>CVSSv3.1: **6.5**,<br/>EPSS: **0.04** (01.11.2024)|
 
 |[CWE-707: Improper Neutralization](https://cwe.mitre.org/data/definitions/707.html)|Prominent CVE|
 |:----------------------------------------------------------------|:----|
+|[CWE-78: Improper Neutralization of Special Elements Used in an OS Command ("OS Command Injection")](CWE-707/CWE-78/README.md)||
 |[CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')](CWE-707/CWE-89/.)|[CVE-2019-8600](https://www.cvedetails.com/cve/CVE-2019-8600/),<br/>CVSSv3.1: **9.8**,<br/>EPSS: **01.43** (18.02.2024)|
 |[CWE-117: Improper Output Neutralization for Logs](CWE-707/CWE-117/.)||
 |[CWE-175: Improper Handling of Mixed Encoding](CWE-707/CWE-175/README.md)||
