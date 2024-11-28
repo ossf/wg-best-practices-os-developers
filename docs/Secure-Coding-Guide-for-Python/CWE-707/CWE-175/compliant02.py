@@ -11,8 +11,5 @@ output = io.BytesIO()
 wrapper = io.TextIOWrapper(output, encoding='utf-8', line_buffering=True)
 wrapper.write(LOREM)
 wrapper.seek(0, 0)
-print(f"{len(output.getvalue().decode('utf-8'))} characters in string")
-#####################
-# exploiting above code example
-#####################
 # 1337 characters in string
+print(f"{len(output.getvalue().decode('utf-8'))} characters in string")
