@@ -11,8 +11,5 @@ output = io.BytesIO()
 wrapper = io.TextIOWrapper(output, encoding='utf-8', line_buffering=True)
 wrapper.write(LOREM)
 wrapper.seek(0, 0)
+# Below outputs UnicodeDecodeError: 'utf-16-le' codec can't decode byte 0x2e in position 1336: truncated data
 print(f"{len(output.getvalue().decode('utf-16le'))} characters in string")
-#####################
-# exploiting above code example
-#####################
-# UnicodeDecodeError: 'utf-16-le' codec can't decode byte 0x2e in position 1336: truncated data
