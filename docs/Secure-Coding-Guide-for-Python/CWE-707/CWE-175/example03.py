@@ -6,7 +6,7 @@ ORIGINAL_NUMBER = 12.345  # This will read as 12,345 in German
 
 
 def compare_number(number):
-    input_number = locale.atof(input("Enter a number: "))
+    input_number = locale.atof(input(f"Enter a number {ORIGINAL_NUMBER}: "))
     # Test if inputted number equals current number
     return number == input_number
 
