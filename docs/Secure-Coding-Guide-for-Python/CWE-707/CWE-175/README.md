@@ -167,7 +167,7 @@ print(f"Do the numbers match? {compare_number(ORIGINAL_NUMBER)}")
 
 ## Non-Compliant Code Example (Encoding)
 
-The developer should be aware of the text encoding that is used for input data and output data in the program. The code example attempts to use UTF-16 LE encoding to read the LOREM `TextIOWrapper` stream which raises a `UnicodeDecodeError` exception as it was created with UTF-8.
+The developer should be aware of the text encoding that is used for input data and output data in the program. The code example attempts to use `UTF-16 LE` encoding to read the LOREM `TextIOWrapper` stream which raises a `UnicodeDecodeError` exception as it was created with `UTF-8`.
 
 *[noncompliant02.py](noncompliant02.py):*
 
