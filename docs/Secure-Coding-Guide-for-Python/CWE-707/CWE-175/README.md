@@ -190,7 +190,7 @@ print(f"{len(output.getvalue().decode('utf-16le'))} characters in string")
 
 ## Compliant Solution (Encoding)
 
-The correct text encoding, UTF-8 for the LOREM `TextIOWrapper` stream has been included in the program. Ensure the encoding of data is known and explicitly stated when parsing and creating data.
+The correct text encoding, `UTF-8` for the LOREM `TextIOWrapper` stream has been included in the program. Ensure the encoding of data is known and explicitly stated when parsing and creating data.
 
 *[compliant02.py](compliant02.py):*
 
