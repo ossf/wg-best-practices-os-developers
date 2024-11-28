@@ -13,6 +13,7 @@ class Records:
     Compliant code, providing protection against injection.
     Missing input sanitation as such.
     """
+
     # TODO: add input sanitation
     # TODO: add appropriate logging
     # TODO: add appropriate error handling

@@ -86,7 +86,7 @@ It is **not production code** and requires code-style or python best practices t
 
 |[CWE-707: Improper Neutralization](https://cwe.mitre.org/data/definitions/707.html)|Prominent CVE|
 |:----------------------------------------------------------------|:----|
-|[CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')](CWE-707/CWE-89/.)|[CVE-2019-8600](https://www.cvedetails.com/cve/CVE-2019-8600/),<br/>CVSSv3.1: **9.8**,<br/>EPSS: **01.43** (18.02.2024)|
+|[CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')](CWE-707/CWE-89/README.md)|[CVE-2019-8600](https://www.cvedetails.com/cve/CVE-2019-8600/),<br/>CVSSv3.1: **9.8**,<br/>EPSS: **01.43** (18.02.2024)|
 |[CWE-117: Improper Output Neutralization for Logs](CWE-707/CWE-117/.)||
 |[CWE-180: Incorrect behavior order: Validate before Canonicalize](CWE-707/CWE-180/.)||
 
