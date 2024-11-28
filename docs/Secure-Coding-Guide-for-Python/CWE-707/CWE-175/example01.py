@@ -3,6 +3,6 @@
 """ Code Example """
 import locale
 WORD = "Title"
-print(word.upper())
+print(WORD.upper())
 locale.setlocale(locale.LC_ALL, "tr_TR.utf8")
-print(word.upper())
+print(WORD.upper())
