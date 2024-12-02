@@ -170,7 +170,7 @@ The `compliant01.py` code example is using `sqlite3.cursor.execute(get_values, d
 
 * Is limited to a single-line query to protect against multi-line attacks.
 
-The `compliant01.py` code is also providing variable type hints in its methods such as `name: str`. The `add_student` method is now storing the whole length of the string `"Robert'); DROP TABLE students;--"`.Input sanitation as described in separate rules would have to be added.
+The `compliant01.py` code is also providing variable type hints in its methods such as `name: str`. The `add_student` method is now storing the whole length of the string `"Robert'); DROP TABLE students;--"`. Input sanitation as described in separate rules would have to be added.
 
 >[!NOTE]
 >
