@@ -175,7 +175,7 @@ The `compliant01.py` code is also providing variable type hints in its methods s
 >[!NOTE]
 >
 > * Type hints do not prevent simple string injections at runtime. They only help prevent coding mistakes when used with a special linter at design time.
-> * The `sqlite3.cursor.executescript()` is specifically designed to prohibit printing the output. That is to prevent an attacker from exploring the database back-end layout.
+> * The `sqlite3.cursor.executescript()` method is specifically designed to prohibit printing the output. That is to prevent an attacker from exploring the database back-end layout.
 > * Production code must use logging that avoids exposing sensitive data.
 
 [*compliant01.py:*](compliant01.py)
