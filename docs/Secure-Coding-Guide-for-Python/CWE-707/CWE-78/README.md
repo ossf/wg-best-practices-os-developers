@@ -40,7 +40,6 @@ This scenario demonstrates a potential remote command execution. The `FileOperat
 *[noncompliant01.py](noncompliant01.py):*
 
 ```python
-""" Non-compliant Code Example """
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
@@ -135,8 +134,6 @@ The `compliant01.py` code using the cross-platform compatible pathlib module and
 *[compliant01.py](compliant01.py):*
 
 ```python
-""" Compliant Code Example """
-
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """ Compliant Code Example """
