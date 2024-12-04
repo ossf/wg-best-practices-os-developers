@@ -352,6 +352,8 @@ The C17 standard[^C2017] does not provide a mechanism to mark intentional fallth
 #endif
 ~~~
 
+The `__fallthrough__` attribute is supported since GCC 7.0.0[^gcc-release-notes-7] and Clang 4.0.0[^clang-fallthrough]. Feature testing via `__has_attribute` is supported since GCC 5.0.0[^gcc-release-notes-5] and Clang 2.9.
+
 [^Polacek17]: Polacek, Marek, ["-Wimplicit-fallthrough in GCC 7"](https://developers.redhat.com/blog/2017/03/10/wimplicit-fallthrough-in-gcc-7), Red Hat Developer, 2017-03-10
 
 [^Corbet19]: Corbet, Jonathan.  ["An end to implicit fall-throughs in the kernel"](https://lwn.net/Articles/794944/), LWN, 2019-08-01.
@@ -361,6 +363,12 @@ The C17 standard[^C2017] does not provide a mechanism to mark intentional fallth
 [^Shafik15]: Shafik, Yaghmour, ["GCC 7, -Wimplicit-fallthrough warnings, and portable way to clear them?"](https://stackoverflow.com/questions/27965722/c-force-compile-time-error-warning-on-implicit-fall-through-in-switch/27965827#27965827), StackOverflow, 2015-01-15.
 
 [^Howlett23]: Howlett, Liam,[tools: Rename __fallthrough to fallthrough](https://github.com/torvalds/linux/commit/f7a858bffcddaaf70c71b6b656e7cc21b6107cec), Linux Kernel Source, 2023-04-07.
+
+[^gcc-release-notes-5]: GCC team, [GCC 5 Release Series Changes, New Features, and Fixes](https://gcc.gnu.org/gcc-5/changes.html), 2017-10-10.
+
+[^gcc-release-notes-7]: GCC team, [GCC 7 Release Series Changes, New Features, and Fixes](https://gcc.gnu.org/gcc-7/changes.html), 2019-11-14.
+
+[^clang-fallthrough]: LLVM team, [Attributes in Clang: fallthrough, clang::fallthrough](https://releases.llvm.org/4.0.0/tools/clang/docs/AttributeReference.html#fallthrough-clang-fallthrough), Clang Documentation, 2017-03-13.
 
 ---
 
