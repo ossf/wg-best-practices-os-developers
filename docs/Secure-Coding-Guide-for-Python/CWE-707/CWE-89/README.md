@@ -8,6 +8,7 @@ SQLs that allow running operating system commands as part of an SQL query are se
 
 Note that "Raw SQL is error prone, more labor intensive, and ugly." [Byrne 2021]
 
+Expoits of a Mom [XKCD 2007](https://www.explainxkcd.com/wiki/index.php/327:_Exploits_of_a_Mom)
 ![Exploits of a mom](image01.webp "Exploits of a mom")
 
 Suppose a school has a webpage that allows parents to add the name of their child to a school trip themselves. The webpage is using an SQL back-end adding a new student `<NAME>` as follows:
@@ -29,16 +30,6 @@ INSERT INTO Students(student) VALUES('Robert'); DROP TABLE students;--');
 ```
 
 `DROP TABLE students;` will delete the existing table with student names.
-
-The `help(sqlite3)` indicates that `sqlite3.cursor.executescript()` should not be used by marking it as "Non-standard" while `cursor` is considered "standard".
-
-```man
-|  cursor(...)
-|      Return a cursor for the connection.
- 
-|  executescript(...)
-|      Executes a multiple SQL statements at once. Non-standard.
-```
 
 The `executescript()` method is typically used to initialize, create or do any  back-end work without front-end interaction and not intended to be used with a data from a lesser trusted source.
 
@@ -293,6 +284,7 @@ DEBUG:root:Adding student Malorny
 
 |||
 |:---|:---|
+|[XKCD 2007]|327 Exploits of a Mom, Available [online] from: [https://www.explainxkcd.com/wiki/index.php/327:_Exploits_of_a_Momhtml#article](https://www.explainxkcd.com/wiki/index.php/327:_Exploits_of_a_Mom), [Accessed 2024] |
 |[Jeff Forristal 1998]|Phrack magazine. Batch commands in ODBC and MS SQL server 6.5, Available [online]  from: [http://phrack.org/issues/54/8.html#article](http://phrack.org/issues/54/8.html#article ) [accessed 11 November 2024] |
 |[Oracle 2024]|Oracle MySQL Documentation. MySQL Shell commands, Available [online] from: [https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-commands.html](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-commands.html]), [Accessed Nov 2024]|
 |[OWASP 2005]|A Guide to Building Secure Web Applications and Web Services, Available from [http://sourceforge.net/projects/owasp/files/Guide/2.0.1/OWASPGuide2.0.1.pdf/download](http://sourceforge.net/projects/owasp/files/Guide/2.0.1/OWASPGuide2.0.1.pdf/download), [Accessed Nov 2024]|
