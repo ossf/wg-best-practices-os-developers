@@ -4,7 +4,7 @@ Avoid floating-point and use integers or the `decimal` module to ensure precisio
 
 In Python, floating-point types are constrained by a fixed number of binary mantissa bits, typically allowing for around seven decimal digits of precision (24-bit values). Consequently, they are not well-suited for representing surds, such as `√7` or `π` with full accuracy. Additionally, due to their binary nature, floating-point types are incapable of exactly terminating decimals in base 10, such as 0.3, which has a repeating binary representation.
 
-To ensure precision in applications requiring high accuracy, ushc as in financial or banking computations, it is recommended to avoid using floating-point types. Instead, integers or more precise data types like the `Decimal`class should be employed.
+To ensure precision in applications requiring high accuracy, such as in financial or banking computations, it is recommended to avoid using floating-point types. Instead, integers or more precise data types like the `Decimal` class should be employed.
 
 ## Non-compliant Code Example
 
