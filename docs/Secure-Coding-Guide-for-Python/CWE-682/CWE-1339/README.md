@@ -106,7 +106,7 @@ This code outputs the following:
 |[MITRE CWE Pillar]| [CWE-682: Incorrect Calculation](https://cwe.mitre.org/data/definitions/682.html)|
 |[MITRE CWE Base]|[CWE - CWE-1339: Insufficient Precision or Accuracy of a Real Number](https://cwe.mitre.org/data/definitions/1339.html)|
 
-## Biblography
+## Bibliography
 
 |||
 |:---|:---|
