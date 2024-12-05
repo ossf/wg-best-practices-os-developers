@@ -27,7 +27,7 @@ print(
 )
 ```
 
-Because the value of `ITEM_COST`(0.33) cannot be precisely represented in Python due to its nature as a terminating decimal in base 10, the resulting output was as follows:
+Because the value of `ITEM_COST` (0.33) cannot be precisely represented in Python due to its nature as a terminating decimal in base 10, the resulting output was as follows:
 
 ```text
 5 items bought, $0.33 each. Current account balance: $1.34999999999999993
