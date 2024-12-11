@@ -57,7 +57,7 @@ print(
 
 **Example `compliant01.py` output:**
 
-```text
+```bash
 5 items bought, $0.33 each. Current account balance: $1.35
 ```
 
@@ -85,7 +85,7 @@ print(
 
 **Example `compliant02.py` output:**
 
-```text
+```bash
 5 items bought, $0.33 each. Current account balance: $1.35
 ```
 
