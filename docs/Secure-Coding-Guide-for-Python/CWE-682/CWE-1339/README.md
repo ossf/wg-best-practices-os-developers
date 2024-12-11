@@ -102,7 +102,6 @@ print(
 |:---|:---|
 |[SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java?src=breadcrumbs)|[NUM04-J. Do not use floating-point numbers if precise computation is required](https://wiki.sei.cmu.edu/confluence/display/java/NUM04-J.+Do+not+use+floating-point+numbers+if+precise+computation+is+required)|
 |[The CERT C Secure Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|FLP02-C. Avoid using floating-point numbers when precise computation is needed, available from: [https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=87152394](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=87152394), [Accessed Dec 2024]|
-|[The CERT C++ Secure Coding Standard](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682) |[VOID FLP02-CPP. Avoid using floating point numbers when precise computation is needed](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046687)|
 |[ISO/IEC TR 24772:2010](http://www.aitcnet.org/isai/)| Floating-Point Arithmetic [PLF]|
 |[MITRE CWE Pillar]| [CWE-682: Incorrect Calculation](https://cwe.mitre.org/data/definitions/682.html)|
 |[MITRE CWE Base]|[CWE - CWE-1339: Insufficient Precision or Accuracy of a Real Number](https://cwe.mitre.org/data/definitions/1339.html)|
