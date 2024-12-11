@@ -4,7 +4,6 @@
 BALANCE = 300
 ITEM_COST = 33
 ITEM_COUNT = 5
- 
 print(
     f"{str(ITEM_COUNT)} items bought, ${ITEM_COST / 100} each. "
     f"Current account balance: "
