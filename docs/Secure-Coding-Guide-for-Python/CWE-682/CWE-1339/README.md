@@ -110,6 +110,6 @@ print(
 
 |||
 |:---|:---|
-|[Bloch 2008](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Bloch08)|Item 48, "Avoid `float` and `double` If Exact Answers Are Required"|
-|[Bloch 2005](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Bloch05)|Puzzle 2, "Time for a Change"|
-|[IEEE 754](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-IEEE7542006)||
+|[Bloch 2008]|Item 48, "Avoid `float` and `double` If Exact Answers Are Required"|
+|[Bloch 2005]|Puzzle 2, "Time for a Change"|
+|[IEEE 754]||
