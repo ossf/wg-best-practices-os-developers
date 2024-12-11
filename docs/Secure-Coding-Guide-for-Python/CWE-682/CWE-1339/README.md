@@ -27,7 +27,9 @@ print(
 ```
 
 Because the value of `ITEM_COST` (0.33) cannot be precisely represented in Python due to its nature as a terminating decimal in base 10, the resulting output was as follows:
+The unprecise `base 10` representation during the multiplication of `5` with `0.33`  results in an `account balance`  of  `$1.34999999999999993` in the `noncompliant01.py` code.
 
+**Example noncompliant01.py output:**
 ```text
 5 items bought, $0.33 each. Current account balance: $1.34999999999999993
 ```
