@@ -11,7 +11,8 @@ Python's random module is a standard library module that provides functions to g
 
 Therefore, the random module is unsuitable for applications requiring high security as it does not incorporate cryptographic randomness, which means it is not resistant to reverse engineering. Its limited entropy makes it easier for attackers to deduce the internal state of the generator and predict future outputs.
 
-Instead, for generating random numbers, it is recommended to use a more robust option, like Python's secrets module.
+Instead, for generating random numbers, it is recommended to use a more robust option, such as Python's `secrets` module.
+
 
 ## Non-compliant Code Example
 
