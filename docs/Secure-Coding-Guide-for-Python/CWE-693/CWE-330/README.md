@@ -45,7 +45,8 @@ print(f"Your insecure token is: {TOKEN}")
 > The `secrets` module `os.urandom()` is called by `"secrets.token_urlsafe()"` causing its cryptographic strength to depend on the operating system and its entropy sources.
 Pure randomness can not be produced in software alone [[cloudflare 2017]](https://blog.cloudflare.com/randomness-101-lavarand-in-production/).
 
- The `compliant01.py` solution uses the secrets module to generate the random numbers. The secrets module provides access to the most secure source of randomness that the os provides through `os.urandom()`.
+ The `compliant01.py` solution uses the `secrets` module to generate the random numbers. The `secrets` module provides access to the most secure source of randomness that an OS provides through `os.urandom()`.
+
 
 *[compliant01.py](compliant01.py):*
 
