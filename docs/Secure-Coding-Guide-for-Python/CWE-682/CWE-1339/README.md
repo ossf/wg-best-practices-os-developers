@@ -54,7 +54,7 @@ print(
 )
 ```
 
-This code produces the following output accurately:
+**Example `compliant01.py` output:**
 
 ```text
 5 items bought, $0.33 each. Current account balance: $1.35
