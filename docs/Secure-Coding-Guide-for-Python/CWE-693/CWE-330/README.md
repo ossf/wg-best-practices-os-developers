@@ -82,7 +82,6 @@ print(f"Your secure token is: {TOKEN}")
 |:---|:---|
 |[SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[MSC30-C. Do not use the rand() function for generating pseudorandom numbers](https://wiki.sei.cmu.edu/confluence/display/c/MSC30-C.+Do+not+use+the+rand%28%29+function+for+generating+pseudorandom+numbers)|
 |[SEI CERT C++ Coding Standard](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682)|[MSC50-CPP. Do not use std::rand() for generating pseudorandom numbers](https://wiki.sei.cmu.edu/confluence/display/cplusplus/MSC50-CPP.+Do+not+use+std%3A%3Arand%28%29+for+generating+pseudorandom+numbers)|
-|[The CERT C++ Secure Coding Standard](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682) |[VOID FLP02-CPP. Avoid using floating point numbers when precise computation is needed](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046687)|
 |[SEI CERT Java Coding Standards](https://wiki.sei.cmu.edu/confluence/display/seccode/SEI+CERT+Coding+Standards)| [MSC02-J. Generate strong random numbers](https://wiki.sei.cmu.edu/confluence/display/java/MSC02-J.+Generate+strong+random+numbers)|
 |MITRE CWE Pillar| [CWE-693: Protection Mechanism Failure (4.12) (mitre.org)](https://cwe.mitre.org/data/definitions/693.html)|
 |MITRE CWE Class|[CWE-330, Use of Insufficiently Random Values](http://cwe.mitre.org/data/definitions/330.html)|
