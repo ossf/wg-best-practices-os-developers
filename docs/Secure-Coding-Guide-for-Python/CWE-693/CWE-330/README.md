@@ -53,13 +53,13 @@ Pure randomness can not be produced in software alone [[cloudflare 2017]](https:
 # SPDX-License-Identifier: MIT
 """ Compliant Code Example """
 import secrets
- 
- 
+
+
 def generate_web_token():
     """Better cryptographic number generator"""
     return secrets.token_urlsafe()
- 
- 
+
+
 #####################
 # attempting to exploit above code example
 #####################
