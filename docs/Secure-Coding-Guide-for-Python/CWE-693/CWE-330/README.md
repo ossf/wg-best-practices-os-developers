@@ -46,7 +46,6 @@ Pure randomness can not be produced in software alone [[cloudflare 2017]](https:
 
  The `compliant01.py` solution uses the `secrets` module to generate the random numbers. The `secrets` module provides access to the most secure source of randomness that an OS provides through `os.urandom()`.
 
-
 *[compliant01.py](compliant01.py):*
 
 ```py
