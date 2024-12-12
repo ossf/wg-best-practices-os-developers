@@ -13,7 +13,6 @@ Therefore, the random module is unsuitable for applications requiring high secur
 
 Instead, for generating random numbers, it is recommended to use a more robust option, such as Python's `secrets` module.
 
-
 ## Non-compliant Code Example
 
 In `noncompliant01.py`, we generate a random web token using Python's random module. This makes the token predictable and vulnerable to exploitation, as the sequence of numbers is always the same for any specified seed value.
