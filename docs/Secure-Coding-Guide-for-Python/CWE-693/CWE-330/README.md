@@ -96,6 +96,4 @@ print(f"Your secure token is: {TOKEN}")
 |[sonar docs - Using pseudorandom number generators (PRNGs) is security-sensitive](https://rules.sonarsource.com/python/RSPEC-2245/)|Sonar Rules - Using pseudorandom number generators (PRNGs) is security-sensitive. Available from [Using pseudorandom number generators (PRNGs) is security-sensitive](https://rules.sonarsource.com/python/RSPEC-2245/) [accessed 7 September 2023].|
 |[[Cloudflare 2017]](https://blog.cloudflare.com/)| [Randomness 101: LavaRand in Production (cloudflare.com)](https://blog.cloudflare.com/randomness-101-lavarand-in-production/)|
 |LavaRnd|[LavaRnd](https://www.lavarand.org/)|
-[MATSUMOTO, NISHIMURA 1998] Mersenne Twister: A 623-Dimensionally
-Equidistributed Uniform Pseudo-Random
-Number Generator, available from: [https://dl.acm.org/doi/pdf/10.1145/272991.272995](https://dl.acm.org/doi/pdf/10.1145/272991.272995), [accessed December 2024]|
+|[MATSUMOTO, NISHIMURA 1998]|Mersenne Twister: A 623-Dimensionally Equidistributed Uniform Pseudo-Random Number Generator, available from: [https://dl.acm.org/doi/pdf/10.1145/272991.272995](https://dl.acm.org/doi/pdf/10.1145/272991.272995), [accessed December 2024]|
