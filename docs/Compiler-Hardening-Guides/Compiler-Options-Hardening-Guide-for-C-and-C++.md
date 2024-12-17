@@ -1,6 +1,6 @@
 # Compiler Options Hardening Guide for C and C++
 
-*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2024-05-30*
+*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2024-12-12*
 
 This document is a guide for compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++. The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
 
@@ -27,7 +27,8 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -fstrict-flex-arrays=3 \
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,noexecstack \
--Wl,-z,relro -Wl,-z,now
+-Wl,-z,relro -Wl,-z,now \
+-Wl,--as-needed -Wl,--no-copy-dt-needed-entries
 ~~~
 
 Note that support for some options may differ between different compilers, e.g. support for [`-D_FORTIFY_SOURCE`](#-D_FORTIFY_SOURCE=3) varies depending on the compiler[^Guelton20] and C standard library implementations. See the discussion below for [background](#background) and for [detailed discussion of each option](#recommended-compiler-options).
@@ -64,7 +65,19 @@ Applications written in the C and C++ programming languages are prone to exhibit
 
 [^Cimpanu2020]: Cimpanu, Catalin, [Chrome: 70% of all security bugs are memory safety issues](https://www.zdnet.com/article/chrome-70-of-all-security-bugs-are-memory-safety-issues/), ZDNet, 2020-05-22
 
-Most programming languages prevent such defects by default. A few languages allow programs to temporarily suspend these protections in special circumstances, but they are intended for use in a few lines, not the whole program. There have been calls to rewrite C and C++ programs in other languages, but this is expensive and time-consuming, has its own risks, is sometimes impractical today (especially for less-common CPUs). Even with universal agreement, it would take decades to rewrite all such code. Consequently, it's important to take other steps to reduce the likelihood of defects becoming vulnerabilities. Aggressive use of compiler options can sometimes detect vulnerabilities or help counter their run-time effects.
+Most high-level programming languages are *"memory safe"* and prevent such defects by default. Many of these languages allow programs to temporarily suspend memory-safety protections in special circumstances, such as when calling into operating system APIs written in C, but such suspensions are intended to be limited for a few lines of code, not for the whole program. There have been calls to rewrite C and C++ programs in memory-safe languages. This has happened in some cases[^Prossimo2024]; however, such rewriting is expensive and time-consuming, has its own risks, and is sometimes impractical today, especially for uncommon CPUs. Even if universally agreed upon, rewriting all C and C++ code would take decades and incur massive monetary costs. One rough estimate of such rewrites puts the cost at $2.4 trillion US dollars[^Wheeler2024], which would make rewriting C and C++ a problem of similar scale (in terms of monetary investment required) as keeping global climate change goals within reach[^Volcovici2024]. Consequently, not all C and C++ can be revised or discarded[^Claburn2024]. For example, Google anticipates *"a residual amount of mature and stable memory-unsafe code will remain for the foreseeable future"*[^Rebert2024].
+
+[^Claburn2024]: Claburn, Thomas, [Google's memory safety plan includes rehab for unsafe languages: Large C and C++ codebases will be around for the 'foreseeable future'](https://www.theregister.com/2024/10/16/google_legacy_code/), The Register, 2024-10-16.
+
+[^Prossimo2024]: Internet Security Research Group, [Prossimo](https://www.memorysafety.org/), Prossimo project homepage. 2024-10-22.
+
+[^Rebert2024]: Rebert, Alex; Carruth, Chandler; Engel, Jen, and Qin, Andy, [Safer with Google: Advancing Memory Safety](https://security.googleblog.com/2024/10/safer-with-google-advancing-memory.html), Google Security Blog, 2024-10-15.
+
+[^Volcovici2024]: Volcovici, Valerie, [UN climate chief calls for $2.4 trillion in climate finance](https://www.reuters.com/sustainability/sustainable-finance-reporting/un-climate-chief-calls-24-trillion-climate-finance-2024-02-02/), Reuters, 2024-02-02.
+
+[^Wheeler2024]: Wheeler, David A., [Improving Memory Safety without a Trillion Dollars](https://docs.google.com/presentation/d/1EDQL-6MUKrqbILBtYjpiF96uW5LXcnIuE-HxzyCIr68/edit), 2024.
+
+Consequently, it's important to accept that C and C++ will continue to be used, and to take *other* steps to reduce risks. To reduce risk, we must reduce the likelihood of defects becoming vulnerabilities, or reduce the impact of such defects. Aggressive use of compiler options can sometimes detect vulnerabilities or help counter their run-time effects.
 
 Run-time attacks differ from conventional malware, which carries out its malicious program actions through a dedicated program executable, in that run-time attacks influence benign programs to behave maliciously. A run-time attack that exploits unmitigated memory vulnerabilities can be leveraged by threat actors as the initial attack vectors that allow them to gain a presence on a system, e.g., by injecting malicious code into running programs.
 
@@ -194,13 +207,13 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 
 | Compiler Flag                                                                             |            Supported since            | Description                                                                                  |
 |:----------------------------------------------------------------------------------------- |:----------------------------------:|:-------------------------------------------------------------------------------------------- |
-| [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3) <br/>(requires `-O1` or higher, <br/> may require prepending -U_FORTIFY_SOURCE) | GCC 12.0.0<br/>Clang 9.0.0[^Guelton20]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. |
-| [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)<br>[`-D_LIBCPP_ASSERT`](#-D_LIBCPP_ASSERT) | libstdc++ 6.0.0<br/>libc++ 3.3.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
+| [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3)| GCC 12.0.0<br/>Clang 9.0.0[^Guelton20]  | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. Requires `-O1` or higher, may require prepending `-U_FORTIFY_SOURCE`. |
+| [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS) | libstdc++ 6.0.0  | Precondition checks for C++ standard library calls. Can impact performance.                  |
 | [`-fstrict-flex-arrays=3`](#-fstrict-flex-arrays)                             |       GCC 13.0.0<br/>Clang 16.0.0       | Consider a trailing array in a struct as a flexible array if declared as `[]`                           |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                   |       GCC 8.0.0<br/>Clang 11.0.0       | Enable run-time checks for variable-size stack allocation validity. Can impact performance.  |
-| [`-fstack-protector-strong`](#-fstack-protector-strong)                                   |     GCC 4.9.0<br/>Clang 5.0.0      | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
-| [`-fcf-protection=full`](#-fcf-protection=full)                                   |     GCC 8.0.0<br/>Clang 7.0.0                  | Enable control flow protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x86 architectures |
-| [`-mbranch-protection=standard`](#-mbranch-protection-standard)                                   |     GCC 9.0.0<br/>Clang 8.0.0              | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on AArch64 |
+| [`-fstack-protector-strong`](#-fstack-protector-strong)                                   | GCC 4.9.0<br/>Clang 6.0.0          | Enable run-time checks for stack-based buffer overflows. Can impact performance.             |
+| [`-fcf-protection=full`](#-fcf-protection=full)                                           | GCC 8.0.0<br/>Clang 7.0.0          | Enable control-flow protection against return-oriented programming (ROP) and jump-oriented programming (JOP) attacks on x86_64 |
+| [`-mbranch-protection=standard`](#-mbranch-protection-standard)                           | GCC 9.0.0<br/>Clang 8.0.0          | Enable branch protection against ROP and JOP attacks on AArch64 |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen) |           Binutils 2.10.0            | Restrict `dlopen(3)` calls to shared objects                                 |
 | [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)                                               |           Binutils 2.14.0            | Enable data execution prevention by marking stack memory as non-executable                   |
 | [`-Wl,-z,relro`](#-Wl,-z,relro)<br/>[`-Wl,-z,now`](#-Wl,-z,now)                           |           Binutils 2.15.0            | Mark relocation table entries resolved at load-time as read-only. `-Wl,-z,now` can impact startup performance.                            |
@@ -208,9 +221,11 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6.0<br/>Clang 5.0.0     | Build as position-independent code. Can impact performance on 32-bit architectures.                                                         |
 | [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                     | GCC 3.0.0<br/>Clang 7.0.0            | Force retention of null pointer checks                                                       |
 | [`-fno-strict-overflow`](#-fno-strict-overflow)                                           | GCC 4.2.0                            | Integer overflow may occur                                                                   |
-| [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 18.0.0        | Do not assume strict aliasing                                                                |
+| [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 2.9.0        | Do not assume strict aliasing                                                                |
 | [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12.0.0<br/>Clang 8.0.0               | Perform trivial auto variable initialization                                                 |
 | [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6.0           | Enable exception propagation to harden multi-threaded C code                                 |
+| [`-fhardened`](#-fhardened)                                                               | GCC 14.0.0                           | Enable pre-determined set of hardening options in GCC                                        |
+| [`-Wl,--as-needed`](#-Wl,--as-needed)<br/>[`-Wl,--no-copy-dt-needed-entries`](#-Wl,--no-copy-dt-needed-entries) | Binutils 2.20.0 | Allow linker to omit libraries specified on the command line to link against if they are not used |
 
 [^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
@@ -294,11 +309,15 @@ For C++ warnings about conversions between signed and unsigned integers are disa
 
 #### Synopsis
 
-Check whether the compiler generates trampolines for pointers to nested functions which may interfere with stack virtual memory protection (non-executable stack.)
+Check whether the compiler generates trampolines for pointers to nested functions[^gnuc-nestedfuncs] (a GNU C extension to ISO standard C) which stack virtual memory protection (non-executable stack) may interfere with.
 
 A trampoline is a small piece of data or code that is created at run time on the stack when the address of a nested function is taken and is used to call the nested function indirectly.
 
-For most target architectures, including 64-bit x86, trampolines are made up of code and thus requires the stack to be made executable for the program to work properly. This interferes with the non-executable stack mitigation which is used by all major operating system to prevent code injection attacks (see Section 2.10).
+For most target architectures, including 64-bit x86, trampolines are made up of code and thus requires the stack to be made executable for the program to work properly. The non-executable stack mitigation (see [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)) used by all major operating system to prevent code injection attacks may interfere with the operation such trampolines causing a non-compatible programs to crash when they transfer control flow to a trampoline on a non-executable stack.
+
+Enabling `-Wtrampolines` warns of programming constructs which are not compatible with the non-executable stack mitigation.
+
+[^gnuc-nestedfuncs]: Stallman, Richard, [Nested Functions](https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Nested-Functions.html), GNU C Language Introduction and Reference Manual, 2023-10-15.
 
 ---
 
@@ -323,12 +342,17 @@ This warning flag does not have a performance impact. However, sometimes a fallt
 The C17 standard[^C2017] does not provide a mechanism to mark intentional fallthroughs. Different tools support different mechanisms for marking one, including attributes and comments in various forms[^Shafik15]. A portable way to mark one is to define a function-like macro named `fallthrough()` to mark an intentional fallthrough that adjusts to the relevant tool (e.g., compiler) mechanism. We suggest using this construct below, inspired by the keyword-like construct used by the Linux kernel version 6.4 and later[^Howlett23]. We suggest using a function call syntax instead so more editors and other tools will deal with it correctly:
 
 ~~~c
-#if __has_attribute(__fallthrough__)
-# define fallthrough()                    __attribute__((__fallthrough__))
-#else
+#ifdef __has_attribute
+# if __has_attribute(__fallthrough__)
+#  define fallthrough()                    __attribute__((__fallthrough__))
+# endif
+#endif
+#ifndef fallthrough
 # define fallthrough()                    do {} while (0)  /* fallthrough */
 #endif
 ~~~
+
+The `__fallthrough__` attribute is supported since GCC 7.0.0[^gcc-release-notes-7] and Clang 4.0.0[^clang-fallthrough]. Feature testing via `__has_attribute` is supported since GCC 5.0.0[^gcc-release-notes-5] and Clang 2.9.
 
 [^Polacek17]: Polacek, Marek, ["-Wimplicit-fallthrough in GCC 7"](https://developers.redhat.com/blog/2017/03/10/wimplicit-fallthrough-in-gcc-7), Red Hat Developer, 2017-03-10
 
@@ -339,6 +363,12 @@ The C17 standard[^C2017] does not provide a mechanism to mark intentional fallth
 [^Shafik15]: Shafik, Yaghmour, ["GCC 7, -Wimplicit-fallthrough warnings, and portable way to clear them?"](https://stackoverflow.com/questions/27965722/c-force-compile-time-error-warning-on-implicit-fall-through-in-switch/27965827#27965827), StackOverflow, 2015-01-15.
 
 [^Howlett23]: Howlett, Liam,[tools: Rename __fallthrough to fallthrough](https://github.com/torvalds/linux/commit/f7a858bffcddaaf70c71b6b656e7cc21b6107cec), Linux Kernel Source, 2023-04-07.
+
+[^gcc-release-notes-5]: GCC team, [GCC 5 Release Series Changes, New Features, and Fixes](https://gcc.gnu.org/gcc-5/changes.html), 2017-10-10.
+
+[^gcc-release-notes-7]: GCC team, [GCC 7 Release Series Changes, New Features, and Fixes](https://gcc.gnu.org/gcc-7/changes.html), 2019-11-14.
+
+[^clang-fallthrough]: LLVM team, [Attributes in Clang: fallthrough, clang::fallthrough](https://releases.llvm.org/4.0.0/tools/clang/docs/AttributeReference.html#fallthrough-clang-fallthrough), Clang Documentation, 2017-03-13.
 
 ---
 
@@ -491,11 +521,11 @@ Some tools, such as `autoconf`, automatically determine what the compiler suppor
 
 ### Fortify sources for unsafe libc usage and buffer overflows
 
-| Compiler Flag                                                                              | Supported since            | Description                                                                                  |
-| ------------------------------------------------------------------------------------------ | ----------------------- | -------------------------------------------------------------------------------------------- |
-| <span id="-D_FORTIFY_SOURCE=1">`-D_FORTIFY_SOURCE=1`</span>                                | GCC 4.0.0<br/>Clang 5.0.0     | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows         |
-| <span id="-D_FORTIFY_SOURCE=2">`-D_FORTIFY_SOURCE=2`</span><br/>(requires `-O1` or higher) | GCC 4.0.0<br/>Clang 5.0.0[^Guelton20] | In addition to checks covered by `-D_FORTIFY_SOURCE=1`, also trap code that may be conforming to the C standard but still unsafe |
-| <span id="-D_FORTIFY_SOURCE=3">`-D_FORTIFY_SOURCE=3`</span><br/>(requires `-O1` or higher) | GCC 12.0.0<br/>Clang 9.0.0[^Guelton20] | Same checks as in `-D_FORTIFY_SOURCE=2`, but with significantly more calls fortified with a potential to impact performance in some rare cases |
+| Compiler Flag                                               | Supported since                        | Description                                                                                                                                                               |
+| ----------------------------------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <span id="-D_FORTIFY_SOURCE=3">`-D_FORTIFY_SOURCE=3`</span> | GCC 12.0.0<br/>Clang 9.0.0[^Guelton20] | Same checks as in `-D_FORTIFY_SOURCE=2`, but with significantly more calls fortified with a potential to impact performance in some rare cases. Requires `-O1` or higher. |
+| <span id="-D_FORTIFY_SOURCE=2">`-D_FORTIFY_SOURCE=2`</span> | GCC 4.0.0<br/>Clang 5.0.0[^Guelton20]  | In addition to checks covered by `-D_FORTIFY_SOURCE=1`, also trap code that may be conforming to the C standard but still unsafe. Requires `-O1` or higher.               |
+| <span id="-D_FORTIFY_SOURCE=1">`-D_FORTIFY_SOURCE=1`</span> | GCC 4.0.0<br/>Clang 5.0.0              | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows                                                                              |
 
 #### Synopsis
 
@@ -532,13 +562,19 @@ Both `_FORTIFY_SOURCE=1` and `_FORTIFY_SOURCE=2` are expected to have a negligib
 
 #### Additional Considerations
 
-- Applications that incorrectly use `malloc_usable_size`[^malloc_usable_size] to use the additional size reported by the function may abort at runtime. This is a bug in the application because the additional size reported by `malloc_usable_size` is not generally safe to dereference and is for diagnostic uses only. The correct fix for such issues is to avoid using `malloc_usable_size` as the glibc manual specifically states that it is for diagnostic purposes *only* [^malloc_usable_size]. On many Linux systems these incorrect uses can be detected by running `readelf -Ws <path>` on the ELF binaries and searching for `malloc_usable_size@GLIBC`[^kpyrd23]. If avoiding `malloc_usable_size` is not possible, one may call `realloc` to resize the block to its usable size and to benefit from `_FORTIFY_SOURCE=3`.
+Internally `-D_FORTIFY_SOURCE` relies on the built-in functions for object size checking in GCC[^gcc-objectsizechecks] and Clang[^clang-evaluatingobjectsize], namely `__builtin_object_size` and `__builtin_dynamic_object_size`. These builtins provide conservative approximations of the object size and are sensitive to compiler optimizations. With optimization enabled they produce more accurate estimates, especially when a call to `__builtin_object_size` is in a different function from where its argument pointer is formed. In addition, GCC allows more information about subobject bounds to be determined with higher optimization levels. Hence we recommending enabling `-D_FORTIFY_SOURCE=3` with at least optimization level `-O2`.
+
+Applications that incorrectly use `malloc_usable_size`[^malloc_usable_size] to use the additional size reported by the function may abort at runtime. This is a bug in the application because the additional size reported by `malloc_usable_size` is not generally safe to dereference and is for diagnostic uses only. The correct fix for such issues is to avoid using `malloc_usable_size` as the glibc manual specifically states that it is for diagnostic purposes *only* [^malloc_usable_size]. On many Linux systems these incorrect uses can be detected by running `readelf -Ws <path>` on the ELF binaries and searching for `malloc_usable_size@GLIBC`[^kpyrd23]. If avoiding `malloc_usable_size` is not possible, one may call `realloc` to resize the block to its usable size and to benefit from `_FORTIFY_SOURCE=3`.
 
 [^glibc-fortification]: GNU C Library team, [Source Fortification in the GNU C Library](https://www.gnu.org/software/libc/manual/html_node/Source-Fortification.html), GNU C Library (glibc) manual, 2023-02-01.
 
 [^Poyarekar23]: Poyarekar, Siddhesh, [How to improve application security using _FORTIFY_SOURCE=3](https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3), Red Hat Developer, 2023-02-06.
 
 [^gcc-zerolengtharrays]: GCC team, [Arrays of Length Zero](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/arrays-of-length-zero.html), GCC Manual (experimental 20221114 documentation), 2022-11-14.
+
+[^gcc-objectsizechecks]: GCC team, [Using the GNU Compiler Collection (GCC): 6.62 Object Size Checking](https://gcc.gnu.org/onlinedocs/gcc/Object-Size-Checking.html), GCC Manual, 2024-08-01.
+
+[^clang-evaluatingobjectsize]: LLVM team, [Clang Language Extensions: Evaluating Object Size](https://clang.llvm.org/docs/LanguageExtensions.html#evaluating-object-size), Clang Documentation, 2024-09-17.
 
 [^malloc_usable_size]: Linux Man Pages team, [malloc_usable_size(3)](https://man7.org/linux/man-pages/man3/malloc_usable_size.3.html), Linux manual page, 2023-03-30.
 
@@ -659,9 +695,9 @@ Note that `vm.heap-stack-gap` expresses the gap as multiple of page size whereas
 
 | Compiler Flag                                                          |       Supported since        | Description                                                                                                      |
 |:---------------------------------------------------------------------- |:-------------------------:|:---------------------------------------------------------------------------------------------------------------- |
-| <span id="-fstack-protector-strong">`-fstack-protector-strong`</span>  | GCC 4.9.0<br/>Clang 5.0.0 | Enable run-time checks for stack-based buffer overflows using strong heuristic                                   |
-| `-fstack-protector-all`                                                |       GCC<br/>Clang       | Enable run-time checks for stack-based buffer overflows for all functions                                        |
-| `-fstack-protector`<br/>`--param=ssp-buffer-size=`*`<n>`*              |       GCC<br/>Clang       | Enable run-time checks for stack-based buffer overflows for functions with character arrays if *n* or more bytes |
+| <span id="-fstack-protector-strong">`-fstack-protector-strong`</span>  | GCC 4.9.0<br/>Clang 6.0.0 | Enable run-time checks for stack-based buffer overflows using strong heuristic                                   |
+| `-fstack-protector-all`                                                | GCC 4.1.2<br/>Clang 6.0.0 | Enable run-time checks for stack-based buffer overflows for all functions                                        |
+| `-fstack-protector`<br/>`--param=ssp-buffer-size=`*`<n>`*              | GCC 4.1.2<br/>Clang 6.0.0 | Enable run-time checks for stack-based buffer overflows for functions with character arrays if *n* or more bytes |
 
 #### Synopsis
 
@@ -704,26 +740,40 @@ The performance overhead is dependent on the number of function’s instrumented
 
 ---
 
-### Implement control flow integrity checks
+### Enable control-flow and branch protection against return-oriented programming and jump-oriented programming attacks
 
-| Compiler Flag                                                                                            | Supported since  | Description                                                  |
-|:-------------------------------------------------------------------------------------------------------- |:-------------:|:------------------------------------------------------------ |
-| <span id="-fcf-protection=full">`-fcf-protection=full`</span><br/>                                   |     GCC 8.0.0<br/>Clang 7.0.0          | Enable control flow protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on many x86 architectures |
-| <span id="-mbranch-protection-standard">`-mbranch-protection=standard`</span>                        |     GCC 9.0.0<br/>Clang 8.0.0              | Enable branch protection to counter Return Oriented Programming (ROP) and Jump Oriented Programming (JOP) attacks on AArch64 |
+| Compiler Flag                                                                 | Supported since           | Description                                                                                                                                     |
+|:------------------------------------------------------------------------------|:-------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------- |
+| <span id="-fcf-protection=full">`-fcf-protection=full`</span><br/>            | GCC 8.0.0<br/>Clang 7.0.0 | Enable control-flow protection against return-oriented programming (ROP) and jump-priented programming (JOP) attacks on x86_64                  |
+| <span id="-fcf-protection=branch">`-fcf-protection=branch`</span><br/>        | GCC 8.0.0<br/>Clang 7.0.0 | Enable control-flow protection against JOP on x86_64                                                                                            |
+| <span id="-fcf-protection=return">`-fcf-protection=return`</span><br/>        | GCC 8.0.0<br/>Clang 7.0.0 | Enable control-flow protection against ROP on x86_64                                                                                            |
+| <span id="-fcf-protection=none">`-fcf-protection=none`</span><br/>            | GCC 8.0.0<br/>Clang 7.0.0 | Disable control-flow protections                                                                                                                |
+| <span id="-fcf-protection=check">`-fcf-protection=check`</span><br/>          | GCC 8.0.0<br/>Clang 7.0.0 | Instruct linker to verify all object files in final link with link-time optimization (LTO) are compiled with identical control-flow protections |
+| <span id="-mbranch-protection-standard">`-mbranch-protection=standard`</span> | GCC 9.0.0<br/>Clang 8.0.0 | Enable branch protection to counter ROP and JOP attacks on AArch64                                                                              |
 
 #### Synopsis
 
-Return-oriented programming (ROP) uses an initial subversion (such as a buffer overflow) to perform an indirect jump that executes a different sequence of instructions. This is often existing code being misused, so these are often called "code reuse attacks". A countermeasure is to ensure that jump addresses and return addresses are correct. This is not a complete solution, but it makes attacks harder to perform.
+Return-oriented programming (ROP) uses an initial subversion (such as a buffer overflow) to perform an indirect jump that executes a different sequence of instructions. This is often existing code being misused, so these are often called "code-reuse attacks". A countermeasure is to ensure that return addresses are correct and jump addresses point to known targets for indirect calls or branches. This is not a complete solution, but it makes attacks harder to perform.
+
+Since GCC 14 changing the default control-flow protection value for x86_64 architectures (`full`, equivalent to `branch` and `return`) requires passing `-fcf-protection=none` followed by the desired `-fcf-protection` option, e.g, `-fcf-protection=none -fcf-protection=branch` or `-fcf-protection=none -fcf-protection=return`[^gcc-release-notes-14].
+
+The `-fcf-protection=check` is ignored at compilation time but instructs the linker to verify that all object files in final link with link-time optimization (LTO) are compiled with identical control-flow protections. Mixing object files with different control-flow protections may cause run-time failures.
 
 #### Performance implications
 
 There are performance implications but they are typically mild due to hardware assistance. The `-fcf-protection=full` flag enables Intel's Control-Flow Enforcement Technology (CET) [^IntelCET], which introduces shadow stack (SHSTK) and indirect branch tracking (IBT). The `-mbranch-protection=standard` flag invokes similar protections in the AArch64. In clang `-mbranch-protection=standard` is equivalent to `-mbranch-protection=bti+pac-ret` and invokes the AArch64 Branch Target Identification (BTI) and Pointer Authentication using key A (pac-ret) [^Armclang].
 
+#### Additional Considerations
+
+Intel CET shadow stack requires Linux Kernel version 6.6 or higher and glibc version 2.39 or higher. Shadow stack support must, in addition, be enabled at run-time by setting the corresponding hardware capability tunable for glibc via the `GLIBC_TUNABLES` environmental variable [^glibc-tunables]: `export GLIBC_TUNABLES=glibc.cpu.hwcaps=SHSTK`.
+
 [^Armclang]: ARM Developer, [Arm Compiler armclang Reference Guide Version 6.12 -mbranch-protection](https://developer.arm.com/documentation/100067/0612/armclang-Command-line-Options/-mbranch-protection).
 
 [^IntelCET]: Intel, ["A Technical Look at Intel’s Control-flow Enforcement Technology"](https://www.intel.com/content/www/us/en/developer/articles/technical/technical-look-control-flow-enforcement-technology.html), 2020-06-13.
 
----
+[^glibc-tunables]: GNU C Library team, [Tunables](https://www.gnu.org/software/libc/manual/html_node/Tunables.html), GNU C Library (glibc) manual, 2024-07-22.
+
+[^gcc-release-notes-14]: GCC team, [GCC 14 Release Series Changes, New Features, and Fixes](https://gcc.gnu.org/gcc-14/changes.html), 2024-08-10.
 
 ### Restrict dlopen calls to shared objects
 
@@ -772,11 +822,21 @@ None, marking the stack and/or heap as non-executable does not have an impact on
 
 #### When not to use?
 
-Some language-level programming constructs, such as taking the address of a nested function (a GNU C extension to ISO standard C) requires special compiler handling which may prevent the linker from marking stack segments correctly as non-executable[^gcc-trampolines].
+Some language-level programming constructs, such as taking the address of a nested function[^gnuc-nestedfuncs] (a GNU C extension to ISO standard C) requires special compiler handling which may not work correctly if the linker mark stack segments as non-executable[^gcc-trampolines].
 
-Consequently the `-Wl,-z,noexecstack` option works best when combined with appropriate warning flags (`-Wtrampolines` where available) that indicate whether language constructs interfere with stack virtual memory protection.
+Consequently the `-Wl,-z,noexecstack` option works best when combined with appropriate warning flags ([`-Wtrampolines`](#-Wtrampolines) where available) that indicate whether stack virtual memory protection interferes with language constructs.
+
+#### Additional Considerations
+
+Modern compilers perform this marking automatically through the `p_flags` field in the `PT_GNU_STACK` program header entry and the linker consults the entries for consituent objects when deciding the marking for the produced binary. If the marking is missing the kernel or the dynamic linker needs to assume the binary might need executable stack.
+
+In Linux prior to kernel version 5.8 a missing `PT_GNU_STACK` marking on x86_64 will also expose other readable pages (such as the program `.data` section) as executable[^Hernandez2013], not just their stack memory. While this behavior has since changed for x86_64[^Cook2020], we recommend enabling `-Wl,-z,noexecstack` explicitly during linking to ensure produced binaries benefit from data execution prevention for both the stack and other program data as widely as possible and guarding against compatibility issues by using the [`-Wtrampolines`](#-Wtrampolines) in tandem when available. For example, binaries on 32-bit x86 architectures must be equipped with a `PT_GNU_STACK` marking to benefit from data execution prevention for stack and other program data even on more recent Linux kernel versions.
 
 [^gcc-trampolines]: GCC team, [Support for Nested Functions.](https://gcc.gnu.org/onlinedocs/gccint/Trampolines.html), GCC Internals, 2023-07-27.
+
+[^Hernandez2013]: Hernandez, Alejandro, [A Short Tale About executable_stack in elf_read_implies_exec() in the Linux Kernel](https://ioactive.com/a-short-tale-about-executable_stack-in-elf_read_implies_exec-in-the-linux-kernel/), IOActive, 2013-11-27.
+
+[^Cook2020]: Cook, Kees, [x86/elf: Disable automatic READ_IMPLIES_EXEC on 64-bit](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=9fccc5c0c99f238aa1b0460fccbdb30a887e7036), Linux Kernel Source, 2020-03-26.
 
 ---
 
@@ -806,6 +866,10 @@ Applications that are sensitive to the performance impact on startup time should
 
 Static linking avoids the need for dynamic symbol resolution altogether but can make it more difficult to deploy patches to dependencies compared to upgrading shared libraries. Developers need to consider whether static linking is discouraged in their deployment scenarios, e.g., major Linux distributions generally forbid static linking of shared application dependencies.
 
+#### Additional considerations
+
+To benefit from partial and full RELRO both the application executable and any libraries that are linked to the application must be built with the appropriate compiler options. If `ld.so` loads any non-RELRO libraries, RELRO will be disabled for that application.
+
 ---
 
 ### Build as position-independent code
@@ -827,7 +891,7 @@ Negligible on 64-bit architectures.
 
 On 32-bit x86 PIC exhibits moderate performance penalties (5-10%)[^ubuntu-hardening]. This is due to data accesses using mov instructions on 32-bit x86 only support absolute addresses. To make the code position-independent memory references are transformed to lookup memory addresses from a global offset table (GOT) populated at load-time with the correct addresses to program data. Consequently, data references require an additional memory load compared to non-PIC code on 32-bit x86. However, the main reason for the performance penalty is the increased register pressure resulting from keeping the lookup address to the GOT available in a register[^Bendersky11a].
 
-The x86_64 architecture supports mov instructions that address memory using offsets relative to the instruction pointer (i.e., the address of the currently executing instruction). This is referred to as RIP addressing. PIC on x86_64 uses RIP addressing for accessing the GOT which relieves the register pressure associated with PIC on 32-bit x86 and results in a smaller impact on performance. Shared libraries are created PIC on x86_64 by default[^Bendersky11b].
+The x86_64 architecture supports a variant of mov and certain other instructions that address memory using offsets relative to the instruction pointer (i.e., the address of the currently executing instruction). This is referred to as RIP-relative addressing. PIC on x86_64 uses RIP-relative addressing for accessing the GOT which relieves the register pressure associated with PIC on 32-bit x86 and results in a smaller impact on performance. Shared libraries are created PIC on x86_64 by default[^Bendersky11b].
 
 #### When not to use?
 
@@ -969,7 +1033,7 @@ https://godbolt.org/z/6qTPz9n6h
 
 The `-fexceptions` option, when enabled for C code, makes GCC and Clang generate frame unwind information for all functions. This option is enabled by default for C++ that require exception handling but enabling it for also C code allows glibc's implementation of POSIX thread cancellation[^man7-pthreads] to use the same unwind information instead of `setjmp` / `longjmp` for stack unwinding[^Weimer2017a].
 
-Enabling `-fexception` is recommended for hardening of multi-threaded C code as without it, the implementation Glibc's thread cancellation handlers may spill a completely unprotected function pointer onto the stack[^Weimer2017b]. This function pointer can simplify the exploitation of stack-based buffer overflows even if the thread in question is never canceled[^Weimer2018].
+Enabling `-fexceptions` is recommended for hardening of multi-threaded C code as without it, the implementation Glibc's thread cancellation handlers may spill a completely unprotected function pointer onto the stack[^Weimer2017b]. This function pointer can simplify the exploitation of stack-based buffer overflows even if the thread in question is never canceled[^Weimer2018].
 
 #### Performance implications
 
@@ -990,6 +1054,61 @@ The `-fexceptions` option is also needed for C code that needs to interoperate w
 [^Weimer2017b]: Weimer, Florian, [\[11/12/13/14 Regression\] Indirect call generated for pthread_cleanup_push with constant cleanup function](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=61118#c13), GCC Bugzilla, 2017-11-21.
 
 [^Weimer2018]: Weimer, Florian, [Recommended compiler and linker flags for GCC](https://developers.redhat.com/blog/2018/03/21/compiler-and-linker-flags-gcc), Red Hat Developer, 2018-03-21.
+
+---
+
+### Enable pre-determined set of hardening options in GCC
+
+| Compiler Flag                             | Supported since | Description                                                         |
+|:----------------------------------------- |:---------------:|:------------------------------------------------------------------- |
+| <span id="-fhardened">`-fhardened`</span> | GCC 14.0.0      | Enable pre-determined set of hardening options for C and C++ in GCC |
+| <span id="-Whardened">`-Whardened`</span> | GCC 14.0.0      | Warn if options implied by `-fhardened` are downgraded or disabled  |
+
+The `-fhardened` umbrella option enables a pre-determined set of hardening options for C and C++ on GNU/Linux targets[^gcc-fhardened]. The precise set of options may change between major releases of GCC. The exact set of options for a specific GCC version can be displayed using the `--help=hardened` option.
+
+#### Additional Considerations
+
+Options explicitly specified on the compiler command line always take precedence over options implied by `-fhardened`. For example, `-fhardened` in GCC 14 enables [`-fstack-protector-strong`](#-fstack-protector-strong) but specifying `-fstack-protector -fhardened` or `-fhardened -fstack-protector` on the compiler command line will enable the weaker `-fstack-protector` instead of `-fstack-protector-strong`.
+
+By default, GCC will issue a warning when flags implied by `-fhardened` are downgraded or disabled due to options on the command line taking precedence or missing pre-requirements, such as using [`_FORTIFY_SOURCE`](#-D_FORTIFY_SOURCE=3) without optimization level `-O1` or higher:
+
+~~~shell
+warning: '-fstack-protector-strong' is not enabled by '-fhardened' because it was specified on the command line [-Whardened]`
+warning: '_FORTIFY_SOURCE' is not enabled by '-fhardened' because optimizations are turned off [-Whardened]
+~~~
+
+These warnings can be controlled explcitily via the `-Whardened` option.
+
+[^gcc-fhardened]: GCC team, [Program Instrumentation Options: `-fhardened`](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fhardened), GCC Manual, 2024-05-07.
+
+---
+
+### Allow linker to omit libraries specified on the command line to link against if they are not used
+
+| Compiler Flag                                                                       | Supported since | Description                                                                                       |
+|:----------------------------------------------------------------------------------- |:---------------:|:------------------------------------------------------------------------------------------------- |
+| <span id="-Wl,--as-needed">`-Wl,--as-needed`</span>                                 | Binutils 2.20.0 | Allow linker to omit libraries specified on the command line to link against if they are not used |
+| <span id="-Wl,--no-copy-dt-needed-entries">`-Wl,--no-copy-dt-needed-entries`</span> | Binutils 2.20.0 | Stop linker from resolving symbols in produced binary to transitive dependencies                  |
+
+The `--as-needed` option tells the GNU linker to only link the libraries containing symbols actually used by the produced binary. This contributes to minimizing the attack surface of the produced binary by precluding the execution of static initializers and deconstructors from unneeded libraries, and can also reduce the set of code available to code-reuse exploits, e.g., return-oriented programming.
+
+The `--as-needed` option is enabled by default by many Linux distributions including Debian[^debian-dsolinking], Gentoo[^Berkholz08], Red Hat[^fedora-hardening], and SUSE Linux[^debian-dsolinking].
+
+The `--no-copy-dt-needed-entries` stops the linker from resolving symbols in the produced binary to transitive library depenendecies. This enforces that the produced binary must be made to explicitly link against all of its actual dependencies. This is the default behavior in the GNU linker since 2.22.
+
+#### Performance implications
+
+The `--as-needed` and `--no-copy-dt-needed-entries` can improve startup times by precluding unneeded libraries from being loaded and avoid the execution of initialization code in such libraries.
+
+#### When not to use?
+
+In rare cases applications may link to libraries solely for the purpose of running their static initializers. As `--as-needed` precludes the produced binary from being linked against libraries from which no symbols are resolved it conflicts with software that relies on such static initialization[^gentoo-as-needed].
+
+[^debian-dsolinking]: Software in the Public Interest, [ToolChain DSOLinking](https://wiki.debian.org/ToolChain/DSOLinking), Debian Wiki,  2018-10-14.
+
+[^Berkholz08]: Berkholz, Donnie, [Bug 234710 - as-needed by default](https://bugs.gentoo.org/234710), Gentoo's Bugzilla, 2008-08-14.
+
+[^gentoo-as-needed]: Gentoo Foundation, [Project:Quality Assurance/As-needed](https://wiki.gentoo.org/wiki/Project:Quality_Assurance/As-needed), Gentoo Wiki, 2022-07-22.
 
 ---
 
@@ -1036,6 +1155,10 @@ Sanitizers are a suite of compiler-based tools designed to detect and pinpoint m
 While more efficient compared to dynamic analysis, sanitizers are still prohibitively expensive in terms of performance penalty and memory overhead to be used with Release builds, but excel at providing memory diagnostics in Debug, and in certain cases Test builds. For example, fuzz testing (or “fuzzing”) is a common security assurance activity designed to identify conditions that trigger memory-related bugs. Fuzzing is primarily useful for identifying memory errors that lead to application crashes. However, if fuzz testing is performed in binaries equipped with sanitizer functionality it is possible to also identify bugs which do not crash the application. Another benefit is the enhanced diagnostics information produced by sanitizers.
 
 As with all testing practices, sanitizers cannot absolutely prove the absence of bugs. However, when used appropriately and regularly they can help in identifying latent memory, concurrency, and undefined behavior-related bugs which may be difficult to pinpoint.
+
+Sanitizers should not be used for hardening in production environments, particularly for Set User ID (SUID) binaries, as they expose operational parameters via environmental variables which can be manipulated to clobber root-owned files and privilege escalation[^Nagy2016].
+
+[^Nagy2016]: Nagy , Szabolcs, [Address Sanitizer local root](https://www.openwall.com/lists/oss-security/2016/02/17/9), Openwall mailing list, 2016-02-16.
 
 Table 4: Sanitizer options in GCC and Clang.
 
@@ -1277,7 +1400,31 @@ If you are compiling a C/C++ compiler, where practical make the generated compil
 | <span id="--enable-default-ssp">`--enable-default-ssp`</span>             | GCC 6.1.0      | Turn on [`-fstack-protector-strong`](#-fstack-protector-strong) by default for binaries produced by the compiler |
 | <span id="--enable-host-pie">`--enable-host-pie`</span>                   | GCC 14.0.0       | Build the compiler executables with [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) |
 | <span id="--enable-host-bind-now">`--enable-host-bind-now`</span>         | GCC 14.0.0       | Build the compiler executables with [`-Wl,-z,now`](#-Wl,-z,now) |
-| <span id="CLANG_DEFAULT_PIE_ON_LINUX">`CLANG_DEFAULT_PIE_ON_LINUX`</span> | Clang 14.0.0 | Turn on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler |
+
+Note that LLVM recommends using Clang configuration files[^clang-config] to pass the relevant defaults to the compiler. Command-line options provided in a configuration file are prepended to the rest of the options on the command line.
+
+## What should you do when compiling linkers?
+
+If you are compiling a linker, where practical make the generated linker's default options the *secure* options. The below table summarizes relevant options that can be specifed when building GNU Binutils that affect the defaults of the linker:
+
+| Linker Flag                   | Supported since  | Description                                                       |
+|:--- |:---:|:---- |
+| <span id="--disable-default-execstack">`--disable-default-execstack`</span> | Binutils 2.39 | Require the `GNU_STACK` ELF note for executable stacks, rather than enabling them by default. |
+| <span id="--enable-warn-execstack">`--enable-warn-execstack`</span>         | Binutils 2.39 | Warn if an executable stack is requested with `GNU_STACK`. |
+| <span id="--enable-error-execstack">`--enable-error-execstack`</span>       | Binutils 2.42 | Error out if an executable stack is requested, even with `GNU_STACK`. |
+| <span id="--enable-warn-rwx-segments">`--enable-warn-rwx-segments`</span>   | Binutils 2.39 | Warn if a segment has unsafe permissions. |
+| <span id="--enable-error-rwx-segments">`--enable-error-rwx-segments`</span> | Binutils 2.42 | Error out if a segment has unsafe permissions. |
+| <span id="--enable-relro">`--enable-relro`</span>                           | Binutils 2.27 | Default to passing `-Wl,-z,relro`. |
+| <span id="--enable-textrel-check=">`--enable-textrel-check=`</span>         | Binutils 2.35 | Controls whether TEXTRELs are fatal errors (`=error`), warnings (`=warn`), or ignored (`=no`). |
+| <span id="--enable-secureplt">`--enable-secureplt`</span>                   | Binutils 2.16 | Make the PLT read-only. Applies only to the Alpha and PowerPC architectures. |
+
+Some background on the introduction of these options to GNU Binutils is available from Nick Clifton, its Chief Maintainer[^Clifton22].
+
+Note that LLVM recommends using Clang configuration files to pass the relevant options to the linker via the compiler driver, so no such options exist here.
+
+[^clang-config]: LLVM team, [Configuration files](https://clang.llvm.org/docs/UsersManual.html#configuration-files), Clang Compiler User’s Manual, 2024-09-17.
+
+[^Clifton22]: Clifton, Nick, [The linker’s warnings about executable stacks and segments](https://www.redhat.com/en/blog/linkers-warnings-about-executable-stacks-and-segments), Red Hat Blog, 2022-09-14.
 
 ## Contributors
 
@@ -1287,23 +1434,31 @@ The OpenSSF Developer BEST Practices Working group thanks Ericsson for their gen
 - Robert Byrne, Ericsson
 - Jussi Auvinen, Ericsson
 - Christopher "CRob" Robinson, Intel
+- Daniel Stenberg, wolfSSL
 - David A. Wheeler, Linux Foundation
 - David Edelsohn, IBM
+- Dominik Czarnota, Trail of Bits
+- Florian Berbar
+- Florian Weimer, Red Hat
 - Gabriel Dos Reis, Microsoft
 - Georg Kunz, Ericsson
 - George Wilson, IBM
 - Jack Kelly, ControlPlane
+- Jonathan Wakely, Red Hat
 - Kees Cook, Google
 - Mark Esler, Canonical
+- Mayank Ramnani, NYU
+- Merve Gülmez, Ericsson
 - Randall T. Vasquez, Linux Foundation
 - Robert C. Seacord, Woven by Toyota
+- Sam James, Gentoo
 - Siddharth Sharma, Red Hat
 - Siddhesh Poyarekar, Red Hat
 - William Huhn, Intel
 
 ## License
 
-Copyright 2023, OpenSSF contributors, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+Copyright 2024, OpenSSF contributors, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 ## Appendix: List of Considered Compiler Options
 
@@ -1318,6 +1473,9 @@ Many more security-relevant compiler options exist than are recommended in this 
 | <span id="-mshstk">`-mshstk`</span>                                         | GCC 8.0.0<br/>Clang 6.0.0 | Enables discouraged shadow stack built-in functions[^gcc_mshstk], which are only needed for programs with an unconventional management of the program stack. CET instrumentation is controlled by [`-fcf-protection`](#-fcf-protection=full).
 | <span id="-fsanitize=safe-stack">`-fsanitize=safe-stack`</span>             | Clang 4.0.0 | Known compatibility limitations with garbage collection, signal handling, and shared libraries[^clang_safestack].
 | <span id="-fasynchronous-unwind-tables">`-fasynchronous-unwind-tables`</span> | GCC 3.1.1<br/>Clang 7.0.0  | Generate stack unwind table in DWARF2 format, which improves precision of unwind information[^Song20] and can improve the performance of profilers at the cost of larger binary sizes[^Bastian19], but does not benefit security.
+| <span id="-fvtable-verify">`-fvtable-verify`</span> |GCC 4.9.4 | Enables run-time checks for C++ virtual function pointers corruption. This option has significant performance overhead[^Tice2014] and breaks ABI with all existing system libraries unless the entire userspace is built with `-fvtable-verify`[^gentoo-vtv]. Believed to be currently unmaintained in GCC.
+| <span id="-mmitigate-rop">`-mmitigate-rop`</span> | GCC 6.1 | Avoids combination of particular opcodes which can be reinterpretted as a return opcode in an attempt to mitigate Return Oriented Programming (ROP) attacks[^gcc-mmitigate-rop].  Was considered to be ineffective and security-theatre-esque, so was deprecated in GCC 9.1[^Bizjak2018].
+| <span id="CLANG_DEFAULT_PIE_ON_LINUX">`CLANG_DEFAULT_PIE_ON_LINUX`</span> | Clang 14.0.0 | When compiling Clang, turns on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler. Superceded by default provided via configuration files[^clang-config].
 
 [^nodump]: The `-Wl,-z,nodump` option sets `DF_1_NODUMP` flag in the object’s `.dynamic` section tags. On Solaris this restricts calls to `dldump(3)` for the object. However, other operating systems ignore the `DF_1_NODUMP` flag. While Binutils implements `-Wl,-z,nodump` for Solaris compatibility a choice was made to not support it in `lld` ([D52096 lld: add -z nodump support](https://reviews.llvm.org/D52096)).
 
@@ -1332,5 +1490,17 @@ Many more security-relevant compiler options exist than are recommended in this 
 [^Song20]: Song, Fangrui, [Stack unwinding](https://maskray.me/blog/2020-11-08-stack-unwinding), MaskRay blog, 2020-11-18.
 
 [^Bastian19]: Bastian, Théophile and Kell, Stephen and Nardelli, Francesco Zappa, [Reliable and fast DWARF-based stack unwinding](https://doi.org/10.1145/3360572), Proceedings of the ACM Journal of Programming Languages, Volume 3, Issue OOPSLA, Article 146, 2019-10-10.
+
+[^Tice2014]: Tice, Caroline, [Enforcing Forward-Edge Control-Flow Integrity in GCC & LLVM](https://www.usenix.org/system/files/conference/usenixsecurity14/sec14-paper-tice.pdf#page=12) USENIX Security, August 2014
+
+[^gentoo-vtv]: Gentoo Foundation, [Local Use Flag: vtv](https://packages.gentoo.org/useflags/vtv) Gentoo Packages, Retrieved 2024-06-27.
+
+[^gcc-mmitigate-rop]: GCC team, [Using the GNU Compiler Collection (GCC): x86 Options: `-mmitigate-rop`](https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/x86-Options.html#index-mmitigate-rop-2936), GCC Manual, 2016-04-27.
+
+[^Bizjak2018]: Bizjak, Uros [\[RFC PATCH, i386\]: Deprecate `-mmitigate-rop`](https://gcc.gnu.org/pipermail/gcc-patches/2018-August/504637.html), GCC Mailing List, 2018-08-15.
+
+## Appendix: Scraper Script
+
+A python script is also present in the [GitHub repository](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Compiler-Hardening-Guides/) that can fetch the recommended options table from the latest version of this guide and convert it to a machine readable format (JSON) for use in tooling.
 
 ## References

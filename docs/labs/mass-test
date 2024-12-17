@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Mass open all lab files. Do this by opening every lab in a web browser,
+# which will invoke each lab's built-in tests.
+
+# Create a list of labs
+grep -o '[A-Za-z0-9_-]*\.html' README.md | sort |uniq > ,1
+
+OPENER=xdg-open
+if ! which "$OPENER" >/dev/null; then
+  OPENER=open
+fi
+
+for file in $(cat ,1); do
+  ${OPENER} "$file"
+done
+
+echo 'Check each lab file to ensure there are no error alerts and that'
+echo 'there is a yellow field for input.'

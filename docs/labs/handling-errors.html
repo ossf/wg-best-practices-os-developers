@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+throw new Error("Division by zero is not allowed");
+</script>
+<!--
+-->
+<script id="expected1" type="plain/text">
+  return a / b;
+</script>
+
+<script id="expected2" type="plain/text">
+  try {
+    const result = divide(10, 2);
+    console.log("Result:", result);
+  } catch (err) {
+    console.error("Error:", err.message);
+}
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+\s* throw new Error \( ("(.*)"|'(.*)'|`(.*)`) \) ; \s*
+</script>
+<script id="correct1" type="plain/text">
+\s* return a \/ b ; \s*
+</script>
+<script id="correct2" type="plain/text">
+\s* try \{
+    const result = divide \( 10 , 2 \) ;
+    console \. log \( ("Result:" | 'Result:' | `Result:`) , result \) ;
+    \} catch \( err \) {
+      console.error \( ("Error:" | 'Error:' | `Error:`) , err \. message \) ;
+      \} \s*
+</script>
+
+<script id="info" type="application/yaml">
+---
+hints:
+- index: 0
+  absent: "; $"
+  text: >
+    This code uses the convention of terminating each line with a
+    semicolon; please follow the conventions of the code being modified.
+- index: 0
+  present: "(Throw|THROW|New|NEW|error|ERROR)"
+  text: JavaScript is case-sensitive. use throw new Error(...).
+  examples:
+  - - "  Throw new Error(\"Division by zero is not allowed\");"
+  - - "  THROW new Error(\"Division by zero is not allowed\");"
+  - - "  throw New Error(\"Division by zero is not allowed\");"
+  - - "  throw NEW Error(\"Division by zero is not allowed\");"
+  - - "  throw new error(\"Division by zero is not allowed\");"
+  - - "  throw new ERROR(\"Division by zero is not allowed\");"
+- index: 0
+  absent: "throw"
+  text: Try using the throw keyword to raise an exception, E.g., throw new Error("Message").
+  examples:
+  - - "  return { success: false, message: \"Division by zero is not allowed\" };"
+  - - " return \"Division by zero is not allowed\" ;"
+- index: 1
+  absent: "return"
+  text: Use the return keyword to return the result of the division.
+  examples:
+  - - "  a / b ;"
+- index: 1
+  present: "{ (.*?)} "
+  text: Try simply returning the result of the division.
+  examples:
+  -
+    - throw new Error("Division by zero is not allowed");
+    - "  return { success: true, result: a / b };"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - "  return { result: a / b };"
+- index: 2
+  absent: '\s*try\s*{\s* '
+  text: >-
+    Use a try block to catch any exceptions that might be thrown.
+    It should look something like `try { ... } catch(err) {...}`
+    (fill in the `...` sections).
+  examples:
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - "  const result = divide(10, 2);"
+- index: 2
+  present: '\s* try \s* { .*? if \( result.success \) .*?'
+  text: You may assume that the result is successful within the try block.
+  examples:
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); if( result.success) { console.log ( \"Result:\", result ); "
+- index: 2
+  present: '.*? result.result .*?'
+  text: The result is not an object, it is a number.
+  examples:
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result.result ); "
+- index: 2
+  absent: '.*? catch .*? '
+  text: >-
+    Handle the error within the catch block. You need `catch(err) {...}`
+    after `try {...}` to catch an error in the try block.
+  examples:
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); }"
+- index: 2
+  absent: '\s* catch \s* \( .*? \) { \s* '
+  text: Use 'catch (...) {...}' to catch an error object within the catch block.
+  examples:
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch {}"
+- index: 2
+  absent: |-
+    catch \( err \)
+  text: >-
+    Please use `catch(err) {...}` for purposes of this lab.
+  examples:
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (foo) {"
+- index: 2
+  present: |-
+    catch .* console \. error \( ["'][^"']*["'] , result
+  text: >-
+    When reporting the error, you need to report it in the catch block,
+    which catches it as the variable `err`.
+    Thus, you need to use `err.message` not `result` or `result.message`,
+    since the error is in `err.message`. Note that 
+    the variable `result` is out of scope in the catch block anyway;
+    it was declared in the try block.
+  examples:
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (err) { console.error('Error', result.message);"
+  -
+    - throw new Error("Division by zero is not allowed");
+    - return a / b;
+    - " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (err) { console.error('Error', result );"
+# debug: true
+</script>
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise handling-errors</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html" target="_blank">introduction to
+the labs</a>.
+
+<p>
+<h2>Task</h2>
+<p>
+<b>Please change the code below to leverage the exception handling mechanism and improve its robustness.</b>
+
+<p>
+<h2>Background</h2>
+<p>
+In this exercise, we'll demonstrate how to enhance the robustness of a JavaScript function by transitioning from a return code mechanism to exception handling.
+The primary goal is to understand how to handle errors more effectively, improving the readability and maintainability of the code.
+</p>
+Initially, the code uses a return code mechanism to handle potential errors. 
+The <tt>divide</tt> function returns an object indicating whether the operation was successful or if an error occurred.
+The caller must then check the success property and handle the result or error accordingly.
+This method works but can clutter the code with repetitive error-checking logic and what's worse, it's easy for callers to ignore the error return code, which can result in surprising failures and security vulnerabilities.
+<p>
+<h2>Task Information</h2>
+<p>
+  
+Please change the code below to leverage the exception handling mechanism and improve its robustness.
+</p>
+By throwing an error when an invalid operation is detected (in this case, division by zero), we separate the normal flow of the code from the error-handling logic. The caller can use a try...catch block to handle any exceptions that might be thrown, making the code cleaner and more robust.
+</p>  
+To complete this task:
+</p>
+<ol>
+<li>Locate the function in your code that uses return codes to indicate success or failure. In our case, the function is <tt>divide</tt>.</li>
+<li>Modify the function to throw an error when an invalid operation is detected. In our case, we throw an error when the parameter <tt>b</tt> is zero.</li>
+<li>Set the error message to "Division by zero is not allowed".</li>
+<li>Update the success path to return the result of the division operation.</li>
+<li>Modify the calling code to use a try block to wrap the call to the <tt>divide</tt> function.</li>
+<li>Within the try block, log the result of the division operation if no error is thrown.</li>
+<li>Add a catch block to handle any errors that might be thrown by the <tt>divide</tt> function.</li>
+<li>For both the success and error paths, log the appropriate message to console or to error.</li>
+</ol>
+<p>
+Use the “hint” and “give up” buttons if necessary.
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+<p>
+Please change the code below so the <tt>divide</tt> function and the calling code use exception handling instead of a return code mechanism. 
+The <tt>divide</tt> function should throw an error when division by zero is attempted. 
+The calling code should use a try...catch block to handle the error, stgore the result in a constant named <tt>result</tt>, catch any error into a variable named `error`, and display an appropriate message.
+
+<form id="lab">
+<pre><code>// Implement a simple division method that returns the result of a / b
+function divide(a, b) {
+  if (b === 0) {
+    <input id="attempt0" type="text" size="65" spellcheck="false"
+ value='return { success: false, message: "Division by zero is not allowed" };'>
+  } else {
+    <input id="attempt1" type="text" size="65" spellcheck="false"
+ value='return { success: true, result: a / b };'>
+  }
+}
+
+// This code calls the divide function and logs the result or error
+<textarea id="attempt2" rows="8" cols="60" spellcheck="false">
+const result = divide(10, 2);
+if (result.success) {
+  console.log("Result:", result.result);
+} else {
+  console.error("Error:", result.message);
+}
+</textarea></code></pre>
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+<br><br>
+<p>
+<i>This lab was developed by Avishay Balter at
+<a href="https://www.microsoft.com/"
+>Microsoft</a>.</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>

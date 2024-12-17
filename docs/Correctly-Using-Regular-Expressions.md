@@ -102,7 +102,7 @@ Platform
    </td>
    <td>“\Z” (not “$” nor “\z”)
    </td>
-   <td>No
+   <td>Yes
    </td>
   </tr>
   <tr>
@@ -112,22 +112,24 @@ Platform
    </td>
    <td>“\z” (not “$”)
    </td>
-   <td>No
+   <td>Yes
    </td>
   </tr>
 </table>
 
-For example, to validate in JavaScript that the input is only “ab” or “de”, use the regex “<tt>^(ab&#x7c;de)$</tt>”. To validate the same thing in Python, use “<tt>^(ab&#x7c;de)\Z</tt>” or “<tt>\A(ab&#x7c;de)\Z</tt>”. Note that the “$” anchor has different meanings among platforms and is often misunderstood; on many platforms it’s permissive and doesn’t match only the end of the input. Instead of using “$” on a platform if $ is permissive, consider using an explicit form instead (e.g., “`\n?\z`”). Consider preferring “\A” and “\z” where it’s supported (this is necessary when using Ruby).
+For example, to validate in JavaScript that the input is only “ab” or “de”, use the regex “<tt>^(ab&#x7c;de)$</tt>”. To validate the same thing in Python, use “<tt>^(ab&#x7c;de)\Z</tt>” or “<tt>\A(ab&#x7c;de)\Z</tt>”. Note that the “$” anchor has different meanings among platforms and is often misunderstood; on many platforms it’s permissive by default and doesn’t match only the end of the input. Instead of using “$” on a platform if $ is permissive, consider using an explicit form instead (e.g., “`\n?\z`”). Consider preferring “\A” and “\z” where it’s supported (this is necessary when using Ruby).
 
 In addition, ensure your regex is not vulnerable to a Regular Expression Denial of Service (ReDoS) attack. A ReDoS “[is a Denial of Service attack, that exploits the fact that most Regular Expression implementations may reach extreme situations that cause them to work very slowly (exponentially related to input size)](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS)”. Many regex implementations are “backtracking” implementations, that is, they try all possible matches. In these implementations,  a poorly-written regular expression can be exploited by an attacker to take a vast amount of time.
 
 1. One solution is to use a regex implementation that does not have this vulnerability because it never backtracks. E.g., use Go’s default regex system, RE2, or on .NET enable the RegexOptions.NonBacktracking option. Non-backtracking implementations can sometimes be orders of magnitude faster, but they also omit some features (e.g., backreferences).
 2. Alternatively, create regexes that require no or little backtracking. Where a branch (“&#x7c;”) occurs, the next character should select one branch. Where there is optional repetition (e.g., “&#x2a;”), the next character should determine if there is a repetition or not. One common cause of unnecessary backtracking are poorly-written regexes with repetitions in repetitions, e.g., “(a+)&#x2a;”. Some tools can help find these defects.
-3. A partial countermeasure is to greatly limit the length of the untrusted input. This can limit the impact of a vulnerability.
+3. A partial countermeasure is to greatly limit the length of the untrusted input and/or the number of repetitions. This can limit the impact of a vulnerability. For example, in a regex, use “{0,4}” (0 through 4 repetitions inclusive) instead of “*” (0 or more repetitions, with no maximum).
 
 ## Detailed Rationale
 
 For detailed rationale, along with other information such as contributor credits, see [Correctly Using Regular Expressions for Secure Input Validation - Rationale](./Correctly-Using-Regular-Expressions-Rationale).
+
+Our thanks to Seth Larson, whose article [Seth Larson’s Regex character “$” doesn't mean “end-of-string”](https://sethmlarson.dev/regex-$-matches-end-of-string-or-newline) raised awareness of some of the problems dicussed here.
 
 ## Contributions and Corrections Welcome
 

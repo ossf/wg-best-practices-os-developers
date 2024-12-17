@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="js-yaml.min.js"></script>
+<script src="checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+  const data = JSON.parse(base64Decoded);
+</script>
+<!--
+-->
+<script id="expected1" type="plain/text">
+  if (data.username && typeof data.username == 'string' && data.username.length < 20) {
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+\s* const data = JSON \. parse \( base64Decoded \) \; \s*
+</script>
+<script id="correct1" type="plain/text">
+\s* if \( CONDALL \) \{ \s*
+</script>
+
+<script id="info" type="application/yaml">
+---
+# Allow condition subexpressions to be optionally surrounded by parentheses
+# and allow the order to vary. This allows more real-world answers to be
+# considered acceptable.
+# Doing this is more easily done by buildigg up definitions,
+# which is annoying to write but general.
+definitions:
+- term: COND0
+  value: |-
+    data \. username
+- term: COND0
+  value: |-
+    (COND0|\( COND0 \))
+- term: COND1
+  value: |-
+    typeof\s+data \. username == ('string'|"string"|`string`)
+- term: COND1
+  value: |-
+    (COND1|\( COND1 \))
+- term: COND2
+  value: |-
+    data \. username \. length < 20
+- term: COND2
+  value: |-
+    (COND2|\( COND2 \))
+# Only the first one is likely, but we may as well allow both possibilities.
+# The first condition MUST be first because it checks if the value exists.
+- term: CONDALL
+  value: |-
+    (COND0 && (COND1 && COND2|COND2 && COND1))
+hints:
+- absent: |
+    ^ const data =
+  text: The first section should begin with `const data =`
+- present: "json"
+  text: the JSON built-in global object is witten in uppercase.
+- absent: |
+    JSON \. parse
+  text: Make a call to `JSON.parse` with the data retrieved, e.g.,
+    `JSON.parse(base64Decoded)` should be stored in `data`.
+- present: |
+    \+
+  text: You should not have any concatenation (`+`) in the first section.
+- absent: |
+    ; $
+  text: JavaScript does not require semicolons at the end of a
+    statement, but since the other statements terminate with semicolons,
+    you should also terminate your statement with a semicolon to be consistent.
+- absent: |-
+    ^ if \(
+  index: 1
+  text: The second section should start with `if (` followed by a condition.
+  examples:
+  -
+    - const data = JSON.parse(base64Decoded);
+    - |
+        if data.username {
+- absent: |
+    data \. username
+  index: 1
+  text: Check if the data object has a property called username. You can do this by referencing data.username.
+- absent: \&\&
+  index: 1
+  text: To combine multiple conditions in JavaScript use &&. This operator means 'and', so both conditions must be true for the entire statement to pass.
+- absent: typeof
+  index: 1
+  text: Use typeof to check the type of the operand's value.
+    You should have `typeof data.username == 'string'`
+    or similar.
+- present: |
+    typeof data \. username == 'String'
+  index: 1
+  text: When using typeof, JavaScript expects "string" all lowercase.
+- absent: length
+  index: 1
+  text: check if the length of the string is smaller than 20 characters.
+    Use the expression `data.username.length &lt; 20` to determine this.
+- present: |-
+    ^ if \(
+  absent: |-
+    ^ if \( data \. username &&
+  index: 1
+  text: Begin the second section with `if ( data.username && ... `
+    because you must check if data is even present before you can check
+    various attributes of that data.
+  examples:
+  -
+    - "const data = JSON.parse(base64Decoded);"
+    - "if (typeof data.username == 'string' && data.username.length < 20 && data.username) {"
+successes:
+  -
+    - const data = JSON.parse(base64Decoded);
+    - if (data.username && typeof data.username == 'string' && data.username.length < 20) {
+  -
+    - const data = JSON . parse ( base64Decoded ) ;
+    - if ( data . username && typeof data . username == 'string' && data . username.length < 20) {
+  -
+    - const data = JSON.parse(base64Decoded);
+    - if (data.username && (typeof data.username == 'string') && (data.username.length < 20)) {
+  -
+    - const data = JSON.parse(base64Decoded);
+    - if (data.username && typeof data.username == 'string' && (data.username.length < 20)) {
+failures:
+  -
+    - const data = JSON.parse(base64Decoded);
+    - if (data.username && (typeof data.username == 'string')) && (data.username.length < 20)) {
+# debug: true
+</script>
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Lab Exercise deserialization</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="introduction.html" target="_blank">introduction to
+the labs</a>.
+
+<p>
+<h2>Task</h2>
+<p>
+<b>Please change the code below to prevent insecure deserialization vulnerability.</b>
+
+<p>
+<h2>Background</h2>
+<p>
+Insecure Deserialization happens when the application’s deserialization process is exploited, allowing an attacker to manipulate the serialized data and pass harmful data into the application code.
+<p>
+The safest way to prevent this vulnerability is to not accept serialized objects from untrusted sources (user-controllable data). However, if you must accept them, there are some mitigations you can implement. In this lab, we will apply a couple of them.
+
+<p>
+<h2>Task Information</h2>
+<p>
+
+<p>
+The code below is called after an application login page. After login, a cookie is set up with the user profile, then in the homepage the cookie is deserialized and uses the username in a greeting message.
+<p>
+If you take a closer look at this code, you’ll see that it’s using <tt>eval()</tt> to deserialize the data from the cookie. This can be very dangerous as <tt>eval()</tt> evaluates a string as JavaScript code, which means any code inside that string will be executed, opening the possibility of Remote Code Execution (RCE) and Code Injection attacks.
+<p>
+For this lab we want to fix this by using an approach that prevents executing code from the attacker. We will also add some simple input validation to make sure the data we receive from inside the JSON data is what we are expecting.
+<ol>
+  <li>
+    Replace <tt>eval()</tt> with <tt>JSON.parse()</tt>. JSON.parse( ) does not execute any JavaScript code like functions or methods, making it a much more secure approach for deserialization.
+  </li>
+  <li>Besides checking if <tt>data.username</tt> exists, perform simple validations of its value. Ensure it is a string (<tt>typeof data.username == 'string'</tt>) and that it's less than 20 characters long (<tt>data.username.length &lt; 20</tt>).</li>
+</ol>
+
+<p>
+Use the “hint” and “give up” buttons if necessary.
+
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+<p>
+<p>
+Change the code below, adding the mitigation steps to prevent Insecure Deserialization:
+<ol>
+  <li>Use a deserialization approach that prevents code execution of untrusted code.</li>
+  <li>Validate the username making sure a reply is only sent if it's a <b>string</b> and less than <b>20 characters</b>.</li>
+</ol>
+<form id="lab">
+
+<pre><code
+>const express = require('express');
+const cookieParser = require('cookie-parser');
+
+const app = express();
+
+app.use(express.json());
+app.use(cookieParser());
+
+app.get('/', (req, res) => {
+  if (req.cookies.profile) {
+    try {
+      const base64Decoded = Buffer.from(
+        req.cookies.profile, 'base64').toString('utf8');
+      <input id="attempt0" type="text" size="60" spellcheck="false"
+             value="const data = eval('(' + base64Decoded + ')');">
+
+      <textarea id="attempt1" rows="3" cols="60" spellcheck="false"
+>if (data.username) {</textarea>
+            // To prevent XSS, avoid res.send with untrusted data
+            res.render('index', {username: data.username});
+      }
+
+    } catch (err) {
+      res.send('An error occurred.');
+    }
+  } else {
+    res.send("Please Login");
+  }
+});
+</code></pre>
+
+
+<button type="button" class="hintButton">Hint</button>
+<button type="button" class="resetButton">Reset</button>
+<button type="button" class="giveUpButton">Give up</button>
+<br><br>
+<p>
+<i>This lab was developed by Camila Vilarinho.</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>

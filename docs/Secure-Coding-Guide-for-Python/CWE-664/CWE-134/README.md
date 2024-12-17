@@ -64,6 +64,8 @@ The `compliant01.py` solution uses the string template module and avoids mixing 
 *[compliant01.py](compliant01.py):*
 
 ```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Compliant Code Example """
 import sys
 from string import Template
@@ -85,7 +87,7 @@ class MicroService:
         return self.instance_name
 
 
-def front_end(customer) -> str:
+def front_end(customer):
     """Display service instance"""
     mc = MicroService("big time microservice")
     print(MESSAGE.substitute(instance_name=mc.get_instance_name(),

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 #!/bin/bash
 source ~/secure/envars.sh # Set the environment variables for the current bash session
 python3 compliant01.py # Run the script requiring the secured variable

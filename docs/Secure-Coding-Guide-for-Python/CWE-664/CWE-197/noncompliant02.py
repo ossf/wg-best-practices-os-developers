@@ -1,6 +1,10 @@
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
-value = float(1.0) + float("1e-18")
-target = float(1.0) + float("1e-17")
-while value <= target:
-    print(value)
-    value = value + float("1e-18")
+
+counter = 1.0 + 1e-16
+target = 1.0 + 1e-15
+while counter <= target:  # never ends
+    print(f"counter={counter / 10**16 :.20f}")
+    print(f" target={target / 10**16:.20f}")
+    counter += 1e-16

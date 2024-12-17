@@ -1,7 +1,9 @@
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
 
 
-def shopping_bag(price: int, qty: int) -> int:
+def shopping_bag(price: int, qty: str) -> int:
     return price * qty
 
 

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
 import os
 print(f"Logged in user is {os.getlogin()}")

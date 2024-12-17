@@ -2,6 +2,10 @@
 
 Canceling the task in a thread pool only prevents it from being executed if it has not started yet. For the task to be interruptible, it must handle the `threading.Event` flag.
 
+> [!NOTE]
+> Prerequisite to understand this page:
+> [Intro to multiprocessing and multithreading](../../Intro_to_multiprocessing_and_multithreading/readme.md)
+
 ## Non-Compliant Code Example
 
 Tasks can be submitted to the ThreadPoolExecutor by calling `submit()`. Submitted tasks can be canceled by calling `cancel()` on the Future object returned by `submit()`. Calling this method will return True and stop the task from being executed if it has not started yet. However, if its execution has already started, calling `cancel()` will instead return  False and will not stop the task [[Python 3.10.4 docs on threading.Event]](https://docs.python.org/3/library/threading.html#event-objects).
