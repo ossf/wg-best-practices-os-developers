@@ -487,6 +487,10 @@ We would like to thank the following contributors:
 
 For detailed rationale, along with other information such as contributor credits, see [Correctly Using Regular Expressions Rationale](./Correctly-Using-Regular-Expressions-Rationale).
 
+## Contributions and Corrections Welcome
+
+If you have any additions, changes, or corrections you'd like to suggest, please [open an issue](https://github.com/ossf/wg-best-practices-os-developers/issues) or [open a pull request](https://github.com/ossf/wg-best-practices-os-developers/pulls). We appreciate your contributions!
+
 ## License
 
 This document is released under the [Creative Commons CC-BY-4.0 license](https://creativecommons.org/licenses/by/4.0/).
