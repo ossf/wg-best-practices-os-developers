@@ -5,7 +5,7 @@ An initiative by the OpenSSF to provide new Python programmers a resource to stu
 Documentation is written in academic style to support security researchers while using in plain English to cater for an international audience.
 
 Python modules outside of the _Python Module Index_ [[Python 2023](https://docs.python.org/3.9/py-modindex.html)], languages such as `HTML` and `JavaScript` are avoided.
-The structure is based on Common Weakness Enamurator (CWE) _Pillar Weakness_ [[MITRE 2024](https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness)].
+The structure is based on Common Weakness Enumeration (CWE) _Pillar Weakness_ [[MITRE Pillar 2024](https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness)].
 
 ## Disclaimer
 
@@ -107,6 +107,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[mitre.org 2023]|CWE - CWE-1000: Research Concepts [online], available from [https://cwe.mitre.org/data/definitions/1000.html](https://cwe.mitre.org/data/definitions/1000.html) [accessed Dec 2024]|
 |[OWASP dev 2024]|OWASP Developer Guide [online], available from [https://owasp.org/www-project-developer-guide/release/](https://owasp.org/www-project-developer-guide/release/) [accessed Dec 2024]|
 |[OWASP 2021]|OWASP Top 10 Report 2021 [online], available from [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)|
+|[MITRE Pillar 2024]|_Pillar Weakness_ [online], available form [https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness](https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness) [accessed Dec 2024]|
 |[MITRE 2024]|CWE Top 25 [online], available form [https://cwe.mitre.org/top25/index.html](https://cwe.mitre.org/top25/archive/2022/2022_cwe_top25.html) [accessed Dec 2024]|
 
 ## License
