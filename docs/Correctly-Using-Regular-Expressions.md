@@ -131,4 +131,10 @@ For detailed rationale, along with other information such as contributor credits
 
 Our thanks to Seth Larson, whose article [Seth Larson’s Regex character “$” doesn't mean “end-of-string”](https://sethmlarson.dev/regex-$-matches-end-of-string-or-newline) raised awareness of some of the problems dicussed here.
 
+## Contributions and Corrections Welcome
+
+If you have any additions, changes, or corrections you'd like to suggest, please [open an issue](https://github.com/ossf/wg-best-practices-os-developers/issues) or [create a pull request](https://github.com/ossf/wg-best-practices-os-developers/pulls). We appreciate your contributions!
+
+## License
+
 This document is released under the [Creative Commons CC-BY-4.0 license](https://creativecommons.org/licenses/by/4.0/).
