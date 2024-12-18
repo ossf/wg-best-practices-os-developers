@@ -13,4 +13,4 @@ def generate_web_token():
 # attempting to exploit above code example
 #####################
 TOKEN = generate_web_token()
-print(f"Your secure tokens is: {TOKEN}")
+print(f"Your secure token is: {TOKEN}")
