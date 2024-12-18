@@ -116,6 +116,8 @@ Applications should work towards compiling warning-free. This takes time, but wa
 
 Compiler options hardening is not a silver bullet; it is not sufficient to rely solely on security features and functions to achieve secure software. Security is an emergent property of the entire system that relies on building and integrating all parts properly. However, if properly used, secure compiler options will complement existing processes, such as static and dynamic analysis, secure coding practices, negative test suites, profiling tools, and most importantly: security hygiene as a part of a solid design and architecture.
 
+Hardened compiler options only take effect in code that is compiled with the hardened options. Consequently, compiler options hardening does not benefit software that has been pre-built before hardened options have been adopted. This is particularly a concern for projects that incorporate pre-built (possibly third-party) libraries or other components. In such cases, it is important to understand what components a project is being linked against, and how they in turn are built, to determine which components benefit from compiler options hardening.
+
 ### What is our threat model, goal, and objective?
 
 Our threat model is that all software developers make mistakes, and sometimes those mistakes lead to vulnerabilities. In addition, some malicious developers may intentionally create code that *appears* to be an unintentional vulnerability, or *appears* correct but is intentionally deceiving to reviewers (aka underhanded code[^Wheeler2020]).
