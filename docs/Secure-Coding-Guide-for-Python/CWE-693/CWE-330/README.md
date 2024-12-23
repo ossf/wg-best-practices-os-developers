@@ -10,7 +10,7 @@ Python's `random` module is a standard library module that provides functions to
 [[MATSUMOTO, NISHIMURA 1998](https://dl.acm.org/doi/pdf/10.1145/272991.272995)], which is a deterministic algorithm, that, given a particular input, will always produce the same output [[Wikipedia 2024](https://en.wikipedia.org/wiki/Deterministic_algorithm)]. An attacker knowing or guessing the seed value can predict the entire sequence of the pseudorandom numbers. This also means that if two `Random` class objects are created using an identical seed, they will generate the same sequence of numbers, regardless of the Python environment.
 
 
-Therefore, the random module is unsuitable for applications requiring high security as it does not incorporate cryptographic randomness, which means it is not resistant to reverse engineering. Its limited entropy makes it easier for attackers to deduce the internal state of the generator and predict future outputs.
+Therefore, the `random` module is unsuitable for applications requiring high security as it does not incorporate cryptographic randomness, which means it is not resistant to reverse engineering. Its limited entropy makes it easier for attackers to deduce the internal state of the generator and predict future outputs.
 
 Instead, for generating random numbers, it is recommended to use a more robust option, such as Python's `secrets` module.
 
