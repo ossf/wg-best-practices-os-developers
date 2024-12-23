@@ -6,7 +6,7 @@ Certain algorithms can create sequences of numbers that approximate random distr
 
 PRNGs suitable for encryption must mix non-computational sources such as a mouse, keyboard, or even  Lava Lamps [LavaRnd] to be random enough for encryption.
 
-Python's random module is a standard library module that provides functions to generate pseudorandom numbers for various distributions. This module can lead to a vulnerability due to its predictability. The random module is based on the Mersenne Twister `MT19937`
+Python's `random` module is a standard library module that provides functions to generate pseudorandom numbers for various distributions. This module can lead to a vulnerability due to its predictability. The random module is based on the Mersenne Twister `MT19937`
 [[MATSUMOTO, NISHIMURA 1998](https://dl.acm.org/doi/pdf/10.1145/272991.272995)], which is a deterministic algorithm, that, given a particular input, will always produce the same output [[Wikipedia 2024](https://en.wikipedia.org/wiki/Deterministic_algorithm)]. An attacker knowing or guessing the seed value can predict the entire sequence of the pseudorandom numbers. This also means that if two `Random` class objects are created using an identical seed, they will generate the same sequence of numbers, regardless of the Python environment.
 
 
