@@ -60,7 +60,7 @@ Platform
    </td>
    <td>“^” or “\A”
    </td>
-   <td>“\z”; “$” works but some documents conflict
+   <td>“\z”; [“$” works but some documents conflict](./Correctly-Using-Regular-Expressions-Rationale#java)
    </td>
    <td>No
    </td>
