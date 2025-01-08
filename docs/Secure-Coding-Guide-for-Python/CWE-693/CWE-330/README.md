@@ -11,9 +11,7 @@ Python's `random` module is a standard library module that provides functions to
 
 Therefore, the `random` module is unsuitable for applications requiring security as it does not incorporate cryptographic randomness, which means it is predictable. Its use makes it easy for attackers to deduce the internal state of the generator and predict future outputs.
 
-
 Instead, for generating random numbers for security purposes, use an appropriate option, such as Python's `secrets` module.
-
 
 ## Non-compliant Code Example
 
