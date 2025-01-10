@@ -46,4 +46,4 @@ Not knowing that a product must be deployed differently in production than in st
 |||
 |:---|:---|
 |[[Monkey patch - Wikipedia 2023](https://en.wikipedia.org/wiki/Monkey_patch)]|Wikimedia Foundation. (2024). Monkey patch [online]. Available from: [https://en.wikipedia.org/wiki/Monkey_patch](https://en.wikipedia.org/wiki/Monkey_patch) [accessed 3 January 2025]
-|[[Hammond 2022](https://en.wikipedia.org/wiki/Monkey_patch)]|John Hammond. (2024). DANGEROUS Python Flask Debug Mode Vulnerabilities [online]. Available from: [https://www.youtube.com/watch?v=jwBRgaIRdgs](hhttps://www.youtube.com/watch?v=jwBRgaIRdgs) [accessed 3 January 2025]
+|[[Hammond 2022](https://www.youtube.com/watch?v=jwBRgaIRdgs)]|DANGEROUS Python Flask Debug Mode Vulnerabilities [online]. Available from: [https://www.youtube.com/watch?v=jwBRgaIRdgs](https://www.youtube.com/watch?v=jwBRgaIRdgs) [accessed 3 January 2025]
