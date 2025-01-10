@@ -39,7 +39,7 @@ Not knowing that a product must be deployed differently in production than in st
 |[MITRE CWE](http://cwe.mitre.org/)|Pillar: [CWE-710: Improper Adherence to Coding Standards (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/710.html)|
 |[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE-489: Active Debug Code (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/489.html)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[ENV05-J. Do not deploy an application that can be remotely monitored](https://wiki.sei.cmu.edu/confluence/display/java/ENV05-J.+Do+not+deploy+an+application+that+can+be+remotely+monitored)|
-|[Python - Secure Coding One Stop Shop](https://eteamspace.internal.ericsson.com/display/DEVEN/Python+-+Secure+Coding+One+Stop+Shop)|[FIO13-P3. Do not log sensitive information outside a trust boundary](https://eteamspace.internal.ericsson.com/display/DEVEN/FIO13-P3.+Do+not+log+sensitive+information+outside+a+trust+boundary)|
+|[Python - Secure Coding One Stop Shop](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python/)|[CWE-532: Insertion of Sensitive Information into Log File](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/README.md)|
 
 ## Bibliography
 
