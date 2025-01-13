@@ -4,7 +4,7 @@ An initiative by the OpenSSF to provide new Python programmers a resource to stu
 
 Documentation is written in academic style to support security researchers while using in plain English to cater for an international audience.
 
-Python modules outside of the _Python Module Index_ [[Python 2023](https://docs.python.org/3.9/py-modindex.html)], languages such as `HTML` and `JavaScript` are avoided.
+Python modules outside of the _Python Module Index_ [[Python 2023](https://docs.python.org/3.9/py-modindex.html)] are not specifically covered by this document.
 The structure is based on Common Weakness Enumeration (CWE) _Pillar Weakness_ [[MITRE Pillar 2024](https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness)].
 
 ## Disclaimer
