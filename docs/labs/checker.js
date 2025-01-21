@@ -12,6 +12,9 @@ let info = {}; // General info
 let hints = []; // Array of hint objects
 let page_definitions = {}; // Definitions used when preprocessing regexes
 
+let user_solved = false; // True if user has *ever* solved it on this load
+let user_gave_up = false; // True if user ever gave up before user solved it
+
 // This array contains the default pattern preprocessing commands, in order.
 // We process every pattern through these (in order) to create a final regex
 // to be used to match a pattern.
@@ -292,7 +295,12 @@ function makeStamp() {
     // when they're in a "secure state". We don't need the hash to be
     // cryptographic, since the data is clearly in view. Use a simple one.
     let hash = cyrb64Hash(resultBeginning);
-    return `Completed ${resultBeginning} ${hash}`;
+    let gave_up_indicator = '';
+    if (user_gave_up) { // If user gave up first, subtly indicate this.
+        // The user could reload later this and cause this marking to be omitted.
+        gave_up_indicator = ' (GA)';
+    }
+    return `Completed ${resultBeginning} ${hash}${gave_up_indicator}`;
 }
 
 /**
@@ -317,6 +325,7 @@ function runCheck() {
 
     if (isCorrect && (oldGrade !== newGrade)) {
         // Hooray! User has a newly-correct answer!
+        user_solved = true;
 
         // Set `correctStamp` id (if present) with timestamp and UUID
         // This makes it easy to detect someone simply copying a final result.
@@ -379,6 +388,9 @@ function showHint(e) {
 function showAnswer(e) {
     let formIndexes = findIndexes(e.target.form); // Indexes in this form
     let goodAnswer = formIndexes.map(i => expected[i]).join('\n\n');
+    if (!user_solved) {
+        user_gave_up = true;
+    }
     alert(`We were expecting an answer like this:\n${goodAnswer}`);
 }
 
