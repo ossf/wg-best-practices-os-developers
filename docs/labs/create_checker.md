@@ -714,6 +714,20 @@ to refer to the corresponding capturing group.
 If you load `hello.html` you'll automatically run some self-tests on
 the default preprocessor.
 
+## Internationalization
+
+Currently the expectation is that translated labs will start with existing
+labs (as HTML) and translate their text.
+Our current recommendation is to prefix all labs' names with their locale
+(e.g., `jp-input.html`).
+
+Make sure the buttons have a `title` value, otherwise they will default to
+their English titles.
+
+In the future we may pull the data into their own files so they can
+be shared between natural language translations. In those cases, the
+translated text would be marked with their own locale.
+
 ## Potential future directions
 
 Below are notes about potential future directions.
