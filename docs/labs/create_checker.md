@@ -718,17 +718,33 @@ the default preprocessor.
 
 We'd love to see translations of labs into various natural languages.
 
-Currently the expectation is that translated labs will start with existing
-labs (as HTML) and translate their text.
-Our current recommendation is to prefix all labs' names with their locale
-(e.g., `jp-input.html`).
+Each lab is a separate HTML file. To create a translation,
+copy the HTML file into another file with a similar name indicating its locale.
+We currently recommend it be named `LOCALE-oldname.html`, e.g.,
+the Japanese (`ja`) translation of `input1.html` would be `ja-input1.html`.
+Use the most common locale name and make it clear, e.g.,
+for simplified Chinese use the locale `zh-CN`, for Brazilian Portuguese use
+`pt-BR`, for French use `fr`.
 
-Make sure the buttons have a `title` value, otherwise they will default to
-their English titles.
+Now edit the HTML file to translate its text into your locale:
 
-In the future we may pull the data into their own files so they can
-be shared between natural language translations. In those cases, the
-translated text would be marked with their own locale.
+* Modify the &lt;html&gt; statement to say &lt;html lang="LOCALE"&gt;
+* Add "title" values for buttons, otherwise they'll have English titles.
+* Modify the text, both the normal HTML and embedded YAML data.
+
+You can try out [hello](hello.html) to start simple.
+
+The [list of labs](https://best.openssf.org/labs/) provides more information.
+WARNING: We aren't currently using all labs we have.
+Make sure you focus on the labs in use first :-).
+
+One problem with the current localization approach is that the HTML tends to include
+a lot of information in YAML format that isn't natural language text.
+Most of the YAML should be shared, frankly.
+In the future we may pull the YAML data into a separate file, with
+different markers for the text of various locales.
+E.g., `text` would be English, and `text_jp` would its Japanese translation.
+We'd love feedback on this idea.
 
 ## Potential future directions
 
