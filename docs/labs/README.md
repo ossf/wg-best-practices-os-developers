@@ -45,7 +45,7 @@ We'd love to have labs available in various natural languages!
 You can take existing labs and translate them. For technical details, see the
 [information on lab localization](create_checker#localization).
 Let us know if you're doing it!
-Please see [how to contribute labs](#please_contribute_labs) for more.
+Please see [how to contribute labs](#please-contribute-labs) for more.
 
 ## How to create and submit labs
 
