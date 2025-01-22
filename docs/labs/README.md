@@ -39,7 +39,7 @@ If you're interested, please contact
 [David A. Wheeler](mailto:dwheele&#114;&#64;linuxfoundation&#46;org).
 See below for how to create labs and our lab roadmap.
 
-## Please help us translate labs!
+## Please help us translate labs
 
 We'd love to have labs available in various natural languages!
 You can take existing labs and translate them. For technical details, see the
