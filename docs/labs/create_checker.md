@@ -714,7 +714,9 @@ to refer to the corresponding capturing group.
 If you load `hello.html` you'll automatically run some self-tests on
 the default preprocessor.
 
-## Internationalization
+## Localization
+
+We'd love to see translations of labs into various natural languages.
 
 Currently the expectation is that translated labs will start with existing
 labs (as HTML) and translate their text.
