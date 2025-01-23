@@ -163,7 +163,7 @@ def map_threads(x):
             for res in result_gen:
                 ret.append(res)
                 invalid_arg += 1
-            return res
+            return ret
         except ValueError as e:
             # handle exception...
             raise ValueError(
