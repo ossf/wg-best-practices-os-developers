@@ -1476,6 +1476,7 @@ Many more security-relevant compiler options exist than are recommended in this 
 | <span id="-fvtable-verify">`-fvtable-verify`</span> |GCC 4.9.4 | Enables run-time checks for C++ virtual function pointers corruption. This option has significant performance overhead[^Tice2014] and breaks ABI with all existing system libraries unless the entire userspace is built with `-fvtable-verify`[^gentoo-vtv]. Believed to be currently unmaintained in GCC.
 | <span id="-mmitigate-rop">`-mmitigate-rop`</span> | GCC 6.1 | Avoids combination of particular opcodes which can be reinterpretted as a return opcode in an attempt to mitigate Return Oriented Programming (ROP) attacks[^gcc-mmitigate-rop].  Was considered to be ineffective and security-theatre-esque, so was deprecated in GCC 9.1[^Bizjak2018].
 | <span id="CLANG_DEFAULT_PIE_ON_LINUX">`CLANG_DEFAULT_PIE_ON_LINUX`</span> | Clang 14.0.0 | When compiling Clang, turns on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler. Superceded by default provided via configuration files[^clang-config].
+| <span id="-fsplit-stack">`-fsplit-stack`</span> | GCC 4.6.0 | Generates code to automatically split the stack before it overflows to enable segmented stacks [^Taylor2011] for use by stackfull co-routines such as Boost Fibers. Interoperability between split-stack code to non-split-stack code requires the gold linker to ensure larger stack segments are allocated for calls to non-split-stack code [^Taylor2015]. Believed to be currently unmaintained in GCC.
 
 [^nodump]: The `-Wl,-z,nodump` option sets `DF_1_NODUMP` flag in the object’s `.dynamic` section tags. On Solaris this restricts calls to `dldump(3)` for the object. However, other operating systems ignore the `DF_1_NODUMP` flag. While Binutils implements `-Wl,-z,nodump` for Solaris compatibility a choice was made to not support it in `lld` ([D52096 lld: add -z nodump support](https://reviews.llvm.org/D52096)).
 
@@ -1498,6 +1499,10 @@ Many more security-relevant compiler options exist than are recommended in this 
 [^gcc-mmitigate-rop]: GCC team, [Using the GNU Compiler Collection (GCC): x86 Options: `-mmitigate-rop`](https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/x86-Options.html#index-mmitigate-rop-2936), GCC Manual, 2016-04-27.
 
 [^Bizjak2018]: Bizjak, Uros [\[RFC PATCH, i386\]: Deprecate `-mmitigate-rop`](https://gcc.gnu.org/pipermail/gcc-patches/2018-August/504637.html), GCC Mailing List, 2018-08-15.
+
+[^Taylor2011]: Taylor, Ian Lance, [Split Stacks in GCC](https://gcc.gnu.org/wiki/SplitStacks), GCC Wiki, 2011-02-07.
+
+[^Taylor2015]: Taylor, Ian Lance, [gccgo split stack implementation](https://groups.google.com/g/golang-dev/c/QBCN9XVkwFk/m/7DgP2Iu_USkJ), golang-dev Google Groups, 2015-07-10.
 
 ## Appendix: Scraper Script
 
