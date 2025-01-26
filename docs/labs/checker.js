@@ -15,6 +15,8 @@ let page_definitions = {}; // Definitions used when preprocessing regexes
 let user_solved = false; // True if user has *ever* solved it on this load
 let user_gave_up = false; // True if user ever gave up before user solved it
 
+let startTime = Date.now();
+
 // This array contains the default pattern preprocessing commands, in order.
 // We process every pattern through these (in order) to create a final regex
 // to be used to match a pattern.
@@ -394,6 +396,19 @@ function showAnswer(e) {
     alert(`We were expecting an answer like this:\n${goodAnswer}`);
 }
 
+// "Give up" only shows the answer after this many seconds have elapsed.
+const MIN_DELAY_TIME = 60;
+
+function maybeShowAnswer(e) {
+    let currentTime = Date.now();
+    let elapsedTime = (currentTime - startTime) / 1000; // in seconds
+    if (elapsedTime < MIN_DELAY_TIME) {
+        alert("Try harder! Don't give up so soon. Current time spent (in seconds): " + elapsedTime);
+    } else {
+        showAnswer(e);
+    }
+}
+
 /**
  * Reset form.
  * We have to implement this in JavaScript to ensure that the final
@@ -668,7 +683,7 @@ function initPage() {
         }
     }
     for (let giveUpButton of document.querySelectorAll("button.giveUpButton")) {
-        giveUpButton.addEventListener('click', (e) => { showAnswer(e); });
+        giveUpButton.addEventListener('click', (e) => { maybeShowAnswer(e); });
         if (!giveUpButton.title) {
             giveUpButton.title = 'Give up and show an answer.';
         }
