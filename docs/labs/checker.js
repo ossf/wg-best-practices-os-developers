@@ -15,6 +15,9 @@ let page_definitions = {}; // Definitions used when preprocessing regexes
 let user_solved = false; // True if user has *ever* solved it on this load
 let user_gave_up = false; // True if user ever gave up before user solved it
 
+let BACKQUOTE = "`"; // Make it easy to use `${BACKQUOTE}`
+let DOLLAR = "$"; // Make it easy to use `${DOLLAR}`
+
 // This array contains the default pattern preprocessing commands, in order.
 // We process every pattern through these (in order) to create a final regex
 // to be used to match a pattern.
@@ -456,10 +459,10 @@ function processHints(requestedHints) {
     return compiledHints;
 }
 
-/** Set global values based on info.
+/** Load and parse YAML data, return result to be placed in "info".
  * @info: String with YAML (including JSON) data to use
  */
-function processInfo(configurationInfo) {
+function processYamlToInfo(configurationInfo) {
     // This would only allow JSON, but then we don't need to load YAML lib:
     // let parsedJson = JSON.parse(configurationInfo);
 
@@ -473,9 +476,15 @@ function processInfo(configurationInfo) {
         throw e; // Rethrow, so containing browser also gets exception
     }
 
-    // Set global variable
-    info = parsedData;
+    return parsedData;
+}
 
+/** Set global values based on other than "correct" and "expected" values.
+ * The correct and expected values may come from elsewhere, but we have to set up the
+ * info-based values first, because info can change how those are interpreted.
+ * @info: String with YAML (including JSON) data to use
+ */
+function processInfo(configurationInfo) {
     const allowedInfoFields = new Set([
         'hints', 'successes', 'failures', 'correct', 'expected',
          'definitions', 'preprocessing', 'preprocessingTests', 'debug']);
@@ -513,14 +522,14 @@ function processInfo(configurationInfo) {
     };
 
     // Set up hints
-    if (parsedData && parsedData.hints) {
-        hints = processHints(parsedData.hints);
+    if (info && info.hints) {
+        hints = processHints(info.hints);
     };
 }
 
 /**
  * Run a simple selftest.
- * Run loadData *before* calling this, to set up globals like correctRe.
+ * Run setupInfo *before* calling this, to set up globals like correctRe.
  * This ensures that:
  * - the initial attempt is incorrect (as expected)
  * - the expected value is correct (as expected)
@@ -593,16 +602,25 @@ function runSelftest() {
 }
 
 /**
- * Load data from HTML page and initialize our local variables from it.
+ * Load "info" data and set up all other variables that depend on "info".
+ * The "info" data includes the regex preprocessing steps, hints, etc.
  */
-function loadData() {
-    // If there is info (e.g., hints), load it & set up global variable hints.
+function setupInfo() {
     // We must load info *first*, because it can affect how other things
     // (like pattern preprocessing) is handled.
+
+    // Deprecated approach: Load embedded "info" data in YAML file.
+    // If there is "info" data embedded in the HTML (e.g., hints),
+    // load it & set up global variable hints.
     let infoElement = document.getElementById('info');
     if (infoElement) {
-        processInfo(infoElement.textContent);
+        let configurationYamlText = infoElement.textContent;
+        // Set global variable "info"
+        info = processYamlToInfo(configurationYamlText);
     };
+
+    // Set global values *except* correct and expected arrays
+    processInfo(info);
 
     // Set global correct and expected arrays
     let current = 0;
@@ -642,7 +660,8 @@ function loadData() {
 }
 
 function initPage() {
-    loadData();
+    // Use configuration info to set up all relevant global values.
+    setupInfo();
 
     // Run a selftest on page load, to prevent later problems
     runSelftest();
