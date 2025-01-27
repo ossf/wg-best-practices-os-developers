@@ -78,11 +78,6 @@ Modify the `expected0` section to have a sample expected answer, and
 See [input1.html](input1.html) and [input2.html](input2.html)
 for examples.
 
-*NOTE*: We are transitioning to using separate `.js` files to simplify
-translations. E.g., `input1.html` will have a corresponding `input1.js`
-with configuration information that is shared between translations.
-That transition hasn't completed yet.
-
 Whenever a lab is loaded it automatically runs all embedded self-tests.
 At the least, it checks that the initial attempted answer does
 *not* satisfy the correct answer pattern, while the example expected answer
@@ -96,6 +91,19 @@ To submit new or updated labs, create a pull request on the
 under the `docs/labs` directory.
 Simply fork the repository, add your proposed lab in the `docs/labs` directory,
 and create a pull request.
+
+### Transitioning away from YAML
+
+Configuration data was originally in an embedded YAML file.
+We are transitioning to using separate `.js` files to simplify
+translations and eliminate the need for the YAML library.
+E.g., `input1.html` will have a corresponding `input1.js`
+with configuration information that is shared between translations.
+That transition hasn't completed yet.
+
+To help, you can create a JavaScript file that sets info2
+instead of info. The checker will automatically report
+any differences between the two values.
 
 ### Quick aside: script tag requirements
 
