@@ -23,16 +23,16 @@ When using regexes for secure validation of untrusted input, do the following so
     1. If there are any branches (“&#x7c;”), make sure the alternatives are grouped. You can do this by surrounding them with parentheses like this: “(aa&#x7c;bb)”. If you don’t need the groups to be captured (you usually don’t), and your platform supports non-capturing groups (most do), it’s usually more efficient to use non-capturing groups - just change “(“ into “(?:”
     2. Use a regular expression in its normal mode (not “multiline” mode). Prepend a start-of-string marking (often “^” or “\A”) and append an “end-of-string” marking (often “$” or “\z”, but Python uses “\Z”). Do _not_ use “$” for input validation until you verify that “$” does what you want. See this table for many common platforms:
 
-| Platform                                          | Prepend        | Append                                                                                              | $  Permissive? |
-|---------------------------------------------------|----------------|-----------------------------------------------------------------------------------------------------|----------------|
-| POSIX BRE, POSIX ERE, and ECMAScript (JavaScript) | “^” (not “\A”) | “$” (not “\z” nor “\Z”)                                                                             | No             |
-| Perl, .NET/C#                                     | “^” or “\A”    | “\z” (not “$”)                                                                                      | Yes            |
-| Java                                              | “^” or “\A”    | “\z”; [“$” works but some documents conflict](./Correctly-Using-Regular-Expressions-Rationale#java) | No             |
-| PHP                                               | “^” or “\A”    | “\z”; “$” with “D” modifier                                                                         | Yes            |
-| PCRE                                              | “^” or “\A”    | “\z”; “$” with PCRE2_ DOLLAR_ENDONLY                                                                | Yes            |
-| Golang, Rust crate regex, and RE2                 | “^” or “\A”    | “\z” or “$”                                                                                         | No             |
-| Python                                            | “^” or “\A”    | “\Z” (not “$” nor “\z”)                                                                             | Yes            |
-| Ruby                                              | “\A” (not “^”) | “\z” (not “$”)                                                                                      | Yes            |
+| Platform                                          | Prepend        | Append                                                                                              | $&nbsp;Permissive? |
+|---------------------------------------------------|----------------|-----------------------------------------------------------------------------------------------------|--------------------|
+| POSIX BRE, POSIX ERE, and ECMAScript (JavaScript) | “^” (not “\A”) | “$” (not “\z” nor “\Z”)                                                                             | No                 |
+| Perl, .NET/C#                                     | “^” or “\A”    | “\z” (not “$”)                                                                                      | Yes                |
+| Java                                              | “^” or “\A”    | “\z”; [“$” works but some documents conflict](./Correctly-Using-Regular-Expressions-Rationale#java) | No                 |
+| PHP                                               | “^” or “\A”    | “\z”; “$” with “D” modifier                                                                         | Yes                |
+| PCRE                                              | “^” or “\A”    | “\z”; “$” with PCRE2_ DOLLAR_ENDONLY                                                                | Yes                |
+| Golang, Rust crate regex, and RE2                 | “^” or “\A”    | “\z” or “$”                                                                                         | No                 |
+| Python                                            | “^” or “\A”    | “\Z” (not “$” nor “\z”)                                                                             | Yes                |
+| Ruby                                              | “\A” (not “^”) | “\z” (not “$”)                                                                                      | Yes                |
 
 For example, to validate in JavaScript that the input is only “ab” or “de”, use the regex “<tt>^(ab&#x7c;de)$</tt>”. To validate the same thing in Python, use “<tt>^(ab&#x7c;de)\Z</tt>” or “<tt>\A(ab&#x7c;de)\Z</tt>”. Note that the “$” anchor has different meanings among platforms and is often misunderstood; on many platforms it’s permissive by default and doesn’t match only the end of the input. Instead of using “$” on a platform if $ is permissive, consider using an explicit form instead (e.g., “`\n?\z`”). Consider preferring “\A” and “\z” where it’s supported (this is necessary when using Ruby).
 
