@@ -9,6 +9,7 @@
 let correctRe = []; // Array of compiled regex of correct answer
 let expected = []; // Array of an expected (correct) answer
 let info = {}; // General info
+let info2 = {}; // Transitional info - if it exists, compare to info
 let hints = []; // Array of hint objects
 let page_definitions = {}; // Definitions used when preprocessing regexes
 
@@ -100,6 +101,38 @@ function setDifference(lhs, rhs) {
     let lhsArray = Array.from(lhs);
     let result = lhsArray.filter((x) => {!rhs.has(x)});
     return new Set(result);
+}
+
+/* Return differences between two objects
+ */
+function objectDiff(obj1, obj2) {
+    let diff = {};
+  
+    function compare(obj1, obj2, path = '') {
+        for (const key in obj1) {
+          if (obj1.hasOwnProperty(key)) {
+            const newPath = path ? `${path}.${key}` : key;
+    
+            if (!obj2.hasOwnProperty(key)) {
+              diff[newPath] = [obj1[key], undefined];
+            } else if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
+              compare(obj1[key], obj2[key], newPath);
+            } else if (obj1[key] !== obj2[key]) {
+              diff[newPath] = [obj1[key], obj2[key]];
+            }
+          }
+        }
+  
+        for (const key in obj2) {
+          if (obj2.hasOwnProperty(key) && !obj1.hasOwnProperty(key)) {
+            const newPath = path ? `${path}.${key}` : key;
+            diff[newPath] = [undefined, obj2[key]];
+          }
+        }
+    }
+  
+    compare(obj1, obj2);
+    return diff;
 }
 
 /*
@@ -633,6 +666,16 @@ function setupInfo() {
         // Set global variable "info"
         info = processYamlToInfo(configurationYamlText);
     };
+
+    // If an "info2" exists, report any differences between it and "info".
+    // This makes it safer to change how info is recorded.
+    if (Object.keys(info2).length > 0) {
+        let differences = objectDiff(info, info2);
+        if (Object.keys(differences).length > 0) {
+            alert(`ERROR: info2 exists, but info and info2 differ: ${JSON.stringify(differences)}`);
+        }
+    };
+
 
     // Set global values *except* correct and expected arrays
     processInfo(info);
