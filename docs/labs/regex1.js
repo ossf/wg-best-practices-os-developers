@@ -1,4 +1,4 @@
-info2 =
+info =
 {
   hints: [
     {
@@ -149,7 +149,7 @@ info2 =
     {
       absent: String.raw`\\z$`,
       "index": 4,
-      text: "This is Ruby. Use \\z at the beginning."
+      text: "This is Ruby. Use \\z at the end."
     },
     {
       absent: String.raw`\[A-Z\]`,
