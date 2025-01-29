@@ -6,17 +6,15 @@ info =
       text: "This is a parameter, it must end with a comma."
     },
     {
-      absent: String.raw`query \( ["'${BACKQUOTE}]id["'${BACKQUOTE}] \)
-`,
+      absent: String.raw`query \( ["'${BACKQUOTE}]id["'${BACKQUOTE}] \)`,
       text: "Use query() with an 'id' parameter."
     },
     {
-      present: String.raw`query \( ["'${BACKQUOTE}]id["'${BACKQUOTE}] \) [^. ]
-`,
+      present: String.raw`query \( ["'${BACKQUOTE}]id["'${BACKQUOTE}] \) [^. ]`,
       text: "After query(\"id\") use a period to invoke a verification method."
     },
     {
-      present: "(islength|Islength|IsLength|ISLENGTH)\n",
+      present: "(islength|Islength|IsLength|ISLENGTH)",
       text: "JavaScript is case-sensitive. Use isLength instead of the case you have.\n"
     },
     {
@@ -24,8 +22,7 @@ info =
       text: "Use isLength()."
     },
     {
-      present: String.raw`isLength \( m
-`,
+      present: String.raw`isLength \( [a-z]`,
       text: "You need to pass isLength() an object within {...}."
     },
     {
@@ -33,33 +30,27 @@ info =
       text: "Use matches()."
     },
     {
-      present: String.raw`matches \( /[^^]
-`,
+      present: String.raw`matches \( /[^^]`,
       text: "Match the whole string - begin the regular expression with ^"
     },
     {
-      present: String.raw`matches \( /.*[^$]/
-`,
+      present: String.raw`matches \( /[^$/]*[^$]/`,
       text: "Match the whole string - end the regular expression with $"
     },
     {
-      present: String.raw`matches \( /.*[^$]/
-`,
+      present: String.raw`matches \( /[^$/]*[^$]/`,
       text: "Match the whole string - end the regular expression with $"
     },
     {
-      present: String.raw`matches \( /\^\[A-Z\]-
-`,
+      present: String.raw`matches \( /\^\[A-Z\]-`,
       text: "That would match only one letter before the dash, you need two."
     },
     {
-      present: String.raw`matches \( /.*(\[0-9\]|\d)\*
-`,
+      present: String.raw`matches \( /.*(\[0-9\]|\d)\*`,
       text: "You need to match one or more digits; * allows 0 or more. A + would be better suited for this task.\n"
     },
     {
-      present: String.raw`\s*, , $
-`,
+      present: String.raw`\s*, , $`,
       text: "You have two commas at the end. Use only one. You may need to scroll or increase the text area to see both of them.\n"
     }
   ],
