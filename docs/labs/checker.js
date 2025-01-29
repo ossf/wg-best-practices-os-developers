@@ -449,14 +449,14 @@ function runCheck() {
 	}
 
         // Use a timeout so the underlying page will *re-render* before the
-	// alert shows. If we don't do this, the alert would be confusing
+	// alert shows. If we don't use a timeout, the alert would be confusing
 	// because the underlying page would show that it wasn't completed.
 	setTimeout(function() {
             let congrats_text;
             if (correctRe.length > 1) {
-                congrats_text = t('congrats');
-	    } else {
                 congrats_text = t('congrats_all');
+	    } else {
+                congrats_text = t('congrats');
 	    }
             alert(congrats_text);
         }, 100);
