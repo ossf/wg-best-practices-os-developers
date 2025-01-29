@@ -65,6 +65,10 @@ info =
       examples: [ [ "  console.log(\"Hello, world!\")  " ] ]
     }
   ],
+  expected: ['console.log("Hello, world!");'],
+  correct:
+    [String.raw`\s* console \. log \(
+	       (["'${BACKQUOTE}])Hello,\x20world!\1 \) ; \s*`],
   successes: [
     [ " console . log( \"Hello, world!\" ) ; " ],
     [ " console . log( 'Hello, world!' ) ; " ],

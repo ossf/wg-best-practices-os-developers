@@ -781,12 +781,15 @@ function setupInfo() {
         };
     };
     if (info.correct != null) {
-        if (correct.length > 0) {
+        if (correctRe.length > 0) {
             alert("Error: Info defines correct value but it's overridden.");
 	} else if (!(info.correct instanceof Array)) {
             alert('Error: Info correct hints must be array.');
         } else {
-            correct = info.correct.map((s) => trimNewlines(s));
+            let correct = info.correct.map((s) => trimNewlines(s));
+            // Set global variable with compiled correct answer
+            correctRe = correct.map((s) =>
+              processRegex(s, `correct answer ${s}`, true));
         };
     };
 }
