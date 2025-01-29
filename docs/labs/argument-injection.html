@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="checker.css">
 <script src="js-yaml.min.js"></script>
 <script src="checker.js"></script>
+<script src="argument-injection.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
 <!-- expected answer -->
@@ -36,12 +37,12 @@ hints:
     Use the `execFile` function instead of `exec` to avoid shell interpretation.
     Your line should start with `execFile(`.
 - absent: |-
-    execFile\s*\(\s*['"\`]git['"`]\s*,
+    execFile\s*\(\s*['"`]git['"`]\s*,
   text: >
     Separate the command and its arguments. The first argument to `execFile`
     should be the command 'git' without any of the command arguments.
 - present: |-
-    ['"\`]git\x20blame['"\`]
+    ['"`]git\x20blame['"`]
   text: >
     Separate the command and its arguments. The first argument to `execFile`
     should be the command 'git', followed by an array with parameters,
@@ -55,18 +56,18 @@ hints:
 - present: |-
     --
   absent: |-
-    ['"\`]--['"`]
+    ['"`]--['"`]
   text: >
     To pass `--` you need to pass it as a literal string. Typically this
     is notated as `'--'` or `"--"`.
 - absent: |-
-    \[ ['"\`]blame['"`] , ['"\`]--['"`] ,
+    \[ ['"`]blame['"`] , ['"`]--['"`] ,
   text: >
     Pass the arguments as an array. Include '--' before the file path to
     prevent argument injection. Your array should look like
     `['blame', '--', ...`.
 - present: |-
-    ['"\`]filePath['"\`]
+    ['"`]filePath['"`]
   text: >
     `filePath` is a variable, use it directly without using quote marks.
 - present: |-
@@ -76,14 +77,14 @@ hints:
     This is simply a constant string beginning with a dollar sign, which
     is not what you want.
 - present: |-
-    \`\$\{filePath\}\`
+    `\$\{filePath\}`
   text: >
     Strictly speaking, using a backquoted template with a single
     reference to a variable name works. In this case, it's being done to
     `filePath`. However, this is unnecessarily complicated.
     When you want to simply refer to a variable's value, use the variable name.
 - absent: |-
-    \[ ['"\`]blame['"`] , ['"\`]--['"`] , filePath \]
+    \[ ['"`]blame['"`] , ['"`]--['"`] , filePath \]
   text: >
     Pass the arguments as an array. Include '--' before the file path to
     prevent argument injection. Your array should look like
