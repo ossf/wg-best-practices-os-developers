@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="checker.css">
 <script src="js-yaml.min.js"></script>
 <script src="checker.js"></script>
+<script src="oob1.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
 <!-- See create_labs.md for how to create your own lab! -->
@@ -37,117 +38,6 @@
 \s*
 </script>
 
-<script id="info" type="application/yaml">
----
-hints:
-- absent: "if"
-  text: Begin with "if" as we will return 0 when there is a problem.
-- absent: |
-    \(
-  text: Need "(...)" around the condition after an if statement.
-- absent: |
-    >
-  text: Need comparison "if ( ... > ....)"
-- absent: s -> s3 -> rrec \. length
-  text: Need to compare a value with s->s3->rrec.length
-- absent: return
-  text: Need "return 0;" to skip attempts to send a too-long response.
-definitions:
-- term: NINETEEN
-  value: |
-      (1 \+ 2 \+ 16|19)
-- term: NINETEEN
-  value: |
-      (NINETEEN|\( NINETEEN \))
-- term: PAYLOAD_LENGTH
-  value: (1 \+ 2|3) \+ payload \+ 16
-- term: PAYLOAD_LENGTH
-  value: (PAYLOAD_LENGTH|payload \+ NINETEEN|NINETEEN \+ payload)
-- term: PAYLOAD_LENGTH
-  value: |
-      (PAYLOAD_LENGTH|\( PAYLOAD_LENGTH \))
-- term: RETURN0
-  value: |
-    return \s+ 0 ;
-- term: FULL_LENGTH
-  value: |
-    s -> s3 -> rrec \. length
-- term: RETURN0
-  value: |
-    (RETURN0|\{ RETURN0 \})
-# - present: "import"
-#   text: Yes, many JavaScript implementations support an import statement.
-#     However, in this exercise we will use a require form. Please use that
-#     instead.
-#   examples:
-#   - - 'import express from "express";'
-# - absent: "const"
-#   text: Start with const.
-# - absent: 'const\s+helmet ='
-#   text: Create a constant name named helmet using the form const helmet = ...
-#   examples:
-#   - - 'const'
-#   - - 'consthelmet = '
-# - present: 'require \( helmet \)'
-#   text: The parameter of a requirement statement must be string.
-#     Surround the term helment with double-quotes.
-#   examples:
-#   - - '  const helmet = require(helmet);'
-# - absent: "; $"
-#   text: JavaScript doesn''t require semicolon terminators, but the rest of
-#     the code uses them. You should try to match a coding style when modifying
-#     existing code unless there''s an important reason not to.
-#     Please update the first statment.
-#   examples:
-#   - - '  const helmet = require("helmet")'
-# - absent: '\s* app \. use \( helmet \( \{'
-#   index: 1
-#   text: Your code should begin with app.use(helmet({
-# - absent: |
-#     \s* app \. use \( helmet \( \{
-#           contentSecurityPolicy: \{ \s*
-#   index: 1
-#   text: |
-#     Your code should begin with:
-#     app.use(helmet({
-#       contentSecurityPolicy: {
-# - absent: |
-#     \s* app \. use \( helmet \( \{
-#           contentSecurityPolicy: \{
-#             directives: \{ \s*
-#   index: 1
-#   text: |
-#     Your code should begin with:
-#     app.use(helmet({
-#       contentSecurityPolicy: {
-#             directives: {
-# - absent: |
-#     \s* app \. use \( helmet \( \{
-#           contentSecurityPolicy: \{
-#             directives: \{
-#                 "script-src": \[ "'self'" , ["']https://example.com["'] \] , \s*
-#   index: 1
-#   text: |
-#     Your code should continue with:
-#     app.use(helmet({
-#       contentSecurityPolicy: {
-#             directives: {
-#               "script-src": ["'self'", "https://example.com"],
-# - absent: |
-#     "style-src": \[ "'self'" \]
-#   index: 1
-#   text: |
-#     Don't forget to include "style-src": ["'self'"]
-# - absent: '; $'
-#   index: 1
-#   text: JavaScript doesn''t require semicolon terminators, but the rest of
-#     the code uses them. You should try to match a coding style when modifying
-#     existing code unless there''s an important reason not to.
-#     Please update the second statment.
-# - text: I do not have more specific hints to provide. Please ensure that
-#     the parentheses, braces, and brackets pair correctly.
-# # debug: true
-</script>
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->
