@@ -88,6 +88,13 @@ info =
       ]
     }
   ],
+  expected: [
+    "query('id').isInt({min: 1, max: 9999}),"
+  ],
+  correct: [
+     String.raw`\s* query \( ('id'|"id"|${BACKQUOTE}id${BACKQUOTE}) \) \.
+                \s* isInt \( \{ min: 1 , max: 9_?999 ,? \} \) , \s*`
+  ],
   successes: [
     [ " query ( 'id' ) . isInt ( {min: 1 , max: 9999 } ) ," ],
     [ " query ( `id` ) . isInt ( {min: 1 , max: 9_999 } ) ,   " ],
