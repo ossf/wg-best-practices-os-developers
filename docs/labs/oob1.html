@@ -12,32 +12,6 @@
 
 <!-- See create_labs.md for how to create your own lab! -->
 
-<!-- Sample expected answer -->
-<script id="expected0" type="plain/text">
-  if (1 + 2 + 16 > s->s3->rrec.length)
-    return 0;
-</script>
-<!--
--->
-<script id="expected1" type="plain/text">
-  if (1 + 2 + payload + 16 > s->s3->rrec.length)
-    return 0;
-</script>
-
-<!-- Full pattern of correct answer -->
-<script id="correct0" type="plain/text">
-\s*
-  if \( (NINETEEN > FULL_LENGTH|FULL_LENGTH < NINETEEN) \)
-  RETURN0
-\s*
-</script>
-<script id="correct1" type="plain/text">
-\s*
-  if \( (PAYLOAD_LENGTH > FULL_LENGTH|FULL_LENGTH < PAYLOAD_LENGTH) \)
-  RETURN0
-\s*
-</script>
-
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->

@@ -54,6 +54,34 @@ info =
     {
       term: "RETURN0",
       value: String.raw`(RETURN0|\{ RETURN0 \})`
-    }
-  ]
+    },
+  ],
+  expected: [
+    `if (1 + 2 + 16 > s->s3->rrec.length)
+       return 0;`,
+    `if (1 + 2 + payload + 16 > s->s3->rrec.length)
+      return 0;`
+  ],
+  correct: [
+    String.raw` \s*
+      if \( (NINETEEN > FULL_LENGTH|FULL_LENGTH < NINETEEN) \)
+        RETURN0 \s*`,
+    String.raw` \s*
+      if \( (PAYLOAD_LENGTH > FULL_LENGTH|FULL_LENGTH < PAYLOAD_LENGTH) \)
+        RETURN0 \s*`,
+  ],
+  successes: [
+    [
+      ` if ( s -> s3 -> rrec . length < 19 )
+         return 0 ;`,
+      ` if ( s -> s3 -> rrec . length < payload + 19 )
+         return 0;`
+    ],
+    [
+      `if(s->s3->rrec.length<19)
+         return 0 ;`,
+      `if(s->s3->rrec.length<payload+19)
+         return 0;`
+    ],
+  ],
 }
