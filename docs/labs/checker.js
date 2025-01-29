@@ -21,6 +21,80 @@ let startTime = Date.now();
 let BACKQUOTE = "`"; // Make it easy to use `${BACKQUOTE}`
 let DOLLAR = "$"; // Make it easy to use `${DOLLAR}`
 
+// Current language
+let lang;
+
+const resources = {
+    en: {
+	translation: {
+            already_correct: 'The answer is already correct!',
+            congrats: 'Congratulations! Your answer is correct!',
+            congrats_all: 'Great work! All your answers are correct!',
+            expecting: "We were expecting an answer like this:\n{0}",
+            give_up_title: 'Give up and show an answer.',
+            hint_title: 'Provide a hint given current attempt.',
+            no_hints: 'Sorry, there are no hints for this lab.',
+            no_matching_hint: 'Sorry, I cannot find a hint that matches your attempt.',
+            reset_title: 'Reset initial state (throwing away current attempt).',
+            try_harder: "Try harder! Don't give up so soon. Current time spent (in seconds): {0}",
+        }
+    },
+    ja: {
+	translation: {
+            already_correct: '答えはすでに正しいです!',
+            congrats: '「おめでとうございます！」あなたの答えは正解です!',
+            congrats_all: '素晴らしい仕事でした!あなたの答えはすべて正解です!',
+            expecting: "次のような答えを期待していました:\n{0}",
+            give_up_title: '諦めて答えを示してください。',
+            hint_title: '現在の試行に関するヒントを提供します。',
+            no_hints: '申し訳ありませんが、このラボにはヒントがありません。',
+            no_matching_hint: '申し訳ありませんが、あなたの試みに一致するヒントが見つかりません。',
+            reset_title: '初期状態をリセットします (現在の試行を破棄します)。',
+            try_harder: '「もっと頑張ってください! すぐに諦めないでください。現在の所要時間 (秒): {0}」',
+        }
+    },
+}
+
+// Create a "format" method to simplify internationalization.
+// Use as: "Demo {0} result"".format(name);
+// https://www.geeksforgeeks.org/what-are-the-equivalent-of-printf-string-format-in-javascript/
+String.prototype.format = function () {
+    const args = arguments;
+    return this.replace(/{(\d+)}/g, function (match, number) {
+        return typeof args[number] != 'undefined'
+            ? args[number]
+            : match;
+    });
+};
+
+// Retrieve translation for given key from resources.
+function t(key) {
+    let result = resources[lang]['translation'][key];
+
+    if (result === undefined) {
+        result = resources['en']['translation'][key];
+    }
+    return result;
+}
+
+// Retrieve translation from object for given field
+function retrieve_t(obj, field) {
+    let result = obj[field + "_" + lang];
+
+    if (result === undefined) {
+        result = obj[field];
+    }
+    return result;
+}
+
+function determine_locale() {
+    let lang = document.documentElement.lang;
+    if (!lang) {
+        lang = 'en';
+    }
+    return lang;
+}
+
 // This array contains the default pattern preprocessing commands, in order.
 // We process every pattern through these (in order) to create a final regex
 // to be used to match a pattern.
@@ -233,7 +307,7 @@ function calcOneMatch(attempt, index = 0, correct = correctRe) {
  */
 function calcMatch(attempt, correct = correctRe) {
     if (!correct) { // Defensive test, should never happen.
-        alert('Internal failure, correct value not defined or empty.');
+        alert('Error: Internal failure, correct value not defined or empty.');
         return false;
     }
     for (let i = 0; i < correct.length; i++) {
@@ -380,9 +454,9 @@ function runCheck() {
 	setTimeout(function() {
             let congrats_text;
             if (correctRe.length > 1) {
-                congrats_text = 'Great work! All your answers are correct!';
+                congrats_text = t('congrats');
 	    } else {
-                congrats_text = 'Congratulations! Your answer is correct!';
+                congrats_text = t('congrats_all');
 	    }
             alert(congrats_text);
         }, 100);
@@ -402,10 +476,10 @@ function findHint(attempt, validIndexes = undefined) {
            hint.presentRe.test(attempt[hint.index])) &&
           (!hint.absentRe ||
            !hint.absentRe.test(attempt[hint.index]))) {
-        return hint.text;
+        return retrieve_t(hint, 'text');
       }
     };
-    return 'Sorry, I cannot find a hint that matches your attempt.';
+    return t('no_matching_hint');
 }
 
 /** Show a hint to the user. */
@@ -414,9 +488,9 @@ function showHint(e) {
     // alert(`Form id = ${e.target.form.id}`);
     let attempt = retrieveAttempt();
     if (calcMatch(attempt, correctRe)) {
-        alert('The answer is already correct!');
+        alert(t('already_correct'));
     } else if (!hints) {
-        alert('Sorry, there are no hints for this lab.');
+        alert(t('no_hints'));
     } else {
         let validIndexes = findIndexes(e.target.form);
         alert(findHint(attempt, validIndexes));
@@ -429,7 +503,7 @@ function showAnswer(e) {
     if (!user_solved) {
         user_gave_up = true;
     }
-    alert(`We were expecting an answer like this:\n${goodAnswer}`);
+    alert(t('expecting').format(goodAnswer));
 }
 
 // "Give up" only shows the answer after this many seconds have elapsed.
@@ -439,7 +513,7 @@ function maybeShowAnswer(e) {
     let currentTime = Date.now();
     let elapsedTime = (currentTime - startTime) / 1000; // in seconds
     if (elapsedTime < MIN_DELAY_TIME) {
-        alert("Try harder! Don't give up so soon. Current time spent (in seconds): " + elapsedTime);
+        alert(t('try_harder').format(elapsedTime.toString()));
     } else {
         showAnswer(e);
     }
@@ -467,7 +541,7 @@ function processHints(requestedHints) {
 
     // Hints must only contain these fields, since we ignore the rest.
     const allowedHintFields = new Set(
-        ['present', 'absent', 'text', 'examples', 'index',
+        ['present', 'absent', 'text', 'text_ja', 'examples', 'index',
          'preprocessing']);
 
     // Process each hint
@@ -724,6 +798,9 @@ function initPage() {
     // Run a selftest on page load, to prevent later problems
     runSelftest();
 
+    // Set current locale
+    lang = determine_locale();
+
     // Set up user interaction for all attempts.
     let current = 0;
     while (true) {
@@ -735,19 +812,19 @@ function initPage() {
     for (let hintButton of document.querySelectorAll("button.hintButton")) {
         hintButton.addEventListener('click', (e) => { showHint(e); });
         if (!hintButton.title) {
-            hintButton.title = 'Provide a hint given current attempt.';
+            hintButton.title = t('hint_title');
 	}
     }
     for (let resetButton of document.querySelectorAll("button.resetButton")) {
         resetButton.addEventListener('click', (e) => { resetForm(e); });
         if (!resetButton.title) {
-            resetButton.title = 'Reset initial state (throwing away current attempt).';
+            resetButton.title = t('reset_title');
         }
     }
     for (let giveUpButton of document.querySelectorAll("button.giveUpButton")) {
         giveUpButton.addEventListener('click', (e) => { maybeShowAnswer(e); });
         if (!giveUpButton.title) {
-            giveUpButton.title = 'Give up and show an answer.';
+            giveUpButton.title = t('give_up_title');
         }
     }
     if (info.debug) {
