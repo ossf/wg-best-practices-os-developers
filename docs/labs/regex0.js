@@ -48,6 +48,23 @@ info =
       text: "Use \"B+\" to indicate \"one or more B\". You could also write \"BB*\"."
     }
   ],
+  expected: [
+    'cat',
+    'A+BB*'
+  ],
+  correct: [
+    'cat',
+    // Spaces are removed by the preprocessor for this lab.
+    String.raw`A(\+|A\*) B(\+|B\*)`
+  ],
+  successes: [
+    [ 'cat', 'A+B+' ],
+    [ 'cat', 'AA*BB*' ],
+  ],
+  failures: [
+    [ 'Cat', 'A+B+' ],
+    [ 'cat', 'A*B*' ],
+  ],
   preprocessing: [
     [
       "\\s*",
