@@ -104,6 +104,14 @@ info =
       ]
     }
   ],
+  expected: [
+    '  const data = JSON.parse(base64Decoded);',
+    `  if (data.username && typeof data.username == 'string' && data.username.length < 20) {`
+  ],
+  correct: [
+    String.raw`\s* const data = JSON \. parse \( base64Decoded \) \; \s*`,
+    String.raw`\s* if \( CONDALL \) \{ \s*`
+  ],
   successes: [
     [
       "const data = JSON.parse(base64Decoded);",
