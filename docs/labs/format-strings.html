@@ -10,24 +10,6 @@
 <script src="format-strings.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
-<script id="expected0" type="plain/text">
-def format_event(new_event):
-  return '{event.level},{event.message}'.format(event=new_event)
-</script>
-<!--
-  return '{event.level},{event.message}'.format(event=new_event)
--->
-
-<!-- Full pattern of correct answer -->
-<script id="correct0" type="plain/text"
->(\r?\n)*def\x20+format_event\x20*\( new_event \)\x20*:(\r?\n)\x20+return\x20+'{event\.level},{event\.message}'\x20*\.\x20*format\x20*\( event = new_event \)
-\s*
-</script>
-<!--
-\x20+return\x20+'{event\.level},{event\.message}'\.format\( event = new_event \)
-\s*
--->
-
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->

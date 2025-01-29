@@ -23,5 +23,12 @@ info =
 `,
       text: "The constant text `'{event.level},{event.message}'` should be present."
     }
-  ]
+  ],
+  expected: [
+    String.raw`def format_event(new_event):
+  return '{event.level},{event.message}'.format(event=new_event)`
+  ],
+  correct: [
+    String.raw`(\r?\n)*def\x20+format_event\x20*\( new_event \)\x20*:(\r?\n)\x20+return\x20+'{event\.level},{event\.message}'\x20*\.\x20*format\x20*\( event = new_event \) \s*`
+  ],
 }
