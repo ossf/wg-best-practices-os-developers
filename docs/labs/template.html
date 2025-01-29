@@ -7,35 +7,9 @@
 <link rel="stylesheet" href="checker.css">
 <script src="js-yaml.min.js"></script>
 <script src="checker.js"></script>
+<script src="template.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
-<!-- See create_labs.md for how to create your own lab! -->
-
-<!-- Sample expected answer -->
-<script id="expected0" type="plain/text">
-EXPECTED0
-</script>
-<!--
--->
-<script id="expected1" type="plain/text">
-EXPECTED1
-</script>
-
-<!-- Full pattern of correct answer -->
-<script id="correct0" type="plain/text">
-\s* EXPECTED0 \s*
-</script>
-<script id="correct1" type="plain/text">
-\s* EXPECTED1 \s*
-</script>
-
-<script id="info" type="application/yaml">
----
-hints:
-- present: "unknown"
-  text: Unknown is not part of the answer.
-# debug: true
-</script>
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->
@@ -71,10 +45,10 @@ Use the “hint” and “give up” buttons if necessary.
 <p>
 <form id="lab">
 <pre><code
->// If you use a one-line input:
+>// If you use a one-line input (answer "EXPECTED0"):
 <input id="attempt0" type="text" size="60" spellcheck="false" value="initial text0">
 
-// If you use a textarea:
+// If you use a textarea (answer "EXPECTED1"):
 <textarea id="attempt1" rows="10" cols="60" spellcheck="false">
 initial text 1;
 </textarea>
