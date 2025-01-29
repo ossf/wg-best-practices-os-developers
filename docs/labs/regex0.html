@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="checker.css">
 <script src="js-yaml.min.js"></script>
 <script src="checker.js"></script>
+<script src="regex0.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
 <!-- See create_labs.md for how to create your own lab! -->
@@ -25,71 +26,6 @@
 A(\+|A\*)
 B(\+|B\*)
 </script>
-
-<script id="info" type="application/yaml">
----
-hints:
-- present: |-
-    ^$
-  text: You need to enter a pattern.
-- present: |-
-    ^\^
-  text: We are looking for 'cat' anywhere, not just the beginning,
-    in this exercise.
-- present: |-
-    C
-  text: Regexes are normally case-sensitive. Use a lowercase c.
-  examples:
-  - - "C"
-- absent: |-
-    c
-  text: If you are searching for "cat" you need to look for a "c"
-  examples:
-  - - "x"
-- absent: |-
-    cat
-  text: The pattern "cat" is needed to search for "cat".
-- absent: |-
-    A
-  index: 1
-  text: You need to mention A.
-- absent: |-
-    B
-  index: 1
-  text: You need to mention B.
-- absent: |-
-    A(\+|A\*)
-  index: 1
-  text: Use "A+" to indicate "one or more A". You could also write "AA*".
-- absent: |-
-    B(\+|B\*)
-  index: 1
-  text: Use "B+" to indicate "one or more B". You could also write "BB*".
-# successes:
-# - - " query ( 'id' ) . isInt ( {min: 1 , max: 9999 } ) ,"
-# - - " query ( `id` ) . isInt ( {min: 1 , max: 9_999 } ) ,   "
-# - - 'query ( "id" ) . isInt ( {min: 1 , max: 9_999 } ) ,'
-# failures:
-# - - " query,"
-# - - 'query(''id'').isint({min: 1, max: 9999})'
-# - - 'query(''id'').isInt({min: 1, max: 9999})'
-#
-# Remove all whitespace, so we can make our patterns easier to read
-#
-preprocessing:
-  -
-    - |-
-        \s*
-    - ""
-#   -
-#     - |-
-#         (\\s\*)?\s+(\\s\*)?
-#     - "\\s*"
-# debug: true
-</script>
-<!--
-
--->
 
 </head>
 <body>
