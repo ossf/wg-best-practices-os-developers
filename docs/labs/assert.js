@@ -60,6 +60,16 @@ info =
       text: "The answer needs to end with `}` (closing brace)."
     },
   ],
+  expected: [
+`        if (bindingResult.hasErrors()) {
+            return "form";
+        }`
+  ],
+  correct: [
+    String.raw`\s* if \( bindingResult \. hasErrors \( \) \) \{
+           return "form" ;
+       \} \s*`,
+  ],
   successes: [
     [ "if ( bindingResult.hasErrors() ) {\n    return \"form\";\n}\n" ],
     [ "if ( bindingResult . hasErrors ( ) ) { return \"form\" ; }\n" ],
