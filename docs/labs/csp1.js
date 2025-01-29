@@ -84,5 +84,27 @@ info =
     {
       text: "I do not have more specific hints to provide. Please ensure that the parentheses, braces, and brackets pair correctly, as that is often the problem."
     }
-  ]
+  ],
+  expected: [
+    'const helmet = require("helmet");',
+    `app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      "script-src": ["'self'", "https://example.com"],
+      "style-src": ["'self'"]
+    },
+  }
+}));`
+  ],
+  correct: [
+    String.raw`\s* const\s+helmet = require \( ("helmet"|'helmet'|${BACKQUOTE}helmet${BACKQUOTE}) \) ; \s*`,
+    String.raw`\s* app \. use \( helmet \( \{
+    contentSecurityPolicy: \{
+      directives: \{
+        "script-src": \[ "'self'" , "https://example\.com" \] ,
+        "style-src": \[ "'self'" \] ,?
+      \} ,?
+    \} ,?
+  \} \) \) ; \s*`
+  ],
 }
