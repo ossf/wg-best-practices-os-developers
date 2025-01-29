@@ -7,101 +7,11 @@
 <link rel="stylesheet" href="checker.css">
 <script src="js-yaml.min.js"></script>
 <script src="checker.js"></script>
+<script src="assert.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
 <!-- See create_labs.md for how to create your own lab! -->
 
-<!-- Sample expected answer -->
-<script id="expected0" type="plain/text">
-        if (bindingResult.hasErrors()) {
-            return "form";
-        }
-</script>
-
-<!-- Full pattern of correct answer -->
-<script id="correct0" type="plain/text">
-\s* if \( bindingResult \. hasErrors \( \) \) \{
-            return "form" ;
-        \} \s*
-</script>
-
-<script id="info" type="application/yaml">
----
-hints:
-- present: |
-    assert
-  text: The whole point of this exercise is to NOT use `assert`
-    as a way to validate input from untrusted users.
-  examples:
-    - - |
-           assert !bindingResult.hasErrors();
-- absent: |
-    ^\s*if
-  text: Begin with `if` so you can return a result if there are errors.
-  examples:
-    - - |
-           return "form";
-- present: (bindingresult|BindingResult)
-  text: Java is case-sensitive. Use `bindingResult`, not
-    `bindingresult` nor `BindingResult`.
-- present: (haserrors|HasErrors)
-  text: Java is case-sensitive. Use `hasErrors`, not
-    `haserrors` nor `HasErrors`.
-# https://docs.oracle.com/javase/specs/jls/se23/html/jls-14.html#jls-14.9
-- present: |
-    ^\s*if\s*[^\(\s]
-  text: In Java, after the keyword `if` you must have an open left parenthesis.
-    Conventionally there is one space between the `if` keyword and the
-    open left parenthesis.
-  examples:
-    - - |
-           if bindingResult.hasErrors
-- present: |
-    ^\s*if\s*\(\s*\!binding
-  text: You have an extraneous `!` (not operator).
-    Use the expression if (bindingResult.hasErrors()) ...
-  examples:
-    - - |
-           if (!bindingResult.hasErrors())
-- absent: |
-    ^ if \( bindingResult \. hasErrors \( \) \)
-  text: Begin the answer with the text
-    `if (bindingResult.hasErrors())` so that a statement will
-    be executed if that condition is true.
-- present: |
-    if \( bindingResult \. hasErrors \( \) \) [^\{\s]
-  text: Follow the conditional with an open brace, e.g.,
-    `if (bindingResult.hasErrors()) {...`.
-- absent: |
-    return "form"
-  text: You need to use `return "form";` somewhere.
-- present: |
-    return "form"
-  absent:
-    return "form" ;
-  text: You need to use `;` (semicolon) after `return "form"` because
-    in Java statements must be followed by a semicolon.
-- absent: |
-    \} $
-  text: The answer needs to end with `}` (closing brace).
-successes:
-  - - |
-        if ( bindingResult.hasErrors() ) {
-            return "form";
-        }
-    - |
-        if ( bindingResult . hasErrors ( ) ) { return "form" ; }
-failures:
-  - |
-        if ( bindingResult . hasErrors ( ) ) { return "form" }
-  - |
-        if ( ! bindingResult . hasErrors ( ) ) { return "form" ; }
-  - |
-        if bindingResult . hasErrors ( ) { return "form" ; }
-  - |
-        if ( bindingResult . hasErrors ) { return "form" ; }
-# debug: true
-</script>
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->
