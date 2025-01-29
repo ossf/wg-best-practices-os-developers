@@ -241,5 +241,24 @@ info =
       "   clean_dir = re . sub( r'[^a-zA-Z0-9]' , '' , dir_to_list )",
       "   subprocess . run ( [ \"ls\" , \"-l\" , clean_dir ] )"
     ]
-  ]
+  ],
+  expected: [
+    String.raw`  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)`,
+    String.raw`  subprocess.run(["ls", "-l", clean_dir])`
+  ],
+  // In Python, newline and carriage return are whitespace but are *meaningful*
+  // outside of (...). So we match specifically on space (\x20) instead.
+  // This makes our patterns harder to read, unfortunately.
+  // It's conventional to use raw strings in Python for regexes, so we allow
+  // and encourage them, but we'll accept *not* using raw strings since they
+  // don't add value in this situation.
+  correct: [
+    String.raw`[\n\r]*\x20\x20clean_dir\x20*=\x20*re\x20*\.\x20*sub\x20*\(
+      r?('\[\^a-zA-Z0-9\]'|"\[\^a-zA-Z0-9\]") ,
+      r?(''|"") , dir_to_list \) \s*`,
+    String.raw`[\n\r]*\x20\x20subprocess\x20*\.\x20*run\x20*\(
+      \[ ('ls'|"ls") , ('-l'|"-l") , clean_dir \]
+      ( , shell = False )? \) \s*`
+  ],
+  debug: true,
 }
