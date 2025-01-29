@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="checker.css">
 <script src="js-yaml.min.js"></script>
 <script src="checker.js"></script>
+<script src="redos.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
 <!-- See create_labs.md for how to create your own lab! -->
@@ -24,55 +25,6 @@
 </script>
 
 
-<script id="info" type="application/yaml">
----
-hints:
-- absent: ", $"
-  text: This is a parameter, it must end with a comma.
-- absent: |
-    query \( ["'`]id["'`] \)
-  text: Use query() with an 'id' parameter.
-- present: |
-    query \( ["'`]id["'`] \) [^. ]
-  text: After query("id") use a period to invoke a verification method.
-- present: |
-    (islength|Islength|IsLength|ISLENGTH)
-  text: >
-    JavaScript is case-sensitive. Use isLength instead of the case you have.
-- absent: isLength
-  text: Limit the maximum length of input strings using isLength().
-- present: |
-    isLength \( m
-  text: |
-    You need to pass isLength() an object with the max parameter, e.g., isLength({max: VALUE}).
-- absent: matches
-  text: Use matches().
-- present: |
-    matches \( /[^^]
-  text: Match the whole string - begin the regular expression with ^
-- present: |
-    matches \( /.*[^$]/
-  text: Match the whole string - end the regular expression with $
-- present: |
-    matches \( /.*[^$]/
-  text: Match the whole string - end the regular expression with $
-- present: |
-    matches \( /\^\[A-Z\]
-  text: That would match only letters, you need digits as well.
-- present: |
-    matches \( /\^\[a-z\]
-  text: That would match only lower case letters, the format requirement is uppercase letters.
-- present: |
-    matches \( /\^\(\[A-Z0-9\]\+\)\+\$ 
-  text: Remember to fix the regex, the outer + quantifier causes backtracking by trying to match one or more sequences of one or more uppercase alphanumeric characters.
-- present: |
-    matches \( /\^\(\[A-Z0-9\]\+\)\$ 
-  text: Remove the grouping, you don’t need the parentheses.
-- present: \[0-9[Aa]-[Zz]\]
-  text: It's conventional to list letters first, so use [A-Z0-9] not [0-9A-Z]
-
-# debug: true
-</script>
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->
