@@ -1,4 +1,4 @@
-info2 =
+info =
 {
   hints: [
     {
