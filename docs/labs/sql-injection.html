@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="checker.css">
 <script src="js-yaml.min.js"></script>
 <script src="checker.js"></script>
+<script src="sql-injection.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
 <!-- See create_labs.md for how to create your own lab! -->
@@ -43,58 +44,6 @@ https://docs.oracle.com/en/java/javase/22/docs/api/java.sql/java/sql/Statement.h
 </script>
 
 
-<script id="info" type="application/yaml">
----
-hints:
-- present: |-
-   search_lastname
-  text: You should replace "search_lastname" with a placeholder.
-  index: 0
-  examples:
-  - - "search_lastname"
-- absent: |-
-    \?
-  text: Write an parameterized statement with the Special character "?" added.
-  index: 0
-- present: |-
-    \+
-  index: 0
-  text: There is no need for string concatenation. Use a simple constant string
-    using the form "...".
-  examples:
-  -
-    - |
-        String QueryString =
-          "select * from authors where lastname = " + "?" + " ; ";
-    - ""
-- absent: |-
-    \s* PreparedStatement\s+pstmt = connection \.
-        prepareStatement \( QueryString \) \; \s*
-  text: Your second line should have the form
-    `PreparedStatement pstmt = connection.prepareStatement(QueryString);`
-- absent: search_lastname
-  present: lastname
-  index: 1
-  text: The term `lastname` is the name of the database field to be searched, However,
-    you want to search for a specific value in that field.
-    That value is held in the variable `search_lastname`, not in `lastname`.
-- absent: |-
-    pstmt \. setString \( 1 , search_lastname \) \;
-  index: 1
-  text: Start the second section with a statement like
-    `pstmt.setString(1, search_lastname);`
-- absent: executeQuery
-  present: execute
-  index: 1
-  text: Use `executeQuery` not `execute` so we can receive and use a
-    potential series of results (a `ResultSet`).
-- absent: |-
-    \s* ResultSet\s+results = pstmt \. executeQuery \( \) \; \s*
-  index: 1
-  text: After using `setString` execute the query and place the results in `results`,
-    something like `ResultSet results = pstmt.executeQuery();`
-# debug: true
-</script>
 
 </head>
 <body>
