@@ -21,13 +21,15 @@ let startTime = Date.now();
 let BACKQUOTE = "`"; // Make it easy to use `${BACKQUOTE}`
 let DOLLAR = "$"; // Make it easy to use `${DOLLAR}`
 
-// Current language
-let lang;
+// Current language. Guess English until we learn otherwise.
+let lang = "en";
 
 const resources = {
     en: {
 	translation: {
             already_correct: 'The answer is already correct!',
+            complete: 'COMPLETE!',
+            completed: 'Completed',
             congrats: 'Congratulations! Your answer is correct!',
             congrats_all: 'Great work! All your answers are correct!',
             expecting: "We were expecting an answer like this:\n{0}",
@@ -36,12 +38,15 @@ const resources = {
             no_hints: 'Sorry, there are no hints for this lab.',
             no_matching_hint: 'Sorry, I cannot find a hint that matches your attempt.',
             reset_title: 'Reset initial state (throwing away current attempt).',
+            to_be_completed: 'to be completed',
             try_harder: "Try harder! Don't give up so soon. Current time spent (in seconds): {0}",
         }
     },
     ja: {
 	translation: {
             already_correct: '答えはすでに正しいです!',
+            complete: '完了',
+            completed: '完了しました',
             congrats: '「おめでとうございます！」あなたの答えは正解です!',
             congrats_all: '素晴らしい仕事でした!あなたの答えはすべて正解です!',
             expecting: "次のような答えを期待していました:\n{0}",
@@ -50,6 +55,7 @@ const resources = {
             no_hints: '申し訳ありませんが、このラボにはヒントがありません。',
             no_matching_hint: '申し訳ありませんが、あなたの試みに一致するヒントが見つかりません。',
             reset_title: '初期状態をリセットします (現在の試行を破棄します)。',
+            to_be_completed: '完成する',
             try_harder: '「もっと頑張ってください! すぐに諦めないでください。現在の所要時間 (秒): {0}」',
         }
     },
@@ -87,6 +93,7 @@ function retrieve_t(obj, field) {
     return result;
 }
 
+// Determine language of document. Set with <html lang="...">.
 function determine_locale() {
     let lang = document.documentElement.lang;
     if (!lang) {
@@ -409,10 +416,10 @@ function makeStamp() {
     let hash = cyrb64Hash(resultBeginning);
     let gave_up_indicator = '';
     if (user_gave_up) { // If user gave up first, subtly indicate this.
-        // The user could reload later this and cause this marking to be omitted.
+        // The user could reload this and cause this marking to be omitted.
         gave_up_indicator = ' (GA)';
     }
-    return `Completed ${resultBeginning} ${hash}${gave_up_indicator}`;
+    return `${t('completed')} ${resultBeginning} ${hash}${gave_up_indicator}`;
 }
 
 /**
@@ -432,7 +439,7 @@ function runCheck() {
     };
     // isCorrect is now true only if everything matched
     let oldGrade = document.getElementById('grade').innerHTML;
-    let newGrade = isCorrect ? 'COMPLETE!' : 'to be completed';
+    let newGrade = isCorrect ? t('complete') : t('to_be_completed');
     document.getElementById('grade').innerHTML = newGrade;
 
     if (isCorrect && (oldGrade !== newGrade)) {
@@ -557,17 +564,14 @@ function processHints(requestedHints) {
 		Array.from(forbiddenFields).join(' '));
 	}
 
-        let newHint = {};
+        let newHint = { ...hint }; // Copy everything over, incl. translations
         newHint.index = hint.index ? Number(hint.index) : 0;
-        newHint.text = hint.text;
         // Precompile all regular expressions & report any failures
         if (hint.present) {
-            newHint.present = hint.present;
             newHint.presentRe = processRegex(hint.present,
                 `hint[${i}].present`, false);
         };
         if (hint.absent) {
-            newHint.absent = hint.absent;
             newHint.absentRe = processRegex(hint.absent,
                 `hint[${i}].absent`, false);
         };
@@ -715,8 +719,9 @@ function runSelftest() {
 		// values if the index > 0. We only return hints with the
 		// given hint index.
                 actualHint = findHint(example, [hint.index]);
-                if (actualHint != hint.text) {
-                    alert(`Lab Error: Unexpected hint!\n\nExample:\n${example}\n\nExpected hint:\n${hint.text}\n\nProduced hint:\n${actualHint}\n\nExpected (passing example)=${JSON.stringify(expected)}\n\ntestAttempt=${JSON.stringify(testAttempt)}\nFailing hint=${JSON.stringify(hint)}`);
+                expectedHint = retrieve_t(hint, 'text');
+                if (actualHint != expectedHint) {
+                    alert(`Lab Error: Unexpected hint!\n\nExample:\n${example}\n\n\nExpected hint:\n${expectedHint}\n\nActual hint:\n${actualHint}\n\nExample:\n${JSON.stringify(example)}\n\nFailing hint=${JSON.stringify(hint)}`);
                 };
             };
         };
@@ -795,14 +800,14 @@ function setupInfo() {
 }
 
 function initPage() {
+    // Set current locale
+    lang = determine_locale();
+
     // Use configuration info to set up all relevant global values.
     setupInfo();
 
     // Run a selftest on page load, to prevent later problems
     runSelftest();
-
-    // Set current locale
-    lang = determine_locale();
 
     // Set up user interaction for all attempts.
     let current = 0;
