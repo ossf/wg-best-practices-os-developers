@@ -47,5 +47,14 @@ info =
   System \. getenv \( "USERNAME" \) \) \; \s* $`,
       text: "The order of parameters is wrong. Provide the url, then the username, then the password. You're providing the url, then the password, then the username, which swaps the second and third parameters."
     }
-  ]
+  ],
+  expected: [
+    `conn = DriverManager.getConnection(url,
+      System.getenv("USERNAME"), System.getenv("PASSWORD"));`
+  ],
+  correct: [
+    String.raw`\s* conn = DriverManager \. getConnection \( url \,
+      \s* System \. getenv \( "USERNAME" \) \,
+      \s* System \. getenv \( "PASSWORD" \) \) \; \s*`
+  ],
 }
