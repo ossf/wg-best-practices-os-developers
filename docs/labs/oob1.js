@@ -6,12 +6,11 @@ info =
       text: "Begin with \"if\" as we will return 0 when there is a problem."
     },
     {
-      absent: String.raw`\(
-`,
+      absent: String.raw`\(`,
       text: "Need \"(...)\" around the condition after an if statement."
     },
     {
-      absent: ">\n",
+      absent: ">",
       text: "Need comparison \"if ( ... > ....)\""
     },
     {
@@ -26,13 +25,11 @@ info =
   definitions: [
     {
       term: "NINETEEN",
-      value: String.raw`(1 \+ 2 \+ 16|19)
-`
+      value: String.raw`(1 \+ 2 \+ 16|19)`
     },
     {
       term: "NINETEEN",
-      value: String.raw`(NINETEEN|\( NINETEEN \))
-`
+      value: String.raw`(NINETEEN|\( NINETEEN \))`
     },
     {
       term: "PAYLOAD_LENGTH",
@@ -44,23 +41,19 @@ info =
     },
     {
       term: "PAYLOAD_LENGTH",
-      value: String.raw`(PAYLOAD_LENGTH|\( PAYLOAD_LENGTH \))
-`
+      value: String.raw`(PAYLOAD_LENGTH|\( PAYLOAD_LENGTH \))`
     },
     {
       term: "RETURN0",
-      value: String.raw`return \s+ 0 ;
-`
+      value: String.raw`return \s+ 0 ;`
     },
     {
       term: "FULL_LENGTH",
-      value: String.raw`s -> s3 -> rrec \. length
-`
+      value: String.raw`s -> s3 -> rrec \. length`
     },
     {
       term: "RETURN0",
-      value: String.raw`(RETURN0|\{ RETURN0 \})
-`
+      value: String.raw`(RETURN0|\{ RETURN0 \})`
     }
   ]
 }
