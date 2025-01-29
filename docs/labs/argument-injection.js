@@ -72,6 +72,18 @@ info =
       text: "The `exec` function should be closed in later lines, not here.\n"
     }
   ],
+  expected: [
+    `execFile('git', ['blame', '--', filePath], { shell: false }, (error, stdout, stderr) => {`
+  ],
+  correct: [
+    String.raw`\s* execFile \(
+      ('git'|"git"|${BACKQUOTE}git${BACKQUOTE}) ,
+      \[ ('blame'|"blame"|${BACKQUOTE}blame${BACKQUOTE}) ,
+         ('--'|"--"|${BACKQUOTE}--${BACKQUOTE}) , filePath \] ,
+      (\{ (shell : false)? \} ,)?
+      \( [a-zA-Z_$][a-zA-Z0-9_$]* ,
+         [a-zA-Z_$][a-zA-Z0-9_$]* , [a-zA-Z_$][a-zA-Z0-9_$]* \) => \{ \s*`
+  ],
   successes: [
     [
       "    execFile('git', ['blame', '--', filePath], { shell: false }, (error, stdout, stderr) => {",
