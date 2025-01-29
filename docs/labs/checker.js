@@ -9,6 +9,7 @@
 let correctRe = []; // Array of compiled regex of correct answer
 let expected = []; // Array of an expected (correct) answer
 let info = {}; // General info
+let info2 = {}; // Transitional info - if it exists, compare to info
 let hints = []; // Array of hint objects
 let page_definitions = {}; // Definitions used when preprocessing regexes
 
@@ -16,6 +17,9 @@ let user_solved = false; // True if user has *ever* solved it on this load
 let user_gave_up = false; // True if user ever gave up before user solved it
 
 let startTime = Date.now();
+
+let BACKQUOTE = "`"; // Make it easy to use `${BACKQUOTE}`
+let DOLLAR = "$"; // Make it easy to use `${DOLLAR}`
 
 // Current language
 let lang;
@@ -90,7 +94,6 @@ function determine_locale() {
     }
     return lang;
 }
-
 
 // This array contains the default pattern preprocessing commands, in order.
 // We process every pattern through these (in order) to create a final regex
@@ -172,6 +175,38 @@ function setDifference(lhs, rhs) {
     let lhsArray = Array.from(lhs);
     let result = lhsArray.filter((x) => {!rhs.has(x)});
     return new Set(result);
+}
+
+/* Return differences between two objects
+ */
+function objectDiff(obj1, obj2) {
+    let diff = {};
+  
+    function compare(obj1, obj2, path = '') {
+        for (const key in obj1) {
+          if (obj1.hasOwnProperty(key)) {
+            const newPath = path ? `${path}.${key}` : key;
+    
+            if (!obj2.hasOwnProperty(key)) {
+              diff[newPath] = [obj1[key], undefined];
+            } else if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
+              compare(obj1[key], obj2[key], newPath);
+            } else if (obj1[key] !== obj2[key]) {
+              diff[newPath] = [obj1[key], obj2[key]];
+            }
+          }
+        }
+  
+        for (const key in obj2) {
+          if (obj2.hasOwnProperty(key) && !obj1.hasOwnProperty(key)) {
+            const newPath = path ? `${path}.${key}` : key;
+            diff[newPath] = [undefined, obj2[key]];
+          }
+        }
+    }
+  
+    compare(obj1, obj2);
+    return diff;
 }
 
 /*
@@ -546,10 +581,10 @@ function processHints(requestedHints) {
     return compiledHints;
 }
 
-/** Set global values based on info.
+/** Load and parse YAML data, return result to be placed in "info".
  * @info: String with YAML (including JSON) data to use
  */
-function processInfo(configurationInfo) {
+function processYamlToInfo(configurationInfo) {
     // This would only allow JSON, but then we don't need to load YAML lib:
     // let parsedJson = JSON.parse(configurationInfo);
 
@@ -563,9 +598,15 @@ function processInfo(configurationInfo) {
         throw e; // Rethrow, so containing browser also gets exception
     }
 
-    // Set global variable
-    info = parsedData;
+    return parsedData;
+}
 
+/** Set global values based on other than "correct" and "expected" values.
+ * The correct and expected values may come from elsewhere, but we have to set up the
+ * info-based values first, because info can change how those are interpreted.
+ * @info: String with YAML (including JSON) data to use
+ */
+function processInfo(configurationInfo) {
     const allowedInfoFields = new Set([
         'hints', 'successes', 'failures', 'correct', 'expected',
          'definitions', 'preprocessing', 'preprocessingTests', 'debug']);
@@ -603,14 +644,14 @@ function processInfo(configurationInfo) {
     };
 
     // Set up hints
-    if (parsedData && parsedData.hints) {
-        hints = processHints(parsedData.hints);
+    if (info && info.hints) {
+        hints = processHints(info.hints);
     };
 }
 
 /**
  * Run a simple selftest.
- * Run loadData *before* calling this, to set up globals like correctRe.
+ * Run setupInfo *before* calling this, to set up globals like correctRe.
  * This ensures that:
  * - the initial attempt is incorrect (as expected)
  * - the expected value is correct (as expected)
@@ -683,16 +724,35 @@ function runSelftest() {
 }
 
 /**
- * Load data from HTML page and initialize our local variables from it.
+ * Load "info" data and set up all other variables that depend on "info".
+ * The "info" data includes the regex preprocessing steps, hints, etc.
  */
-function loadData() {
-    // If there is info (e.g., hints), load it & set up global variable hints.
+function setupInfo() {
     // We must load info *first*, because it can affect how other things
     // (like pattern preprocessing) is handled.
+
+    // Deprecated approach: Load embedded "info" data in YAML file.
+    // If there is "info" data embedded in the HTML (e.g., hints),
+    // load it & set up global variable hints.
     let infoElement = document.getElementById('info');
     if (infoElement) {
-        processInfo(infoElement.textContent);
+        let configurationYamlText = infoElement.textContent;
+        // Set global variable "info"
+        info = processYamlToInfo(configurationYamlText);
     };
+
+    // If an "info2" exists, report any differences between it and "info".
+    // This makes it safer to change how info is recorded.
+    if (Object.keys(info2).length > 0) {
+        let differences = objectDiff(info, info2);
+        if (Object.keys(differences).length > 0) {
+            alert(`ERROR: info2 exists, but info and info2 differ: ${JSON.stringify(differences)}`);
+        }
+    };
+
+
+    // Set global values *except* correct and expected arrays
+    processInfo(info);
 
     // Set global correct and expected arrays
     let current = 0;
@@ -732,7 +792,8 @@ function loadData() {
 }
 
 function initPage() {
-    loadData();
+    // Use configuration info to set up all relevant global values.
+    setupInfo();
 
     // Run a selftest on page load, to prevent later problems
     runSelftest();

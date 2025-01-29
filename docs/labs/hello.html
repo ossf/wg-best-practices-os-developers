@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="checker.css">
 <script src="js-yaml.min.js"></script>
 <script src="checker.js"></script>
+<script src="hello.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
 <!-- See create_labs.md for how to create your own lab! -->
@@ -20,98 +21,6 @@ console.log("Hello, world!");
 <script id="correct0" type="plain/text">
 \s* console \. log \( (["'`])Hello,\x20world!\1 \) ; \s*
 </script>
-
-<script id="info" type="application/yaml">
----
-hints:
-- absent: |-
-    ^ console \. log \(
-  text: ' Please use the form console.log("...");'
-  examples:
-  - - ""
-  - - "foo"
-- present: "Goodbye"
-  text: "You need to change the text Goodbye to something else."
-  examples:
-  - - 'console.log("Goodbye.");'
-- present: "hello"
-  text: "Please capitalize Hello."
-  examples:
-  - - 'console.log("hello.");'
-- present: "World"
-  text: "Please lowercase world."
-  examples:
-  - - 'console.log("Hello, World!");'
-- present: "Hello[^,]"
-  text: "Put a comma immediately after Hello."
-  examples:
-  - - 'console.log("Hello world.");'
-- present: "Hello"
-  absent: "[Ww]orld"
-  text: "There's a Hello, but you need to also mention the world."
-  examples:
-  - - 'console.log("Hello, ");'
-- present: |-
-             world[^\!]
-  text: "Put an exclamation point immediately after world."
-  examples:
-  - - 'console.log("Hello, world.");'
-- present: 'Hello,\s*world!'
-  absent: 'Hello,\x20world!'
-  text: "You need exactly one space between 'Hello,' and 'world!'"
-  examples:
-  - - 'console.log("Hello,     world!");'
-- present: |-
-              ^ console \. log \( Hello
-  text: |-
-          You must quote constant strings using ", ', or `
-  examples:
-  - - 'console.log(Hello, world'
-  - - 'console.log( Hello, world'
-- absent: " ; $"
-  text: >
-    Please end this statement with a semicolon. JavaScript does not
-    require a semicolon in this case,
-    but usually when modifying source code you should
-    follow the style of the current code.
-  examples:
-  - - '  console.log("Hello, world!")  '
-successes:
-- - ' console . log( "Hello, world!" ) ; '
-- - " console . log( 'Hello, world!' ) ; "
-- - " console . log( `Hello, world!` ) ; "
-failures:
-- - ' console . log( Hello, world! ) ; '
-- - ' console . log("hello, world!") ; '
-# ADVANCED use - define our own preprocessing commands.
-# I suggest using "|-" (stripping the trailing newlines)
-# preprocessing:
-#   -
-#     - |-
-#         [\n\r]+
-#     - ""
-#   -
-#     - |-
-#         (\\s\*)?\s+(\\s\*)?
-#     - "\\s*"
-# Here are tests for default preprocessing. You do not need this in
-# every lab, but it demonstrates how to do it.
-preprocessingTests:
-  -
-    - |-
-        \s* console \. log \( (["'`])Hello,\x20world!\1 \) ; \s*
-    - |-
-        \s*console\s*\.\s*log\s*\(\s*(["'`])Hello,\x20world!\1\s*\)\s*;\s*
-  -
-    - |-
-        \s* foo \s+ bar \\string\\ \s*
-    - |-
-        \s*foo\s+bar\s*\\string\\\s*
-# debug: true
-</script>
-<!--
-
--->
 
 </head>
 <body>

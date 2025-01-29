@@ -92,6 +92,19 @@ under the `docs/labs` directory.
 Simply fork the repository, add your proposed lab in the `docs/labs` directory,
 and create a pull request.
 
+### Transitioning away from YAML
+
+Configuration data was originally in an embedded YAML file.
+We are transitioning to using separate `.js` files to simplify
+translations and eliminate the need for the YAML library.
+E.g., `input1.html` will have a corresponding `input1.js`
+with configuration information that is shared between translations.
+That transition hasn't completed yet.
+
+To help, you can create a JavaScript file that sets info2
+instead of info. The checker will automatically report
+any differences between the two values.
+
 ### Quick aside: script tag requirements
 
 Data about the lab is embedded in the HTML in a
@@ -745,6 +758,25 @@ In the future we may pull the YAML data into a separate file, with
 different markers for the text of various locales.
 E.g., `text` would be English, and `text_jp` would its Japanese translation.
 We'd love feedback on this idea.
+
+## Conversion of YAML to JavaScript files
+
+We have used embedded YAML in the HTML files for configuration.
+However, this creates a problem for translations: You want different
+HTML files for each translation (locale), yet the embedded YAML can't be shared.
+
+We have decided to move away from YAML for configuration to
+a lab-specific JavaScript file. That file can be loaded when the HTML
+is loaded, even when the HTML is loaded locally.
+
+You can start this conversion using the `yq` tool:
+
+~~~~sh
+yq eval hello.yaml -o=json -P > hello.js
+~~~~
+
+Prepend the result with `configurationInfo =` and suffix with `;`.
+Now load the JavaScript as a script (after the main library).
 
 ## Potential future directions
 
