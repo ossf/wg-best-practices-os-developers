@@ -1,4 +1,4 @@
-info2 =
+info =
 {
   hints: [
     {
@@ -140,5 +140,28 @@ info2 =
         ]
       ]
     }
-  ]
+  ],
+  expected: [
+    'throw new Error("Division by zero is forbidden");',
+    'return a / b;',
+`try {
+  const result = divide(10, 2);
+  console.log("Result:", result);
+} catch (err) {
+  console.error("Error:", err.message);
+}`
+  ],
+  correct: [
+    String.raw`\s* throw new Error \( ("(.*)"|'(.*)'|${BACKQUOTE}(.*)${BACKQUOTE}) \) ; \s*`,
+    String.raw`\s* return a \/ b ; \s*`,
+    String.raw`\s* try \{
+      const result = divide \( 10 , 2 \) ;
+      console \. log \(
+        ("Result:" | 'Result:' | ${BACKQUOTE}Result:${BACKQUOTE}) , result \) ;
+      \} catch \( err \) {
+        console.error \(
+	  ("Error:" | 'Error:' | ${BACKQUOTE}Error:${BACKQUOTE}) ,
+	  err \. message \) ;
+      \} \s*`
+  ],
 }
