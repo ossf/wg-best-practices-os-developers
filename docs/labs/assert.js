@@ -4,14 +4,14 @@ info =
     {
       present: "assert",
       text: "The whole point of this exercise is to NOT use `assert` as a way to validate input from untrusted users.",
-      "examples": [
+      examples: [
         [ "assert !bindingResult.hasErrors();\n" ]
       ]
     },
     {
       absent: String.raw`^\s* if `,
       text: "Begin with `if` so you can return a result if there are errors.",
-      "examples": [
+      examples: [
         [ "return \"form\";" ]
       ]
     },
@@ -26,14 +26,14 @@ info =
     {
       present: String.raw`^\s*if\s*[^\(\s]`,
       text: "In Java, after the keyword `if` you must have an open left parenthesis. Conventionally there is one space between the `if` keyword and the open left parenthesis.",
-      "examples": [
+      examples: [
         [ "if bindingResult.hasErrors" ]
       ]
     },
     {
       present: String.raw`^\s*if\s*\(\s*\!binding`,
       text: "You have an extraneous `!` (not operator). Use the expression if (bindingResult.hasErrors()) ...",
-      "examples": [
+      examples: [
         [ "if (!bindingResult.hasErrors())" ]
       ]
     },
