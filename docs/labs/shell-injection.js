@@ -260,5 +260,4 @@ info =
       \[ ('ls'|"ls") , ('-l'|"-l") , clean_dir \]
       ( , shell = False )? \) \s*`
   ],
-  debug: true,
 }

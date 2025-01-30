@@ -42,5 +42,5 @@ info =
     [ "EXPECTED0", "EXPECTED" ],
     [ "EXPECTED0", "EXPECTED11" ]
   ],
-  // debug: true // to enable debug output
+  // debug: true, // to enable debug output
 }
