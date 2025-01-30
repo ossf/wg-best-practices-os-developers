@@ -342,6 +342,15 @@ const attemptIdPattern = /^attempt(\d+)$/;
 
 /*
  * Given Node @form in document, return array of indexes of input/textareas
+ * The values retrieved are *input* field indexes (`inputIndexes`),
+ * starting at 0 for the first user input.
+ *
+ * Note: At one time we ran this calculation when a user pressed
+ * a button. However, if you *translate* the page using Chrome's translator,
+ * that will cause this routine to fail because querySelectorAll will fail.
+ * To work around this,
+ * it's better to calculate all of these values on page load and store it
+ * (e.g., as dataset.inputIndexes values on the buttons).
  */
 function findIndexes(form) {
     try {
@@ -364,7 +373,8 @@ function findIndexes(form) {
     	        }
             }
             // alert(`findIndexes = ${result}`);
-            return result;
+            // Return as JSON string so it's easily stored, etc.
+            return JSON.stringify(result);
         }
     } catch (e) {
         showDebugOutput(
@@ -499,13 +509,16 @@ function showHint(e) {
     } else if (!hints) {
         alert(t('no_hints'));
     } else {
-        let validIndexes = findIndexes(e.target.form);
+        // Use *precalculated* input field indexes to work around
+        // problem in Chrome translator.
+        let validIndexes = e.target.dataset.inputIndexes;
         alert(findHint(attempt, validIndexes));
     }
 }
 
 function showAnswer(e) {
-    let formIndexes = findIndexes(e.target.form); // Indexes in this form
+    // Get indexes in *this* form.
+    let formIndexes = JSON.parse(e.target.dataset.inputIndexes);
     let goodAnswer = formIndexes.map(i => expected[i]).join('\n\n');
     if (!user_solved) {
         user_gave_up = true;
@@ -819,6 +832,8 @@ function initPage() {
     }
     for (let hintButton of document.querySelectorAll("button.hintButton")) {
         hintButton.addEventListener('click', (e) => { showHint(e); });
+        // Presumes button's parent is the form
+        hintButton.dataset.inputIndexes = findIndexes(hintButton.parentNode);
         if (!hintButton.title) {
             hintButton.title = t('hint_title');
 	}
@@ -831,6 +846,8 @@ function initPage() {
     }
     for (let giveUpButton of document.querySelectorAll("button.giveUpButton")) {
         giveUpButton.addEventListener('click', (e) => { maybeShowAnswer(e); });
+        // Presumes button's parent is the form
+        giveUpButton.dataset.inputIndexes = findIndexes(giveUpButton.parentNode);
         if (!giveUpButton.title) {
             giveUpButton.title = t('give_up_title');
         }
