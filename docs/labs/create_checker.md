@@ -38,7 +38,7 @@ There are three basic tasks, which can be done by different people:
    [template.html](template.html) or
    [input1.html](input1.html), and modify it for your situation.
    See David A. Wheeler who can help you get started.
-3. [Creating the lab JavaScript file](#creating-the-lab-javascript-file).
+4. [Creating the lab JavaScript file](#creating-the-lab-javascript-file).
    You might want to copy
    [template.js](template.js) or
    [input1.js](input1.js) and modify it for your situation.
@@ -623,7 +623,7 @@ having data files embedded in the HTML caused problems for localization.
 When data files were embedded they couldn't
 be shared between locales.
 When we tried to make them
-separate files (so they could be shared), 
+separate files (so they could be shared),
 we found we could no longer easily run the labs locally
 without additional conversion steps.
 The problem is that when run locally,
