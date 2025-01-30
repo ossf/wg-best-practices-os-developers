@@ -2,24 +2,66 @@ info =
 {
   hints: [
     {
-      absent: "if",
-      text: "Begin with \"if\" as we will return 0 when there is a problem."
+      absent: "^ if",
+      text: "Begin with \"if\" as we will return 0 when there is a problem.",
+      examples: [
+        [ " foo " ],
+      ],
     },
     {
-      absent: String.raw`\(`,
-      text: "Need \"(...)\" around the condition after an if statement."
+      absent: String.raw`\(.*\)`,
+      text: "Need \"(...)\" around the condition after an if statement.",
+      examples: [
+        [ " if " ],
+      ],
     },
     {
-      absent: ">",
-      text: "Need comparison \"if ( ... > ....)\""
+      absent: "[<>]",
+      text: "Need comparison \"if ( ... > ....)\"",
+      examples: [
+        [ " if ( x )" ],
+      ],
     },
     {
       absent: String.raw`s -> s3 -> rrec \. length`,
-      text: "Need to compare a value with s->s3->rrec.length"
+      text: "Need to compare a value with s->s3->rrec.length",
+      examples: [
+        [ " if ( length > 3 )" ],
+      ],
     },
     {
-      absent: "return",
-      text: "Need \"return 0;\" to skip attempts to send a too-long response."
+      absent: "return 0 ;",
+      text: "Need \"return 0;\" to skip attempts to send a too-long response.",
+    },
+    {
+      absent: "^ if",
+      text: "Begin with \"if\" as we will return 0 when there is a problem.",
+      index: 1,
+    },
+    {
+      absent: String.raw`\(.*\)`,
+      text: "Need \"(...)\" around the condition after an if statement.",
+      index: 1,
+    },
+    {
+      absent: "[<>]",
+      text: "Need comparison \"if ( ... > ....)\"",
+      index: 1,
+    },
+    {
+      absent: String.raw`s -> s3 -> rrec \. length`,
+      text: "Need to compare a value with s->s3->rrec.length",
+      index: 1,
+    },
+    {
+      absent: "return 0 ;",
+      text: "Need \"return 0;\" to skip attempts to send a too-long response.",
+      index: 1,
+    },
+    {
+      absent: "payload",
+      text: "Need to consider the payload length.",
+      index: 1,
     },
   ],
   definitions: [
