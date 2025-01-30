@@ -4,16 +4,25 @@ These are the instructions for how to create labs with `checker.js`,
 
 ## Introduction
 
-The `checker.js` system
-represents each lab exercise in an HTML file.
-You define text explaining the lab exercise,
-a form allowing the learner to enter their answer,
-pattern(s) that the correct answer(s) must match,
-and an example of an expected answer.
+The `checker.js` system represents each lab exercise as:
+
+1. An HTML file. There is an HTML file for each lab for each locale.
+   If the locale isn't English, the filename is conventionally prefixed
+   with the locale name (e.g. `ja`) and an underscore.
+   The HTML file provides text explaining the lab exercise and
+   a form allowing the learner to enter their answer.
+2. A JavaScript file. The JavaScript file is shared between all locales
+   for a given lab.
+   This file includes an example of an expected answer,
+   the pattern(s) defining the correct answer(s),
+   and a list of hints to help users complete the lab.
+   The file may have other information, including various self-tests
+   that are run when an HTML file is loaded.
 
 Everything runs in the user's browser - no installation is needed.
 This system does *not* run arbitrary code written by the user.
-You can also provide patterns for various hints.
+Users can even download the labs and run them locally, using nothing
+other than their web browser, if they want to do that.
 
 There are three basic tasks, which can be done by different people:
 
@@ -25,15 +34,24 @@ There are three basic tasks, which can be done by different people:
 2. [Creating the lab instructions and correct answer](#creating-the-lab-instructions-and-correct-answer).
    This is done by a subject matter expert. See below.
 3. [Creating the lab HTML file](#creating-the-lab-html-file).
-   Much of the text below focuses on implementing this part.
-   You'd typically start with an existing lab, like
+   You'd typically copy an existing lab, like
+   [template.html](template.html) or
    [input1.html](input1.html), and modify it for your situation.
    See David A. Wheeler who can help you get started.
+3. [Creating the lab JavaScript file](#creating-the-lab-javascript-file).
+   You might want to copy
+   [template.js](template.js) or
+   [input1.js](input1.js) and modify it for your situation.
 
 The text below discusses these in more detail.
-We suggest using the [template](template.html) as a start.
+We suggest using the [template.html](template.html) and
+[template.js](template.js) as a starting point.
 You can also see our
 [potential future directions](#potential-future-directions).
+
+**NOTE**: At one time we used embedded values in the HTML,
+including data in YAML format. We no longer do this; we use
+per-lab JavaScript files instead.
 
 ## Creating the lab instructions and correct answer
 
@@ -61,94 +79,86 @@ The HTML file of a given lab is expected to:
 * Describe the exercise (in HTML text)
 * Provide the exercise itself as a form
 * Identify where the user will enter their attempted answer(s)
-  (id `attempt0` etc.)
-* Provide information about the lab, in particular:
-  * Provide an example of an expected answer (id `expected0` etc.)
-  * Provide the pattern of a correct answer (id `correct0` etc.)
-  * Optionally provide other information such as tests and hints (id `info`)
-
-The system is implemented by the client-side JavaScript file `checker.js`.
-
-### TL;DR
+  (id `attempt0` etc.). This also sets its starting value on load.
 
 An easy way implement a lab is to copy
 use our [template](template.html) and modify it for your situation.
-Modify the `expected0` section to have a sample expected answer, and
-`correct0` to have a full pattern for a correct answer.
-See [input1.html](input1.html) and [input2.html](input2.html)
+Again, see [input1.html](input1.html) and [input2.html](input2.html)
 for examples.
+
+We suggest including the buttons (Hint, Reset, and Give up)
+as shown in the examples.
+The code will automatically set up the buttons if they are present.
+
+If the lab is not in English, the `<html>` tag should say
+`<html lang="LOCALE">` where LOCALE is the conventional locale ID
+(e.g., `ja` for Japanese), and name the file `LOCAL_NAME.html`.
+
+## Creating the lab JavaScript file
+
+### TL;DR
+
+Each lab, regardless of the number of translations, will typically have
+a single shared JavaScript file.
+This shared JavaScript file provides information on
+an example of expected answer(s), a pattern defining the correct answer(s),
+hints, and so on.
+
+This shared JavaScript file sets `info` (at least), which provides
+relevant information about the lab. This is an object, with
+properties like `correct` and `expected`.
 
 Whenever a lab is loaded it automatically runs all embedded self-tests.
 At the least, it checks that the initial attempted answer does
 *not* satisfy the correct answer pattern, while the example expected answer
 *does* satisfy the correct answer pattern.
-We suggest including the buttons (Hint, Reset, and Give up)
-as shown in the examples.
-The code will automatically set up the buttons if they are present.
 
-To submit new or updated labs, create a pull request on the
-[OpenSSF Best Practices Working Group (WG) repository](https://github.com/ossf/wg-best-practices-os-developers/)
-under the `docs/labs` directory.
-Simply fork the repository, add your proposed lab in the `docs/labs` directory,
-and create a pull request.
-
-### Transitioning away from YAML
-
-Configuration data was originally in an embedded YAML file.
-We are transitioning to using separate `.js` files to simplify
-translations and eliminate the need for the YAML library.
-E.g., `input1.html` will have a corresponding `input1.js`
-with configuration information that is shared between translations.
-That transition hasn't completed yet.
-
-To help, you can create a JavaScript file that sets info2
-instead of info. The checker will automatically report
-any differences between the two values.
-
-### Quick aside: script tag requirements
-
-Data about the lab is embedded in the HTML in a
-`script` tag. Embedding this data simplifies lab maintenance,
-and this approach is the
-[recommended approach for embedding script-supporting elements](https://html.spec.whatwg.org/multipage/scripting.html).
-
-This technique does create a
-[few quirky restrictions](https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements),
-though it shouldn't matter in practice.
-Basically, the text embedded in the `script` sections must
-*not* include the following text sequences (ignoring case):
-
-* `<!--`
-* `<script`
-* `</script`
-
-If you *need* to include these text sequences inside the `script` region,
-you can typically you can replace `<` with `\x3C` to resolve it.
-
-### Basic lab inputs
+### Basic lab information
 
 The basic inputs are:
 
-* Identify where the user will fill in answer(s) (id `attempt0` etc.).
-  This also sets the starting value.
-* Provide an example of an expected answer (id `expected0` etc.)
-* Provide the pattern of a correct answer (id `correct0` etc.)
+* `expected`: An array of 1+ strings that provide an example
+  of an expected *correct* answer. This is what's shown if the learner
+  gives up.
+* `correct`: An array of 1+ strings that define the *pattern* of
+  an acceptable answer.
+* `hints`: An array of 0+ hint objects. These provide hints to learners
+  who are stuck.
 
-It's possible to have multiple attempt fields, in which case they are
-in order (0, 1, 2, ...).
-The number of attempt fields, expected fields, and correct fields
-much match.
+The number of attempt fields (in the HTML), the number of `expected` values,
+and the number of `correct` values much match.
+
+### JavaScript strings
+
+The lab data is expressed using JavaScript strings.
+There's more than one way to express a string in JavaScript, each
+has its advantages:
+
+* "..." - double-quoted string. You don't need to do anything special to
+  include a single-quote character in these.
+  A backslash (&#92;) followed by something else is treated specially, e.g.,
+  &#92;" is interpreted as a double-quote character, while &#92;&#92;
+  expresses a backslash.
+* '...' - single-quoted string.
+* &#96;...&#96; - Template string. A ${...} is specially interpreted,
+  as is backslash (&#92;).
+* String.raw&#96;...&#96; - Raw template string.
+  A ${...} is specially interpreted, but backslash (&#92;) is *not*.
+  These can go over multiple lines.
+  These are often useful for patterns.
+  Use ${BACKQUOTE} for &#96; and ${DOLLAR} for $.
 
 ### Expressing correct answer patterns
 
-Correct answer patterns are expressed using a preprocessed form of
+The patterns used for `correct` and `hints`
+are expressed using a preprocessed form of
 [JavaScript regular expression (regex) patterns](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions).
 
 #### Quick introduction to regular expressions (regexes)
 
-Regular expressions are a widely-used notation to
-indicate patterns.
-In this case, they let us specify
+Regular expressions are a widely-used notation to indicate patterns.
+
+Regular expressions let us specify
 the many different forms that are all correct. E.g.:
 
 * Pattern `(abc|def)` matches `abc` or `def`
@@ -175,9 +185,8 @@ In many formats (e.g., JSON) those backslashes have to be backslashed,
 leading to a profusion of unreadable backslashes sometimes known as
 [the true name of Ba'al the soul-eater](https://www.explainxkcd.com/wiki/index.php/1638:_Backslashes).
 
-We solve this by allowing patterns to be expressed either directly
-in script tags or in YAML (which has input formats that don't require
-backslashing the backslashes).
+JavaScript has a standard solution for this problem:
+use String.raw&#96;...&#96; (a raw template string).
 
 Another problem is that regexes can be hard to read if they are long
 or must often match whitespace.
@@ -185,7 +194,7 @@ A "whitespace" is a character that is a space character, tab character,
 newline, or return character.
 
 Our solution is that we *preprocess* the regular expressions
-to make them easier to enter and read.
+in a lab to make them easier to enter and read.
 
 By default, the regex pattern for each correct answer
 and each hint is preprocessed as follows:
@@ -313,13 +322,7 @@ Here's an explanation of this pattern:
 
 ### Other info
 
-The id `info` can provide other optional information.
-If present, it must be a YAML object.
-YAML is a superset of JSON,
-so you can also use JSON format `{...}` to describe info.
-
-One reason to do this is to provide more self-tests, which are
-all verified on page load:
+You can provide these fields for testing:
 
 * Field `successes`: if present, this is an array of examples.
   Each example is an array of strings.
@@ -327,42 +330,33 @@ all verified on page load:
 * Field `failures`: if present, this is an array of examples.
   Again, each example is an array of strings.
   Every example in `failures` should fail.
-
-You can provide `correct` and `expected` values this way instead of creating
-separate script regions:
-
-* Field `correct`: If present, this is an array of strings.
-  Each string is a preprocessed regular expression as described above.
-* Field `expected`: If present, this is an array of strings.
-  Each string is an example of a string that would meet the corresponding
-  correct pattern.
-
-The `info` object also has other fields:
-
 * `debug`: If present and `true`, the program will present
    some data that may help you debug problems.
 * `hints`: If present, this is an array of hints.
+  We discuss that now.
 
 ### Hints
 
 Hints are expressed in the info `hints` field.
 This field must be an array
-(in JSON its value must begin with `[` and end with `]`).
+(its value must begin with `[` and end with `]`).
 Inside the array is a list of hint objects.
 Each hint object describes a hint, and they are checked in the order given
 (so the earliest matching hint always takes precedence).
-If you use JSON format,
-each hint object begins with `{`, has a set of fields, and ends with `}`.
+Each hint object begins with `{`, has a set of fields, and ends with `}`.
 
 #### Format for a hint
 
 Every hint object must have a `text` field to be displayed as the hint.
+Translations can be provided as `text_LOCALE`, e.g., `text_ja` is the
+Japanese version of the hint.
+
 A hint object can have a `present` field (a pattern that must be present
 for the hint to be shown), and it can have an
 `absent` field (a pattern that must be absent for the hint to be shown).
 A hint can have both a `present` and `absent` field, or neither.
 A hint with neither a `present` nor `absent` field always matches;
-you can make this kind of hint to set a default hint.
+you can make the last hint do this to set a default hint.
 
 The `present` and `absent` fields are regular expression patterns that
 are preprocessed similarly to a correct answer.
@@ -372,7 +366,7 @@ don't have to exactly match (start the pattern with `^` and end it with
 as allowing 0 or more spaces.
 
 A hint has a default index of 0, that is, it
-checks `attempt0` against the pattern `correct0`.
+checks the first `attempt0` against first `correct` pattern.
 If you want to check an index other than `0`, add an `index` field and provide
 an integer.
 
@@ -393,17 +387,24 @@ but future versions will probably use them when checking the examples.
 
 Here are examples of hints:
 
-~~~~yaml
-hints:
-- absent: ", $"
-  text: This is a parameter, it must end with a comma.
-  examples:
-  - - "  "
-- present: "(isint|Isint|IsInt|ISINT)"
-  text: JavaScript is case-sensitive. Use isInt instead of the case you have.
-  examples:
-  - - "  query('id').isint(),"
-  - - "  query('id').IsInt(),"
+~~~~javascript
+hints: [
+  {
+    absent: ", $",
+    text: "This is a parameter, it must end with a comma.",
+    examples: [
+      [ "  " ]
+    ]
+  },
+  {
+    present: "(isint|Isint|IsInt|ISINT)",
+    text: "JavaScript is case-sensitive. Use isInt instead.",
+    examples: [
+      [ "  query('id').isint()," ],
+      [ "  query('id').IsInt()," ],
+    ]
+  }
+]
 ~~~~
 
 The first hint triggers when the user attempt does *not* contain the
@@ -413,145 +414,10 @@ followed by the end of the input.
 The index isn't specified, so this will check attempt #0 (the first one).
 So if there's no comma at the end (ignoring trailing whitespace),
 this hint will trigger with the given text.
-The <tt>-&nbsp;-</tt> line is a test case that *should* trigger
-the hint.
+The examples are test cases that *should* trigger this hint.
 
 The second hint triggers when the user attempt *contains* the given
 pattern (note the term `present`).
-
-The "examples" shown here are for a common case: the index is 0.
-Once you have multiple index, you'll need to use a longer form for
-examples with larger indexes:
-
-~~~~yaml
-  examples:
-  -
-    - "  VALUE FOR INDEX0"
-    - "  VALUE FOR INDEX1"
-  -
-    - "  VALUE FOR INDEX0"
-    - "  VALUE FOR INDEX1"
-~~~~yaml
-
-
-### Notes on YAML
-
-The info section supports
-[YAML format version 1.2](https://yaml.org/spec/1.2.2/).
-YAML 1.2 was released in 2009 and
-is an improvement over YAML 1.1, e.g., YAML 1.2 doesn't have the
-so-called "Norway problem".
-YAML is a widely-used, widely-understood, and widely-implemented format,
-which is why we use it.
-
-YAML is a superset of JSON, so if you'd prefer to write in straight JSON,
-you can do that.
-JSON is a simple format, which is a bonus.
-However, JSON is noisy for this situation, especially when there
-are many backslashes and double-quotes (as there are in patterns).
-For this use case, JSON is probably unnecessarily hard to read and use.
-Still, if you prefer, you can use it.
-If you use JSON, remember:
-
-* All strings must be surrounded by double-quotes, even field names.
-* Commas *must* separate entries.
-* JSON does *not* support trailing commas in arrays and dictionaries.
-* JSON fails to support comments.
-* Inside a string use `\"` for double-quote and `\\` for backslash.
-
-You can also use full YAML.
-YAML comments start with "#" and continue to the end of the line.
-Field names with just alphanumerics, underscore, and dash
-don't require quoting (unlike JSON).
-Leading "-&nbsp;-" means an "array of arrays", which happens often
-if you have a single input.
-
-YAML has several ways to indicate strings and other scalar data:
-
-* You can use `|` to indicate that the following indented text line(s)
-  are to be taken literally (after removing the amount of indentation of the
-  following list, and each line is its own line).
-  This is probably the best mechanism for
-  non-trivial patterns; you don't need to backslash anything.
-  You probably want to use "\s*" to begin the first line of the pattern.
-  For clarity you might use `|-` instead of `|` (this removes trailing
-  newlines), though it most cases it doesn't matter for this use.
-
-* A ">" means that the following indented text is to be taken literally,
-  but newlines are converted into spaces. You can use a blank line
-  to indicate a newline. Again, ">-" removes trailing newlines.
-
-* A string can be surrounded by double-quotes; inside that, use
-  \" for double-quotes and \\ for backslash.
-
-* A string can be surrounded by single-quotes; inside that, use
-  '' for a single-quote character (there are otherwise no escapes).
-
-* Otherwise various rules are used to determine its type and interpretation.
-  Sequences of digits (no ".") are considered integers.
-  In many cases simple text (without quote marks) is considered a string,
-  but consider quoting the text (using any of the other formats)
-  to ensure it's considered a string.
-  See the YAML specification for details.
-
-Here is some YAML followed by its equivalent JSON, to clarify
-how YAML works:
-
-~~~~yaml
-test1: |
-  \s* foo
-    \( x \) \;? \s*
-test2: >
-  This is
-  some text.
-
-  Here is more.
-test3: "Hello\n\n\\\" there."
-test4: 'Hi\n ''there.'
-test5: Simple text.
-test6:
-  - hello
-test7:
-  - - hello
-test8:
-  - mykey: 7
-    examples:
-      - - another test
-~~~~
-
-Here is its JSON equivalent:
-
-~~~~json
-{
-  "test1": "\\s* foo\n  \\( x \\) \\;? \\s*\n",
-  "test2": "This is some text.\nHere is more.\n",
-  "test3": "Hello\n\n\\\" there.",
-  "test4": "Hi\\n 'there.",
-  "test5": "Simple text.",
-  "test6": [
-    "hello"
-  ],
-  "test7": [
-    [
-      "hello"
-    ]
-  ],
-  "test8": [
-    {
-      "mykey": 7,
-      "examples": [
-        [
-          "another test"
-        ]
-      ]
-    }
-  ]
-}
-~~~~
-
-You can use
-[convert yaml to json](https://onlineyamltools.com/convert-yaml-to-json)
-to interactively experiment with YAML.
 
 ### Preventing problems
 
@@ -572,17 +438,14 @@ These tests are automatically checked every time the page is (re)loaded.
 Sadly, sometimes things don't work; here are some debugging tips for labs.
 
 If you open a page and the text entries don't have color, there
-was a serious problem loading things (e.g., the JavaScript code or
-YAML info has a syntax error).
-Use your browser's Developer Tools to show details.
+was a serious problem loading things.
+Use your browser's *Developer Tools* to show details.
 In Chrome, this is More Tools -> Developer Tools -> (Console Tab).
 In Firefox, this is More Tools -> Web Developer Tools -> (Console Tab).
 You may need to further open specifics to see them.
+
 Note:
 
-* If you see an error in the YAML processing, remember that the reported
-  line numbers are relative to the beginning of the *YAML* data,
-  not of the entire file.
 * If you're running locally, you can ignore the error
   "Failed to load resource: net::ERR_FILE_NOT_FOUND /assets/css/style.css:1",
   this reports an attempt to load a file that's hosted on GitHub pages,
@@ -592,16 +455,6 @@ You can set the optional info "debug" field to true.
 This will display information, particularly on its inputs.
 This can help you track down a problems if you think your
 inputs are being interpreted in a way different than you expect.
-
-### Additional settings for natural languages other than English
-
-This tool should work fine with languages other than English.
-We expect that there will be a different HTML page for each
-lab and each different natural language.
-
-*However*, it sets some default tooltips for the buttons in English.
-For each button you should set the `title` attribute for the
-given language.
 
 ### Advanced use: Definitions
 
@@ -619,14 +472,17 @@ Leading and trailing whitespace in the value is removed.
 
 Here's an example:
 
-~~~~yaml
-definitions:
-- term: RETURN0
-  value: |
-    return \s+ 0 ;
-- term: RETURN0
-  value: |
-    (RETURN0|\{ RETURN0 \})
+~~~~javascript
+definitions: [
+  {
+    term: 'RETURN0'
+    value: 'return \s+ 0 ;'
+  },
+  {
+    term: 'RETURN0'
+    value: String.raw`(RETURN0|\{ RETURN0 \})`
+  },
+]
 ~~~~
 
 The first entry defines `RETURN0` as the value `\s+ 0 ;`
@@ -653,13 +509,8 @@ To do this, set the `preprocessing` field to an array.
 Each array element should itself be an array of:
 
 1. A regular expression (expressed as a string).
-   I suggest using `|-` in YAML (stripping the trailing newlines)
-   for the patterns, though the system *will* strip leading and trailing
-   newlines from patterns regardless to eliminate likely errors with this.
 2. The string that will replace each match.
-   This be used *exactly* as it's provided, so in YAML, I recommend using
-   "..." to make it clear, or at worst `|-` as a prefix.
-   Many YAML forms leave a trailing newline, which can create surprises.
+   This be used *exactly* as it's provided.
 3. (Optional) Regex flags. If not provided "g" (global) will be used.
    Do *not* use multiline (`m`) mode! We do matches of entire phrases
    by surrounding an attempt with `^(?:` on the left and `)$` on the right.
@@ -680,7 +531,7 @@ requested, and the second is post-processed pattern that should result.
 There's no need for a "failure" test suite here, because we
 demand exact results for every test case.
 
-Here is an example:
+Here is an example (expressed in YAML format):
 
 ~~~~yaml
 preprocessing:
@@ -729,12 +580,19 @@ the default preprocessor.
 
 ## Localization
 
-We'd love to see translations of labs into various natural languages.
+We'd love to see translations of labs into various natural languages!
+
+First, identify the standard identifier for your locale, e.g.,
+for Japanese it is `ja`. We'll call that LOCALE from here on.
+
+If we haven't done your language already, look at `checker.js` for the
+`resources =` object. Add or modify ones for your language.
+There aren't many strings to translate.
 
 Each lab is a separate HTML file. To create a translation,
 copy the HTML file into another file with a similar name indicating its locale.
-We currently recommend it be named `LOCALE-oldname.html`, e.g.,
-the Japanese (`ja`) translation of `input1.html` would be `ja-input1.html`.
+We currently recommend it be named `LOCALE_oldname.html`, e.g.,
+the Japanese (`ja`) translation of `input1.html` would be `ja_input1.html`.
 Use the most common locale name and make it clear, e.g.,
 for simplified Chinese use the locale `zh-CN`, for Brazilian Portuguese use
 `pt-BR`, for French use `fr`.
@@ -742,41 +600,65 @@ for simplified Chinese use the locale `zh-CN`, for Brazilian Portuguese use
 Now edit the HTML file to translate its text into your locale:
 
 * Modify the &lt;html&gt; statement to say &lt;html lang="LOCALE"&gt;
-* Add "title" values for buttons, otherwise they'll have English titles.
-* Modify the text, both the normal HTML and embedded YAML data.
+* Modify the HTML text.
+* Modify the JavaScript text. Basically, every `text` value should have a
+  corresponding `text_LOCALE` value.
 
 You can try out [hello](hello.html) to start simple.
+See [ja_hello](ja_hello.html) to see its Japanese translation.
 
 The [list of labs](https://best.openssf.org/labs/) provides more information.
 WARNING: We aren't currently using all labs we have.
 Make sure you focus on the labs in use first :-).
 
-One problem with the current localization approach is that the HTML tends to include
-a lot of information in YAML format that isn't natural language text.
-Most of the YAML should be shared, frankly.
-In the future we may pull the YAML data into a separate file, with
-different markers for the text of various locales.
-E.g., `text` would be English, and `text_jp` would its Japanese translation.
-We'd love feedback on this idea.
+### No longer using embedded data or YAML
 
-## Conversion of YAML to JavaScript files
+At one time we used data files embedded in the HTML (e.g., YAML,
+expected answers, and correct answers).
+YAML is a widely-used data format, and we made a lot of
+progress using it.
 
-We have used embedded YAML in the HTML files for configuration.
-However, this creates a problem for translations: You want different
-HTML files for each translation (locale), yet the embedded YAML can't be shared.
+Unfortunately, for our specific circumstance
+having data files embedded in the HTML caused problems for localization.
+When data files were embedded they couldn't
+be shared between locales.
+When we tried to make them
+separate files (so they could be shared), 
+we found we could no longer easily run the labs locally
+without additional conversion steps.
+The problem is that when run locally,
+JavaScript can't load other files due to security restrictions.
+YAML is not the problem; switching to JSON or other formats
+would have exactly the same problem.
+If we made a single file for a lab for all locales, there would be
+no easy way to specify which locale to load ahead-of-time.
 
-We have decided to move away from YAML for configuration to
-a lab-specific JavaScript file. That file can be loaded when the HTML
-is loaded, even when the HTML is loaded locally.
+We have transitioned to having a shared JavaScript file, one per lab.
+Web browsers *are* allowed to load JavaScript through HTML.
+This means we can have a data file shared between locales.
+E.g., `input1.html` and `ja_input1.html` will both load
+a corresponding `input1.js`
+with configuration information that is shared between translations.
 
-You can start this conversion using the `yq` tool:
+If you set an info2, on load any differences between info and info2
+will be reported.
+
+You can start a conversion from YAML to JavaScript using the `yq` tool:
 
 ~~~~sh
 yq eval hello.yaml -o=json -P > hello.js
 ~~~~
 
-Prepend the result with `configurationInfo =` and suffix with `;`.
+Prepend the result with `info =`.
 Now load the JavaScript as a script (after the main library).
+
+## Submitting a new or updated lab
+
+To submit new or updated labs, create a pull request on the
+[OpenSSF Best Practices Working Group (WG) repository](https://github.com/ossf/wg-best-practices-os-developers/)
+under the `docs/labs` directory.
+Simply fork the repository, add your proposed lab in the `docs/labs` directory,
+and create a pull request.
 
 ## Potential future directions
 
