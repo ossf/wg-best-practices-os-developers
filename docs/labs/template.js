@@ -43,4 +43,4 @@ info =
     [ "EXPECTED0", "EXPECTED11" ]
   ],
   // debug: true, // to enable debug output
-}
+};

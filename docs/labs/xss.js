@@ -36,7 +36,7 @@ info =
       absent: String.raw`\+`,
       index: 2,
       text: "Our expected answer includes concatentation using `+`. We expect something like `Markup('Original name='` followed by `+` followed by the variable containing the data that needs to be escaped."
-    }
+    },
   ],
   expected: [
     'autoescape=select_autoescape()',
@@ -48,4 +48,4 @@ info =
      String.raw`\s* < h1 >Hello\x20{{ person }}!< /h1 > \s*`,
      String.raw`\s* result = Markup \( ('Original name='|"Original name=") \) \+ name \s*`
   ],
-}
+};

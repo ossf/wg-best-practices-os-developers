@@ -28,7 +28,7 @@ info =
     {
       term: "CONDALL",
       value: "(COND0 && (COND1 && COND2|COND2 && COND1))"
-    }
+    },
   ],
   hints: [
     {
@@ -61,8 +61,8 @@ info =
         [
           "const data = JSON.parse(base64Decoded);",
           "if data.username {\n"
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: String.raw`data \. username
@@ -100,9 +100,9 @@ info =
         [
           "const data = JSON.parse(base64Decoded);",
           "if (typeof data.username == 'string' && data.username.length < 20 && data.username) {"
-        ]
-      ]
-    }
+        ],
+      ],
+    },
   ],
   expected: [
     '  const data = JSON.parse(base64Decoded);',
@@ -128,12 +128,12 @@ info =
     [
       "const data = JSON.parse(base64Decoded);",
       "if (data.username && typeof data.username == 'string' && (data.username.length < 20)) {"
-    ]
+    ],
   ],
   failures: [
     [
       "const data = JSON.parse(base64Decoded);",
       "if (data.username && (typeof data.username == 'string')) && (data.username.length < 20)) {"
-    ]
-  ]
-}
+    ],
+  ],
+};

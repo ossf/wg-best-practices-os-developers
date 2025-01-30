@@ -70,7 +70,7 @@ info =
     {
       present: String.raw`\) \) =>`,
       text: "The `exec` function should be closed in later lines, not here."
-    }
+    },
   ],
   expected: [
     `execFile('git', ['blame', '--', filePath], { shell: false }, (error, stdout, stderr) => {`
@@ -89,7 +89,7 @@ info =
       "    execFile('git', ['blame', '--', filePath], { shell: false }, (error, stdout, stderr) => {",
       "    execFile('git', ['blame', '--', filePath], (error, stdout, stderr) => {",
       "    execFile('git', ['blame', '--', filePath], {}, (error, stdout, stderr) => {"
-    ]
+    ],
   ],
   failures: [
     [
@@ -100,6 +100,6 @@ info =
     ],
     [
       "    execFile('git blame', [filePath], { shell: false }, (error, stdout, stderr) => {"
-    ]
-  ]
-}
+    ],
+  ],
+};
