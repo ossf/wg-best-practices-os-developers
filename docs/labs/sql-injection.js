@@ -3,7 +3,7 @@ info =
   hints: [
     {
       present: "search_lastname",
-      text: "You should replace \"search_lastname\" with a placeholder.",
+      text: "You should replace \"search_lastname\" with a placeholder (?).",
       index: 0,
       examples: [
         [
@@ -30,7 +30,7 @@ info =
     {
       absent: String.raw`\s* PreparedStatement\s+pstmt = connection \.
     prepareStatement \( QueryString \) \; \s*`,
-      text: "Your second line should have the form `PreparedStatement pstmt = connection.prepareStatement(QueryString);`"
+      text: "After defining the query string you should create a prepared statement, using the form `PreparedStatement pstmt = connection.prepareStatement(QueryString);`"
     },
     {
       absent: "search_lastname",
@@ -54,5 +54,26 @@ info =
       index: 1,
       text: "After using `setString` execute the query and place the results in `results`, something like `ResultSet results = pstmt.executeQuery();`"
     }
-  ]
+  ],
+  expected: [
+    String.raw`  String QueryString = "select * from authors where lastname=?";
+  PreparedStatement pstmt = connection.prepareStatement(QueryString);`,
+    String.raw`  pstmt.setString(1, search_lastname);
+  ResultSet results = pstmt.executeQuery( );`,
+  ],
+  correct: [
+    String.raw`\s* String\s+QueryString =
+      \"select\s+\*\s+from\s+authors\s+where\s+lastname\s*\=\s*\?\s*;?\s*\" \;
+      \s* PreparedStatement\s+pstmt = connection \.
+          prepareStatement \( QueryString \) \; \s*`,
+      // Note: Java Statement has an "executeQuery" method, of form:
+      //   ResultSet executeQuery(String sql)
+      // It requires exactly one parameter and does NOT accept added parameters.
+      // So `executeQuery(sql, search_lastname)` is not legal Java.
+      // Some documents and online help forums get this wrong.
+      // For the authoritative answer (in Java 22), see:
+      // https://docs.oracle.com/en/java/javase/22/docs/api/java.sql/java/sql/Statement.html
+    String.raw`\s* pstmt \. setString \( 1 , search_lastname \) \;
+      \s* ResultSet\s+results = pstmt \. executeQuery \( \) \; \s*`,
+  ],
 }
