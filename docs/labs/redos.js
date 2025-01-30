@@ -70,7 +70,7 @@ info =
     {
       present: String.raw`\[0-9[Aa]-[Zz]\]`,
       text: "It's conventional to list letters first, so use [A-Z0-9] not [0-9A-Z]"
-    }
+    },
   ],
   expected: [
     "query('id').isLength({max:50}).matches( /^[A-Z0-9]+$/ ),",
@@ -87,4 +87,4 @@ info =
   failures: [
     [ "query('id').isLength({max:50}).matches( /^[A-Z]+$/ ),", ],
   ],
-}
+};

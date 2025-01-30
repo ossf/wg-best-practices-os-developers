@@ -52,7 +52,7 @@ info =
     {
       present: String.raw`\s*, , $`,
       text: "You have two commas at the end. Use only one. You may need to scroll or increase the text area to see both of them."
-    }
+    },
   ],
   expected: [
     String.raw`  query('id').isLength({max:80}).
@@ -77,7 +77,7 @@ info =
     ],
     [
       "  query (`id`) . isLength( {max:80}).matches(/^[A-Z]{2}-\\d+-[0-9]+$/ ) ,  "
-    ]
+    ],
   ],
   failures: [
     [
@@ -96,4 +96,4 @@ info =
       "query(`id`).isLength( {max:80}).matches(/^[A-Z]{2}- \\d+-[0-9]+$/),"
     ],
   ],
-}
+};

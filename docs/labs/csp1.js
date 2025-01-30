@@ -7,8 +7,8 @@ info =
       examples: [
         [
           "import express from \"express\";"
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: "const",
@@ -20,21 +20,21 @@ info =
       examples: [
         [ "const" ],
         [ "consthelmet = " ]
-      ]
+      ],
     },
     {
       present: String.raw`require \( helmet \)`,
       text: "The parameter of a requirement statement must be string. Surround the term helment with double-quotes.",
       examples: [
         [ "  const helmet = require(helmet);" ]
-      ]
+      ],
     },
     {
       absent: "; $",
       text: "JavaScript doesn''t require semicolon terminators, but the rest of the code uses them. You should try to match a coding style when modifying existing code unless there''s an important reason not to. Please update the first statment.",
       examples: [
         [ "  const helmet = require(\"helmet\")" ]
-      ]
+      ],
     },
     {
       absent: String.raw`\s* app \. use \( helmet \( \{`,
@@ -83,7 +83,7 @@ info =
     },
     {
       text: "I do not have more specific hints to provide. Please ensure that the parentheses, braces, and brackets pair correctly, as that is often the problem."
-    }
+    },
   ],
   expected: [
     'const helmet = require("helmet");',
@@ -93,7 +93,7 @@ info =
       "script-src": ["'self'", "https://example.com"],
       "style-src": ["'self'"]
     },
-  }
+  },
 }));`
   ],
   correct: [
@@ -107,4 +107,4 @@ info =
     \} ,?
   \} \) \) ; \s*`
   ],
-}
+};

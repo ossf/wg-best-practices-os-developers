@@ -17,8 +17,8 @@ info =
         [
           "  clean_dir = dir_to_list",
           "  subprocess.run(f\"ls -l {dir_to_list}\", shell=True)"
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: String.raw`clean_dir = re \. sub \(`,
@@ -28,8 +28,8 @@ info =
         [
           "  clean_dir re.sub = dir_to_list",
           "  subprocess.run(f\"ls -l {dir_to_list}\", shell=True)"
-        ]
-      ]
+        ],
+      ],
     },
     {
       present: "PATTERN",
@@ -38,8 +38,8 @@ info =
         [
           "  clean_dir = re.sub(PATTERN, PATTERN, dir_to_list)",
           "  subprocess.run(f\"ls -l {dir_to_list}\", shell=True)"
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: String.raw`re \. sub \( r`,
@@ -56,8 +56,8 @@ info =
         [
           "  clean_dir = re.sub(r'([^a-zA-Z0-9])', '', dir_to_list)",
           "  subprocess.run(f\"ls -l {dir_to_list}\", shell=True)"
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: String.raw`re \. sub \( r?['"]\[`,
@@ -66,8 +66,8 @@ info =
         [
           "  clean_dir = re.sub(r'', '', dir_to_list)",
           "  subprocess.run(f\"ls -l {dir_to_list}\", shell=True)"
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: String.raw`re \. sub \( r?['"]\[\^`,
@@ -76,8 +76,8 @@ info =
         [
           "  clean_dir = re.sub(r'[a-zA-Z0-9]', '', dir_to_list)",
           "  subprocess.run(f\"ls -l {dir_to_list}\", shell=True)"
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: "a-zA-Z0-9",
@@ -86,8 +86,8 @@ info =
         [
           "  clean_dir = re.sub(r'[^]', '', dir_to_list)",
           "  subprocess.run(f\"ls -l {dir_to_list}\")"
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: String.raw`re \. sub \( r?('\[\^a-zA-Z0-9\]'|"\[\^a-zA-Z0-9\]") , r?(''|"")`,
@@ -96,8 +96,8 @@ info =
         [
           "  clean_dir = re.sub(r'[^a-zA-Z0-9]', NOWWHAT, dir_to_list)",
           "  subprocess.run(f\"ls -l {dir_to_list}\", shell=True)"
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: "subprocess.run",
@@ -112,8 +112,8 @@ info =
         [
           "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)",
           "  subprocess.run(f\"ls -l {dir_to_list}\", shell=True)"
-        ]
-      ]
+        ],
+      ],
     },
     {
       present: String.raw`f["']ls\s+-l`,
@@ -123,8 +123,8 @@ info =
         [
           "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)",
           "  subprocess.run(f\"ls -l {dir_to_list}\")"
-        ]
-      ]
+        ],
+      ],
     },
     {
       present: String.raw`["']ls\s+-l`,
@@ -134,8 +134,8 @@ info =
         [
           "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)",
           "  subprocess.run(\"ls -l {dir_to_list}\")"
-        ]
-      ]
+        ],
+      ],
     },
     {
       present: String.raw`subprocess \. run \( [A-Za-z0-9"']`,
@@ -145,8 +145,8 @@ info =
         [
           "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)",
           "  subprocess.run(\"ls\", \"-l\", clean_dir)"
-        ]
-      ]
+        ],
+      ],
     },
     {
       present: String.raw`\{(dir_to_list|clean_dir)\}`,
@@ -156,8 +156,8 @@ info =
         [
           "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)",
           "  subprocess.run([\"ls\", \"-l\", {dir_to_list}])"
-        ]
-      ]
+        ],
+      ],
     },
     {
       present: String.raw`dir_to_list\"`,
@@ -177,8 +177,8 @@ info =
         [
           "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)",
           "  subprocess.run([\"ls\", \"-l\", dir_to_list])"
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: String.raw`run \(.*\)`,
@@ -188,8 +188,8 @@ info =
         [
           "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', clean_dir)",
           "  subprocess.run([\"ls\", \"-l\", clean_dir]"
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: String.raw`run \( \[.*\]`,
@@ -199,8 +199,8 @@ info =
         [
           "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', clean_dir)",
           "  subprocess.run([\"ls\", \"-l\", clean_dir)"
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: String.raw`^ subprocess . run \( \[ ('ls'|"ls") , ('-l'|"-l") , clean_dir \] \) $`,
@@ -210,9 +210,9 @@ info =
         [
           "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', clean_dir)",
           "  subprocess.run([\"ls\", \"-l\", clean_dir, foo])"
-        ]
-      ]
-    }
+        ],
+      ],
+    },
   ],
   successes: [
     [
@@ -226,7 +226,7 @@ info =
     [
       "  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)",
       "  subprocess.run([\"ls\", \"-l\", clean_dir], shell=False)"
-    ]
+    ],
   ],
   failures: [
     [
@@ -240,7 +240,7 @@ info =
     [
       "   clean_dir = re . sub( r'[^a-zA-Z0-9]' , '' , dir_to_list )",
       "   subprocess . run ( [ \"ls\" , \"-l\" , clean_dir ] )"
-    ]
+    ],
   ],
   expected: [
     String.raw`  clean_dir = re.sub(r'[^a-zA-Z0-9]', '', dir_to_list)`,
@@ -260,5 +260,4 @@ info =
       \[ ('ls'|"ls") , ('-l'|"-l") , clean_dir \]
       ( , shell = False )? \) \s*`
   ],
-  debug: true,
-}
+};

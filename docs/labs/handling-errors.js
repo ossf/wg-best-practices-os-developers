@@ -17,7 +17,7 @@ info =
         [ "  throw NEW Error(\"Division by zero is forbidden\");" ],
         [ "  throw new error(\"Division by zero is forbidden\");" ],
         [ "  throw new ERROR(\"Division by zero is forbidden\");" ]
-      ]
+      ],
     },
     {
       index: 0,
@@ -26,7 +26,7 @@ info =
       examples: [
         [ "  return { success: false, message: \"Division by zero is forbidden\" };" ],
         [ " return \"Division by zero is forbidden\" ;" ]
-      ]
+      ],
     },
     {
       index: 1,
@@ -34,7 +34,7 @@ info =
       text: "Use the return keyword to return the result of the division.",
       examples: [
         [ "  a / b ;" ]
-      ]
+      ],
     },
     {
       index: 1,
@@ -48,8 +48,8 @@ info =
         [
           "throw new Error(\"Division by zero is forbidden\");",
           "  return { result: a / b };"
-        ]
-      ]
+        ],
+      ],
     },
     {
       index: 2,
@@ -60,8 +60,8 @@ info =
           "throw new Error(\"Division by zero is forbidden\");",
           "return a / b;",
           "  const result = divide(10, 2);"
-        ]
-      ]
+        ],
+      ],
     },
     {
       index: 2,
@@ -72,8 +72,8 @@ info =
           "throw new Error(\"Division by zero is forbidden\");",
           "return a / b;",
           " try { const result = divide(10 ,2); if( result.success) { console.log ( \"Result:\", result ); "
-        ]
-      ]
+        ],
+      ],
     },
     {
       index: 2,
@@ -84,8 +84,8 @@ info =
           "throw new Error(\"Division by zero is forbidden\");",
           "return a / b;",
           " try { const result = divide(10 ,2); console.log ( \"Result:\", result.result ); "
-        ]
-      ]
+        ],
+      ],
     },
     {
       index: 2,
@@ -96,8 +96,8 @@ info =
           "throw new Error(\"Division by zero is forbidden\");",
           "return a / b;",
           " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); }"
-        ]
-      ]
+        ],
+      ],
     },
     {
       index: 2,
@@ -108,8 +108,8 @@ info =
           "throw new Error(\"Division by zero is forbidden\");",
           "return a / b;",
           " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch {}"
-        ]
-      ]
+        ],
+      ],
     },
     {
       index: 2,
@@ -120,8 +120,8 @@ info =
           "throw new Error(\"Division by zero is forbidden\");",
           "return a / b;",
           " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (foo) {"
-        ]
-      ]
+        ],
+      ],
     },
     {
       index: 2,
@@ -137,9 +137,9 @@ info =
           "throw new Error(\"Division by zero is forbidden\");",
           "return a / b;",
           " try { const result = divide(10 ,2); console.log ( \"Result:\", result ); } catch (err) { console.error('Error', result );"
-        ]
-      ]
-    }
+        ],
+      ],
+    },
   ],
   expected: [
     'throw new Error("Division by zero is forbidden");',
@@ -164,4 +164,4 @@ info =
 	  err \. message \) ;
       \} \s*`
   ],
-}
+};

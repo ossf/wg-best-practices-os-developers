@@ -7,8 +7,8 @@ info =
       examples: [
         [
           "free(s);\nasprintf(&result, \"pre_%s_post\", s);"
-        ]
-      ]
+        ],
+      ],
     },
     {
       present: String.raw`\s* asprintf \(`,
@@ -17,8 +17,8 @@ info =
       examples: [
         [
           "asprintf(&result, \"\"pre_%s_post\"\", s);"
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: "return",
@@ -30,8 +30,8 @@ info =
       examples: [
         [
           "asprintf(&result, \"pre_%s_post\", s);\nfree(s);\nreturn result"
-        ]
-      ]
+        ],
+      ],
     },
     {
       present: String.raw`\s* return result ; free \s*`,
@@ -39,9 +39,9 @@ info =
       examples: [
         [
           "asprintf(&result, \"pre_%s_post\", s);\nreturn result;\nfree(s);"
-        ]
-      ]
-    }
+        ],
+      ],
+    },
   ],
   expected: [
 `  asprintf(&result, "pre_%s_post", s);
@@ -54,4 +54,4 @@ info =
       free \( s \) ;
       return result ; \s*`
   ],
-}
+};

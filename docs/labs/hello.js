@@ -6,7 +6,7 @@ info =
       text: "Please use the form console.log(...);",
       text_ja: "console.log(...); の形式を使用してください。",
       examples: [ [ "" ], [ "foo" ]
-      ]
+      ],
     },
     {
       present: "Goodbye",
@@ -63,7 +63,7 @@ info =
       text: "Please end this statement with a semicolon. JavaScript does not require a semicolon in this case, but usually when modifying source code you should follow the style of the current code.",
       text_ja: "このステートメントはセミコロンで終了してください。この場合、JavaScript ではセミコロンは必要ありませんが、通常、ソース コードを変更する場合は、現在のコードのスタイルに従う必要があります。",
       examples: [ [ "  console.log(\"Hello, world!\")  " ] ]
-    }
+    },
   ],
   expected: ['console.log("Hello, world!");'],
   correct:
@@ -91,6 +91,6 @@ info =
     [
       String.raw`\s* foo \s+ bar \\string\\ \s*`,
       String.raw`\s*foo\s+bar\s*\\string\\\s*`
-    ]
-  ]
+    ],
+  ],
 };

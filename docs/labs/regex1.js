@@ -6,42 +6,42 @@ info =
       text: "In JavaScript a constant regular expression is surrounded by forward slashes like /PATTERN/. However, for this exercise we only want the text inside the slashes (the pattern itself).",
       examples: [
         [ "/" ]
-      ]
+      ],
     },
     {
       present: "[\"'`]",
       text: "In this exercise we only want the regular expression pattern itself. There is no need to use any kind of quote mark.",
       examples: [
         [ "'" ]
-      ]
+      ],
     },
     {
       absent: String.raw`^\^`,
       text: "For input validation, start with '^' to indicate a full match.",
       examples: [
         [ "(Y|N)" ]
-      ]
+      ],
     },
     {
       present: String.raw`\\[Zz]`,
       text: "The ECMAScript (JavaScript) specification does not support \\Z or \\z.",
       examples: [
         [ "^Y|N\\z" ]
-      ]
+      ],
     },
     {
       absent: String.raw`\$$`,
       text: "For input validation, end with '$' to indicate a full match.",
       examples: [
         [ "^(Y|N)" ]
-      ]
+      ],
     },
     {
       absent: String.raw`[\|\[]`,
       text: "Consider using [YN], to match either a Y or an N.",
       examples: [
         [ "^$" ]
-      ]
+      ],
     },
     {
       present: String.raw`\|`,
@@ -49,14 +49,14 @@ info =
       text: "If you use \"|\" you must parentheses or the precedence will be wrong. For example, \"^A|B$\" accepts anything beginning with A, and it also accepts anything ending with B. That is not what you want.",
       examples: [
         [ "^Y|N$" ]
-      ]
+      ],
     },
     {
       present: " ",
       text: "Spaces normally match spaces in a regex. Do not use them in this case, because a space is not one of the allowed characters.",
       examples: [
         [ "^[YN] $" ]
-      ]
+      ],
     },
     {
       absent: String.raw`^\^`,
@@ -64,7 +64,7 @@ info =
       text: "For input validation, start with '^' to indicate a full match.",
       examples: [
         [ "^[YN]$", "" ]
-      ]
+      ],
     },
     {
       absent: String.raw`\$$`,
@@ -72,7 +72,7 @@ info =
       text: "For input validation, end with '$' to indicate a full match.",
       examples: [
         [ "^[YN]$", "^" ]
-      ]
+      ],
     },
     {
       absent: String.raw`\[A-Z\]`,
@@ -80,7 +80,7 @@ info =
       text: "You can use [A-Z] to match one uppercase Latin letter (A through Z).",
       examples: [
         [ "^[YN]$", "^$" ]
-      ]
+      ],
     },
     {
       present: String.raw`\^\[A-Z\]\*`,
@@ -99,7 +99,7 @@ info =
       text: "You can use [A-Z]+ to match one or more uppercase Latin letters.",
       examples: [
         [ "^[YN]$", "^[A-Z]$" ]
-      ]
+      ],
     },
     {
       present: "True",
@@ -160,7 +160,7 @@ info =
       present: String.raw`\[A-Z\](\*|\+)`,
       index: 4,
       text: "In this case we are only matching one letter, not many of them. Do not use \"*\" or \"+\" after [A-Z]."
-    }
+    },
   ],
   expected: [
     '^[YN]$',
@@ -187,6 +187,6 @@ info =
     [
       "\\s*",
       ""
-    ]
-  ]
-}
+    ],
+  ],
+};

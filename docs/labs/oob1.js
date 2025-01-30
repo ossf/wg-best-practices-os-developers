@@ -20,7 +20,7 @@ info =
     {
       absent: "return",
       text: "Need \"return 0;\" to skip attempts to send a too-long response."
-    }
+    },
   ],
   definitions: [
     {
@@ -84,4 +84,4 @@ info =
          return 0;`
     ],
   ],
-}
+};

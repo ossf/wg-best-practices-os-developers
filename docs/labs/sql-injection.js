@@ -8,8 +8,8 @@ info =
       examples: [
         [
           "search_lastname"
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: String.raw`\?`,
@@ -24,8 +24,8 @@ info =
         [
           "String QueryString =\n  \"select * from authors where lastname = \" + \"?\" + \" ; \";\n",
           ""
-        ]
-      ]
+        ],
+      ],
     },
     {
       absent: String.raw`\s* PreparedStatement\s+pstmt = connection \.
@@ -53,7 +53,7 @@ info =
       absent: String.raw`\s* ResultSet\s+results = pstmt \. executeQuery \( \) \; \s*`,
       index: 1,
       text: "After using `setString` execute the query and place the results in `results`, something like `ResultSet results = pstmt.executeQuery();`"
-    }
+    },
   ],
   expected: [
     String.raw`  String QueryString = "select * from authors where lastname=?";
@@ -76,4 +76,4 @@ info =
     String.raw`\s* pstmt \. setString \( 1 , search_lastname \) \;
       \s* ResultSet\s+results = pstmt \. executeQuery \( \) \; \s*`,
   ],
-}
+};

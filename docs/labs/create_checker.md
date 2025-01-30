@@ -128,10 +128,11 @@ The basic inputs are:
 The number of attempt fields (in the HTML), the number of `expected` values,
 and the number of `correct` values much match.
 
-### JavaScript strings
+### JavaScript notation
 
-The lab data is expressed using JavaScript strings.
-There's more than one way to express a string in JavaScript, each
+The lab data is expressed using JavaScript, primarily as
+JavaScript strings.
+There's more than one way to express a string in JavaScript, and each
 has its advantages:
 
 * "..." - double-quoted string. You don't need to do anything special to
@@ -147,6 +148,15 @@ has its advantages:
   These can go over multiple lines.
   These are often useful for patterns.
   Use ${BACKQUOTE} for &#96; and ${DOLLAR} for $.
+
+JavaScript allows trailing commas, and we encourage using them.
+In other words,
+a list in JavaScript can have the form `[ 'a', 'b', 'c', ]`
+(note the trailing comma after `'c'`).
+Using trailing commas reduces the likelihood of
+a common error: forgetting to add a comma when you add an item to a list.
+Using trailing commas means that when you add a new item (`'d'`) at the end,
+you *already* have the comma ready for use.
 
 ### Expressing correct answer patterns
 
@@ -299,6 +309,8 @@ Here's an explanation of this pattern:
    This that one of the following patterns is allowed:
    `'id'` or `"id"` or <tt>&#96;id&#96</tt> (and nothing else).
    Again, the space after it means 0+ spaces are allowed.
+   WARNING: If you use JavaScript raw strings or templates, you
+   need to escape the backquote (&#96;) character.
 
 5. The `\)` matches a literal close parenthesis,
    while `\.` matches a literal period.

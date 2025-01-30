@@ -14,14 +14,14 @@ info =
       text: "Regexes are normally case-sensitive. Use a lowercase c.",
       examples: [
         [ "C" ]
-      ]
+      ],
     },
     {
       absent: "c",
       text: "If you are searching for \"cat\" you need to look for a \"c\"",
       examples: [
         [ "x" ]
-      ]
+      ],
     },
     {
       absent: "cat",
@@ -46,7 +46,7 @@ info =
       absent: String.raw`B(\+|B\*)`,
       index: 1,
       text: "Use \"B+\" to indicate \"one or more B\". You could also write \"BB*\"."
-    }
+    },
   ],
   expected: [
     'cat',
@@ -69,6 +69,6 @@ info =
     [
       "\\s*",
       ""
-    ]
-  ]
-}
+    ],
+  ],
+};
