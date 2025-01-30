@@ -598,30 +598,10 @@ function processHints(requestedHints) {
     return compiledHints;
 }
 
-/** Load and parse YAML data, return result to be placed in "info".
- * @info: String with YAML (including JSON) data to use
- */
-function processYamlToInfo(configurationInfo) {
-    // This would only allow JSON, but then we don't need to load YAML lib:
-    // let parsedJson = JSON.parse(configurationInfo);
-
-    let parsedData; // Parsed data, *if* we manage to parse it.
-    try {
-        parsedData = jsyaml.load(configurationInfo);
-    }
-    catch (e) {
-        showDebugOutput(
-            `Lab Error: Cannot process YAML of info.\n${e}`);
-        throw e; // Rethrow, so containing browser also gets exception
-    }
-
-    return parsedData;
-}
-
 /** Set global values based on other than "correct" and "expected" values.
  * The correct and expected values may come from elsewhere, but we have to set up the
  * info-based values first, because info can change how those are interpreted.
- * @info: String with YAML (including JSON) data to use
+ * @configurationInfo: Data to use
  */
 function processInfo(configurationInfo) {
     const allowedInfoFields = new Set([
@@ -746,17 +726,12 @@ function runSelftest() {
  * The "info" data includes the regex preprocessing steps, hints, etc.
  */
 function setupInfo() {
-    // We must load info *first*, because it can affect how other things
-    // (like pattern preprocessing) is handled.
+    // We no longer need a *separate* step to load info, we presume the
+    // HTML loaded it.
+    // As a safety check, let's make sure some data *was* loaded.
 
-    // Deprecated approach: Load embedded "info" data in YAML file.
-    // If there is "info" data embedded in the HTML (e.g., hints),
-    // load it & set up global variable hints.
-    let infoElement = document.getElementById('info');
-    if (infoElement) {
-        let configurationYamlText = infoElement.textContent;
-        // Set global variable "info"
-        info = processYamlToInfo(configurationYamlText);
+    if (Object.keys(info).length == 0) {
+        alert(`ERROR: info has no values set. Load/modify your lab .js file.`);
     };
 
     // If an "info2" exists, report any differences between it and "info".
@@ -767,7 +742,6 @@ function setupInfo() {
             alert(`ERROR: info2 exists, but info and info2 differ: ${JSON.stringify(differences)}`);
         }
     };
-
 
     // Set global values *except* correct and expected arrays
     processInfo(info);
@@ -830,8 +804,10 @@ function initPage() {
         attempt.oninput = runCheck;
         current++;
     }
-    for (let hintButton of document.querySelectorAll("button.hintButton")) {
+    for (let hintButton of document.querySelectorAll("button.hintButton")){
         hintButton.addEventListener('click', (e) => { showHint(e); });
+        // Precompute inputIndexes to work around problems that occur
+        // if a user uses a browser's built-in natural language translation.
         // Presumes button's parent is the form
         hintButton.dataset.inputIndexes = findIndexes(hintButton.parentNode);
         if (!hintButton.title) {
