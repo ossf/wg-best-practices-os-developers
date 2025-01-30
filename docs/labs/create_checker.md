@@ -128,7 +128,7 @@ The basic inputs are:
 The number of attempt fields (in the HTML), the number of `expected` values,
 and the number of `correct` values much match.
 
-### JavaScript notation.
+### JavaScript notation
 
 The lab data is expressed using JavaScript, primarily as
 JavaScript strings.
