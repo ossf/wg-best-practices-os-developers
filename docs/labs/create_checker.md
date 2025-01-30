@@ -474,6 +474,12 @@ Regular expressions make it easy to describe many patterns.
 However, it's sometimes useful to give certain sequences names, or
 use the same sequence in different circumstances.
 
+You can use JavaScript to define values, and even use values to compute
+other values. By convention constants are usually in uppercase letters, e.g.,
+`FOO = "bar";`. In a template you can use them using `${...}`, for example,
+`${FOO}`.
+
+If you doh't want to use JavaScript's mechanisms, there is an alternative.
 Checker allows you to define named terms, and then use them in a regular
 expression.
 This is done in the `definitions` section, which is a sequence
