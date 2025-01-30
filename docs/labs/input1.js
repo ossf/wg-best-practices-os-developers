@@ -98,11 +98,11 @@ info =
   successes: [
     [ " query ( 'id' ) . isInt ( {min: 1 , max: 9999 } ) ," ],
     [ " query ( `id` ) . isInt ( {min: 1 , max: 9_999 } ) ,   " ],
-    [ "query ( \"id\" ) . isInt ( {min: 1 , max: 9_999 } ) ," ]
+    [ "query ( \"id\" ) . isInt ( {min: 1 , max: 9_999 } ) ," ],
   ],
   failures: [
     [ " query," ],
     [ "query('id').isint({min: 1, max: 9999})" ],
-    [ "query('id').isInt({min: 1, max: 9999})" ]
+    [ "query('id').isInt({min: 1, max: 9999})" ],
   ],
 };
