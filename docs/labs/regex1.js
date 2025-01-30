@@ -162,6 +162,27 @@ info =
       text: "In this case we are only matching one letter, not many of them. Do not use \"*\" or \"+\" after [A-Z]."
     }
   ],
+  expected: [
+    '^[YN]$',
+    '^[A-Z]+$',
+    '^(true|false)$',
+    String.raw`^[A-Z]+\Z`,
+    String.raw`\A[A-Z]-[0-9]+\z`,
+  ],
+  correct: [
+    String.raw`\^(
+      \[YN\]|\[NY\]|
+      \( (\?\:)? Y\|N \)|
+      \( (\?\:)? N\|Y \) )\$`,
+    String.raw`\^ \[A-Z\](\+|\[A-Z\]\*) \$`,
+    String.raw`\^\( (\?\:)?
+      (true\|false|false\|true)\)\$`,
+    // Python uses \Z
+    String.raw`\^ \[A-Z\] (\+|\[A-Z\]\*) \\Z`,
+    // Ruby uses \A and \z
+    String.raw`\\A \[A-Z\]-(\[0-9\]|\\d)
+      (\+|(\[0-9\]|\\d)\*) \\z`,
+  ],
   preprocessing: [
     [
       "\\s*",
