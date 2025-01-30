@@ -83,16 +83,16 @@ First, modify the code so that
 if the minimum length of a response <tt>(1 + 2 + 16)</tt> is more than
 the length claimed by
 <tt>s->s3->rrec.length</tt>,
-and return 0 without sending a heartbeat,
+then return 0 without sending a heartbeat,
 This will prevent trying to create a heartbeat when there's not enough
 room to create a heartbeat at all.
 <p>
 Second, modify the code so that
 if the minimum length of a response with a payload
-<tt>(1 + 2 + payload + 16</tt>
+<tt>(1 + 2 + payload + 16)</tt>
 is more than the total length for a response given in
 <tt>s->s3->rrec.length</tt> then again
-return 0 without sending a heartbeat,
+return 0 without sending a heartbeat.
 <p>
 This will prevent trying to create a heartbeat when there's not enough
 room to create one and there was a payload to return as a heartbeat.
