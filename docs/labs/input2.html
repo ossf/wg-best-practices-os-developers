@@ -10,30 +10,6 @@
 <script src="input2.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
-<!-- Sample expected answer -->
-<script id="expected0" type="plain/text">
-  query('id').isLength({max:80}).
-      matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),
-</script>
-
-<!-- Full pattern of correct answer.
-     This specific example is a worst case; we're using
-     using regex to check on a regex, requiring a large number of escapes.
-     This pattern is very generous, allowing
-     constructs like \d for digits and {1,} instead of +.  -->
-<script id="correct0" type="plain/text">
-\s* query \( ('id'|"id"|`id`) \)
-     \. isLength \( \{ max: 80 ,? \} \)
-     \. matches \(
-        \/\^
-\[A-Z\](\{2\}|\[A-Z\])
--
-(\[0-9\]|\\d)(\+|\{1,\})
--
-(\[0-9\]|\\d)(\+|\{1,\})\$\/
-    \) , \s*
-</script>
-
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->
