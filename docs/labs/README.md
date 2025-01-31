@@ -15,7 +15,7 @@ how to do that and the labs we'd like created.
 
 Here are some of the labs available, which you can use as examples:
 
-* [hello](hello.html) - simple "Hello, world!" demo. [ja_hello](ja_hello.html)
+* [hello](hello.html) - simple "Hello, world!" demo. ([ja_hello](ja_hello.html), [fr_hello](fr_hello.html))
 * [input1](input1.html) - input validation (simple types)
 * [regex0](regex0.html) - regular expressions (regexes) - introduction
 * [regex1](regex1.html) - regular expressions (regexes)
