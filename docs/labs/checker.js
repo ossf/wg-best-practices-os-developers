@@ -40,7 +40,7 @@ const resources = {
             reset_title: 'Reset initial state (throwing away current attempt).',
             to_be_completed: 'to be completed',
             try_harder: "Try harder! Don't give up so soon. Current time spent (in seconds): {0}",
-        }
+        },
     },
     ja: {
 	translation: {
@@ -57,9 +57,26 @@ const resources = {
             reset_title: '初期状態をリセットします (現在の試行を破棄します)。',
             to_be_completed: '完成する',
             try_harder: '「もっと頑張ってください! すぐに諦めないでください。現在の所要時間 (秒): {0}」',
-        }
+        },
     },
-}
+    fr: {
+	translation: {
+            already_correct: 'La réponse est déjà correcte !',
+            complete: 'COMPLET !',
+            completed: 'Terminé',
+            congrats: 'Félicitations ! Votre réponse est correcte !',
+            congrats_all: 'Excellent travail ! Toutes vos réponses sont correctes !',
+            expecting: "Nous attendions une réponse comme celle-ci :\n{0}",
+            give_up_title: 'Abandonnez et montrez une réponse.',
+            hint_title: 'Fournir un indice compte tenu de la tentative en cours.',
+            no_hints: "Désolé, il n'y a aucun indice pour cet atelier.",
+            no_matching_hint: "Désolé, je ne trouve pas d'indice correspondant à votre tentative.",
+            reset_title: "Réinitialiser l'état initial (abandonner la tentative actuelle).",
+            to_be_completed: 'à compléter',
+            try_harder: "Essayez plus fort ! N'abandonnez pas si tôt. Temps actuel passé (en secondes) : {0}",
+        },
+    },
+};
 
 // Create a "format" method to simplify internationalization.
 // Use as: "Demo {0} result"".format(name);
