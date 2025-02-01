@@ -32,6 +32,14 @@ info =
       ],
     },
     {
+      present: String.raw`\[(cat|act)\]`,
+      text: "The pattern '[cat]' or '[act]' matches one latter, a 'c', an 'a', or 't'. That is not what you want.",
+      examples: [
+        [ "[cat]" ],
+        [ "[act]" ],
+      ],
+    },
+    {
       absent: "cat",
       text: "The pattern \"cat\" is needed to search for \"cat\".",
       examples: [
@@ -43,7 +51,7 @@ info =
       index: 1,
       text: "You need to mention A.",
       examples: [
-        [ "cat", "B" ],
+        [ null, "B" ],
       ],
     },
     {
@@ -51,8 +59,8 @@ info =
       index: 1,
       text: "Use \"A+\" to indicate \"one or more A\". You could also write \"AA*\".",
       examples: [
-        [ "cat", "A" ],
-        [ "cat", "AA" ],
+        [ null, "A" ],
+        [ null, "AA" ],
       ],
     },
     {
@@ -60,7 +68,7 @@ info =
       index: 1,
       text: "You need to mention B.",
       examples: [
-        [ "cat", "A+" ],
+        [ null, "A+" ],
       ],
     },
     {
@@ -69,7 +77,7 @@ info =
       index: 1,
       text: "Use \"B+\" to indicate \"one or more B\". You could also write \"BB*\".",
       examples: [
-        [ "cat", "A+B" ],
+        [ null, "A+B" ],
       ],
     },
   ],
