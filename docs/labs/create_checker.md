@@ -1,6 +1,17 @@
 # Creating labs with checker
 
-These are the instructions for how to create labs with `checker.js`,
+These are the instructions for how to create labs with `checker.js`.
+The main sections are:
+
+* [Introduction](#introduction)
+* [Creating the lab instructions and correct answer](#creating-the-lab-instructions-and-correct-answer)
+* [Creating the lab HTML file](#creating-the-lab-html-file)
+* [Creating the lab JavaScript file](#creating-the-lab-javascript-file)
+  (including [JavaScript notation](#javascript-notation) and
+  [Debugging](#debugging))
+* [Localization](#localization) (aka translation)
+* [Submitting a new or updated lab](#submitting-a-new-or-updated-lab)
+* [Potential future directions](#potential-future-directions)
 
 ## Introduction
 
@@ -149,14 +160,37 @@ has its advantages:
   These are often useful for patterns.
   Use ${BACKQUOTE} for &#96; and ${DOLLAR} for $.
 
-JavaScript allows trailing commas, and we encourage using them.
+A common error is including the terminating character in the middle of
+a string. For example, this is an error: `"A "foo" is metasyntactic variable"`
+because the double-quote before `foo` is interpreted as the end of the string.
+Some correct alternatives would be
+`"A \"foo\" is metasyntactic variable"`
+or
+`'A "foo" is metasyntactic variable'` (either works).
+
+Values (including strings)
+are grouped into two kinds of structures, *arrays* and *objects*:
+
+* array: An ordered sequence of values with this form: `[a, b, c]`
+* object: A set of properties and their values with this form:
+  `{property1: value1, property2: value2, property3: value3}`
+
+A *really* *common* error is
+forgetting to add a comma to separate items
+when you add an item to an array or object.
+For example, if you add `d` to the array earlier, you might have this
+incorrect form: `[a, b, c d]` (ERRONEOUS).
+
+JavaScript allows trailing commas, and we *encourage* using them.
 In other words,
 a list in JavaScript can have the form `[ 'a', 'b', 'c', ]`
-(note the trailing comma after `'c'`).
+(note the trailing extra comma after `'c'`).
 Using trailing commas reduces the likelihood of
-a common error: forgetting to add a comma when you add an item to a list.
-Using trailing commas means that when you add a new item (`'d'`) at the end,
+forgetting to add the comma between values.
+If you using trailing commas, when you add a new item (`'d'`) at the end,
 you *already* have the comma ready for use.
+
+If things don't work out, see the [Debugging](#debugging) section.
 
 ### Expressing correct answer patterns
 
@@ -347,6 +381,9 @@ You can provide these fields for testing:
 * `hints`: If present, this is an array of hints.
   We discuss that now.
 
+We encourage creating many self-tests (`successes`, `failures`, and
+tests for hints).
+
 ### Hints
 
 Hints are expressed in the info `hints` field.
@@ -449,7 +486,11 @@ These tests are automatically checked every time the page is (re)loaded.
 
 Sadly, sometimes things don't work; here are some debugging tips for labs.
 
-If you open a page and the text entries don't have color, there
+Every time you reload the lab HTML, the program will reload and
+all self-tests will be run. If you see no errors, and the text entry
+areas are showing in yellow, a *lot* of things are working well.
+
+If you load a page and the text entries don't have color, there
 was a serious problem loading things.
 Use your browser's *Developer Tools* to show details.
 In Chrome, this is More Tools -> Developer Tools -> (Console Tab).
@@ -463,10 +504,16 @@ Note:
   this reports an attempt to load a file that's hosted on GitHub pages,
   and that page is unlikely to exist on your local machine.
 
+We encourage you to add many self-tests (e.g., `successes`, `failures`, and
+tests for hints) when creating labs.
+
 You can set the optional info "debug" field to true.
 This will display information, particularly on its inputs.
 This can help you track down a problems if you think your
 inputs are being interpreted in a way different than you expect.
+
+See the [JavaScript notation](#javascript-notation) section on how to write
+data in JavaScript.
 
 ### Advanced use: Definitions
 
@@ -628,6 +675,10 @@ See [ja_hello](ja_hello.html) to see its Japanese translation.
 The [list of labs](https://best.openssf.org/labs/) provides more information.
 WARNING: We aren't currently using all labs we have.
 Make sure you focus on the labs in use first :-).
+
+See the [JavaScript notation](#javascript-notation) section on how to write
+data, and
+the [Debugging](#debugging) section to see how to understand and fix problems.
 
 ### No longer using embedded data or YAML
 
