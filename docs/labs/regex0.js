@@ -1,51 +1,76 @@
 info =
 {
+  // Note: Regular expressions are preprocessed specially in this lab.
+  // We simply remove whitespace in them.
   hints: [
     {
       present: "^$",
-      text: "You need to enter a pattern."
+      text: "You need to enter a pattern.",
+      examples: [
+        [ "" ]
+      ],
     },
     {
       present: String.raw`^\^`,
-      text: "We are looking for 'cat' anywhere, not just the beginning, in this exercise."
+      text: "We are looking for 'cat' anywhere, not just the beginning, in this exercise.",
+      examples: [
+        [ "^cat" ],
+      ],
     },
     {
       present: "C",
       text: "Regexes are normally case-sensitive. Use a lowercase c.",
       examples: [
-        [ "C" ]
+        [ "C" ],
       ],
     },
     {
       absent: "c",
       text: "If you are searching for \"cat\" you need to look for a \"c\"",
       examples: [
-        [ "x" ]
+        [ "x" ],
       ],
     },
     {
       absent: "cat",
-      text: "The pattern \"cat\" is needed to search for \"cat\"."
+      text: "The pattern \"cat\" is needed to search for \"cat\".",
+      examples: [
+        [ "c" ],
+      ],
     },
     {
       absent: "A",
       index: 1,
-      text: "You need to mention A."
-    },
-    {
-      absent: "B",
-      index: 1,
-      text: "You need to mention B."
+      text: "You need to mention A.",
+      examples: [
+        [ "cat", "B" ],
+      ],
     },
     {
       absent: String.raw`A(\+|A\*)`,
       index: 1,
-      text: "Use \"A+\" to indicate \"one or more A\". You could also write \"AA*\"."
+      text: "Use \"A+\" to indicate \"one or more A\". You could also write \"AA*\".",
+      examples: [
+        [ "cat", "A" ],
+        [ "cat", "AA" ],
+      ],
+    },
+    {
+      absent: "B",
+      index: 1,
+      text: "You need to mention B.",
+      examples: [
+        [ "cat", "A+" ],
+      ],
     },
     {
       absent: String.raw`B(\+|B\*)`,
+      present: 'A',
       index: 1,
-      text: "Use \"B+\" to indicate \"one or more B\". You could also write \"BB*\"."
+      text: "Use \"B+\" to indicate \"one or more B\". You could also write \"BB*\".",
+      examples: [
+        [ "cat", "A+B" ],
+      ],
     },
   ],
   expected: [
@@ -68,7 +93,7 @@ info =
   preprocessing: [
     [
       "\\s*",
-      ""
+      "",
     ],
   ],
 };
