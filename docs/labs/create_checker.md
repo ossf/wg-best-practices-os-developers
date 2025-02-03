@@ -442,8 +442,8 @@ hints: [
     absent: ", $",
     text: "This is a parameter, it must end with a comma.",
     examples: [
-      [ "  " ]
-    ]
+      [ "  " ],
+    ],
   },
   {
     present: "(isint|Isint|IsInt|ISINT)",
@@ -451,9 +451,9 @@ hints: [
     examples: [
       [ "  query('id').isint()," ],
       [ "  query('id').IsInt()," ],
-    ]
-  }
-]
+    ],
+  },
+],
 ~~~~
 
 The first hint triggers when the user attempt does *not* contain the
@@ -482,12 +482,18 @@ Every time you reload the lab HTML, the program will reload and
 all self-tests will be run. If you see no errors, and the text entry
 areas are showing in yellow, a *lot* of things are working well.
 
-Please create tests! You can create test cases for attempts
-(`successes` should pass, `failures` should fail), and test cases
-to ensure the hints work correctly.
+Please create tests! You should create test cases for full attempts
+(`successes` should pass, `failures` should fail) and test cases
+for hints (`examples`).
+
 Hints are checked in order - it's possible to create a hint
 that won't trigger because something earlier would always match.
-These tests are automatically checked every time the page is (re)loaded.
+All tests are automatically re-run every time the page is (re)loaded.
+
+In a hint, `examples` is an array of examples that should trigger the hint.
+Each example is an array of answers. If you use an index, the other index
+values aren't considered. We suggest using `null` for array entries
+that aren't relevant for the test.
 
 The script `mass-test` for Linux or MacOS will automatically open
 every lab in your default browser's current window.

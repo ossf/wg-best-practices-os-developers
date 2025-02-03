@@ -2,9 +2,11 @@
 
 # Mass open all lab files. Do this by opening every lab in a web browser,
 # which will invoke each lab's built-in tests.
+# Each file should have a yellow input field (so the JavaScript ran)
+# and *not* show a test failure (so all embedded tests passed).
 
 # Create a list of labs
-grep -o '[A-Za-z0-9_-]*\.html' README.md | sort |uniq > ,1
+grep -l 'src=.*checker.js' [a-z]*.html > ,1
 
 OPENER=xdg-open
 if ! which "$OPENER" >/dev/null; then
