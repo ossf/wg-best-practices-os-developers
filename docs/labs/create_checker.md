@@ -474,11 +474,19 @@ As always, it's best to try to
 make smaller changes, test them, and once they work
 check them in. That way you won't need to debug a long complicated
 set of changes.
+See the next section on [testing](#testing).
+
+### Testing
+
+Every time you reload the lab HTML, the program will reload and
+all self-tests will be run. If you see no errors, and the text entry
+areas are showing in yellow, a *lot* of things are working well.
 
 Please create tests! You should create test cases for full attempts
 (`successes` should pass, `failures` should fail) and test cases
 for hints (`examples`).
-Remember, hints are checked in order - it's possible to create a hint
+
+Hints are checked in order - it's possible to create a hint
 that won't trigger because something earlier would always match.
 All tests are automatically re-run every time the page is (re)loaded.
 
@@ -487,13 +495,15 @@ Each example is an array of answers. If you use an index, the other index
 values aren't considered. We suggest using `null` for array entries
 that aren't relevant for the test.
 
+The script `mass-test` for Linux or MacOS will automatically open
+every lab in your default browser's current window.
+This will rerun all our lab automated tests.
+If every lab has a yellow text entry area, and doesn't show test failure
+alerts, then all the labs pass the test.
+
 ### Debugging
 
 Sadly, sometimes things don't work; here are some debugging tips for labs.
-
-Every time you reload the lab HTML, the program will reload and
-all self-tests will be run. If you see no errors, and the text entry
-areas are showing in yellow, a *lot* of things are working well.
 
 If you load a page and the text entries don't have color, there
 was a serious problem loading things.
@@ -501,6 +511,13 @@ Use your browser's *Developer Tools* to show details.
 In Chrome, this is More Tools -> Developer Tools -> (Console Tab).
 In Firefox, this is More Tools -> Web Developer Tools -> (Console Tab).
 You may need to further open specifics to see them.
+Often the problem is that (1) a line just before added material needs a
+trailing comma, or (2) a string was not properly closed (e.g.,
+it is double-quoted but includes double-quote that was not properly escaped).
+
+If the JavaScript loads successfully, but then a self-test fails,
+you'll see alert box(es) telling you which tests failed.
+See [testing](#testing).
 
 Note:
 
