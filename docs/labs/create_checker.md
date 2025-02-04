@@ -11,6 +11,7 @@ The main sections are:
   [Debugging](#debugging))
 * [Localization](#localization) (aka translation)
 * [Submitting a new or updated lab](#submitting-a-new-or-updated-lab)
+* [Academic use](#academic-use)
 * [Potential future directions](#potential-future-directions)
 
 ## Introduction
@@ -750,6 +751,29 @@ To submit new or updated labs, create a pull request on the
 under the `docs/labs` directory.
 Simply fork the repository, add your proposed lab in the `docs/labs` directory,
 and create a pull request.
+
+## Academic use
+
+These labs were created for LFD121. However, they can (and are) also used
+for other situations, such as for academic use.
+We welcome those other uses! This does raise the issue of countering cheating.
+
+We can't prevent all cheating. The answers can be shared among students,
+and answers are visible to those who look at its source.
+In addition, some learners may be unable to figure out the answer, so we
+provide a "give up" button.
+
+However, cheating is fundamentally a lazy approach, and we take steps to
+address this.
+The "give up" button has a timer, so people can't load the page and
+*immediately* give up to see the answer.
+When a lab is completed, that is clearly indicated, and we also add
+a random unique value to the bottom of the completed lab.
+That random value also includes `(GA)` if the learner gave up in this session.
+If two learners have the same random value, then one copied directly
+from the other.
+This doesn't prevent all cheating, but it does provide a way to detect
+some kinds of cheating.
 
 ## Potential future directions
 
