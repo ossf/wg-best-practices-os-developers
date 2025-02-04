@@ -769,11 +769,13 @@ The "give up" button has a timer, so people can't load the page and
 *immediately* give up to see the answer.
 When a lab is completed, that is clearly indicated at the bottom.
 In English this stamp has the word "Completed" at the bottom.
-After that, it has a datetime of the completion time, followed
+After that, it has a precise datetime of the completion time, followed
 by a random unique value (a UUID).
-That is followed by `(GA)` if the learner gave up in this session.
-If two learners have the same random value, then a single lab
-session being claimed by more than one learner (thus, there was cheating).
+The random value is followed by `(GA)` if the learner gave up in this session.
+If two learners submit labs with the same datetime and random value,
+then a single lab
+session is being claimed by more than one learner (in other words,
+there was cheating).
 This doesn't detect all cheating, but it does provide a way to detect
 some kinds of cheating.
 
