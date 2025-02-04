@@ -619,33 +619,36 @@ requested, and the second is post-processed pattern that should result.
 There's no need for a "failure" test suite here, because we
 demand exact results for every test case.
 
-Here is an example (expressed in YAML format):
+Here is an example:
 
-~~~~yaml
-preprocessing:
-  -
-    - |-
-        [\n\r]+
-    - ""
-  -
-    - |-
-        [ \t]+\\s\+[ \t]+
-    - "\\s+"
-  -
-    - |-
-        (\\s\*)?[ \t]+(\\s\*)?
-    - "\\s*"
-preprocessingTests:
-  -
-    - |-
-        \s* console \. log \( (["'`])Hello,\x20world!\1 \) ; \s*
-    - |-
-        \s*console\s*\.\s*log\s*\(\s*(["'`])Hello,\x20world!\1\s*\)\s*;\s*
-  -
-    - |-
-        \s* foo \s+ bar \\string\\ \s*
-    - |-
-        \s*foo\s+bar\s*\\string\\\s*
+~~~~javascript
+  preprocessing: [
+    [
+      // Ignore newlines
+      String.raw`[\n\r]+`,
+      ""
+    ],
+    [
+      // Convert \s+ surrounded by tabs/spaces as \s+ (optimization)
+      String.raw`[ \t]+\\s\+[ \t]+`,
+      String.raw`\s+`
+    ],
+    [
+      // Convert 1+ spaces/tabs, optionally surrounded by \s*, as \s*
+      String.raw`(\\s\*)?[ \t]+(\\s\*)?`,
+      String.raw`\s*`
+    ]
+  ],
+  preprocessingTests: [
+    [
+      String.raw`\s* console \. log \( (["'${BACKQUOTE}])Hello,\x20world!\1 \) ; \s*`,
+      String.raw`\s*console\s*\.\s*log\s*\(\s*(["'${BACKQUOTE}])Hello,\x20world!\1\s*\)\s*;\s*`
+    ],
+    [
+      String.raw`\s* foo \s+ bar \\string\\ \s*`,
+      String.raw`\s*foo\s+bar\s*\\string\\\s*`
+    ]
+  ]
 ~~~~
 
 Here is an explanation of each of these preprocessing elements
