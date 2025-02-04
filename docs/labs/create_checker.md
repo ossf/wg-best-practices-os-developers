@@ -763,21 +763,24 @@ and answers are visible to those who look at its source.
 In addition, some learners may be unable to figure out the answer, so we
 provide a "give up" button.
 
-However, cheating is fundamentally a lazy approach, and we take steps to
+However, cheating is fundamentally a lazy approach, and we take some steps to
 address this.
 The "give up" button has a timer, so people can't load the page and
 *immediately* give up to see the answer.
 When a lab is completed, that is clearly indicated at the bottom.
 In English this stamp has the word "Completed" at the bottom.
 After that, it has a precise datetime of the completion time, followed
-by a random unique value (a UUID).
-The random value is followed by `(GA)` if the learner gave up in this session.
+by a random unique value (a UUID), and a hash value computed from the
+datetime stamp and random value.
+All of this is followed by `(GA)` if the learner gave up in this session.
 If two learners submit labs with the same datetime and random value,
 then a single lab
 session is being claimed by more than one learner (in other words,
 there was cheating).
-This doesn't detect all cheating, but it does provide a way to detect
-some kinds of cheating.
+Changing the datetime or UUID, without fixing the hash, can also be used
+to detect an invalid lab submission.
+This doesn't detect all cheating, but these mechanisms
+do provide a way to detect some kinds of cheating.
 
 ## Potential future directions
 
