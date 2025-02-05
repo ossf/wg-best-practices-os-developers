@@ -1,3 +1,6 @@
+// Copyright (C) Open Source Security Foundation (OpenSSF) and its contributors.
+// SPDX-License-Identifier: MIT
+
 info =
 {
   // Note: Regular expressions are preprocessed specially in this lab.
