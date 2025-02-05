@@ -3,12 +3,12 @@ info =
   hints: [
     {
       absent: String.raw`^[\n\r]*\x20\x20[^\x20]`,
-      text: "Python is an indentation-sensitive language, so your indentation must be consistent. In this case, your line in the first section must start with exactly 2 spaces followed by a non-space.\n"
+      text: "Python is an indentation-sensitive language, so your indentation must be consistent. In this case, your line in the first section must start with exactly 2 spaces followed by a non-space.\n",
     },
     {
       absent: String.raw`^\x20\x20[^\x20]`,
       index: 1,
-      text: "Python is an indentation-sensitive language, so your indentation must be consistent. In this case, your line in the second section must start with exactly 2 spaces followed by a non-space.\n"
+      text: "Python is an indentation-sensitive language, so your indentation must be consistent. In this case, your line in the second section must start with exactly 2 spaces followed by a non-space.\n",
     },
     {
       absent: String.raw`re \. sub`,
@@ -43,11 +43,11 @@ info =
     },
     {
       absent: String.raw`re \. sub \( r`,
-      text: "Python re.sub uses strings to indicate a regex pattern. By convention these strings are usually 'raw' strings, so they have the form `r'PATTERN'`. We would recommend that you use raw strings, in the pattern `re.sub(r'...', ...)` even though raw strings don't make this *specific* example easier.\n"
+      text: "Python re.sub uses strings to indicate a regex pattern. By convention these strings are usually 'raw' strings, so they have the form `r'PATTERN'`. We would recommend that you use raw strings, in the pattern `re.sub(r'...', ...)` even though raw strings don't make this *specific* example easier.\n",
     },
     {
       absent: String.raw`re \. sub \( r['"]`,
-      text: "Python re.sub uses strings to indicate a regex pattern. By convention these strings usually 'raw' strings, so they have the form `r'PATTERN'`. You have the \"r\" but not the following single or double quote character.\n"
+      text: "Python re.sub uses strings to indicate a regex pattern. By convention these strings usually 'raw' strings, so they have the form `r'PATTERN'`. You have the \"r\" but not the following single or double quote character.\n",
     },
     {
       present: String.raw`re \. sub \( r?['"]\(`,
@@ -102,7 +102,7 @@ info =
     {
       absent: "subprocess.run",
       index: 1,
-      text: "Use subprocess.run"
+      text: "Use subprocess.run",
     },
     {
       present: "shell = [Tt]rue",
@@ -162,12 +162,12 @@ info =
     {
       present: String.raw`dir_to_list\"`,
       index: 1,
-      text: "You have a double-quote after `dir_to_list`; you don't want that."
+      text: "You have a double-quote after `dir_to_list`; you don't want that.",
     },
     {
       present: String.raw`clean_dir\"`,
       index: 1,
-      text: "You have a double-quote after `clean_dir`; you don't want that."
+      text: "You have a double-quote after `clean_dir`; you don't want that.",
     },
     {
       present: "dir_to_list",
