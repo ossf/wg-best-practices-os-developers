@@ -576,6 +576,11 @@ const GIVE_UP_DELAY_TIME = 60;
 // not-1 to 1, which is unlikely. However,
 // for some languages like Arabic, Hebrew, and Russian it's more complicated.
 // See: https://localizely.com/language-plural-rules/
+// If we needed to, we could use JavaScript's Intl.PluralRules
+// which is widely supported and addresses this (unless you use IE),
+// but at this point there's no evidence we need it. See:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules
+// https://caniuse.com/mdn-javascript_builtins_intl_pluralrules
 const HINT_DELAY_TIME = 15;
 
 /** return time (in seconds) since start and/or last hint */
