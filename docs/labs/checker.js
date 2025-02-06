@@ -89,17 +89,34 @@ const resources = {
     },
 };
 
-// Create a "format" method to simplify internationalization.
-// Use as: "Demo {0} result"".format(name);
+/** Provide an "assert" (JavaScript doesn't have one built-in).
+ * This one uses "Error" to provide a stack trace.
+ */
+function myAssert(condition, message) {
+    if (!condition) {
+        throw new Error(message || "Assertion failed");
+    }
+}
+
+// Format a string, replacing {NUM} with item NUM.
+// We use this function to simplify internationalization.
+// Use as: myFormat("Demo {0} result", ["Name"])
 // https://www.geeksforgeeks.org/what-are-the-equivalent-of-printf-string-format-in-javascript/
-String.prototype.format = function () {
-    const args = arguments;
-    return this.replace(/{(\d+)}/g, function (match, number) {
-        return typeof args[number] != 'undefined'
-            ? args[number]
+// This is *not* set as a property on String; if we did that,
+// we'd modify the global namespace, possibly messing up something
+// already there.
+function myFormat(s, replacements) {
+    return s.replace(/{(\d+)}/g, function (match, number) {
+        return typeof replacements[number] != 'undefined'
+            ? replacements[number]
             : match;
     });
 };
+
+// Run some built-in tests on startup, to ensure all is okay.
+myAssert(myFormat("Hello", []) === "Hello");
+myAssert(myFormat("Hello {0}, are you {1}?", ["friend", "well"]) ===
+       "Hello friend, are you well?");
 
 // Retrieve translation for given key from resources.
 function t(key) {
@@ -370,8 +387,13 @@ const attemptIdPattern = /^attempt(\d+)$/;
 
 /*
  * Given Node @form in document, return array of indexes of input/textareas
+ * that are relevant for that form.
  * The values retrieved are *input* field indexes (`inputIndexes`),
  * starting at 0 for the first user input.
+ *
+ * When there's only one form, this is simply the array of all valid indexes.
+ * However, a page can have multiple forms; in that case this returns
+ * only the indexes valid for this specific form.
  *
  * Note: At one time we ran this calculation when a user pressed
  * a button. However, if you *translate* the page using Chrome's translator,
@@ -379,6 +401,9 @@ const attemptIdPattern = /^attempt(\d+)$/;
  * To work around this,
  * it's better to calculate all of these values on page load and store it
  * (e.g., as dataset.inputIndexes values on the buttons).
+ * If you run this early, users can use the web browser's built-in translator,
+ * see the translated HTML, and have the lab work (though the lab
+ * responses won't be translated).
  */
 function findIndexes(form) {
     try {
@@ -556,7 +581,7 @@ function showAnswer(e) {
     if (!user_solved) {
         user_gave_up = true;
     }
-    alert(t('expecting').format(goodAnswer));
+    alert(myFormat(t('expecting'), [goodAnswer]));
 }
 
 // "Give up" only shows the answer after this many seconds have elapsed
@@ -594,7 +619,7 @@ function elapsedTimeSinceClue() {
 function maybeShowAnswer(e) {
     let elapsedTime = elapsedTimeSinceClue();
     if (elapsedTime < GIVE_UP_DELAY_TIME) {
-        alert(t('try_harder_give_up').format(elapsedTime.toString()));
+        alert(myFormat(t('try_harder_give_up'), [elapsedTime.toString()]));
     } else {
         showAnswer(e);
     }
@@ -607,7 +632,7 @@ function maybeShowHint(e) {
     // people can re-see a previously-seen hint as long as they
     // have not changed anything since seeing the hint.
     if (changedInputSinceHint && (elapsedTime < HINT_DELAY_TIME)) {
-        alert(t('try_harder_hint').format(HINT_DELAY_TIME.toString()));
+        alert(myFormat(t('try_harder_hint'), [HINT_DELAY_TIME.toString()]));
     } else {
         lastHintTime = Date.now(); // Set new delay time start
         changedInputSinceHint = false; // Allow redisplay of hint
