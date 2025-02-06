@@ -16,7 +16,14 @@ let page_definitions = {}; // Definitions used when preprocessing regexes
 let user_solved = false; // True if user has *ever* solved it on this load
 let user_gave_up = false; // True if user ever gave up before user solved it
 
-let startTime = Date.now();
+let startTime = Date.now(); // Time this lab started.
+let lastHintTime = null; // Last time we showed a hint.
+
+// Has the input changed since we showed a hint?
+// We track this so people can re-see a hint they've already seen.
+// This initial value of "true" forces users to wait a delay time before
+// they are allowed to see their first hint on an unchanged page.
+let changedInputSinceHint = true;
 
 let BACKQUOTE = "`"; // Make it easy to use `${BACKQUOTE}`
 let DOLLAR = "$"; // Make it easy to use `${DOLLAR}`
@@ -39,7 +46,8 @@ const resources = {
             no_matching_hint: 'Sorry, I cannot find a hint that matches your attempt.',
             reset_title: 'Reset initial state (throwing away current attempt).',
             to_be_completed: 'to be completed',
-            try_harder: "Try harder! Don't give up so soon. Current time spent (in seconds): {0}",
+            try_harder_give_up: "Try harder! Don't give up so soon. Current time spent since start or last hint (in seconds): {0}",
+            try_harder_hint: "Try harder! Don't ask for a hint so soon, wait at least {0} seconds.",
         },
     },
     ja: {
@@ -56,7 +64,8 @@ const resources = {
             no_matching_hint: '申し訳ありませんが、あなたの試みに一致するヒントが見つかりません。',
             reset_title: '初期状態をリセットします (現在の試行を破棄します)。',
             to_be_completed: '完成する',
-            try_harder: '「もっと頑張ってください! すぐに諦めないでください。現在の所要時間 (秒): {0}」',
+            try_harder_give_up: 'もっと頑張れ！そんなにすぐに諦めないでください。開始または最後のヒントから経過した現在の時間 (秒単位): {0}',
+            try_harder_hint: "もっと頑張れ！すぐにヒントを求めず、少なくとも {0} 秒待ちます。",
         },
     },
     fr: {
@@ -73,7 +82,9 @@ const resources = {
             no_matching_hint: "Désolé, je ne trouve pas d'indice correspondant à votre tentative.",
             reset_title: "Réinitialiser l'état initial (abandonner la tentative actuelle).",
             to_be_completed: 'à compléter',
-            try_harder: "Essayez plus fort ! N'abandonnez pas si tôt. Temps actuel passé (en secondes) : {0}",
+            try_harder_give_up: "Essayez plus fort ! N'abandonnez pas si tôt. Temps actuel passé (en secondes) : {0}",
+            try_harder_give_up: "Essayez plus fort ! N'abandonnez pas si tôt. Temps actuel passé depuis le début ou le dernier indice (en secondes) : {0}",
+            try_harder_hint: "Essayez plus fort ! Ne demandez pas d'indice si tôt, attendez au moins {0} secondes.",
         },
     },
 };
@@ -454,6 +465,10 @@ function makeStamp() {
  * Then set "grade" in document depending on that answer.
  */
 function runCheck() {
+    // This is only called when *something* has changed in the input.
+    // From now on, enforce hint delays.
+    changedInputSinceHint = true;
+
     let attempt = retrieveAttempt();
 
     // Calculate grade and set in document.
@@ -533,6 +548,7 @@ function showHint(e) {
     }
 }
 
+/** Show the answer to the user */
 function showAnswer(e) {
     // Get indexes in *this* form.
     let formIndexes = JSON.parse(e.target.dataset.inputIndexes);
@@ -543,16 +559,59 @@ function showAnswer(e) {
     alert(t('expecting').format(goodAnswer));
 }
 
-// "Give up" only shows the answer after this many seconds have elapsed.
-const MIN_DELAY_TIME = 60;
+// "Give up" only shows the answer after this many seconds have elapsed
+// since a clue (lab start or a hint given).
+const GIVE_UP_DELAY_TIME = 60;
 
-function maybeShowAnswer(e) {
+// "Hint" only shows hint after this many seconds have elapsed
+// since a clue (lab start or a hint given).
+// WARNING: If you change this value, you *may* need to adjust some of
+// the translated texts for try_harder_hint.
+// Pluralization rules vary depending on the natural language,
+// yet we want to tell the user the exact delay value for hints.
+// English, French, German, and some others have two forms, "one" and "other"
+// (aka "singular" and "plural" forms of words).
+// For Chinese and Japanese it doesn't matter (there's no difference).
+// In those cases, you only need to change translations if you change between
+// not-1 to 1, which is unlikely. However,
+// for some languages like Arabic, Hebrew, and Russian it's more complicated.
+// See: https://localizely.com/language-plural-rules/
+// If we needed to, we could use JavaScript's Intl.PluralRules
+// which is widely supported and addresses this (unless you use IE),
+// but at this point there's no evidence we need it. See:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules
+// https://caniuse.com/mdn-javascript_builtins_intl_pluralrules
+const HINT_DELAY_TIME = 15;
+
+/** return time (in seconds) since start and/or last hint */
+function elapsedTimeSinceClue() {
     let currentTime = Date.now();
-    let elapsedTime = (currentTime - startTime) / 1000; // in seconds
-    if (elapsedTime < MIN_DELAY_TIME) {
-        alert(t('try_harder').format(elapsedTime.toString()));
+    let lastTime = (lastHintTime == null) ? startTime : lastHintTime;
+    return ((currentTime - lastTime) / 1000); // in seconds
+}
+
+/** Maybe show the answer to the user (depending on timer). */
+function maybeShowAnswer(e) {
+    let elapsedTime = elapsedTimeSinceClue();
+    if (elapsedTime < GIVE_UP_DELAY_TIME) {
+        alert(t('try_harder_give_up').format(elapsedTime.toString()));
     } else {
         showAnswer(e);
+    }
+}
+
+/** Maybe show a hint to the user (depending on timer). */
+function maybeShowHint(e) {
+    let elapsedTime = elapsedTimeSinceClue();
+    // Only enforce delay timer if changedInputSinceHint is true. That way,
+    // people can re-see a previously-seen hint as long as they
+    // have not changed anything since seeing the hint.
+    if (changedInputSinceHint && (elapsedTime < HINT_DELAY_TIME)) {
+        alert(t('try_harder_hint').format(HINT_DELAY_TIME.toString()));
+    } else {
+        lastHintTime = Date.now(); // Set new delay time start
+        changedInputSinceHint = false; // Allow redisplay of hint
+        showHint(e);
     }
 }
 
@@ -822,7 +881,7 @@ function initPage() {
         current++;
     }
     for (let hintButton of document.querySelectorAll("button.hintButton")){
-        hintButton.addEventListener('click', (e) => { showHint(e); });
+        hintButton.addEventListener('click', (e) => { maybeShowHint(e); });
         // Precompute inputIndexes to work around problems that occur
         // if a user uses a browser's built-in natural language translation.
         // Presumes button's parent is the form
