@@ -47,7 +47,7 @@ const resources = {
             reset_title: 'Reset initial state (throwing away current attempt).',
             to_be_completed: 'to be completed',
             try_harder_give_up: "Try harder! Don't give up so soon. Current time spent since start or last hint (in seconds): {0}",
-            try_harder_hint: "Try harder! Don't ask for a hint so soon, wait at least 15 seconds.",
+            try_harder_hint: "Try harder! Don't ask for a hint so soon, wait at least {0} seconds.",
         },
     },
     ja: {
@@ -65,7 +65,7 @@ const resources = {
             reset_title: '初期状態をリセットします (現在の試行を破棄します)。',
             to_be_completed: '完成する',
             try_harder_give_up: 'もっと頑張れ！そんなにすぐに諦めないでください。開始または最後のヒントから経過した現在の時間 (秒単位): {0}',
-            try_harder_hint: "もっと頑張れ！すぐにヒントを求めず、少なくとも 15 秒待ちます。",
+            try_harder_hint: "もっと頑張れ！すぐにヒントを求めず、少なくとも {0} 秒待ちます。",
         },
     },
     fr: {
@@ -84,7 +84,7 @@ const resources = {
             to_be_completed: 'à compléter',
             try_harder_give_up: "Essayez plus fort ! N'abandonnez pas si tôt. Temps actuel passé (en secondes) : {0}",
             try_harder_give_up: "Essayez plus fort ! N'abandonnez pas si tôt. Temps actuel passé depuis le début ou le dernier indice (en secondes) : {0}",
-            try_harder_hint: "Essayez plus fort ! Ne demandez pas d'indice si tôt, attendez au moins 15 secondes.",
+            try_harder_hint: "Essayez plus fort ! Ne demandez pas d'indice si tôt, attendez au moins {0} secondes.",
         },
     },
 };
@@ -565,9 +565,17 @@ const GIVE_UP_DELAY_TIME = 60;
 
 // "Hint" only shows hint after this many seconds have elapsed
 // since a clue (lab start or a hint given).
-// Adjust text try_harder_hint if you change this. The text includes the
-// number because pluralization rules vary depending on the natural language,
-// and we want to tell the user the delay for hints.
+// WARNING: If you change this value, you *may* need to adjust some of
+// the translated texts for try_harder_hint.
+// Pluralization rules vary depending on the natural language,
+// yet we want to tell the user the exact delay value for hints.
+// English, French, German, and some others have two forms, "one" and "other"
+// (aka "singular" and "plural" forms of words).
+// For Chinese and Japanese it doesn't matter (there's no difference).
+// In those cases, you only need to change translations if you change between
+// not-1 to 1, which is unlikely. However,
+// for some languages like Arabic, Hebrew, and Russian it's more complicated.
+// See: https://localizely.com/language-plural-rules/
 const HINT_DELAY_TIME = 15;
 
 /** return time (in seconds) since start and/or last hint */
@@ -594,8 +602,7 @@ function maybeShowHint(e) {
     // people can re-see a previously-seen hint as long as they
     // have not changed anything since seeing the hint.
     if (changedInputSinceHint && (elapsedTime < HINT_DELAY_TIME)) {
-        // Provide elapsed time (in seconds) in case we want to use it.
-        alert(t('try_harder_hint').format(elapsedTime.toString()));
+        alert(t('try_harder_hint').format(HINT_DELAY_TIME.toString()));
     } else {
         lastHintTime = Date.now(); // Set new delay time start
         changedInputSinceHint = false; // Allow redisplay of hint
