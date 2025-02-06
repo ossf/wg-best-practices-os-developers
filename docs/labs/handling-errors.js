@@ -1,3 +1,6 @@
+// Copyright (C) Open Source Security Foundation (OpenSSF) and its contributors.
+// SPDX-License-Identifier: MIT
+
 info =
 {
   hints: [

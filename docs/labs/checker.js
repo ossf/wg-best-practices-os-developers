@@ -1,6 +1,6 @@
 // lab_checker - check and report if lab attempt is correct
 
-// Copyright (C) Open Source Security Foundation (OpenSSF)
+// Copyright (C) Open Source Security Foundation (OpenSSF) and its contributors.
 // SPDX-License-Identifier: MIT
 
 // See create_labs.md for more information.
