@@ -30,31 +30,31 @@ info =
     },
     {
       term: "CONDALL",
-      value: "(COND0 && (COND1 && COND2|COND2 && COND1))"
+      value: "(COND0 && (COND1 && COND2|COND2 && COND1))",
     },
   ],
   hints: [
     {
       absent: "^ const data =\n",
-      text: "The first section should begin with `const data =`"
+      text: "The first section should begin with `const data =`",
     },
     {
       present: "json",
-      text: "the JSON built-in global object is witten in uppercase."
+      text: "the JSON built-in global object is witten in uppercase.",
     },
     {
       absent: String.raw`JSON \. parse
 `,
-      text: "Make a call to `JSON.parse` with the data retrieved, e.g., `JSON.parse(base64Decoded)` should be stored in `data`."
+      text: "Make a call to `JSON.parse` with the data retrieved, e.g., `JSON.parse(base64Decoded)` should be stored in `data`.",
     },
     {
       present: String.raw`\+
 `,
-      text: "You should not have any concatenation (`+`) in the first section."
+      text: "You should not have any concatenation (`+`) in the first section.",
     },
     {
       absent: "; $\n",
-      text: "JavaScript does not require semicolons at the end of a statement, but since the other statements terminate with semicolons, you should also terminate your statement with a semicolon to be consistent."
+      text: "JavaScript does not require semicolons at the end of a statement, but since the other statements terminate with semicolons, you should also terminate your statement with a semicolon to be consistent.",
     },
     {
       absent: String.raw`^ if \(`,
@@ -71,28 +71,28 @@ info =
       absent: String.raw`data \. username
 `,
       index: 1,
-      text: "Check if the data object has a property called username. You can do this by referencing data.username."
+      text: "Check if the data object has a property called username. You can do this by referencing data.username.",
     },
     {
       absent: String.raw`\&\&`,
       index: 1,
-      text: "To combine multiple conditions in JavaScript use &&. This operator means 'and', so both conditions must be true for the entire statement to pass."
+      text: "To combine multiple conditions in JavaScript use &&. This operator means 'and', so both conditions must be true for the entire statement to pass.",
     },
     {
       absent: "typeof",
       index: 1,
-      text: "Use typeof to check the type of the operand's value. You should have `typeof data.username == 'string'` or similar."
+      text: "Use typeof to check the type of the operand's value. You should have `typeof data.username == 'string'` or similar.",
     },
     {
       present: String.raw`typeof data \. username == 'String'
 `,
       index: 1,
-      text: "When using typeof, JavaScript expects \"string\" all lowercase."
+      text: "When using typeof, JavaScript expects \"string\" all lowercase.",
     },
     {
       absent: "length",
       index: 1,
-      text: "check if the length of the string is smaller than 20 characters. Use the expression `data.username.length &lt; 20` to determine this."
+      text: "check if the length of the string is smaller than 20 characters. Use the expression `data.username.length &lt; 20` to determine this.",
     },
     {
       present: String.raw`^ if \(`,

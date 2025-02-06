@@ -25,7 +25,7 @@ info =
     },
     {
       absent: "return",
-      text: "This fails to return the result."
+      text: "This fails to return the result.",
     },
     {
       absent: String.raw`\s* [^;]+;[^;]+;[^;]+; \s*`,

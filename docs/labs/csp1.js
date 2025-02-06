@@ -15,7 +15,7 @@ info =
     },
     {
       absent: "const",
-      text: "Start with const."
+      text: "Start with const.",
     },
     {
       absent: String.raw`const\s+helmet =`,
@@ -42,14 +42,14 @@ info =
     {
       absent: String.raw`\s* app \. use \( helmet \( \{`,
       index: 1,
-      text: "Your code should begin with app.use(helmet({"
+      text: "Your code should begin with app.use(helmet({",
     },
     {
       absent: String.raw`\s* app \. use \( helmet \( \{
       contentSecurityPolicy: \{ \s*
 `,
       index: 1,
-      text: "Your code should begin with:\napp.use(helmet({\n  contentSecurityPolicy: {\n"
+      text: "Your code should begin with:\napp.use(helmet({\n  contentSecurityPolicy: {\n",
     },
     {
       absent: String.raw`\s* app \. use \( helmet \( \{
@@ -57,7 +57,7 @@ info =
         directives: \{ \s*
 `,
       index: 1,
-      text: "Your code should begin with:\napp.use(helmet({\n  contentSecurityPolicy: {\n        directives: {\n"
+      text: "Your code should begin with:\napp.use(helmet({\n  contentSecurityPolicy: {\n        directives: {\n",
     },
     {
       absent: String.raw`\s* app \. use \( helmet \( \{
@@ -66,26 +66,26 @@ info =
             "script-src": \[ "'self'" , ["']https://example.com["'] \] , \s*
 `,
       index: 1,
-      text: "Your code should continue with:\napp.use(helmet({\n  contentSecurityPolicy: {\n        directives: {\n          \"script-src\": [\"'self'\", \"https://example.com\"],\n"
+      text: "Your code should continue with:\napp.use(helmet({\n  contentSecurityPolicy: {\n        directives: {\n          \"script-src\": [\"'self'\", \"https://example.com\"],\n",
     },
     {
       absent: String.raw`"style-src": \[ "'self'" \]
 `,
       index: 1,
-      text: "Don't forget to include \"style-src\": [\"'self'\"]\n"
+      text: "Don't forget to include \"style-src\": [\"'self'\"]\n",
     },
     {
       absent: "; $",
       index: 1,
-      text: "JavaScript doesn''t require semicolon terminators, but the rest of the code uses them. You should try to match a coding style when modifying existing code unless there''s an important reason not to. Please update the second statement to use a semicolon terminator."
+      text: "JavaScript doesn''t require semicolon terminators, but the rest of the code uses them. You should try to match a coding style when modifying existing code unless there''s an important reason not to. Please update the second statement to use a semicolon terminator.",
     },
     {
       absent: String.raw`\} \} \) \) ; $`,
       index: 1,
-      text: "The correct answer is expected to end with `} } ) ) ;` ignoring whitespace. Check that you have matching parentheses and braces."
+      text: "The correct answer is expected to end with `} } ) ) ;` ignoring whitespace. Check that you have matching parentheses and braces.",
     },
     {
-      text: "I do not have more specific hints to provide. Please ensure that the parentheses, braces, and brackets pair correctly, as that is often the problem."
+      text: "I do not have more specific hints to provide. Please ensure that the parentheses, braces, and brackets pair correctly, as that is often the problem.",
     },
   ],
   expected: [
