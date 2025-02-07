@@ -561,6 +561,9 @@ function showHint(e) {
     // Get data-indexes value using e.target.dataset.indexes
     // alert(`Form id = ${e.target.form.id}`);
     let attempt = retrieveAttempt();
+
+    // Check if the answer's already correct. This shouldn't happen, since
+    // it was already checked. This is just a little defensive programming.
     if (calcMatch(attempt, correctRe)) {
         alert(t('already_correct'));
     } else if (!hints) {
@@ -627,7 +630,16 @@ function maybeShowAnswer(e) {
 
 /** Maybe show a hint to the user (depending on timer). */
 function maybeShowHint(e) {
+    // If answer is correct, confirm it and don't cause a penalty.
+    let attempt = retrieveAttempt();
+    if (calcMatch(attempt, correctRe)) {
+        alert(t('already_correct'));
+        return;
+    }
+
+    // Answer is not correct. Determine if delay time has passed.
     let elapsedTime = elapsedTimeSinceClue();
+
     // Only enforce delay timer if changedInputSinceHint is true. That way,
     // people can re-see a previously-seen hint as long as they
     // have not changed anything since seeing the hint.
