@@ -18,6 +18,7 @@ let user_gave_up = false; // True if user ever gave up before user solved it
 
 let startTime = Date.now(); // Time this lab started.
 let lastHintTime = null; // Last time we showed a hint.
+let lastHintTarget = null; // Last hint button user used.
 
 // Has the input changed since we showed a hint?
 // We track this so people can re-see a hint they've already seen.
@@ -356,15 +357,20 @@ function calcOneMatch(attempt, index = 0, correct = correctRe) {
  * Return true iff all of attempt matches all of correct.
  * @attempt - Array of strings that might be correct
  * @correct - Array of compiled regexes describing correct answer
+ * @validIndexes - Array of indexes to check (default: all indexes)
  */
-function calcMatch(attempt, correct = correctRe) {
+function calcMatch(attempt, correct = correctRe, validIndexes = null) {
     if (!correct) { // Defensive test, should never happen.
         alert('Error: Internal failure, correct value not defined or empty.');
         return false;
     }
     for (let i = 0; i < correct.length; i++) {
-        // If we find a failure, return false immediately (short circuit)
-        if (!calcOneMatch(attempt, i, correctRe)) return false;
+        if (validIndexes == null || validIndexes.includes(i)) {
+            // If we find a failure, return false immediately (short circuit)
+            if (!calcOneMatch(attempt, i, correctRe)) {
+                return false;
+	    }
+	}
     }
     // Everything passed.
     return true;
@@ -557,23 +563,10 @@ function findHint(attempt, validIndexes = undefined) {
 }
 
 /** Show a hint to the user. */
-function showHint(e) {
-    // Get data-indexes value using e.target.dataset.indexes
-    // alert(`Form id = ${e.target.form.id}`);
-    let attempt = retrieveAttempt();
-
-    // Check if the answer's already correct. This shouldn't happen, since
-    // it was already checked. This is just a little defensive programming.
-    if (calcMatch(attempt, correctRe)) {
-        alert(t('already_correct'));
-    } else if (!hints) {
-        alert(t('no_hints'));
-    } else {
-        // Use *precalculated* input field indexes to work around
-        // problem in Chrome translator.
-        let validIndexes = e.target.dataset.inputIndexes;
-        alert(findHint(attempt, validIndexes));
-    }
+function showHint(e, attempt, validIndexes) {
+    // Use *precalculated* input field indexes to work around
+    // problem in Chrome translator.
+    alert(findHint(attempt, validIndexes));
 }
 
 /** Show the answer to the user */
@@ -628,27 +621,42 @@ function maybeShowAnswer(e) {
     }
 }
 
+// Return true iff target is the same hint button as last time, without edits.
+function sameHint(target) {
+    return (target == lastHintTarget) && !changedInputSinceHint;
+}
+
 /** Maybe show a hint to the user (depending on timer). */
 function maybeShowHint(e) {
-    // If answer is correct, confirm it and don't cause a penalty.
+    // If there are no hints, just say so without delay.
+    if (!hints || hints.length === 0) {
+        alert(t('no_hints'));
+        return;
+    }
+
+    // Confirm correct answer if it is, and don't cause a penalty or delay.
+    // For "hint" we only consider the answers for THIS form.
     let attempt = retrieveAttempt();
-    if (calcMatch(attempt, correctRe)) {
+    let formIndexes = JSON.parse(e.target.dataset.inputIndexes);
+    if (calcMatch(attempt, correctRe, formIndexes)) {
         alert(t('already_correct'));
         return;
     }
 
-    // Answer is not correct. Determine if delay time has passed.
+    // Answer is not correct. Determine how much time has passed.
     let elapsedTime = elapsedTimeSinceClue();
 
+    // Reply if the minimum delay time has passed.
     // Only enforce delay timer if changedInputSinceHint is true. That way,
     // people can re-see a previously-seen hint as long as they
     // have not changed anything since seeing the hint.
-    if (changedInputSinceHint && (elapsedTime < HINT_DELAY_TIME)) {
+    if ((elapsedTime < HINT_DELAY_TIME) && !sameHint(e.target)) {
         alert(myFormat(t('try_harder_hint'), [HINT_DELAY_TIME.toString()]));
     } else {
         lastHintTime = Date.now(); // Set new delay time start
+        lastHintTarget = e.target; // Set last hint button used
         changedInputSinceHint = false; // Allow redisplay of hint
-        showHint(e);
+        showHint(e, attempt, formIndexes);
     }
 }
 
