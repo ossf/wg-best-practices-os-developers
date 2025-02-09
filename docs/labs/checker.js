@@ -20,18 +20,23 @@ let startTime = Date.now(); // Time this lab started.
 let lastHintTime = null; // Last time we showed a hint.
 let lastHintTarget = null; // Last hint button user used.
 
-// Has the input changed since we showed a hint?
-// We track this so people can re-see a hint they've already seen.
-// This initial value of "true" forces users to wait a delay time before
-// they are allowed to see their first hint on an unchanged page.
+/**
+ * True iff the input has changed since we showed a hint.
+ * We track this so people can re-see a hint they've already seen.
+ * This initial value of "true" forces users to wait a delay time before
+ * they are allowed to see their first hint on an unchanged page. */
 let changedInputSinceHint = true;
 
 let BACKQUOTE = "`"; // Make it easy to use `${BACKQUOTE}`
 let DOLLAR = "$"; // Make it easy to use `${DOLLAR}`
 
-// Current language. Guess English until we learn otherwise.
+/** Current language. Guess English until we learn otherwise. */
 let lang = "en";
 
+/**
+ * Resources for localizations, in particular, for translations.
+ * This intentionally mimics the format of library i18next.
+ */
 const resources = {
     en: {
 	translation: {
@@ -90,7 +95,8 @@ const resources = {
     },
 };
 
-/** Provide an "assert" (JavaScript doesn't have one built-in).
+/**
+ * Provide an "assert" function (JavaScript doesn't have one built-in).
  * This one uses "Error" to provide a stack trace.
  */
 function myAssert(condition, message) {
@@ -99,13 +105,17 @@ function myAssert(condition, message) {
     }
 }
 
-// Format a string, replacing {NUM} with item NUM.
-// We use this function to simplify internationalization.
-// Use as: myFormat("Demo {0} result", ["Name"])
-// https://www.geeksforgeeks.org/what-are-the-equivalent-of-printf-string-format-in-javascript/
-// This is *not* set as a property on String; if we did that,
-// we'd modify the global namespace, possibly messing up something
-// already there.
+/**
+ * Format a string, replacing {NUM} with item NUM.
+ * We use this function to simplify internationalization.
+ * Use as: myFormat("Demo {0} result", ["Name"]). See:
+ * https://www.geeksforgeeks.org/what-are-the-equivalent-of-printf-string-format-in-javascript/
+ * This is *not* set as a property on String; if we did that,
+ * we'd modify the global namespace, possibly messing up something
+ * already there.
+ * @param s {string} - string to format, where {NUM} is to be replaced
+ * @param replacements {Array} - Array of strings for replacements
+ */
 function myFormat(s, replacements) {
     return s.replace(/{(\d+)}/g, function (match, number) {
         return typeof replacements[number] != 'undefined'
@@ -119,7 +129,10 @@ myAssert(myFormat("Hello", []) === "Hello");
 myAssert(myFormat("Hello {0}, are you {1}?", ["friend", "well"]) ===
        "Hello friend, are you well?");
 
-// Retrieve translation for given key from resources.
+/** Retrieve translation for given key from resources.
+ * @param key {string} - key to be retrieved
+ * @returns {string} - translated key for the current local `lang`
+ */
 function t(key) {
     let result = resources[lang]['translation'][key];
 
@@ -129,7 +142,8 @@ function t(key) {
     return result;
 }
 
-// Retrieve translation from object for given field
+/** Retrieve translation from object for given field
+ */
 function retrieve_t(obj, field) {
     let result = obj[field + "_" + lang];
 
@@ -139,7 +153,7 @@ function retrieve_t(obj, field) {
     return result;
 }
 
-// Determine language of document. Set with <html lang="...">.
+/** Return language of document. Set with <html lang="...">. */
 function determine_locale() {
     let lang = document.documentElement.lang;
     if (!lang) {
@@ -148,25 +162,27 @@ function determine_locale() {
     return lang;
 }
 
-// This array contains the default pattern preprocessing commands, in order.
-// We process every pattern through these (in order) to create a final regex
-// to be used to match a pattern.
-//
-// We preprocess regexes to (1) simplify the pattern language and
-// (2) optimize performance.
-// Each item in this array has two elements:
-// a regex and its replacement string on match.
-// Yes, these preprocess patterns are regexes that process regexes.
-//
-// People can instead define their *own* sequence of
-// preprocessing commands, to make their language easier to handle
-// (e.g., Python). Do this by setting `info.preprocessing`.
-// Its format is a sequence of arrays, each element is an array of
-// 2 or 3 strings of form pattern, replacementString [, flags]
-//
-// Our default pattern preprocessing commands include some optimizations;
-// we want people to get rapid feedback even with complex correct patterns.
-//
+/**
+ *  Array that containing the pattern preprocessing commands, in order.
+ *  We set it to its default value to start with.
+ *  We process every pattern through these (in order) to create a final regex
+ *  to be used to match a pattern.
+ *
+ *  We preprocess regexes to (1) simplify the pattern language and
+ *  (2) optimize performance.
+ *  Each item in this array has two elements:
+ *  a regex and its replacement string on match.
+ *  Yes, these preprocess patterns are regexes that process regexes.
+ *
+ *  People can instead define their *own* sequence of
+ *  preprocessing commands, to make their language easier to handle
+ *  (e.g., Python). Do this by setting `info.preprocessing`.
+ *  Its format is a sequence of arrays, each element is an array of
+ *  2 or 3 strings of form pattern, replacementString [, flags]
+ *
+ *  Our default pattern preprocessing commands include some optimizations;
+ *  we want people to get rapid feedback even with complex correct patterns.
+ */
 let preprocessRegexes = [
   // Remove end-of-line characters (\n and \r)
   [/[\n\r]+/g, ''],
@@ -218,9 +234,9 @@ function escapeHTML(unsafe) {
             .replace(/\'/g, "&#039;"));
 }
 
-/* Compute Set difference lhs \ rhs.
- * @lhs - Set to start with
- * @rhs - Set to remove from the lhs
+/** Compute Set difference lhs \ rhs.
+ * @param lhs - Set to start with
+ * @param rhs - Set to remove from the lhs
  * Set difference is in Firefox nightly, but is not yet released.
  * So we compute it ourselves. This is equivalent to lhs.difference(rhs)
  */
@@ -230,16 +246,17 @@ function setDifference(lhs, rhs) {
     return new Set(result);
 }
 
-/* Return differences between two objects
+/** Return differences between two objects
+ * (this is useful for debugging)
  */
 function objectDiff(obj1, obj2) {
     let diff = {};
-  
+
     function compare(obj1, obj2, path = '') {
         for (const key in obj1) {
           if (obj1.hasOwnProperty(key)) {
             const newPath = path ? `${path}.${key}` : key;
-    
+
             if (!obj2.hasOwnProperty(key)) {
               diff[newPath] = [obj1[key], undefined];
             } else if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
@@ -249,7 +266,7 @@ function objectDiff(obj1, obj2) {
             }
           }
         }
-  
+
         for (const key in obj2) {
           if (obj2.hasOwnProperty(key) && !obj1.hasOwnProperty(key)) {
             const newPath = path ? `${path}.${key}` : key;
@@ -257,15 +274,15 @@ function objectDiff(obj1, obj2) {
           }
         }
     }
-  
+
     compare(obj1, obj2);
     return diff;
 }
 
-/*
+/**
  * Show debug output in debug region and maybe via alert box
- * @debugOutput - the debug information to show
- * @alwaysAlert - if true, ALWAYS show an alert
+ * @param debugOutput - the debug information to show
+ * @param alwaysAlert - if true, ALWAYS show an alert
  * This does *not* raise or re-raise an exception; it may be just informative.
  */
 function showDebugOutput(debugOutput, alwaysAlert = true) {
@@ -290,8 +307,8 @@ function showDebugOutput(debugOutput, alwaysAlert = true) {
  * Given take a regex string, preprocess it (using our array of
  * definitions and preprocessing regexes),
  * and return a processed regex as a String.
- * @regexString - String to be converted into a compiled Regex
- * @fullMatch - require full match (insert "^" at beginning, "$" at end).
+ * @param {string} regexString - String to be converted into a compiled Regex
+ * @param {Boolean} fullMatch - require full match ("^" at start, "$" at end)
  */
 function processRegexToString(regexString, fullMatch = true) {
     // Replace all definitions. This makes regexes much easier to use,
@@ -314,9 +331,9 @@ function processRegexToString(regexString, fullMatch = true) {
 /**
  * Given take a regex string, preprocess it (using our array of
  * preprocessing regexes), and return a final compiled Regexp.
- * @regexString - String to be converted into a compiled Regexp
- * @description - Description of @regexString's purpose (for error reports)
- * @fullMatch - require full match (insert "^" at beginning, "$" at end).
+ * @param {String} regexString - String to be converted into a compiled Regexp
+ * @param description - Description of its purpose (for error reports)
+ * @param fullMatch - require full match? (insert "^" at start, "$" at end).
  */
 function processRegex(regexString, description, fullMatch = true) {
     let processedRegexString = processRegexToString(regexString, fullMatch);
@@ -331,9 +348,9 @@ function processRegex(regexString, description, fullMatch = true) {
     }
 }
 
-/*
+/**
  * Determine if preprocessing produces the expected final regex answer.
- * @example - 2-element array. LHS is to be processed, RHS is expected result
+ * @param example - 2-element array [to be processed, expected result]
  */
 function validProcessing(example) {
     let [unProcessed, expectedProcessed] = example;
@@ -345,9 +362,9 @@ function validProcessing(example) {
 
 /**
  * Return true iff the indexed attempt matches the indexed correct.
- * @attempt - Array of strings that might be correct
- * @index - Integer index (0+)
- * @correct - Array of compiled regexes describing correct answer
+ * @param attempt - Array of strings that might be correct
+ * @param index - Integer index (0+)
+ * @param correct - Array of compiled regexes describing correct answer
  */
 function calcOneMatch(attempt, index = 0, correct = correctRe) {
     return correct[index].test(attempt[index]);
@@ -355,9 +372,9 @@ function calcOneMatch(attempt, index = 0, correct = correctRe) {
 
 /**
  * Return true iff all of attempt matches all of correct.
- * @attempt - Array of strings that might be correct
- * @correct - Array of compiled regexes describing correct answer
- * @validIndexes - Array of indexes to check (default: all indexes)
+ * @param attempt - Array of strings that might be correct
+ * @param correct - Array of compiled regexes describing correct answer
+ * @param validIndexes - Array of indexes to check (default: all indexes)
  */
 function calcMatch(attempt, correct = correctRe, validIndexes = null) {
     if (!correct) { // Defensive test, should never happen.
@@ -391,8 +408,8 @@ function retrieveAttempt() {
 
 const attemptIdPattern = /^attempt(\d+)$/;
 
-/*
- * Given Node @form in document, return array of indexes of input/textareas
+/**
+ * Given Node form in document, return array of indexes of input/textareas
  * that are relevant for that form.
  * The values retrieved are *input* field indexes (`inputIndexes`),
  * starting at 0 for the first user input.
@@ -544,7 +561,7 @@ function runCheck() {
 }
 
 /** Return the best-matching hint string given an attempt.
- * @attempt - array of strings of attempt to give hints on
+ * @param attempt - array of strings of attempt to give hints on
  */
 function findHint(attempt, validIndexes = undefined) {
     // Find a matching hint (matches present and NOT absent)
@@ -621,7 +638,7 @@ function maybeShowAnswer(e) {
     }
 }
 
-// Return true iff target is the same hint button as last time, without edits.
+/** Return true iff target is same hint button as last time & no edits. */
 function sameHint(target) {
     return (target == lastHintTarget) && !changedInputSinceHint;
 }
@@ -720,9 +737,10 @@ function processHints(requestedHints) {
 }
 
 /** Set global values based on other than "correct" and "expected" values.
- * The correct and expected values may come from elsewhere, but we have to set up the
+ * The correct and expected values may come from elsewhere,
+ * but we have to set up the
  * info-based values first, because info can change how those are interpreted.
- * @configurationInfo: Data to use
+ * @param configurationInfo - Data to use
  */
 function processInfo(configurationInfo) {
     const allowedInfoFields = new Set([
@@ -907,6 +925,7 @@ function setupInfo() {
     };
 }
 
+/** Initialize the whole HTML page */
 function initPage() {
     // Set current locale
     lang = determine_locale();
