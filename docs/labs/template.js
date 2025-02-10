@@ -1,27 +1,46 @@
+// Copyright (C) Open Source Security Foundation (OpenSSF) and its contributors.
+// SPDX-License-Identifier: MIT
+
 info =
 {
   hints: [
     {
       present: "initial",
-      text: "The term 'initial' is not part of the answer."
+      text: "The term 'initial' is not part of the answer.",
+      examples: [
+        [ 'initial', ],
+      ],
     },
     {
       present: "unknown",
-      text: "Unknown is not part of the answer."
+      text: "Unknown is not part of the answer.",
+      examples: [
+        [ 'unknown', ],
+      ],
     },
     {
       absent: String.raw`EXPECTED`,
-      text: "The word 'EXPECTED' is expected."
+      text: "The word 'EXPECTED' is expected.",
+      examples: [
+        [ '', ],
+        [ 'fiddly', ],
+      ],
     },
     {
       present: "initial",
       index: 1,
-      text: "The term 'initial' is not part of the answer."
+      text: "The term 'initial' is not part of the answer.",
+      examples: [
+        [ null, 'initial', ],
+      ],
     },
     {
       absent: String.raw`EXPECTED`,
       index: 1,
-      text: "The word 'EXPECTED' is expected."
+      text: "The word 'EXPECTED' is expected.",
+      examples: [
+        [ null, 'not-here', ],
+      ],
     },
   ],
   expected: [

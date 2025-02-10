@@ -1,10 +1,13 @@
+// Copyright (C) Open Source Security Foundation (OpenSSF) and its contributors.
+// SPDX-License-Identifier: MIT
+
 info =
 {
   hints: [
     {
       index: 0,
       absent: "; $",
-      text: "This code uses the convention of terminating each line with a semicolon; please follow the conventions of the code being modified.\n"
+      text: "This code uses the convention of terminating each line with a semicolon; please follow the conventions of the code being modified.\n",
     },
     {
       index: 0,

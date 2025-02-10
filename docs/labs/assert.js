@@ -1,3 +1,6 @@
+// Copyright (C) Open Source Security Foundation (OpenSSF) and its contributors.
+// SPDX-License-Identifier: MIT
+
 info =
 {
   hints: [
@@ -17,11 +20,11 @@ info =
     },
     {
       present: "(bindingresult|BindingResult)",
-      text: "Java is case-sensitive. Use `bindingResult`, not `bindingresult` nor `BindingResult`."
+      text: "Java is case-sensitive. Use `bindingResult`, not `bindingresult` nor `BindingResult`.",
     },
     {
       present: "(haserrors|HasErrors)",
-      text: "Java is case-sensitive. Use `hasErrors`, not `haserrors` nor `HasErrors`."
+      text: "Java is case-sensitive. Use `hasErrors`, not `haserrors` nor `HasErrors`.",
     },
     {
       present: String.raw`^\s*if\s*[^\(\s]`,
@@ -39,25 +42,25 @@ info =
     },
     {
       absent: String.raw`^ if \( bindingResult \. hasErrors \( \) \) `,
-      text: "Begin the answer with the text `if (bindingResult.hasErrors())` so that a statement will be executed if that condition is true."
+      text: "Begin the answer with the text `if (bindingResult.hasErrors())` so that a statement will be executed if that condition is true.",
     },
     {
       present: String.raw`if \( bindingResult \. hasErrors \( \) \) [^\{\s] `,
-      text: "Follow the conditional with an open brace, e.g., `if (bindingResult.hasErrors()) {...`."
+      text: "Follow the conditional with an open brace, e.g., `if (bindingResult.hasErrors()) {...`.",
     },
     {
       absent: String.raw`return "form"
 `,
-      text: "You need to use `return \"form\";` somewhere."
+      text: "You need to use `return \"form\";` somewhere.",
     },
     {
       present: String.raw`return "form"`,
       absent: String.raw`return "form" ;`,
-      text: "You need to use `;` (semicolon) after `return \"form\"` because in Java statements must be followed by a semicolon."
+      text: "You need to use `;` (semicolon) after `return \"form\"` because in Java statements must be followed by a semicolon.",
     },
     {
       absent: String.raw`\} $`,
-      text: "The answer needs to end with `}` (closing brace)."
+      text: "The answer needs to end with `}` (closing brace).",
     },
   ],
   expected: [

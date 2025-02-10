@@ -11,6 +11,7 @@ The main sections are:
   [Debugging](#debugging))
 * [Localization](#localization) (aka translation)
 * [Submitting a new or updated lab](#submitting-a-new-or-updated-lab)
+* [Academic use](#academic-use)
 * [Potential future directions](#potential-future-directions)
 
 ## Introduction
@@ -442,8 +443,8 @@ hints: [
     absent: ", $",
     text: "This is a parameter, it must end with a comma.",
     examples: [
-      [ "  " ]
-    ]
+      [ "  " ],
+    ],
   },
   {
     present: "(isint|Isint|IsInt|ISINT)",
@@ -451,9 +452,9 @@ hints: [
     examples: [
       [ "  query('id').isint()," ],
       [ "  query('id').IsInt()," ],
-    ]
-  }
-]
+    ],
+  },
+],
 ~~~~
 
 The first hint triggers when the user attempt does *not* contain the
@@ -474,21 +475,36 @@ As always, it's best to try to
 make smaller changes, test them, and once they work
 check them in. That way you won't need to debug a long complicated
 set of changes.
+See the next section on [testing](#testing).
 
-Please create tests! You can create test cases for attempts
-(`successes` should pass, `failures` should fail), and test cases
-to ensure the hints work correctly.
-Remember, hints are checked in order - it's possible to create a hint
-that won't trigger because something earlier would always match.
-These tests are automatically checked every time the page is (re)loaded.
-
-### Debugging
-
-Sadly, sometimes things don't work; here are some debugging tips for labs.
+### Testing
 
 Every time you reload the lab HTML, the program will reload and
 all self-tests will be run. If you see no errors, and the text entry
 areas are showing in yellow, a *lot* of things are working well.
+
+Please create tests! You should create test cases for full attempts
+(`successes` should pass, `failures` should fail) and test cases
+for hints (`examples`).
+
+Hints are checked in order - it's possible to create a hint
+that won't trigger because something earlier would always match.
+All tests are automatically re-run every time the page is (re)loaded.
+
+In a hint, `examples` is an array of examples that should trigger the hint.
+Each example is an array of answers. If you use an index, the other index
+values aren't considered. We suggest using `null` for array entries
+that aren't relevant for the test.
+
+The script `mass-test` for Linux or MacOS will automatically open
+every lab in your default browser's current window.
+This will rerun all our lab automated tests.
+If every lab has a yellow text entry area, and doesn't show test failure
+alerts, then all the labs pass the test.
+
+### Debugging
+
+Sadly, sometimes things don't work; here are some debugging tips for labs.
 
 If you load a page and the text entries don't have color, there
 was a serious problem loading things.
@@ -496,6 +512,13 @@ Use your browser's *Developer Tools* to show details.
 In Chrome, this is More Tools -> Developer Tools -> (Console Tab).
 In Firefox, this is More Tools -> Web Developer Tools -> (Console Tab).
 You may need to further open specifics to see them.
+Often the problem is that (1) a line just before added material needs a
+trailing comma, or (2) a string was not properly closed (e.g.,
+it is double-quoted but includes double-quote that was not properly escaped).
+
+If the JavaScript loads successfully, but then a self-test fails,
+you'll see alert box(es) telling you which tests failed.
+See [testing](#testing).
 
 Note:
 
@@ -596,33 +619,36 @@ requested, and the second is post-processed pattern that should result.
 There's no need for a "failure" test suite here, because we
 demand exact results for every test case.
 
-Here is an example (expressed in YAML format):
+Here is an example:
 
-~~~~yaml
-preprocessing:
-  -
-    - |-
-        [\n\r]+
-    - ""
-  -
-    - |-
-        [ \t]+\\s\+[ \t]+
-    - "\\s+"
-  -
-    - |-
-        (\\s\*)?[ \t]+(\\s\*)?
-    - "\\s*"
-preprocessingTests:
-  -
-    - |-
-        \s* console \. log \( (["'`])Hello,\x20world!\1 \) ; \s*
-    - |-
-        \s*console\s*\.\s*log\s*\(\s*(["'`])Hello,\x20world!\1\s*\)\s*;\s*
-  -
-    - |-
-        \s* foo \s+ bar \\string\\ \s*
-    - |-
-        \s*foo\s+bar\s*\\string\\\s*
+~~~~javascript
+  preprocessing: [
+    [
+      // Ignore newlines
+      String.raw`[\n\r]+`,
+      ""
+    ],
+    [
+      // Convert \s+ surrounded by tabs/spaces as \s+ (optimization)
+      String.raw`[ \t]+\\s\+[ \t]+`,
+      String.raw`\s+`
+    ],
+    [
+      // Convert 1+ spaces/tabs, optionally surrounded by \s*, as \s*
+      String.raw`(\\s\*)?[ \t]+(\\s\*)?`,
+      String.raw`\s*`
+    ]
+  ],
+  preprocessingTests: [
+    [
+      String.raw`\s* console \. log \( (["'${BACKQUOTE}])Hello,\x20world!\1 \) ; \s*`,
+      String.raw`\s*console\s*\.\s*log\s*\(\s*(["'${BACKQUOTE}])Hello,\x20world!\1\s*\)\s*;\s*`
+    ],
+    [
+      String.raw`\s* foo \s+ bar \\string\\ \s*`,
+      String.raw`\s*foo\s+bar\s*\\string\\\s*`
+    ]
+  ]
 ~~~~
 
 Here is an explanation of each of these preprocessing elements
@@ -728,6 +754,36 @@ To submit new or updated labs, create a pull request on the
 under the `docs/labs` directory.
 Simply fork the repository, add your proposed lab in the `docs/labs` directory,
 and create a pull request.
+
+## Academic use
+
+These labs were created for LFD121. However, they can (and are) also used
+for other situations, such as for academic use.
+We welcome those other uses! This does raise the issue of countering cheating.
+
+We can't prevent all cheating. The answers can be shared among students,
+and answers are visible to those who look at its source.
+In addition, some learners may be unable to figure out the answer, so we
+provide a "give up" button.
+
+However, cheating is fundamentally a lazy approach, and we take some steps to
+address this.
+The "give up" button has a timer, so people can't load the page and
+*immediately* give up to see the answer.
+When a lab is completed, that is clearly indicated at the bottom.
+In English this stamp has the word "Completed" at the bottom.
+After that, it has a precise datetime of the completion time, followed
+by a random unique value (a UUID), and a hash value computed from the
+datetime stamp and random value.
+All of this is followed by `(GA)` if the learner gave up in this session.
+If two learners submit labs with the same datetime and random value,
+then a single lab
+session is being claimed by more than one learner (in other words,
+there was cheating).
+Changing the datetime or UUID, without fixing the hash, can also be used
+to detect an invalid lab submission.
+This doesn't detect all cheating, but these mechanisms
+do provide a way to detect some kinds of cheating.
 
 ## Potential future directions
 

@@ -1,6 +1,6 @@
 // lab_checker - check and report if lab attempt is correct
 
-// Copyright (C) Open Source Security Foundation (OpenSSF)
+// Copyright (C) Open Source Security Foundation (OpenSSF) and its contributors.
 // SPDX-License-Identifier: MIT
 
 // See create_labs.md for more information.
@@ -16,14 +16,27 @@ let page_definitions = {}; // Definitions used when preprocessing regexes
 let user_solved = false; // True if user has *ever* solved it on this load
 let user_gave_up = false; // True if user ever gave up before user solved it
 
-let startTime = Date.now();
+let startTime = Date.now(); // Time this lab started.
+let lastHintTime = null; // Last time we showed a hint.
+let lastHintTarget = null; // Last hint button user used.
+
+/**
+ * True iff the input has changed since we showed a hint.
+ * We track this so people can re-see a hint they've already seen.
+ * This initial value of "true" forces users to wait a delay time before
+ * they are allowed to see their first hint on an unchanged page. */
+let changedInputSinceHint = true;
 
 let BACKQUOTE = "`"; // Make it easy to use `${BACKQUOTE}`
 let DOLLAR = "$"; // Make it easy to use `${DOLLAR}`
 
-// Current language. Guess English until we learn otherwise.
+/** Current language. Guess English until we learn otherwise. */
 let lang = "en";
 
+/**
+ * Resources for localizations, in particular, for translations.
+ * This intentionally mimics the format of library i18next.
+ */
 const resources = {
     en: {
 	translation: {
@@ -39,7 +52,8 @@ const resources = {
             no_matching_hint: 'Sorry, I cannot find a hint that matches your attempt.',
             reset_title: 'Reset initial state (throwing away current attempt).',
             to_be_completed: 'to be completed',
-            try_harder: "Try harder! Don't give up so soon. Current time spent (in seconds): {0}",
+            try_harder_give_up: "Try harder! Don't give up so soon. Current time spent since start or last hint (in seconds): {0}",
+            try_harder_hint: "Try harder! Don't ask for a hint so soon, wait at least {0} seconds.",
         },
     },
     ja: {
@@ -56,6 +70,7 @@ const resources = {
             no_matching_hint: '申し訳ありませんが、あなたの試みに一致するヒントが見つかりません。',
             reset_title: '初期状態にリセットします (現在の試行を破棄します)。',
             to_be_completed: '完了する',
+            try_harder_give_up: 'もっと頑張れ！そんなにすぐに諦めないでください。開始または最後のヒントから経過した現在の時間 (秒単位): {0}',
             try_harder: 'もっと頑張ってください! すぐに諦めないでください。現在の所要時間 (秒): {0}',
         },
     },
@@ -73,24 +88,51 @@ const resources = {
             no_matching_hint: "Désolé, je ne trouve pas d'indice correspondant à votre tentative.",
             reset_title: "Réinitialiser l'état initial (abandonner la tentative actuelle).",
             to_be_completed: 'à compléter',
-            try_harder: "Essayez plus fort ! N'abandonnez pas si tôt. Temps actuel passé (en secondes) : {0}",
+            try_harder_give_up: "Essayez plus fort ! N'abandonnez pas si tôt. Temps actuel passé (en secondes) : {0}",
+            try_harder_give_up: "Essayez plus fort ! N'abandonnez pas si tôt. Temps actuel passé depuis le début ou le dernier indice (en secondes) : {0}",
+            try_harder_hint: "Essayez plus fort ! Ne demandez pas d'indice si tôt, attendez au moins {0} secondes.",
         },
     },
 };
 
-// Create a "format" method to simplify internationalization.
-// Use as: "Demo {0} result"".format(name);
-// https://www.geeksforgeeks.org/what-are-the-equivalent-of-printf-string-format-in-javascript/
-String.prototype.format = function () {
-    const args = arguments;
-    return this.replace(/{(\d+)}/g, function (match, number) {
-        return typeof args[number] != 'undefined'
-            ? args[number]
+/**
+ * Provide an "assert" function (JavaScript doesn't have one built-in).
+ * This one uses "Error" to provide a stack trace.
+ */
+function myAssert(condition, message) {
+    if (!condition) {
+        throw new Error(message || "Assertion failed");
+    }
+}
+
+/**
+ * Format a string, replacing {NUM} with item NUM.
+ * We use this function to simplify internationalization.
+ * Use as: myFormat("Demo {0} result", ["Name"]). See:
+ * https://www.geeksforgeeks.org/what-are-the-equivalent-of-printf-string-format-in-javascript/
+ * This is *not* set as a property on String; if we did that,
+ * we'd modify the global namespace, possibly messing up something
+ * already there.
+ * @param s {string} - string to format, where {NUM} is to be replaced
+ * @param replacements {Array} - Array of strings for replacements
+ */
+function myFormat(s, replacements) {
+    return s.replace(/{(\d+)}/g, function (match, number) {
+        return typeof replacements[number] != 'undefined'
+            ? replacements[number]
             : match;
     });
 };
 
-// Retrieve translation for given key from resources.
+// Run some built-in tests on startup, to ensure all is okay.
+myAssert(myFormat("Hello", []) === "Hello");
+myAssert(myFormat("Hello {0}, are you {1}?", ["friend", "well"]) ===
+       "Hello friend, are you well?");
+
+/** Retrieve translation for given key from resources.
+ * @param key {string} - key to be retrieved
+ * @returns {string} - translated key for the current local `lang`
+ */
 function t(key) {
     let result = resources[lang]['translation'][key];
 
@@ -100,7 +142,8 @@ function t(key) {
     return result;
 }
 
-// Retrieve translation from object for given field
+/** Retrieve translation from object for given field
+ */
 function retrieve_t(obj, field) {
     let result = obj[field + "_" + lang];
 
@@ -110,7 +153,7 @@ function retrieve_t(obj, field) {
     return result;
 }
 
-// Determine language of document. Set with <html lang="...">.
+/** Return language of document. Set with <html lang="...">. */
 function determine_locale() {
     let lang = document.documentElement.lang;
     if (!lang) {
@@ -119,25 +162,27 @@ function determine_locale() {
     return lang;
 }
 
-// This array contains the default pattern preprocessing commands, in order.
-// We process every pattern through these (in order) to create a final regex
-// to be used to match a pattern.
-//
-// We preprocess regexes to (1) simplify the pattern language and
-// (2) optimize performance.
-// Each item in this array has two elements:
-// a regex and its replacement string on match.
-// Yes, these preprocess patterns are regexes that process regexes.
-//
-// People can instead define their *own* sequence of
-// preprocessing commands, to make their language easier to handle
-// (e.g., Python). Do this by setting `info.preprocessing`.
-// Its format is a sequence of arrays, each element is an array of
-// 2 or 3 strings of form pattern, replacementString [, flags]
-//
-// Our default pattern preprocessing commands include some optimizations;
-// we want people to get rapid feedback even with complex correct patterns.
-//
+/**
+ *  Array that containing the pattern preprocessing commands, in order.
+ *  We set it to its default value to start with.
+ *  We process every pattern through these (in order) to create a final regex
+ *  to be used to match a pattern.
+ *
+ *  We preprocess regexes to (1) simplify the pattern language and
+ *  (2) optimize performance.
+ *  Each item in this array has two elements:
+ *  a regex and its replacement string on match.
+ *  Yes, these preprocess patterns are regexes that process regexes.
+ *
+ *  People can instead define their *own* sequence of
+ *  preprocessing commands, to make their language easier to handle
+ *  (e.g., Python). Do this by setting `info.preprocessing`.
+ *  Its format is a sequence of arrays, each element is an array of
+ *  2 or 3 strings of form pattern, replacementString [, flags]
+ *
+ *  Our default pattern preprocessing commands include some optimizations;
+ *  we want people to get rapid feedback even with complex correct patterns.
+ */
 let preprocessRegexes = [
   // Remove end-of-line characters (\n and \r)
   [/[\n\r]+/g, ''],
@@ -189,9 +234,9 @@ function escapeHTML(unsafe) {
             .replace(/\'/g, "&#039;"));
 }
 
-/* Compute Set difference lhs \ rhs.
- * @lhs - Set to start with
- * @rhs - Set to remove from the lhs
+/** Compute Set difference lhs \ rhs.
+ * @param lhs - Set to start with
+ * @param rhs - Set to remove from the lhs
  * Set difference is in Firefox nightly, but is not yet released.
  * So we compute it ourselves. This is equivalent to lhs.difference(rhs)
  */
@@ -201,16 +246,17 @@ function setDifference(lhs, rhs) {
     return new Set(result);
 }
 
-/* Return differences between two objects
+/** Return differences between two objects
+ * (this is useful for debugging)
  */
 function objectDiff(obj1, obj2) {
     let diff = {};
-  
+
     function compare(obj1, obj2, path = '') {
         for (const key in obj1) {
           if (obj1.hasOwnProperty(key)) {
             const newPath = path ? `${path}.${key}` : key;
-    
+
             if (!obj2.hasOwnProperty(key)) {
               diff[newPath] = [obj1[key], undefined];
             } else if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
@@ -220,7 +266,7 @@ function objectDiff(obj1, obj2) {
             }
           }
         }
-  
+
         for (const key in obj2) {
           if (obj2.hasOwnProperty(key) && !obj1.hasOwnProperty(key)) {
             const newPath = path ? `${path}.${key}` : key;
@@ -228,15 +274,15 @@ function objectDiff(obj1, obj2) {
           }
         }
     }
-  
+
     compare(obj1, obj2);
     return diff;
 }
 
-/*
+/**
  * Show debug output in debug region and maybe via alert box
- * @debugOutput - the debug information to show
- * @alwaysAlert - if true, ALWAYS show an alert
+ * @param debugOutput - the debug information to show
+ * @param alwaysAlert - if true, ALWAYS show an alert
  * This does *not* raise or re-raise an exception; it may be just informative.
  */
 function showDebugOutput(debugOutput, alwaysAlert = true) {
@@ -261,8 +307,8 @@ function showDebugOutput(debugOutput, alwaysAlert = true) {
  * Given take a regex string, preprocess it (using our array of
  * definitions and preprocessing regexes),
  * and return a processed regex as a String.
- * @regexString - String to be converted into a compiled Regex
- * @fullMatch - require full match (insert "^" at beginning, "$" at end).
+ * @param {string} regexString - String to be converted into a compiled Regex
+ * @param {Boolean} fullMatch - require full match ("^" at start, "$" at end)
  */
 function processRegexToString(regexString, fullMatch = true) {
     // Replace all definitions. This makes regexes much easier to use,
@@ -285,9 +331,9 @@ function processRegexToString(regexString, fullMatch = true) {
 /**
  * Given take a regex string, preprocess it (using our array of
  * preprocessing regexes), and return a final compiled Regexp.
- * @regexString - String to be converted into a compiled Regexp
- * @description - Description of @regexString's purpose (for error reports)
- * @fullMatch - require full match (insert "^" at beginning, "$" at end).
+ * @param {String} regexString - String to be converted into a compiled Regexp
+ * @param description - Description of its purpose (for error reports)
+ * @param fullMatch - require full match? (insert "^" at start, "$" at end).
  */
 function processRegex(regexString, description, fullMatch = true) {
     let processedRegexString = processRegexToString(regexString, fullMatch);
@@ -302,9 +348,9 @@ function processRegex(regexString, description, fullMatch = true) {
     }
 }
 
-/*
+/**
  * Determine if preprocessing produces the expected final regex answer.
- * @example - 2-element array. LHS is to be processed, RHS is expected result
+ * @param example - 2-element array [to be processed, expected result]
  */
 function validProcessing(example) {
     let [unProcessed, expectedProcessed] = example;
@@ -316,9 +362,9 @@ function validProcessing(example) {
 
 /**
  * Return true iff the indexed attempt matches the indexed correct.
- * @attempt - Array of strings that might be correct
- * @index - Integer index (0+)
- * @correct - Array of compiled regexes describing correct answer
+ * @param attempt - Array of strings that might be correct
+ * @param index - Integer index (0+)
+ * @param correct - Array of compiled regexes describing correct answer
  */
 function calcOneMatch(attempt, index = 0, correct = correctRe) {
     return correct[index].test(attempt[index]);
@@ -326,17 +372,22 @@ function calcOneMatch(attempt, index = 0, correct = correctRe) {
 
 /**
  * Return true iff all of attempt matches all of correct.
- * @attempt - Array of strings that might be correct
- * @correct - Array of compiled regexes describing correct answer
+ * @param attempt - Array of strings that might be correct
+ * @param correct - Array of compiled regexes describing correct answer
+ * @param validIndexes - Array of indexes to check (default: all indexes)
  */
-function calcMatch(attempt, correct = correctRe) {
+function calcMatch(attempt, correct = correctRe, validIndexes = null) {
     if (!correct) { // Defensive test, should never happen.
         alert('Error: Internal failure, correct value not defined or empty.');
         return false;
     }
     for (let i = 0; i < correct.length; i++) {
-        // If we find a failure, return false immediately (short circuit)
-        if (!calcOneMatch(attempt, i, correctRe)) return false;
+        if (validIndexes == null || validIndexes.includes(i)) {
+            // If we find a failure, return false immediately (short circuit)
+            if (!calcOneMatch(attempt, i, correctRe)) {
+                return false;
+	    }
+	}
     }
     // Everything passed.
     return true;
@@ -357,10 +408,15 @@ function retrieveAttempt() {
 
 const attemptIdPattern = /^attempt(\d+)$/;
 
-/*
- * Given Node @form in document, return array of indexes of input/textareas
+/**
+ * Given Node form in document, return array of indexes of input/textareas
+ * that are relevant for that form.
  * The values retrieved are *input* field indexes (`inputIndexes`),
  * starting at 0 for the first user input.
+ *
+ * When there's only one form, this is simply the array of all valid indexes.
+ * However, a page can have multiple forms; in that case this returns
+ * only the indexes valid for this specific form.
  *
  * Note: At one time we ran this calculation when a user pressed
  * a button. However, if you *translate* the page using Chrome's translator,
@@ -368,6 +424,9 @@ const attemptIdPattern = /^attempt(\d+)$/;
  * To work around this,
  * it's better to calculate all of these values on page load and store it
  * (e.g., as dataset.inputIndexes values on the buttons).
+ * If you run this early, users can use the web browser's built-in translator,
+ * see the translated HTML, and have the lab work (though the lab
+ * responses won't be translated).
  */
 function findIndexes(form) {
     try {
@@ -454,6 +513,10 @@ function makeStamp() {
  * Then set "grade" in document depending on that answer.
  */
 function runCheck() {
+    // This is only called when *something* has changed in the input.
+    // From now on, enforce hint delays.
+    changedInputSinceHint = true;
+
     let attempt = retrieveAttempt();
 
     // Calculate grade and set in document.
@@ -498,7 +561,7 @@ function runCheck() {
 }
 
 /** Return the best-matching hint string given an attempt.
- * @attempt - array of strings of attempt to give hints on
+ * @param attempt - array of strings of attempt to give hints on
  */
 function findHint(attempt, validIndexes = undefined) {
     // Find a matching hint (matches present and NOT absent)
@@ -517,22 +580,13 @@ function findHint(attempt, validIndexes = undefined) {
 }
 
 /** Show a hint to the user. */
-function showHint(e) {
-    // Get data-indexes value using e.target.dataset.indexes
-    // alert(`Form id = ${e.target.form.id}`);
-    let attempt = retrieveAttempt();
-    if (calcMatch(attempt, correctRe)) {
-        alert(t('already_correct'));
-    } else if (!hints) {
-        alert(t('no_hints'));
-    } else {
-        // Use *precalculated* input field indexes to work around
-        // problem in Chrome translator.
-        let validIndexes = e.target.dataset.inputIndexes;
-        alert(findHint(attempt, validIndexes));
-    }
+function showHint(e, attempt, validIndexes) {
+    // Use *precalculated* input field indexes to work around
+    // problem in Chrome translator.
+    alert(findHint(attempt, validIndexes));
 }
 
+/** Show the answer to the user */
 function showAnswer(e) {
     // Get indexes in *this* form.
     let formIndexes = JSON.parse(e.target.dataset.inputIndexes);
@@ -540,19 +594,86 @@ function showAnswer(e) {
     if (!user_solved) {
         user_gave_up = true;
     }
-    alert(t('expecting').format(goodAnswer));
+    alert(myFormat(t('expecting'), [goodAnswer]));
 }
 
-// "Give up" only shows the answer after this many seconds have elapsed.
-const MIN_DELAY_TIME = 60;
+// "Give up" only shows the answer after this many seconds have elapsed
+// since a clue (lab start or a hint given).
+const GIVE_UP_DELAY_TIME = 60;
 
-function maybeShowAnswer(e) {
+// "Hint" only shows hint after this many seconds have elapsed
+// since a clue (lab start or a hint given).
+// WARNING: If you change this value, you *may* need to adjust some of
+// the translated texts for try_harder_hint.
+// Pluralization rules vary depending on the natural language,
+// yet we want to tell the user the exact delay value for hints.
+// English, French, German, and some others have two forms, "one" and "other"
+// (aka "singular" and "plural" forms of words).
+// For Chinese and Japanese it doesn't matter (there's no difference).
+// In those cases, you only need to change translations if you change between
+// not-1 to 1, which is unlikely. However,
+// for some languages like Arabic, Hebrew, and Russian it's more complicated.
+// See: https://localizely.com/language-plural-rules/
+// If we needed to, we could use JavaScript's Intl.PluralRules
+// which is widely supported and addresses this (unless you use IE),
+// but at this point there's no evidence we need it. See:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules
+// https://caniuse.com/mdn-javascript_builtins_intl_pluralrules
+const HINT_DELAY_TIME = 15;
+
+/** return time (in seconds) since start and/or last hint */
+function elapsedTimeSinceClue() {
     let currentTime = Date.now();
-    let elapsedTime = (currentTime - startTime) / 1000; // in seconds
-    if (elapsedTime < MIN_DELAY_TIME) {
-        alert(t('try_harder').format(elapsedTime.toString()));
+    let lastTime = (lastHintTime == null) ? startTime : lastHintTime;
+    return ((currentTime - lastTime) / 1000); // in seconds
+}
+
+/** Maybe show the answer to the user (depending on timer). */
+function maybeShowAnswer(e) {
+    let elapsedTime = elapsedTimeSinceClue();
+    if (elapsedTime < GIVE_UP_DELAY_TIME) {
+        alert(myFormat(t('try_harder_give_up'), [elapsedTime.toString()]));
     } else {
         showAnswer(e);
+    }
+}
+
+/** Return true iff target is same hint button as last time & no edits. */
+function sameHint(target) {
+    return (target == lastHintTarget) && !changedInputSinceHint;
+}
+
+/** Maybe show a hint to the user (depending on timer). */
+function maybeShowHint(e) {
+    // If there are no hints, just say so without delay.
+    if (!hints || hints.length === 0) {
+        alert(t('no_hints'));
+        return;
+    }
+
+    // Confirm correct answer if it is, and don't cause a penalty or delay.
+    // For "hint" we only consider the answers for THIS form.
+    let attempt = retrieveAttempt();
+    let formIndexes = JSON.parse(e.target.dataset.inputIndexes);
+    if (calcMatch(attempt, correctRe, formIndexes)) {
+        alert(t('already_correct'));
+        return;
+    }
+
+    // Answer is not correct. Determine how much time has passed.
+    let elapsedTime = elapsedTimeSinceClue();
+
+    // Reply if the minimum delay time has passed.
+    // Only enforce delay timer if changedInputSinceHint is true. That way,
+    // people can re-see a previously-seen hint as long as they
+    // have not changed anything since seeing the hint.
+    if ((elapsedTime < HINT_DELAY_TIME) && !sameHint(e.target)) {
+        alert(myFormat(t('try_harder_hint'), [HINT_DELAY_TIME.toString()]));
+    } else {
+        lastHintTime = Date.now(); // Set new delay time start
+        lastHintTarget = e.target; // Set last hint button used
+        changedInputSinceHint = false; // Allow redisplay of hint
+        showHint(e, attempt, formIndexes);
     }
 }
 
@@ -616,9 +737,10 @@ function processHints(requestedHints) {
 }
 
 /** Set global values based on other than "correct" and "expected" values.
- * The correct and expected values may come from elsewhere, but we have to set up the
+ * The correct and expected values may come from elsewhere,
+ * but we have to set up the
  * info-based values first, because info can change how those are interpreted.
- * @configurationInfo: Data to use
+ * @param configurationInfo - Data to use
  */
 function processInfo(configurationInfo) {
     const allowedInfoFields = new Set([
@@ -803,6 +925,7 @@ function setupInfo() {
     };
 }
 
+/** Initialize the whole HTML page */
 function initPage() {
     // Set current locale
     lang = determine_locale();
@@ -822,7 +945,7 @@ function initPage() {
         current++;
     }
     for (let hintButton of document.querySelectorAll("button.hintButton")){
-        hintButton.addEventListener('click', (e) => { showHint(e); });
+        hintButton.addEventListener('click', (e) => { maybeShowHint(e); });
         // Precompute inputIndexes to work around problems that occur
         // if a user uses a browser's built-in natural language translation.
         // Presumes button's parent is the form

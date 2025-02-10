@@ -1,3 +1,6 @@
+// Copyright (C) Open Source Security Foundation (OpenSSF) and its contributors.
+// SPDX-License-Identifier: MIT
+
 info =
 {
   hints: [
@@ -22,7 +25,7 @@ info =
     },
     {
       absent: "return",
-      text: "This fails to return the result."
+      text: "This fails to return the result.",
     },
     {
       absent: String.raw`\s* [^;]+;[^;]+;[^;]+; \s*`,
