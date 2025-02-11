@@ -54,6 +54,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-532: Insertion of Sensitive Information into Log File](CWE-664/CWE-532/README.md)|[CVE-2023-45585](https://www.cvedetails.com/cve/CVE-2023-45585),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __0.04__ (01.11.2024)|
 |[CWE-665: Improper Initialization](CWE-664/CWE-665/README.md)||
 |[CWE-681: Incorrect Conversion between Numeric Types](CWE-664/CWE-681/README.md)||
+|[CWE-681: Avoid an uncontrolled loss of precision when passing floating-point literals to a Decimal constructor.](CWE-664/CWE-681/01/README.md)||
 |[CWE-833: Deadlock](CWE-664/CWE-833/README.md)||
 |[CWE-843: Access of Resource Using Incompatible Type ('Type Confusion')](CWE-664/CWE-843/.)|[CVE-2021-29513](https://www.cvedetails.com/cve/CVE-2021-29513),<br/>CVSSv3.1: __7.8__,<br/>EPSS: __00.05__ (05.11.2024)|
 |[XXX-005: Consider hash-based integrity verification of byte code files against their source code files](CWE-664/XXX-005/.)||
@@ -71,7 +72,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-693: Protection Mechanism Failure](https://cwe.mitre.org/data/definitions/693.html)|Prominent CVE|
 |:----------------------------------------------------------------|:----|
 |[CWE-184: Incomplete List of Disallowed Input](CWE-693/CWE-184/.)||
-|[CWE-330: Use of Insufficiently Random Values](CWE-693/CWE-330/README.md)|[CVE-2020-7548](https://www.cvedetails.com/cve/CVE-2020-7548),<br/>CVSSv3.1: **9.8**,<br/>EPSS: **0.22** (12.12.2024)|
+|[CWE-330: Use of Insufficiently Random Values](CWE-693/CWE-330/README.md)|[CVE-2020-7548](https://www.cvedetails.com/cve/CVE-2020-7548),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __0.22__ (12.12.2024)|
 |[CWE-798: Use of hardcoded credentials](CWE-693/CWE-798/.)||
 
 |[CWE-697: Incorrect Comparison](https://cwe.mitre.org/data/definitions/703.html)|Prominent CVE|
@@ -98,7 +99,7 @@ It is __not production code__ and requires code-style or python best practices t
 |:----------------------------------------------------------------|:----|
 |[CWE-1095: Loop Condition Value Update within the Loop](CWE-710/CWE-1095/README.md)||
 |[CWE-1109: Use of Same Variable for Multiple Purposes](CWE-710/CWE-1109/.)||
-|[CWE-489: Active Debug Code](CWE-710/CWE-489/README.md)|[CVE-2018-14649](https://www.cvedetails.com/cve/CVE-2018-14649),<br/>CVSSv3.1: **9.8**,<br/>EPSS: **69.64** (12.12.2023)|
+|[CWE-489: Active Debug Code](CWE-710/CWE-489/README.md)|[CVE-2018-14649](https://www.cvedetails.com/cve/CVE-2018-14649),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __69.64__ (12.12.2023)|
 
 ## Biblography
 
