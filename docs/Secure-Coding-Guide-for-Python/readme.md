@@ -23,12 +23,12 @@ Every person writing code shall study the following:
 
 ## Secure Coding Standard for Python
 
-Code examples are written to explain security design with as little code as possible. __None__ of the code examples are intendet to be used 'as is' for production. Using the code is at your own risk!
+Code examples are written to explain security design with as little code as possible. __None__ of the code examples are intended to be used 'as is' for production. Using the code is at your own risk!
 
-__Code file naminng conventions:__
+__Code file naming conventions:__
 
-* `noncompliantXX.py`  anti-pattern.
-* `compliantXX.py` mitigation for mitigating or removal of __ONLY__ the described risk.
+* `noncompliantXX.py` anti-pattern, bad programming practice.
+* `compliantXX.py` mitigation or removal of __ONLY__ the described risk.
 * `exampleXX.py` to allow understanding the documented behaviour.
 
 It is __not production code__ and requires code-style or python best practices to be added such as:
