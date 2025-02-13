@@ -1,26 +1,32 @@
 # CWE-681: Avoid an uncontrolled loss of precision when passing floating-point literals to a Decimal constructor
 
-When working with decimal numbers in Python, using floating-point literals as input to the Decimal constructor can lead to unintended imprecision due to the limitations of IEEE 754 floating-point representation; therefore, to ensure accurate decimal representation, it is advisable to avoid using floating-point literals.
+When working with decimal numbers in Python, using floating-point literals as input to the `Decimal` constructor can lead to unintended imprecision due to the limitations of `IEEE 754` [Wikipedia 2025](https://en.wikipedia.org/wiki/IEEE_754) floating-point representation; therefore, to ensure accurate decimal representation, it is advisable to avoid using floating-point literals.
 
 ## Noncompliant Code Example
 
-In the `noncompliant01.py` code example, a floating-point value is given to the Decimal constructor. The decimal 0.45 cannot be exactly represented by a floating-point literal, and hence the output of the decimal is imprecise. This is because 0.45 as a floating-point representation deals with the number in binary. In binary, many decimal fractions cannot be represented exactly. As a result, 0.45 is stored as an approximate binary fraction in a float, and when this approximation is converted to a Decimal, the inexactness is preserved, leading to a result like "0.450000000000000011102230246251565404236316680908203125".
+In the `noncompliant01.py` code example, a floating-point value is given to the Decimal constructor. The decimal `0.45` cannot be exactly represented by a floating-point literal, and hence the output of the decimal is imprecise. This is because `0.45` as a floating-point representation deals with the number in binary. In binary, many decimal fractions cannot be represented exactly. As a result, `0.45` is stored as an approximate binary fraction in a `float`, and when this approximation is converted to a Decimal, the inexactness is preserved, can result in `0.450000000000000011102230246251565404236316680908203125`.
+
+*[noncompliant01.py](noncompliant01.py):*
 
 ```py
+"""Non-compliant Code Example"""
 
-""" Non-compliant Code Example """
 from decimal import Decimal
+
 print(Decimal(0.45))
 ```
 
 ## Compliant Solution
 
-In the `compliant01.py` code example, the floating-point value is passed as a string, allowing the value to be directly converted to a Decimal object with the exact decimal value. This is because the string representation is interpreted exactly as it appears, maintaining all the specified digits.
+In the `compliant01.py` code example, the floating-point value is passed as a string, allowing the value to be directly converted to a `Decimal` object with the exact decimal value. This is because the string representation is interpreted exactly as it appears, maintaining all the specified digits.
+
+*[compliant01.py](compliant01.py):*
 
 ```py
+"""Compliant Code Example"""
 
-""" Compliant Code Example """
 from decimal import Decimal
+
 print(Decimal("0.45"))
 ```
 
@@ -43,4 +49,5 @@ print(Decimal("0.45"))
 
 |||
 |:---|:---|
-|[Python docs](https://docs.python.org/3/)|[Decimal](https://docs.python.org/3/library/decimal.html)|
+|[Wikipedia 2025](en.wikipedia.org)|IEEE 754 [online]. Available from: [https://en.wikipedia.org/wiki/IEEE_754](https://en.wikipedia.org/wiki/IEEE_754)|
+|[Python docs](https://docs.python.org/3/)|decimal — Decimal fixed-point and floating-point arithmetic [online]. Available from: [https://docs.python.org/3/library/decimal.html](https://docs.python.org/3/library/decimal.html) [accessed 2 February 2025]|
