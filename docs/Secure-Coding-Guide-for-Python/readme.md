@@ -27,7 +27,7 @@ Code examples are written to explain security design with as little code as poss
 
 __Code file naming conventions:__
 
-* `noncompliantXX.py`  anti-pattern.
+* `noncompliantXX.py`  anti-pattern, bad programming practice.
 * `compliantXX.py` mitigation or removal of __ONLY__ the described risk.
 * `exampleXX.py` to allow understanding the documented behaviour.
 
