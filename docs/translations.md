@@ -6,7 +6,7 @@ in this repo to ensure translations are good ones.
 
 ## Translation review process
 
-To that translations are good ones:
+To ensure that translations are good ones:
 
 1. All pull requests (PRs) that add or modify a translation
    *must* be labeled as such.
