@@ -16,6 +16,8 @@ To ensure that translations are good ones:
 2. A member of the "trusted translation team" for that language
    will review those PRs for translation accuracy. At least one
    such member MUST approve the PR before it can be merged.
+   If the PR comes *from* one if its team members, it's presumed to be
+   approved by that team.
    If the label is wrong, a trusted translation team member
    should remove the label.
 3. Someone else will also review the PR for any other issues,
