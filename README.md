@@ -243,7 +243,7 @@ Formal specifications would be licensed under the
 
 ## Reviewing translations
 
-We are *delighted* that some are willing to help us translate materials
+We are _delighted_ that some are willing to help us translate materials
 to other languages. Please ensure all
 pull requests that add or modify translations are labeled with its language.
 Such pull requests (PRs) must be first
