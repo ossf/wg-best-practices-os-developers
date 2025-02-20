@@ -33,7 +33,7 @@ Any member of a trusted translation team can add other members to their team.
 
 The OpenSSF TAC or Best Practices WG can create and remove teams,
 and can add or remove members in such teams. In practice we expect anything
-other than creating a team to be rare events.
+other than creating a team to be rare events for them.
 
 ### Japanese
 
