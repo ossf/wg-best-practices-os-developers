@@ -14,7 +14,7 @@ To ensure that translations are good ones:
    Anyone can add that label, including the originator,
    so that missing labels can be easily added.
 2. A member of the "trusted translation team" for that language
-   will review those translation PRs for accuracy. At least one
+   will review those PRs for translation accuracy. At least one
    such member MUST approve the PR before it can be merged.
    If the label is wrong, a trusted translation team member
    should remove the label.
