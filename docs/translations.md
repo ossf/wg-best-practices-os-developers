@@ -12,7 +12,8 @@ To ensure that translations are good ones:
    *must* be labeled as such.
    The label is the language name, e.g., "Japanese" for Japanese.
    Anyone can add that label, including the originator,
-   so that missing labels can be easily added.
+   if the repository permissions allow it.
+   This way, missing labels can be easily added.
 2. A member of the "trusted translation team" for that language
    will review those PRs for translation accuracy. At least one
    such member MUST approve the PR before it can be merged.
