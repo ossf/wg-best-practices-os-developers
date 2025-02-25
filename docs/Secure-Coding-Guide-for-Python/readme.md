@@ -7,7 +7,7 @@ Documentation is written in academic style to support security researchers while
 Python modules outside of the _Python Module Index_ [[Python 2023](https://docs.python.org/3.9/py-modindex.html)] are specifically not covered by this document.
 The structure is based on Common Weakness Enumeration (CWE) _Pillar Weakness_ [[MITRE Pillar 2024](https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness)].
 
-Please join us, see [contribute](contribute/README.md)
+Please join us, see [contributing](contributing/CONTRIBUTING.md)
 
 ## Disclaimer
 
