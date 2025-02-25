@@ -241,6 +241,16 @@ Formal specifications would be licensed under the
 [Community Specification License](https://github.com/CommunitySpecification/1.0)
 (though at this time we don't have any examples of that).
 
+## Reviewing translations
+
+We are _delighted_ that some are willing to help us translate materials
+to other languages. Please ensure all
+pull requests that add or modify translations are labeled with its language.
+Such pull requests (PRs) must be first
+reviewed and approved by a trusted translator.
+
+See [translations](docs/translations) for specific details.
+
 ## Charter
 
 Like all OpenSSF working groups, this working group reports to the
