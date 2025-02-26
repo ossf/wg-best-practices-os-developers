@@ -40,6 +40,6 @@ other than creating a team to be rare events for them.
 
 ### Japanese
 
-Non KAWANA - ninan27
-Muuhh IKEDA - Muuhh-CTJ
-Taku SHIMOSAWA - shimos
+* Non KAWANA - ninan27
+* Muuhh IKEDA - Muuhh-CTJ
+* Taku SHIMOSAWA - shimos
