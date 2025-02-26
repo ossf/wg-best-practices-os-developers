@@ -1,7 +1,6 @@
 # Secure Coding One Stop Shop for Python
 
-> [!NOTE]
-> This is a draft. Contributions welcome!
+> ⓘ  NOTE: This is a draft. Contributions welcome!
 
 An initiative by the OpenSSF to provide new Python programmers a resource to study secure coding in `CPython >= 3.9` with working code examples.
 
