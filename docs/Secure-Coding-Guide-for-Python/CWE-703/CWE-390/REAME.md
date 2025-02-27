@@ -93,7 +93,7 @@ The following two exceptions, highlighted in [SEI Cert's Oracle Coding Standard 
 We wrote a code example in Python in order to assist in the understanding of these exceptions.
 
 __ERR00-J-EX0:__ You may suppress exceptions during the release of non-reusable resources, such as closing files, network sockets, or shutting down threads, if they don't affect future program behavior.
-__ERR00-J-EX1:__ Allow higher-level code to catch and attempt recovery from exceptions. If recovery is not possible, log the exception, add information if needed, and rethrow it. 
+__ERR00-J-EX1:__ Allow higher-level code to catch and attempt recovery from exceptions. If recovery is not possible, log the exception, add information if needed, and rethrow it.
 
 *[example01.py](example01.py):*
 
@@ -120,7 +120,7 @@ def exception_example():
 exception_example()
 ```
 
-If recovery remains impossible, wrap the checked exception in an unchecked exception and rethrow it. 
+If recovery remains impossible, wrap the checked exception in an unchecked exception and rethrow it.
 
 ## Automated Detection
 
