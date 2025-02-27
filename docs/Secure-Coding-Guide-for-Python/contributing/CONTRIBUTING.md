@@ -36,7 +36,7 @@ It is helpful to know:
 
 ## Target Audience
 
-Target audience are new designers, security researchers and anyone teaching secure coding.
+Target audience is new designers, security researchers and anyone teaching secure coding.
 
 ### New designers
 
@@ -66,7 +66,7 @@ Although not specifically designed as a teaching resource, the material provided
 
 ## Mission Statement
 
-Intention is to provide a learning resource for  secure coding in `Python` to the same level as its available to languages such as `Java`, `C`, `C++` or `Go`.
+The goal is to provide a learning resource for secure coding in `Python` that is as comprehensive as those available for `Java`, `C`, `C++`, or `Go`.
 
 Similar to Python itself, the learning shall be as fun as possible by providing:
 
