@@ -16,11 +16,11 @@ Please read and adhere to our [Code of Conduct](https://github.com/ossf/wg-best-
     git clone https://github.com/your-username/repo-name.git
     ```
 
-3. Set up the development environment with a Python environment >= `3.9` and a `MarkDown` reader.
+3. Set up the development environment with a Python environment >= `3.9` and a `Markdown` reader.
 
 ## How to Contribute
 
-Feel free to create a PR to fix a bug or type, improve the readability of the guide, add a code example, or add entirely new pages covering missing material. Prepare by checking for existing issues.
+We welcome contributions in many forms—whether it’s fixing a bug or typo, improving the readability of the guide, adding a new code example, or creating entirely new pages to cover missing material. Before you start, please check for existing issues.
 
 Become part of the reviewers for upcoming pull requests (PRs) that are organized via:
 
@@ -40,7 +40,7 @@ Target audience are new designers, security researchers and anyone teaching secu
 
 ### New designers
 
-The resource allows to gain a baseline of knowledge by self study while still learning the language it self. This free's other team members from training up individuals on re-occurring security related good coding practices.
+This resource provides a baseline of knowledge for self-study while learning Python. It also helps free up experienced team members by standardizing training on common secure coding practices.
 
 ### Security Researchers
 
@@ -62,7 +62,7 @@ The overview table listing the most prominent CVEs allows to gain understanding 
 
 ### Teaching secure coding
 
-While not specifically design as a teaching resource there should be plenty of material that can be used.
+Although not specifically designed as a teaching resource, the material provided can be effectively used in educational settings.
 
 ## Mission Statement
 
@@ -77,7 +77,8 @@ Similar to Python itself, the learning shall be as fun as possible by providing:
 * Short concise and way below 40+ hours of other secure coding resources for a full study.
 * Overview table of rule vs risk rating.
 * Evidence based approach on risk rating.
-* Join us to explore how this resource can become an indispensable part of your secure coding toolkit
+
+Join us to explore how this resource can become an indispensable part of your secure coding toolkit
 
 ## Documentation Style
 
@@ -168,24 +169,21 @@ Idealistically we have a `noncompliantXX.py` code matching in number the `XX` nu
 To avoid running into linters or lighting up the programming IDE of others ensure to have the following installed:
 
 * `Ruff` with enabled `flake8-bandit` plugin
-* `GitHub` `MarkDown (MD)` linter such as `MarkDownLint` (this is enforced via GitHub action) * `Python` type hints.
+* `GitHub` `Markdown` linter such as `markdownlint` (this is enforced via GitHub action) * `Python` type hints.
 
 Linter warnings should be kept to a minimum.
 
-Keep code examples as short while using simple Python, its not about showing off python programming skills and must be kept accessible to beginners.
+Keep code examples as short while using simple Python, it's not about showing off python programming skills and must be kept accessible to beginners.
 
 There is the option to add `# TODO:` instead of overloading compliant code examples with all aspects of an end to end secure solution.
 
 ## Submitting Your Contribution
 
-1. __Create a new branch:__ Use descriptive names for branches, e.g., `pySCG-issue-123` or `pySCG-add-logging-feature`.
-Copy code
-`git checkout -b branch-name`
+1. __Create a new branch:__ Use descriptive names for branches, e.g., `pySCG-issue-123` or  `pySCG-add-logging-feature` using `git checkout -b branch-name`
 
 2. __Make your changes:__ Commit your changes with clear and concise commit messages.
 
 3. __Push your changes:__ Push your branch to your forked repository.
-Copy code
 `git push origin branch-name`
 
 4. __Submit a pull request:__ Go to the original repository and click on "New Pull Request". Fill out the template provided, detailing your changes and their purpose.
