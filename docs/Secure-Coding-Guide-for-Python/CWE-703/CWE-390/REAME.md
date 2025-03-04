@@ -15,13 +15,13 @@ Invalid reasons for suppressing exceptions cause:
 * Incomplete trace-logs
 * Excessive logging
 
-Printing the stack trace can reveal details and sensitive data about an application such as the components on use, existing users, and other sensitive information such as keys or passwords, as described in [CWE-209: Generation of Error Message Containing Sensitive Information](https://eteamspace.internal.ericsson.com/x/Yr8YS) and will not be handled in these examples.
+Printing the stack trace can reveal details and sensitive data about an application such as the components on use, existing users, and other sensitive information such as keys or passwords, as described in [CWE-209: Generation of Error Message Containing Sensitive Information](https://cwe.mitre.org/data/definitions/209.html) and will not be handled in these examples.
 
 ## Non-Compliant Code Example - Bare Exception
 
 In Python `Exception` extends from `BaseException`and a bare `except` will catch everything.
 
-For instance, catching a bare `except` causes a user to be unable to stop a script via `ctrl+c`, due to the base `except` cathing all exceptions. In comparison, catching `except Exception` allows a `KeyboardInterrupt` to be the Python interpreter itself or other parts of the code. This is due to `KeyboardInterrupt` extending `BaseException` and not `Exception`.
+For instance, catching a bare `except` causes a user to be unable to stop a script via `ctrl+c`, due to the base `except` catching all exceptions. In comparison, catching `except Exception` allows a `KeyboardInterrupt` to be the Python interpreter itself or other parts of the code. This is due to `KeyboardInterrupt` extending `BaseException` and not `Exception`.
 
 Note that using `except Exception` is still too broad as per [CWE-755: Improper Handling of Exceptional Conditions](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/CWE-703/CWE-755/README.md) and that a more specific exception handling is preferred.
 
@@ -53,7 +53,7 @@ def exception_example():
 exception_example()
 ```
 
-The `noncomplaint01.py` will continue to run when launched via terminal even when using `CTRL+C`.
+The `noncompliant01.py` will continue to run when launched via terminal even when using `CTRL+C`.
 
 The process will have to be terminated or killed in order to stop it. A programming IDE will allow stopping the `noncompliant01.py`as IDEs tend to kill the process rather than sending `CTRL+C`.
 
@@ -90,10 +90,10 @@ exception_example()
 
 The following two exceptions, highlighted in [SEI Cert's Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java), are important to understand when to attempt to handle exceptions at the right level in the stack in Python also.
 
-We wrote a code example in Python in order to assist in the understanding of these exceptions.
+We wrote a code example in Python in order to assist in the understanding of these exceptions [SEI CERT ERR00-J 2025](https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions).
 
-__ERR00-J-EX0:__ You may suppress exceptions during the release of non-reusable resources, such as closing files, network sockets, or shutting down threads, if they don't affect future program behavior.
-__ERR00-J-EX1:__ Allow higher-level code to catch and attempt recovery from exceptions. If recovery is not possible, log the exception, add information if needed, and rethrow it.
+* __ERR00-J-EX0:__ You may suppress exceptions during the release of non-reusable resources, such as closing files, network sockets, or shutting down threads, if they don't affect future program behavior.
+* __ERR00-J-EX1:__ Allow higher-level code to catch and attempt recovery from exceptions. If recovery is not possible, log the exception, add information if needed, and rethrow it.
 
 *[example01.py](example01.py):*
 
@@ -134,7 +134,7 @@ If recovery remains impossible, wrap the checked exception in an unchecked excep
 
 |||
 |:---|:---|
-|[Secure Coding One Stop Shop for Python](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python)|[CWE-209: Generation of Error Message Containing Sensitive Information](https://eteamspace.internal.ericsson.com/x/Yr8YS)|
+|[MITRE](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python)|[CWE-209: Generation of Error Message Containing Sensitive Information](https://cwe.mitre.org/data/definitions/209.html)|
 |[SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[ERR00-J. Do not suppress or ignore checked exceptions](https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions)|
 |[MITRE CWE Base](http://cwe.mitre.org/)|[CWE-703](https://cwe.mitre.org/data/definitions/703.html), Improper Check or Handling of Exceptional Conditions|
 |[MITRE CWE Pillar](http://cwe.mitre.org/)|[CWE-390](http://cwe.mitre.org/data/definitions/390.html), Detection of Error Condition without Action|
@@ -143,7 +143,8 @@ If recovery remains impossible, wrap the checked exception in an unchecked excep
 
 |||
 |:---|:---|
-|[[Python.org](https://docs.python.org/3.9/) 2022]| python.org. (2022). Built-in Exceptions [online]. Available from: [Python Built-in Exception Documents](https://docs.python.org/3.9/library/exceptions.html) [accessed 08 February 2023]|
+|[[Python.org](https://docs.python.org/3.9/) 2022]| python.org. (2022). Built-in Exceptions [online]. Available from: [https://docs.python.org/3.9/library/exceptions.html](https://docs.python.org/3.9/library/exceptions.html) [accessed 08 February 2023]|
 |[[Bloch 2008](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Bloch08)]|Item 62, "Document All Exceptions Thrown by Each Method"|
 |[[Bloch 2008](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Bloch08)]| Item 65, "Don't Ignore Exceptions"|
 |[[Goetz](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Goetz06)]|Section 5.4, "Blocking and Interruptible Methods"|
+|[SEI CERT ERR00-J 2025]|ERR00-J. Do not suppress or ignore checked exceptions [online]. Available from: [https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions](https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions) [Accessed Februrary 2025]|
