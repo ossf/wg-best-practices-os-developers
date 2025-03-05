@@ -43,9 +43,9 @@ regular expressions.
 
 <p>
 The code below sets up handlers for a <tt>get</tt> request on path
-<tt>/invoices</tt>.
+<tt>/parts</tt>.
 This code could be triggered, for example, by requesting
-<tt>http://localhost:3000/part?id=AX-794-7</tt>
+<tt>http://localhost:3000/parts?id=AX-794-7</tt>
 (if it was running at <tt>localhost</tt> and responding to port 3000).
 If there are no validation errors, the code is supposed to show the part id.
 If there is a validation error, it responds with HTTP
@@ -144,7 +144,7 @@ const { query, matchedData, validationResult } =
 app.get('/parts',
 <textarea id="attempt0" rows="2" cols="64" spellcheck="false">
   ,</textarea>
-  (req, res) =&gt; { // Execute this code if /invoices seen
+  (req, res) =&gt; { // Execute this code if /parts seen
     const result = validationResult(req); // Retrieve errors
     if (result.isEmpty()) { // No errors
       const data = matchedData(req); // Retrieve matching data
