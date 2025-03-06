@@ -11,7 +11,7 @@ logging.basicConfig(encoding="utf-8", level=logging.DEBUG)
 
 
 def front_end(config_file_path: Path):
-    """Dummy method demonstrating noncompliant implementation"""
+    """Simulating front end implementation"""
     # A compliant loads connection information from a well protect file
     _config = configparser.ConfigParser()
     _config.read(config_file_path)
