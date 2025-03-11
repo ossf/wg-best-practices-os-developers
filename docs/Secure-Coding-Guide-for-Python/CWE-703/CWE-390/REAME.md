@@ -90,10 +90,14 @@ exception_example()
 
 The following two exceptions, highlighted in [SEI Cert's Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java), are important to understand when to attempt to handle exceptions at the right level in the stack in Python also.
 
-We wrote a code example in Python in order to assist in the understanding of these exceptions [SEI CERT ERR00-J 2025](https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions).
-
 * __ERR00-J-EX0:__ You may suppress exceptions during the release of non-reusable resources, such as closing files, network sockets, or shutting down threads, if they don't affect future program behavior.
 * __ERR00-J-EX1:__ Allow higher-level code to catch and attempt recovery from exceptions. If recovery is not possible, log the exception, add information if needed, and rethrow it.
+
+## Example Code Example
+
+If recovery from an exception remains impossible, it is often best practice to wrap the checked exception in an unchecked exception and rethrow it. This approach allows the application to fail gracefully or log the error for future debugging, rather than crashing unexpectedly.
+
+`example01.py` assist in the understanding of Java's SEI Cert exceptions [SEI CERT ERR00-J 2025](https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions)..
 
 *[example01.py](example01.py):*
 
@@ -119,8 +123,6 @@ def exception_example():
 #####################
 exception_example()
 ```
-
-If recovery remains impossible, wrap the checked exception in an unchecked exception and rethrow it.
 
 ## Automated Detection
 
