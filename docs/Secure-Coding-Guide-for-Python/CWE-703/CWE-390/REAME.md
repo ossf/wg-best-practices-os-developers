@@ -144,7 +144,4 @@ If recovery remains impossible, wrap the checked exception in an unchecked excep
 |||
 |:---|:---|
 |[[Python.org](https://docs.python.org/3.9/) 2022]| python.org. (2022). Built-in Exceptions [online]. Available from: [https://docs.python.org/3.9/library/exceptions.html](https://docs.python.org/3.9/library/exceptions.html) [accessed 08 February 2023]|
-|[[Bloch 2008](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Bloch08)]|Item 62, "Document All Exceptions Thrown by Each Method"|
-|[[Bloch 2008](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Bloch08)]| Item 65, "Don't Ignore Exceptions"|
-|[[Goetz](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Goetz06)]|Section 5.4, "Blocking and Interruptible Methods"|
 |[SEI CERT ERR00-J 2025]|ERR00-J. Do not suppress or ignore checked exceptions [online]. Available from: [https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions](https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions) [Accessed Februrary 2025]|
