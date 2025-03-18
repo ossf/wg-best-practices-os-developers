@@ -86,13 +86,6 @@ def exception_example():
 exception_example()
 ```
 
-## Exceptions
-
-The following two exceptions, highlighted in [SEI Cert's Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java), are important to understand when to attempt to handle exceptions at the right level in the stack in Python also.
-
-* __ERR00-J-EX0:__ You may suppress exceptions during the release of non-reusable resources, such as closing files, network sockets, or shutting down threads, if they don't affect future program behavior.
-* __ERR00-J-EX1:__ Allow higher-level code to catch and attempt recovery from exceptions. If recovery is not possible, log the exception, add information if needed, and rethrow it.
-
 ## Example Code Example
 
 If recovery from an exception remains impossible, it is often best practice to wrap the checked exception in an unchecked exception and rethrow it. This approach allows the application to fail gracefully or log the error for future debugging, rather than crashing unexpectedly.
@@ -129,6 +122,13 @@ def slice_cake(cake: int, plates: int) -> float:
 #####################
 slice_cake(cake=100, plates=0)
 ```
+
+## Exceptions
+
+The following two exceptions, highlighted in [SEI Cert's Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java), are important to understand when to attempt to handle exceptions at the right level in the stack in Python also.
+
+* __ERR00-J-EX0:__ You may suppress exceptions during the release of non-reusable resources, such as closing files, network sockets, or shutting down threads, if they don't affect future program behavior.
+* __ERR00-J-EX1:__ Allow higher-level code to catch and attempt recovery from exceptions. If recovery is not possible, log the exception, add information if needed, and rethrow it.
 
 ## Automated Detection
 
