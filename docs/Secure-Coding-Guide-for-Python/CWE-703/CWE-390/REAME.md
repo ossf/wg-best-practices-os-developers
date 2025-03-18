@@ -15,7 +15,7 @@ Invalid reasons for suppressing exceptions cause:
 * Incomplete trace-logs
 * Excessive logging
 
-Printing the stack trace can reveal details and sensitive data about an application such as the components on use, existing users, and other sensitive information such as keys or passwords, as described in [CWE-209: Generation of Error Message Containing Sensitive Information](https://cwe.mitre.org/data/definitions/209.html) and will not be handled in these examples.
+Printing the stack trace can reveal details and sensitive data about an application such as the components in use, existing users, and other sensitive information such as keys or passwords, as described in [CWE-209: Generation of Error Message Containing Sensitive Information](https://cwe.mitre.org/data/definitions/209.html) and will not be handled in these examples.
 
 ## Non-Compliant Code Example - Bare Exception
 
