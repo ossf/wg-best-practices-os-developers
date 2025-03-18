@@ -25,7 +25,7 @@ For instance, catching a bare `except` causes a user to be unable to stop a scri
 
 Note that using `except Exception` is still too broad as per [CWE-755: Improper Handling of Exceptional Conditions](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/CWE-703/CWE-755/README.md) and that a more specific exception handling is preferred.
 
-The `noncompliant01.py` code demonstrates a bare except on a `ZeroDivisionError` and must be run on the command line in order to experience the issue.
+The `noncompliant01.py` code demonstrates a bare `except` on a `ZeroDivisionError` and must be run on the command line in order to experience the issue.
 
 *[noncompliant01.py](noncompliant01.py):*
 
