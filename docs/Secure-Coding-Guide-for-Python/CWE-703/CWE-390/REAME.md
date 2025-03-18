@@ -104,24 +104,30 @@ If recovery from an exception remains impossible, it is often best practice to w
 ```py
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-""" Compliant Code Example """
-from time import sleep
+"""Code Example"""
 
 
-def exception_example():
-    """Compliant Code Example catching a specific exception"""
-    while True:
-        sleep(1)
-        try:
-            _ = 1 / 0
-        except ZeroDivisionError:
-            print("How is it now?")
+def slice_cake(cake: int, plates: int) -> float:
+    """Calculates size of each slice per plate for a cake
+    Args:
+        cake (int)  : Size of the cake
+        guests (int): Amount of guests
+    Returns:
+        (float): Size of each slice
+    """
+
+    try:
+        return cake / plates
+    except ZeroDivisionError as zero_division_error:
+        raise ZeroDivisionError(
+            "slice_cake:You got to give me plates"
+        ) from zero_division_error
 
 
 #####################
 # exploiting above code example
 #####################
-exception_example()
+slice_cake(cake=100, plates=0)
 ```
 
 ## Automated Detection
