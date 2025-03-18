@@ -21,7 +21,7 @@ Printing the stack trace can reveal details and sensitive data about an applicat
 
 In Python `Exception` extends from `BaseException`and a bare `except` will catch everything.
 
-For instance, catching a bare `except` causes a user to be unable to stop a script via `ctrl+c`, due to the base `except` catching all exceptions. In comparison, catching `except Exception` allows a `KeyboardInterrupt` to be the Python interpreter itself or other parts of the code. This is due to `KeyboardInterrupt` extending `BaseException` and not `Exception`.
+For instance, catching a bare `except` causes a user to be unable to stop a script via `CTRL+C`, due to the base `except` catching all exceptions. In comparison, catching `except Exception` allows a `KeyboardInterrupt` to be the Python interpreter itself or other parts of the code. This is due to `KeyboardInterrupt` extending `BaseException` and not `Exception`.
 
 Note that using `except Exception` is still too broad as per [CWE-755: Improper Handling of Exceptional Conditions](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/CWE-703/CWE-755/README.md) and that a more specific exception handling is preferred.
 
