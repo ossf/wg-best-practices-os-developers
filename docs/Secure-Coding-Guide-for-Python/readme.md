@@ -65,6 +65,7 @@ It is **not production code** and requires code-style or python best practices t
 
 |[CWE-691: Insufficient Control Flow Management](https://cwe.mitre.org/data/definitions/691.html)|Prominent CVE|
 |:---------------------------------------------------------------------------------------------------------------|:----|
+|[CWE-362: Concurrent Execution Using Shared Resource with Improper Synchronization ("Race Condition")](CWE-691/CWE-362/README.md)||
 |[CWE-617: Reachable Assertion](CWE-691/CWE-617/README.md)||
 
 |[CWE-693: Protection Mechanism Failure](https://cwe.mitre.org/data/definitions/693.html)|Prominent CVE|
