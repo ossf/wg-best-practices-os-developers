@@ -26,20 +26,20 @@ Some function attributes can accept parameters that have specific meanings.  Par
 
 Table 1: Recommended attributes
 
-| Attribute                                                      | Supported since             | Type                         | Description                                                                                                                                                                                                      |
-|:-------------------------------------------------------------- |:---------------------------:|:----------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `malloc`                                                       | GCC 2.95.3<br/>Clang 13.0.0 | Function                     | Mark custom allocation functions that return non-aliased (possibly NULL) pointers.                                                                                                                               |
-| `malloc (`_`deallocator`_`)`                                   | GCC 11.0.0<br/>Clang 21.0.0 | Function                     | Associates _`deallocator`_ as the valid deallocator for the storage allocated by marked function.                                                                                                                |
-| `ownership_returns(`_`allocation-type`_`)`                     | Clang 20.1.0                | Function                     | Associate pointers returned by custom allocation function with _`allocation-type`_ .                                                                                                                             |
-| `ownership_takes(`_`allocation-type`_`,` _`ptr-index`_`)`      | Clang 20.1.0                | Function                     | Mark function as valid deallocator for _`allocation-type`_.                                                                                                                                                      |
-| `ownership_holds(`_`allocation-type`_`,` _`ptr-index`_`)`      | Clang 20.1.0                | Function                     | Mark function taking responsibility of deallocation for _`allocation-type`_.                                                                                                                                     |
-| `alloc_size(pos)`<br/>`alloc_size(pos-1, pos-2)`               | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | Size of the object that the returned pointer points to is at argument `pos` of the function or product of arguments at `pos-1` and `pos-2`.                                                                      |
-| `access(mode, ref-pos)`<br/>`access(mode, ref-pos, size-pos)`  | GCC 10                      | Function                     | Indicate how the function uses argument at `ref-pos`.  `mode` could be `read_only`, `read_write`, `write_only` or `none`.  `size-pos`, if mentioned, is the argument indicating the size of object at `ref-pos`. |
-| `fd_arg(N)`                                                    | GCC 13                      | Function                     | Argument N is an open file descriptor.                                                                                                                                                                           |
-| `fd_arg_read(N)`                                               | GCC 13                      | Function                     | Argument N is an open file descriptor that can be read from.                                                                                                                                                     |
-| `fd_arg_write(N)`                                              | GCC 13                      | Function                     | Argument N is an open file descriptor that can be written to.                                                                                                                                                    |
-| `noreturn`                                                     | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | The function does not return.                                                                                                                                                                                    |
-| `tainted_args`                                                 | GCC 12                      | Function or function pointer | Function needs sanitization of its arguments. Used by `-fanalyzer=taint`                                                                                                                                         |
+| Attribute                                                                              | Supported since             | Type                         | Description                                                                                                                                                                                                      |
+|:-------------------------------------------------------------------------------------- |:---------------------------:|:----------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `malloc`                                                                               | GCC 2.95.3<br/>Clang 13.0.0 | Function                     | Mark custom allocation functions that return non-aliased (possibly NULL) pointers.                                                                                                                               |
+| `malloc (`_`deallocator`_`)`                                                           | GCC 11.0.0<br/>Clang 21.0.0 | Function                     | Associates _`deallocator`_ as the valid deallocator for the storage allocated by marked function.                                                                                                                |
+| `ownership_returns(`_`allocation-type`_`)`                                             | Clang 20.1.0                | Function                     | Associate pointers returned by custom allocation function with _`allocation-type`_ .                                                                                                                             |
+| `ownership_takes(`_`allocation-type`_`,` _`ptr-index`_`)`                              | Clang 20.1.0                | Function                     | Mark function as valid deallocator for _`allocation-type`_.                                                                                                                                                      |
+| `ownership_holds(`_`allocation-type`_`,` _`ptr-index`_`)`                              | Clang 20.1.0                | Function                     | Mark function taking responsibility of deallocation for _`allocation-type`_.                                                                                                                                     |
+| `alloc_size(`_`size-index`_`)`<br/>`alloc_size(`_`size-index-1`_`,`_`size-index-2`_`)` | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | Mark positional arguments holding the allocation size that the returned pointer points to.                                                                                                                       |
+| `access(mode, ref-pos)`<br/>`access(mode, ref-pos, size-pos)`                          | GCC 10                      | Function                     | Indicate how the function uses argument at `ref-pos`.  `mode` could be `read_only`, `read_write`, `write_only` or `none`.  `size-pos`, if mentioned, is the argument indicating the size of object at `ref-pos`. |
+| `fd_arg(N)`                                                                            | GCC 13                      | Function                     | Argument N is an open file descriptor.                                                                                                                                                                           |
+| `fd_arg_read(N)`                                                                       | GCC 13                      | Function                     | Argument N is an open file descriptor that can be read from.                                                                                                                                                     |
+| `fd_arg_write(N)`                                                                      | GCC 13                      | Function                     | Argument N is an open file descriptor that can be written to.                                                                                                                                                    |
+| `noreturn`                                                                             | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | The function does not return.                                                                                                                                                                                    |
+| `tainted_args`                                                                         | GCC 12                      | Function or function pointer | Function needs sanitization of its arguments. Used by `-fanalyzer=taint`                                                                                                                                         |
 
 ## Performance considerations
 
@@ -122,5 +122,54 @@ void my_hold(void *ptr) __attribute((ownership_holds(my_allocation, 1)));
 [^clang-malloc]: LLVM team, [Attributes in Clang: malloc](https://clang.llvm.org/docs/AttributeReference.html#malloc), Clang Compiler User's Manual, 2025-03-04.
 [^clang-ownership]: LLVM team, [Attributes in Clang: ownership_holds, ownership_returns, ownership_takes](https://releases.llvm.org/18.1.8/tools/clang/docs/AttributeReference.html#ownership-holds-ownership-returns-ownership-takesc), Clang Compiler User's Manual, 2025-03-04.
 [^clang-checkers]: LLVM team, [Clang Static Analyzer: 1. Available Checkers¶](https://clang.llvm.org/docs/analyzer/checkers.html), Clang Compiler User's Manual, 2025-03-04.
+
+---
+
+### Mark positional arguments holding allocation size information
+
+| Attribute                                                                                   | Supported since             | Type                         | Description                                                                                       |
+|:--------------------------------------------------------------------------------------------|:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
+| `alloc_size(`_`size-index`_`)`<br/>`alloc_size(`_`size-index-1`_`,`_`size-index-2`_`)`      | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | Mark positional arguments holding the allocation size that the returned pointer points to.        |
+
+The `alloc_size` attribute in GCC[^gcc-alloc_size] and Clang[^clang-alloc_size] indicates that the functional return value points to a memory allocation and the specified positional arguments hold the size of that allocation. The compiler uses this information to improve the correctness of information obtained through the `__builtin_object_size` and `__builtin_dynamic_object_size`[^gcc-object-size]. builtins. This can improve the accuracy of source fortification for unsafe libc usage and buffer overflows as these builtins are used by [`__FORTIFY_SOURCE`](Compiler-Options-Hardening-Guide-for-C-and-C++.html#-D_FORTIFY_SOURCE=3) to determine correct object bounds.
+
+The `alloc_size(`_`size-index`_`)` form acts as a hint to the compiler that the size of the allocation is denoted by the positional argument at _`size-index`_(using one-based indexing). This form can be used for functions with a `malloc`-like API.
+
+The `alloc_size(`_`size-index-1`_`,`_`size-index-2`_`)` form acts as a hint to the compiler that the size of the allocation is denoted by the product of the positional arguments at _`size-index-1`_ and _`size-index-2`_. This form can be used for functions with a `calloc`-like API.
+
+In Clang, the size information hints provided via `alloc_size` attribute only affects `__builtin_object_size` and `__builtin_dynamic_object_size` calls for pointer variables that are declared `const`. In GCC the provided size information hints also affect `__builtin_object_size` and `__builtin_dynamic_object_size` calls for non-`const` pointer variables.
+
+#### Example usage
+
+~~~c
+// Denotes that my_malloc will return with a pointer to storage capable of holding up to size bytes.
+void *my_malloc(size_t size) __attribute__((alloc_size(1)));
+
+// Denotes that my_realloc will return with a pointer to storage capable of holding up to size bytes.
+void *my_realloc(void* ptr, size_t size) __attribute__((alloc_size(2)));
+
+// Denotes that my_calloc will return with a pointer to storage capable of holding up to n * size bytes.
+void *my_calloc(size_t n, size_t size) __attribute__((alloc_size(1, 2)));
+
+// The following assertions will evaluate to true in both GCC and Clang
+void *const p = my_malloc(100);
+assert(__builtin_object_size(p, 0) == 100);
+
+void *const q = my_calloc(20, 5);
+assert(__builtin_object_size(q, 0) == 100);
+
+// The following assertions will evaluate to true in GCC
+void *r = my_malloc(100);
+assert(__builtin_object_size(r, 0) == 100);
+
+void *s = my_calloc(20, 5);
+assert(__builtin_object_size(s, 0) == 100);
+~~~
+
+[[Extended example at Compiler Explorer](https://godbolt.org/z/EoEWsnE7f)]
+
+[^gcc-alloc_size]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: alloc_size](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-alloc_005fsize-function-attribute), GCC Manual, 2024-08-01.
+[^gcc-object-size]: GCC team, [Using the GNU Compiler Collection (GCC): 6.62 Object Size Checking](https://gcc.gnu.org/onlinedocs/gcc/Object-Size-Checking.html), GCC Manual, 2024-08-01.
+[^clang-alloc_size]: LLVM team, [Attributes in Clang: alloc_size](https://clang.llvm.org/docs/AttributeReference.html#alloc-size), Clang Compiler User's Manual, 2025-03-04.
 
 ---
