@@ -344,7 +344,7 @@ we have adequate solutions:
    this also means that the date will be robustly included in the file itself
    once they are updated, and we expect people will easily understand
    when they need to update a simple date.
-6. *Sharing before official release*. It's important to be able to see
+7. *Sharing before official release*. It's important to be able to see
    documents while they're being initially developed. Those documents can
    be shared this way, and marked as drafts.
 
