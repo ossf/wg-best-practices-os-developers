@@ -1,6 +1,6 @@
 # Simplest Possible Process (SPP) for Publishing Documentation
 
-*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org), 2023-06-28*
+*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org), 2025-03-19*
 
 This document describes the "Simplest Possible Process" (SPP),
 a process for publishing nice-looking static results on a website
@@ -18,6 +18,7 @@ and deployed as simple static pages:
    the [tips](#tips) below. In particular, please
    include a (publication) date in `YYYY-MM-DD` format
    in their contents, and *update* that during content changes.
+   If the document is a draft, *clearly* indicate that.
 
 This document is written primarily for use by
 technical contributors to the
@@ -44,6 +45,7 @@ welcome to use this SPP if they determined that it met their needs
 [TAC issue 176](https://github.com/ossf/tac/issues/176)).
 The OpenSSF staff will implement this for an OpenSSF repository,
 but only on request (to avoid unnecessary work).
+See the section [One-time setup](#one-time-setup)).
 
 ## Tips
 
@@ -58,11 +60,13 @@ Directory and file names with spaces are supported,
 but not recommended, because the
 resulting URLs look odd (space becomes `%20`).
 
+In most cases documents should be in markdown format for ease of editing.
 All markdown (`.md`) files will be converted into HTML (`.html`) files;
 you can omit the trailing `.html` when accessing them using a web browser.
 
 When using markdown:
 
+* If the document is a draft, *clearly* indicate that.
 * We recommend including `markdownlint` in your CI/CD, possibly configured
   specially, to detect and prevent problems ahead-of-time.
 * Try to limit yourself
@@ -137,13 +141,14 @@ Here's how to do that:
    Select *Code and automation/Pages*. Under *Build and deployment* select
    *Deploy from a branch* using branch `main` and folder `/docs`, then save.
    Under *custom domain* enter your custom domain (e.g., `best.openssf.org`)
-   and select Save; this will create a file name `CNAME` in the root directory.
+   and select Save; this will create a file named `CNAME` in the root directory.
 3. *Configure DNS*. Change the DNS setting for the
    (new) domain name (e.g., `best.openssf.org`) so its `CNAME` points
-   to the *organization* GitHub site (e.g., `ossf.github.io`).
+   to `ossf.github.io` (the *organization* GitHub site).
    Note that *every* repository of an organization uses the same `CNAME`
-   (GitHub uses the CNAME file in your repository to figure out which
-   site will be used). OpenSSF members
+   for this particular setting, and *not* the name of the specific repository.
+   GitHub instead uses the CNAME file in your repository to figure out
+   exactly which repository will be used. OpenSSF members
    can just email `operations` at `openssf.org`;
    Linux Foundation employees can send the request to
    [LF support](https://support.linuxfoundation.org) or more specifically
@@ -163,15 +168,17 @@ Here's how to do that:
 
 ### Problem
 
-The initial approach we (the OpenSSF) have been
-been using for distributing most of our results has many problems.
-The initial approach shows readers lots of
+Only using the GitHub repository interface for distributing results
+many drawbacks.
+It shows readers lots of
 irrelevant text (the GitHub source repo interface), we cannot control
 its formatting, the URLs aren't related to our (`openssf.org`) domain,
 most metadata (such as the description) is wrong, and search engines
 are likely to give it low scores (because it's "just a random page
 on GitHub"). For an example of this "ugly" view, see the
 [Guide to implementing a coordinated vulnerability disclosure process for open source projects](https://github.com/ossf/oss-vulnerability-guide/blob/main/maintainer-guide.md)
+The GitHub repository interface is *great* when making changes, but not
+for sharing final document results.
 
 There are a practically infinite number of ways to publish results
 on a website that are better.
@@ -291,8 +298,8 @@ we have adequate solutions:
    The "obvious" solution is to have a repo for just the CSS,
    and then have all other OpenSSF repos include that CSS.
    Then there would be one place to update CSS.
-   If we have that many repos, we can implement this, and have the
-   one-time cost of changing each publishing repo to use it.
+   If we have that many repos, we can implement this, and
+   change each publishing repo to use it.
 2. *Abandoned domain names*. If a repo is deleted,
    we also need to delete the repo entry.
    Repo deletion is incredibly rare (we've never done it in 3 years),
@@ -319,7 +326,8 @@ we have adequate solutions:
    The OpenSSF staff only plans to take the one-time SPP steps
    by request, so they will only need to take those steps
    if someone plans to use it.
-5. *Forge changes*. We have no plans and no reason to stop using GitHub.
+5. *Moving to another forge*.
+   We have no plans and no reason to stop using GitHub.
    If we did move, however, the key components that implement this process
    (the [Jekyll engine](https://jekyllrb.com/docs/),
    the [`kramdown`](https://kramdown.gettalong.org/) markdown processor, and the
@@ -330,12 +338,15 @@ we have adequate solutions:
 6. *Publication dates*. As currently implemented the SPP does not
    automatically add publication dates. There are Jekyll
    plug-ins we could use to create publication dates, but installing them
-   seems complex and probably not worth it. For now, we ask that
+   is complex and probably not worth it. For now, we ask that
    groups just include the date in the document being published.
    While groups could occasionally forget to update them,
    this also means that the date will be robustly included in the file itself
    once they are updated, and we expect people will easily understand
    when they need to update a simple date.
+6. *Sharing before official release*. It's important to be able to see
+   documents while they're being initially developed. Those documents can
+   be shared this way, and marked as drafts.
 
 ## Limitations
 
