@@ -69,7 +69,7 @@ It is **not production code** and requires code-style or python best practices t
 
 |[CWE-693: Protection Mechanism Failure](https://cwe.mitre.org/data/definitions/693.html)|Prominent CVE|
 |:----------------------------------------------------------------|:----|
-|[CWE-184: Incomplete List of Disallowed Input](CWE-693/CWE-184/.)||
+|[CWE-184: Incomplete List of Disallowed Input](CWE-693/CWE-184/README.md)||
 |[CWE-330: Use of Insufficiently Random Values](CWE-693/CWE-330/.)||
 |[CWE-798: Use of hardcoded credentials](CWE-693/CWE-798/.)||
 
