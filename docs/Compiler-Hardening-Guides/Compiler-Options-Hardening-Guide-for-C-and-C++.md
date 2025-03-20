@@ -17,7 +17,7 @@ This document focuses on recommended options for the GNU Compiler Collection (GC
 
 ## TL;DR: What compiler options should I use?
 
-When compiling C or C++ code on compilers such as GCC and clang, turn on these flags for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
+When compiling C or C++ code on compilers such as GCC and clang, turn on these flags in all cases for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
 
 ~~~sh
 -O2 -Wall -Wformat -Wformat=2 -Wconversion -Wimplicit-fallthrough \
@@ -31,9 +31,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -Wl,--as-needed -Wl,--no-copy-dt-needed-entries
 ~~~
 
-Note that support for some options may differ between different compilers, e.g. support for [`-D_FORTIFY_SOURCE`](#-D_FORTIFY_SOURCE=3) varies depending on the compiler[^Guelton20] and C standard library implementations. See the discussion below for [background](#background) and for [detailed discussion of each option](#recommended-compiler-options).
-
-When compiling code in any of the situations in the below table, add the corresponding additional options:
+**In addition**, when compiling code in any of the situations in the below table, **add** the corresponding additional options:
 
 | When                                                    | Additional options flags                                                                                 |
 |:------------------------------------------------------- |:---------------------------------------------------------------------------------------------------------|
@@ -46,8 +44,11 @@ When compiling code in any of the situations in the below table, add the corresp
 | for production code                                     | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
 | for treating obsolete C constructs as errors            | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion`                             |
 | for multi-threaded C code using GNU C library pthreads  | `-fexceptions`                                                                                           |
+| during development but *not* when distributing source   | `-Werror`                                                                                                |
 
-We recommend developers to additionally use a blanket [`-Werror`](#-Werror) to treat all warnings as errors during development. However, `-Werror` should not be used in this blanket form when distributing source code, as this use of `-Werror` creates a dependency on specific toolchain vendors and versions. The selective form[`-Werror=`*`<warning-flag>`*](#-Werror-flag) that promotes specific warnings as error in cases that should never occur in the code can be used both during development and when distributing sources. For example, we encourage developers to promote warnings regarding obsolete C constructs removed by the 1999 C standard to errors (see the "for disabling obsolete C constructs" in the above table). These options often cannot be added by those who independently build the software, because the options may require non-trivial changes to the source code.
+Note that support for some options may differ between different compilers, e.g. support for [`-D_FORTIFY_SOURCE`](#-D_FORTIFY_SOURCE=3) varies depending on the compiler[^Guelton20] and C standard library implementations. See the discussion below for [background](#background) and for [detailed discussion of each option](#recommended-compiler-options).
+
+We recommend developers to additionally use a blanket [`-Werror`](#-Werror) to treat all warnings as errors during development. However, `-Werror` should **not** be used in this blanket form when **distributing** source code, as this use of `-Werror` creates a dependency on specific toolchain vendors and versions. The selective form[`-Werror=`*`<warning-flag>`*](#-Werror-flag) that promotes specific warnings as error in cases that should never occur in the code can be used both during development and when distributing sources. For example, we encourage developers to promote warnings regarding obsolete C constructs removed by the 1999 C standard to errors (see the "for disabling obsolete C constructs" in the above table). These options often cannot be added by those who independently build the software, because the options may require non-trivial changes to the source code.
 
 In this guide, we use the term *production code* for executable code intended for use in the real world with real effects; it should be maximally reliable and performant. We use the term *instrumented test code* for executable code that is instrumented to improve defect detection and debuggability, and as such, often crashes more and is slower. Test processes should use both instrumented test code and production code.
 
