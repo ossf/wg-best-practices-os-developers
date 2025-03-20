@@ -155,7 +155,7 @@ The recommendations in Table 1 and Table 2 are primarily applicable to compiling
 - supported both by the GCC and Clang / LLVM toolchains.
 - cross-platform and supported on (at least) Intel and AMD 64-bit x86 architectures as well as the 64-bit version of the ARM architecture (AArch64).
 
-[^compiler-flags-distro]: [compiler-flags-distro](https://github.com/jvoisin/compiler-flags-distro/blob/main/README.md)
+[^compiler-flags-distro]: Voisin, Julien et al., [Default compiler hardening flags used to build packages for Linux distributions](https://github.com/jvoisin/compiler-flags-distro), Github jvoisin/compiler-flags-distro, 2025-02-14. 
 
 For historical reasons, the GCC compiler and Binutils upstream projects do not enable optimization or security hardening options by default. While some aspects of the default options can be changed when building GCC and Binutils from source, the defaults used in the toolchains shipped with GNU/Linux distributions vary. Distributions may also ship multiple versions of toolchains with different defaults. Consequently, developers need to pay attention to compiler and linker option flags, and manage them according to their need of optimization, level of warning and error detection, and security hardening of the project.
 
