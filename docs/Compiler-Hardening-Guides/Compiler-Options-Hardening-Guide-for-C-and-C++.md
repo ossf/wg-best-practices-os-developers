@@ -151,7 +151,7 @@ This section describes recommendations for compiler and linker option flags that
 
 The recommendations in Table 1 and Table 2 are primarily applicable to compiling user space code in GNU/Linux environments using either the GCC and Binutils toolchain or the Clang / LLVM toolchain and have been included in this document because they are:
 
-- widely deployed and enabled by default for pre-built packages in at least some major Linux distributions, including Debian, Ubuntu, Red Hat and SUSE Linux. See [^compiler-flags-distro] for a survey of their flags.
+- widely deployed and enabled by default for pre-built packages in at least some major Linux distributions, including Debian, Ubuntu, Red Hat and SUSE Linux. See Voisin et al.'s continuous survey of compiler options used by distributions[^compiler-flags-distro].
 - supported both by the GCC and Clang / LLVM toolchains.
 - cross-platform and supported on (at least) Intel and AMD 64-bit x86 architectures as well as the 64-bit version of the ARM architecture (AArch64).
 
