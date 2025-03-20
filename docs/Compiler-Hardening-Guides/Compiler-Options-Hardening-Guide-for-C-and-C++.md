@@ -87,7 +87,11 @@ Modern, security-aware C and C++ software development practices, e.g., secure co
 
 [^CMU2016CPP]: Carnegie Mellon University (CMU), [SEI CERT C++ Coding Standard Rules for Developing Safe, Reliable, and Secure Systems, 2016 edition](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=494932), March 2017.
 
-Consequently, modern operating systems deploy various run-time mechanisms to protect against potential security flaws. The principal purpose of such mechanisms is to mitigate potentially exploitable memory vulnerabilities in a way that prevents a threat actor from exploiting them to gain code execution capabilities. With mitigations in place the affected application may still crash if a memory error is triggered. However, such an outcome is still preferable if the alternative is the compromise of the system’s run-time environment.
+Consequently, modern operating systems (including their C and C++ compilers along with their run-time infrastructure) deploy various run-time mechanisms to protect against potential security flaws. The principal purpose of such mechanisms is to mitigate potentially exploitable memory vulnerabilities in a way that prevents a threat actor from exploiting them to gain code execution capabilities. With mitigations in place the affected application may still crash if a memory error is triggered. However, such an outcome is still preferable if the alternative is the compromise of the system’s run-time environment.
+
+When used, these run-time mechanisms *can* prevent attacks, reduce their likelihood, or reduce their impact. [^Esler2025]
+
+[^Esler2025]: Esler, Mark, 2025-03-19, [Mitigating a rsync Vulnerability: A Lesson in Compiler Hardening](https://www.chainguard.dev/unchained/mitigating-a-rsync-vulnerability-a-lesson-in-compiler-hardening), *Chainguard Unchained Security Blog*
 
 To benefit from the protection mechanism provided by the OS the application binaries must be prepared at build time to be compatible with the mitigations. Typically, this means enabling specific option flags for the compiler or linker when the software is built.
 
