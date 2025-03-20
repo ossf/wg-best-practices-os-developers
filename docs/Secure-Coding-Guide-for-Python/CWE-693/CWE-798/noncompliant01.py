@@ -14,13 +14,13 @@ def front_end():
     # and load it from a project global python file or variable
     server_config = {}
     server_config["IP"] = "192.168.0.1"
-    server_config["PORT"] = "192.168.0.1"
+    server_config["PORT"] = "8080"
     server_config["USER"] = "admin"
     server_config["PASS"] = "SuperSecret123"
 
-    # it would then use the configuration
+    # It would then use the configuration
     logging.debug("connecting to server IP %s", server_config["IP"])
-    logging.debug("connecting to server PORT %s", server_config["IP"])
+    logging.debug("connecting to server PORT %s", server_config["PORT"])
     logging.debug("connecting to server USER %s", server_config["USER"])
     logging.debug("connecting to server PASS %s", server_config["PASS"])
 

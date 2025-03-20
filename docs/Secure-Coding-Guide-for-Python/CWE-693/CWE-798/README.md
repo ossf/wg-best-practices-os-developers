@@ -28,7 +28,7 @@ Issues with hard-coded sensitive information include:
 
 ## Non-Compliant Code Example
 
-The `noncompliant01.py` code `front_end` method simulates our front-end service that wants to connect to a simulated back-end service together with its deployment in one file. A real world example would have each running and delivered on their own. The `TestSimulateDeployingFrontEnd` unit test simulates a deployment of the `front_end`. The implementation of the `front_end` did not consider deployment in separation to delivering the functionality it provides. A real world example would have `front_end` packaging the password and IP information.
+In the `noncompliant01.py` code example, the `front_end` method simulates our `front-end` service that wants to connect to a `back-end` service together with its deployment in the same file. A real world example would have each run and delivered separately. The `TestSimulateDeployingFrontEnd` unit test simulates a deployment of the `front_end`. The implementation of the `front_end` did not consider deployment in separation to delivering the functionality it provides and has therefore hardcoded the connection information and machine to machine username and password credentials..
 
 [*noncompliant01.py*](noncompliant01.py)
 
@@ -44,18 +44,18 @@ logging.basicConfig(encoding="utf-8", level=logging.DEBUG)
 
 
 def front_end():
-    """Simulating front end implementation"""
+    """Dummy method demonstrating noncompliant implementation"""
     # A noncompliant implementation would typically hardcode server_config
     # and load it from a project global python file or variable
     server_config = {}
     server_config["IP"] = "192.168.0.1"
-    server_config["PORT"] = "192.168.0.1"
+    server_config["PORT"] = "8080"
     server_config["USER"] = "admin"
     server_config["PASS"] = "SuperSecret123"
 
-    # it would then use the configuration
+    # It would then use the configuration
     logging.debug("connecting to server IP %s", server_config["IP"])
-    logging.debug("connecting to server PORT %s", server_config["IP"])
+    logging.debug("connecting to server PORT %s", server_config["PORT"])
     logging.debug("connecting to server USER %s", server_config["USER"])
     logging.debug("connecting to server PASS %s", server_config["PASS"])
 
@@ -96,36 +96,37 @@ The `compliant01.py` code is using a `config.ini` file that is created by the de
 ```python
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-""" Compliant Code Example """
+"""Compliant Code Example"""
 
+import logging
 from pathlib import Path
 import unittest
 import configparser
- 
+
 logging.basicConfig(encoding="utf-8", level=logging.DEBUG)
- 
- 
+
+
 def front_end(config_file_path: Path):
     """Simulating front end implementation"""
+    # A compliant solution loads connection information from a well-protected file
     _config = configparser.ConfigParser()
     _config.read(config_file_path)
- 
-    # it would then use the configuration
+
+    # It would then use the configuration
     logging.debug("Loading deployment config %s", config_file_path.absolute())
     logging.debug("connecting to server IP %s", _config["SERVER"]["IP"])
     logging.debug("connecting to server PORT %s", _config["SERVER"]["PORT"])
     logging.debug("connecting to server USER %s", _config["SERVER"]["USER"])
     logging.debug("connecting to server pem %s", _config["SERVER"]["CERT_FILE"])
- 
- 
+
+
 class TestSimulateDeployingFrontEnd(unittest.TestCase):
     """
     Simulate the deployment starting the front_end to connect
     to the backend
     """
- 
+
     def setUp(self):
- 
         config = configparser.ConfigParser()
         config["SERVER"] = {
             "IP": "192.168.0.1",
@@ -133,7 +134,7 @@ class TestSimulateDeployingFrontEnd(unittest.TestCase):
             "USER": "admin",
             "CERT_FILE": "example.pem",
         }
- 
+
         config["LOGGING"] = {
             "level": "DEBUG",
         }
@@ -141,21 +142,21 @@ class TestSimulateDeployingFrontEnd(unittest.TestCase):
         with open(self.config_file_path, "w", encoding="utf-8") as config_file:
             config.write(config_file)
         self.config_file_path.chmod(0o400)
- 
+
     def test_front_end(self):
         """Verify front_end implementation"""
         front_end(self.config_file_path)
- 
+
     def tearDown(self):
         """Clean up after us and remove the config file"""
         self.config_file_path.unlink()
- 
- 
+
+
 if __name__ == "__main__":
     unittest.main()
 ```
 
-The `compliant01.py` code avoids using password based authentication in the first place. It prints connection iformation only for convience here and should not be considered in a real world implementation as per [CWE-532: Insertion of Sensitive Information into Log File](https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/) [OSSF 2025].
+The `compliant01.py` code avoids using password based authentication in the first place. It prints connection information only for convenience here and should not be considered in a real world implementation as per [CWE-532: Insertion of Sensitive Information into Log File](https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/) [OSSF 2025].
 
 ## Automated Detection
 

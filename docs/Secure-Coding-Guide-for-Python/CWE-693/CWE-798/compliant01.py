@@ -12,11 +12,11 @@ logging.basicConfig(encoding="utf-8", level=logging.DEBUG)
 
 def front_end(config_file_path: Path):
     """Simulating front end implementation"""
-    # A compliant loads connection information from a well protect file
+    # A compliant solution loads connection information from a well-protected file
     _config = configparser.ConfigParser()
     _config.read(config_file_path)
 
-    # it would then use the configuration
+    # It would then use the configuration
     logging.debug("Loading deployment config %s", config_file_path.absolute())
     logging.debug("connecting to server IP %s", _config["SERVER"]["IP"])
     logging.debug("connecting to server PORT %s", _config["SERVER"]["PORT"])
