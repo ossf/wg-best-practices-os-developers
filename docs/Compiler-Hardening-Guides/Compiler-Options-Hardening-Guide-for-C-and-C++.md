@@ -1,6 +1,6 @@
 # Compiler Options Hardening Guide for C and C++
 
-*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2024-12-12*
+*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2025-01-23*
 
 This document is a guide for compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++. The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
 
@@ -116,6 +116,8 @@ Applications should work towards compiling warning-free. This takes time, but wa
 
 Compiler options hardening is not a silver bullet; it is not sufficient to rely solely on security features and functions to achieve secure software. Security is an emergent property of the entire system that relies on building and integrating all parts properly. However, if properly used, secure compiler options will complement existing processes, such as static and dynamic analysis, secure coding practices, negative test suites, profiling tools, and most importantly: security hygiene as a part of a solid design and architecture.
 
+In most cases hardened compiler options only take effect in code that is compiled with the hardened options. Consequently, most compiler options hardening does not benefit software that has been pre-built before hardened options have been adopted. This is particularly a concern for projects that incorporate pre-built (possibly third-party) libraries or other components. In such cases, it is important to understand what components a project is being linked against, and how they in turn are built, to determine which components benefit from compiler options hardening.
+
 ### What is our threat model, goal, and objective?
 
 Our threat model is that all software developers make mistakes, and sometimes those mistakes lead to vulnerabilities. In addition, some malicious developers may intentionally create code that *appears* to be an unintentional vulnerability, or *appears* correct but is intentionally deceiving to reviewers (aka underhanded code[^Wheeler2020]).
@@ -220,7 +222,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16.0<br/>Clang 5.0.0    | Build as position-independent executable. Can impact performance on 32-bit architectures.                                                   |
 | [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6.0<br/>Clang 5.0.0     | Build as position-independent code. Can impact performance on 32-bit architectures.                                                         |
 | [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                     | GCC 3.0.0<br/>Clang 7.0.0            | Force retention of null pointer checks                                                       |
-| [`-fno-strict-overflow`](#-fno-strict-overflow)                                           | GCC 4.2.0                            | Integer overflow may occur                                                                   |
+| [`-fno-strict-overflow`](#-fno-strict-overflow)                                           | GCC 4.2.0                            | Define behavior for signed integer and pointer arithmetic overflows                        |
 | [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 2.9.0        | Do not assume strict aliasing                                                                |
 | [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12.0.0<br/>Clang 8.0.0               | Perform trivial auto variable initialization                                                 |
 | [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6.0           | Enable exception propagation to harden multi-threaded C code                                 |
@@ -945,15 +947,18 @@ There are normally no significant performance implications. Null pointer checks 
 
 ---
 
-### Integer overflow may occur
+### Define behavior for signed integer and pointer arithmetic overflows
 
-| Compiler Flag                                                 | Supported since | Description                                                       |
-|:------------------------------------------------------------- |:---------------:|:----------------------------------------------------------------- |
-| <span id="-fno-strict-overflow">`-fno-strict-overflow`</span> |  GCC 4.2.0        | Integer overflow may occur                                        |
+| Compiler Flag                                                 | Supported since | Description                                                                                                                                    |
+|:------------------------------------------------------------- |:---------------:|:---------------------------------------------------------------------------------------------------------------------------------------------- |
+| <span id="-fno-strict-overflow">`-fno-strict-overflow`</span> |  GCC 8.5.0      | Signed integer overflows on addition, subtraction, multiplication, and pointer arithmetic wraps around using two's-completment representation  |
+| <span id="-fwrapv">`-fwrapv`</span>                           |  GCC 3.4.0      | Signed integer overflows on addition, subtraction, and multiplication wraps around using twos-completment representation                       |
+| <span id="-fwrapv-pointer">`-fwrapv-pointer`</span>           |  GCC 8.5.0      | Pointer arithmetic and multiplication wraps around using two's-complement representation                                                       |
+| <span id="-ftrapv">`-ftrapv`</span>                           |  GCC 3.3.0      | Signed integer overflows on addition, subtraction and multiplication trap with `SIGABRT`                                                       |
 
 #### Synopsis
 
-In C and C++ unsigned integers have long been defined as "wrapping around". However, for many years C and C++ have assumed that overflows do not occur in many other circumstances. Overflow when doing arithmetic with signed numbers is considered undefined by many versions of the official specifications, This approach also allows the compiler to assume strict pointer semantics: if adding an offset to a pointer does not produce a pointer to the same object. In practice, this means that important security checks written in the source code may be silently ignored when generating executable code.
+In C and C++ unsigned integers have long been defined as "wrapping around". However, C and C++ compilers, by default, assume that overflows do not occur in other circumstances. Overflow when doing arithmetic with signed numbers is considered undefined in the language specifications. This allows the compiler to assume strict pointer semantics: if adding an offset to a pointer does not produce a pointer to the same object, the addition is undefined. In practice, this means that important security checks written in the source code may be silently ignored when generating executable code.
 
 For example, here is some code from `fs/open.c` of the Linux kernel [^Wang2012]:
 
@@ -975,9 +980,33 @@ A developer *might* expect that the computation `offset + len` would produce a u
 
 The Linux kernel enables `-no-strict-overflow` to reduce the likelihood that important security checks in the source code will be silently ignored by the compiler.
 
-An alternative option is to use the `-fwrapv` option. With `-fwrapv`, integer signed overflow wraps (and is thus defined).
+Alternatives to `-no-strict-overflow` are the `-fwrapv` and `-ftrapv` options. With `-fwrapv`, integer signed overflow wraps (and is thus defined). With `-ftrapv`, signed integer overflows trap, e.g., on x86 an overflow causes a `SIGABRT` signal to the application.
 
-Note that GCC and Clang interpret this option slightly differently. On clang, this option is considered a synonym for `-fwrapv`. On GCC, this option does not fully enforce two's complement on signed integers, allowing for additional optimizations. [^Wang2012]
+Since GCC 8.5 `-no-strict-overflow` is equivalent to `-fwrapv -fwrapv-pointer` while GCC documentation recommends `-fsanitize=signed-integer-overflow` for diagnosing signed integer overflow issues during testing and debugging. In prior GCC versions `-no-strict-overflow` does not fully enforce two's complement on signed integers, allowing for additional optimizations[^Wang2012]. In Clang, `-no-strict-overflow` option is considered a synonym for `-fwrapv`.
+
+#### When not to use?
+
+The C and C++ standards since C23[^C2023] and C++20[^CPP2020] only support two’s complement representation for signed integer types[^Bastien2024]. Previous editions of these standards additionally allowed other sign representations. Code targeting one these previous language editions and requires a specific signed integer representation becomes less portable in a very subtle way. However, in practice, neither GCC nor Clang support other representations [^Bastien2018]. This means that even prior to C23 and C++20 the GCC and Clang implementations of these langauges are effectively two’s complement. Consequently we believe most code will benefit from `-fno-strict-overflow` or its alternatives.
+
+#### Performance implications
+
+Each of these options gives the compiler less freedom for optimizing the resulting machine code compared to the default `-fstrict-overflow` behavior. For example, under `-fstrict-overflow` semantics, expressions such as `i + 10 > i` will always be true for signed `i`, allowing the expression to be replaced at compile time with a constant value. As discussed above, if such expressions occur in condition checks the compiler may optimize away entire code paths when the expression can be evaluated at compile time. In contrast, under `-fno-strict-overflow` those expression must be evaluated at run-time in case of overflows that wrap around the value, thus preventing some optimizations. On the other hand, treating overflows as undefined behavior will only yield optimal behavior if the programmer can be certain the program will never accept inputs that cause overflows.
+
+The `-ftrapv` option requires the compiler to emit checks to detect and trap overflows on signed integers unless it has compile time information of the value range to prove the operation doesn't overflow. As a result, `-ftrapv` is expected to have the largest performance impact out the options covered in this section.
+
+### Other considerations
+
+During link-time optimization (LTO), different compilation units may have been built with different arithmetic overflow behavior. The `-fno-strict-overflow`, `-fwrapv`, `-fno-trapv` and `-fno-strict-aliasing` are passed through to the link stage and take precedece over `-fstrict-overflow` semantics for compilation units with conflicting behavior[^gcc-flto]. In practice this means that software where certain modules benefit from `-fstrict-overflow` for perormance, but others use `-fno-strict-overflow` to improve security, may loose out on the performance benefits with `-fno-strict-overflow` taking precedence during LTO.
+
+[^gcc-flto]: GCC team, [Options That Control Optimization: -flto](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-flto), GCC Manual, 2024-05-07.
+
+[^C2023]: ISO/IEC, [Programming languages — C ("C23")](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf), ISO/IEC ISO/IEC 9899:2024, 2024. Note: The official ISO/IEC specification is paywalled and therefore not publicly available. The final specification draft is publicly available.
+
+[^CPP2020]: ISO/IEC, [Programming languages — C++ ("C++20")](https://isocpp.org/files/papers/N4860.pdf), ISO/IEC ISO/IEC 14882:2020, 2022. Note: The official ISO/IEC specification is paywalled and therefore not publicly available. The final specification draft is publicly available.
+
+[^Bastien2024]: Bastien, JF, [P3477R0: There are exactly 8 bits in a byte](https://open-std.org/JTC1/SC22/WG21/docs/papers/2024/p3477r0.html), Published ISO/IEC JTC1/SC22/WG21 Proposal, 2024-10-15.
+
+[^Bastien2018]: Bastien, JF, [P0907R4: Signed Integers are Two’s Complement](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0907r4.html), Published ISO/IEC JTC1/SC22/WG21 Proposal, 2018-10-06
 
 ---
 
@@ -1476,6 +1505,7 @@ Many more security-relevant compiler options exist than are recommended in this 
 | <span id="-fvtable-verify">`-fvtable-verify`</span> |GCC 4.9.4 | Enables run-time checks for C++ virtual function pointers corruption. This option has significant performance overhead[^Tice2014] and breaks ABI with all existing system libraries unless the entire userspace is built with `-fvtable-verify`[^gentoo-vtv]. Believed to be currently unmaintained in GCC.
 | <span id="-mmitigate-rop">`-mmitigate-rop`</span> | GCC 6.1 | Avoids combination of particular opcodes which can be reinterpretted as a return opcode in an attempt to mitigate Return Oriented Programming (ROP) attacks[^gcc-mmitigate-rop].  Was considered to be ineffective and security-theatre-esque, so was deprecated in GCC 9.1[^Bizjak2018].
 | <span id="CLANG_DEFAULT_PIE_ON_LINUX">`CLANG_DEFAULT_PIE_ON_LINUX`</span> | Clang 14.0.0 | When compiling Clang, turns on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler. Superceded by default provided via configuration files[^clang-config].
+| <span id="-fsplit-stack">`-fsplit-stack`</span> | GCC 4.6.0 | Generates code to automatically split the stack before it overflows to enable segmented stacks [^Taylor2011] for use by stackfull co-routines such as Boost Fibers. Interoperability between split-stack code to non-split-stack code requires the gold linker to ensure larger stack segments are allocated for calls to non-split-stack code [^Taylor2015]. Believed to be currently unmaintained in GCC.
 
 [^nodump]: The `-Wl,-z,nodump` option sets `DF_1_NODUMP` flag in the object’s `.dynamic` section tags. On Solaris this restricts calls to `dldump(3)` for the object. However, other operating systems ignore the `DF_1_NODUMP` flag. While Binutils implements `-Wl,-z,nodump` for Solaris compatibility a choice was made to not support it in `lld` ([D52096 lld: add -z nodump support](https://reviews.llvm.org/D52096)).
 
@@ -1498,6 +1528,10 @@ Many more security-relevant compiler options exist than are recommended in this 
 [^gcc-mmitigate-rop]: GCC team, [Using the GNU Compiler Collection (GCC): x86 Options: `-mmitigate-rop`](https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/x86-Options.html#index-mmitigate-rop-2936), GCC Manual, 2016-04-27.
 
 [^Bizjak2018]: Bizjak, Uros [\[RFC PATCH, i386\]: Deprecate `-mmitigate-rop`](https://gcc.gnu.org/pipermail/gcc-patches/2018-August/504637.html), GCC Mailing List, 2018-08-15.
+
+[^Taylor2011]: Taylor, Ian Lance, [Split Stacks in GCC](https://gcc.gnu.org/wiki/SplitStacks), GCC Wiki, 2011-02-07.
+
+[^Taylor2015]: Taylor, Ian Lance, [gccgo split stack implementation](https://groups.google.com/g/golang-dev/c/QBCN9XVkwFk/m/7DgP2Iu_USkJ), golang-dev Google Groups, 2015-07-10.
 
 ## Appendix: Scraper Script
 

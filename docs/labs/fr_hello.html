@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="checker.js"></script>
+<script src="hello.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Exercice de laboratoire Hello</h1>
+
+Il s'agit d'un exercice de laboratoire sur le développement de logiciels sécurisés.
+Pour plus d'informations, consultez l'<a href="introduction.html" target="_blank">introduction à les laboratoires</a>.
+
+<p>
+<h2>But</h2>
+<p>
+<b>Apprenez à utiliser nos laboratoires en écrivant un message « Hello, world ! » programme.</b>
+
+<p>
+<h2>Arrière-plan</h2>
+<p>
+<a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program"
+> "Hello, World! " programme</a>
+est souvent le premier programme écrit en
+un nouveau langage ou système de programmation.
+Nous en rédigerons un afin de voir comment fonctionnent ces laboratoires.
+
+<p>
+<h2>Informations sur la tâche</h2>
+<p>
+
+<p>
+Votre tâche est de modifier le programme ci-dessous
+pour imprimer "Hello, world!" pour savoir comment fonctionnent nos laboratoires.
+Veuillez expérimenter avec les boutons ci-dessous intitulés
+<i>Indice</i>, <i>Réinitialiser</i> et <i>Abandonner</i>.
+
+<p>
+Lorsque vous obtenez une réponse correcte, vous verrez une notification contextuelle, le
+la couleur d'arrière-plan de la zone de saisie changera et le
+Le titre « Laboratoire interactif » changera pour indiquer <i>Terminé !</i>.
+
+<p>
+<h2>Laboratoire interactif (<span id="grade"></span>)</h2>
+<p>
+<b>Veuillez modifier le code ci-dessous pour imprimer "Hello, world!"
+(sans compter les citations)
+pour JavaScript sur Node.js, tout en apprenant comment fonctionnent nos ateliers.</b>
+<p>
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="65">...</textarea>
+-->
+<form id="lab">
+<pre><code
+><input id="attempt0" type="text" size="60" spellcheck="false"
+       value='console.log("Goodbye.");'>
+</code></pre>
+<button type="button" class="hintButton">Indice</button>
+<button type="button" class="resetButton">Réinitialiser</button>
+<button type="button" class="giveUpButton">Abandonner</button>
+<br><br>
+<p>
+<i>Ce laboratoire a été développé par David A. Wheeler à
+<a href="https://www.linuxfoundation.org/">La Fondation Linux</a>.</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>

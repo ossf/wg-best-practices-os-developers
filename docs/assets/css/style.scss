@@ -149,3 +149,22 @@ h2.nocount:before, h3.nocount:before, h4.nocount:before, h5.nocount:before, h6.n
 h1, h2, h3, h4, h5, h6 {
     break-after: avoid-page;
 }
+
+/* Set links to some color listed in the OpenSSF pallette in
+ * https://openssf.org/about/brand-guidelines/ */
+/* unvisited link */
+a:link {
+  color: #45208c;
+}
+/* visited link */
+a:visited {
+  color: #604693;
+}
+/* mouse over link */
+a:hover {
+  color: #170D34;
+}
+/* selected link */
+a:active {
+  color: #04ee5f;
+}

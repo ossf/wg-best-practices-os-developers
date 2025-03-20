@@ -5,102 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
 <link rel="stylesheet" href="checker.css">
-<script src="js-yaml.min.js"></script>
 <script src="checker.js"></script>
+<script src="input1.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
 <!-- See create_labs.md for how to create your own lab! -->
-
-<!-- Sample expected answer -->
-<script id="expected0" type="plain/text">
-  query('id').isInt({min: 1, max: 9999}),
-</script>
-
-<!-- Full pattern of correct answer -->
-<script id="correct0" type="plain/text">
-\s* query \( ('id'|"id"|`id`) \) \.
-    isInt \( \{ min: 1 , max: 9_?999 ,? \} \) , \s*
-</script>
-
-<script id="info" type="application/yaml">
----
-hints:
-- absent: ", $"
-  text: This is a parameter, it must end with a comma.
-  examples:
-  - - "  "
-- absent: query \( ["'`]id["'`] \)
-  text: Add query("id") to verify its value.
-  examples:
-  - - ","
-  - - "  query(),"
-- present: query \( ["'`]id["'`] \) [^. ]
-  text: After query("id") use a period to invoke a verification method.
-  examples:
-  - - "  query('id'),"
-- present: "(isint|Isint|IsInt|ISINT)"
-  text: JavaScript is case-sensitive. Use isInt instead of the case you have.
-  examples:
-  - - "  query('id').isint(),"
-  - - "  query('id').IsInt(),"
-- absent: isInt
-  text: Use isInt to determine if the parameter is an integer.
-  examples:
-  - - "  query('id').,"
-- present: ' query \( ["''`]id["''`] \).*\([^)]*$'
-  text: After query("id") you have an ( but there's no matching ).
-  examples:
-  - - "  query('id').isInt(,"
-- absent: isInt \(.*\)
-  text: isInt should be followed by (...).
-  examples:
-  - - "  query('id').isInt,"
-- present: "\\{[^}]*$"
-  text: You have started an object using { but there's no matching }.
-  examples:
-  - - "  query('id').isInt({),"
-- absent: isInt \( \{.*\} \)
-  text: Inside the parenthesis of isInt() you should have an object like {...}.
-  examples:
-  - - "  query('id').isInt(),"
-- absent: min
-  text: 'Use min: to specify a minimum value.'
-  examples:
-  - - "  query('id').isInt({}),"
-- absent: max
-  text: 'Use max: to specify a minimum value.'
-  examples:
-  - - "  query('id').isInt({min: 1}),"
-- present: max.*min
-  text: JavaScript allows hash entries to be in any order,
-    but this can be confusing to humans. Conventionally minimum values
-    are given before maximum values; please follow that convention.
-  examples:
-  - - "  query('id').isInt({max: 9999, min: 1}),"
-successes:
-- - " query ( 'id' ) . isInt ( {min: 1 , max: 9999 } ) ,"
-- - " query ( `id` ) . isInt ( {min: 1 , max: 9_999 } ) ,   "
-- - 'query ( "id" ) . isInt ( {min: 1 , max: 9_999 } ) ,'
-failures:
-- - " query,"
-- - 'query(''id'').isint({min: 1, max: 9999})'
-- - 'query(''id'').isInt({min: 1, max: 9999})'
-# ADVANCED use - define our own preprocessing commands.
-# I suggest using "|-" (stripping the trailing newlines)
-# preprocessing:
-#   -
-#     - |-
-#         [\n\r]+
-#     - ""
-#   -
-#     - |-
-#         (\\s\*)?\s+(\\s\*)?
-#     - "\\s*"
-# debug: true
-</script>
-<!--
-
--->
 
 </head>
 <body>

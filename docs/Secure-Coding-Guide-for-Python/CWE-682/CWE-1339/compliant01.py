@@ -1,13 +1,11 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-balance = 300
-item_cost = 33
-item_count = 5
-
-#####################
-# exploiting above code example
-#####################
+""" Non-compliant Code Example """
+BALANCE = 300
+ITEM_COST = 33
+ITEM_COUNT = 5
 print(
-    f"{str(item_count)} items bought, ${item_cost / 100} each. "
-    f"Current account balance: ${str((balance - item_count * item_cost) / 100)}"
+    f"{str(ITEM_COUNT)} items bought, ${ITEM_COST / 100} each. "
+    f"Current account balance: "
+    f"${str((BALANCE - ITEM_COUNT * ITEM_COST) / 100)}"
 )

@@ -4,7 +4,7 @@
 
 Anyone is welcome to join our open discussions related to the group's mission and charter.
 
-The BEST Working group is officially a [Graduated-level](https://github.com/ossf/tac/blob/main/process/working-group-lifecycle.md) working group within the OpenSSF <img align="right" src="https://github.com/ossf/tac/blob/main/files/images/OpenSSF_StagesBadges_graduated.png" width="100" height="100">>
+The BEST Working group is officially a [Graduated-level](https://github.com/ossf/tac/blob/main/process/working-group-lifecycle.md) working group within the OpenSSF <img align="right" src="https://github.com/ossf/tac/blob/main/files/images/OpenSSF_StagesBadges_graduated.png" width="100" height="100">
 
 <img align="right" src="https://github.com/ossf/wg-best-practices-os-developers/blob/main/img/ossf-best-goose.png" width="300" height="300">
 
@@ -52,8 +52,8 @@ To deliver on our Strategy, the BEST Working Group will do the following:
 - Create a “Best Practices Member Badge” for member organizations
 - Support and promote our sub-projects with contributions and feedback - Scorecard, BP Badges, OpenSSF - SkillFoundry, Classes, and Guides, Secure Software Guiding Principles (SSGP)
 - Create a Memory Safety W3C-style workshop to assemble development leaders to talk about how to integrate memory safe languages and techniques more deeply into the oss ecosystem.
-- Expand DEI AMA Office Hours to more broadly engage new-to-oss individuals and provide a forum for mentorship and guidance as they launch into and grow within their careers.
-- Identify, curate, produce, and deliver new secure development education such as Developer Manager Training, Implementing/Integrating OSSF tools such as Scorecard, Badges, OSV, OpenVEX, etc), advanced secure development techniques, and more.
+- Expand BEAR (Belonging, Empowerment, Allyship, and Representation) WG Office Hours to more broadly engage new-to-oss individuals and provide a forum for mentorship and guidance as they launch into and grow within their careers.
+- Identify, curate, produce, and deliver new secure development education such as Developer Manager Training, Implementing/Integrating OSSF tools (such as Scorecard, Badges, OSV, OpenVEX, etc), advanced secure development techniques, and more.
 - Evangelize and embed all of our guides across OpenSSF Technical Initiatives and understand what makes sense to integrate into Scorecard
 
 ## Help build a community
@@ -87,6 +87,7 @@ Our work is organized into several discrete-yet-related projects that help us ac
 | Memory Safety SIG | The Memory Safety SIG is a group working within the OpenSSF's Best Practices Working Group formed to advance and deliver upon The OpenSSF's Mobilization Plan - Stream 4.   |[Git Repo](https://github.com/ossf/Memory-Safety) | [Slack](https://openssf.slack.com/archives/C03G8NZH58R) | [Mailing List](https://lists.openssf.org/g/openssf-sig-memory-safety) |
 |  The Security Toolbelt | Assemble a “sterling” collection of capabilities (**software frameworks, specifications, and human and automated processes**) that work together to **automatically list, scan, remediate, and secure the components flowing through the software supply chain** that come together as software is written, built, deployed, consumed, and maintained. Each piece of the collection will represent an **interoperable** link in that supply chain, enabling adaptation and integration into the major upstream language toolchains, developer environments, and CI/CD systems. | [Security Toolbelt](https://github.com/ossf/toolbelt) | [security-toolbelt](https://openssf.slack.com/archives/C057BN7K19B) | [Mailing List](Openssf-sig-sterling-toolchain@lists.openssf.org) |
 | Python Hardening Guide SIG | A group working to document a secure coding guide for python and associates code examples | [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python) | [#secure-coding-guide-for-python](https://openssf.slack.com/archives/C07LH7RH8MT) |  |
+| Web Developer Security Guidelines | A group working on security guidelines specifc to web developers. This work is happening in the W3C SWAG Community Group in coordination with the OpenSSF Best Practices working group. (W3C communith groups are open to any participant.) | [SWAG home page](https://www.w3.org/community/swag/) [Git Repo](https://github.com/w3c-cg/swag) | [#swag-cg on the W3C Community Slack](https://w3ccommunity.slack.com/archives/C079JKV32RX) |  |
 
 ## Related resources
 
@@ -239,6 +240,16 @@ and documentation is released under the
 Formal specifications would be licensed under the
 [Community Specification License](https://github.com/CommunitySpecification/1.0)
 (though at this time we don't have any examples of that).
+
+## Reviewing translations
+
+We are _delighted_ that some are willing to help us translate materials
+to other languages. Please ensure all
+pull requests that add or modify translations are labeled with its language.
+Such pull requests (PRs) must be first
+reviewed and approved by a trusted translator.
+
+See [translations](docs/translations) for specific details.
 
 ## Charter
 
