@@ -4,14 +4,14 @@ Ensure to implement locking mechanisms when chaining methods in a multithreaded 
 
 Method chaining is a programming technique where multiple methods are called on the same object sequentially, with each method call returning the object itself or another object that supports further method calls.  Objects that return a reference to themselves allow method chaining, which we frequently use when stripping strings of unwanted content:
 
-> "Hello There\n".lstrip().rstrip()
+> `"Hello There\n".lstrip().rstrip()`
 
 Although the individual methods may be thread-safe, that might not be the case when they are chained together.
 
 ## Non-Compliant Code Example
 
 The practice of chaining methods is often used in the `Builder` design pattern for setting optional object fields. Values shared fields can become inconsistent during concurrent access as demonstrated in `noncompliant01.py`.
-
+Run `noncomplilant01.py` multiple times to see the effect.
 *[noncompliant01.py](noncompliant01.py):*
 
 ```python
