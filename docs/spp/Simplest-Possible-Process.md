@@ -192,7 +192,7 @@ This abundance of choices was part of the problem of *picking*
 any particular way to publish results.
 This is especially a challenge for us,
 because many participants in the OpenSSF
-are can understand and implement complex workflows
+can understand and implement complex workflows
 if the situation calls for it.
 
 ### How the SPP was identified
