@@ -28,7 +28,7 @@ Issues with hard-coded sensitive information include:
 
 ## Non-Compliant Code Example
 
-In the `noncompliant01.py` code example, the `front_end` method simulates our `front-end` service that wants to connect to a `back-end` service together with its deployment in the same file. A real world example would have each run and delivered separately. The `TestSimulateDeployingFrontEnd` unit test simulates a deployment of the `front_end`. The implementation of the `front_end` did not consider deployment in separation to delivering the functionality it provides and has therefore hardcoded the connection information and machine to machine username and password credentials..
+The `noncompliant01.py` code example is simulating a `front-end`, `back-end`, and its deployment in one file. A real world example would have each run and delivered separately. The `TestSimulateDeployingFrontEnd` unit-test simulates a deployment of the `front_end`. The implementation of the `front_end` did not consider leaving connection details to the deployment and hardcoded them instead.
 
 [*noncompliant01.py*](noncompliant01.py)
 
