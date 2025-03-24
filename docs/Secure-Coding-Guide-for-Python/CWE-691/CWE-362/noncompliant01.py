@@ -5,6 +5,7 @@
 from time import sleep
 import logging
 import threading
+import secrets
 
 
 def thread_function(animal: "Animal", animal_name: str, animal_sound: str):
@@ -21,8 +22,9 @@ def thread_function(animal: "Animal", animal_name: str, animal_sound: str):
             animal.name,
             animal.sound,
         )
-        for _ in range(10000000):
-            pass  # Simulate a longer operation on non-shared resources
+        # Simulate a longer operation on non-shared resources
+        for i in range(10, 1000):
+            _ = (secrets.randbelow(i) + 1) / i
 
 
 class Animal:

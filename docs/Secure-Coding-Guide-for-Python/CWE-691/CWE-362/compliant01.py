@@ -5,6 +5,7 @@
 from time import sleep
 import logging
 import threading
+import secrets
 
 LOCK = threading.Lock()
 
@@ -18,6 +19,8 @@ def thread_function(animal: "Animal", animal_name: str, animal_sound: str):
             animal.name,
             animal.sound,
         )
+        # First time, name and sound will be blank because
+        # the object isn't initialized yet.
         animal.set_name(animal_name).set_sound(animal_sound)
         logging.info(
             "Thread: finishing - %s goes %s",
@@ -25,8 +28,9 @@ def thread_function(animal: "Animal", animal_name: str, animal_sound: str):
             animal.sound,
         )
         LOCK.release()
-        for _ in range(10000000):
-            pass  # Simulate a longer operation on non-shared resources
+        # Simulate a longer operation on non-shared resources
+        for i in range(10, 1000):
+            _ = (secrets.randbelow(i) + 1) / i
 
 
 class Animal:

@@ -10,20 +10,23 @@ Although the individual methods may be thread-safe, that might not be the case w
 
 ## Non-Compliant Code Example
 
-The practice of chaining methods is often used in the `Builder` design pattern for setting optional object fields. Values shared fields can become inconsistent during concurrent access as demonstrated in `noncompliant01.py`.
-Run `noncomplilant01.py` multiple times to see the effect.
+The practice of chaining methods is often used in the `Builder` design pattern for setting optional object fields [Bloch 2017]. Values shared fields can become inconsistent during concurrent access as demonstrated in `noncompliant01.py`.
+
+Since the order of threads may differ between runs, you might need to run `noncomplilant01.py` multiple times to see the effect.
+
 *[noncompliant01.py](noncompliant01.py):*
 
 ```python
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """Noncompliant Code Example"""
- 
+
 from time import sleep
 import logging
 import threading
- 
- 
+import secrets
+
+
 def thread_function(animal: "Animal", animal_name: str, animal_sound: str):
     """Function that changes animal's characteristics using method chaining"""
     for _ in range(3):
@@ -38,18 +41,19 @@ def thread_function(animal: "Animal", animal_name: str, animal_sound: str):
             animal.name,
             animal.sound,
         )
-        for _ in range(10000000):
-            pass  # Simulate a longer operation on non-shared resources
- 
- 
+        # Simulate a longer operation on non-shared resources
+        for i in range(10, 1000):
+            _ = (secrets.randbelow(i) + 1) / i
+
+
 class Animal:
     """Class that represents an animal"""
- 
+
     # The characteristics of the animal (optional fields)
     def __init__(self):
         self.name = ""
         self.sound = ""
- 
+
     def set_name(self, name: str):
         """Sets the animal's name"""
         self.name = name
@@ -57,30 +61,35 @@ class Animal:
         # simulating a long running operation
         sleep(0.1)
         return self
- 
+
     def set_sound(self, sound: str):
         """Sets the sound that the animal makes"""
         self.sound = sound
         sleep(0.2)
         return self
- 
- 
+
+
 #####################
 # Exploiting above code example
 #####################
-  
+
 if __name__ == "__main__":
     MESSAGE_FORMAT = "%(asctime)s: %(message)s"
-    logging.basicConfig(format=MESSAGE_FORMAT, level=logging.INFO, datefmt="%H:%M:%S")
- 
+    logging.basicConfig(
+        format=MESSAGE_FORMAT, level=logging.INFO, datefmt="%H:%M:%S"
+    )
+
     animal = Animal()
     dog = threading.Thread(
         target=thread_function,
         args=(animal, "DOG", "WOOF"),
     )
-    cat = threading.Thread(target=thread_function, args=(animal, "CAT", "MEOW"))
+    cat = threading.Thread(
+        target=thread_function, args=(animal, "CAT", "MEOW")
+    )
     dog.start()
     cat.start()
+
 ```
 
 In `noncompliant01.py` , the client constructs an `Animal` object and runs two threads. One of the threads is trying to create a dog while the other thread sets up a cat. The expected result of this code example is for the animal to always have the desired set of characteristics. The [CPython Global Interpreter Lock(GIL)](https://docs.python.org/3/glossary.html#term-global-interpreter-lock) does not prevent unexpected results in this case. Sometimes, the code may result in a meowing dog or a barking cat.
@@ -95,14 +104,15 @@ This compliant solution uses a lock to ensure that the object cannot be written 
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """Compliant Code Example"""
- 
+
 from time import sleep
 import logging
 import threading
- 
+import secrets
+
 LOCK = threading.Lock()
- 
- 
+
+
 def thread_function(animal: "Animal", animal_name: str, animal_sound: str):
     """Function that changes animal's characteristics using method chaining"""
     for _ in range(3):
@@ -112,6 +122,8 @@ def thread_function(animal: "Animal", animal_name: str, animal_sound: str):
             animal.name,
             animal.sound,
         )
+        # First time, name and sound will be blank because
+        # the object isn't initialized yet.
         animal.set_name(animal_name).set_sound(animal_sound)
         logging.info(
             "Thread: finishing - %s goes %s",
@@ -119,18 +131,19 @@ def thread_function(animal: "Animal", animal_name: str, animal_sound: str):
             animal.sound,
         )
         LOCK.release()
-        for _ in range(10000000):
-            pass  # Simulate a longer operation on non-shared resources
- 
- 
+        # Simulate a longer operation on non-shared resources
+        for i in range(10, 1000):
+            _ = (secrets.randbelow(i) + 1) / i
+
+
 class Animal:
     """Class that represents an animal"""
- 
+
     # The characteristics of the animal (optional fields)
     def __init__(self):
         self.name = ""
         self.sound = ""
- 
+
     def set_name(self, name: str):
         """Sets the animal's name"""
         self.name = name
@@ -138,22 +151,24 @@ class Animal:
         # simulating a long running operation
         sleep(0.1)
         return self
- 
+
     def set_sound(self, sound: str):
         """Sets the sound that the animal makes"""
         self.sound = sound
         sleep(0.2)
         return self
- 
- 
+
+
 #####################
 # Exploiting above code example
 #####################
- 
+
 if __name__ == "__main__":
     MESSAGE_FORMAT = "%(asctime)s: %(message)s"
-    logging.basicConfig(format=MESSAGE_FORMAT, level=logging.INFO, datefmt="%H:%M:%S")
- 
+    logging.basicConfig(
+        format=MESSAGE_FORMAT, level=logging.INFO, datefmt="%H:%M:%S"
+    )
+
     animal = Animal()
     dog = threading.Thread(
         target=thread_function,
@@ -164,6 +179,7 @@ if __name__ == "__main__":
     )
     dog.start()
     cat.start()
+
 ```
 
 ## Automated Detection
@@ -187,3 +203,4 @@ if __name__ == "__main__":
 |||
 |:---|:---|
 |[[Python docs](https://docs.python.org/3/library/threading.html)]|Python Software Foundation. (2024). threading — Thread-based parallelism [online]. Available from: [https://docs.python.org/3/library/threading.html](https://docs.python.org/3/library/threading.html) [accessed 18 March 2024]|
+|[Bloch 2017]|Bloch, J. (2017) Creating and Destroying Objects. In: Friendly, S. and Lindholm, T. and Hendrickson, M., eds. Effective Java. 3rd ed. Boston: Addison-Wesley Professional, pp.10-17.|
