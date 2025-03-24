@@ -77,7 +77,7 @@ It is __not production code__ and requires code-style or python best practices t
 |:----------------------------------------------------------------|:----|
 |[CWE-184: Incomplete List of Disallowed Input](CWE-693/CWE-184/.)||
 |[CWE-330: Use of Insufficiently Random Values](CWE-693/CWE-330/README.md)|[CVE-2020-7548](https://www.cvedetails.com/cve/CVE-2020-7548),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __0.22__ (12.12.2024)|
-|[CWE-798: Use of hardcoded credentials](CWE-693/CWE-798/.)||
+|[CWE-798: Use of hardcoded credentials](CWE-693/CWE-798/README.md)||
 
 |[CWE-697: Incorrect Comparison](https://cwe.mitre.org/data/definitions/703.html)|Prominent CVE|
 |:----------------------------------------------------------------|:----|
