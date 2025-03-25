@@ -35,6 +35,8 @@ Examples of ongoing work include:
 
 * [Secure Coding One Stop Shop for Python](Secure-Coding-Guide-for-Python/readme.md)
 
+We typically use the [Simplest Possible Process (SPP)](https://best.openssf.org/spp/Simplest-Possible-Process) to publish our results on the web.
+
 [Please join the OpenSSF Best Practices working group if you're interested in helping](https://github.com/ossf/wg-best-practices-os-developers)!
 
 Please also see the
