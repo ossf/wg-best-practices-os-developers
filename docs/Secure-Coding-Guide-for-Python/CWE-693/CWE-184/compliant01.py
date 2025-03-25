@@ -28,10 +28,10 @@ def filter_string(input_string: str):
 # attempting to exploit above code example
 #####################
 names = [
-    "毛泽东先生",
-    "dash-",
-    "<script" + "\ufdef" + ">",
-    "<script生>",
+    "YES 毛泽东先生",
+    "YES dash-",
+    "NOK <script" + "\ufdef" + ">",
+    "NOK <script生>",
 ]
 for name in names:
     print(name)

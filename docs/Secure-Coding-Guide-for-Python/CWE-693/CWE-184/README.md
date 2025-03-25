@@ -6,7 +6,7 @@ Avoid Incomplete 'deny lists' that can lead to security vulnerabilities such as 
 
 The `noncompliant01.py` code demonstrates the difficult handling of exclusion lists in a multi language support use case. `UTF-8` has __1,112,064__ mappings between `8-32` bit values and printable characters such as `生` known as "code points".
 
-The `noncompliant01.py` `filterString()` method attempts to search for disallowed input is leading to an incomplete list of disallowed input due to the non-English character `生`  in `<script生>`.
+The `noncompliant01.py` `filterString()` method attempts to search for disallowed inputs and fails to find the `script` tag due to the non-English character `生`  in `<script生>`.
 
 *[noncompliant01.py](noncompliant01.py):*
 
@@ -48,22 +48,12 @@ names = [
 for name in names:
     print(name)
     filter_string(name)
-```
 
-The `noncompliant01.py` code will print all lines of strings including the one `<script生>`. Different ways and sequencing of canonicalizing or normalizing the user provided data as explained in [CWE-180: Incorrect Behavior Order: Validate Before Canonicalize](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python/CWE-707/CWE-180), can turn `<script生>` into `<script>` either in the backend, or on the clients front-end browser.
-
-__Example `noncompliant01.py` output:__
-
-```bash
-YES 毛泽东先生
-YES dash-
-NOK <script﷯>
-NOK <script生>
 ```
 
 ## Compliant Solution
 
-The `compliant01.py` uses an allow list instead of deny list and prevents the use of unwanted characters by raising an exception even without canonicalize. The missing canonicalize in `compliant01.py` according to [CWE-180: Incorrect Behavior Order: Validate Before Canonicalize](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python/CWE-707/CWE-180), and must be added in order to make logging or displaying them safe!
+The `compliant01.py` uses an allow list instead of a deny list and prevents the use of unwanted characters by raising an exception even without canonicalization. The missing canonicalization in `compliant01.py` according to [CWE-180: Incorrect Behavior Order: Validate Before Canonicalize](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python/CWE-707/CWE-180) must be added in order to make logging or displaying them safe!
 
 *[compliant01.py](compliant01.py):*
 
@@ -98,10 +88,10 @@ def filter_string(input_string: str):
 # attempting to exploit above code example
 #####################
 names = [
-    "毛泽东先生",
-    "dash-",
-    "<script" + "\ufdef" + ">",
-    "<script生>",
+    "YES 毛泽东先生",
+    "YES dash-",
+    "NOK <script" + "\ufdef" + ">",
+    "NOK <script生>",
 ]
 for name in names:
     print(name)
@@ -115,13 +105,14 @@ __Example compliant01.py output:__
 
 ```bash
 /wg-best-practices-os-developers/docs/Secure-Coding-Guide-for-Python/CWE-693/CWE-184/compliant01.py
-毛泽东先生
-dash-
-<script﷯>
+$ python3 compliant01.py
+YES 毛泽东先生
+YES dash-
+NOK <script﷯>
 Traceback (most recent call last):
-  File "/wg-best-practices-os-developers/docs/Secure-Coding-Guide-for-Python/CWE-693/CWE-184/compliant01.py", line 38, in <module>
+  File "/workspace/wg-best-practices-os-developers/docs/Secure-Coding-Guide-for-Python/CWE-693/CWE-184/compliant01.py", line 38, in <module>
     filter_string(name)
-  File "/wg-best-practices-os-developers/docs/Secure-Coding-Guide-for-Python/CWE-693/CWE-184/compliant01.py", line 23, in filter_string
+  File "/workspace/wg-best-practices-os-developers/docs/Secure-Coding-Guide-for-Python/CWE-693/CWE-184/compliant01.py", line 23, in filter_string
     raise ValueError("Invalid input tag")
 ValueError: Invalid input tag
 
