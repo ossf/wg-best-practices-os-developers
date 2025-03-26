@@ -770,13 +770,19 @@ The `-fcf-protection=check` is ignored at compilation time but instructs the lin
 
 #### Performance implications
 
-There are performance implications but they are typically mild due to hardware assistance. The `-fcf-protection=full` flag enables Intel's Control-Flow Enforcement Technology (CET) [^IntelCET], which introduces shadow stack (SHSTK) and indirect branch tracking (IBT). The `-mbranch-protection=standard` flag invokes similar protections in the AArch64. In clang `-mbranch-protection=standard` is equivalent to `-mbranch-protection=bti+pac-ret` and invokes the AArch64 Branch Target Identification (BTI) and Pointer Authentication using key A (pac-ret) [^Armclang].
+There are performance implications but they are typically mild due to hardware assistance. The `-fcf-protection=full` flag enables Intel's Control-Flow Enforcement Technology (CET) [^IntelCET], which introduces shadow stack (SHSTK) and indirect branch tracking (IBT).
+
+The `-mbranch-protection=standard` flag invokes similar protections in the AArch64. In clang `-mbranch-protection=standard` is equivalent to `-mbranch-protection=bti+pac-ret` and invokes the AArch64 Branch Target Identification (BTI) and Pointer Authentication using key A (pac-ret) [^Armclang]. It is important to note that, depending on the target platform, the compiler may generate hint-space instructions for both AArch64 PAC and BTI [^ArmclangExample]. These hint instructions allow the binary to run on machines that do not support the underlying hardware features. However, they are sometimes less efficient, and the intended branch protection is not enforced when the hardware support is missing.
 
 #### Additional Considerations
 
 Intel CET shadow stack requires Linux Kernel version 6.6 or higher and glibc version 2.39 or higher. Shadow stack support must, in addition, be enabled at run-time by setting the corresponding hardware capability tunable for glibc via the `GLIBC_TUNABLES` environmental variable [^glibc-tunables]: `export GLIBC_TUNABLES=glibc.cpu.hwcaps=SHSTK`.
 
-[^Armclang]: ARM Developer, [Arm Compiler armclang Reference Guide Version 6.12 -mbranch-protection](https://developer.arm.com/documentation/100067/0612/armclang-Command-line-Options/-mbranch-protection).
+AArch64 BTI and PAC are only usable on platforms that expose these architectural features. Specifically, PAC requires a CPU based on Arm v8.3-A or later, while BTI requires a CPU based on Arm v8.5-A or later. For userspace applications — particularly in GNU/Linux environments, as recommended in Tables 1 and 2 — the operating system plays a crucial role. On modern Linux systems (typically Linux Kernel version 5.8 or later), PAC and BTI support is enabled by default if the hardware provides the feature.
+
+[^Armclang]: ARM Developer, [Arm Compiler armclang Reference Guide version 6.24 -mbranch-protection](https://developer.arm.com/documentation/101754/0624/armclang-Reference/armclang-Command-line-Options/-mbranch-protection), 2025-03-28.
+
+[^ArmclangExample]: ARM Developer, [Examples for the armclang -mbranch-protection command-line option, version 6.24](https://developer.arm.com/documentation/101754/0624/armclang-Reference/armclang-Command-line-Options/Examples-for-the-armclang--mbranch-protection-command-line-option), 2025-03-28.
 
 [^IntelCET]: Intel, ["A Technical Look at Intel’s Control-flow Enforcement Technology"](https://www.intel.com/content/www/us/en/developer/articles/technical/technical-look-control-flow-enforcement-technology.html), 2020-06-13.
 
