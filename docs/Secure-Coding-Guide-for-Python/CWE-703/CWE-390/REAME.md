@@ -88,7 +88,7 @@ exception_example()
 
 If recovery from an exception remains impossible, it is often best practice to wrap the checked exception in an unchecked exception and rethrow it. This approach allows the application to fail gracefully or log the error for future debugging, rather than crashing unexpectedly.
 
-`example01.py` assist in the understanding of Java's SEI Cert exceptions [SEI CERT ERR00-J 2025](https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions)..
+`example01.py` assist in the understanding of Java's SEI Cert exceptions [SEI CERT ERR00-J 2025](https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions) by providing a use-case specfic explaination `slice_cake:You got to give me plates` when re-throwing `ZeroDivisionError`.
 
 *[example01.py](example01.py):*
 
