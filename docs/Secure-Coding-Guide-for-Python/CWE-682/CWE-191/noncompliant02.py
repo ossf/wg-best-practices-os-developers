@@ -1,20 +1,48 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-""" Non-compliant Code Example """
+"""Noncompliant Code Example"""
 
-import time
+from datetime import datetime, timedelta
 
 
-def get_time_in_future(hours_in_future):
-    """Gets the time n hours in the future"""
-    currtime = list(time.localtime())
-    currtime[3] = currtime[3] + hours_in_future
-    if currtime[3] + hours_in_future > 24:
-        currtime[3] = currtime[3] - 24
-    return time.asctime(tuple(currtime)).split(" ")[3]
+def get_datetime(currtime: datetime, hours: int):
+    """
+    Gets the time n hours in the future or past
+
+    Parameters:
+    currtime (datetime): A datetime object with the starting datetime.
+    hours (int): Hours going forward or backwards
+
+    Returns:
+    datetime: A datetime object
+    """
+    return currtime + timedelta(hours=hours)
 
 
 #####################
-# exploiting above code example
+# attempting to exploit above code example
 #####################
-print(get_time_in_future(23**74))
+datetime.fromtimestamp(0)
+currtime = datetime.fromtimestamp(1)  # 1st Jan 1970
+
+# OK values are expected to work
+# NOK values trigger OverflowErrors in libpython written in C
+hours_list = [
+    0,  # OK
+    1,  # OK
+    70389526,  # OK
+    70389527,  # NOK
+    51539700001,  # NOK
+    24000000001,  # NOK
+    -1,  # OK
+    -17259889,  # OK
+    -17259890,  # NOK
+    -23999999999,  # NOK
+    -51539699999,  # NOK
+]
+for hours in hours_list:
+    try:
+        result = get_datetime(currtime, hours)
+        print(f"{hours} OK, datetime='{result}'")
+    except Exception as exception:
+        print(f"{hours} {repr(exception)}")
