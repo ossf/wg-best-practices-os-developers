@@ -94,7 +94,7 @@ When using markdown:
   Here is the [algorithm for determining header IDs](https://kramdown.gettalong.org/converter/html.html).
 * If you don't want certain headings to be auto-numbered, after the heading
   line add a line saying `{:.nocount}` to make the heading part of that class.
-  To suppress TOC entriues append the line `{:.no_toc}` after that heading.
+  To suppress TOC entries append the line `{:.no_toc}` after that heading.
 * If you want a table-of-contents, use `:toc` surrounded by curly braces
   on its own line.
 * By default, [GitHub Pages](https://pages.github.com/) uses the
