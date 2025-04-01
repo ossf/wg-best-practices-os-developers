@@ -92,6 +92,9 @@ When using markdown:
   Each heading name should be unique (so the generated ids are unique).
   You can reference any heading via its ID, e.g., `[text](#ID)`.
   Here is the [algorithm for determining header IDs](https://kramdown.gettalong.org/converter/html.html).
+* If you don't want certain headings to be auto-numbered, after the heading
+  line add a line saying `{:.nocount}` to make the heading part of that class.
+  To suppress TOC entries append the line `{:.no_toc}` after that heading.
 * If you want a table-of-contents, use `:toc` surrounded by curly braces
   on its own line.
 * By default, [GitHub Pages](https://pages.github.com/) uses the
@@ -168,6 +171,11 @@ Here's how to do that:
    This is already configured to comply with the
    [OpenSSF Brand Guidelines](https://openssf.org/about/brand-guidelines/)
    such as our preferred fonts and color scheme.
+5. Add an `index.md` file inside the `docs/` directory with at least
+   a little content (possibly linking to important materials).
+   Without this file (or similar `index.html`), viewing the top-level
+   domain will present the confusing and technically incorrect error
+   page saying "There isn't a GitHub Pages site here."
 
 ## Rationale for the SPP
 
