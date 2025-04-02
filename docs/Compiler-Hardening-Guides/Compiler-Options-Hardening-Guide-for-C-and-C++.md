@@ -910,7 +910,7 @@ The x86_64 architecture supports a variant of mov and certain other instructions
 
 #### When not to use?
 
-Resource-constrained embedded systems may save memory by *prelinking* executables at compile time. Prelinking performs some relocation decisions, normally made by the dynamic linker, ahead of time. As a result, fewer relocations need to be performed by the dynamic linker, reducing startup time and memory consumption for applications. PIE does not prevent prelinking but enabling ASLR on prelinked binaries overrides the compile-time decisions, thus nullifying the run-time memory savings gained by prelinking. If the memory savings gained by prelinking are important for a system PIE can be enabled for a subset of executables that are at higher risk, e.g., applications that process untrusted external input.
+Resource-constrained embedded systems may save memory by *prelinking* executables at compile time. Prelinking performs some relocation decisions, normally made by the dynamic linker, ahead of time. As a result, fewer relocations need to be performed by the dynamic linker, reducing startup time and memory consumption for applications. PIE does not prevent prelinking but enabling ASLR on prelinked binaries overrides the compile-time decisions, thus nullifying the run-time memory savings gained by prelinking. If the memory savings gained by prelinking are important for a system then PIE can be enabled for a subset of executables that are at higher risk, e.g., applications that process untrusted external input.
 
 [^Bendersky11a]: Bendersky, Eli, [Position Independent Code (PIC) in shared libraries](https://eli.thegreenplace.net/2011/11/03/position-independent-code-pic-in-shared-libraries/), Eli Bendersky's website, 2011-11-03.
 
