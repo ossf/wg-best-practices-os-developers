@@ -1220,7 +1220,6 @@ Table 4: Sanitizer options in GCC and Clang.
 | Compiler Flag          |     Supported since      | Description                                                                 |
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
 | `-fsanitize=address`   | GCC 4.8.0<br/>Clang 3.1.0 | Enables AddressSanitizer to detect memory errors at run-time                |
-| `-fsanitize=thread`    | GCC 4.8.0<br/>Clang 3.2.0 | Enables ThreadSanitizer to detect data race bugs at run time                |
 
 AddressSanitizer (ASan) is a memory error detector that can identify memory defects that involve:
 
@@ -1301,7 +1300,7 @@ LSan cannot be used simultaneously with AddressSanitizer (ASan) or ThreadSanitiz
 
 UndefinedBehaviorSanitizer (UBSan) is a detector of non-portable or erroneous program constructs which cause behavior which is not clearly defined in the ISO C standard. UBSan provides a large number of sub-options to enable / disable individual checks for different classes of undefined behavior. Consult the GCC[^gcc-instrumentation] and Clang[^clang-ubsan] documentation respectively for up-to-date information on supported sub-options.
 
-To enable UBSan add `-fsanitize=undefined` to the compiler flags (`CFLAGS` for C, `CXXFLAGS` for C++) and linker flags (`LDFLAGS`) together with any desired sub-options. Consider combining TSan with the following compiler flags:
+To enable UBSan add `-fsanitize=undefined` to the compiler flags (`CFLAGS` for C, `CXXFLAGS` for C++) and linker flags (`LDFLAGS`) together with any desired sub-options. Consider combining UBSan with the following compiler flags:
 
 - `-O1` (required or higher for reasonable performance)
 - `-g` (to display source file names and line numbers in the produced warning messages)
