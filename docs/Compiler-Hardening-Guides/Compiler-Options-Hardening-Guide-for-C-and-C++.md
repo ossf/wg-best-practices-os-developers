@@ -1240,8 +1240,10 @@ To enable ASan add `-fsanitize=address` to the compiler flags (`CFLAGS` for C, `
 
 The run-time behavior of ASan can be influenced using the `ASAN_OPTIONS` environment variable. The run-time options can be used enable additional memory error checks and to tweak ASan performance. An up-to-date list of supported options are available on the AddressSanitizerFlags article on the project's GitHub Wiki[^asan-flags]. If set to `ASAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program. This is particularly useful for determining which options are supported by the specific version ASan integrated to the compiler being used. A useful pre-set to enable more aggressive diagnostics compared to the default behavior is given below:
 
- ASAN_OPTIONS=strict_string_checks=1:detect_stack_use_after_return=1: \
- check_initialization_order=1:strict_init_order=1 ./instrumented-executable
+~~~sh
+ASAN_OPTIONS=strict_string_checks=1:detect_stack_use_after_return=1: \
+check_initialization_order=1:strict_init_order=1 ./instrumented-executable
+~~~
 
 When ASan encounters a memory error it (by default) terminates the application and prints an error message and stack trace describing the nature and location of the detected error. A systematic description of the different error types and the corresponding root causes reported by ASan can be found in the AddressSanitizer article on the project's GitHub Wiki[^asan].
 
