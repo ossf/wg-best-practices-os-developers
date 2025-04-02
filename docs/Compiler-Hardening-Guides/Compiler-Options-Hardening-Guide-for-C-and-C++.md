@@ -510,7 +510,7 @@ Using these options will make the compiler treat the corresponding obsolete cons
 
 Note that in particular, `_FORTIFY_SOURCE` is of either limited or entirely neutered effect in the presence of implicit function declarations.
 
-Note that the list of options indicated here do not capture a complete list of removed features. Some changes to the expected changes to compiler default cannot be previewed using compiler flags but require instructing the compiler to support a specific langauge standard (C99 or later dialect) and to give errors whenever the base standard requires a diagnostic[^gcc-pedantic-errors].
+Note that the list of options indicated here do not capture a complete list of removed features. Some changes to the expected changes to compiler default cannot be previewed using compiler flags but require instructing the compiler to support a specific language standard (C99 or later dialect) and to give errors whenever the base standard requires a diagnostic[^gcc-pedantic-errors].
 
 Some tools, such as `autoconf`, automatically determine what the compiler supports by generating code and compiling it. Old versions of these tools may not use more modern practices internally, so enabling errors can cause spurious reports that some functionality isn't available. The best solution is to update the tool. Where that isn't an option, consider adding `-Werror` forms *after* the tool has determined the mechanisms supported by the compiler.
 
@@ -999,7 +999,7 @@ Since GCC 8.5 `-no-strict-overflow` is equivalent to `-fwrapv -fwrapv-pointer` w
 
 #### When not to use?
 
-The C and C++ standards since C23[^C2023] and C++20[^CPP2020] only support two’s complement representation for signed integer types[^Bastien2024]. Previous editions of these standards additionally allowed other sign representations. Code targeting one these previous language editions and requires a specific signed integer representation becomes less portable in a very subtle way. However, in practice, neither GCC nor Clang support other representations [^Bastien2018]. This means that even prior to C23 and C++20 the GCC and Clang implementations of these langauges are effectively two’s complement. Consequently we believe most code will benefit from `-fno-strict-overflow` or its alternatives.
+The C and C++ standards since C23[^C2023] and C++20[^CPP2020] only support two’s complement representation for signed integer types[^Bastien2024]. Previous editions of these standards additionally allowed other sign representations. Code targeting one these previous language editions and requires a specific signed integer representation becomes less portable in a very subtle way. However, in practice, neither GCC nor Clang support other representations [^Bastien2018]. This means that even prior to C23 and C++20 the GCC and Clang implementations of these languages are effectively two’s complement. Consequently we believe most code will benefit from `-fno-strict-overflow` or its alternatives.
 
 #### Performance implications
 
