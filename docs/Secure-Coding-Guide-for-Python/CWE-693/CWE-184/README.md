@@ -53,7 +53,7 @@ for name in names:
 
 ## Compliant Solution
 
-The `compliant01.py` uses an allow list instead of a deny list and prevents the use of unwanted characters by raising an exception even without canonicalization. The missing canonicalization in `compliant01.py` according to [CWE-180: Incorrect Behavior Order: Validate Before Canonicalize](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python/CWE-707/CWE-180) must be added in order to make logging or displaying them safe!
+The `compliant01.py` uses an allow list instead of a deny list and prevents the use of unwanted characters by raising an exception even without canonicalization. The missing canonicalization in `compliant01.py` according to [CWE-180: Incorrect Behavior Order: Validate Before Canonicalize](../../CWE-707/CWE-180) must be added in order to make logging or displaying them safe!
 
 *[compliant01.py](compliant01.py):*
 
@@ -118,7 +118,7 @@ ValueError: Invalid input tag
 
 ```
 
-According to *Unicode Technical Report #36, Unicode Security Considerations [Davis 2008b]*, `\uFFFD`  is usually unproblematic, as a replacement for unwanted or dangerous characters. That is, `\uFFFD` will typically just cause a failure in parsing. Where the output character set is not Unicode, though, this character may not be available.
+According to *Unicode Technical Report #36, Unicode Security Considerations [Davis 2008b](https://www.unicode.org/reports/tr36/), `\uFFFD`  is usually unproblematic, as a replacement for unwanted or dangerous characters. That is, `\uFFFD` will typically just cause a failure in parsing. Where the output character set is not Unicode, though, this character may not be available.
 
 ## Automated Detection
 
@@ -139,6 +139,6 @@ According to *Unicode Technical Report #36, Unicode Security Considerations [Dav
 
 |||
 |:---|:---|
-|[Unicode 2024]|Unicode 16.0.0 [online]. Available from: [https://www.unicode.org/versions/Unicode16.0.0/](https://www.unicode.org/versions/Unicode16.0.0/) [accessed 20 March 2025] |
-|[Davis 2008b]|Unicode Technical Report #36, Unicode Security Considerations, Section 3.5 "Deletion of Code Points" [online]. Available from: [https://www.unicode.org/reports/tr36/](https://www.unicode.org/reports/tr36/) [accessed 20 March 2025] |
-|[Davis 2008b]|Unicode Technical Report #36, Unicode Security Considerations, Section 3.5 "Deletion of Code Points" [online]. Available from: [https://www.unicode.org/reports/tr36/](https://www.unicode.org/reports/tr36/) [accessed 20 March 2025] |
+|\[Unicode 2024\]|Unicode 16.0.0 \[online\]. Available from: [https://www.unicode.org/versions/Unicode16.0.0/](https://www.unicode.org/versions/Unicode16.0.0/) \[accessed 20 March 2025\] |
+|\[Davis 2008b\]|Unicode Technical Report #36, Unicode Security Considerations, Section 3.5 "Deletion of Code Points" \[online\]. Available from: [https://www.unicode.org/reports/tr36/](https://www.unicode.org/reports/tr36/) \[accessed 20 March 2025\] |
+|\[Davis 2008b\]|Unicode Technical Report #36, Unicode Security Considerations, Section 3.5 "Deletion of Code Points" \[online\]. Available from: [https://www.unicode.org/reports/tr36/](https://www.unicode.org/reports/tr36/) \[accessed 20 March 2025\] |
