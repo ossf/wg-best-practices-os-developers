@@ -1,6 +1,6 @@
 # Contributor Guide
 
-This guide provides an overview of how you can help, the standards we adhere to, and the steps to get your contributions reviewed for the subpages in [wg-best-practices-os-developers/docs/Secure-Coding-Guide-for-Python/](https://github.com/ossf/wg-best-practices-os-developers/docs/Secure-Coding-Guide-for-Python/)
+This guide provides an overview of how you can help, the standards we adhere to, and the steps to get your contributions reviewed for the subpages in [wg-best-practices-os-developers/docs/Secure-Coding-Guide-for-Python/](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python/).
 
 ## Code of Conduct
 
@@ -82,7 +82,7 @@ Join us to explore how this resource can become an indispensable part of your se
 
 ## Documentation Style
 
-* Bottom Line Up Front (BLUF), conclusion is in the first sentence of a rule  
+* Bottom Line Up Front (BLUF), conclusion is in the first sentence of a rule
 * Keep It Small and Simple (KISS)
 * Working code examples
 * Academic in wording whilst aiming for low word count.
@@ -90,7 +90,7 @@ Join us to explore how this resource can become an indispensable part of your se
 * Use imperative "do x and y to ensure z" instead of vague wording "might want to, could be a good idea..."
 * bibliography, follow the Harvard reference guide
 
-A template for a rule is available here: [README_TEMPLATE.md](README_TEMPLATE.md) with inline documentation on each section.
+A template for a rule is available here: [README_TEMPLATE.md](templates/README_TEMPLATE.md) with inline documentation on each section.
 
 Each rule should have:
 
@@ -112,7 +112,7 @@ The guide is structed in two levels. The top level readme is to list all rules w
 The sublevel has an a individual rule with a single CWE where possible.
 
 > [!NOTE]
-> We are aware that CWEs are not designed as 'read throughs'. Their numbering is not designed to become a step by step guide. The [Introduction to Multithreading and Multiprocessing](../Intro_to_multiprocessing_and_multithreading/readme.md) in Python is an example where we had to provide an alternative layout with three levels. Eventually we will have to shuffle the individual rules into a more suitable sequence.
+> We are aware that CWEs are not designed as 'read throughs'. Their numbering is not designed to become a step by step guide. The [Introduction to Multithreading and Multiprocessing](Intro_to_multiprocessing_and_multithreading/readme.md) in Python is an example where we had to provide an alternative layout with three levels. Eventually we will have to shuffle the individual rules into a more suitable sequence.
 > Same CWE number with different titles will also have to be fixed at some stage.
 
 ### From a author perspective
@@ -130,32 +130,32 @@ Example structure with mocked up data:
 ./README.md
 ./licenses/MIT.txt
 ./licenses/CC-BY-4.0.txt
-  
+
 ./Concepts/Multithreading_Multiprocessing.md
-  
+
 # Top level using Pillar CWE-707:
 ./CWE-707/README.md
-  
+
 # Second level representing a Rule is either a CWE of type Base, Variant or Class:
 ./CWE-664/CWE-197/README.md
 ./CWE-664/CWE-197/compliant01.py
 ./CWE-664/CWE-197/example01.py
 ./CWE-664/CWE-197/noncompliant01.py
-  
+
 # Multiple rules matching one CWE of type Base, Variant or Class:
 ./CWE-664/CWE-197/01/README.md
 ./CWE-664/CWE-197/01/compliant01.py
 ./CWE-664/CWE-197/01/noncompliant01.py
-  
+
 # Rule matching no CWE of type Base, Variant, or Class:
 ./CWE-707/XXX-000/README.md
 ./CWE-707/XXX-000/noncompliant01.py
 ./CWE-707/XXX-000/compliant01.py
-  
+
 ./CWE-707/XXX-001/README.md
 ./CWE-707/XXX-001/noncompliant01.py
 ./CWE-707/XXX-001/compliant01.py
-  
+
 # Rule matching multiple CWEs of type Base, Variant or Class:
 ./CWE-707/CWE-117/README.md
 ./CWE-707/CWE-117/compliant01.py

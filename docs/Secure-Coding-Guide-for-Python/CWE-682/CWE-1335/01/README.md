@@ -31,7 +31,7 @@ Output from above example01.py:
 ```bash
 foo = 50 = 00110010
 foo = 42 = 00101010
- 
+
 foo << 2 = 11001000
 foo >> 2 = 00001100
 ~foo     = -0110011
@@ -92,7 +92,7 @@ The statement in `compliant01.py` clarifies the programmer's intention.
 print(8 * 4 + 10)
 ```
 
-It is recommended by *[CWE-191, Integer Underflow (Wrap or Wraparound)](../CWE-191/README.md)* to also check for under or overflow.
+It is recommended by *[CWE-191, Integer Underflow (Wrap or Wraparound)](../../CWE-191/README.md)* to also check for under or overflow.
 
 ## Non-compliant Code Example (Right Shift)
 
