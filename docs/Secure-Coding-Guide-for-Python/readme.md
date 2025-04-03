@@ -13,7 +13,7 @@ Please join us, see [contributing](CONTRIBUTING.md)
 
 ## Disclaimer
 
-Content comes __WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED__, as stated in the license text [CC-BY-4.0](LICENSE/CC-BY-4.0.txt) for documentation and [MIT](LICENSE/MIT.txt).
+Content comes __WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED__, as stated in the license text [CC-BY-4.0](../../LICENSES/CC-BY-4.0.txt) for documentation and [MIT](../../LICENSES/MIT.txt).
 Following or using the documentation and or code is at your own risk. Code examples are intended purely for educational use and not for products in parts or in full.
 Code examples are NOT to be used to cause harm of any kind to anyone or anything.
 
@@ -61,7 +61,6 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-681: Avoid an uncontrolled loss of precision when passing floating-point literals to a Decimal constructor.](CWE-664/CWE-681/01/README.md)||
 |[CWE-833: Deadlock](CWE-664/CWE-833/README.md)||
 |[CWE-843: Access of Resource Using Incompatible Type ('Type Confusion')](CWE-664/CWE-843/.)|[CVE-2021-29513](https://www.cvedetails.com/cve/CVE-2021-29513),<br/>CVSSv3.1: __7.8__,<br/>EPSS: __00.05__ (05.11.2024)|
-|[XXX-005: Consider hash-based integrity verification of byte code files against their source code files](CWE-664/XXX-005/.)||
 
 |[CWE-682: Incorrect Calculation](https://cwe.mitre.org/data/definitions/682.html)|Prominent CVE|
 |:---------------------------------------------------------------------------------------------------------------|:----|
@@ -118,5 +117,5 @@ It is __not production code__ and requires code-style or python best practices t
 
 ## License
 
-* [CC-BY 4.0](LICENSE/CC-BY-4.0.txt) for documentation
-* [MIT](LICENSE/MIT.txt) for code snippets
+* [CC-BY 4.0](../../LICENSES/CC-BY-4.0.txt) for documentation
+* [MIT](../../LICENSES/MIT.txt) for code snippets
