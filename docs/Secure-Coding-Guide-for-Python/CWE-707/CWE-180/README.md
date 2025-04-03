@@ -6,7 +6,6 @@ The need for supporting multiple languages requires the use of an extended list 
 
 Character Encoding systems such as `ASCII`, `Windows-1252`, or `UTF-8` consist of an agreed mapping between byte values and a human-readable character known as code points. Each code point represents a single relation between characters such as a fixed number "`\u002E`", its graphical representation "`.`", and name "`FULL STOP`"  [[Batchelder 2022]](https://www.youtube.com/watch?v=sgHbC6udIqc). Using the same encoding assures that equivalent strings have a unique binary representation Unicode Standard _annex #15, Unicode Normalization Forms_ [[Davis 2008]](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Davis08). Different or unexpected changes in encoding can allow attackers to workaround validation or input sanitation affords.
 
-> ! NOTE:
 > ! WARN: Ensure to use allow lists to avoid having to maintain an deny list on a continuous basis (as exclusion lists are a moving target) as per CWE-184: Incomplete List of Disallowed Input - Development Environment.
 
 <table>
