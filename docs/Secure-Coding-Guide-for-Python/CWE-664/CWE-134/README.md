@@ -131,9 +131,9 @@ if __name__ == "__main__":
 |||
 |:---|:---|
 |[SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[FIO30-C Exclude user input from format strings](https://wiki.sei.cmu.edu/confluence/display/c/FIO30-C.+Exclude+user+input+from+format+strings)|
-|[SEI CERT Perl Coding Standard](https://www.securecoding.cert.org/confluence/display/perl/CERT+Perl+Secure+Coding+Standard)|[IDS30-PL. Exclude user input from format strings](https://www.securecoding.cert.org/confluence/display/perl/IDS30-PL.+Exclude+user+input+from+format+strings)|
+|[SEI CERT Perl Coding Standard](https://wiki.sei.cmu.edu/confluence/display/perl/SEI+CERT+Perl+Coding+Standard)|[IDS30-PL. Exclude user input from format strings](https://www.securecoding.cert.org/confluence/display/perl/IDS30-PL.+Exclude+user+input+from+format+strings)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[IDS06-J. Exclude unsanitized user input from format strings](https://wiki.sei.cmu.edu/confluence/display/java/IDS06-J.+Exclude+unsanitized+user+input+from+format+strings)|
-|[ISO/IEC TR 24772:2013](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-ISO/IECTR24772-2013)|Injection [RST]|
+|[ISO/IEC TR 24772:2013](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-ISO/IECTR24772-2013)|Injection RST|
 |[MITRE CWE Pillar](http://cwe.mitre.org/)|[CWE-664: Improper Control of a Resource Through its Lifetime (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/664.html)|
 |[MITRE CWE Base](http://cwe.mitre.org/)|[CWE-134, Uncontrolled Format String](http://cwe.mitre.org/data/definitions/134.html)|
 

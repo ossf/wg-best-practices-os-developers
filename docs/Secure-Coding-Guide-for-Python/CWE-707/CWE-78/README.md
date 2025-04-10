@@ -195,8 +195,8 @@ The `compliant01.py` does not use data that origins from a lesser trusted source
 
 |||
 |:---|:---|
-|[MITRE CWE](http://cwe.mitre.org/)|Pillar: [CWE-707: Improper Neutralization](hhttps://cwe.mitre.org/data/definitions/707.html)|
-|[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE-78, Improper Neutralization of Special Elements Used in an OS Command ("OS Command Injection")](https://cwe.mitre.org/data/definitions/000.html)|
+|[MITRE CWE](http://cwe.mitre.org/)|Pillar: [CWE-707: Improper Neutralization](https://cwe.mitre.org/data/definitions/707.html)|
+|[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE-78, Improper Neutralization of Special Elements Used in an OS Command ("OS Command Injection")](https://cwe.mitre.org/data/definitions/78.html)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[IDS07-J. Sanitize untrusted data passed to the Runtime.exec() method](https://wiki.sei.cmu.edu/confluence/display/java/IDS07-J.+Sanitize+untrusted+data+passed+to+the+Runtime.exec%28%29+method)|
 |[SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[ENV03-C. Sanitize the environment when invoking external programs](https://wiki.sei.cmu.edu/confluence/display/c/ENV03-C.+Sanitize+the+environment+when+invoking+external+programs)|
 |[SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[ENV33-C. Do not call system()](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=87152177)|
