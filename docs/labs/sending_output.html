@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html><script src="template_files/page-script.js" id="bw-fido2-page-script"></script><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="template_files/style.css">
+<link rel="stylesheet" href="template_files/checker.css">
+<script src="template_files/js-yaml.min.js"></script>
+<script src="template_files/checker.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+<!-- Sample expected answer -->
+<script id="expected0" type="plain/text">
+private final List<String> allowedHosts = new String[]{"127.0.0.1"}
+</script>
+<!--
+-->
+<script id="expected1" type="plain/text">
+private final List<String> allowedHosts = new String[]{"localhost"}
+</script>
+
+<!-- Full pattern of correct answer -->
+<script id="correct0" type="plain/text">
+private final List<String> allowedHosts = new String\[]{"(127\.0\.0\.1|localhost)"}
+</script>
+
+<script id="correct1" type="plain/text">
+private final List<String> allowedHosts = new String\[]{"127\.0\.0\.1",(\s)*"localhost"}
+</script>
+
+<script id="correct2" type="plain/text">
+private final List<String> allowedHosts = new String\[]{"locahost",(\s)*"127\.0\.0\.1"}
+</script>
+
+<script id="info" type="application/yaml">
+---
+hints:
+- present: "new String[]{}"
+  text: Add allowed hosts the string array enclosed in curly brackets.
+- present: "private final List<String> allowedHosts ="
+  text: Make sure that the allowedHosts constant is an Java inline string array.
+# debug: true
+</script>
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>Format Strings and Templates Lab</h1>
+<p>
+This is a lab exercise on developing secure software.
+For more information, see the <a href="https://best.openssf.org/labs/introduction.html" target="_blank">introduction to
+the labs</a>.
+
+</p><p>
+</p><h2>Task</h2>
+<p>
+<b>Restrict the JNDI hostnames from which variables can be loaded.</b>
+
+</p><p>
+</p><h2>Background</h2>
+<p>
+In this exercise, we'll assume that out output template allows a user to specify a JNDI hostname
+    from which to load variables from. As is the case in the Log4j logging framework.
+
+</p><p>
+</p><h2>Task Information</h2>
+<p>
+
+</p><p>
+Please change the code below so that it restricts the JNDI hostnames from which variables can be
+    loaded to only the local network interface (127.0.0.1). Use IPv4 addresses only.
+
+
+</p><p>
+</p><h2>Interactive Lab (<span id="grade">to be completed</span>)</h2>
+<p>
+</p><form id="lab">
+<pre><code>
+    public class JndiManager extends AbstractManager {
+        <input id="attempt0" type="text" size="60" spellcheck="false"
+               value="private final List<String> allowedHosts = new String[]{}" style="background-color: yellow;">
+
+        /**
+         * Looks up a named object through this JNDI context.
+         *
+         * @param name name of the object to look up.
+         * @param <T>  the type of the object.
+         * @return the named object if it could be located.
+         * @throws  NamingException if a naming exception is encountered
+         */
+        @SuppressWarnings("unchecked")
+        public <T> T lookup(final String name) throws NamingException {
+            URI uri = new URI(name);
+            if (!allowedHosts.contains(uri.getHost())) {
+                LOGGER.warn("Attempt to access ldap server not in allowed list");
+                return null;
+            }
+            return (T) this.context.lookup(name);
+        }
+    }
+</code></pre>
+<button type="button" class="hintButton" title="Provide a hint given current attempt.">Hint</button>
+<button type="button" class="resetButton" title="Reset initial state (throwing away current attempt).">Reset</button>
+<button type="button" class="giveUpButton" title="Give up and show an answer.">Give up</button>
+<br><br>
+<p>
+<i>This lab was developed by Jason Shepherd at
+<a href="https://access.redhat.com/security/">Red Hat Product Security</a>.</i>
+<br><br>
+</p><p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly="readonly"></textarea>
+</p></form>
+<br><br>
+<p>
+<summary>
+    Source: This example is a modified version of the patch for CVE-2021-44228 in
+    <a href="https://github.com/apache/logging-log4j2/pull/608/files">apache/logging-log4j2</a>
+</summary>
+</p>
+</div><!-- End GitHub pages formatting -->
+
+
+</body></html>
