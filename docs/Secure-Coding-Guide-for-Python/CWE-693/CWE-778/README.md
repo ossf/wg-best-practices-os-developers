@@ -2,7 +2,7 @@
 
 Ensure you have sufficient logging in order to adequately record important events within an application and/or system.
 
-This can leave applications vulnerable to undetected attacks, as malicious users are able to perform harmful activities without leaving a trace in the logs. Without comprehensive and sufficient logging, it becomes challenging to identify and respond to security incidents, leading to delayed and/or inefficient incident response efforts.
+Without comprehensive and sufficient logging, it becomes challenging to identify and respond to security incidents, leading to delayed and/or inefficient incident response efforts.
 
 Insufficient logging also negatively affects forensic analysis, hindering the ability to reconstruct events accurately after a breach.
 
