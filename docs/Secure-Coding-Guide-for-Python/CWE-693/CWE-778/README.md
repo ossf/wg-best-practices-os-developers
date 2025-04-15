@@ -12,7 +12,7 @@ Writing exceptions to stdout, stderr or local files is not sufficient as:
 * Trust level of stdout or stderr may be the end-user or attacker
 * Logfiles which are only on a local filesystem can be deleted by an attacker
 
-If errors occur while recording logs, they can hinder the logging process unless preventive measures are implemented. Security risks can occur when these error's occur. For example, an attacker hiding crucial security issues by refraining the attacker from being logged. Therefore it is essential that logging functions in applications are effective, even when exceptions arise when completing the logging process.
+If errors occur while recording logs, they can hinder the logging process unless preventive measures are implemented. Security risks can occur when these errors occur. For example, an attacker hiding crucial security issues by refraining the attacker from being logged. Therefore it is essential that logging functions in applications are effective, even when exceptions arise when completing the logging process.
 
 ## Non-Compliant Code Example
 
