@@ -96,8 +96,8 @@ package.get_package_weight() = nan
 
 ## Compliant Solution
 
-Exceptional values and out-of-range values are handled in `compliant01.py`. Due to the nature of the code example, negative values are also checked for.
-The `isfinite` function from the `math` library is useful for checking for `NaN`, `infinity` and `-infinity` values. It checks if a value is neither infinite nor a NaN.
+Exceptional values and out-of-range values are handled in `compliant01.py`. Some negative values are also checked for due to the nature of the code example.
+The `isfinite` function from the `math` library is useful for checking for `NaN`, `infinity` and `-infinity` values. `math.isfinite` checks if a value is neither `infinite` nor a `NaN`.
 
 Other functions from the `math` library that could be of use are `isnan`, which checks if an inputted value is "NaN", and `isinf` (which checks if a value is positive or negative infinity).
 
