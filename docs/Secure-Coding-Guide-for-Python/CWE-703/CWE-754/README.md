@@ -12,7 +12,7 @@ These floating-point class values represent numbers that fall outside the typica
 
 ## Non-Compliant Code Example
 
-In the `noncompliant01.py` example, the code allows a user to add objects of a certain weight to a package—as long as the total weight remains below 100 units, the object is added. However, the checks in the code are inadequate for filtering out exceptional conditions. For example, converting the input to a float can mask invalid inputs (such as non-numeric strings), allowing erroneous or unintended values (e.g., NaN or infinity) to bypass validation.
+The `noncompliant01.py` intent is to ensure that adding objects will not exceed a total weight of 100 units. Validation fails as the code is missing to test for exceptional conditions such as `NaN` or `infinity`.
 
 *[noncompliant01.py](noncompliant01.py):*
 
