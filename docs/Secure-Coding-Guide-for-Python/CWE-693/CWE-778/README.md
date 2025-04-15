@@ -27,7 +27,7 @@ try:
     result = 10 / 0
 except ZeroDivisionError as e:
     print("Error occurred:", e)
-#Continues to execute
+
 ```
 
 ## Compliant Solution
@@ -45,7 +45,7 @@ try:
     result = 10 / 0
 except ZeroDivisionError:
     logging.critical("Error occurred: Division by zero")
-# Continues to execute
+
 ```
 
 ## Automated Detection
