@@ -69,9 +69,11 @@ for item in [100, "-infinity", sys.float_info.max, "NaN", -100]:
         print(e)
 ```
 
-* Setting a value above sys.float_info.max does not increase the held value. In some cases, incrementing package_weight  with a high enough value may turn its value into inf
-* Setting the added value to -infinity  and +infinity causes the value of the package_weight  to be infinite as well.
-* Setting the package_weight to  NaN, which is not a valid value.
+Some important considerations when dealing with floating-point values from `non-complaint01.py`.
+
+* Setting a value above sys.float_info.max does not increase the held value. In some cases, incrementing `package_weight`  with a high enough value may turn its value into inf.
+* Setting the added value to -infinity and +infinity causes the value of the `package_weight` to be infinite as well.
+* Adding "NaN", which is not a valid value to `package_weight` will always return "nan".
 
 **Example `noncompliant01.py` output:**
 
