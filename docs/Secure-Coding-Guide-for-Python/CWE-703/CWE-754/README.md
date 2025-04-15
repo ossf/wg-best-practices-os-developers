@@ -123,6 +123,8 @@ class Package:
         self.max_package_weight: float = 100.0
 
     def add_to_package(self, object_weight: Union[str, int, float]) -> None:
+        # TODO: input sanitation.
+        # TODO: proper exception handling
         """Add an object into the package after validating its weight."""
         try:
             value = float(object_weight)
@@ -164,7 +166,7 @@ for item in [100, "-infinity", sys.float_info.max, "NaN", -100]:
         print(e)
 ```
 
-The compliant code example successfully ensures that any object added to the package is a valid and anticipated float value, and that the code cannot be exploited by inputting values such as NaN, infinite or -infinite.
+This compliant code example will raise a ValueError for inputs that are "-infinity", "infinity", or NaN, with messages "Input is not a finite number" and "Input is not a number" respectively. It should also ensure weights are non-negative, returning "Weight must be a non-negative number" for negative inputs.
 
 **Example `compliant01.py` output:**
 
