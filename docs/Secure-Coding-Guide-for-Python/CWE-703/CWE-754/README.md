@@ -195,7 +195,6 @@ Weight must be a non-negative number.
 |||
 |:---|:---|
 |[SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[FLP04-C. Check floating-point inputs for exceptional values](https://wiki.sei.cmu.edu/confluence/display/c/FLP04-C.+Check+floating-point+inputs+for+exceptional+values)|
-|[SEI CERT C++ Coding Standard](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682)|[VOID FLP04-CPP. Check floating point inputs for exceptional values](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046805)|
 |[SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java?src=sidebar)|[NUM08-J. Check floating-point inputs for exceptional values](https://wiki.sei.cmu.edu/confluence/display/java/NUM08-J.+Check+floating-point+inputs+for+exceptional+values)|
 |[CWE MITRE Pillar](http://cwe.mitre.org/)|[CWE-703: Improper Check or Handling of Exceptional Conditions](https://cwe.mitre.org/data/definitions/703.html)|
 |[MITRE CWE Base](https://cwe.mitre.org/)|[CWE-754: Improper Check for Unusual or Exceptional Conditions](https://cwe.mitre.org/data/definitions/754.html)|
