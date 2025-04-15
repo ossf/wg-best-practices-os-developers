@@ -16,6 +16,8 @@ class Package:
 
     def add_to_package(self, object_weight: Union[str, int, float]) -> None:
         """Add an object into the package after validating its weight."""
+        # TODO: input sanitation.
+        # TODO: proper exception handling
         try:
             value = float(object_weight)
         except (ValueError, TypeError) as e:
