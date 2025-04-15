@@ -48,7 +48,7 @@ except ZeroDivisionError:
     logging.critical("Error occurred: Division by zero")
 
 ```
-The `compliant01.py` using `logging` and loglevels allows better integration with a centralized logging system.
+In `compliant01.py`, using `logging` and loglevels allows better integration with a centralized logging system.
 
 ## Automated Detection
 
