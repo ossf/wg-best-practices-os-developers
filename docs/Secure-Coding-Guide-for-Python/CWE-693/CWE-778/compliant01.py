@@ -8,4 +8,3 @@ try:
     result = 10 / 0
 except ZeroDivisionError:
     logging.critical("Error occurred: Division by zero")
-# Continues to execute
