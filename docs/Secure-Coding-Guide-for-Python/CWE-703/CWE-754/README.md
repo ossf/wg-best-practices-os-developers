@@ -8,7 +8,7 @@ The float class has the capability to interpret various input values as floating
 * Negative Infinity
 * NaN (Not-a-Number)
 
-TThese floating-point class values represent numbers that fall outside the typical range and exhibit unique behaviors. NaN (Not a Number) lacks a defined order and is not considered equal to any value, including itself. Hence, evaluating an expression such as "NaN == NaN" returns "False."
+These floating-point class values represent numbers that fall outside the typical range and exhibit unique behaviors. `NaN` (Not a Number) lacks a defined order and is not considered equal to any value, including itself. Hence, evaluating an expression such as `NaN == NaN` returns `False`.
 
 ## Non-Compliant Code Example
 
