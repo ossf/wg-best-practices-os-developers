@@ -29,6 +29,7 @@ except ZeroDivisionError as e:
     print("Error occurred:", e)
 
 ```
+
 The `noncompliant01.py` code prints the error to `stdout` instead of allowing central logging to take place.
 
 ## Compliant Solution
@@ -48,6 +49,7 @@ except ZeroDivisionError:
     logging.critical("Error occurred: Division by zero")
 
 ```
+
 In `compliant01.py`, using `logging` and loglevels allows better integration with a centralized logging system.
 
 ## Automated Detection
