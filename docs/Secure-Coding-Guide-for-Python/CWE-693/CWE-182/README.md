@@ -92,4 +92,3 @@ Reduction of data into a subset is not limited to strings and characters.
 |:---|:---|
 |\[Batchelder 2022\]|Ned Batchelder, Pragmatic Unicode, or, How do I stop the pain? \[online\], Available from: <https://www.youtube.com/watch?v=sgHbC6udIqc> \[Accessed 4 April 2025\] |
 |\[W3c.org 2015\]|Character encodings for beginners \[online\], Available from: <https://www.w3.org/International/questions/qa-what-is-encoding>, \[Accessed 4 April 2025\] |
-|\[SEI CERT CMU 2021\]|IDS11-J. Perform any string modifications before validation - SEI CERT Oracle Coding Standard for Java \[online\], Available from: <https://wiki.sei.cmu.edu/confluence/display/java/IDS11-J.+Perform+any+string+modifications+before+validation>, \[Accessed 4 April 2025\] |
