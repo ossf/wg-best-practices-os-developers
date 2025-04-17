@@ -2,17 +2,17 @@
 
 Ensure to have handling for exceptional floating-point values.
 
-The float class has the capability to interpret various input values as floating-point numbers. Some special cases can interpret input values as
+The `float` class has the capability to interpret various input values as floating-point numbers. Some special cases can interpret input values as
 
 * Positive Infinity
 * Negative Infinity
-* NaN (Not-a-Number)
+* `NaN` (Not-a-Number)
 
 These floating-point class values represent numbers that fall outside the typical range and exhibit unique behaviors. `NaN` (Not a Number) lacks a defined order and is not considered equal to any value, including itself. Hence, evaluating an expression such as `NaN == NaN` returns `False`.
 
 ## Non-Compliant Code Example
 
-The `noncompliant01.py` intent is to ensure that adding objects will not exceed a total weight of 100 units. Validation fails as the code is missing to test for exceptional conditions such as `NaN` or `infinity`.
+The `noncompliant01.py` intent is to ensure that adding objects will not exceed a total weight of `100` units. Validation fails as the code is missing to test for exceptional conditions such as `NaN` or `infinity`.
 
 *[noncompliant01.py](noncompliant01.py):*
 
@@ -71,9 +71,9 @@ for item in [100, "-infinity", sys.float_info.max, "NaN", -100]:
 
 Some important considerations when dealing with floating-point values from `non-complaint01.py`.
 
-* Setting a value above sys.float_info.max does not increase the held value. In some cases, incrementing `package_weight`  with a high enough value may turn its value into inf.
-* Setting the added value to -infinity and +infinity causes the value of the `package_weight` to be infinite as well.
-* Adding "NaN", which is not a valid value to `package_weight` will always return "nan".
+* Setting a value above `sys.float_info.max` does not increase the held value. In some cases, incrementing `package_weight` with a high enough value may turn its value into `inf`.
+* Setting the added value to `-infinity` and `+infinity` causes the value of the `package_weight` to be infinite as well.
+* Adding `"NaN"`, which is not a valid value to `package_weight` will always return `"nan"`.
 
 **Example `noncompliant01.py` output:**
 
@@ -101,7 +101,7 @@ package.get_package_weight() = nan
 Exceptional values and out-of-range values are handled in `compliant01.py`. Some negative values are also checked for due to the nature of the code example.
 The `isfinite` function from the `math` library is useful for checking for `NaN`, `infinity` and `-infinity` values. `math.isfinite` checks if a value is neither `infinite` nor a `NaN`.
 
-Other functions from the `math` library that could be of use are `isnan`, which checks if an inputted value is "NaN", and `isinf` (which checks if a value is positive or negative infinity).
+Other functions from the `math` library that could be of use are `isnan`, which checks if an inputted value is `"NaN"`, and `isinf` (which checks if a value is positive or negative infinity).
 
 *[compliant01.py](compliant01.py):*
 
@@ -166,7 +166,7 @@ for item in [100, "-infinity", sys.float_info.max, "NaN", -100]:
         print(e)
 ```
 
-This compliant code example will raise a ValueError for inputs that are "-infinity", "infinity", or NaN, with messages "Input is not a finite number" and "Input is not a number" respectively. It should also ensure weights are non-negative, returning "Weight must be a non-negative number" for negative inputs.
+This compliant code example will raise a `ValueError` for inputs that are `-infinity`, `infinity`, or `NaN`, with messages "Input is not a finite number" and "Input is not a number" respectively. It should also ensure weights are non-negative, returning "Weight must be a non-negative number" for negative inputs.
 
 **Example `compliant01.py` output:**
 
