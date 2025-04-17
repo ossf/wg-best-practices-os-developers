@@ -15,8 +15,8 @@ Character Encoding systems such as `ASCII`, `Windows-1252`, or `UTF-8` consist o
         <th colspan="3">UTF-16 (hex)</th>
     </tr>
     <tr>
-        <th>Hex</th>
         <th>Print</th>
+        <th>Hex</th>
         <th>Name</th>
         <th>Print</th>
         <th>Hex</th>
