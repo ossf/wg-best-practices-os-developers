@@ -39,3 +39,4 @@ floppy = write_message("<script生>")
 
 # victim:
 read_message(floppy)
+
