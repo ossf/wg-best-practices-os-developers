@@ -21,7 +21,7 @@ class Package:
             raise ValueError("'NaN' not a number")
         # This is also dead code as value is type cast to float,
         # unusual inputs like -infinity will not get caught
-        if isinstance(value, float) is not True:
+        if isinstance(value, float) is False:
             raise ValueError("not a number")
         if self.package_weight + value > self.max_package_weight:
             raise ValueError("Addition would exceed maximum package weight.")
