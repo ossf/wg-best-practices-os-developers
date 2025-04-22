@@ -9,8 +9,8 @@ class Package:
     """Class representing a package object"""
 
     def __init__(self):
-        self.package_weight = float(0.0)
-        self.max_package_weight = 100.0
+        self.package_weight: float = 0.0
+        self.max_package_weight: float = 100.0
 
     def add_to_package(self, object_weight: str):
         """Function for adding an object into the package"""
