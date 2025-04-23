@@ -22,7 +22,6 @@ Some component developers claim keeping older interfaces working “can’t” b
 
 Even in rare cases where a backward-incompatible change *must* be done, the damage caused by backward-incompatible interfaces can usually be limited.
 
-
 ## Component Creators
 
 Consider the following whenever making changes that might change the component’s external interfaces:
@@ -55,7 +54,7 @@ Consider the following whenever making changes that might change the component�
 7. *For system applications and libraries, consider building on the oldest platform you want to support*. For more information see [[Delorie2019](https://developers.redhat.com/blog/2019/08/01/how-the-gnu-c-library-handles-backward-compatibility)].
 8. *If upgrading to a newer version of a component is impractical, consider backporting vulnerability fixes to older versions*. Such backports can be done downstream or in a stable (LTS) branch maintained by the project. If the project does not maintain a stable release branch, but that component is so critically important to a user to backport vulnerability fixes downstream, consider contributing those backports upstream and/or offering support in maintaining such a stable release branch.
 9. *Consider sourcing open source components from (distribution) providers which maintain stable releases of older components*.
-10. *Strive to avoid maintaining downstream modifications of open source code*. Downstream modifications may be pursued by users for various different reasons (e.g. business or use case specific features). However, maintaining such downstream modifications create a serious risk of accumulating changes over time which significantly hinder uplifting in a timely and seamless manner, due to the need to adapt those changes to every new upstream release. Instead, if changes are needed, e.g., new features, consider contributing or jointly developing those with the upstream project. 
+10. *Strive to avoid maintaining downstream modifications of open source code*. Downstream modifications may be pursued by users for various different reasons (e.g. business or use case specific features). However, maintaining such downstream modifications create a serious risk of accumulating changes over time which significantly hinder uplifting in a timely and seamless manner, due to the need to adapt those changes to every new upstream release. Instead, if changes are needed, e.g., new features, consider contributing or jointly developing those with the upstream project.
 
 ## Related Materials
 
@@ -86,4 +85,3 @@ We encourage you to check out these related materials:
 ## Credits
 
 This document was developed by the OpenSSF Best Practices Working Group (WG). The initial draft was developed by David A. Wheeler. The need for it was identified during the [OpenSSF Policy Summit DC 2025](https://events.linuxfoundation.org/openssf-policy-summit-dc/) of 2025-03-04 at the [OSS Best Practices Breakout Group](https://docs.google.com/document/d/1XzlTmDBPBpUPzVEE2ftOOwcqNRV1hqIPaeJSJk__ksE/edit). We give grateful thanks to the contributions (sorted alphabetically) of Avishay Balter, Chris de Almeida, David A. Wheeler, Georg Kunz, Matt Wilson, and S. Joshua N.
-
