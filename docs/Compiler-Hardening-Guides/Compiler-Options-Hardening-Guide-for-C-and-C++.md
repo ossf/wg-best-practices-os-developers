@@ -1,6 +1,6 @@
 # Compiler Options Hardening Guide for C and C++
 
-*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2025-03-28*
+*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2025-04-08*
 
 This document is a guide for compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++. The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
 
@@ -510,7 +510,7 @@ Using these options will make the compiler treat the corresponding obsolete cons
 
 Note that in particular, `_FORTIFY_SOURCE` is of either limited or entirely neutered effect in the presence of implicit function declarations.
 
-Note that the list of options indicated here do not capture a complete list of removed features. Some changes to the expected changes to compiler default cannot be previewed using compiler flags but require instructing the compiler to support a specific langauge standard (C99 or later dialect) and to give errors whenever the base standard requires a diagnostic[^gcc-pedantic-errors].
+Note that the list of options indicated here do not capture a complete list of removed features. Some changes to the expected changes to compiler default cannot be previewed using compiler flags but require instructing the compiler to support a specific language standard (C99 or later dialect) and to give errors whenever the base standard requires a diagnostic[^gcc-pedantic-errors].
 
 Some tools, such as `autoconf`, automatically determine what the compiler supports by generating code and compiling it. Old versions of these tools may not use more modern practices internally, so enabling errors can cause spurious reports that some functionality isn't available. The best solution is to update the tool. Where that isn't an option, consider adding `-Werror` forms *after* the tool has determined the mechanisms supported by the compiler.
 
@@ -910,7 +910,7 @@ The x86_64 architecture supports a variant of mov and certain other instructions
 
 #### When not to use?
 
-Resource-constrained embedded systems may save memory by *prelinking* executables at compile time. Prelinking performs some relocation decisions, normally made by the dynamic linker, ahead of time. As a result, fewer relocations need to be performed by the dynamic linker, reducing startup time and memory consumption for applications. PIE does not prevent prelinking but enabling ASLR on prelinked binaries overrides the compile-time decisions, thus nullifying the run-time memory savings gained by prelinking. If the memory savings gained by prelinking are important for a system PIE can be enabled for a subset of executables that are at higher risk, e.g., applications that process untrusted external input.
+Resource-constrained embedded systems may save memory by *prelinking* executables at compile time. Prelinking performs some relocation decisions, normally made by the dynamic linker, ahead of time. As a result, fewer relocations need to be performed by the dynamic linker, reducing startup time and memory consumption for applications. PIE does not prevent prelinking but enabling ASLR on prelinked binaries overrides the compile-time decisions, thus nullifying the run-time memory savings gained by prelinking. If the memory savings gained by prelinking are important for a system then PIE can be enabled for a subset of executables that are at higher risk, e.g., applications that process untrusted external input.
 
 [^Bendersky11a]: Bendersky, Eli, [Position Independent Code (PIC) in shared libraries](https://eli.thegreenplace.net/2011/11/03/position-independent-code-pic-in-shared-libraries/), Eli Bendersky's website, 2011-11-03.
 
@@ -999,7 +999,7 @@ Since GCC 8.5 `-no-strict-overflow` is equivalent to `-fwrapv -fwrapv-pointer` w
 
 #### When not to use?
 
-The C and C++ standards since C23[^C2023] and C++20[^CPP2020] only support two’s complement representation for signed integer types[^Bastien2024]. Previous editions of these standards additionally allowed other sign representations. Code targeting one these previous language editions and requires a specific signed integer representation becomes less portable in a very subtle way. However, in practice, neither GCC nor Clang support other representations [^Bastien2018]. This means that even prior to C23 and C++20 the GCC and Clang implementations of these langauges are effectively two’s complement. Consequently we believe most code will benefit from `-fno-strict-overflow` or its alternatives.
+The C and C++ standards since C23[^C2023] and C++20[^CPP2020] only support two’s complement representation for signed integer types[^Bastien2024]. Previous editions of these standards additionally allowed other sign representations. Code targeting one these previous language editions and requires a specific signed integer representation becomes less portable in a very subtle way. However, in practice, neither GCC nor Clang support other representations [^Bastien2018]. This means that even prior to C23 and C++20 the GCC and Clang implementations of these languages are effectively two’s complement. Consequently we believe most code will benefit from `-fno-strict-overflow` or its alternatives.
 
 #### Performance implications
 
@@ -1220,7 +1220,6 @@ Table 4: Sanitizer options in GCC and Clang.
 | Compiler Flag          |     Supported since      | Description                                                                 |
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
 | `-fsanitize=address`   | GCC 4.8.0<br/>Clang 3.1.0 | Enables AddressSanitizer to detect memory errors at run-time                |
-| `-fsanitize=thread`    | GCC 4.8.0<br/>Clang 3.2.0 | Enables ThreadSanitizer to detect data race bugs at run time                |
 
 AddressSanitizer (ASan) is a memory error detector that can identify memory defects that involve:
 
@@ -1241,8 +1240,10 @@ To enable ASan add `-fsanitize=address` to the compiler flags (`CFLAGS` for C, `
 
 The run-time behavior of ASan can be influenced using the `ASAN_OPTIONS` environment variable. The run-time options can be used enable additional memory error checks and to tweak ASan performance. An up-to-date list of supported options are available on the AddressSanitizerFlags article on the project's GitHub Wiki[^asan-flags]. If set to `ASAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program. This is particularly useful for determining which options are supported by the specific version ASan integrated to the compiler being used. A useful pre-set to enable more aggressive diagnostics compared to the default behavior is given below:
 
- ASAN_OPTIONS=strict_string_checks=1:detect_stack_use_after_return=1: \
- check_initialization_order=1:strict_init_order=1 ./instrumented-executable
+~~~sh
+ASAN_OPTIONS=strict_string_checks=1:detect_stack_use_after_return=1: \
+check_initialization_order=1:strict_init_order=1 ./instrumented-executable
+~~~
 
 When ASan encounters a memory error it (by default) terminates the application and prints an error message and stack trace describing the nature and location of the detected error. A systematic description of the different error types and the corresponding root causes reported by ASan can be found in the AddressSanitizer article on the project's GitHub Wiki[^asan].
 
@@ -1301,7 +1302,7 @@ LSan cannot be used simultaneously with AddressSanitizer (ASan) or ThreadSanitiz
 
 UndefinedBehaviorSanitizer (UBSan) is a detector of non-portable or erroneous program constructs which cause behavior which is not clearly defined in the ISO C standard. UBSan provides a large number of sub-options to enable / disable individual checks for different classes of undefined behavior. Consult the GCC[^gcc-instrumentation] and Clang[^clang-ubsan] documentation respectively for up-to-date information on supported sub-options.
 
-To enable UBSan add `-fsanitize=undefined` to the compiler flags (`CFLAGS` for C, `CXXFLAGS` for C++) and linker flags (`LDFLAGS`) together with any desired sub-options. Consider combining TSan with the following compiler flags:
+To enable UBSan add `-fsanitize=undefined` to the compiler flags (`CFLAGS` for C, `CXXFLAGS` for C++) and linker flags (`LDFLAGS`) together with any desired sub-options. Consider combining UBSan with the following compiler flags:
 
 - `-O1` (required or higher for reasonable performance)
 - `-g` (to display source file names and line numbers in the produced warning messages)
