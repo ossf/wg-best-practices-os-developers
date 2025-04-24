@@ -75,7 +75,7 @@ The `FileOperations().list_dir()` method allows an attacker to add commands via 
 
 The attack surface increases if a user is also allowed to upload or create files or folders.
 
-The `noncompliant02.py` example demonstrates the injection via file or folder name that is created prior to using the `list_dir()` method. We assume here that an untrusted user is allowed to create files or folders named `& calc.exe or ;ps aux` as part of another service such as upload area, submit form, or as a result of a zip-bomb as per *CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)*. Encoding issues as described in *CWE-180: Incorrect Behavior Order: Validate Before Canonicalize* must also be considered.
+The `noncompliant02.py` example demonstrates the injection via file or folder name that is created prior to using the `list_dir()` method. We assume here that an untrusted user is allowed to create files or folders named `& calc.exe or ;ps aux` as part of another service such as upload area, submit form, or as a result of a zip-bomb as per *CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)*. Encoding issues as described in *[CWE-180: Incorrect Behavior Order: Validate Before Canonicalize](../CWE-180/README.md)* must also be considered.
 
 The issue occurs when mixing shell commands with data from a lesser trusted source.
 
