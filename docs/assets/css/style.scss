@@ -33,6 +33,13 @@ h1, h2, h3, h4, h5, h6 {
   src: url("/assets/fonts/IBMPlexSans/IBMPlexSans-Regular.ttf");
 }
 
+/* Increase weight so bold/strong are easier to identify as such.
+   Without this, Cairo bold looks like unbolded text.
+*/
+b, strong {
+  font-weight: 700;
+}
+
 /* Number headings */
 
 /*
