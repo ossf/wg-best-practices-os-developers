@@ -100,6 +100,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-117: Improper Output Neutralization for Logs](CWE-707/CWE-117/.)||
 |[CWE-175: Improper Handling of Mixed Encoding](CWE-707/CWE-175/README.md)||
 |[CWE-180: Incorrect behavior order: Validate before Canonicalize](CWE-707/CWE-180/README.md)||
+|[CWE-838: Inappropriate Encoding for Output Context](CWE-707/CWE-838/README.md)||
 
 |[CWE-710: Improper Adherence to Coding Standards](https://cwe.mitre.org/data/definitions/710.html)|Prominent CVE|
 |:----------------------------------------------------------------|:----|
