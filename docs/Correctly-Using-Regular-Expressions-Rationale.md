@@ -479,9 +479,9 @@ Such changes would take years to adopt. Even worse, these changes might not be a
 
 #### Status of adding \A and \z across ecosystems
 
-As previously noted, one start is to have a *single* regex syntax
-that *always* means "match beginning of input and "match end of input"
-*even* when a multi-line mode is enabled.
+As previously noted, one start is to have a _single_ regex syntax
+that _always_ means "match beginning of input and "match end of input"
+_even_ when a multi-line mode is enabled.
 This notation is especially important for security, because they make it
 practical to use regexes for input validation.
 
