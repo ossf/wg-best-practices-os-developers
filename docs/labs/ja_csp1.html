@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="checker.js"></script>
+<script src="csp1.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>ラボ演習 csp1</h1>
+<p>
+これはセキュアなソフトウェア開発に関するラボ演習です。
+ラボの詳細については、<a href="introduction.html" target="_blank">概要</a>をご覧ください。
+  
+<p>
+<h2>タスク</h2>
+<p>
+<b>下記のサーバーサイドのJavaScriptのWebアプリケーションに、コンテンツセキュリティポリシー(CSP)に関する設定を加えて、セキュリティを強化するヘッダが出力されるようにコードを変更してください。</b>
+
+<p>
+<h2>背景</h2>
+<p>
+この演習では、サーバーサイドのWebアプリケーションに対して、セキュリティヘッダを追加します。
+このサーバーサイドプログラムは、Expressフレームワーク(バージョン4)を使用してJavaScriptで書かれています。
+ここでは、Expressアプリケーションにハードニングヘッダを追加する<a href="https://helmetjs.github.io/"></a><tt>helmet</tt></a>ライブラリを使います。
+
+<p>
+<h2>タスクの詳細</h2>
+<p>
+
+<p>
+まず最初に<tt>helmet</tt>ライブラリをロードしなければなりません。
+JavaScriptではいくつもの方法があります。
+今回は、<tt>require</tt>ステートメントを用いて、ライブラリをロードします。
+下記のコードで、Expressをrequireしている行を参考にして、それと同じようにhelmetをrequireする行を作成してください。
+
+<p>
+次にhelmetを使ってハードニングするヘッダを挿入するコードを書く必要があります。
+Expessでは、<tt>app.use(...)</tt>を呼び出すことによって、全てのリクエストに対して何かを行わせることができます。
+下記のように、helmetの単純な呼び出しによって、多くのハードニングヘッダをセットアップすることも可能です。
+
+<pre>
+app.use(helmet());
+</pre>
+
+<p>
+しかし、一般的には、アプリケーションに合わせた特別な設定を行う必要があります。
+
+helmet()には、設定を表すオブジェクトをオプショナルな引数として与えることができます。
+JavaScriptにおいて、オブジェクトは<tt>{</tt> ... <tt>}</tt>という形で表現し、
+中にキーと値のペアをコンマで区切って与えます。
+キーと値のペアは、フィールドの名前、コロン(:)、その値という形になります。
+
+<p>
+今回は、コンテンツセキュリティポリシー(CSP)の設定を変更します。
+これは、<tt>contentSecurityPolicy</tt>という名前のフィールドに値を設定することで指定できます。
+その値はさらに別のオブジェクトとなっています。
+まとめると、下記のような形になるでしょう。
+
+<pre>
+app.use(helmet({
+  contentSecurityPolicy: {
+  }
+}));
+</pre>
+
+<p>
+<tt>contentSecurityPolicy</tt>に対する値のオブジェクトも、<tt>directives</tt>のようないろいろなフィールドを持つことができます。
+この<tt>directives</tt>(ディレクティブ)フィールドは、さらにJavaScriptオブジェクトを値として持ちます。
+
+<p>
+<tt>directives</tt>フィールドの値となるオブジェクトは、一つ以上のキーをとります。
+今回は、次の二つのキーを設定します。
+
+<ul>
+<li>"script-src": このキーは、
+<a href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Content-Security-Policy/script-src">CSP script-srcディレクティブ</a>を設定します。このディレクティブは、JavaScriptがクライアントで動作する際に有効なソースを指定するものです。
+他のセキュリティに関する設定と同じように、最小の権限となるように設定するとよいでしょう。
+<li>"style-src": このキーは、CSP style-srcディレクティブを設定します。このディレクティブは、スタイルシートをロードする際の有効なソースを指定します。
+</ul>
+
+<p>
+JavaScriptの文法のクセとして、上記のようなハイフン("-")を含むキーを設定する場合には、ダブルクォーテーションで囲んで文字列として書く必要があります。
+
+<p>
+"script-src"に対しては、今回は<tt>["'self'", "https://example.com"]</tt>という配列を設定します。
+これは、JavaScriptがこのサーバー<i>もしくは</i><tt>https://example.com</tt>というWebサイトからのみ実行可能で、それ以外からは実行できない、ということを意味します。
+<tt>'self'</tt>は、これ自体がシングルクォーテーションで囲まれていることに注意してください。
+なお、インラインのJavaScriptの利用を許可する"unsafe-inline"を加えることもできます。
+しかし、今回の例では追加しません。というのは、"unsafe-inline"を加えないほうがはるかに安全であるからです。
+CSPの"script-src"に値が設定されていて"unsafe-inline"が含まれていない場合には、HTMLのどこかに埋め込まれたJavaScriptは<i>実行されない</i>ということになります。
+これは、セキュリティとして大変すばらしいことです。攻撃者はサーバーに細工をして、生成されるHTMLに何かを紛れ込ませるということを良く行いますが、この設定であれば、それがスクリプトなら実行されることがないということになります。
+
+<p>
+"style-src"については、<tt>["'self'"]</tt>を設定します。これは、スタイルシートがこのサイトから<i>のみ</i>ロードできる(それ以外からはロードされない)ということを表します。
+こちらも、"unsafe-include"を加えませんでした。これによって、HTMLに埋め込まれたCSSは無視されることになります。
+これはセキュリティとして良いことで、攻撃者がサーバーに細工をしてCSSコマンドを埋め込んだとしても、それらのコマンドは無視されることになります。
+
+<p>
+必要に応じて、「ヒント」ボタンと「諦める」ボタンを使用してください。
+  
+<!-- TODO: Discuss inline -->
+
+<!--
+???
+<pre>
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      "script-src": ["'self'", "https://example.com"],
+      "style-src": ["'self'"]
+    },
+  }
+}));
+</pre>
+
+Please change the code below so the query parameter
+<tt>id</tt> <i>must</i> be an integer between 1 and 9999 (including
+those numbers).
+
+<p>
+To do that,
+after the first parameter to <tt>app.get</tt>
+which says <tt>'/invoices'</tt>,
+add a new comma-separated parameter.
+Start this new parameter with
+<tt>query('id')</tt> to select the
+<tt>id</tt> parameter for validation (we've filled in this part
+to help get you started).
+After <tt>query('id')</tt> (and before the terminating comma),
+add a period (<tt>.</tt>) and the validation requirement
+<tt>isInt()</tt> (<tt>isInt</tt> validates that the named parameter is
+an integer).
+The <tt>isInt</tt> method takes, as an optional parameter inside
+its parentheses,
+an object providing a minimum and maximum, e.g.,
+<tt>isInt({min: YOUR_MINIMUM, max: YOUR_MAXIMUM})</tt>.
+Set <tt>min</tt> and <tt>max</tt> to specify the allowed range.
+
+<p>
+Note: JavaScript names are case-sensitive, so <tt>isint</tt> won't work.
+Remember to indicate the end of this parameter with a comma
+(our starter text does this).
+
+<p>
+You can use the buttons below to ask for a hint, reset the
+input to its initial state, or give up (and show an answer) -
+but please try to do this on your own!
+
+<p>
+// Based on https://helmetjs.github.io/
+// npm install helmet ; version 7.1.0
+
+// Use require(), not import..from, so it works in more places.
+//
+// In helmet 7.1.0 the CSP defaults are:
+// Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+// 'unsafe-inline'
+//
+// Run with:
+//   node csp1.js
+// Then view with:
+//   curl --verbose 'http://localhost:3000'
+-->
+
+<p>
+<h2>演習(<span id="grade"></span>)</h2>
+<p>
+<form id="lab">
+<pre><code
+>const express = require("express");
+<input id="attempt0" type="text" size="60" spellcheck="false" value="const">
+
+const app = express();
+
+// Helmetを使って、ハードニングヘッダを挿入する
+<textarea id="attempt1" rows="10" cols="60" spellcheck="false">
+app.use(
+);
+</textarea>
+
+app.get("/", (req, res) => {
+  res.send("Hello world!");
+});
+
+app.listen(3000);
+</code></pre>
+<button type="button" class="hintButton">ヒント</button>
+<button type="button" class="resetButton">リセット</button>
+<button type="button" class="giveUpButton">諦める</button>
+<br><br>
+<p>
+<i>このラボは、<a href="https://www.linuxfoundation.org/">Linux Foundation</a>のDavid A. Wheelerによって開発されました。</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
