@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="checker.js"></script>
+<script src="oob1.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>ラボ演習 oob1</h1>
+<p>
+これはセキュアなソフトウェア開発に関するラボ演習です。
+ラボの詳細については、<a href="introduction.html" target="_blank">概要</a>をご覧ください。
+
+<p>
+<h2>タスク</h2>
+<p>
+<b>バッファオーバーリードバグの一例として、OpenSSL の "Heartbleed" を単純化した以下のコードを変更してバグを修正してください</b>
+
+<p>
+<h2>背景</h2>
+<p>
+ほとんど全てのプログラミング言語では、もしプログラムがバッファの外側を読み書きしようとした場合にはバッファをリサイズするか、何等かのエラーを出力するかをデフォルトの挙動としています（例：例外を上げる）。
+なぜなら誤ってバッファの外側を読み書きしようとするのは非常によくあることだからです。
+
+<p>
+しかし、C と C++ は事情が異なります。
+C++ は進歩しており、いくらかは安全になっていますが（例：スマートポインタ）、
+C と C++ においてバッファの外側を読み書きするような動作は多くの場合で
+<i>未定義の動作</i>であり、未定義の動作に対しては
+<i>あらゆることが</i>
+なんの防御もなしに発生することになります。
+実際によく起こるのは、なにか他のデータが読み書きされることです。
+<a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2771r0.html"
+>proposals to improve C++ memory safety</a>
+という提案もありますが、現状では多くの C++ 組込みデータ構造（例えば配列）がメモリセーフではないため、ここでは二つの言語を同時に取り扱います。
+
+<p>
+2014年に明らかになった Heartbleed（CVE-2014-0160）は、バッファオーバーリード脆弱性の一例です。
+Heartbleed は OpenSSL の脆弱性です。OpenSSL は暗号プロトコルである Secure Socket Layer (SSL) とその後継である Transport Layer Security (TLS) を C で実装しており、広く使用されているツールキットです。
+Heartbleed は極めて多くの、例えば
+Google, YouTube, Yahoo!, Pinterest, Blogspot, Instagram, Tumblr,
+Reddit, Netflix, Stack Overflow, Slate, GitHub, Yelp, Etsy, the
+U.S. Postal Service (USPS), Blogger, Dropbox, Wikipedia, and the
+Washington Post
+といった有名なウェブサイトに影響を与えました。
+より詳しくは <a href="https://dwheeler.com/essays/heartbleed.html">こちら</a> を参照してください。
+
+
+<p>
+<h2>タスクの詳細</h2>
+<p>
+ここでは OpenSSL の Heartbleed 脆弱性に対する修正を、<tt>dtls1_process_heartbeat</tt> という関数を修正することで再現します。
+
+<p>
+この時点のコードでは、
+<tt>s->s3->rrec.length</tt>
+というデータ構造はバッファの何バイトが利用可能かを表します。
+もし上限サイズを確認しなければ、バッファを超えた読み出しが簡単に発生してしまいます。
+以下のコードでは２か所を変更することで、この問題を修正しましょう。
+
+<p>
+まず初めに、レスポンスの最短の長さである <tt>(1 + 2 + 16)</tt> が
+<tt>s->s3->rrec.length</tt>
+で取得できる長さを超えていればハートビートを送信せずに 0 を返すようにコードを変更します。
+これは、ハートビートを生成するための領域が全くない場合にはハートビートを生成しないようにするための措置です。
+
+<p>
+続いて、ペイロードがある場合のレスポンスの最短の長さである
+<tt>(1 + 2 + payload + 16)</tt>
+が、
+<tt>s->s3->rrec.length</tt>
+で示されるレスポンスを格納するための領域より長い場合にも、ハートビートを送信せずに 0 を返すようコードを変更します。
+
+<p>
+ これにより、ハートビートそのものとペイロードがあるハートビートへの返信を格納するための領域がない場合にハートビートを作成しようとするのを防ぐことができます。
+
+<p>
+これはそれほど難しい修正ではありません。
+ここではほんの短いコードを追加します。
+問題は、バッファの読み書きという非常に一般的な動作に対して、C と C++ はデフォルトでは安全ではないということです。
+実際には、全ての範囲の全ての可能性のあるケースを<i>常に</i>チェックするというのは困難です。これが、C または C++ で書かれたプログラムでメモリ安全性に関わる脆弱性がよく見られることの理由です。
+<!--
+        if (1 + 2 + 16 > s->s3->rrec.length)
+                return 0; /* silently discard */
+-->
+
+<p>
+必要に応じて「ヒント」と「諦める」のボタンを使用してください。
+
+<p>
+<h2>演習 (<span id="grade"></span>)</h2>
+<p>
+<form id="lab">
+<pre><code
+>int
+dtls1_process_heartbeat(SSL *s)
+  {
+  unsigned char *p = &s->s3->rrec.data[0], *pl;
+  unsigned short hbtype;
+  unsigned int payload;
+
+  // ... いくつかの詳細はここでは省略しています
+<textarea id="attempt0" rows="3" cols="60" spellcheck="false">
+  if ()
+    ;
+</textarea>
+  hbtype = *p++;
+  n2s(p, payload);
+<textarea id="attempt1" rows="3" cols="60" spellcheck="false">
+  if ()
+    ;
+</textarea>
+  // ... 後ほど memcpy でペイロードデータを新しいバッファにコピーします
+  // もしチェックしなければ、十分な領域がないかもしれません
+  //   memcpy(bp, pl, payload);
+</code></pre>
+<button type="button" class="hintButton">ヒント</button>
+<button type="button" class="resetButton">リセット</button>
+<button type="button" class="giveUpButton">諦める</button>
+<br><br>
+<p>
+<i>このラボは、<a href="https://www.linuxfoundation.org/">Linux Foundation</a>のDavid A. Wheelerによって開発されました。</i>
+<br><br>
+<p>
+
+<details>
+<summary>引用元: ここに示した例は、<a href="https://github.com/openssl/openssl/blob/731f431497f463f3a2a97236fe0187b11c44aead/ssl/d1_both.c">OpenSSL のファイル <tt>ssl/d1_both.c</tt>
+commit 731f431497f4</a> から引用しました。ファイルのヘッダ部分はここを展開することで参照できます。</summary>
+<pre>
+/* ssl/d1_both.c */
+/* 
+ * DTLS implementation written by Nagendra Modadugu
+ * (nagendra@cs.stanford.edu) for the OpenSSL project 2005.  
+ */
+/* ====================================================================
+ * Copyright (c) 1998-2005 The OpenSSL Project.  All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer. 
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in
+ *    the documentation and/or other materials provided with the
+ *    distribution.
+ *
+ * 3. All advertising materials mentioning features or use of this
+ *    software must display the following acknowledgment:
+ *    "This product includes software developed by the OpenSSL Project
+ *    for use in the OpenSSL Toolkit. (http://www.openssl.org/)"
+ *
+ * 4. The names "OpenSSL Toolkit" and "OpenSSL Project" must not be used to
+ *    endorse or promote products derived from this software without
+ *    prior written permission. For written permission, please contact
+ *    openssl-core@openssl.org.
+ *
+ * 5. Products derived from this software may not be called "OpenSSL"
+ *    nor may "OpenSSL" appear in their names without prior written
+ *    permission of the OpenSSL Project.
+ *
+ * 6. Redistributions of any form whatsoever must retain the following
+ *    acknowledgment:
+ *    "This product includes software developed by the OpenSSL Project
+ *    for use in the OpenSSL Toolkit (http://www.openssl.org/)"
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE OpenSSL PROJECT ``AS IS'' AND ANY
+ * EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE OpenSSL PROJECT OR
+ * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ * ====================================================================
+ *
+ * This product includes cryptographic software written by Eric Young
+ * (eay@cryptsoft.com).  This product includes software written by Tim
+ * Hudson (tjh@cryptsoft.com).
+ *
+ */
+/* Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
+ * All rights reserved.
+ *
+ * This package is an SSL implementation written
+ * by Eric Young (eay@cryptsoft.com).
+ * The implementation was written so as to conform with Netscapes SSL.
+ * 
+ * This library is free for commercial and non-commercial use as long as
+ * the following conditions are aheared to.  The following conditions
+ * apply to all code found in this distribution, be it the RC4, RSA,
+ * lhash, DES, etc., code; not just the SSL code.  The SSL documentation
+ * included with this distribution is covered by the same copyright terms
+ * except that the holder is Tim Hudson (tjh@cryptsoft.com).
+ * 
+ * Copyright remains Eric Young's, and as such any Copyright notices in
+ * the code are not to be removed.
+ * If this package is used in a product, Eric Young should be given attribution
+ * as the author of the parts of the library used.
+ * This can be in the form of a textual message at program startup or
+ * in documentation (online or textual) provided with the package.
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. All advertising materials mentioning features or use of this software
+ *    must display the following acknowledgement:
+ *    "This product includes cryptographic software written by
+ *     Eric Young (eay@cryptsoft.com)"
+ *    The word 'cryptographic' can be left out if the rouines from the library
+ *    being used are not cryptographic related :-).
+ * 4. If you include any Windows specific code (or a derivative thereof) from 
+ *    the apps directory (application code) you must include an acknowledgement:
+ *    "This product includes software written by Tim Hudson (tjh@cryptsoft.com)"
+ * 
+ * THIS SOFTWARE IS PROVIDED BY ERIC YOUNG ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ * 
+ * The licence and distribution terms for any publically available version or
+ * derivative of this code cannot be changed.  i.e. this code cannot simply be
+ * copied and put under another distribution licence
+ * [including the GNU Public Licence.]
+ */
+</pre>
+</details>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>

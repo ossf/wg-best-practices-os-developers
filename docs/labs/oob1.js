@@ -7,6 +7,7 @@ info =
     {
       absent: "^ if",
       text: "Begin with \"if\" as we will return 0 when there is a problem.",
+      text_ja: "問題があれば 0 を返せるように \"if\" で始めてください。",
       examples: [
         [ " foo " ],
       ],
@@ -14,6 +15,7 @@ info =
     {
       absent: String.raw`\(.*\)`,
       text: "Need \"(...)\" around the condition after an if statement.",
+      text_ja: "if のあとの条件は (...) で囲む必要があります。",
       examples: [
         [ " if " ],
       ],
@@ -21,6 +23,7 @@ info =
     {
       absent: "[<>]",
       text: "Need comparison \"if ( ... > ....)\"",
+      text_ja: "\"if ( ... > ....)\" のような比較が必要です。",
       examples: [
         [ " if ( x )" ],
       ],
@@ -28,6 +31,7 @@ info =
     {
       absent: String.raw`s -> s3 -> rrec \. length`,
       text: "Need to compare a value with s->s3->rrec.length",
+      text_ja: "値を s->s3->rrec.length と比較する必要があります。",
       examples: [
         [ " if ( length > 3 )" ],
       ],
@@ -35,35 +39,42 @@ info =
     {
       absent: "return 0 ;",
       text: "Need \"return 0;\" to skip attempts to send a too-long response.",
+      text_ja: "長すぎるレスポンスが送信されないように \"return 0;\" が必要です。",
     },
     {
       absent: "^ if",
       text: "Begin with \"if\" as we will return 0 when there is a problem.",
+      text_ja: "問題があれば 0 を返せるように \"if\" で始めてください。",
       index: 1,
     },
     {
       absent: String.raw`\(.*\)`,
       text: "Need \"(...)\" around the condition after an if statement.",
+      text_ja: "if のあとの条件は (...) で囲む必要があります。",
       index: 1,
     },
     {
       absent: "[<>]",
       text: "Need comparison \"if ( ... > ....)\"",
+      text_ja: "\"if ( ... > ....)\" のような比較が必要です。",
       index: 1,
     },
     {
       absent: String.raw`s -> s3 -> rrec \. length`,
       text: "Need to compare a value with s->s3->rrec.length",
+      text_ja: "値を s->s3->rrec.length と比較する必要があります。",
       index: 1,
     },
     {
       absent: "return 0 ;",
       text: "Need \"return 0;\" to skip attempts to send a too-long response.",
+      text_ja: "長すぎるレスポンスが送信されないように \"return 0;\" が必要です。",
       index: 1,
     },
     {
       absent: "payload",
       text: "Need to consider the payload length.",
+      text_ja: "ペイロードの長さも考慮に入れてください。",
       index: 1,
     },
   ],
