@@ -477,6 +477,39 @@ Many developers believe that regex notation is the same everywhere, even though 
 
 Such changes would take years to adopt. Even worse, these changes might not be accepted in some cases because some people may think that merely being possible to do something is adequate. We don’t agree; we think it’s important to make it _easy_ to do the secure action, not just possible, and it’s best to make avoidable mistakes les likely. These changes require implementations in many systems and modifications of many specifications; doing this has been historically challenging. Still, such changes would reduce the likelihood of these problems worldwide.
 
+#### Status of adding \A and \z across ecosystems
+
+As previously noted, one start is to have a _single_ regex syntax
+that _always_ means "match beginning of input and "match end of input"
+_even_ when a multi-line mode is enabled.
+This notation is especially important for security, because they make it
+practical to use regexes for input validation.
+
+Many platforms already support \A and \z respectively for beginning-of-input
+and end-of-input.
+These platforms are
+Perl, .NET/C#, Java, PHP, PCRE, Golang, Rust crate regex, RE2, and Ruby.
+
+If the following platforms made adjustments, the notation would
+be nearly universal:
+
+* POSIX: On 2024-04-24 the Austin Group "accepted as marked"
+  [bug 1919](https://www.austingroupbugs.net/view.php?id=1919) the
+  proposed change to add \A and \z to extended regular expressions (EREs).
+  They decided to not require the older BRE syntax to support it at this time,
+  but do plan to add a NOTE saying "a future version of this standard is likely
+  to require such characters to be supported in a regular expression.
+  Implementors are encouraged to provide this as an extension using
+  "\A" for the beginning and "\z" for the end of strings as they are
+  already in widespread use for this purpose in other languages."
+* ECMAScript/JavaScript: In 2021 Ron Buckton (@rbuckton) created the proposal
+  [Regular Expression Buffer Boundaries for ECMAScript](https://github.com/tc39/proposal-regexp-buffer-boundaries)
+  to add \A and \z to ECMAScript/JavaScript, and it advanced to stage 2,
+  but it seems to be stuck there. We intend to see if we can help it advance.
+* Python: Python supports \A, but it uses the unique \Z instead of the
+  \z used everywhere else.
+  We'll ask to see if it can be advanced.
+
 ## Authors and contributors
 
 We would like to thank the following contributors:
