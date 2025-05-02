@@ -514,6 +514,7 @@ be nearly universal:
   of the Python community.
   In current versions of Python3 a \z in a regex raises an exception, so
   adding \z for end-of-string would be a backwards-compatible addition.
+  See [CPython issue 133306](https://github.com/python/cpython/issues/133306).
 
 ## Authors and contributors
 
