@@ -507,8 +507,14 @@ be nearly universal:
   to add \A and \z to ECMAScript/JavaScript, and it advanced to stage 2,
   but it seems to be stuck there. We intend to see if we can help it advance.
 * Python: Python supports \A, but it uses the unique \Z instead of the
-  \z used everywhere else.
-  We'll ask to see if it can be advanced.
+  \z used everywhere else for end-of-string.
+  We'll ask to see if \z could be supported in addition to \Z for end-of-string.
+  We'll probably start with a minor git request (as this is a really
+  small change), otherwise we'll create a PEP, depending on the desires
+  of the Python community.
+  In current versions of Python3 a \z in a regex raises an exception, so
+  adding \z for end-of-string would be a backwards-compatible addition.
+  See [CPython issue 133306](https://github.com/python/cpython/issues/133306).
 
 ## Authors and contributors
 
