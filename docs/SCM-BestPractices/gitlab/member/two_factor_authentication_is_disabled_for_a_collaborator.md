@@ -12,7 +12,7 @@ MFA.
 
 ## Threat Example(s)
 
-Collaborators without two-factor authentication are prime targets for phising
+Collaborators without two-factor authentication are prime targets for phishing
 and social engineering attacks, as compromise only requires acquiring the
 collaborator's password.
 

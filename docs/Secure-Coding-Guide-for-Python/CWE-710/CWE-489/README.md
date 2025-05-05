@@ -30,7 +30,7 @@ Not knowing that a product must be deployed differently in production than in st
 |Component|CVE|Description|CVSS Rating|Comment|
 |:---|:---|:---|:---|:---|
 |ceph-isci-cli Red Hat Ceph Storage 2,3|[CVE-2018-14649](https://nvd.nist.gov/vuln/detail/CVE-2018-14649)|ceph-isci-cli package as shipped by Red Hat Ceph Storage 2 and 3 is using python-werkzeug in debug shell mode. This is done by setting debug=True in file /usr/bin/rbd-target-api provided by ceph-isci-cli package. This allows unauthenticated attackers to access this debug shell and escalate privileges.|CVSS 3.xx: 9.8||
-|OpenStack ironic-inspector, ironic-discoverd|[CVE-2015-5306](https://nvd.nist.gov/vuln/detail/CVE-2015-5306)|When debug mode is enabled, might allow remote attackers to access the Flask console and execute arbitrary Python code by triggering an error.|CVSS 2.x: 6.8||
+|OpenStack ironic-inspector, ironic-discovered|[CVE-2015-5306](https://nvd.nist.gov/vuln/detail/CVE-2015-5306)|When debug mode is enabled, might allow remote attackers to access the Flask console and execute arbitrary Python code by triggering an error.|CVSS 2.x: 6.8||
 
 ## Related Guidelines
 

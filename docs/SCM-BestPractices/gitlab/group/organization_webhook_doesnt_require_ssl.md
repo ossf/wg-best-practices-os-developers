@@ -6,7 +6,7 @@ severity: LOW
 
 ## Description
 
-Webhooks that are not configured with SSL enabled could expose your sofware to
+Webhooks that are not configured with SSL enabled could expose your software to
 man in the middle attacks (MITM).
 
 ## Threat Example(s)

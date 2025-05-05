@@ -32,7 +32,7 @@ class TestSimulateDeployingFrontEnd(unittest.TestCase):
     """
 
     def test_front_end(self):
-        """Verifiy front_end implementation"""
+        """Verify front_end implementation"""
         front_end()
 
 

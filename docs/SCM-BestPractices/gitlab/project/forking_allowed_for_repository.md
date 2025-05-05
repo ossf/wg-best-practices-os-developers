@@ -15,7 +15,7 @@ deliberately when opting to create a fork.
 
 Forked repositories may leak important code assets or sensitive secrets
 embedded in the code to anyone outside your organization, as the code becomes
-publicy-accessible
+publicly-accessible
 
 ## Remediation
 

@@ -46,7 +46,7 @@ In addition, ensure your regex is not vulnerable to a Regular Expression Denial 
 
 For detailed rationale, along with other information such as contributor credits, see [Correctly Using Regular Expressions for Secure Input Validation - Rationale](./Correctly-Using-Regular-Expressions-Rationale).
 
-Our thanks to Seth Larson, whose article [Seth Larson’s Regex character “$” doesn't mean “end-of-string”](https://sethmlarson.dev/regex-$-matches-end-of-string-or-newline) raised awareness of some of the problems dicussed here.
+Our thanks to Seth Larson, whose article [Seth Larson’s Regex character “$” doesn't mean “end-of-string”](https://sethmlarson.dev/regex-$-matches-end-of-string-or-newline) raised awareness of some of the problems discussed here.
 
 ## Contributions and Corrections Welcome
 

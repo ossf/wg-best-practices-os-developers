@@ -160,7 +160,7 @@ Some organizations provide several guidance documents, e.g., [SEI CERT Coding St
 ### Rust
 
 - [Rust Secure Code Working Group](https://github.com/rust-secure-code)
-- [RustSec - advisories etc. for Rust](https://github.com/RustSec) ([Homepage](https://rustsec.org/)) ([Github action](https://github.com/marketplace/actions/rust-audit-check))
+- [RustSec - advisories etc. for Rust](https://github.com/RustSec) ([Homepage](https://rustsec.org/)) ([GitHub action](https://github.com/marketplace/actions/rust-audit-check))
 
 ### Vala
 

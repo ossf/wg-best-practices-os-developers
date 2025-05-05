@@ -33,7 +33,7 @@ print(WORD.upper())
 
 ```
 
-This code example incorrectly assumes that the uppercasing rules in Turkish will be followed. The expected output is "TİTLE" (with captial dotted-i), but instead the value outputted by the code is "TITLE" (with capital dotless-i). The only way to ensure capitalization is handled correctly is either manually mapping upper-case characters or using an external library, such as [PyICU](https://pypi.org/project/PyICU/).
+This code example incorrectly assumes that the uppercasing rules in Turkish will be followed. The expected output is "TİTLE" (with capital dotted-i), but instead the value outputted by the code is "TITLE" (with capital dotless-i). The only way to ensure capitalization is handled correctly is either manually mapping upper-case characters or using an external library, such as [PyICU](https://pypi.org/project/PyICU/).
 
 A real-world example of this confusion occurred in an SMS message and featured in the tragic consequences. [[Language Log 2008](https://languagelog.ldc.upenn.edu/nll/?p=73)]
 
@@ -136,7 +136,7 @@ The `example03.py` code does not set a locale and sets `ORIGINAL_NUMBER` for com
 The user may assume they are using the English (Ireland) locale as it is not set. A German (Germany) locale is set in `compare_number()`. 12.345 is input at the prompt, they will not match as the German locale interprets this as 12,345 (twelve thousand, three hundred and forty-five).
 
 Ensure that there is no mismatch between the locale of the running program and the input data. Agree on one locale to be used for data input or permit the user to specify a locale when parsing data.
-In this case, after displaying the issue, the agreed upon locale is set and the number is intepreted correctly as long as the user follows the format of the locale.
+In this case, after displaying the issue, the agreed upon locale is set and the number is interpreted correctly as long as the user follows the format of the locale.
 
 When using `setlocale()`, ensure that it is not set in libraries or set more than once in multi-threaded programs. [[Python 3.9 locale](https://docs.python.org/3.9/library/locale.html)]
 

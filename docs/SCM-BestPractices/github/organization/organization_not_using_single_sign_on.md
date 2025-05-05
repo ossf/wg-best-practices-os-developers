@@ -13,7 +13,7 @@ central account control and for timely access revocations.
 ## Threat Example(s)
 
 Not using an SSO solution makes it more difficult to track a potentially
-compromised user's actions accross different systems, prevents the organization
+compromised user's actions across different systems, prevents the organization
 from defining a common password policy, and makes it challenging to audit
 different aspects of the user's behavior.
 
