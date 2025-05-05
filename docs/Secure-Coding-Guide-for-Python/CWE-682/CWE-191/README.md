@@ -8,7 +8,7 @@ Ensure that integer overflow is properly handled in order to avoid unexpected be
   - interact with the operating system modules such as `time`.
   - to be memory efficiency using modules such as `numpy` or `ctype`.
 
-Developers should follow the `C` guidelines when using or interacting wth `C` type variables.
+Developers should follow the `C` guidelines when using or interacting with `C` type variables.
 
 ## Non-Compliant Code Example
 

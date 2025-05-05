@@ -11,7 +11,7 @@ Examples of hard-coded sensitive information:
 * API keys, tokens, SSH keys
 * Service account credentials or keys used for installation or management.
 * Default passwords for administrators after installation.
-* Backend IP Addressess
+* Backend IP Addresses
 
 Storing sensitive data as part of a components source code or deliverable package can result in legal consequences governed by:
 
@@ -67,7 +67,7 @@ class TestSimulateDeployingFrontEnd(unittest.TestCase):
     """
 
     def test_front_end(self):
-        """Verifiy front_end implementation"""
+        """Verify front_end implementation"""
         front_end()
 
 
@@ -89,7 +89,7 @@ Create reusable components by separating deployment such as connection informati
 |Hardcoded `UIDs`, `GIDs`|identity names|
 |Hardcoded `IPs` or ports|Rather than hardcoding IP addresses DNS should be properly implemented in the deployment in combination with solutions such as:<br>- `RFC 9250` - [DNS over Dedicated QUIC Connections (ietf.org)](https://datatracker.ietf.org/doc/rfc9250/)<br>- `RFC 7858` - [Specification for DNS over Transport Layer Security (TLS) (ietf.org)](https://datatracker.ietf.org/doc/html/rfc7858)<br>- `RFC 6494` - [Certificate Profile and Certificate Management for SEcure Neighbor Discovery (SEND) (ietf.org) for IPV6](https://datatracker.ietf.org/doc/rfc6494/)<br>- `DNSSEC` [RFC 9364](https://datatracker.ietf.org/doc/html/rfc9364), `RFC 6014`, `5155`, `4641`....<br><br>The order and ways to resolve IPs is configured via `/etc/nsswitch.conf` on most Unix systems.<br><br>Using `mTLS` with a high granularity of machine identities can reduce or remove `DNS` related risks.|
 
-The `compliant01.py` code is using a `config.ini` file to decouple connection information. The deployment represented by `TestSimulateDeployingFrontEnd` is now in full control of proving connectivity information to the `front-end` and `back-end`. Using configuration files, such as `ini`, `yaml` or `json`, allows a language independent solution (`bash` vs `python`). The deployment, represented by `TestSimulateDeployingFrontEnd`, steering these files also secures them by making them read only to a single user via `self.config_file_path.chmod(0o400)`. The password based identity verfication is replaced with a certificate based solution.
+The `compliant01.py` code is using a `config.ini` file to decouple connection information. The deployment represented by `TestSimulateDeployingFrontEnd` is now in full control of proving connectivity information to the `front-end` and `back-end`. Using configuration files, such as `ini`, `yaml` or `json`, allows a language independent solution (`bash` vs `python`). The deployment, represented by `TestSimulateDeployingFrontEnd`, steering these files also secures them by making them read only to a single user via `self.config_file_path.chmod(0o400)`. The password based identity verification is replaced with a certificate based solution.
 
 *[compliant01.py](compliant01.py):*
 
@@ -180,7 +180,7 @@ The `compliant01.py` code avoids using password based authentication in the firs
 
 |||
 |:---|:---|
-| [US Congress 1996] | Health Insurance Portability and Accountability Act (HIPAA) [online].Available from: [https://aspe.hhs.gov/reports/health-insurance-portability-accountability-act-1996](https://aspe.hhs.gov/reports/health-insurance-portability-accountability-act-1996) [accessed 27 Februrary 2025]|
-| [European Parliament 2016] | General Data Protection Regulation (GDPR) [online]. Available from: [https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150) [accessed 27 Februrary 2025]|
-| [CPPA 2025] |DIVISION 3. OBLIGATIONS [1427 - 3273.16] [online]. Available from: [https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150) [accessed 27 Februrary 2025]|
-| [OSSF 2025] | CWE-532: Insertion of Sensitive Information into Log File [online]. Available from: [https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/](https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/) [accessed 27 Februrary 2025]|
+| [US Congress 1996] | Health Insurance Portability and Accountability Act (HIPAA) [online].Available from: [https://aspe.hhs.gov/reports/health-insurance-portability-accountability-act-1996](https://aspe.hhs.gov/reports/health-insurance-portability-accountability-act-1996) [accessed 27 February 2025]|
+| [European Parliament 2016] | General Data Protection Regulation (GDPR) [online]. Available from: [https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150) [accessed 27 February 2025]|
+| [CPPA 2025] |DIVISION 3. OBLIGATIONS [1427 - 3273.16] [online]. Available from: [https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150) [accessed 27 February 2025]|
+| [OSSF 2025] | CWE-532: Insertion of Sensitive Information into Log File [online]. Available from: [https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/](https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/) [accessed 27 February 2025]|

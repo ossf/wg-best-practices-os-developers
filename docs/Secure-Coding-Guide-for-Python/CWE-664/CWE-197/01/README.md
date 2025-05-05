@@ -76,7 +76,7 @@ print(Decimal("0.10").quantize(Decimal("0.10"), rounding=ROUND_HALF_UP)) # print
 print(Decimal(0.10).quantize(Decimal("0.10"), rounding=ROUND_HALF_UP)) # prints 0.10
 ```
 
-Initializing `Decimal` with an actual `float`, such as `0.10`, and without rounding creates an unprecise number `0.1000000000000000055511151231257827021181583404541015625` in `Python 3.9.2`.
+Initializing `Decimal` with an actual `float`, such as `0.10`, and without rounding creates an imprecise number `0.1000000000000000055511151231257827021181583404541015625` in `Python 3.9.2`.
 
 ## Automated Detection
 

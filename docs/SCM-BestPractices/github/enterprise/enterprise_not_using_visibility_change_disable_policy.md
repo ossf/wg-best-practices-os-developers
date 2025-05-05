@@ -8,7 +8,7 @@ severity: MEDIUM
 
 The enterprise's Repository visibility change policy should be set to DISABLED.
 This will prevents users from creating private repositories and change them to
-be public. Malicous actors could leak code if enabled.
+be public. Malicious actors could leak code if enabled.
 
 ## Threat Example(s)
 
