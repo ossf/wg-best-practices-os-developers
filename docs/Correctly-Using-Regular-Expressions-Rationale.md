@@ -520,6 +520,9 @@ be nearly universal:
   [PR 133314](https://github.com/python/cpython/pull/133314).
   They noted that Tcl also uses \Z instead of \z (another group to contact).
   Our thanks to the Python community!
+* Tcl: Tcl uses `\A` and `\Z`. It currently leaves `\z` undefined. A
+  [proposal to add support for `\z`](https://core.tcl-lang.org/tcl/tktview/fbc56b259e989230e54a4053feeecf7aa765f61d)
+  has been submitted.
 
 ## Authors and contributors
 
