@@ -2,7 +2,7 @@
 
 by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2025-04-24
 
-This document guides component creators and component users to simplify updates and help avoid backward incompatibility problems when updating. A key technique is for component developers to avoid creating backward incompatibilities wherever practical. **Backward-incompatible changes to an application programmer interface (API) often lead to unaddressed security vulnerabilities.**
+This document guides [component creators](#component-creators) and [component users](#component-users) to simplify updates and help avoid backward incompatibility problems when updating. A key technique is for component developers to avoid creating backward incompatibilities wherever practical. **Backward-incompatible changes to an application programmer interface (API) often lead to unaddressed security vulnerabilities.**
 
 ## Introduction
 
