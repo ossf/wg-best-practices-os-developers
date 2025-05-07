@@ -26,20 +26,20 @@ Some function attributes can accept parameters that have specific meanings.  Par
 
 Table 1: Recommended attributes
 
-| Attribute                                                                              | Supported since             | Type                         | Description                                                                                                                                                                                                      |
-|:-------------------------------------------------------------------------------------- |:---------------------------:|:----------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `malloc`                                                                               | GCC 2.95.3<br/>Clang 13.0.0 | Function                     | Mark custom allocation functions that return non-aliased (possibly NULL) pointers.                                                                                                                               |
-| `malloc (`_`deallocator`_`)`                                                           | GCC 11.0.0<br/>Clang 21.0.0 | Function                     | Associates _`deallocator`_ as the valid deallocator for the storage allocated by marked function.                                                                                                                |
-| `ownership_returns(`_`allocation-type`_`)`                                             | Clang 20.1.0                | Function                     | Associate pointers returned by custom allocation function with _`allocation-type`_ .                                                                                                                             |
-| `ownership_takes(`_`allocation-type`_`,` _`ptr-index`_`)`                              | Clang 20.1.0                | Function                     | Mark function as valid deallocator for _`allocation-type`_.                                                                                                                                                      |
-| `ownership_holds(`_`allocation-type`_`,` _`ptr-index`_`)`                              | Clang 20.1.0                | Function                     | Mark function taking responsibility of deallocation for _`allocation-type`_.                                                                                                                                     |
-| `alloc_size(`_`size-index`_`)`<br/>`alloc_size(`_`size-index-1`_`,`_`size-index-2`_`)` | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | Mark positional arguments holding the allocation size that the returned pointer points to.                                                                                                                       |
-| `access(mode, ref-pos)`<br/>`access(mode, ref-pos, size-pos)`                          | GCC 10                      | Function                     | Indicate how the function uses argument at `ref-pos`.  `mode` could be `read_only`, `read_write`, `write_only` or `none`.  `size-pos`, if mentioned, is the argument indicating the size of object at `ref-pos`. |
-| `fd_arg(N)`                                                                            | GCC 13                      | Function                     | Argument N is an open file descriptor.                                                                                                                                                                           |
-| `fd_arg_read(N)`                                                                       | GCC 13                      | Function                     | Argument N is an open file descriptor that can be read from.                                                                                                                                                     |
-| `fd_arg_write(N)`                                                                      | GCC 13                      | Function                     | Argument N is an open file descriptor that can be written to.                                                                                                                                                    |
-| `noreturn`                                                                             | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | The function does not return.                                                                                                                                                                                    |
-| `tainted_args`                                                                         | GCC 12                      | Function or function pointer | Function needs sanitization of its arguments. Used by `-fanalyzer=taint`                                                                                                                                         |
+| Attribute                                                                                  | Supported since             | Type                         | Description                                                                                       |
+|:------------------------------------------------------------------------------------------ |:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
+| `malloc`                                                                                   | GCC 2.95.3<br/>Clang 13.0.0 | Function                     | Mark custom allocation functions that return non-aliased (possibly NULL) pointers.                |
+| `malloc (`_`deallocator`_`)`                                                               | GCC 11.0.0<br/>Clang 21.0.0 | Function                     | Associates _`deallocator`_ as the valid deallocator for the storage allocated by marked function. |
+| `ownership_returns(`_`allocation-type`_`)`                                                 | Clang 20.1.0                | Function                     | Associate pointers returned by custom allocation function with _`allocation-type`_ .              |
+| `ownership_takes(`_`allocation-type`_`,` _`ptr-index`_`)`                                  | Clang 20.1.0                | Function                     | Mark function as valid deallocator for _`allocation-type`_.                                       |
+| `ownership_holds(`_`allocation-type`_`,` _`ptr-index`_`)`                                  | Clang 20.1.0                | Function                     | Mark function taking responsibility of deallocation for _`allocation-type`_.                      |
+| `alloc_size(`_`size-index`_`)`<br/>`alloc_size(`_`size-index-1`_`,`_`size-index-2`_`)`     | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | Mark positional arguments holding the allocation size that the returned pointer points to.        |
+| `access(`_`mode`_`,`_`ref-pos`_`)`<br/>`access(`_`mode`_`,` _`ref-pos`_`,` _`size-pos`_`)` | GCC 10.0.0                  | Function                     | Mark access restrictions for positional argument.                                                 |
+| `fd_arg(N)`                                                                                | GCC 13                      | Function                     | Argument N is an open file descriptor.                                                            |
+| `fd_arg_read(N)`                                                                           | GCC 13                      | Function                     | Argument N is an open file descriptor that can be read from.                                      |
+| `fd_arg_write(N)`                                                                          | GCC 13                      | Function                     | Argument N is an open file descriptor that can be written to.                                     |
+| `noreturn`                                                                                 | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | The function does not return.                                                                     |
+| `tainted_args`                                                                             | GCC 12                      | Function or function pointer | Function needs sanitization of its arguments. Used by `-fanalyzer=taint`                          |
 
 ## Performance considerations
 
@@ -171,5 +171,57 @@ assert(__builtin_object_size(s, 0) == 100);
 [^gcc-alloc_size]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: alloc_size](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-alloc_005fsize-function-attribute), GCC Manual, 2024-08-01.
 [^gcc-object-size]: GCC team, [Using the GNU Compiler Collection (GCC): 6.62 Object Size Checking](https://gcc.gnu.org/onlinedocs/gcc/Object-Size-Checking.html), GCC Manual, 2024-08-01.
 [^clang-alloc_size]: LLVM team, [Attributes in Clang: alloc_size](https://clang.llvm.org/docs/AttributeReference.html#alloc-size), Clang Compiler User's Manual, 2025-03-04.
+
+---
+
+### Mark access restrictions for positional arguments
+
+| Attribute                                                                                      | Supported since             | Type                         | Description                                                                                       |
+|:-----------------------------------------------------------------------------------------------|:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
+| `access(`_`mode`_`,`_`ref-index`_`)`<br/>`access(`_`mode`_`,`_`ref-index`_`,`_`size-index`_`)` | GCC 11.0.0                  | Function                     | Mark access restrictions for positional argument.                                                 |
+
+The `access` attribute in GCC[^gcc-acess] indicates the intended mode in which the annotated function operates on the specified positional argument. GCC uses this information to detect non-confirming accesses by the annotated function or their callers, as well as write-only accesses to objects that are never read from. Diagnostics of such non-conforming accesses are reported through the `-Wstringop-overread`, `-Wstringop-overflow`, `-Wuninitialized`, `-Wmaybe-uninitialized`, and `-Wunused` warnings.
+
+The `access(`_`mode`_`,`_`ref-index`_`)` form indicates to GCC that the annotated function accesses the object passed to the function by-reference denoted the by the positional argument at _`ref-index`_ (using one-based indexing) according to _`mode`_, where _`mode`_ is one of the following access modes:
+
+- `read_only`: the pointer or C++ reference corresponding to the specified positional argument may be used to read the referenced object but not write to it.
+- `write_only`: the pointer or C++ reference corresponding to the specified positional argument may be used to write the referenced object but not to read from it.
+- `read_write`: the pointer or C++ reference corresponding to the specified positional argument may be used to both read and write to the referenced object.
+- `none`: the pointer or C++ reference corresponding to the specified positional argument may not be used to access the referenced object at all.
+
+The `access(`_`mode`_`,`_`ref-index`_`,`_`size-index`_`)` form behaves as the `access(`_`mode`_`,`_`ref-index`_`)` form but additionally hints to the compiler that the maximum size of the object (for the purposes of accesses) referenced by the pointer (or C++ reference) corresponding to the _`ref-index`_ positional argument is is denoted by the positional argument at _`size-index`_. The size is expected to the expressed as number of bytes if the pointer type denoted by _`ref-index`_ is `void*`. Otherwise, the size of expressed as number of elements of the type being referenced by the pointer denoted by _`ref-index`_. The actual bounds of the accesses carried out the function may be less than the size denoted the positional argument at _`size-index`_ but they must not exceed the denoted size.
+
+The `write_only` and `read_write` access modes are applicable only to non-`const` pointer types. The `read_only` access mode implies a stronger guarantee than the `const` qualifier which may be cast away from a pointer.
+
+In the `read_only`and `read_write` access modes the object referenced by the pointer corresponding to the _`ref-index`_ must be initialized unless the argument specifying the size of the access denoted by _`size-index`_ is zero. In the `write_only` access mode the object referenced by the pointer need not be initialized.
+
+### Example usage
+
+~~~c
+// Denotes that puts will perform read-only access on the memory pointer to by ptr.
+int puts (const char* ptr) __attribute__ ((access (read_only, 1)));
+
+// Denotes that strcat will perform read-write access on the memory pointer to by destination and read-only access on the memory pointed to by source.
+char* strcat (char* destination, const char* source) __attribute__ ((access (read_write, 1), access (read_only, 2)));
+
+// Denotes that strcpy will perform write-only access on the memory pointer to by destination and read-only access on the memory pointed to by source.
+char* strcpy (char* destination, const char* source) __attribute__ ((access (write_only, 1), access (read_only, 2)));
+
+// Denotes that fgets will perform write-only access up n character on the memory pointed to by destination and read-write access on the memory pointed to by stream.
+int fgets (char* buff, int n, FILE* stream) __attribute__ ((access (write_only, 1, 2), access (read_write, 3)));
+
+// Denotes that print_buffer will perform read-only access up to size characters on memory pointed to by buffer.
+void print_buffer(const char *buffer, size_t size) __attribute__((access(read_only, 1, 2)));
+
+// Denotes that fill_buffer will perform write-only access up to size characters on memory pointed to by buffer.
+void fill_buffer(char *buffer, size_t size) __attribute__((access(write_only, 1, 2)));
+
+// Denotes that to_uppercase will perform read-write access up to size characters on memory pointed to by buffer.
+void to_uppercase(char *buffer, size_t size) __attribute__((access(read_write, 1, 2)));
+~~~
+
+[[Extended example at Compiler Explorer](https://godbolt.org/z/K44d89YM7)]
+
+[^gcc-acess]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: access](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-access-function-attribute), GCC Manual, 2024-08-01.
 
 ---
