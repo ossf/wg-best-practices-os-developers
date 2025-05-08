@@ -146,6 +146,8 @@ In both BRE and ERE notation, by default “^” means beginning-of-string and �
 
 The [regcomp function (which compiles regular expressions)](https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/) accepts a “REG_NEWLINE” flag, to help text editors search many lines. If REG_NEW_LINE is set, the interpretation changes: a “^”  matches the zero-length string immediately after a &lt;newline> in string, and “$” matches the zero-length string immediately before a &lt;newline> in string. There’s no way in the POSIX specification to separately match the beginning of a string nor an end of a string when REG_NEWLINE is enabled, which is why \A, \Z, and \z were later created by Perl. When validating input from untrusted users the REG_NEWLINE option is normally not used.
 
+The Austin Group (who maintain the POSIX specification) in 2025 [added \A and \z to POSIX for EREs](https://www.austingroupbugs.net/view.php?id=1919) and recommends that BREs also implement them.
+
 ### Perl
 
 [Perl documentation for perlre (perl regular expressions)](https://perldoc.perl.org/perlre) describes its support for regular expressions. Version 5.38.2 documents the following, where “/m” is the “multiple lines” modifier (the multiple lines modifier is _not_ enabled by default):
@@ -184,6 +186,8 @@ As with many languages, there are alternative libraries. The Python3 documentati
 Python3’s regular expression library “re” has the method “fullmatch” which exactly matches the string (like prepending “\A(?:” and appending “)\Z”). However, this can’t always be used. Flask is a common server-side web application framework for Python3, and a common way to validate data in Flask is Webargs (here’s an [example of a recommendation](https://stackoverflow.com/questions/55772012/how-to-validate-html-forms-in-python-flask)). The validators of Webargs reuse [marshmallow.validate](https://marshmallow.readthedocs.io/en/latest/marshmallow.validate.html#module-marshmallow.validate)., which has a marshmallow.validate.Regexp but no equivalent marshmallow.validate.FullRegexp. Thus, you still need to prefix and suffix regular expressions sometimes.
 
 As of 2024-03-24, [Tutorialspoints incorrectly claims that “$ matches the end of a string” in Python](https://www.tutorialspoint.com/How-to-match-at-the-end-of-string-in-python-using-Regular-Expression#). StackOverflow answer [1218783](https://stackoverflow.com/a/12187839) is also incorrect.​​
+
+In 2025 Python decided to add support for [\z as end-of-string](https://github.com/python/cpython/issues/133306) and modified various libraries to use it.
 
 ### RE2
 
@@ -506,15 +510,19 @@ be nearly universal:
   [Regular Expression Buffer Boundaries for ECMAScript](https://github.com/tc39/proposal-regexp-buffer-boundaries)
   to add \A and \z to ECMAScript/JavaScript, and it advanced to stage 2,
   but it seems to be stuck there. We intend to see if we can help it advance.
-* Python: Python supports \A, but it uses the unique \Z instead of the
-  \z used everywhere else for end-of-string.
-  We'll ask to see if \z could be supported in addition to \Z for end-of-string.
-  We'll probably start with a minor git request (as this is a really
-  small change), otherwise we'll create a PEP, depending on the desires
-  of the Python community.
+* Python: Python supports \A, but historically it uses
+  the rare \Z instead of the \z used almost everywhere else for end-of-string.
   In current versions of Python3 a \z in a regex raises an exception, so
   adding \z for end-of-string would be a backwards-compatible addition.
-  See [CPython issue 133306](https://github.com/python/cpython/issues/133306).
+  In [CPython issue 133306](https://github.com/python/cpython/issues/133306)
+  it was agreed to add \z in addition to \Z to match end-of-string,
+  which was implemented in
+  [PR 133314](https://github.com/python/cpython/pull/133314).
+  They noted that Tcl also uses \Z instead of \z (another group to contact).
+  Our thanks to the Python community!
+* Tcl: Tcl uses `\A` and `\Z`. It currently leaves `\z` undefined. A
+  [proposal to add support for `\z`](https://core.tcl-lang.org/tcl/tktview/fbc56b259e989230e54a4053feeecf7aa765f61d)
+  has been submitted.
 
 ## Authors and contributors
 
