@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="checker.js"></script>
+<script src="regex0.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>ラボ演習 regex0</h1>
+<p>
+これはセキュアなソフトウェア開発に関するラボ演習です。
+ラボの詳細については、<a href="introduction.html" target="_blank">概要</a>をご覧ください。
+
+<p>
+<h2>ゴール</h2>
+<p>
+<b>
+シンプルな正規表現の書き方を学びます。
+</b>
+
+<p>
+<h2>背景</h2>
+<p>
+正規表現（regular expressions: regexes）はテキストのパターンを表現するために広く利用されている表記方法です。
+ここでは入力検証のための正規表現の使い方を見ていきます。
+
+<p>
+正規表現の表記方法は言語により若干異なりますが、大枠では共通しています。以下が正規表現を表記するための基本的なルールです。
+
+<ol>
+<li>最も単純なルールは、文字や数字はそれ自身にマッチするということです。つまり、"<tt>d</tt>" という正規表現は "<tt>d</tt>" という文字にマッチします。多くの実装ではデフォルトで大文字・小文字を区別してマッチし、それは通常望まれる動作です。
+<li>もうひとつのルールは、いくつかの文字のうちどれかを指定するために角カッコで囲むというものです。もし角カッコが単なる英数字を囲っていた場合は、それらは囲まれた英数字のどれかにマッチします。つまり <tt>[brt]</tt> は単一の文字である "<tt>b</tt>", "<tt>r</tt>", "<tt>t</tt>" のどれかにマッチします。
+カッコの中ではダッシュ（"-"）で文字の範囲を示すことができます。つまり <tt>[A-D]</tt> はその範囲の一文字、すなわち一文字の A、一文字の B、一文字の C、一文字の D  のどれかにマッチします。
+カッコの中には複数の範囲を書くことができます。
+例えば <tt>[A-Za-z]</tt> は、大文字のアルファベット一文字または小文字のアルファベット一文字にマッチします。
+（このラボでは EBCDIC のような使われなくなって久しい文字システムを使用していないと仮定しています）
+<li>パターンに続けて "<tt>&#42;</tt>" が書かれた場合、それは"<i>0回以上</i>"を意味します。 
+ほとんど全ての正規表現の実装では（ただし POSIX BRE を除く）、パターンに続けて "<tt>+</tt>" が書かれた場合は"<i>1回以上</i>"を意味します。
+つまり <tt>[A-D]*</tt> は、A, B, C, D のどれかが0文字以上続く場合にマッチします。
+</ol>
+
+<p>
+<h2>タスクの詳細</h2>
+<p>
+特定のパターンを検索するためのシンプルな正規表現（regular expression: regexes）を書いてみましょう。
+必要に応じて「ヒント」や「諦める」のボタンを押してください。
+
+<p>
+<h2>演習 (<span id="grade"></span>)</h2>
+
+<b>
+以下の要求を満たす正規表現（regex）のパターンを作成してください。
+</b>
+
+<h3>Part 1</h2>
+<p>
+ECMAScript (JavaScript) で使うことを想定して、"cat" という語句が文のどこにあるかに関わらず検索するための正規表現を作成してください。
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="65">...</textarea>
+-->
+<form id="lab1"><pre><code
+><input id="attempt0" type="text" size="60" spellcheck="false" value="">
+</code></pre>
+<button type="button" class="hintButton">ヒント</button>
+<button type="button" class="resetButton">リセット</button>
+<button type="button" class="giveUpButton">諦める</button>
+</form>
+
+<h3>Part 2</h2>
+<p>
+ECMAScript (JavaScript) で使うことを想定して、１つ以上の "A" と１つ以上の "B" が連続する箇所を検索するための正規表現を作成してください。
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="65">...</textarea>
+-->
+<form id="lab2">
+<pre><code
+><input id="attempt1" type="text" size="60" spellcheck="false" value="">
+</code></pre>
+<button type="button" class="hintButton">ヒント</button>
+<button type="button" class="resetButton">リセット</button>
+<button type="button" class="giveUpButton">諦める</button>
+</form>
+
+<br><br>
+<p>
+<i>このラボは、<a href="https://www.linuxfoundation.org/">Linux Foundation</a>のDavid A. Wheelerによって開発されました。</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
