@@ -60,7 +60,7 @@ info =
     {
       absent: String.raw`\+`,
       index: 2,
-      text: "Our expected answer includes concatentation using `+`. We expect something like `Markup('Original name='` followed by `+` followed by the variable containing the data that needs to be escaped.",
+      text: "Our expected answer includes concatenation using `+`. We expect something like `Markup('Original name='` followed by `+` followed by the variable containing the data that needs to be escaped.",
       examples: [
         [ null, null, '  result = Markup(f"Original name={name}' ],
       ],

@@ -12,7 +12,7 @@ repositories and potentially exposing source code.
 
 ## Threat Example(s)
 
-Users can accidentaly create public repositories and expose source code.
+Users can accidentally create public repositories and expose source code.
 
 ## Remediation
 

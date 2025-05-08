@@ -19,7 +19,7 @@ Contributions to the guide are always welcome, for instance:
 * documentation of similar/equivalent options of other (widely used) compilers which are currently not yet covered by this guide,
 * improvements of the existing text
 
-The group of authors meets online every other week to discuss open items and work on the doucment.
+The group of authors meets online every other week to discuss open items and work on the document.
 The [meeting details](https://github.com/ossf/wg-best-practices-os-developers/tree/main#meeting-times) can be found in the main [README](https://github.com/ossf/wg-best-practices-os-developers/blob/main/README.md) of the Best Practices Working Group.
 
 Pull requests as always welcome!

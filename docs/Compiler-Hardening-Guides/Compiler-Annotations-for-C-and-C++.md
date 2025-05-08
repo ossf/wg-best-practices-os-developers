@@ -1,6 +1,6 @@
 # Compiler Annotations for C and C++
 
-> ⓘ NOTE: *This is a draft document by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/). Help to [improve it on Github](https://github.com/ossf/wg-best-practices-os-developers/edit/main/docs/Compiler-Hardening-Guides/Compiler-Annotations-for-C-and-C++.md).*
+> ⓘ NOTE: *This is a draft document by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/). Help to [improve it on GitHub](https://github.com/ossf/wg-best-practices-os-developers/edit/main/docs/Compiler-Hardening-Guides/Compiler-Annotations-for-C-and-C++.md).*
 
 Compile time security analysis and runtime mitigation implemented in compilers both depend on the compiler being able to see the flow of data between different points in a program, across functions and modules. This is quite a challenge in C and C++ because both languages allow passing around opaque references, thus losing information about objects.  To work around this problem, both GCC and Clang implement attributes to annotate source code, especially functions and data structures, to allow them to do better analysis of source code.  These annotations are not only beneficial for security, but they also help the compilers make better optimization decisions, often resulting in better code.
 
@@ -88,7 +88,7 @@ Using the the `ownership_returns`, `ownership_takes`, and `ownership_holds` attr
 - **Use-after-free** (`unix.Malloc`, `cplusplis.NewDelete`) if there is an execution path in which the memory passed by pointer to a function annotated with `ownership_takes` is used after the call. Using memory passed to a function annotated with `ownership_holds` is considered valid.
 - **Memory leaks** (`unix.Malloc`, `cplusplus.NewDeleteLeaks`) if if there is an execution path in which the result of an allocation call goes out of scope without being passed to a function annotated with `ownership_takes` or `ownership_holds`.
 - **Dubious `malloc()` arguments involving `sizeof`** (`unix.MallocSizeof`) if the size of the pointer type the returned pointer does not match the size indicated by `sizeof` expression passed as argument to the allocation function.
-- **Potentially attacker controlled `size` parameters to allocation functions** (`optin.taint.TaintedAlloc`) if the `size` parameter originates from a tained source and the analyzer cannot prove that the size parameter is within reasonable bounds (`<= SIZE_MAX/4`).
+- **Potentially attacker controlled `size` parameters to allocation functions** (`optin.taint.TaintedAlloc`) if the `size` parameter originates from a tainted source and the analyzer cannot prove that the size parameter is within reasonable bounds (`<= SIZE_MAX/4`).
 
 #### Example usage
 

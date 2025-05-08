@@ -298,7 +298,7 @@ Serialized data from a trusted input source does not require sanitization, provi
 
 |Tool|Version|Checker|Description|
 |:----|:----|:----|:----|
-|Bandit|1.7.4|B301|Pickle and modules that wrap it can be unsafe when used to de-serialize untrusted data, possible security issue.Bandit can only detect a pickle module in use and is unable to detect an acceptable implementation code that combines pickle with `hmac` and proper key managment.|
+|Bandit|1.7.4|B301|Pickle and modules that wrap it can be unsafe when used to de-serialize untrusted data, possible security issue.Bandit can only detect a pickle module in use and is unable to detect an acceptable implementation code that combines pickle with `hmac` and proper key management.|
 
 ## Related Vulnerabilities
 
@@ -323,5 +323,5 @@ Serialized data from a trusted input source does not require sanitization, provi
 |||
 |:---|:---|
 |[[docs.python.org 2023]](https://docs.python.org/)|pickle — Python object serialization. Available from: <https://docs.python.org/3.9/library/pickle.html> \[Accessed 07 May 2024]|
-|[python.org comparison-with-json 2023]|pickle - Comparison with JSON. Available from: <https://docs.python.org/3.9/library/pickle.html#comparison-with-json> \[Acessed 07 May 2024]|
-|[pyca/cryptography 2023]|Welcome to pyca/cryptography. Available from: <https://cryptography.io/en/latest/> \[Acessed 07 May 2024]|
+|[python.org comparison-with-json 2023]|pickle - Comparison with JSON. Available from: <https://docs.python.org/3.9/library/pickle.html#comparison-with-json> \[Accessed 07 May 2024]|
+|[pyca/cryptography 2023]|Welcome to pyca/cryptography. Available from: <https://cryptography.io/en/latest/> \[Accessed 07 May 2024]|

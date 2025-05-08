@@ -26,7 +26,7 @@ print(
 )
 ```
 
-The unprecise `base 10` representation during the multiplication of `5` with `0.33`  results in an `account balance`  of  `$1.34999999999999993` in the `noncompliant01.py` code.
+The imprecise `base 10` representation during the multiplication of `5` with `0.33`  results in an `account balance`  of  `$1.34999999999999993` in the `noncompliant01.py` code.
 
 **Example noncompliant01.py output:**
 

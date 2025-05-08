@@ -187,7 +187,7 @@ As of 2024-03-24, [Tutorialspoints incorrectly claims that “$ matches the end 
 
 ### RE2
 
-[RE2](https://github.com/google/re2) is a regular expression library using a non-backtracking impllementation approach. Such implementations are don’t have catestrophic cases and are sometimes orders of magnitude faster, but they’re less featureful (e.g., they don’t support backreferences). RE2’s speed is compelling in many cases, so RE2 ended up being used in many places.
+[RE2](https://github.com/google/re2) is a regular expression library using a non-backtracking impllementation approach. Such implementations are don’t have catastrophic cases and are sometimes orders of magnitude faster, but they’re less featureful (e.g., they don’t support backreferences). RE2’s speed is compelling in many cases, so RE2 ended up being used in many places.
 
 The [RE2 syntax page](https://github.com/google/re2/wiki/Syntax) notes that the flag “m” enables “^ and $ match begin/end line in addition to begin/end text (default false):
 

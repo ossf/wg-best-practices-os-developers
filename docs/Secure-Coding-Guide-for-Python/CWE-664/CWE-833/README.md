@@ -8,7 +8,7 @@ The number of threads that can simultaneously run within a `ThreadPoolExecutor` 
 
 ## Non-Compliant Code Example (Interdependent Subtasks)
 
-The `noncompliant01.py` code example shows how a thread-starvation deadlock could happen when one task depends on the results of other, nested tasks. The `ReportTableGenerator` class creates a table out of the input data by building each row concurrently. The client can call the `generate_string_table()` method by providing a list of String arguments. Each argument is parsed in a separate thread that executes the inner method `_create_table_row()`. Creation of the row may consist of multiple steps, such as reformating the string, which could be performed in separate sub-threads. The `_reformat_string()` method is submitted within `_create_table_row()` and uses the same executor. Before the row is built, all of the building threads must return the results.
+The `noncompliant01.py` code example shows how a thread-starvation deadlock could happen when one task depends on the results of other, nested tasks. The `ReportTableGenerator` class creates a table out of the input data by building each row concurrently. The client can call the `generate_string_table()` method by providing a list of String arguments. Each argument is parsed in a separate thread that executes the inner method `_create_table_row()`. Creation of the row may consist of multiple steps, such as reformatting the string, which could be performed in separate sub-threads. The `_reformat_string()` method is submitted within `_create_table_row()` and uses the same executor. Before the row is built, all of the building threads must return the results.
 
 *[noncompliant01.py](noncompliant01.py):*
 
@@ -39,8 +39,8 @@ class ReportTableGenerator(object):
 
     def _reformat_string(self, row: str) -> str:
         print(f"Reformatting {row}")
-        row_reformated = row.capitalize()
-        return row_reformated
+        row_reformatted = row.capitalize()
+        return row_reformatted
 
 
 #####################
@@ -90,8 +90,8 @@ class ReportTableGenerator(object):
 
     def _reformat_string(self, row: str) -> str:
         print(f"Reformatting {row}")
-        row_reformated = row.capitalize()
-        return row_reformated
+        row_reformatted = row.capitalize()
+        return row_reformatted
 
 
 #####################
