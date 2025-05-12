@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="checker.js"></script>
+<script src="input1.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>ラボ演習 input1</h1>
+<p>
+これはセキュアなソフトウェア開発に関するラボ演習です。
+ラボの詳細については、<a href="introduction.html" target="_blank">概要</a>をご覧ください。
+
+<p>
+<h2>ゴール</h2>
+<p>
+単純なデータ型の入力の検証を練習します。
+    
+<p>
+<h2>背景</h2>
+<p>
+この演習では、Expressフレームワーク（バージョン4）とexpress-validatorライブラリを使用して、JavaScriptで書かれたサーバー側のプログラムに簡単な入力検証を追加します。
+ポイントは、これらの特定の技術について学ぶことではなく、一般的に安全なソフトウェアを書く方法を学ぶことです。
+
+<p>
+<!-- https://expressjs.com/en/guide/routing.html -->
+Expressでは、システムが特定のリクエストを受け取ったときに、関数のリスト"handlers(ハンドラ)"を実行するように指定できます。
+<tt>express-validator</tt>ライブラリは、バリデーションチェックを簡単に追加できるようにするための関数のセットを提供しています。
+
+<p>
+以下のコードでは、<tt>/invoices</tt> パスの <tt>get</tt> リクエストに対してハンドラを設定しています。バリデーションエラーがない場合は、コードは請求書IDを表示します。
+バリデーションエラーがある場合は、HTTPエラーコード422"Unprocessable Content(処理できないコンテンツ)"で応答します。
+これは、何らかの理由でリクエストが無効であったことを示すステータスコードであり、エラーメッセージも表示されます。
+
+    
+<p>
+残念ながら、このプログラムは適切な入力検証を行っていません。
+このアプリケーションでは、<tt>id</tt>は1から9999までの整数でなければなりませんが、そのチェックを実行していません。
+そのため、このプログラムにはクロスサイト スクリプティング（XSS）と呼ばれる、まだ説明していない脆弱性があります。
+このXSS脆弱性により、攻撃者は<tt>id</tt>の中に悪意のあるスクリプトを挿入することができてしまうので、ビューアーがそれを自動的に実行する可能性があります！
+この脆弱性は、入力検証をすることで完全に防ぐことができます。
+
+<p>
+<h2>タスク</h2>
+<p>
+タスクを完了するには、以下を実行します。
+<ol>
+<li><tt>app.get</tt>の最初のパラメータ<tt>'/invoices'</tt>の後に、コンマで区切られた新しいパラメータを追加します。
+<li>この新しいパラメータを<tt>query('id')</tt>で開始して、検証用の<tt>id</tt>パラメータを選択します (開始しやすいようにこの部分は入力してあります)。
+<li><tt>query('id')</tt>の後（終了のカンマの前) に、ピリオド(<tt>.</tt>)と検証要件 <tt>isInt()</tt>を追加します
+(<tt>isInt()</tt>は、名前付きパラメータが整数であることを検証します)。
+<li><tt>isInt</tt>メソッドは、括弧内のオプションパラメーターとして、最小値と最大値を提供するオブジェクトを受け取ります
+(例: <tt>isInt({min: YOUR_MINIMUM, max: YOUR_MAXIMUM})</tt>) 。許容範囲を指定するには、minとmaxを設定します。
+</ol>
+
+<p>
+注意: JavaScript の名前は大文字と小文字が区別されるため、<tt>isint</tt>では機能しません。
+このパラメータの末尾をコンマで示すことを忘れないでください (開始時に入力されているテキストではこれを行っています)。
+
+<p>
+必要に応じてヒントボタンを使用してください。
+    
+<p>
+<h2>Interactive Lab (<span id="grade"></span>)</h2>
+<p>
+<b>
+以下のコードは、クエリパラメータ<tt>id</tt>を入力として受け入れます。<tt>id</tt>が1から9999までの整数 (1と9999も含む) である場合にのみ、受け入れられるように変更してください。
+</b>
+<p>
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="65">...</textarea>
+-->
+<form id="lab">
+<pre><code
+>// Set up Express framework and express-validator library
+const express = require("express");
+const app = express();
+const { query, matchedData, validationResult } =
+    require('express-validator');
+
+// Implement requests, e.g., http://localhost:3000/invoices?id=1
+app.get('/invoices',
+<input id="attempt0" type="text" size="65" spellcheck="false"
+ value="  query('id'),">
+  (req, res) =&gt; { // Execute this code if /invoices seen
+    const result = validationResult(req); // Retrieve errors
+    if (result.isEmpty()) { // No errors
+      const data = matchedData(req); // Retrieve matching data
+      return res.send(`You requested invoice id ${data.id}!`);
+    }
+    res.status(422).send(`Invalid input`);
+  })
+</code></pre>
+<button type="button" class="hintButton">ヒント</button>
+<button type="button" class="resetButton">リセット</button>
+<button type="button" class="giveUpButton">諦める</button>
+<br><br>
+<p>
+<i>このラボは、<a href="https://www.linuxfoundation.org/">Linux Foundation</a>のDavid A. Wheelerによって開発されました。</i>
+<br><br><!-- These go in the last form if there's more than one: -->
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>

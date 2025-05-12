@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="checker.js"></script>
+<script src="input2.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>ラボ演習 input2</h1>
+<p>
+これはセキュアなソフトウェア開発に関するラボ演習です。
+ラボの詳細については、<a href="introduction.html" target="_blank">概要</a>をご覧ください。
+
+<p>
+<h2>タスク</h2>
+<p>
+<b>
+正規表現を使って、特定の形のテキスト入力の検証を練習しましょう。
+</b>
+
+<p>
+<h2>背景</h2>
+<p>
+この演習では、Expressフレームワーク(バージョン4)とexpress-validatorライブラリを使用して、JavaScriptで書かれたサーバー側のプログラムに簡単な入力検証を追加します。
+</p>
+
+<p>
+しかし、今回は正規表現を使って、特定のデータ値に対する入力検証を行います。
+多くのプログラムには、特殊なデータの値があり、正規表現によって簡単にテストできるものがあります。
+
+<p>
+以下のコードは、<tt>/parts</tt>というパスに対する<tt>get</tt>リクエストに対するハンドラをセットアップするものです。
+このコードは、例えば<tt>http://localhost:3000/parts?id=AX-794-7</tt>に対するリクエストによって実行されます(<tt>localhost</tt>で実行し、3000番ポートで待ち受けている場合)。
+もし検証でエラーがなければ、コードはパーツのIDを表示します。
+検証でエラーがあった場合には、HTTPのエラーコード422(処理できないコンテンツ/"Unprocessable Content")をエラーメッセージとともに返します。
+このステータスコードは、リクエストが何らかの理由で無効であることを意味します。
+
+<p>
+この場合では、適切な入力検証を実装する必要があるでしょう。
+そこで、入力が一定の長さを超えていないこと、ある特定のパターンにマッチしていることを確認する必要があります。
+input1のラボで書いたように、このプログラムは、クロスサイト・スクリプティング(XSS)と呼ばれる、まだ説明してない脆弱性があります。
+この脆弱性については、より良い入力検証を行うことで完全に防ぐことができるでしょう。
+
+<p>
+<h2>タスクの詳細</h2>
+<p>
+
+<p>
+このアプリケーションでは、パーツIDのフォーマットは常に、2文字の大文字アルファベット(<tt>A</tt>から<tt>Z</tt>まで)、ハイフン(<tt>-</tt>)、1桁以上の数字、ハイフン(<tt>-</tt>)、1桁以上の数字、となっています。
+
+<p>
+タスクを完了するには、以下を実行します。
+
+<ol>
+<li><tt>app.get</tt>の<tt>'/parts'</tt>という最初のパラメータの後に、コンマで区切られた新しいパラメータを追加します
+<li>この新しいパラメータを<tt>query('id')</tt>で始め、検証のために<tt>id</tt>パラメータを選択するようにします。(このラボでは、この部分は書かれて<i>いません</i>)
+<li>ピリオド(<tt>.</tt>)を追加し、検証要件<tt>isLength()</tt>を追加します。
+<li>この<tt>isLength</tt>メソッドは、カッコ内にオプショナルの引数として、最小値や最大値といった情報を与えるオブジェクトを取ることができます。
+今回は、最大値のみ検証したいので、<tt>isLength({max: 最大値})</tt>というような形になるはずです。
+JavaScriptをよく知っている方は、この長さ(Length)の値はUTF-16での文字単位で表されることもご存知でしょう。今回の目的には問題ありません。
+</ol>
+
+<p>
+また、入力が正規表現を使ったパターンにマッチしていることも検証する必要があります。
+この場合は、以下のように行います。
+<ol>
+<li>さらにピリオド(<tt>.</tt>)と検証要件<tt>matches()</tt>を追加します。
+<li>カッコの中にスラッシュ(<tt>/</tt>)、続けてマッチさせる正規表現のテキスト、最後にスラッシュ(<tt>/</tt>)を与えなければいけません。
+JavaSriptでは、正規表現はスラッシュ(<tt>/</tt>)によって囲まれて表現されます。
+<li>正規表現の<i>全体</i>がマッチするようにしてください(つまり、<tt>^</tt>と<tt>$</tt>を使いましょう)。
+<li>また、大文字一文字にマッチさせるパターンは、<tt>[A-Z]</tt>であることを忘れずに。
+</ol>
+
+<p>
+必要に応じて、「ヒント」ボタンと「諦める」ボタンを使用してください。
+
+<p>
+<h2>演習 (<span id="grade"></span>)</h2>
+<p>
+<b>下記のコードを、クエリパラメータ<tt>id</tt>が80文字以下であり、パーツIDのフォーマット要件に合致している場合にのみ受け入れられるように変更してください。
+フォーマットは、2文字の大文字アルファベット(<tt>A</tt>から<tt>Z</tt>まで)、ハイフン(<tt>-</tt>)、1桁以上の数字、ハイフン(<tt>-</tt>)、1桁以上の数字、です。
+</b>
+<p>
+
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="65">...</textarea>
+-->
+<form id="lab">
+<pre><code
+>// Expressフレームワークとexpress-validatorライブラリのセットアップ
+const express = require("express");
+const app = express();
+const { query, matchedData, validationResult } =
+    require('express-validator');
+
+// リクエストの実装 (例:http://localhost:3000/parts?id=1)
+app.get('/parts',
+<textarea id="attempt0" rows="2" cols="64" spellcheck="false">
+  ,</textarea>
+  (req, res) =&gt; { // /partsが現れたときに実行
+    const result = validationResult(req); // エラーを取得
+    if (result.isEmpty()) { // エラーがない場合
+      const data = matchedData(req); // マッチしたデータを取得
+      return res.send(`You requested part id ${data.id}!`);
+    }
+    res.status(422).send(`Invalid input`);
+  })
+</code></pre>
+<button type="button" class="hintButton">ヒント</button>
+<button type="button" class="resetButton">リセット</button>
+<button type="button" class="giveUpButton">諦める</button>
+<br><br>
+<p>
+<i>このラボは、<a href="https://www.linuxfoundation.org/">Linux Foundation</a>のDavid A. Wheelerによって開発されました。</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>

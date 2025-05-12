@@ -5,94 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
 <link rel="stylesheet" href="checker.css">
-<script src="js-yaml.min.js"></script>
 <script src="checker.js"></script>
+<script src="input2.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
-<!-- Sample expected answer -->
-<script id="expected0" type="plain/text">
-  query('id').isLength({max:80}).
-      matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),
-</script>
-
-<!-- Full pattern of correct answer.
-     This specific example is a worst case; we're using
-     using regex to check on a regex, requiring a large number of escapes.
-     This pattern is very generous, allowing
-     constructs like \d for digits and {1,} instead of +.  -->
-<script id="correct0" type="plain/text">
-\s* query \( ('id'|"id"|`id`) \)
-     \. isLength \( \{ max: 80 ,? \} \)
-     \. matches \(
-        \/\^
-\[A-Z\](\{2\}|\[A-Z\])
--
-(\[0-9\]|\\d)(\+|\{1,\})
--
-(\[0-9\]|\\d)(\+|\{1,\})\$\/
-    \) , \s*
-</script>
-
-<!--
-The following define hints. Hints are expressed in a JSON array, so:
-  - \ in a regex is written as \\
-  - " in a regex is written as \"
-  - All field names and value strings must be quoted
-  - commas must *separate* the entries - last one must NOT have a comma.
--->
-<script id="info" type="application/yaml">
----
-hints:
-- absent: ", $"
-  text: This is a parameter, it must end with a comma.
-- absent: |
-    query \( ["'`]id["'`] \)
-  text: "Use query() with an 'id' parameter."
-- present: |
-    query \( ["'`]id["'`] \) [^. ]
-  text: 'After query("id") use a period to invoke a verification method.'
-- present: |
-    (islength|Islength|IsLength|ISLENGTH)
-  text: >
-    JavaScript is case-sensitive. Use isLength instead of the case you have.
-- absent: isLength
-  text: "Use isLength()."
-- present: |
-    isLength \( m
-  text: "You need to pass isLength() an object within {...}."
-- absent: matches
-  text: "Use matches()."
-- present: |
-    matches \( /[^^]
-  text: "Match the whole string - begin the regular expression with ^"
-- present: |
-    matches \( /.*[^$]/
-  text: "Match the whole string - end the regular expression with $"
-- present: |
-    matches \( /.*[^$]/
-  text: Match the whole string - end the regular expression with $
-- present: |
-    matches \( /\^\[A-Z\]-
-  text: That would match only one letter before the dash, you need two.
-- present: |
-    matches \( /.*(\[0-9\]|\d)\*
-  text: >
-    You need to match one or more digits; * allows 0 or more.
-    A + would be better suited for this task.
-- present: |
-    \s*, , $
-  text: >
-    You have two commas at the end. Use only one. You may need to
-    scroll or increase the text area to see both of them.
-successes:
-- - query(`id`).isLength( {max:80}).matches(/^[A-Z]{2}-\d+-[0-9]+$/),
-- - '  query (`id`) . isLength( {max:80}).matches(/^[A-Z]{2}-\d+-[0-9]+$/ ) ,  '
-failures:
-- - query('id').isLength({max:80}).matches( /^[A-Z]{2}-[0-9]+- [0-9]+$/ ),
-- - query('id').isLength().matches( /^[A-Z]{2}-[0-9]+-[0-9]+$/ ),
-- - query('id').isLength({max:80}).matches( /[A-Z]{2}-[0-9]+-[0-9]+/ ),
-- - query(`id`).isLength( {max:80}).matches(/^[A-Z]{2}-\d+-[0-9]+$/)
-</script>
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->
@@ -127,9 +43,9 @@ regular expressions.
 
 <p>
 The code below sets up handlers for a <tt>get</tt> request on path
-<tt>/invoices</tt>.
+<tt>/parts</tt>.
 This code could be triggered, for example, by requesting
-<tt>http://localhost:3000/part?id=AX-794-7</tt>
+<tt>http://localhost:3000/parts?id=AX-794-7</tt>
 (if it was running at <tt>localhost</tt> and responding to port 3000).
 If there are no validation errors, the code is supposed to show the part id.
 If there is a validation error, it responds with HTTP
@@ -228,7 +144,7 @@ const { query, matchedData, validationResult } =
 app.get('/parts',
 <textarea id="attempt0" rows="2" cols="64" spellcheck="false">
   ,</textarea>
-  (req, res) =&gt; { // Execute this code if /invoices seen
+  (req, res) =&gt; { // Execute this code if /parts seen
     const result = validationResult(req); // Retrieve errors
     if (result.isEmpty()) { // No errors
       const data = matchedData(req); // Retrieve matching data

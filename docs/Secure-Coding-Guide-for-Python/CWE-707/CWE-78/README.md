@@ -75,7 +75,7 @@ The `FileOperations().list_dir()` method allows an attacker to add commands via 
 
 The attack surface increases if a user is also allowed to upload or create files or folders.
 
-The `noncompliant02.py` example demonstrates the injection via file or folder name that is created prior to using the `list_dir()` method. We assume here that an untrusted user is allowed to create files or folders named `& calc.exe or ;ps aux` as part of another service such as upload area, submit form, or as a result of a zip-bomb as per *CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)*. Encoding issues as described in *CWE-180: Incorrect Behavior Order: Validate Before Canonicalize* must also be considered.
+The `noncompliant02.py` example demonstrates the injection via file or folder name that is created prior to using the `list_dir()` method. We assume here that an untrusted user is allowed to create files or folders named `& calc.exe or ;ps aux` as part of another service such as upload area, submit form, or as a result of a zip-bomb as per *CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)*. Encoding issues as described in *[CWE-180: Incorrect Behavior Order: Validate Before Canonicalize](../CWE-180/README.md)* must also be considered.
 
 The issue occurs when mixing shell commands with data from a lesser trusted source.
 
@@ -195,8 +195,8 @@ The `compliant01.py` does not use data that origins from a lesser trusted source
 
 |||
 |:---|:---|
-|[MITRE CWE](http://cwe.mitre.org/)|Pillar: [CWE-707: Improper Neutralization](hhttps://cwe.mitre.org/data/definitions/707.html)|
-|[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE-78, Improper Neutralization of Special Elements Used in an OS Command ("OS Command Injection")](https://cwe.mitre.org/data/definitions/000.html)|
+|[MITRE CWE](http://cwe.mitre.org/)|Pillar: [CWE-707: Improper Neutralization](https://cwe.mitre.org/data/definitions/707.html)|
+|[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE-78, Improper Neutralization of Special Elements Used in an OS Command ("OS Command Injection")](https://cwe.mitre.org/data/definitions/78.html)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[IDS07-J. Sanitize untrusted data passed to the Runtime.exec() method](https://wiki.sei.cmu.edu/confluence/display/java/IDS07-J.+Sanitize+untrusted+data+passed+to+the+Runtime.exec%28%29+method)|
 |[SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[ENV03-C. Sanitize the environment when invoking external programs](https://wiki.sei.cmu.edu/confluence/display/c/ENV03-C.+Sanitize+the+environment+when+invoking+external+programs)|
 |[SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[ENV33-C. Do not call system()](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=87152177)|

@@ -1,10 +1,12 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-""" Non-compliant Code Example """
-  
+"""Non-compliant Code Example"""
+
+
 def report_record_attack(stream: bytearray):
     print("important text:", stream.decode("utf-8"))
-  
+
+
 #####################
 # attempting to exploit above code example
 #####################

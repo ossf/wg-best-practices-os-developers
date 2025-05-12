@@ -5,91 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
 <link rel="stylesheet" href="checker.css">
-<script src="js-yaml.min.js"></script>
 <script src="checker.js"></script>
+<script src="regex0.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
 <!-- See create_labs.md for how to create your own lab! -->
-
-<!-- Sample expected answer -->
-<script id="expected0" type="plain/text">cat</script>
-
-<!-- Full pattern of correct answer -->
-<script id="correct0" type="plain/text">cat</script>
-
-<!-- Sample expected answer -->
-<script id="expected1" type="plain/text">A+BB*</script>
-
-<!-- Full pattern of correct answer -->
-<script id="correct1" type="plain/text">
-A(\+|A\*)
-B(\+|B\*)
-</script>
-
-<script id="info" type="application/yaml">
----
-hints:
-- present: |-
-    ^$
-  text: You need to enter a pattern.
-- present: |-
-    ^\^
-  text: We are looking for 'cat' anywhere, not just the beginning,
-    in this exercise.
-- present: |-
-    C
-  text: Regexes are normally case-sensitive. Use a lowercase c.
-  examples:
-  - - "C"
-- absent: |-
-    c
-  text: If you are searching for "cat" you need to look for a "c"
-  examples:
-  - - "x"
-- absent: |-
-    cat
-  text: The pattern "cat" is needed to search for "cat".
-- absent: |-
-    A
-  index: 1
-  text: You need to mention A.
-- absent: |-
-    B
-  index: 1
-  text: You need to mention B.
-- absent: |-
-    A(\+|A\*)
-  index: 1
-  text: Use "A+" to indicate "one or more A". You could also write "AA*".
-- absent: |-
-    B(\+|B\*)
-  index: 1
-  text: Use "B+" to indicate "one or more B". You could also write "BB*".
-# successes:
-# - - " query ( 'id' ) . isInt ( {min: 1 , max: 9999 } ) ,"
-# - - " query ( `id` ) . isInt ( {min: 1 , max: 9_999 } ) ,   "
-# - - 'query ( "id" ) . isInt ( {min: 1 , max: 9_999 } ) ,'
-# failures:
-# - - " query,"
-# - - 'query(''id'').isint({min: 1, max: 9999})'
-# - - 'query(''id'').isInt({min: 1, max: 9999})'
-#
-# Remove all whitespace, so we can make our patterns easier to read
-#
-preprocessing:
-  -
-    - |-
-        \s*
-    - ""
-#   -
-#     - |-
-#         (\\s\*)?\s+(\\s\*)?
-#     - "\\s*"
-# debug: true
-</script>
-<!--
-
--->
 
 </head>
 <body>
@@ -123,14 +43,14 @@ notations:
 <li>Another rule is that square brackets surround a rule that specifies any of a number of characters. If the square brackets surround just alphanumerics, then the pattern matches any of them. So <tt>[brt]</tt> matches a single “<tt>b</tt>”, “<tt>r</tt>”, or “<tt>t</tt>”.
 Inside the brackets you can include
 ranges of symbols separated by dash ("-"), so
-<tt>[A-D]</tt> will match one character, which can be one A, one B, one C,
-or one D.
-You can do this more than once.
+<tt>[A-D]</tt> will match one character in that range,
+which can be one A, one B, one C, or one D.
+You can provide more than one range inside brackets.
 For example,
 the term <tt>[A-Za-z]</tt> will match one character, which can be
 an uppercase Latin letter or a lowercase Latin letter.
-(This text assumes you're not using a long-obsolete character system
-like EBCDIC.)
+(For purposes of our labs we're
+assuming you're not using a long-obsolete character system like EBCDIC.)
 <li>If you follow a pattern with “<tt>&#42;</tt>”, that means
 “<i>0 or more times</i>”.
 In almost all regex implementations (except POSIX BRE),

@@ -7,7 +7,7 @@ Introduction paragraph, expanding on the introduction sentence...
 [*example01.py:*](example01.py)
 
 ```py
-""" Code Example """
+"""Code Example"""
 
 # Code goes here
 ```
@@ -25,7 +25,7 @@ Introduction to the code example...
 *[noncompliant01.py](noncompliant01.py):*
 
 ```python
-""" Non-compliant Code Example """
+"""Non-compliant Code Example"""
 
 # Code goes here
 
@@ -45,7 +45,7 @@ Introduction to the code example...
 *[compliant01.py](compliant01.py):*
 
 ```python
-""" Compliant Code Example """
+"""Compliant Code Example"""
 
 # Code goes here
 

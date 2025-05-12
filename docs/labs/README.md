@@ -6,7 +6,7 @@ They're designed to support our free course
 [Developing Secure Software (LFD121)](https://training.linuxfoundation.org/training/developing-secure-software-lfd121/).
 
 You can download the labs in these sections, e.g., to run locally
-without Internet access.
+without Internet access. Labs with a locale prefix are for that locale (e.g., [ja_hello](ja_hello.html) is the Japanese translation of [hello](hello.html)).
 
 We *want* people to create more labs! Here's more information about
 how to do that and the labs we'd like created.
@@ -15,7 +15,7 @@ how to do that and the labs we'd like created.
 
 Here are some of the labs available, which you can use as examples:
 
-* [hello](hello.html) - simple "Hello, world!" demo
+* [hello](hello.html) - simple "Hello, world!" demo. ([ja_hello](ja_hello.html), [fr_hello](fr_hello.html))
 * [input1](input1.html) - input validation (simple types)
 * [regex0](regex0.html) - regular expressions (regexes) - introduction
 * [regex1](regex1.html) - regular expressions (regexes)
@@ -38,6 +38,14 @@ We'd be happy to give you credit through a "wall of fame".
 If you're interested, please contact
 [David A. Wheeler](mailto:dwheele&#114;&#64;linuxfoundation&#46;org).
 See below for how to create labs and our lab roadmap.
+
+## Please help us translate labs
+
+We'd love to have labs available in various natural languages!
+You can take existing labs and translate them. For technical details, see the
+[information on lab localization](create_checker#localization).
+Let us know if you're doing it!
+Please see [how to contribute labs](#please-contribute-labs) for more.
 
 ## How to create and submit labs
 
@@ -69,7 +77,7 @@ work on.
 
 * Input Validation
   * Input Validation Basics
-    * [Input Validation Basics Introduction](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#input-validation-basics-introduction) - DONE-0 [hello](hello.html)
+    * [Input Validation Basics Introduction](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#input-validation-basics-introduction) - DONE-0 [hello](hello.html) [ja_hello](ja_hello.html)
     * [How Do You Validate Input?](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#how-do-you-validate-input), [Input Validation: Numbers and Text](https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#input-validation-numbers-and-text)
   * Input Validation: Numbers and Text
     * Input Validation: A Few Simple Data Types - DONE-0 [input1](input1.html)

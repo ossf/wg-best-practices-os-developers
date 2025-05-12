@@ -5,93 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
 <link rel="stylesheet" href="checker.css">
-<script src="js-yaml.min.js"></script>
 <script src="checker.js"></script>
+<script src="hardcoded.js"></script>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 
 <!-- See create_labs.md for how to create your own lab! -->
-
-<!-- Sample expected answer -->
-<script id="expected0" type="plain/text">
-conn = DriverManager.getConnection(url,
-    System.getenv("USERNAME"), System.getenv("PASSWORD"));
-</script>
-
-<!-- Full pattern of correct answer -->
-<script id="correct0" type="plain/text">
-\s* conn = DriverManager \. getConnection \( url \,
-  System \. getenv \( "USERNAME" \) \,
-  System \. getenv \( "PASSWORD" \) \) \; \s*
-</script>
-
-<script id="info" type="application/yaml">
----
-hints:
-- absent: |
-    ^ \s* conn = DriverManager \. getConnection \( url \,
-  text: >
-    Your answer should start with 
-    `conn = DriverManager.getConnection( url,`
-    just as the initial value did. You might want to use the `Reset` button.
-- absent: |
-    System \. getenv
-  text: >
-    Use `System.getenv` to retrieve an environment variable value.
-    For example, use `System.getenv("USERNAME")` to retrieve the username.
-- present: |
-    System \. getenv \( \"admin\" \)
-  text: >
-    You need to pass to
-    `System.getenv` the name of an environment variable value, not the
-    result you might get.
-    Do not use constructs like `System.getenv("admin")`.
-    Instead, for example,
-    use `System.getenv("USERNAME")` to retrieve the username.
-- absent: |
-    System \. getenv \( \"PASSWORD\" \)
-  text: >
-    Use `System.getenv` to retrieve an environment variable value.
-    For example, use `System.getenv("USERNAME")` to retrieve the username.
-- present: "admin"
-  text: >
-    The term 'admin' should not be in your code.
-    You should be retrieving both the username and the password
-    from somewhere else, in this case, from environment variables.
-- present: |
-    (system|Getenv|GetEnv)
-  text: >
-    Java is case-sensitive. You need to use
-    `System.getenv` and not some other variation of uppercase or lowercase.
-- absent: |-
-    \; \s* $
-  text: >
-    Java statements must end with a semicolon.
-- absent: |
-    \) \) \; \s* $
-  text: >
-    Double-check your closing parentheses at the end of the statement.
-- present: |
-    new\s+String
-  text: >
-    You do not need to construct a new string to retrieve an
-    environment variable value.
-- present: |
-    ^ conn = DriverManager \. getConnection \( url \) \; \s* $
-  text: >
-    In some sense this is correct, as long as the url is not hardcoded.
-    However, it's often better if administrators can easily change the
-    username or password separately, and it makes out point clearer.
-    Please provide the username and password and separate values.
-- present: |
-    ^ \s* conn = DriverManager \. getConnection \( url \,
-      System \. getenv \( "PASSWORD" \) \,
-      System \. getenv \( "USERNAME" \) \) \; \s* $
-  text: >
-    The order of parameters is wrong. Provide the url, then the username,
-    then the password. You're providing the url, then the password, then
-    the username, which swaps the second and third parameters.
-# debug: true
-</script>
 </head>
 <body>
 <!-- For GitHub Pages formatting: -->

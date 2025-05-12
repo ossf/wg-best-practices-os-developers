@@ -1,0 +1,21 @@
+#!/bin/sh
+# Add trailing commas and terminating semicolon to lab data files
+
+for file in [a-z]*.js
+do
+  # Skip checker, that has more than data in it.
+  if [ "$file" == 'checker.js' ]; then
+    continue
+  fi
+
+  # Skip anything that isn't a lab data file.
+  if ! grep -q 'info =' "$file"; then
+    continue
+  fi
+
+  htmlfile="${file%.js}.html"
+  echo "Modifying $file for $htmlfile"
+
+  sed -E -e 's/^( +(\]|\}))$/\1,/' -e '$s/^\}$/};/' "$file" > ,1
+  mv ,1 "$file"
+done

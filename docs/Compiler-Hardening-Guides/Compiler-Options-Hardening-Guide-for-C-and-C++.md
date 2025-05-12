@@ -1,6 +1,6 @@
 # Compiler Options Hardening Guide for C and C++
 
-*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2024-12-12*
+*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2025-04-08*
 
 This document is a guide for compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++. The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
 
@@ -17,7 +17,7 @@ This document focuses on recommended options for the GNU Compiler Collection (GC
 
 ## TL;DR: What compiler options should I use?
 
-When compiling C or C++ code on compilers such as GCC and clang, turn on these flags for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
+When compiling C or C++ code on compilers such as GCC and clang, turn on these flags in all cases for detecting vulnerabilities at compile time and enable run-time protection mechanisms:
 
 ~~~sh
 -O2 -Wall -Wformat -Wformat=2 -Wconversion -Wimplicit-fallthrough \
@@ -31,9 +31,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -Wl,--as-needed -Wl,--no-copy-dt-needed-entries
 ~~~
 
-Note that support for some options may differ between different compilers, e.g. support for [`-D_FORTIFY_SOURCE`](#-D_FORTIFY_SOURCE=3) varies depending on the compiler[^Guelton20] and C standard library implementations. See the discussion below for [background](#background) and for [detailed discussion of each option](#recommended-compiler-options).
-
-When compiling code in any of the situations in the below table, add the corresponding additional options:
+**In addition**, when compiling code in any of the situations in the below table, **add** the corresponding additional options:
 
 | When                                                    | Additional options flags                                                                                 |
 |:------------------------------------------------------- |:---------------------------------------------------------------------------------------------------------|
@@ -46,8 +44,11 @@ When compiling code in any of the situations in the below table, add the corresp
 | for production code                                     | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
 | for treating obsolete C constructs as errors            | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion`                             |
 | for multi-threaded C code using GNU C library pthreads  | `-fexceptions`                                                                                           |
+| during development but *not* when distributing source   | `-Werror`                                                                                                |
 
-We recommend developers to additionally use a blanket [`-Werror`](#-Werror) to treat all warnings as errors during development. However, `-Werror` should not be used in this blanket form when distributing source code, as this use of `-Werror` creates a dependency on specific toolchain vendors and versions. The selective form[`-Werror=`*`<warning-flag>`*](#-Werror-flag) that promotes specific warnings as error in cases that should never occur in the code can be used both during development and when distributing sources. For example, we encourage developers to promote warnings regarding obsolete C constructs removed by the 1999 C standard to errors (see the "for disabling obsolete C constructs" in the above table). These options often cannot be added by those who independently build the software, because the options may require non-trivial changes to the source code.
+Note that support for some options may differ between different compilers, e.g. support for [`-D_FORTIFY_SOURCE`](#-D_FORTIFY_SOURCE=3) varies depending on the compiler[^Guelton20] and C standard library implementations. See the discussion below for [background](#background) and for [detailed discussion of each option](#recommended-compiler-options).
+
+We recommend developers to additionally use a blanket [`-Werror`](#-Werror) to treat all warnings as errors during development. However, `-Werror` should **not** be used in this blanket form when **distributing** source code, as this use of `-Werror` creates a dependency on specific toolchain vendors and versions. The selective form[`-Werror=`*`<warning-flag>`*](#-Werror-flag) that promotes specific warnings as error in cases that should never occur in the code can be used both during development and when distributing sources. For example, we encourage developers to promote warnings regarding obsolete C constructs removed by the 1999 C standard to errors (see the "for disabling obsolete C constructs" in the above table). These options often cannot be added by those who independently build the software, because the options may require non-trivial changes to the source code.
 
 In this guide, we use the term *production code* for executable code intended for use in the real world with real effects; it should be maximally reliable and performant. We use the term *instrumented test code* for executable code that is instrumented to improve defect detection and debuggability, and as such, often crashes more and is slower. Test processes should use both instrumented test code and production code.
 
@@ -87,7 +88,11 @@ Modern, security-aware C and C++ software development practices, e.g., secure co
 
 [^CMU2016CPP]: Carnegie Mellon University (CMU), [SEI CERT C++ Coding Standard Rules for Developing Safe, Reliable, and Secure Systems, 2016 edition](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=494932), March 2017.
 
-Consequently, modern operating systems deploy various run-time mechanisms to protect against potential security flaws. The principal purpose of such mechanisms is to mitigate potentially exploitable memory vulnerabilities in a way that prevents a threat actor from exploiting them to gain code execution capabilities. With mitigations in place the affected application may still crash if a memory error is triggered. However, such an outcome is still preferable if the alternative is the compromise of the system’s run-time environment.
+Consequently, modern operating systems (including their C and C++ compilers along with their run-time infrastructure) deploy various run-time mechanisms to protect against potential security flaws. The principal purpose of such mechanisms is to mitigate potentially exploitable memory vulnerabilities in a way that prevents a threat actor from exploiting them to gain code execution capabilities. With mitigations in place the affected application may still crash if a memory error is triggered. However, such an outcome is still preferable if the alternative is the compromise of the system’s run-time environment.
+
+When used, these run-time mechanisms *can* prevent attacks, reduce their likelihood, or reduce their impact. [^Esler2025]
+
+[^Esler2025]: Esler, Mark, 2025-03-19, [Mitigating a rsync Vulnerability: A Lesson in Compiler Hardening](https://www.chainguard.dev/unchained/mitigating-a-rsync-vulnerability-a-lesson-in-compiler-hardening), *Chainguard Unchained Security Blog*
 
 To benefit from the protection mechanism provided by the OS the application binaries must be prepared at build time to be compatible with the mitigations. Typically, this means enabling specific option flags for the compiler or linker when the software is built.
 
@@ -108,13 +113,15 @@ Some organizations require selecting hardening rules. For example, the US govern
 How you apply this guide depends on your circumstances:
 
 - New or nearly-new project ("Green field"): If you're starting a new project, enable everything as soon as you can, preferably before any code is written for it. That way, you'll be immediately notified of any problematic constructs and avoid it in the future.
-- Existing non-trivial project ("Brown field"): It's usually impractical to enable all options at once. First, the number of warnings will probably be overwhelming. Second, while the run-time protection mechanisms will usually not cause correctly-working programs to fail, it's still possible for them to cause problems (e.g., due to increased binary size). Instead, enable one or a few options at a time, assess their impact, resolve any problems, and repeat over time. Some flags (like [`-Wall`](#-Wall) are groups of other flags; consider breaking them down and enabling a few of those specific flags at a time.
+- Existing non-trivial project ("Brown field"): It's usually impractical to enable all options at once. First, the number of warnings will probably be overwhelming. Second, while the run-time protection mechanisms will usually not cause correctly-working programs to fail, it's still possible for them to cause problems (e.g., due to increased binary size). Instead, enable one or a few options at a time, assess their impact, resolve any problems, and repeat over time. Some flags (like [`-Wall`](#-Wall)) are groups of other flags; consider breaking them down and enabling a few of those specific flags at a time.
 
 Applications should work towards compiling warning-free. This takes time, but warnings indicate a potential problem. Once done, any new warning indicates a potential problem.
 
 ### What does compiler options hardening not do?
 
 Compiler options hardening is not a silver bullet; it is not sufficient to rely solely on security features and functions to achieve secure software. Security is an emergent property of the entire system that relies on building and integrating all parts properly. However, if properly used, secure compiler options will complement existing processes, such as static and dynamic analysis, secure coding practices, negative test suites, profiling tools, and most importantly: security hygiene as a part of a solid design and architecture.
+
+In most cases hardened compiler options only take effect in code that is compiled with the hardened options. Consequently, most compiler options hardening does not benefit software that has been pre-built before hardened options have been adopted. This is particularly a concern for projects that incorporate pre-built (possibly third-party) libraries or other components. In such cases, it is important to understand what components a project is being linked against, and how they in turn are built, to determine which components benefit from compiler options hardening.
 
 ### What is our threat model, goal, and objective?
 
@@ -144,9 +151,11 @@ This section describes recommendations for compiler and linker option flags that
 
 The recommendations in Table 1 and Table 2 are primarily applicable to compiling user space code in GNU/Linux environments using either the GCC and Binutils toolchain or the Clang / LLVM toolchain and have been included in this document because they are:
 
-- widely deployed and enabled by default for pre-built packages in major Linux distributions, including Debian, Ubuntu, Red Hat and SUSE Linux.
+- widely deployed and enabled by default for pre-built packages in at least some major Linux distributions, including Debian, Ubuntu, Red Hat and SUSE Linux. See Voisin et al.'s continuous survey of compiler options used by distributions[^compiler-flags-distro].
 - supported both by the GCC and Clang / LLVM toolchains.
 - cross-platform and supported on (at least) Intel and AMD 64-bit x86 architectures as well as the 64-bit version of the ARM architecture (AArch64).
+
+[^compiler-flags-distro]: Voisin, Julien et al., [Default compiler hardening flags used to build packages for Linux distributions](https://github.com/jvoisin/compiler-flags-distro), Github jvoisin/compiler-flags-distro, 2025-02-14.
 
 For historical reasons, the GCC compiler and Binutils upstream projects do not enable optimization or security hardening options by default. While some aspects of the default options can be changed when building GCC and Binutils from source, the defaults used in the toolchains shipped with GNU/Linux distributions vary. Distributions may also ship multiple versions of toolchains with different defaults. Consequently, developers need to pay attention to compiler and linker option flags, and manage them according to their need of optimization, level of warning and error detection, and security hardening of the project.
 
@@ -220,7 +229,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fPIE -pie`](#-fPIE_-pie)                                                               |   Binutils 2.16.0<br/>Clang 5.0.0    | Build as position-independent executable. Can impact performance on 32-bit architectures.                                                   |
 | [`-fPIC -shared`](#-fPIC_-shared)                                                         | < Binutils 2.6.0<br/>Clang 5.0.0     | Build as position-independent code. Can impact performance on 32-bit architectures.                                                         |
 | [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                     | GCC 3.0.0<br/>Clang 7.0.0            | Force retention of null pointer checks                                                       |
-| [`-fno-strict-overflow`](#-fno-strict-overflow)                                           | GCC 4.2.0                            | Integer overflow may occur                                                                   |
+| [`-fno-strict-overflow`](#-fno-strict-overflow)                                           | GCC 4.2.0                            | Define behavior for signed integer and pointer arithmetic overflows                        |
 | [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 2.9.0        | Do not assume strict aliasing                                                                |
 | [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12.0.0<br/>Clang 8.0.0               | Perform trivial auto variable initialization                                                 |
 | [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6.0           | Enable exception propagation to harden multi-threaded C code                                 |
@@ -501,7 +510,7 @@ Using these options will make the compiler treat the corresponding obsolete cons
 
 Note that in particular, `_FORTIFY_SOURCE` is of either limited or entirely neutered effect in the presence of implicit function declarations.
 
-Note that the list of options indicated here do not capture a complete list of removed features. Some changes to the expected changes to compiler default cannot be previewed using compiler flags but require instructing the compiler to support a specific langauge standard (C99 or later dialect) and to give errors whenever the base standard requires a diagnostic[^gcc-pedantic-errors].
+Note that the list of options indicated here do not capture a complete list of removed features. Some changes to the expected changes to compiler default cannot be previewed using compiler flags but require instructing the compiler to support a specific language standard (C99 or later dialect) and to give errors whenever the base standard requires a diagnostic[^gcc-pedantic-errors].
 
 Some tools, such as `autoconf`, automatically determine what the compiler supports by generating code and compiling it. Old versions of these tools may not use more modern practices internally, so enabling errors can cause spurious reports that some functionality isn't available. The best solution is to update the tool. Where that isn't an option, consider adding `-Werror` forms *after* the tool has determined the mechanisms supported by the compiler.
 
@@ -761,13 +770,19 @@ The `-fcf-protection=check` is ignored at compilation time but instructs the lin
 
 #### Performance implications
 
-There are performance implications but they are typically mild due to hardware assistance. The `-fcf-protection=full` flag enables Intel's Control-Flow Enforcement Technology (CET) [^IntelCET], which introduces shadow stack (SHSTK) and indirect branch tracking (IBT). The `-mbranch-protection=standard` flag invokes similar protections in the AArch64. In clang `-mbranch-protection=standard` is equivalent to `-mbranch-protection=bti+pac-ret` and invokes the AArch64 Branch Target Identification (BTI) and Pointer Authentication using key A (pac-ret) [^Armclang].
+There are performance implications but they are typically mild due to hardware assistance. The `-fcf-protection=full` flag enables Intel's Control-Flow Enforcement Technology (CET) [^IntelCET], which introduces shadow stack (SHSTK) and indirect branch tracking (IBT).
+
+The `-mbranch-protection=standard` flag invokes similar protections in the AArch64. In clang `-mbranch-protection=standard` is equivalent to `-mbranch-protection=bti+pac-ret` and invokes the AArch64 Branch Target Identification (BTI) and Pointer Authentication using key A (pac-ret) [^Armclang]. It is important to note that, depending on the target platform, the compiler may generate hint-space instructions for both AArch64 PAC and BTI [^ArmclangExample]. These hint instructions allow the binary to run on machines that do not support the underlying hardware features. However, they are sometimes less efficient, and the intended branch protection is not enforced when the hardware support is missing.
 
 #### Additional Considerations
 
 Intel CET shadow stack requires Linux Kernel version 6.6 or higher and glibc version 2.39 or higher. Shadow stack support must, in addition, be enabled at run-time by setting the corresponding hardware capability tunable for glibc via the `GLIBC_TUNABLES` environmental variable [^glibc-tunables]: `export GLIBC_TUNABLES=glibc.cpu.hwcaps=SHSTK`.
 
-[^Armclang]: ARM Developer, [Arm Compiler armclang Reference Guide Version 6.12 -mbranch-protection](https://developer.arm.com/documentation/100067/0612/armclang-Command-line-Options/-mbranch-protection).
+AArch64 BTI and PAC are only usable on platforms that expose these architectural features. Specifically, PAC requires a CPU based on Arm v8.3-A or later, while BTI requires a CPU based on Arm v8.5-A or later. For userspace applications — particularly in GNU/Linux environments, as recommended in Tables 1 and 2 — the operating system plays a crucial role. On modern Linux systems (typically Linux Kernel version 5.8 or later), PAC and BTI support is enabled by default if the hardware provides the feature.
+
+[^Armclang]: ARM Developer, [Arm Compiler armclang Reference Guide version 6.24 -mbranch-protection](https://developer.arm.com/documentation/101754/0624/armclang-Reference/armclang-Command-line-Options/-mbranch-protection), 2025-03-28.
+
+[^ArmclangExample]: ARM Developer, [Examples for the armclang -mbranch-protection command-line option, version 6.24](https://developer.arm.com/documentation/101754/0624/armclang-Reference/armclang-Command-line-Options/Examples-for-the-armclang--mbranch-protection-command-line-option), 2025-03-28.
 
 [^IntelCET]: Intel, ["A Technical Look at Intel’s Control-flow Enforcement Technology"](https://www.intel.com/content/www/us/en/developer/articles/technical/technical-look-control-flow-enforcement-technology.html), 2020-06-13.
 
@@ -895,7 +910,7 @@ The x86_64 architecture supports a variant of mov and certain other instructions
 
 #### When not to use?
 
-Resource-constrained embedded systems may save memory by *prelinking* executables at compile time. Prelinking performs some relocation decisions, normally made by the dynamic linker, ahead of time. As a result, fewer relocations need to be performed by the dynamic linker, reducing startup time and memory consumption for applications. PIE does not prevent prelinking but enabling ASLR on prelinked binaries overrides the compile-time decisions, thus nullifying the run-time memory savings gained by prelinking. If the memory savings gained by prelinking are important for a system PIE can be enabled for a subset of executables that are at higher risk, e.g., applications that process untrusted external input.
+Resource-constrained embedded systems may save memory by *prelinking* executables at compile time. Prelinking performs some relocation decisions, normally made by the dynamic linker, ahead of time. As a result, fewer relocations need to be performed by the dynamic linker, reducing startup time and memory consumption for applications. PIE does not prevent prelinking but enabling ASLR on prelinked binaries overrides the compile-time decisions, thus nullifying the run-time memory savings gained by prelinking. If the memory savings gained by prelinking are important for a system then PIE can be enabled for a subset of executables that are at higher risk, e.g., applications that process untrusted external input.
 
 [^Bendersky11a]: Bendersky, Eli, [Position Independent Code (PIC) in shared libraries](https://eli.thegreenplace.net/2011/11/03/position-independent-code-pic-in-shared-libraries/), Eli Bendersky's website, 2011-11-03.
 
@@ -945,15 +960,18 @@ There are normally no significant performance implications. Null pointer checks 
 
 ---
 
-### Integer overflow may occur
+### Define behavior for signed integer and pointer arithmetic overflows
 
-| Compiler Flag                                                 | Supported since | Description                                                       |
-|:------------------------------------------------------------- |:---------------:|:----------------------------------------------------------------- |
-| <span id="-fno-strict-overflow">`-fno-strict-overflow`</span> |  GCC 4.2.0        | Integer overflow may occur                                        |
+| Compiler Flag                                                 | Supported since | Description                                                                                                                                    |
+|:------------------------------------------------------------- |:---------------:|:---------------------------------------------------------------------------------------------------------------------------------------------- |
+| <span id="-fno-strict-overflow">`-fno-strict-overflow`</span> |  GCC 8.5.0      | Signed integer overflows on addition, subtraction, multiplication, and pointer arithmetic wraps around using two's-completment representation  |
+| <span id="-fwrapv">`-fwrapv`</span>                           |  GCC 3.4.0      | Signed integer overflows on addition, subtraction, and multiplication wraps around using twos-completment representation                       |
+| <span id="-fwrapv-pointer">`-fwrapv-pointer`</span>           |  GCC 8.5.0      | Pointer arithmetic and multiplication wraps around using two's-complement representation                                                       |
+| <span id="-ftrapv">`-ftrapv`</span>                           |  GCC 3.3.0      | Signed integer overflows on addition, subtraction and multiplication trap with `SIGABRT`                                                       |
 
 #### Synopsis
 
-In C and C++ unsigned integers have long been defined as "wrapping around". However, for many years C and C++ have assumed that overflows do not occur in many other circumstances. Overflow when doing arithmetic with signed numbers is considered undefined by many versions of the official specifications, This approach also allows the compiler to assume strict pointer semantics: if adding an offset to a pointer does not produce a pointer to the same object. In practice, this means that important security checks written in the source code may be silently ignored when generating executable code.
+In C and C++ unsigned integers have long been defined as "wrapping around". However, C and C++ compilers, by default, assume that overflows do not occur in other circumstances. Overflow when doing arithmetic with signed numbers is considered undefined in the language specifications. This allows the compiler to assume strict pointer semantics: if adding an offset to a pointer does not produce a pointer to the same object, the addition is undefined. In practice, this means that important security checks written in the source code may be silently ignored when generating executable code.
 
 For example, here is some code from `fs/open.c` of the Linux kernel [^Wang2012]:
 
@@ -975,9 +993,33 @@ A developer *might* expect that the computation `offset + len` would produce a u
 
 The Linux kernel enables `-no-strict-overflow` to reduce the likelihood that important security checks in the source code will be silently ignored by the compiler.
 
-An alternative option is to use the `-fwrapv` option. With `-fwrapv`, integer signed overflow wraps (and is thus defined).
+Alternatives to `-no-strict-overflow` are the `-fwrapv` and `-ftrapv` options. With `-fwrapv`, integer signed overflow wraps (and is thus defined). With `-ftrapv`, signed integer overflows trap, e.g., on x86 an overflow causes a `SIGABRT` signal to the application.
 
-Note that GCC and Clang interpret this option slightly differently. On clang, this option is considered a synonym for `-fwrapv`. On GCC, this option does not fully enforce two's complement on signed integers, allowing for additional optimizations. [^Wang2012]
+Since GCC 8.5 `-no-strict-overflow` is equivalent to `-fwrapv -fwrapv-pointer` while GCC documentation recommends `-fsanitize=signed-integer-overflow` for diagnosing signed integer overflow issues during testing and debugging. In prior GCC versions `-no-strict-overflow` does not fully enforce two's complement on signed integers, allowing for additional optimizations[^Wang2012]. In Clang, `-no-strict-overflow` option is considered a synonym for `-fwrapv`.
+
+#### When not to use?
+
+The C and C++ standards since C23[^C2023] and C++20[^CPP2020] only support two’s complement representation for signed integer types[^Bastien2024]. Previous editions of these standards additionally allowed other sign representations. Code targeting one these previous language editions and requires a specific signed integer representation becomes less portable in a very subtle way. However, in practice, neither GCC nor Clang support other representations [^Bastien2018]. This means that even prior to C23 and C++20 the GCC and Clang implementations of these languages are effectively two’s complement. Consequently we believe most code will benefit from `-fno-strict-overflow` or its alternatives.
+
+#### Performance implications
+
+Each of these options gives the compiler less freedom for optimizing the resulting machine code compared to the default `-fstrict-overflow` behavior. For example, under `-fstrict-overflow` semantics, expressions such as `i + 10 > i` will always be true for signed `i`, allowing the expression to be replaced at compile time with a constant value. As discussed above, if such expressions occur in condition checks the compiler may optimize away entire code paths when the expression can be evaluated at compile time. In contrast, under `-fno-strict-overflow` those expression must be evaluated at run-time in case of overflows that wrap around the value, thus preventing some optimizations. On the other hand, treating overflows as undefined behavior will only yield optimal behavior if the programmer can be certain the program will never accept inputs that cause overflows.
+
+The `-ftrapv` option requires the compiler to emit checks to detect and trap overflows on signed integers unless it has compile time information of the value range to prove the operation doesn't overflow. As a result, `-ftrapv` is expected to have the largest performance impact out the options covered in this section.
+
+### Other considerations
+
+During link-time optimization (LTO), different compilation units may have been built with different arithmetic overflow behavior. The `-fno-strict-overflow`, `-fwrapv`, `-fno-trapv` and `-fno-strict-aliasing` are passed through to the link stage and take precedece over `-fstrict-overflow` semantics for compilation units with conflicting behavior[^gcc-flto]. In practice this means that software where certain modules benefit from `-fstrict-overflow` for perormance, but others use `-fno-strict-overflow` to improve security, may loose out on the performance benefits with `-fno-strict-overflow` taking precedence during LTO.
+
+[^gcc-flto]: GCC team, [Options That Control Optimization: -flto](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-flto), GCC Manual, 2024-05-07.
+
+[^C2023]: ISO/IEC, [Programming languages — C ("C23")](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf), ISO/IEC ISO/IEC 9899:2024, 2024. Note: The official ISO/IEC specification is paywalled and therefore not publicly available. The final specification draft is publicly available.
+
+[^CPP2020]: ISO/IEC, [Programming languages — C++ ("C++20")](https://isocpp.org/files/papers/N4860.pdf), ISO/IEC ISO/IEC 14882:2020, 2022. Note: The official ISO/IEC specification is paywalled and therefore not publicly available. The final specification draft is publicly available.
+
+[^Bastien2024]: Bastien, JF, [P3477R0: There are exactly 8 bits in a byte](https://open-std.org/JTC1/SC22/WG21/docs/papers/2024/p3477r0.html), Published ISO/IEC JTC1/SC22/WG21 Proposal, 2024-10-15.
+
+[^Bastien2018]: Bastien, JF, [P0907R4: Signed Integers are Two’s Complement](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0907r4.html), Published ISO/IEC JTC1/SC22/WG21 Proposal, 2018-10-06
 
 ---
 
@@ -1178,7 +1220,6 @@ Table 4: Sanitizer options in GCC and Clang.
 | Compiler Flag          |     Supported since      | Description                                                                 |
 |:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
 | `-fsanitize=address`   | GCC 4.8.0<br/>Clang 3.1.0 | Enables AddressSanitizer to detect memory errors at run-time                |
-| `-fsanitize=thread`    | GCC 4.8.0<br/>Clang 3.2.0 | Enables ThreadSanitizer to detect data race bugs at run time                |
 
 AddressSanitizer (ASan) is a memory error detector that can identify memory defects that involve:
 
@@ -1199,8 +1240,10 @@ To enable ASan add `-fsanitize=address` to the compiler flags (`CFLAGS` for C, `
 
 The run-time behavior of ASan can be influenced using the `ASAN_OPTIONS` environment variable. The run-time options can be used enable additional memory error checks and to tweak ASan performance. An up-to-date list of supported options are available on the AddressSanitizerFlags article on the project's GitHub Wiki[^asan-flags]. If set to `ASAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program. This is particularly useful for determining which options are supported by the specific version ASan integrated to the compiler being used. A useful pre-set to enable more aggressive diagnostics compared to the default behavior is given below:
 
- ASAN_OPTIONS=strict_string_checks=1:detect_stack_use_after_return=1: \
- check_initialization_order=1:strict_init_order=1 ./instrumented-executable
+~~~sh
+ASAN_OPTIONS=strict_string_checks=1:detect_stack_use_after_return=1: \
+check_initialization_order=1:strict_init_order=1 ./instrumented-executable
+~~~
 
 When ASan encounters a memory error it (by default) terminates the application and prints an error message and stack trace describing the nature and location of the detected error. A systematic description of the different error types and the corresponding root causes reported by ASan can be found in the AddressSanitizer article on the project's GitHub Wiki[^asan].
 
@@ -1259,7 +1302,7 @@ LSan cannot be used simultaneously with AddressSanitizer (ASan) or ThreadSanitiz
 
 UndefinedBehaviorSanitizer (UBSan) is a detector of non-portable or erroneous program constructs which cause behavior which is not clearly defined in the ISO C standard. UBSan provides a large number of sub-options to enable / disable individual checks for different classes of undefined behavior. Consult the GCC[^gcc-instrumentation] and Clang[^clang-ubsan] documentation respectively for up-to-date information on supported sub-options.
 
-To enable UBSan add `-fsanitize=undefined` to the compiler flags (`CFLAGS` for C, `CXXFLAGS` for C++) and linker flags (`LDFLAGS`) together with any desired sub-options. Consider combining TSan with the following compiler flags:
+To enable UBSan add `-fsanitize=undefined` to the compiler flags (`CFLAGS` for C, `CXXFLAGS` for C++) and linker flags (`LDFLAGS`) together with any desired sub-options. Consider combining UBSan with the following compiler flags:
 
 - `-O1` (required or higher for reasonable performance)
 - `-g` (to display source file names and line numbers in the produced warning messages)
@@ -1476,6 +1519,7 @@ Many more security-relevant compiler options exist than are recommended in this 
 | <span id="-fvtable-verify">`-fvtable-verify`</span> |GCC 4.9.4 | Enables run-time checks for C++ virtual function pointers corruption. This option has significant performance overhead[^Tice2014] and breaks ABI with all existing system libraries unless the entire userspace is built with `-fvtable-verify`[^gentoo-vtv]. Believed to be currently unmaintained in GCC.
 | <span id="-mmitigate-rop">`-mmitigate-rop`</span> | GCC 6.1 | Avoids combination of particular opcodes which can be reinterpretted as a return opcode in an attempt to mitigate Return Oriented Programming (ROP) attacks[^gcc-mmitigate-rop].  Was considered to be ineffective and security-theatre-esque, so was deprecated in GCC 9.1[^Bizjak2018].
 | <span id="CLANG_DEFAULT_PIE_ON_LINUX">`CLANG_DEFAULT_PIE_ON_LINUX`</span> | Clang 14.0.0 | When compiling Clang, turns on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler. Superceded by default provided via configuration files[^clang-config].
+| <span id="-fsplit-stack">`-fsplit-stack`</span> | GCC 4.6.0 | Generates code to automatically split the stack before it overflows to enable segmented stacks [^Taylor2011] for use by stackfull co-routines such as Boost Fibers. Interoperability between split-stack code to non-split-stack code requires the gold linker to ensure larger stack segments are allocated for calls to non-split-stack code [^Taylor2015]. Believed to be currently unmaintained in GCC.
 
 [^nodump]: The `-Wl,-z,nodump` option sets `DF_1_NODUMP` flag in the object’s `.dynamic` section tags. On Solaris this restricts calls to `dldump(3)` for the object. However, other operating systems ignore the `DF_1_NODUMP` flag. While Binutils implements `-Wl,-z,nodump` for Solaris compatibility a choice was made to not support it in `lld` ([D52096 lld: add -z nodump support](https://reviews.llvm.org/D52096)).
 
@@ -1498,6 +1542,10 @@ Many more security-relevant compiler options exist than are recommended in this 
 [^gcc-mmitigate-rop]: GCC team, [Using the GNU Compiler Collection (GCC): x86 Options: `-mmitigate-rop`](https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/x86-Options.html#index-mmitigate-rop-2936), GCC Manual, 2016-04-27.
 
 [^Bizjak2018]: Bizjak, Uros [\[RFC PATCH, i386\]: Deprecate `-mmitigate-rop`](https://gcc.gnu.org/pipermail/gcc-patches/2018-August/504637.html), GCC Mailing List, 2018-08-15.
+
+[^Taylor2011]: Taylor, Ian Lance, [Split Stacks in GCC](https://gcc.gnu.org/wiki/SplitStacks), GCC Wiki, 2011-02-07.
+
+[^Taylor2015]: Taylor, Ian Lance, [gccgo split stack implementation](https://groups.google.com/g/golang-dev/c/QBCN9XVkwFk/m/7DgP2Iu_USkJ), golang-dev Google Groups, 2015-07-10.
 
 ## Appendix: Scraper Script
 
