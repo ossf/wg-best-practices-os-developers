@@ -137,7 +137,7 @@ Code `example03.py` demonstrates how Python is changing required storage in the 
 
 ## Non-Compliant Code Example
 
-Method shiftRight in `noncompliant01.py` can reach zero for positive numbers but loops forever on negative inputs.
+Method `shift_right` in `noncompliant01.py` can reach zero for positive numbers but loops forever on negative inputs.
 
 *[noncompliant01.py](noncompliant01.py):*
 
