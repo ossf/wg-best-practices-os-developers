@@ -217,7 +217,7 @@ bits that exist in the operand]</a>
 [SEI CERT JAVA 2024]
 </td>
 <td>
-NUM01-P3 Do Not Perform Bit-wise and Arithmetic Operations on the Same Data [online]. Available from: <a href="https://eteamspace.internal.ericsson.com/pages/viewpage.action?pageId=1122687324">https://eteamspace.internal.ericsson.com/pages/viewpage.action?pageId=1122687324</a>,  [Accessed 6 May 2025]
+NUM01-J. Do not perform bitwise and arithmetic operations on the same data [online]. Available from: <a href="https://wiki.sei.cmu.edu/confluence/display/java/NUM01-J.+Do+not+perform+bitwise+and+arithmetic+operations+on+the+same+data">https://wiki.sei.cmu.edu/confluence/display/java/NUM01-J.+Do+not+perform+bitwise+and+arithmetic+operations+on+the+same+data</a>,  [Accessed 6 May 2025]
 </td>
 </tr>
 <tr>
