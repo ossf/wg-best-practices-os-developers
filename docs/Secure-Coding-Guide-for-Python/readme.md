@@ -90,7 +90,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-230: Improper Handling of Missing Values](CWE-703/CWE-230/.)||
 |[CWE-390: Detection of Error Condition without Action](CWE-703/CWE-390/README.md)||
 |[CWE-392: Missing Report of Error Condition](CWE-703/CWE-392/README.md)||
-|[CWE-754: Improper Check for Unusual or Exceptional Conditions](CWE-703/CWE-754/.)||
+|[CWE-754: Improper Check for Unusual or Exceptional Conditions - float](CWE-703/CWE-754/README.md)||
 |[CWE-755: Improper Handling of Exceptional Conditions](CWE-703/CWE-755/README.md)|[CVE-2024-39560](https://www.cvedetails.com/cve/CVE-2024-39560),<br/>CVSSv3.1: __6.5__,<br/>EPSS: __0.04__ (01.11.2024)|
 
 |[CWE-707: Improper Neutralization](https://cwe.mitre.org/data/definitions/707.html)|Prominent CVE|
@@ -99,7 +99,8 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')](CWE-707/CWE-89/README.md)|[CVE-2019-8600](https://www.cvedetails.com/cve/CVE-2019-8600/),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __01.43__ (18.02.2024)|
 |[CWE-117: Improper Output Neutralization for Logs](CWE-707/CWE-117/.)||
 |[CWE-175: Improper Handling of Mixed Encoding](CWE-707/CWE-175/README.md)||
-|[CWE-180: Incorrect behavior order: Validate before Canonicalize](CWE-707/CWE-180/README.md)||
+|[CWE-180: Incorrect behavior order: Validate before Canonicalize](CWE-707/CWE-180/README.md)|[CVE-2022-26136](https://www.cvedetails.com/cve/CVE-2022-26136/),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __00.18__ (24.04.2025)|
+|[CWE-838: Inappropriate Encoding for Output Context](CWE-707/CWE-838/README.md)||
 
 |[CWE-710: Improper Adherence to Coding Standards](https://cwe.mitre.org/data/definitions/710.html)|Prominent CVE|
 |:----------------------------------------------------------------|:----|
@@ -111,12 +112,12 @@ It is __not production code__ and requires code-style or python best practices t
 
 |Ref|Detail|
 |-----|-----|
-|[Python 2023]|3.9 Module Index [online], available from [https://docs.python.org/3.9/py-modindex.html](https://docs.python.org/3.9/py-modindex.html) [accessed Dec 2024]|
-|[mitre.org 2023]|CWE - CWE-1000: Research Concepts [online], available from [https://cwe.mitre.org/data/definitions/1000.html](https://cwe.mitre.org/data/definitions/1000.html) [accessed Dec 2024]|
-|[OWASP dev 2024]|OWASP Developer Guide [online], available from [https://owasp.org/www-project-developer-guide/release/](https://owasp.org/www-project-developer-guide/release/) [accessed Dec 2024]|
-|[OWASP 2021]|OWASP Top 10 Report 2021 [online], available from [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)|
-|[MITRE Pillar 2024]|_Pillar Weakness_ [online], available form [https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness](https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness) [accessed Dec 2024]|
-|[MITRE 2024]|CWE Top 25 [online], available form [https://cwe.mitre.org/top25/index.html](https://cwe.mitre.org/top25/archive/2022/2022_cwe_top25.html) [accessed Dec 2024]|
+|\[Python 2023\]|3.9 Module Index \[online\], available from [https://docs.python.org/3.9/py-modindex.html](https://docs.python.org/3.9/py-modindex.html) \[accessed Dec 2024\]|
+|\[mitre.org 2023\]|CWE - CWE-1000: Research Concepts \[online\], available from [https://cwe.mitre.org/data/definitions/1000.html](https://cwe.mitre.org/data/definitions/1000.html) \[accessed Dec 2024\]|
+|\[OWASP dev 2024\]|OWASP Developer Guide \[online\], available from [https://owasp.org/www-project-developer-guide/release/](https://owasp.org/www-project-developer-guide/release/) \[accessed Dec 2024\]|
+|\[OWASP 2021\]|OWASP Top 10 Report 2021 \[online\], available from [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)|
+|\[MITRE Pillar 2024\]|_Pillar Weakness_ \[online\], available form [https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness](https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness) \[accessed Dec 2024\]|
+|\[MITRE 2024\]|CWE Top 25 \[online\], available form [https://cwe.mitre.org/top25/index.html](https://cwe.mitre.org/top25/archive/2022/2022_cwe_top25.html) \[accessed Dec 2024\]|
 
 ## License
 

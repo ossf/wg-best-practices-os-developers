@@ -57,7 +57,8 @@ Licensing frameworks, while not directly security-related, significantly impact 
 |------|-------------|:--------:|
 | **License Clarity** | Verify that every component has a license, that it's a widely-used [OSI license](https://opensource.org/licenses) if it's OSS, and that it's consistent with your intended use. Projects that won't provide clear license information are less likely to follow other good practices that lead to secure software. |   |
 | **Name Verification** | Check if a similar name is more popular - that could indicate a typosquatting attack. |   |
-| **Usage Metrics** | Assess if it has significant use. Software with many users or large users may be inappropriate for your use. However, widely-used software is more likely to offer useful information on how to use it securely, and more people will care about its security. |   |
+| **Adoption** | Assess if the software has significant use. Widely-used software is more likely to offer useful information on how to use it securely and more people will care about its security. |   |
+| **Suitability** | Choose software that is a good solution for your problem. Avoid [Hype Driven Development](https://blog.daftcode.pl/hype-driven-development-3469fc2e9b22): Don't choose it merely because it's used by large companies or because it's the latest fad. |   |
 
 ## Practical Testing
 

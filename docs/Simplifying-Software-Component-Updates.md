@@ -47,6 +47,8 @@ Consider the following whenever making changes that might change the component�
 
 ## Component Users
 
+Consider the following when developing and maintaining software with dependencies:
+
 1. **Be cautious when adding dependencies.** Before adding a dependency, check if the functionality you need is already available in your existing dependencies or standard library. Every dependency introduces maintenance burden, and may become unmaintained and/or introduce security risks. [Evaluate](https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software) each dependency based on its quality, maintenance, and security. While avoiding adding a new dependency reduces supply chain risk, there is an inherent risk in reinventing the wheel – the code you write will almost certainly have bugs and potential security vulnerabilities. A well-maintained and widely used library will likely be more robust and secure than writing your own implementation*.*
 2. **Configure dependencies so you only use what you need.** Some components make it easy to load only part (e.g., through a plug-in architecture or configuration). It’s hard to exploit code that isn’t there or can’t be executed.
 3. **Use package manager(s) to track dependencies and enable automated updates**. Most modern systems have too many dependencies to manage manually.
