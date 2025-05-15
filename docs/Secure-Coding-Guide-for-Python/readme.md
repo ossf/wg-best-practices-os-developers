@@ -46,6 +46,11 @@ It is __not production code__ and requires code-style or python best practices t
 * Proper logging instead of printing to `stdout`
 * Secure coding compliance outside of described issue
 
+|[CWE-74: Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')](https://cwe.mitre.org/data/definitions/74.html)|Prominent CVE|
+|:---------------------------------------------------------------------------------------------------------------|:----|
+|[CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')](CWE-74/CWE-79/README.md)||
+|[CWE-94: Improper Control of Generation of Code ('Code Injection')](CWE-74/CWE-94/README.md)||
+
 |[CWE-664: Improper Control of a Resource Through its Lifetime](https://cwe.mitre.org/data/definitions/664.html)|Prominent CVE|
 |:-----------------------------------------------------------------------------------------------------------------------------------------------|:----|
 |[CWE-134: Use of Externally-Controlled Format String](CWE-664/CWE-134/README.md)|[CVE-2022-27177](https://www.cvedetails.com/cve/CVE-2022-27177/),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __00.37__ (01.12.2023)|
