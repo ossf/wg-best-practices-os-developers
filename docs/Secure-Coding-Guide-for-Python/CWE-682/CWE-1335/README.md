@@ -164,7 +164,7 @@ print("Will never reach here")
 
 ## Compliant Solution
 
-Bit-shifting is an optimization pattern that works better for languages closer to the CPU than Python. Math in Python is better done by arithmetical functions in Python as stated by *NUM01-P3 Do Not Perform Bit-wise and Arithmetic Operations on the Same Data* [[SEI CERT JAVA 2024]](https://eteamspace.internal.ericsson.com/pages/viewpage.action?pageId=1122687324).
+Bit-shifting is an optimization pattern that works better for languages closer to the CPU than Python. Math in Python is better done by arithmetical functions in Python as stated by *CWE-1335: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations* [[OpenSSF Secure Coding in Python 2025]](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/CWE-682/CWE-1335/01/README.md).
 Understanding `ctypes` or `C` requires understanding the *CERT C Coding Standard* [[SEI CERT C 2025]](https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard)and setting boundaries manually in Python.
 
 ## Automated Detection
@@ -174,6 +174,15 @@ Not available
 ## Related Guidelines
 
 <table>
+<tr>
+<td>
+<a href="https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python">[OpenSSF Secure Coding in Python 2025]</a>
+</td>
+<td>
+<a href="https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/CWE-682/CWE-1335/01/README.md">CWE-1335: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations</a>
+</td>
+</tr>
+<tr>
 <tr>
 <td>
 <a href="http://cwe.mitre.org/">MITRE CWE</a>
