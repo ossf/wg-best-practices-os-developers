@@ -67,6 +67,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-682: Incorrect Calculation](https://cwe.mitre.org/data/definitions/682.html)|Prominent CVE|
 |:---------------------------------------------------------------------------------------------------------------|:----|
 |[CWE-191: Integer Underflow (Wrap or Wraparound)](CWE-682/CWE-191/README.md)||
+|[# CWE-1335: Incorrect Bitwise Shift of Integer](CWE-682/CWE-1335/README.md)||
 |[CWE-1335: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations](CWE-682/CWE-1335/01/README.md)||
 |[CWE-1339: Insufficient Precision or Accuracy of a Real Number](CWE-682/CWE-1339/.)                            ||
 
