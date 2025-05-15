@@ -127,7 +127,7 @@ The `noncompliant02.py` code is triggering various `OverflowError` exceptions in
 
 ## Compliant Solution
 
-This `compliant02.py` solution is peventing `OverflowError` exception in `libpython` by safeguarding the upper and lowern limits in the provided `hours`. Upper and lower limit for `currtime` as well as inputsanitation and secure logging are missing and must be added when interfacing with a lesser trusted entity.
+This `compliant02.py` solution is preventing `OverflowError` exception in `libpython` by safeguarding the upper and lower limits in the provided `hours`. Upper and lower limit for `currtime` as well as input sanitization and secure logging are missing and must be added when interfacing with a lesser trusted entity.
 
 *[compliant02.py](compliant02.py):*
 
