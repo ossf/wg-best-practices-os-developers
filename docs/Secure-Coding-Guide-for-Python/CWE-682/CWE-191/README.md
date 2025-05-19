@@ -64,60 +64,148 @@ except OverflowError as e:
 
 ## Non-Compliant Code Example
 
-The `noncompliant02.py` example tries to use `time.localtime()` to get `x` hours in the future but causes integer overflow as the given Python `int` is too large to convert to `C long`. This is possible because `time` implements C representations of integers with all the security vulnerabilities as if you were using `C`.
+The `noncompliant02.py` example uses `datetime.timedelta()` to get `x` hours in the future or past for time travelers. The `datetime` is interfacing with the operating system through the `libpython` library written in `C`. Overall the Georgian calender ISO 8601 is limited to 1 - 9999 years [Python datetime 2025](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes).
 
 *[noncompliant02.py](noncompliant02.py):*
 
 ```python
-""" Non-compliant Code Example """
- 
-import time
- 
- 
-def get_time_in_future(hours_in_future):
-    """Gets the time n hours in the future"""
-    currtime = [tm for tm in time.localtime()]
-    currtime[3] = currtime[3] + hours_in_future
-    if currtime[3] + hours_in_future > 24:
-        currtime[3] = currtime[3] - 24
-    return time.asctime(tuple(currtime)).split(" ")[3]
- 
- 
-#####################
-# exploiting above code example
-#####################
-print(get_time_in_future(23**74))
-```
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+"""Noncompliant Code Example"""
 
-## Compliant Solution
-
-This `compliant02.py` solution handles `OverflowError` Exception when a too large value is given to `get_time_in_future`.
-
-*[compliant02.py](compliant02.py):*
-
-```python
-""" Compliant Code Example """
-
-import time
+from datetime import datetime, timedelta
 
 
-def get_time_in_future(hours_in_future):
-    """Gets the time n hours in the future"""
-    try:
-        currtime = list(time.localtime())
-        currtime[3] = currtime[3] + hours_in_future
-        if currtime[3] + hours_in_future > 24:
-            currtime[3] = currtime[3] - 24
-        return time.asctime(tuple(currtime)).split(" ")[3]
-    except OverflowError as _:
-        return "Number too large to set time in future " + str(hours_in_future)
+def get_datetime(currtime: datetime, hours: int):
+    """
+    Gets the time n hours in the future or past
+
+    Parameters:
+    currtime (datetime): A datetime object with the starting datetime.
+    hours (int): Hours going forward or backwards
+
+    Returns:
+    datetime: A datetime object
+    """
+    return currtime + timedelta(hours=hours)
 
 
 #####################
 # attempting to exploit above code example
 #####################
-print(get_time_in_future(23**74))
+datetime.fromtimestamp(0)
+currtime = datetime.fromtimestamp(1)  # 1st Jan 1970
+
+# OK values are expected to work
+# NOK values trigger OverflowErrors in libpython written in C
+hours_list = [
+    0,  # OK
+    1,  # OK
+    70389526,  # OK
+    70389527,  # NOK
+    51539700001,  # NOK
+    24000000001,  # NOK
+    -1,  # OK
+    -17259889,  # OK
+    -17259890,  # NOK
+    -23999999999,  # NOK
+    -51539699999,  # NOK
+]
+for hours in hours_list:
+    try:
+        result = get_datetime(currtime, hours)
+        print(f"{hours} OK, datetime='{result}'")
+    except Exception as exception:
+        print(f"{hours} {repr(exception)}")
 ```
+
+The `noncompliant02.py` code is triggering various `OverflowError` exceptions in the `libpython` library:
+
+- `date value out of range`
+- `OverflowError('Python int too large to convert to C int')`
+- `days=1000000000; must have magnitude <= 999999999`
+
+## Compliant Solution
+
+This `compliant02.py` solution is preventing `OverflowError` exception in `libpython` by safeguarding the upper and lower limits in the provided `hours`. Upper and lower limit for `currtime` as well as input sanitization and secure logging are missing and must be added when interfacing with a lesser trusted entity.
+
+*[compliant02.py](compliant02.py):*
+
+```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+"""Compliant Code Example"""
+
+from datetime import datetime, timedelta
+import logging
+
+# Enabling verbose debugging
+# logging.basicConfig(level=logging.DEBUG)
+
+
+def get_datetime(currtime: datetime, hours: int):
+    """
+    Gets the time n hours in the future or past
+
+    Parameters:
+    currtime (datetime): A datetime object with the starting datetime.
+    hours (int): Hours going forward or backwards
+
+    Returns:
+    datetime: A datetime object
+    """
+    # TODO: input sanitation
+    # Calculate lower boundary, hours from year 1 to currtime:
+    timedelta_lowerbound = currtime - datetime(1, 1, 1)  # 1st Jan 0001
+    hours_min = timedelta_lowerbound.total_seconds() // 3600 * -1
+
+    # Calculate upper boundary, hours from year 9999 to currtime:
+    timedelta_upperbound = datetime(9999, 12, 31) - currtime
+    hours_max = timedelta_upperbound.total_seconds() // 3600
+
+    # TODO: proper secure logging
+    logging.debug(
+        "hours_max=%s hours_min=%s hours=%s",
+        hours_max,
+        hours_min,
+        hours,
+    )
+    if (hours > hours_max) or (hours < hours_min):
+        raise ValueError("hours out of range")
+
+    return currtime + timedelta(hours=hours)
+
+
+#####################
+# attempting to exploit above code example
+#####################
+datetime.fromtimestamp(0)
+currtime = datetime.fromtimestamp(1)  # 1st Jan 1970
+
+# OK values are expected to work
+# NOK values trigger OverflowErrors in libpython written in C
+hours_list = [
+    0,  # OK
+    1,  # OK
+    70389526,  # OK
+    70389527,  # NOK
+    51539700001,  # NOK
+    24000000001,  # NOK
+    -1,  # OK
+    -17259889,  # OK
+    -17259890,  # NOK
+    -23999999999,  # NOK
+    -51539699999,  # NOK
+]
+for hours in hours_list:
+    try:
+        result = get_datetime(currtime, hours)
+        print(f"{hours} OK, datetime='{result}'")
+    except Exception as exception:
+        print(f"{hours} {repr(exception)}")
+```
+
+The `compliant02.py` example is protecting the lower level c-lib from an `OverflowError` by setting boundaries for valid values in `hours`. Similar issues occure with any functionality provided through the operating system.
 
 ## Non-Compliant Code Example
 
@@ -183,5 +271,6 @@ print(calculate_exponential_value(710))
 
 |||
 |:---|:---|
-|[[Python 2024]](https://docs.python.org/3.9/library/stdtypes.html)|Format String Syntax. Available from: <https://docs.python.org/3.9/library/stdtypes.html> \[Accessed 20 June 2024]|
-|[[cpython 2024]](https://github.com/python/cpython/blob/main/Modules/mathmodule.c)|mathmodule.c. Available from: <https://github.com/python/cpython/blob/main/Modules/mathmodule.c)> \[Accessed 20 June 2024]|
+|[[Python 2024]](https://docs.python.org/3.9/library/stdtypes.html)|Format String Syntax. [online] Available from: <https://docs.python.org/3.9/library/stdtypes.html> \[Accessed 20 June 2024]|
+|[[cpython 2024]](https://github.com/python/cpython/blob/main/Modules/mathmodule.c)|mathmodule.c. [online] Available from: <https://github.com/python/cpython/blob/main/Modules/mathmodule.c)> \[Accessed 20 June 2024]|
+|[Python datetime 2025]|datetime strftime() and strptime() Format Codes [online], Available from: <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes> [Accessed 27 March 2025]|
