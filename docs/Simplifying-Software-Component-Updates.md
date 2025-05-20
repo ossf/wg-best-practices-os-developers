@@ -44,7 +44,7 @@ Consider the following whenever making changes that might change the component�
 14. **Ensure you have an automated test suite that tests older and newer APIs**.
 15. **Attempt to anticipate likely future changes to an API, so that they will have fewer impacts on users**. For example, you might add an extra parameter like “flags” or “configuration” that enables adding capabilities later without changing the API for existing users.
 16. **Support subsetted functionality**. Code that can’t be executed can’t be exploited and functional changes won’t impact users. Therefore, consider making it easy to enable only a subset of the component’s functionality. Mechanisms for doing this include splitting functions into components (so users can choose a subset of them), providing a plug-in architecture (so users can choose their plug-ins), or a configuration system that allows users to enable or disable specific functions.
-17. **Avoid changing to more restrictive licenses**. Changing the software license to be more restrictive (e.g., OSS to non-OSS) in a later version means that many past users will not be able or willing to use the later version.
+17. **Avoid changing to more restrictive licenses**. Changing the software license to be more restrictive (e.g., OSS to non-OSS, or permissive to protective/copyleft) in a later version means that many past users may not be able or willing to use the later version.
 
 ## Component Users
 
