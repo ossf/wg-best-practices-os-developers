@@ -16,13 +16,13 @@ how to do that and the labs we'd like created.
 Here are some of the labs available, which you can use as examples:
 
 * [hello](hello.html) - simple "Hello, world!" demo. ([ja_hello](ja_hello.html), [fr_hello](fr_hello.html))
-* [input1](input1.html) - input validation (simple types)
-* [regex0](regex0.html) - regular expressions (regexes) - introduction
-* [regex1](regex1.html) - regular expressions (regexes)
-* [input2](input2.html) - input validation (more complex situations)
-* [csp1](csp1.html) - Content Security Policy (CSP)
-* [oob1](oob1.html) - Out-of-bounds (OOB)
-* [handling-errors](handling-errors.html) - Handling errors
+* [input1](input1.html) - input validation (simple types) ([ja_input1](ja_input1.html))
+* [regex0](regex0.html) - regular expressions (regexes) - introduction ([ja_regex0](ja_regex0.html))
+* [regex1](regex1.html) - regular expressions (regexes)  ([ja_regex1](ja_regex1.html))
+* [input2](input2.html) - input validation (more complex situations) ([ja_input2](ja_input2.html))
+* [csp1](csp1.html) - Content Security Policy (CSP) ([ja_csp1](ja_csp1.html))
+* [oob1](oob1.html) - Out-of-bounds (OOB) ([ja_oob1](ja_oob1.html))
+* [handling-errors](handling-errors.html) - Handling errors ([ja_handling-errors](ja_handling-errors.html))
 
 We also have a [template](template.html) available.
 
