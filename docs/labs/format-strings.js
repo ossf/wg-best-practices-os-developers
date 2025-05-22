@@ -5,12 +5,12 @@ info =
 {
   hints: [
     {
-      present: String.raw`def format_event \( user_input
+      present: String.raw`def format_event \( user_format
 `,
       text: "The `user_format` should no longer be used, so we should remove it from the list of parameters being passed into the function being defined by `def`. The first line should read `def format_event(new_event):`",
     },
     {
-      present: "user_input",
+      present: "user_format",
       text: "Do not support a user-provided format at all. In this case there is no need for it.",
     },
     {
