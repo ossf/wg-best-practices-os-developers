@@ -48,6 +48,7 @@ unsigned int get_queue(message** messages);
 /* The part of our code which processes messages... */
 <input id="attempt0" type="text" size="60" spellcheck="false" value="int queue_count = 0;" style="background-color: yellow;">
 message* messages = malloc(sizeof(message) * MAX_MESSAGE_COUNT);
+queue_count = get_queue(&messages);
 
 /* Process each message in order */
 for (unsigned int i = 0; i < queue_count; i++) {
