@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="checker.js"></script>
+<script src="free.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>ラボ演習 free</h1>
+<p>
+これはセキュアなソフトウェア開発に関するラボ演習です。
+ラボの詳細については、<a href="ja_introduction.html" target="_blank">概要</a>をご覧ください。
+
+<p>
+<h2>タスク</h2>
+<p>
+<b>以下のコードを変更して、シンプルな解放後使用（use-after-free）バグを修正してください。</b>
+
+<p>
+<h2>背景</h2>
+<p>
+実際、全てのプログラミング言語は開発者が迅速にメモリを確保し、そのメモリ領域にデータを保管することを許しています。
+プログラムがそのメモリを使い終わったら、ほとんどのプログラミング言語は自動的にメモリを回収します。
+
+<p>
+しかしながら、C と C++ では <i>手動による</i> メモリ管理が求められます。
+これはつまり、C と C++ を使用する開発者は、<i>手動で</i> システムにメモリ領域の解放を（それぞれ <tt>free</tt> と <tt>delete</tt> を使って）要求しなければならない、ということです。
+手動でのメモリ管理はパフォーマンスに優位性があり、また概念的にはシンプルです。
+しかし手動でのメモリ管理はまた、多様なよくあるタイプのバグをもたらします。
+
+
+<ol>
+<li>二重解放： 同じメモリ領域を２回以上解放してしまうこと
+<li>解放後使用（use-after-free）： 解放後に（読み込みまたは書き込みとして）メモリを使用してしまうこと
+<li>解放し忘れ： 使わなくなったメモリを解放し忘れてしまうこと
+</ol>
+
+<p>
+
+これらのバグは頻繁に発生します。なぜなら、これはいつものことですが、ソフトウェアが大きく、また複雑になるにつれて、完璧に実装することが難しくなるからです。
+多くの脆弱性は、手動でのメモリ管理のバグに起因しています。
+そのようなバグの <i>全てが脆弱性ではありません</i> が、多くは脆弱性になります。
+
+<p>
+<h2>タスクの詳細</h2>
+<p>
+
+<p>
+以下の C コードを変更して、シンプルな解放後使用（user-after-free）バグを修正してください。
+このコードで実装されている関数 <tt>tweak</tt> は <tt>s</tt> という文字列を受け取ります。
+この関数は <tt>pre_</tt>、入力されたテキスト（<tt>s</tt>）、<tt>_post</tt> という新しい文字列を生成するために <tt>asprintf</tt> という関数を呼び出します。
+関数 <tt>tweak</tt> は最終的にこの新しい結果を返す必要があります。
+残念なことに現在のコードは、メモリ領域を最後に使用するより <i>前に</i> その領域を解放するための <tt>free</tt> を呼び出しています。
+これにより「解放後使用（use-after-free）」バグが引き起こされます。
+このバグが問題となるかどうかは実装の多くの詳細によりますが、いずれにせよ私たちは問題を引き起こしたくはありません。
+
+<p>
+コードを修正しましょう！
+必要に応じて、「ヒント」ボタンと「諦める」ボタンを使用してください。
+
+<p>
+<h2>演習 (<span id="grade"></span>)</h2>
+<p>
+<form id="lab">
+<pre><code
+>#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdio.h&gt;
+
+// 調整バージョンの文字列 s を返す。s は解放する。
+char *tweak(char *s) {
+  char *result; // 結果はここに格納する
+<textarea id="attempt0" rows="4" cols="60" spellcheck="false">
+  free(s);
+  asprintf(&result, "pre_%s_post", s);
+  return result;
+</textarea>
+}
+</code></pre>
+<button type="button" class="hintButton">ヒント</button>
+<button type="button" class="resetButton">リセット</button>
+<button type="button" class="giveUpButton">諦める</button>
+<br><br>
+<p>
+<i>このラボは、<a href="https://www.linuxfoundation.org/">Linux Foundation</a>のDavid A. Wheelerによって開発されました。</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
