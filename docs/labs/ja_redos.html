@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="checker.js"></script>
+<script src="redos.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>ラボ演習 ReDoS</h1>
+<p>
+これはセキュアなソフトウェア開発に関するラボ演習です。
+ラボの詳細については、<a href="ja_introduction.html" target="_blank">概要</a>をご覧ください。
+
+<p>
+<h2>タスク</h2>
+<p>
+ReDoS 攻撃の影響を受けるコードを特定し、修正する方法を学びます。
+
+<p>
+<h2>背景</h2>
+<p>
+正規表現は、データが特定のパターンにマッチするかどうか確認する入力検証の一手段として使用されます。貧弱な設計の正規表現は、正規表現サービス拒否（regular expression denial-of-service : ReDoS）攻撃に対する脆弱性をもたらします。この攻撃は多くの正規表現実装が極端な状態に陥ることがあることを悪用するもので、攻撃者は正規表現実装が非常に長い間実行される状況を引き起こすことができます。しばしばその実行時間は入力の長さに対して指数関数的に増加します。
+
+<p>
+この演習では ReDoS 攻撃に影響を受けやすい正規表現を用いた入力検証を修正します。
+
+<p>
+<h2>タスクの詳細</h2>
+<p>
+
+<p>
+以下のコードはパス <tt>/parts</tt> に対する get リクエストのハンドラを設定しています。このコードでは、例えば <tt>http://localhost:3000/parts?id=AB123</tt>（localhost のポート 3000 で待ち受けていることを想定）へのリクエストによって起動します。もし入力検証にエラーがなければ、このコードはパーツの ID を表示します。入力検証にエラーがある場合は、リクエストが何らかの理由で無効であることを示す HTTP エラーコード 422（"Unprocessable Content"）をエラーメッセージと共に返します。
+
+<p>
+この演習では、ReDoS 攻撃に影響を受けやすい正規表現に対策を盛り込みます。
+<ol>
+<li>入力文字列の長さ上限を設け、最初に長さをチェックする。
+  <ol>
+    <li>ID パラメータ（(<tt>query('id')</tt>）を選択したのち、文字列の長さを制限するために検証条件 <tt>isLength()</tt> を設ける。サイズの上限を設定するためのオプションパラメータを使用する必要があります : <tt>isLength({max: YOUR_MAXIMUM})</tt></li>
+  </ol>
+</li>
+<li>最悪の事態を避けるために正規表現を修正する。特に、グループ "(...)" が分岐を含んでいたり、繰り返しで終わっていたり、それ自身が繰り返されていることがないように注意する必要があります。</li>
+</ol>
+
+<p>
+必要に応じて、「ヒント」ボタンと「諦める」ボタンを使用してください。
+
+<p>
+<h2>演習 (<span id="grade"></span>)</h2>
+<p>
+ReDoS 攻撃を回避するための変更を以下のコードへ加えてください。
+<ol>
+  <li>クエリーパラメータ id が <b>50文字</b> を超えないように、入力文字列の長さに上限を設けてください。 </li>
+  <li>最悪の事態に陥らないように正規表現を修正してください。正規表現はこの場合のパーツ ID フォーマットにマッチするよう設定します。すなわち １文字以上の大文字アルファベットおよび数字 です。</li>
+</ol>
+
+<form id="lab">
+  <pre><code
+  >// Express フレームワークと express-validator ライブラリのセットアップ
+  const express = require("express");
+  const app = express();
+  const { query, matchedData, validationResult } =
+      require('express-validator');
+  
+  // リクエストに対する実装 例： http://localhost:3000/parts?id=1
+  app.get('/parts',
+  <input id="attempt0" type="text" size="65" spellcheck="false"
+   value="  query('id').matches( /^([A-Z0-9]+)+$/ ) ,">
+    (req, res) =&gt; { // もし /parts があればここが実行される
+      const result = validationResult(req); // エラーを取得
+      if (result.isEmpty()) { // エラーがない場合
+        const data = matchedData(req); // マッチしたデータを取得
+        return res.send(`You requested part id ${data.id}!`);
+      }
+      res.status(422).send(`Invalid input`);
+    })
+  </code></pre>
+  <button type="button" class="hintButton">ヒント</button>
+  <button type="button" class="resetButton">リセット</button>
+  <button type="button" class="giveUpButton">諦める</button>
+  <br><br>
+  <p>
+  <i>このラボは Camila Vilarinho によって開発されました。</i>
+  <br><br><!-- These go in the last form if there's more than one: -->
+  <p id="correctStamp" class="small">
+  <textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+  </textarea>
+  </form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
