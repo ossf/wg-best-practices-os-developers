@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://best.openssf.org/labs/template.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="checker.js"></script>
+<script src="conversion.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>ラボ演習 incorrect conversion</h1>
+<p>
+これはセキュアなソフトウェア開発に関するラボ演習です。
+ラボの詳細については、<a href="ja_introduction.html" target="_blank">概要</a>をご覧ください。
+
+</p><p>
+</p><h2>ゴール</h2>
+<p>
+<b>予期せぬ型変換が起こらないように、以下のコードを修正しましょう。</b>
+
+</p><p>
+</p><h2>背景</h2>
+<p>この演習では、予期せぬ型変換（または予期せぬ型キャストとも呼ばれる）を特定し修正します。</p>
+<p>以下の例では C プログラムでキューに格納されたメッセージを処理します。メッセージは <tt>get_queue</tt> という関数をコールすることで取得します。<tt>get_queue</tt> 関数にはメッセージを格納できる配列を一つの引数として参照渡しし、関数はこの配列に書き込まれたメッセージの数を戻り値として返します。その後取得したメッセージに対して <tt>process_message</tt> を繰り返し呼び出すことで処理します。</p>
+<p>残念ながら <tt>queue_count</tt> の型と <tt>get_queue</tt> の戻り値の型が一致していないため、メッセージの数を誤って処理してしまう可能性があります。処理回数が少なすぎる場合は情報が失われてしまいます。処理回数が多すぎる場合、 <tt>messages</tt> 配列の未初期化領域のデータを取り扱うことになりエラーを引き起こす恐れがあります。または配列境界を越えた読み込みによってセグメンテーションフォルトを引き起こす可能性があります。</p>
+
+<p></p><h2>タスクの詳細</h2>
+<p></p>
+<p>予期せぬ型変換、または <tt>get_queue</tt> の戻り値が予期せず切り詰められることがないように以下のコードを修正してください。
+必要に応じて、「ヒント」ボタンと「諦める」ボタンを使用してください。
+</p>
+
+<p></p>
+<h2>演習 (<span id="grade"></span>)</h2>
+<p></p>
+
+<form id="lab">
+<pre><code>
+/* get_queue 関数のシグネチャ */
+unsigned int get_queue(message** messages);
+
+/* メッセージ処理部分... */
+<input id="attempt0" type="text" size="60" spellcheck="false" value="int queue_count = 0;" style="background-color: yellow;">
+message* messages = malloc(sizeof(message) * MAX_MESSAGE_COUNT);
+queue_count = get_queue(&messages);
+
+/* 個々のメッセージを順番に処理 */
+for (unsigned int i = 0; i < queue_count; i++) {
+	process_message(messages[i]);
+}
+</code></pre>
+<button type="button" class="hintButton" title="現状へのヒント">ヒント</button>
+<button type="button" class="resetButton" title="初期状態にリセット（現状は失われます）">リセット</button>
+<button type="button" class="giveUpButton" title="諦めて答えを見る">諦める</button>
+<br><br>
+<p>
+<i>このラボは Keith Grant によって開発されました。</i>
+<br><br>
+</p><p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly=""></textarea>
+</p></form>
+</div><!-- End GitHub pages formatting -->
+
+
+</body></html>
