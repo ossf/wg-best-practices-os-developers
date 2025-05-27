@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="checker.js"></script>
+<script src="format-strings.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>ラボ演習 Format Strings and Templates</h1>
+<p>
+これはセキュアなソフトウェア開発に関するラボ演習です。
+ラボの詳細については、<a href="ja_introduction.html" target="_blank">概要</a>をご覧ください。
+
+<p>
+<h2>タスク</h2>
+<p>
+<b>Python の文字列フォーマッティングに内在する脆弱性の排除を実践しましょう。</b>
+
+<p>
+<h2>背景</h2>
+<p>
+この演習では、ユーザーが
+<a href="https://docs.python.org/3/tutorial/inputoutput.html#the-string-format-method"><tt>
+format string</tt></a>
+を制御できないように、我々の文字列フォーマッティングを調整します。
+
+<p>もしユーザーが Python の <tt>format string</tt>を制御できてしまうと、そのユーザーは本来アクセスすべきではない値にアクセスできてしまいます。特に、もしそういった変数の値がユーザーに出力として返された場合は、開発者が意図した範囲を超える情報漏洩を引き起こします。
+
+
+<p>
+<h2>タスクの詳細</h2>
+<p>
+文字列フォーマッティングがプログラム上の任意の値を出力しないように以下のコードを修正してください。
+
+<p>
+サーバサイドプログラムは Python で書かれており、 ここでは <tt>user_format</tt> として <tt>format string</tt> を指定することによってイベントの出力フォーマットをユーザが制御できるようになっています。開発者はおそらく、ユーザが <tt>'{event.level}'</tt> のようなフォーマット文字列を指定して、何が・どこに表示されるか制御することを期待したのでしょう。
+
+<p>
+しかし、多くのプログラミング言語において、信頼できないユーザに文字列フォーマットの制御を許すことは脆弱性につながります。フォーマット文字列は小さなプログラミング言語であり、信頼できないユーザからのコードを実行することは危険です。この Python のケースでは、攻撃者は <tt>'{event.__init__.__globals__[CONFIG][SECRET_KEY]}'</tt> といったフォーマット文字列を忍ばせて、パスワードやシークレットキーといった秘密情報を暴くことができるかもしれません。
+
+<p>
+このケースでは他の多くの場合と同じく、信頼できないユーザにフォーマット文字列を制御させる必要性は全くありません。可能な個所には全て、潜在的な攻撃者が制御できないように定数のフォーマットを用いるべきです。この演習ではユーザにフォーマット文字列を制御させる代わりに、<tt>'{event.level},{event.message}'</tt> といった固定値をフォーマットとして使用します。必要のないフォーマットのパラメータを全て削除することも忘れないでください。
+
+<p>
+必要に応じて、「ヒント」ボタンと「諦める」ボタンを使用してください。
+
+<p>
+<h2>演習<span id="grade"></span>)</h2>
+<p>
+<form id="lab">
+<pre><code><textarea id="attempt0" rows="3" cols="60" spellcheck="false"
+>def format_event(user_format, new_event):
+   return user_format.format(event=new_event)</textarea
+></code></pre>
+<button type="button" class="hintButton">ヒント</button>
+<button type="button" class="resetButton">リセット</button>
+<button type="button" class="giveUpButton">諦める</button>
+<br><br>
+<p>
+<i>このラボは<a href="https://access.redhat.com">Red Hat</a>の Jason Shepherd によって開発されました。</i>
+Armin Ronacher による記事
+<a href="https://lucumr.pocoo.org/2016/12/29/careful-with-str-format/">Be Careful with Python's New-Style String Format</a>
+のサンプルコードを修正したバージョンに基づいており、David A. Wheeler が修正を加えています。
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
