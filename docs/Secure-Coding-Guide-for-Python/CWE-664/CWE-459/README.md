@@ -9,7 +9,8 @@ In Python there is two documented ways to create temporary files using the tempf
 tempfile.mkstemp() creates a secure file in the most secure fashion allowing only read and write to the user who executed the python script. The function returns a tuple containing a file descriptor and the file path, but since this tuple is not a context manager, it does not directly integrate with the "with" statement, which automatically manages resource cleanup. This means that the user is responsible for deleting the temporary file after use.  
 
 
-tempfile.NamedTemporaryFile() is more advanced than the mkstemp() method as it returns a file-like object that works well with the "with" statement, although it creates the file with the same permissions as mkstemp(). The default behaviour is to delete the file once the "with" block is finished. If the file is needed outside of the with block, the delete_on_close parameter must be set to false.
+tempfile.NamedTemporaryFile() is more advanced than the mkstemp() method as it returns a file-like object, which acts as a context manager, which works well with the "with" statement, although it creates the file with the same permissions as mkstemp(). The default behaviour is to delete the file once the "with" block is finished. If the file is needed outside of the with block, the delete_on_close parameter must be set to false.
+
 
 
 ## Non-Compliant Code Example
@@ -19,8 +20,6 @@ In the noncompliant01.py example, a temporary file is created but is not removed
 *[noncompliant01.py](noncompliant01.py):*
 
 ```python
-"""Non-compliant Code Example"""
-
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
@@ -34,8 +33,6 @@ In noncompliant02.py, we are using the mkstemp method to generate the temporary 
 *[noncompliant02.py](noncompliant02.py):*
 
 ```python
-"""Non-compliant Code Example"""
-
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
@@ -49,13 +46,13 @@ with os.fdopen(fd, 'w') as f:
 print(path)
 ```
 
-The non-compliant02.py does not remove the file after use and leaves clean up to the user or the operating system.
+Neither of the code examples removes the file after use, leaving cleanup to the user or the operating system.
 
 ## Compliant Solution
 
-In compliant01.py we use the tempFile module to generate our temporary file. When not passing in delete=false the default behaviour is the fie will be deleted after the corresponding file-like objects are closed.
+In compliant01.py we use the tempfile module to generate our temporary file. When not passing in delete=false the default behaviour is the file will be deleted after the corresponding file-like objects are closed.
 
-Thanks to the use of the "with" statement we ensure that the file is closed after the file is written, even if an error is to occur.
+Thanks to the use of the "with" statement we ensure that the file is closed after writing to it, even if an error is to occur.
 
 *[compliant01.py](compliant01.py):*
 
