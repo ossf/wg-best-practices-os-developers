@@ -69,7 +69,9 @@ It is permissible to use control flow statements that lead into a finally block,
 ```python
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
- 
+ """ Compliant Code Example """
+
+
 def do_logic():
     try:
         raise Exception
