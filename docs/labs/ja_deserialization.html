@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="checker.js"></script>
+<script src="deserialization.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>ラボ演習 deserialization</h1>
+<p>
+これはセキュアなソフトウェア開発に関するラボ演習です。
+ラボの詳細については、<a href="ja_introduction.html" target="_blank">概要</a>をご覧ください。
+
+<p>
+<h2>タスク</h2>
+<p>
+<b>下記のコードを変更して、安全でないデシリアライゼーション(Insecure Deserialization)の脆弱性を防止するようにしてください。</b>
+
+<p>
+<h2>背景</h2>
+<p>
+安全でないデシリアライゼーションは、アプリケーションのデシリアライゼーションのプロセスが悪用されて起こり、攻撃者がシリアライズされたデータを改変してアプリケーションコードに悪影響を及ぶデータを渡すことができてしまうものです。
+<p>
+この脆弱性を防ぐ最も安全な方法は、信頼できないソース(ユーザーがコントロールできるデータ)からシリアライズされたオブジェクトを受け入れないようにすることです。しかし、もし受け入れる必要があるときには、実装することのできる緩和策がいくつかあります。このラボでは、そのような緩和策をいくつか適用します。
+
+<p>
+<h2>タスクの詳細</h2>
+<p>
+
+<p>
+下記のコードは、アプリケーションのログインページの後に呼ばれます。ログイン後、ユーザーのプロファイルを含むクッキーが作られ、ホームページでクッキーはデシリアライズされ、その中のユーザー名(username)を挨拶のメッセージで使います。
+<p>
+このコードをよりよく見ると、クッキーからデータをデシリアライズする際に<tt>eval()</tt>を用いていることがわかります。これは非常に危険となりうるもので、<tt>eval()</tt>は文字列をJavaScriptのコードとして評価するために、文字列に含まれる任意のコードが実行されることとなり、リモートコード攻撃(RCE)やコードインジェクション攻撃の可能性を開くものです。
+<p>
+このラボでは、攻撃者がコードを実行することを防ぐアプローチを用いてこれを修正します。また、簡単な入力のバリデーションを行うことで、JSONデータから得られるものが期待通りものであることを確認します。
+<ol>
+  <li>
+    <tt>eval()</tt>を<tt>JSON.parse()</tt>で置き換えてください。JSON.parse( )は関数やメソッドといったJavaScriptのコードを実行することはないため、デシリアライゼーションへのはるかに安全なアプローチです。
+  </li>
+  <li><tt>data.username</tt>が存在するかどうかのチェックに加えて、その値に対して簡単なバリデーションを行ってください。値が文字列であり(<tt>typeof data.username == 'string'</tt>)、それが20文字未満である(<tt>data.username.length &lt; 20</tt>)ことを確認してください</li>
+</ol>
+
+<p>
+必要に応じて、「ヒント」ボタンと「諦める」ボタンを使用してください。
+
+<p>
+<h2>演習 (<span id="grade"></span>)</h2>
+<p>
+<p>
+
+下記のコードを変更して、安全でないデシリアライゼーションを防ぐ緩和策を追加してください。
+<ol>
+  <li>信頼できないコードの実行を防ぐデシリアライゼーションのアプローチを用いてください。</li>
+  <li>ユーザー名(username)をバリデートし、それが<b>文字列であり</b><b>20文字</b>未満である場合にのみ応答するようにしてください。</li>
+</ol>
+<form id="lab">
+
+<pre><code
+>const express = require('express');
+const cookieParser = require('cookie-parser');
+
+const app = express();
+
+app.use(express.json());
+app.use(cookieParser());
+
+app.get('/', (req, res) => {
+  if (req.cookies.profile) {
+    try {
+      const base64Decoded = Buffer.from(
+        req.cookies.profile, 'base64').toString('utf8');
+      <input id="attempt0" type="text" size="60" spellcheck="false"
+             value="const data = eval('(' + base64Decoded + ')');">
+
+      <textarea id="attempt1" rows="3" cols="60" spellcheck="false"
+>if (data.username) {</textarea>
+            // XSSを防ぐために、信頼できないデータでres.sendを用いることは避けてください。
+            res.render('index', {username: data.username});
+      }
+
+    } catch (err) {
+      res.send('An error occurred.');
+    }
+  } else {
+    res.send("Please Login");
+  }
+});
+</code></pre>
+
+
+<button type="button" class="hintButton">ヒント</button>
+<button type="button" class="resetButton">リセット</button>
+<button type="button" class="giveUpButton">諦める</button>
+<br><br>
+<p>
+<i>このラボは、Camila Vilarinhoによって開発されました。</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
