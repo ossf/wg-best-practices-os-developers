@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="checker.js"></script>
+<script src="hardcoded.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>ラボ演習 hardcoded</h1>
+<p>
+これはセキュアなソフトウェア開発に関するラボ演習です。
+ラボの詳細については、<a href="ja_introduction.html" target="_blank">概要</a>をご覧ください。
+
+<p>
+<h2>タスク</h2>
+<p>
+<b>サンプルコードからハードコードされた認証情報を取り除いてください。</b>
+
+<p>
+<h2>背景</h2>
+<p>
+この演習では、ハードコードされた認証情報（この場合はパスワード）をコードから取り除きます。
+
+<p>
+<h2>タスクの詳細</h2>
+<p>
+
+<p>
+以下の Java コードを変更して、ハードコードされた認証情報を取り除いてください。
+このコードはハードコードされたユーザ名 "admin" と同じくハードコードされたパスワード "admin" でデータベースシステムにログインします。
+最低でも、パスワードはソースコードの中にハードコードして <i>公開すべきものではありません</i>。
+パスワードなどの秘密とすべき認証情報がハードコードされていると、不必要に広く公開されてしまい、また変更が困難になります。
+ユーザ名も変更される可能性があるので、<i>ハードコードしない</i> 方が賢明です。
+
+<p>
+ここでは目的を達成するため、ユーザ名とパスワードを環境変数の値から取得するようにコードを修正します。
+ユーザ名（第二引数）は環境変数 <tt>USERNAME</tt> に格納されており、パスワード（第三引数）は環境変数 <tt>PASSWORD</tt> に格納されているものとします。
+Java では <tt>System.getenv("FOO")</tt> によって環境変数 <tt>FOO</tt> の値が取得できます。
+
+<p>
+環境変数はプログラムのあらゆる部分から参照できてしまうため、汎用的に完璧な手段とはいえません。
+より良い他の方法が、あなたが使っているプラットフォームには用意されているかもしれません。
+ただしこの場の例としては、移植性に優れており、使うのが簡単で、<i>なにより認証情報をハードコードするよりも良い方法である</i> ことから、環境変数を用います。
+注：Java は URL にユーザ名とパスワードを埋め込む形式をサポートしていますが、説明を単純にするためここでは使用しません。
+
+<p>
+必要に応じて、「ヒント」ボタンと「諦める」ボタンを使用してください。
+
+<p>
+<h2>演習 (<span id="grade"></span>)</h2>
+<p>
+以下の Java コードを修正し、ハードコードされたパスワードとユーザ名を取り除いてください。
+<p>
+<form id="lab">
+<pre><code
+><textarea id="attempt0" rows="3" cols="60" spellcheck="false"
+>conn = DriverManager.getConnection(url,
+     "admin", "admin");</textarea></code></pre>
+<button type="button" class="hintButton">ヒント</button>
+<button type="button" class="resetButton">リセット</button>
+<button type="button" class="giveUpButton">諦める</button>
+<br><br>
+<p>
+<i>このラボは<a href="https://www.microsoft.com/">Microsoft</a>のAvishay Balterによって開発されました。</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
