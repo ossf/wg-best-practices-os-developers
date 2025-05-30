@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="checker.js"></script>
+<script src="shell-injection.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>ラボ shell-injection</h1>
+<p>
+これはセキュアなソフトウェア開発に関するラボ演習です。
+ラボの詳細については、<a href="ja_introduction.html" target="_blank">概要</a>をご覧ください。
+
+<p>
+<h2>タスク</h2>
+<p>
+<b>シェルインジェクション脆弱性を取り除きます</b>
+
+<p>
+<h2>背景</h2>
+<p>
+多くのケースでプログラマは作成したアプリケーションからシステムコマンドを実行します。
+これには複数の理由があります：複雑なツールを実行したい、他のツールが持つ機能を再度プログラムすることを避けたい、単純にアプリケーション（これはしばしば Web アプリケーションです）がサーバシステム上でツールを実行するためのインターフェースになっている、など。
+しかしながら、誤った方法による実行は脆弱性につながります。
+</p>
+
+<p>
+呼び出す外部のツールに渡されるパラメータは、非常に多くのケースで静的（いつも同じ値）ではありません。
+一つまたは複数のパラメータは、信頼できないユーザから与えらえれます。
+例えばそれは、プロジェクト名などかもしれません。
+どうしてもシェルが必要という場合でない限り、アプリケーションがこれらのパラメータをシェル経由で渡す必要は全くありません。
+</p>
+
+<p>
+さらに、
+アプリケーションは与えられたパラメータを慎重に扱い、 コマンドの末尾（多くの場合「;」）などの特殊文字が含まれていないことを確認する必要があります。そうしないと、攻撃者が入力内容を巧妙に操作し、アプリケーションに用意されているコマンドに加えて任意のコマンドを実行できてしまう可能性があります。
+これは、許可リスト（allowlist）、つまり許可するコマンドを明示的にリストする（それ以外の全てのコマンドを禁止する）ことで実現できます。
+</p>
+
+<p>
+<h2>タスクの詳細</h2>
+<p>
+このタスクでは、シェルコマンドインジェクションが発生し得る状況を修正します。
+様々なユーザ入力によって何が起こるかをそれぞれテストしてみたくなるかもしれません。
+</p>
+
+<p>
+ここでのシナリオはシンプルです。Python アプリケーションによって、アプリケーションがデータ処理に使うテンポラリディレクトリの中のファイルをリストしたいとします。
+元々のコードはこうなっています。
+</p>
+
+<pre><code>  subprocess.run("ls -l", shell=True)</code></pre>
+
+<p>
+そこへ他の開発者が、ユーザが入力したディレクトリ名をそのまま格納した <tt>dir_to_list</tt> という変数を入力とする以下のコードを追加しました。
+<pre><code>def list_directory(dir_to_list):
+    subprocess.run(f"ls -l {dir_to_list}", shell=True)
+</pre></code>
+
+<p>
+これはシェルインジェクションに対する脆弱性を含んでいます。
+攻撃者は、シェルによって実行される任意のテキストをパラメータに埋め込むことができます。
+安全な文字だけが処理されるようにする必要があります。<i>さらに、</i> シェルの起動はここでは全く <i>必要ありません。</i>
+この２つのステップを踏むことで、攻撃者が回避策を見つけることをはるかに困難にできます。
+</p>
+
+<p>
+ヒントをいくつか。
+文字列には英数字のみが含まれるように修正する必要があります。
+Python の <tt>re.sub(PATTERN, REPLACETEXT, ORIGINAL_VALUE)</tt>
+は、<tt>ORIGINAL_VALUE</tt> にある <tt>PATTERN</tt> を <tt>REPLACETEXT</tt> に変換した結果を返します。
+ここで <tt>PATTERN</tt> は文字列として書かれた正規表現です。
+<tt>re.sub</tt> はデフォルトでマッチした全ての部分を置換します（これはここで望まれる挙動です）。
+Python における正規表現は、通常「raw文字列」、つまり <tt>r'...'</tt> の形式で表記されます。
+Python の <tt>subprocess.run</tt> によるシェルの起動をやめることと、更に引数を分離する必要があります。
+</p>
+
+<p>
+公平のため補足すると、典型的な Python プログラムは直接 "ls" を呼び出しません。
+今後シェルを呼び出す必要もあると思われるので、ここでは例をシンプルに保つために直接呼び出すことにしています。
+</p>
+
+<p>
+必要に応じて、「ヒント」ボタンと「諦める」ボタンを使用してください。
+</p>
+
+<p>
+<h2>演習 (<span id="grade"></span>)</h2>
+<p>
+以下の関数を安全に書き換えてください。
+<p>
+<form id="lab">
+<pre><code>def list_directory(dir_to_list):
+  # ディレクトリ名が a-zA-Z0-9 のみを含むよう修正してください
+<textarea id="attempt0" rows="2" cols="60" spellcheck="false">
+  clean_dir = dir_to_list
+</textarea>
+  # 安全な方法で subprocess を使用してください
+<textarea id="attempt1" rows="2" cols="60" spellcheck="false">
+  subprocess.run(f"ls -l {dir_to_list}", shell=True)
+</textarea>
+</code></pre>
+<button type="button" class="hintButton">ヒント</button>
+<button type="button" class="resetButton">リセット</button>
+<button type="button" class="giveUpButton">諦める</button>
+<br><br>
+<p>
+<i>このラボは Marta Rybczynska によって開発されました。</i>
+<br><br>
+<p>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
