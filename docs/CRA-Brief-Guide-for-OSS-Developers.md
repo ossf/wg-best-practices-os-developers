@@ -24,7 +24,7 @@ If software or any other product with digital elements (PDE) is [put on the mark
 
 1. Charging a fee for a PDE,
 2. Charging for technical support services beyond their actual costs,
-3. By an intent to monetize, for example, by providing a software platform through which the manufacturer monetizes other services,
+3. An intent to monetize it, for example, by providing a software platform through which the manufacturer monetizes other services,
 4. Requiring personal data for reasons other than for very narrow reasons (improving the security, compatibility, or interoperability of the software)
 5. Accepting donations exceeding costs.
 
