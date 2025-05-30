@@ -1,4 +1,4 @@
-# CRA Brief Guide for Open Source Software (OSS) Developers
+# Cyber Resilience Act (CRA) Brief Guide for Open Source Software (OSS) Developers
 
 The European Union (EU) Cyber Resilience Act (CRA) is a law that applies to software, hardware, products containing them, and their backend services, *if* they are [made available](https://eur-lex.europa.eu/eli/reg/2024/2847/oj#art_1) on the European market. The law applies *regardless* of where its developer(s) are located. This brief document aims to provide a straightforward guide for those who develop open source software (OSS). Note that *this guide is not legal advice*, it’s just an overview to help you understand the situation.
 
