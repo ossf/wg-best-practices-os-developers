@@ -58,6 +58,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-501: Trust Boundary Violation)](CWE-664/CWE-501/README.md)|[CVE-2023-28597](https://www.cvedetails.com/cve/CVE-2023-28597),<br/>CVSSv3.0: __7.5__,<br/>EPSS: __00.11__ (05.11.2024)|
 |[CWE-502: Deserialization of Untrusted Data)](CWE-664/CWE-502/.)|[CVE-2018-8021](https://www.cvedetails.com/cve/CVE-2018-8021),<br/>CVSSv3.0: __9.8__,<br/>EPSS: __93.54__ (05.11.2024)|
 |[CWE-532: Insertion of Sensitive Information into Log File](CWE-664/CWE-532/README.md)|[CVE-2023-45585](https://www.cvedetails.com/cve/CVE-2023-45585),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __0.04__ (01.11.2024)|
+|[CWE-584: Return Inside Finally Block](CWE-664/CWE-584/README.md)||
 |[CWE-665: Improper Initialization](CWE-664/CWE-665/README.md)||
 |[CWE-681: Incorrect Conversion between Numeric Types](CWE-664/CWE-681/README.md)||
 |[CWE-681: Avoid an uncontrolled loss of precision when passing floating-point literals to a Decimal constructor.](CWE-664/CWE-681/01/README.md)||
