@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://best.openssf.org/assets/css/style.css">
+<link rel="stylesheet" href="checker.css">
+<script src="checker.js"></script>
+<script src="xss.js"></script>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+
+<!-- See create_labs.md for how to create your own lab! -->
+
+</head>
+<body>
+<!-- For GitHub Pages formatting: -->
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>ラボ演習 xss</h1>
+<p>
+これはセキュアなソフトウェア開発に関するラボ演習です。
+ラボの詳細については、<a href="ja_introduction.html" target="_blank">概要</a>をご覧ください。
+
+<p>
+<h2>タスク</h2>
+<p>
+<b>FlaskとテンプレートエンジンのJinja2を用いてクロスサイトスクリプティング(XSS)への対策を練習しましょう。</b>
+
+<p>
+<h2>背景</h2>
+<p>
+この演習では、<a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#countering-cross-site-scripting-xss">コースで述べたように(訳注: リンク先は英語版)</a>、クロスサイトスクリプティング(XSS)攻撃に対する広範な対策となる仕組みを実装します。
+ここでは、「XSS対策の標準的な方法は、攻撃者のものである可能性があり、特に承認されていないすべての出力をエスケープすることです。(中略) ほとんどの場合、XSSに対する最善の解決策は、HTML出力を自動的にエスケープしてくれるフレームワークやライブラリーを選択することです。」と述べました。
+すなわち、エスケープしないように指定しない限り、"&lt;"のような文字を"&amp;lt;"に変換するように、自動的にエスケープしてくれるシステムを用いるのがよいということです。
+このようにして、特殊な文字が無害な形で出力されます。
+<p>
+<i>理論的には</i>、出力を生成する際に、毎回エスケープルーチンを呼び出すこともできます。<i>現実的には</i>このアプローチは安全ではありません。
+いつかは開発者が誤って、出力を生成する際にエスケープルーチンを呼ぶことを忘れてしまうことがあるでしょう。
+エスケープを<i>デフォルトで</i>実行してくれる仕組みを用いるほうがはるかに安全です。
+<p>
+<a href="https://pypi.org/project/Flask/"
+>Flask</a>はPythonプログラミング言語向けのサーバーサイドのWebアプリケーションの軽量フレームワークです。
+Flaskを用いるプログラムでは、<a href="https://flask.palletsprojects.com/en/3.0.x/quickstart/#rendering-templates">Jinja2テンプレートエンジン</a>もよく使われています。
+<a href="https://jinja.palletsprojects.com/en/3.1.x/api/#autoescaping">Jinja2は、HTMLを自動的にエスケープする仕組みを持っています。</a>
+<p>
+Jinja2のバージョン3.1.xシリーズは、この「自動エスケープ」モードをデフォルトでは有効にして<i>いません</i>。
+これは、Jinjaの将来のバージョンでは変わるかもしれませんが、いずれにしても、これは良い例といえるでしょう。
+つまり、ライブラリによっては、危険ではない使い方をするために特殊な設定を行わなければならないことがあるということです。
+これは理想的ではありませんが、そのようなライブラリであっても使うことはできます。
+ライブラリを安全に使うために、<i>正しく</i>設定することをしっかりと確かめる必要があるというだけです。
+<p>
+<a href="https://flask.palletsprojects.com/en/3.0.x/quickstart/#rendering-templates"
+>Flaskはデフォルトで自動的にHTMLをエスケープするようにJinja2を設定します。</a>.
+そのため、<i>Flask</i>のユーザーに関していえば、Jinjaテンプレートシステムは、デフォルトでHTMLを自動的にエスケープ<i>します</i>。
+
+<p>
+<h2>タスクの詳細</h2>
+<p>
+下記のコードを変更してXSS脆弱性の対策を行ってください。必要に応じて「ヒント」や「諦める」のボタンを押してください。
+このタスクは複数のパートから構成されています。各パートの指示はそれぞれの部分に分かれて書かれています。
+
+<p>
+<h2>演習 (<span id="grade"></span>)</h2>
+
+<h3>パート1</h3>
+<p>
+このパートでは、Flaskは<i>使いません</i>。
+その代わり、PythonとJinja2テンプレートエンジンを直接使います。
+今回対象とするバージョンのJinja2は、<a href="https://jinja.palletsprojects.com/en/3.1.x/api/#basics">そのように設定しない限り、自動的にエスケープを行い<i>ません</i></a>。
+Jinja2の設定を変更してHTMLを自動的にエスケープするようにしてください。これには、<tt>autoescape</tt>というフィールドに<tt>select_autoscape()</tt>を値として設定することで行います。
+
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="65">...</textarea>
+-->
+<form id="lab1"><pre><code
+>from jinja2 import Environment, PackageLoader, select_autoescape
+env = Environment(
+    loader=PackageLoader("yourapp"),
+<input id="attempt0" type="text" size="60" spellcheck="false" value="">
+)
+</code></pre>
+<button type="button" class="hintButton">ヒント</button>
+<button type="button" class="resetButton">リセット</button>
+<button type="button" class="giveUpButton">諦める</button>
+</form>
+
+<h3>パート2</h3>
+<p>
+このパートでは、Flaskを<i>使います</i>。
+FlaskはJinja2をHTMLを自動的にエスケープするように設定します。
+下記のコード(<a href="https://flask.palletsprojects.com/en/3.0.x/quickstart/#rendering-templates"
+>Flask quickstart</a>を元にしています)は、Jinja2を中で呼び出すFlaskのテンプレートレンダリングシステムを用いて、結果を出力しています。
+</p>
+
+<pre><code
+>from flask import render_template
+@app.route('/hello/')
+@app.route('/hello/<name>')
+def hello(name=None):
+    return render_template('hello.html', person=name)</code></pre>
+
+<p>
+上のサンプルコードは、下記に示す<tt>hello.html</tt>というテンプレートを用いています。
+テンプレートで<tt>{{ ... }}</tt>で囲まれている部分には、値が代入されることに注意してください。
+<p>
+残念なことに、下記のテンプレートには脆弱性があります。
+"| safe"というマークは、テンプレートシステムに対して、そのデータが安全でありエスケープするべきではないと指示するものです。
+しかし、上記のコードで示した通り、人物の名前(name)は、信頼できないユーザーから得たものです。
+したがって、(他のほとんどのデータと同様に)名前は安全では<i>ありません</i>。
+このままでは、攻撃者は"&lt;"といった文字を名前に忍び込ませて、他社への攻撃の手段として使うことが可能です。
+この脆弱性を修正してください。
+
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="65">...</textarea>
+-->
+<form id="lab2">
+<pre><code
+>&lt;!doctype html&gt;
+&lt;title&gt;Hello from Flask&lt;/title&gt;
+{% if person %}
+<input id="attempt1" type="text" size="50" spellcheck="false"
+ value="  &lt;h1&gt;Hello {{ person | safe }}!&lt;/h1&gt;">
+{% endif %}
+</code></pre>
+<button type="button" class="hintButton">ヒント</button>
+<button type="button" class="resetButton">リセット</button>
+<button type="button" class="giveUpButton">諦める</button>
+</form>
+
+
+<h3>パート3</h3>
+<p>
+このパートでも、Flaskを使い続けます。
+しかし、何をエスケープして何をエスケープしないかについて、より洗練されたコントロールが必要な場合があります。
+ほとんどのWebアプリケーションフレームワークには、HTMLの値を記録する型やクラスがあり、それによってどれをエスケープするかしないかを指定することができます。
+通常、Flaskでは<a href="https://flask.palletsprojects.com/en/3.0.x/templating/#controlling-autoescaping">Markup</a>クラスを用います。
+<p>
+<tt>Markup</tt>クラスのインスタンスは、<tt>Markup</tt>を呼ぶことによって作られます。
+最初にコンストラクタで与えられた文字列は安全であるとみなされ、エスケープ<i>されません</i>。
+Markupクラスの値に対して通常の文字列を連結することができますが、その追加された部分はエスケープ<i>されます</i>。
+<a href="https://tedboy.github.io/flask/generated/generated/flask.Markup.html"
+>例えば</a>、<tt>Markup("&lt;em&gt;Hello&lt;/em&gt; ") + "&lt;foo&gt;"</tt>という計算では、
+<tt>'&lt;em&gt;Hello&lt;/em&gt; &amp;lt;foo&amp;gt;'</tt>というUnicode文字列をもつMarkupインスタンスが作成されます。
+このように、最初の部分はエスケープされておらず、後の部分はエスケープ<i>されている</i>ことに注意してください。
+Markupインスタンスを空文字列から作成することもでき、その場合、連結した文字列は全てエスケープされます。
+文字列のMarkupインスタンスに対する連結はデフォルトでエスケープされるため、デフォルトが安全な(エスケープ)操作になります。
+コードにおいても、何が安全で何が安全でないかを明確に示されることになります。
+ここでは説明しませんが、Markupクラスは、何をスケープするかのコントロールを単純化するメソッドを他にも持っています。
+テンプレートシステムは、Markupインスタンスをさらなるエスケープなしで直接使います。これは、エスケープすべきものは既にMarkupインスタンスがエスケープしているからです。
+<p>
+下記のPythonコードは、<tt>name</tt>を含む形で<tt>Markup</tt>を使おうとしています。
+しかし、これは間違いで安全ではありません。
+問題は、<tt>name</tt>が信頼されていない値であり、<tt>Markup</tt>に対して、信頼された値の一部として直接渡すべきではないことです。
+下記のコードを変更して、<tt>result</tt>には、<i>エスケープされた</i><tt>name</tt>が入るように変更してください。
+Pythonにおいて<tt>+</tt>は文字列連結の演算であることに注意してください。
+
+<!--
+You can use this an example for new labs.
+For multi-line inputs, instead of <input id="attempt0" type="text" ...>, use
+<textarea id="attempt" rows="2" cols="65">...</textarea>
+-->
+<form id="lab3">
+<pre><code
+><input id="attempt2" type="text" size="60" spellcheck="false"
+ value="  result = Markup('Original name=' + name)">
+</code></pre>
+<button type="button" class="hintButton">ヒント</button>
+<button type="button" class="resetButton">リセット</button>
+<button type="button" class="giveUpButton">諦める</button>
+</form>
+
+<p>
+<i>このラボは、<a href="https://www.linuxfoundation.org/">Linux Foundation</a>のDavid A. Wheelerによって開発されました。</i>
+<br><br>
+<p id="correctStamp" class="small">
+<textarea id="debugData" class="displayNone" rows="20" cols="65" readonly>
+</textarea>
+</form>
+</div><!-- End GitHub pages formatting -->
+</body>
+</html>
