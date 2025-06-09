@@ -4,7 +4,7 @@ The European Union (EU) Cyber Resilience Act (CRA) is a law that applies to soft
 
 Note that *this guide is not legal advice*, it’s just an overview to help you understand a few key CRA concepts. If you are looking for advice on your specific situation, please consult your own legal counsel or other detailed CRA guidance.
 
-## The short version: CRA often does not apply to open source
+## The short version: CRA often does not apply to individual open source contributors
 
 In short, if you are contributing to others’ Open Source Software (OSS) projects, or just publish your OSS code in your own repository and you are not trying to monetize it, you do not have to *worry* about the CRA at all. As soon as you try to monetize the software as a product (such as by trying to commercially profit from the sale or support of the software product), things change.
 
