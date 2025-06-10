@@ -37,6 +37,7 @@ guidance about memory safety through our memory safety SIG, and so on.
 Examples of ongoing work include:
 
 * [Secure Coding One Stop Shop for Python](Secure-Coding-Guide-for-Python/readme.md)
+* [Cyber Resilience Act (CRA) Brief Guide for Open Source Software (OSS) Developers](https://best.openssf.org/CRA-Brief-Guide-for-OSS-Developers) - planned soft release 2025-07-01, announcements 2025-07-15
 
 We typically use the [Simplest Possible Process (SPP)](https://best.openssf.org/spp/Simplest-Possible-Process) to publish our results on the web.
 
