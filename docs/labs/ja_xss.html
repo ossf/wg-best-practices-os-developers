@@ -29,7 +29,7 @@
 <p>
 <h2>背景</h2>
 <p>
-この演習では、<a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#countering-cross-site-scripting-xss">コースで述べたように(訳注: リンク先は英語版)</a>、クロスサイトスクリプティング(XSS)攻撃に対する広範な対策となる仕組みを実装します。
+この演習では、<a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md#countering-cross-site-scripting-xss">コースで述べたように(訳注: リンク先は英語版、日本語版はコース内の「クロスサイト スクリプティング（XSS）への対策」参照)</a>、クロスサイトスクリプティング(XSS)攻撃に対する広範な対策となる仕組みを実装します。
 ここでは、「XSS対策の標準的な方法は、攻撃者のものである可能性があり、特に承認されていないすべての出力をエスケープすることです。(中略) ほとんどの場合、XSSに対する最善の解決策は、HTML出力を自動的にエスケープしてくれるフレームワークやライブラリーを選択することです。」と述べました。
 すなわち、エスケープしないように指定しない限り、"&lt;"のような文字を"&amp;lt;"に変換するように、自動的にエスケープしてくれるシステムを用いるのがよいということです。
 このようにして、特殊な文字が無害な形で出力されます。
