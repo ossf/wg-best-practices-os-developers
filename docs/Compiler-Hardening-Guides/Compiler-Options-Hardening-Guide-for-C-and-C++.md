@@ -757,7 +757,7 @@ The performance overhead is dependent on the number of function’s instrumented
 | <span id="-fcf-protection=branch">`-fcf-protection=branch`</span><br/>        | GCC 8.0.0<br/>Clang 7.0.0 | Enable control-flow protection against JOP on x86_64                                                                                            |
 | <span id="-fcf-protection=return">`-fcf-protection=return`</span><br/>        | GCC 8.0.0<br/>Clang 7.0.0 | Enable control-flow protection against ROP on x86_64                                                                                            |
 | <span id="-fcf-protection=none">`-fcf-protection=none`</span><br/>            | GCC 8.0.0<br/>Clang 7.0.0 | Disable control-flow protections                                                                                                                |
-| <span id="-fcf-protection=check">`-fcf-protection=check`</span><br/>          | GCC 8.0.0<br/>Clang 7.0.0 | Instruct linker to verify all object files in final link with link-time optimization (LTO) are compiled with identical control-flow protections |
+| <span id="-fcf-protection=check">`-fcf-protection=check`</span><br/>          | GCC 8.0.0                 | Instruct linker to verify all object files in final link with link-time optimization (LTO) are compiled with identical control-flow protections |
 | <span id="-mbranch-protection-standard">`-mbranch-protection=standard`</span> | GCC 9.0.0<br/>Clang 8.0.0 | Enable branch protection to counter ROP and JOP attacks on AArch64                                                                              |
 
 #### Synopsis
