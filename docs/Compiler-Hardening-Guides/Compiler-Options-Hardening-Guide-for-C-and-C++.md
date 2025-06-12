@@ -861,6 +861,8 @@ In Linux prior to kernel version 5.8 a missing `PT_GNU_STACK` marking on x86_64 
 |:------------------------------------------------------------------------------------------- |:-------------:|:----------------------------------------------------------------- |
 | <span id="-Wl,-z,relro">`-Wl,-z,relro`</span><br/><span id="-Wl,-z,now">`-Wl,-z,now`</span> | Binutils 2.15.0 | Mark relocation table entries resolved at load- time as read-only |
 
+#### Synopsis
+
 *“Read-only relocation”* (RELRO) marks relocation table entries as read-only after they have been resolved by the dynamic linker/loader (`ld.so`). Relocation is the process performed by `ld.so` that connects unresolved symbolic references to proper addresses of corresponding in-memory objects.
 
 Marking relocations read-only will mitigate run-time attacks that corrupt Global Offset Table (GOT) entries to hijack program execution or to cause unintended data accesses. Collectively such attacks are referred to as *GOT overwrite attacks* or *GOT hijacking*.
@@ -1106,6 +1108,8 @@ The `-fexceptions` option is also needed for C code that needs to interoperate w
 | <span id="-fhardened">`-fhardened`</span> | GCC 14.0.0      | Enable pre-determined set of hardening options for C and C++ in GCC |
 | <span id="-Whardened">`-Whardened`</span> | GCC 14.0.0      | Warn if options implied by `-fhardened` are downgraded or disabled  |
 
+#### Synopsis
+
 The `-fhardened` umbrella option enables a pre-determined set of hardening options for C and C++ on GNU/Linux targets[^gcc-fhardened]. The precise set of options may change between major releases of GCC. The exact set of options for a specific GCC version can be displayed using the `--help=hardened` option.
 
 #### Additional Considerations
@@ -1131,6 +1135,8 @@ These warnings can be controlled explcitily via the `-Whardened` option.
 |:----------------------------------------------------------------------------------- |:---------------:|:------------------------------------------------------------------------------------------------- |
 | <span id="-Wl,--as-needed">`-Wl,--as-needed`</span>                                 | Binutils 2.20.0 | Allow linker to omit libraries specified on the command line to link against if they are not used |
 | <span id="-Wl,--no-copy-dt-needed-entries">`-Wl,--no-copy-dt-needed-entries`</span> | Binutils 2.20.0 | Stop linker from resolving symbols in produced binary to transitive dependencies                  |
+
+#### Synopsis
 
 The `--as-needed` option tells the GNU linker to only link the libraries containing symbols actually used by the produced binary. This contributes to minimizing the attack surface of the produced binary by precluding the execution of static initializers and deconstructors from unneeded libraries, and can also reduce the set of code available to code-reuse exploits, e.g., return-oriented programming.
 
