@@ -119,6 +119,8 @@ How you apply this guide depends on your circumstances:
 
 Applications should work towards compiling warning-free. This takes time, but warnings indicate a potential problem. Once done, any new warning indicates a potential problem.
 
+We encourage developers to always use the approach guaranteed by standards to do something, as long as it's supported by their build processes. For example, in C23 or C++, assigning `{}` to a union guarantees the clearing of a whole union including padding bits (except for static storage duration initialization). Assigning `{0}` to a union does not guarantee clearing the whole union (e.g., in GCC 14 and below, this cleared a union, but in GCC 15[^gcc-release-notes-15] it does not). Using the standards' approach greatly reduces the risk that using a different compiler or a different compiler version will cause problems. That said, there may be no mechanism in the standards to ensure a particular property, sometimes compilers don't implement the standard way, and developers sometimes make mistakes. Thus, using option flags in addition to working within the standards where practical can be a powerful combination.
+
 ### What does compiler options hardening not do?
 
 Compiler options hardening is not a silver bullet; it is not sufficient to rely solely on security features and functions to achieve secure software. Security is an emergent property of the entire system that relies on building and integrating all parts properly. However, if properly used, secure compiler options will complement existing processes, such as static and dynamic analysis, secure coding practices, negative test suites, profiling tools, and most importantly: security hygiene as a part of a solid design and architecture.
