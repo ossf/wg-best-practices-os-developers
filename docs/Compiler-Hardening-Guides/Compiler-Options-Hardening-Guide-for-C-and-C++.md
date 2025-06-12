@@ -35,7 +35,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 
 | When                                                    | Additional options flags                                                                                 |
 |:------------------------------------------------------- |:---------------------------------------------------------------------------------------------------------|
-| using GCC                                               | `-Wtrampolines`                                                                                          |
+| using GCC                                               | `-Wtrampolines -fzero-init-padding-bits=all`                                                             |
 | using GCC and only left-to-right writing in source code | `-Wbidi-chars=any`                                                                                       |
 | for executables                                         | `-fPIE -pie`                                                                                             |
 | for shared libraries                                    | `-fPIC -shared`                                                                                          |
