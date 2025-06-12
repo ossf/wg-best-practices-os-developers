@@ -1009,7 +1009,7 @@ Each of these options gives the compiler less freedom for optimizing the resulti
 
 The `-ftrapv` option requires the compiler to emit checks to detect and trap overflows on signed integers unless it has compile time information of the value range to prove the operation doesn't overflow. As a result, `-ftrapv` is expected to have the largest performance impact out the options covered in this section.
 
-### Other considerations
+#### Other considerations
 
 During link-time optimization (LTO), different compilation units may have been built with different arithmetic overflow behavior. The `-fno-strict-overflow`, `-fwrapv`, `-fno-trapv` and `-fno-strict-aliasing` are passed through to the link stage and take precedece over `-fstrict-overflow` semantics for compilation units with conflicting behavior[^gcc-flto]. In practice this means that software where certain modules benefit from `-fstrict-overflow` for perormance, but others use `-fno-strict-overflow` to improve security, may loose out on the performance benefits with `-fno-strict-overflow` taking precedence during LTO.
 
