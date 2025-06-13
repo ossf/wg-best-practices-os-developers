@@ -817,12 +817,12 @@ Next steps - gap assessment - what are we missing to hit our mission/vision, wha
 
 ### CII Best Practices badge project: which working group of the OSSF?
 
-- TAC met and agreed with discussion between leads for Metrics & this working group. Dev Best Practices working group is cleared to assist curating/augmenting/improving the current CII Best Practices Badge project best practices. We'll coordinate with the Metrics team as they are ready to start advertising the badges as part of their reporting.
+- TAC met and agreed with discussion between leads ofr Metrics & this working group. Dev Best Practices working group is cleared to assist curating/augmenting/improving the current CII Best Practices Badge project best practices. We'll coordinate with the Metrics team as they are ready to start advertising the badges as part of their reporting.
 - Group discussion:
 
 ### Inventory project
 
-- Working towards further integration with CRE & SKF. Has design that supports it. Will extend current SKF mappings with new standard.
+- Working towards further integration with CRE & SKF. Has design that supports it. Will extend curretn SKF mappings with new standard.
 - What is a good technical control to use (in email suggested PCI-DSS?) - NIST SSDF (<https://csrc.nist.gov/publications/detail/white-paper/2020/04/23/mitigating-risk-of-software-vulnerabilities-with-ssdf/final>), OWASP ASVS (<https://csrc.nist.gov/publications/detail/white-paper/2020/04/23/mitigating-risk-of-software-vulnerabilities-with-ssdf/final>), OWASP Project Proactive Controls (<https://owasp.org/www-project-proactive-controls/>), NIST 800-53 ( , NIST CSF (
 - What are priority use cases for for interactions with database (ex url with cre id and get links to sources) DW - if I met criteria X, what other criteria might I also meet?
 - hope to demonstrate to group next meeting
@@ -969,7 +969,7 @@ Sadly, no one on call had perms to allow it - @CRob get that fixed for DW & myse
 - OWASP has already been active in promoting it
 - OWASP is working on MVP on structure of MVP
 - Will add/replace with skf dataset
-- Looking for requirements coverage (ASF, PCI, FedRAMP, etc)
+- Looking for requirements coverate (ASF, PCI, FedRAMP, etc)
 - Gibson can report back with progress next WG call
 
 ## Other subjects
@@ -1040,7 +1040,7 @@ CRob is volunteering
 
 - CRob: This group should have these resources. The integration part will def be more challenging and could come in a later phase.
 - Rob: Connection to other tooling and categorization make a big difference. About ranking: loves that it comes from the actual user's perspective.
-- When the inventory integrates with SAST tools within the IDE, do you get remediation advises associated? Depends on the tool itself, but yes.
+- When the inventory integrates with SAST tools within the IDE, do you get remediation advices associated? Depends on the tool itself, but yes.
 - SKF intended also to consume the inventory. In the meantime, SKF can add other sources, waiting for the inventory to be live.
 
 ## Other subjects
@@ -1642,7 +1642,7 @@ Pull Request Template:
 
 [ ] Parametrized query
 
-[ ] Proper input sanitization occurred
+[ ] Proper input sanitization occured
 
 Etc.
 
