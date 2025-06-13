@@ -7,7 +7,7 @@ severity: LOW
 ## Description
 
 Repository admins are highly privileged and could create great damage if they
-are compromised. It is recommeneded to limit the number of Repository Admins to
+are compromised. It is recommended to limit the number of Repository Admins to
 the minimum required (recommended maximum 3 admins).
 
 ## Threat Example(s)

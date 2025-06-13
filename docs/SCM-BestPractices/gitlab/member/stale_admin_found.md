@@ -1,4 +1,4 @@
-# Admininistrators Should Have Activity in the Last 6 Months
+# Administrators Should Have Activity in the Last 6 Months
 
 policy name: stale_admin_found
 
