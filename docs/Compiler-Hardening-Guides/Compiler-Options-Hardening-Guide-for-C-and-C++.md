@@ -157,7 +157,7 @@ The recommendations in Table 1 and Table 2 are primarily applicable to compiling
 - supported both by the GCC and Clang / LLVM toolchains.
 - cross-platform and supported on (at least) Intel and AMD 64-bit x86 architectures as well as the 64-bit version of the ARM architecture (AArch64).
 
-[^compiler-flags-distro]: Voisin, Julien et al., [Default compiler hardening flags used to build packages for Linux distributions](https://github.com/jvoisin/compiler-flags-distro), Github jvoisin/compiler-flags-distro, 2025-02-14.
+[^compiler-flags-distro]: Voisin, Julien et al., [Default compiler hardening flags used to build packages for Linux distributions](https://github.com/jvoisin/compiler-flags-distro), GitHub jvoisin/compiler-flags-distro, 2025-02-14.
 
 For historical reasons, the GCC compiler and Binutils upstream projects do not enable optimization or security hardening options by default. While some aspects of the default options can be changed when building GCC and Binutils from source, the defaults used in the toolchains shipped with GNU/Linux distributions vary. Distributions may also ship multiple versions of toolchains with different defaults. Consequently, developers need to pay attention to compiler and linker option flags, and manage them according to their need of optimization, level of warning and error detection, and security hardening of the project.
 
@@ -508,7 +508,7 @@ The `-Werror=implicit`, `-Werror=incompatible-pointer-types`, and `-Werror=int-c
 - Conversion between pointers that have incompatible types.
 - Implicit integer to pointer and pointer to integer conversions.
 
-Using these options will make the compiler treat the corresponding obsolete construsts as errors regardless of the language standard the compiler is instructed to follow. GCC 14[^gcc-porting-to-14] and Clang 15[^clang-release-notes-15] disable support for these legacy language constructs by default so enabling these options will also prepare the codebase for transitioning to these and later compilers. Some Linux distributions, such as Fedora[^Weimer2023], are enforcing the use of the these options when building software for distribution. We recommend developers adopt the options, as enabling them may require non-trivial changes to the source code in codebases that rely on the obsolete constructs.
+Using these options will make the compiler treat the corresponding obsolete constructs as errors regardless of the language standard the compiler is instructed to follow. GCC 14[^gcc-porting-to-14] and Clang 15[^clang-release-notes-15] disable support for these legacy language constructs by default so enabling these options will also prepare the codebase for transitioning to these and later compilers. Some Linux distributions, such as Fedora[^Weimer2023], are enforcing the use of the these options when building software for distribution. We recommend developers adopt the options, as enabling them may require non-trivial changes to the source code in codebases that rely on the obsolete constructs.
 
 Note that in particular, `_FORTIFY_SOURCE` is of either limited or entirely neutered effect in the presence of implicit function declarations.
 
@@ -845,7 +845,7 @@ Consequently the `-Wl,-z,noexecstack` option works best when combined with appro
 
 #### Additional Considerations
 
-Modern compilers perform this marking automatically through the `p_flags` field in the `PT_GNU_STACK` program header entry and the linker consults the entries for consituent objects when deciding the marking for the produced binary. If the marking is missing the kernel or the dynamic linker needs to assume the binary might need executable stack.
+Modern compilers perform this marking automatically through the `p_flags` field in the `PT_GNU_STACK` program header entry and the linker consults the entries for constituent objects when deciding the marking for the produced binary. If the marking is missing the kernel or the dynamic linker needs to assume the binary might need executable stack.
 
 In Linux prior to kernel version 5.8 a missing `PT_GNU_STACK` marking on x86_64 will also expose other readable pages (such as the program `.data` section) as executable[^Hernandez2013], not just their stack memory. While this behavior has since changed for x86_64[^Cook2020], we recommend enabling `-Wl,-z,noexecstack` explicitly during linking to ensure produced binaries benefit from data execution prevention for both the stack and other program data as widely as possible and guarding against compatibility issues by using the [`-Wtrampolines`](#-Wtrampolines) in tandem when available. For example, binaries on 32-bit x86 architectures must be equipped with a `PT_GNU_STACK` marking to benefit from data execution prevention for stack and other program data even on more recent Linux kernel versions.
 
@@ -1144,7 +1144,7 @@ The `--as-needed` option tells the GNU linker to only link the libraries contain
 
 The `--as-needed` option is enabled by default by many Linux distributions including Debian[^debian-dsolinking], Gentoo[^Berkholz08], Red Hat[^fedora-hardening], and SUSE Linux[^debian-dsolinking].
 
-The `--no-copy-dt-needed-entries` stops the linker from resolving symbols in the produced binary to transitive library depenendecies. This enforces that the produced binary must be made to explicitly link against all of its actual dependencies. This is the default behavior in the GNU linker since 2.22.
+The `--no-copy-dt-needed-entries` stops the linker from resolving symbols in the produced binary to transitive library dependencies. This enforces that the produced binary must be made to explicitly link against all of its actual dependencies. This is the default behavior in the GNU linker since 2.22.
 
 #### Performance implications
 
@@ -1417,7 +1417,7 @@ To allow the debugger to identify the correct debug information the executable m
 - Include a “debug link” within the executable that specifies the name of the corresponding debug info file.
 - Include a “build ID”, a unique bit string, within the executable from which the debug info file’s name can be derived.
 
-In most cases the debug link is preferrable as it allows the developers to name the debug info file and verifies a checksum over the debug information files content before the symbol information is sourced from the file during debugging.
+In most cases the debug link is preferable as it allows the developers to name the debug info file and verifies a checksum over the debug information files content before the symbol information is sourced from the file during debugging.
 
 **Debug link**
 
@@ -1456,7 +1456,7 @@ Note that LLVM recommends using Clang configuration files[^clang-config] to pass
 
 ## What should you do when compiling linkers?
 
-If you are compiling a linker, where practical make the generated linker's default options the *secure* options. The below table summarizes relevant options that can be specifed when building GNU Binutils that affect the defaults of the linker:
+If you are compiling a linker, where practical make the generated linker's default options the *secure* options. The below table summarizes relevant options that can be specified when building GNU Binutils that affect the defaults of the linker:
 
 | Linker Flag                   | Supported since  | Description                                                       |
 |:--- |:---:|:---- |
@@ -1526,7 +1526,7 @@ Many more security-relevant compiler options exist than are recommended in this 
 | <span id="-fasynchronous-unwind-tables">`-fasynchronous-unwind-tables`</span> | GCC 3.1.1<br/>Clang 7.0.0  | Generate stack unwind table in DWARF2 format, which improves precision of unwind information[^Song20] and can improve the performance of profilers at the cost of larger binary sizes[^Bastian19], but does not benefit security.
 | <span id="-fvtable-verify">`-fvtable-verify`</span> |GCC 4.9.4 | Enables run-time checks for C++ virtual function pointers corruption. This option has significant performance overhead[^Tice2014] and breaks ABI with all existing system libraries unless the entire userspace is built with `-fvtable-verify`[^gentoo-vtv]. Believed to be currently unmaintained in GCC.
 | <span id="-mmitigate-rop">`-mmitigate-rop`</span> | GCC 6.1 | Avoids combination of particular opcodes which can be reinterpretted as a return opcode in an attempt to mitigate Return Oriented Programming (ROP) attacks[^gcc-mmitigate-rop].  Was considered to be ineffective and security-theatre-esque, so was deprecated in GCC 9.1[^Bizjak2018].
-| <span id="CLANG_DEFAULT_PIE_ON_LINUX">`CLANG_DEFAULT_PIE_ON_LINUX`</span> | Clang 14.0.0 | When compiling Clang, turns on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler. Superceded by default provided via configuration files[^clang-config].
+| <span id="CLANG_DEFAULT_PIE_ON_LINUX">`CLANG_DEFAULT_PIE_ON_LINUX`</span> | Clang 14.0.0 | When compiling Clang, turns on [`-fPIE`](#-fPIE_-pie) and [`-pie`](#-fPIE_-pie) by default for binaries produced by the compiler. Superseded by default provided via configuration files[^clang-config].
 | <span id="-fsplit-stack">`-fsplit-stack`</span> | GCC 4.6.0 | Generates code to automatically split the stack before it overflows to enable segmented stacks [^Taylor2011] for use by stackfull co-routines such as Boost Fibers. Interoperability between split-stack code to non-split-stack code requires the gold linker to ensure larger stack segments are allocated for calls to non-split-stack code [^Taylor2015]. Believed to be currently unmaintained in GCC.
 
 [^nodump]: The `-Wl,-z,nodump` option sets `DF_1_NODUMP` flag in the object’s `.dynamic` section tags. On Solaris this restricts calls to `dldump(3)` for the object. However, other operating systems ignore the `DF_1_NODUMP` flag. While Binutils implements `-Wl,-z,nodump` for Solaris compatibility a choice was made to not support it in `lld` ([D52096 lld: add -z nodump support](https://reviews.llvm.org/D52096)).

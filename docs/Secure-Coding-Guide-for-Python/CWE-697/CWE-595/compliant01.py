@@ -18,7 +18,7 @@ class Integer:
 #####################
 # exploiting above code example
 #####################
-# All these senarios will now show True
+# All these scenarios will now show True
 print(Integer(12) == Integer(12))
 print([Integer(12)] == [Integer(12)])
 print(Integer(12) in [Integer(10), Integer(12)])

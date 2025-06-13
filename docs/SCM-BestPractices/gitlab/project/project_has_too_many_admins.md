@@ -7,7 +7,7 @@ severity: LOW
 ## Description
 
 Projects owners are highly privileged and could create great damage if they are
-compromised. It is recommeneded to limit the number of Project OWners to the
+compromised. It is recommended to limit the number of Project OWners to the
 minimum required (recommended maximum 3 admins).
 
 ## Threat Example(s)

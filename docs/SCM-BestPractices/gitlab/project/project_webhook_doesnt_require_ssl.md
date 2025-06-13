@@ -7,7 +7,7 @@ severity: LOW
 ## Description
 
 Webhooks that are not configured with SSL verification enabled could expose
-your sofware to man in the middle attacks (MITM).
+your software to man in the middle attacks (MITM).
 
 ## Threat Example(s)
 
@@ -24,5 +24,5 @@ them, and this is often much easier than compromising an internet-facing domain.
 1. Make sure you can manage webhooks for the project
 2. Go to the project's settings page
 3. Select "Webhooks"
-4. Press on the "Enable SSL verfication"
+4. Press on the "Enable SSL verification"
 5. Click "Save changes"

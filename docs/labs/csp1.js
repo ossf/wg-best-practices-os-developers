@@ -30,7 +30,7 @@ info =
     },
     {
       present: String.raw`require \( helmet \)`,
-      text: "The parameter of a requirement statement must be string. Surround the term helment with double-quotes.",
+      text: "The parameter of a requirement statement must be string. Surround the term helmet with double-quotes.",
       text_ja: "require文のパラメータは文字列でなければなりません。helmetをダブルクォーテーションで囲んでください。",
       examples: [
         [ "  const helmet = require(helmet);" ]
@@ -38,7 +38,7 @@ info =
     },
     {
       absent: "; $",
-      text: "JavaScript doesn''t require semicolon terminators, but the rest of the code uses them. You should try to match a coding style when modifying existing code unless there''s an important reason not to. Please update the first statment.",
+      text: "JavaScript doesn''t require semicolon terminators, but the rest of the code uses them. You should try to match a coding style when modifying existing code unless there''s an important reason not to. Please update the first statement.",
       text_ja: "JavaScriptでは末尾のセミコロンは必須ではありませんが、このコードの他の部分では使用しています。特に重要な理由がない限り、コーディングスタイルに合わせるようにしてください。最初の文を修正してください。",
       examples: [
         [ "  const helmet = require(\"helmet\")" ]

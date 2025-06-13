@@ -67,7 +67,7 @@ info =
     {
       absent: String.raw`\+`,
       index: 2,
-      text: "Our expected answer includes concatentation using `+`. We expect something like `Markup('Original name='` followed by `+` followed by the variable containing the data that needs to be escaped.",
+      text: "Our expected answer includes concatenation using `+`. We expect something like `Markup('Original name='` followed by `+` followed by the variable containing the data that needs to be escaped.",
       text_ja: "想定解は`+`を用いた連結です。`Markup('Original name=')`に続けて`+`、さらにエスケープされるべきデータが入っている変数が続く、というものを想定しています。",
       examples: [
         [ null, null, '  result = Markup(f"Original name={name}' ],

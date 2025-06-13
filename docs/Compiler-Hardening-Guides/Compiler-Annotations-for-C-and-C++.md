@@ -1,6 +1,6 @@
 # Compiler Annotations for C and C++
 
-> ⓘ NOTE: _This is a draft document by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/). Help to [improve it on Github](https://github.com/ossf/wg-best-practices-os-developers/edit/main/docs/Compiler-Hardening-Guides/Compiler-Annotations-for-C-and-C++.md)._
+> ⓘ NOTE: _This is a draft document by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/). Help to [improve it on GitHub](https://github.com/ossf/wg-best-practices-os-developers/edit/main/docs/Compiler-Hardening-Guides/Compiler-Annotations-for-C-and-C++.md)._
 
 Compile time security analysis and runtime mitigation implemented in compilers both depend on the compiler being able to see the flow of data between different points in a program, across functions and modules. This is quite a challenge in C and C++ because both languages allow passing around opaque references, thus losing information about objects.  To work around this problem, both GCC and Clang implement attributes to annotate source code, especially functions and data structures, to allow them to do better analysis of source code.  These annotations are not only beneficial for security, but they also help the compilers make better optimization decisions, often resulting in better code.
 
@@ -77,7 +77,7 @@ In GCC, the `malloc (`_`deallocator`_`)` and `malloc (`_`deallocator`_`,` _`ptr-
 
 Clang supports both forms of the `malloc` attribute but does not yet implement the `-Wmismatched-dealloc` and `-Wmismatched-new-delete` warnings. Instead, Clang provides the `ownership_returns`, `ownership_takes`, and `ownership_holds` attributes[^clang-ownership]: that interact with the Clang static analyzer[^clang-checkers].
 
-In Clang, the `ownership_returns(`_`allocation-type`_`)` associates the pointer returned by the marked function with an _`allocation-type`_. Here, _`allocation-type`_ is any string which will subsequently be used to detect mismatched allocations in cases where the pointer is passed to a deallocator marked with another _`allocation-type`_. The _`allocation-type`_ `malloc` has a special meaning and causes the Clang static analyzer to treat the associated pointer as though the allocated storage would have been allocatated using the standard `malloc()` function, and can subsequently be safely deallocated with the standard `free()` function.
+In Clang, the `ownership_returns(`_`allocation-type`_`)` associates the pointer returned by the marked function with an _`allocation-type`_. Here, _`allocation-type`_ is any string which will subsequently be used to detect mismatched allocations in cases where the pointer is passed to a deallocator marked with another _`allocation-type`_. The _`allocation-type`_ `malloc` has a special meaning and causes the Clang static analyzer to treat the associated pointer as though the allocated storage would have been allocated using the standard `malloc()` function, and can subsequently be safely deallocated with the standard `free()` function.
 
 The Clang `ownership_takes(`_`allocation-type`_`,` _`ptr-index`_`)` attribute marks a function as a deallocator for pointers of _`allocation-type`_ and `ownership_holds(`_`allocation-type`_`,` _`ptr-index`_`)` marks a function as taking over the ownership of a pointer of _`allocation-type`_ and will deallocate it at some unspecified point in the future. Here, _`ptr-index`_ denotes the positional argument to where the pointer must be passed in order to deallocate or take ownerwship of the storage.
 
@@ -88,7 +88,7 @@ Using the the `ownership_returns`, `ownership_takes`, and `ownership_holds` attr
 - **Use-after-free** (`unix.Malloc`, `cplusplis.NewDelete`) if there is an execution path in which the memory passed by pointer to a function annotated with `ownership_takes` is used after the call. Using memory passed to a function annotated with `ownership_holds` is considered valid.
 - **Memory leaks** (`unix.Malloc`, `cplusplus.NewDeleteLeaks`) if if there is an execution path in which the result of an allocation call goes out of scope without being passed to a function annotated with `ownership_takes` or `ownership_holds`.
 - **Dubious `malloc()` arguments involving `sizeof`** (`unix.MallocSizeof`) if the size of the pointer type the returned pointer does not match the size indicated by `sizeof` expression passed as argument to the allocation function.
-- **Potentially attacker controlled `size` parameters to allocation functions** (`optin.taint.TaintedAlloc`) if the `size` parameter originates from a tained source and the analyzer cannot prove that the size parameter is within reasonable bounds (`<= SIZE_MAX/4`).
+- **Potentially attacker controlled `size` parameters to allocation functions** (`optin.taint.TaintedAlloc`) if the `size` parameter originates from a tainted source and the analyzer cannot prove that the size parameter is within reasonable bounds (`<= SIZE_MAX/4`).
 
 #### Example usage
 
@@ -180,7 +180,7 @@ assert(__builtin_object_size(s, 0) == 100);
 |:-----------------------------------------------------------------------------------------------|:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
 | `access(`_`mode`_`,`_`ref-index`_`)`<br/>`access(`_`mode`_`,`_`ref-index`_`,`_`size-index`_`)` | GCC 11.0.0                  | Function                     | Mark access restrictions for positional argument.                                                 |
 
-The `access` attribute in GCC[^gcc-acess] indicates the intended mode in which the annotated function operates on the specified positional argument. GCC uses this information to detect non-confirming accesses by the annotated function or their callers, as well as write-only accesses to objects that are never read from. Diagnostics of such non-conforming accesses are reported through the `-Wstringop-overread`, `-Wstringop-overflow`, `-Wuninitialized`, `-Wmaybe-uninitialized`, and `-Wunused` warnings.
+The `access` attribute in GCC[^gcc-access] indicates the intended mode in which the annotated function operates on the specified positional argument. GCC uses this information to detect non-confirming accesses by the annotated function or their callers, as well as write-only accesses to objects that are never read from. Diagnostics of such non-conforming accesses are reported through the `-Wstringop-overread`, `-Wstringop-overflow`, `-Wuninitialized`, `-Wmaybe-uninitialized`, and `-Wunused` warnings.
 
 The `access(`_`mode`_`,`_`ref-index`_`)` form indicates to GCC that the annotated function accesses the object passed to the function by-reference denoted the by the positional argument at _`ref-index`_ (using one-based indexing) according to _`mode`_, where _`mode`_ is one of the following access modes:
 
@@ -222,6 +222,6 @@ void to_uppercase(char *buffer, size_t size) __attribute__((access(read_write, 1
 
 [[Extended example at Compiler Explorer](https://godbolt.org/z/K44d89YM7)]
 
-[^gcc-acess]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: access](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-access-function-attribute), GCC Manual, 2024-08-01.
+[^gcc-access]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: access](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-access-function-attribute), GCC Manual, 2024-08-01.
 
 ---

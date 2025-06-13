@@ -814,11 +814,11 @@ Next steps - gap assessment - what are we missing to hit our mission/vision, wha
 - Adding MOAR raspberry pis to improve capacity/performance. Curious to see Foundation's ability to finance tasks like this @CRob talk to TAC.
   - Dan L - plan for quarterly press releases. PR team locks doc ~2wks ahead.
     - @Glenn get "press release" text prepped and over to CRob to pass to PR team
-- Ricco working on mapping user stories to SKF. Making a machine-learning model to perform the mapping & reccomend requirements for ASGS reqs. Looking at 30-50 most used user stories for ASGS reqs.
+- Ricco working on mapping user stories to SKF. Making a machine-learning model to perform the mapping & recommend requirements for ASGS reqs. Looking at 30-50 most used user stories for ASGS reqs.
 
 ### CII Best Practices badge project: which working group of the OSSF?
 
-- TAC met and agreed with discussion between leads ofr Metrics & this working group. Dev Best Practices working group is cleared to assist curating/augmenting/improving the current CII Best Practices Badge project best practices. We'll coordinate with the Metrics team as they are ready to start advertising the badges as part of their reporting.
+- TAC met and agreed with discussion between leads for Metrics & this working group. Dev Best Practices working group is cleared to assist curating/augmenting/improving the current CII Best Practices Badge project best practices. We'll coordinate with the Metrics team as they are ready to start advertising the badges as part of their reporting.
 - Group discussion:
 
 ### Inventory project
@@ -970,7 +970,7 @@ Sadly, no one on call had perms to allow it - @CRob get that fixed for DW & myse
 - OWASP has already been active in promoting it
 - OWASP is working on MVP on structure of MVP
 - Will add/replace with skf dataset
-- Looking for requirements coverate (ASF, PCI, FedRAMP, etc)
+- Looking for requirements coverage (ASF, PCI, FedRAMP, etc)
 - Gibson can report back with progress next WG call
 
 ## Other subjects
@@ -1041,7 +1041,7 @@ CRob is volunteering
 
 - CRob: This group should have these resources. The integration part will def be more challenging and could come in a later phase.
 - Rob: Connection to other tooling and categorization make a big difference. About ranking: loves that it comes from the actual user's perspective.
-- When the inventory integrates with SAST tools within the IDE, do you get remediation advices associated? Depends on the tool itself, but yes.
+- When the inventory integrates with SAST tools within the IDE, do you get remediation advises associated? Depends on the tool itself, but yes.
 - SKF intended also to consume the inventory. In the meantime, SKF can add other sources, waiting for the inventory to be live.
 
 ## Other subjects
@@ -1643,7 +1643,7 @@ Pull Request Template:
 
 [ ] Parametrized query
 
-[ ] Proper input sanitization occured
+[ ] Proper input sanitization occurred
 
 Etc.
 

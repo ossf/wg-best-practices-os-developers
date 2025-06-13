@@ -7,7 +7,7 @@ severity: LOW
 ## Description
 
 Require all Pull Request conversations to be resolved before merging. Check
-this to avoid bypassing/missing a Pull Reuqest comment.
+this to avoid bypassing/missing a Pull Request comment.
 
 ## Threat Example(s)
 

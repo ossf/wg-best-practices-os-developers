@@ -26,8 +26,8 @@ class ReportTableGenerator(object):
 
     def _reformat_string(self, row: str) -> str:
         print(f"Reformatting {row}")
-        row_reformated = row.capitalize()
-        return row_reformated
+        row_reformatted = row.capitalize()
+        return row_reformatted
 
 
 #####################
