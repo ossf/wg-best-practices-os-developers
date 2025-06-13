@@ -38,7 +38,7 @@ managing assets on GitLab.
 
 1. [Two Factor Authentication Should Be Enabled for Collaborators](member/two_factor_authentication_is_disabled_for_a_collaborator.md)
 2. [Two Factor Authentication Should Be Enabled for External Collaborators](member/two_factor_authentication_is_disabled_for_an_external_collaborator.md)
-3. [Admininistrators Should Have Activity in the Last 6 Months](member/stale_admin_found.md)
+3. [Administrators Should Have Activity in the Last 6 Months](member/stale_admin_found.md)
 
 ## Repository
 
