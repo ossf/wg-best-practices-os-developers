@@ -1,4 +1,4 @@
-# Best Practice: Vulnerabilites in Vendored Dependencies
+# Best Practice: Vulnerabilities in Vendored Dependencies
 
 A “vendored” dependency is any dependency that can't be directly updated by the end-user. Vendoring is the process of adding vendored dependencies.
 

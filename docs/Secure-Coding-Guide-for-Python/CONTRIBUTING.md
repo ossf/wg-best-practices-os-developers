@@ -102,7 +102,7 @@ Each rule should have:
 
 ### From a reader perspective
 
-The guide is structed in two levels. The top level readme is to list all rules whilst also providing an idea of:
+The guide is structured in two levels. The top level readme is to list all rules whilst also providing an idea of:
 
 * Chapter
 * Related risks

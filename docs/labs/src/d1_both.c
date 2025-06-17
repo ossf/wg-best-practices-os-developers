@@ -64,7 +64,7 @@
  * The implementation was written so as to conform with Netscapes SSL.
  * 
  * This library is free for commercial and non-commercial use as long as
- * the following conditions are aheared to.  The following conditions
+ * the following conditions are adhered to.  The following conditions
  * apply to all code found in this distribution, be it the RC4, RSA,
  * lhash, DES, etc., code; not just the SSL code.  The SSL documentation
  * included with this distribution is covered by the same copyright terms
@@ -89,7 +89,7 @@
  *    must display the following acknowledgement:
  *    "This product includes cryptographic software written by
  *     Eric Young (eay@cryptsoft.com)"
- *    The word 'cryptographic' can be left out if the rouines from the library
+ *    The word 'cryptographic' can be left out if the routines from the library
  *    being used are not cryptographic related :-).
  * 4. If you include any Windows specific code (or a derivative thereof) from 
  *    the apps directory (application code) you must include an acknowledgement:
@@ -107,7 +107,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  * 
- * The licence and distribution terms for any publically available version or
+ * The licence and distribution terms for any publicly available version or
  * derivative of this code cannot be changed.  i.e. this code cannot simply be
  * copied and put under another distribution licence
  * [including the GNU Public Licence.]
@@ -850,7 +850,7 @@ dtls1_get_message_fragment(SSL *s, int st1, int stn, long max, int *ok)
 			return dtls1_get_message_fragment(s, st1, stn,
 				max, ok);
 			}
-		else /* Incorrectly formated Hello request */
+		else /* Incorrectly formatted Hello request */
 			{
 			al=SSL_AD_UNEXPECTED_MESSAGE;
 			SSLerr(SSL_F_DTLS1_GET_MESSAGE_FRAGMENT,SSL_R_UNEXPECTED_MESSAGE);
@@ -861,7 +861,7 @@ dtls1_get_message_fragment(SSL *s, int st1, int stn, long max, int *ok)
 	if ((al=dtls1_preprocess_fragment(s,&msg_hdr,max)))
 		goto f_err;
 
-	/* XDTLS:  ressurect this when restart is in place */
+	/* XDTLS:  resurrect this when restart is in place */
 	s->state=stn;
 
 	if ( frag_len > 0)
@@ -1084,7 +1084,7 @@ dtls1_buffer_message(SSL *s, int is_ccs)
 		}
 
 #if 0
-	fprintf( stderr, "buffered messge: \ttype = %xx\n", msg_buf->type);
+	fprintf( stderr, "buffered message: \ttype = %xx\n", msg_buf->type);
 	fprintf( stderr, "\t\t\t\t\tlen = %d\n", msg_buf->len);
 	fprintf( stderr, "\t\t\t\t\tseq_num = %d\n", msg_buf->seq_num);
 #endif
@@ -1119,7 +1119,7 @@ dtls1_retransmit_message(SSL *s, unsigned short seq, unsigned long frag_off,
 	item = pqueue_find(s->d1->sent_messages, seq64be);
 	if ( item == NULL)
 		{
-		fprintf(stderr, "retransmit:  message %d non-existant\n", seq);
+		fprintf(stderr, "retransmit:  message %d non-existent\n", seq);
 		*found = 0;
 		return 0;
 		}
@@ -1438,7 +1438,7 @@ dtls1_heartbeat(SSL *s)
 	OPENSSL_assert(payload + padding <= 16381);
 
 	/* Create HeartBeat message, we just use a sequence number
-	 * as payload to distuingish different messages and add
+	 * as payload to distinguish different messages and add
 	 * some random stuff.
 	 *  - Message Type, 1 byte
 	 *  - Payload Length, 2 bytes (unsigned int)

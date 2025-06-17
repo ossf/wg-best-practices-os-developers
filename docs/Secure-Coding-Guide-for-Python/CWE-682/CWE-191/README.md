@@ -8,7 +8,7 @@ Ensure that integer overflow is properly handled in order to avoid unexpected be
   - interact with the operating system modules such as `time`.
   - to be memory efficiency using modules such as `numpy` or `ctype`.
 
-Developers should follow the `C` guidelines when using or interacting wth `C` type variables.
+Developers should follow the `C` guidelines when using or interacting with `C` type variables.
 
 ## Non-Compliant Code Example
 
@@ -205,7 +205,7 @@ for hours in hours_list:
         print(f"{hours} {repr(exception)}")
 ```
 
-The `compliant02.py` example is protecting the lower level c-lib from an `OverflowError` by setting boundaries for valid values in `hours`. Similar issues occure with any functionality provided through the operating system.
+The `compliant02.py` example is protecting the lower level c-lib from an `OverflowError` by setting boundaries for valid values in `hours`. Similar issues occur with any functionality provided through the operating system.
 
 ## Non-Compliant Code Example
 
