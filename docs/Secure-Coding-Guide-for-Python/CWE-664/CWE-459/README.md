@@ -8,10 +8,7 @@ In Python there is two documented ways to create temporary files using the `temp
 
 `tempfile.mkstemp()` creates a secure file in the most secure fashion allowing only read and write to the user who executed the python script. The function returns a tuple containing a file descriptor and the file path, but since this tuple is not a context manager, it does not directly integrate with the `with` statement, which automatically manages resource cleanup. This means that the user is responsible for deleting the temporary file after use.  
 
-
 `tempfile.NamedTemporaryFile()` is more advanced than the `mkstemp()` method as it returns a file-like object, which acts as a context manager, which works well with the `with` statement, although it creates the file with the same permissions as `mkstemp()`. The default behaviour is to delete the file once the `with` block is finished. If the file is needed outside of the with block, the `delete_on_close parameter` must be set to `false`.
-
-
 
 ## Non-Compliant Code Example
 
