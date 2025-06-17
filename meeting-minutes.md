@@ -1041,7 +1041,7 @@ CRob is volunteering
 
 - CRob: This group should have these resources. The integration part will def be more challenging and could come in a later phase.
 - Rob: Connection to other tooling and categorization make a big difference. About ranking: loves that it comes from the actual user's perspective.
-- When the inventory integrates with SAST tools within the IDE, do you get remediation advises associated? Depends on the tool itself, but yes.
+- When the inventory integrates with SAST tools within the IDE, do you get remediation advice associated? Depends on the tool itself, but yes.
 - SKF intended also to consume the inventory. In the meantime, SKF can add other sources, waiting for the inventory to be live.
 
 ## Other subjects
