@@ -516,6 +516,10 @@ Note that the list of options indicated here do not capture a complete list of r
 
 Some tools, such as `autoconf`, automatically determine what the compiler supports by generating code and compiling it. Old versions of these tools may not use more modern practices internally, so enabling errors can cause spurious reports that some functionality isn't available. The best solution is to update the tool. Where that isn't an option, consider adding `-Werror` forms *after* the tool has determined the mechanisms supported by the compiler.
 
+#### Additional Considerations
+
+Clang and GCC 5.1 - 8.3 allow these options to be specified when compiling C++ code although they will not have any effect as these constructs are already illegal in C++. GCC 8.4 and later will warn these options are not valid for C++.
+
 [^DCL31-C]: Carnegie Mellon University (CMU), [DCL31-C. Declare identifiers before using them](https://wiki.sei.cmu.edu/confluence/display/c/DCL31-C.+Declare+identifiers+before+using+them), SEI CERT C Coding Standard, 2023-10-09.
 
 [^INT36-C]: Carnegie Mellon University (CMU), [INT36-C. Converting a pointer to integer or integer to pointer](https://wiki.sei.cmu.edu/confluence/display/c/INT36-C.+Converting+a+pointer+to+integer+or+integer+to+pointer), SEI CERT C Coding Standard, 2023-04-20.
