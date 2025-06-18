@@ -492,11 +492,11 @@ Some Linux distributions, such as Arch Linux[^arch-buildflags], Fedora[^fedora-f
 
 ### Treat obsolete C constructs as errors
 
-| Compiler Flag                                                                             | Supported since            | Description                                                                                      |
-|:----------------------------------------------------------------------------------------- |:--------------------------:|:-------------------------------------------------------------------------------------------------|
+| Compiler Flag                                                                             | Supported since              | Description                                                                                      |
+|:----------------------------------------------------------------------------------------- |:----------------------------:|:-------------------------------------------------------------------------------------------------|
 | <span id="-Werror=implicit">`-Werror=implicit`</span>                                     | GCC 2.95.3<br/> Clang 2.6.0  | Treat declarations that do not specify as type or functions used before being declared as errors |
-| <span id="-Werror=incompatible-pointer-types">`-Werror=incompatible-pointer-types`</span> | GCC 5.5.0<br/> Clang 7.0.0 | Treat conversion between pointers that have incompatible types as errors                         |
-| <span id="-Werror=int-conversion">`-Werror=int-conversion`</span>                         | GCC 2.95.3<br/> Clang 2.6.0  | Treat implicit integer to pointer and pointer to integer conversions as errors                   |
+| <span id="-Werror=incompatible-pointer-types">`-Werror=incompatible-pointer-types`</span> | GCC 5.1.0<br/> Clang 7.0.0   | Treat conversion between pointers that have incompatible types as errors                         |
+| <span id="-Werror=int-conversion">`-Werror=int-conversion`</span>                         | GCC 5.1.0<br/> Clang 2.6.0   | Treat implicit integer to pointer and pointer to integer conversions as errors                   |
 
 #### Synopsis
 
