@@ -42,7 +42,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 | for x86_64                                              | `-fcf-protection=full`                                                                                   |
 | for aarch64                                             | `-mbranch-protection=standard`                                                                           |
 | for production code                                     | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
-| for treating obsolete C constructs as errors            | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion`                             |
+| for C code treating obsolete C constructs as errors     | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion`                             |
 | for multi-threaded C code using GNU C library pthreads  | `-fexceptions`                                                                                           |
 | during development but *not* when distributing source   | `-Werror`                                                                                                |
 
@@ -500,7 +500,7 @@ Some Linux distributions, such as Arch Linux[^arch-buildflags], Fedora[^fedora-f
 
 #### Synopsis
 
-Make the compiler treat obsolete C constructs as errors.
+Make the compiler treat obsolete C constructs as errors. These options are relevant for C code only.
 
 The ISO/IEC 9899:1999 standard, commonly referred to as C99, removed several backwards compatibility features, such as implicit function declarations and implicit return types from the C language. Similarly, the earlier C89/C90 standard (ANSI X3.159-1989 / ISO/IEC 9899:1990) removed certain implicit type conversion, such as implicit conversions from integer to pointer types. Such implicit declarations[^DCL31-C] and type conversions (whether implicit or explicit[^INT36-C]) can be considered dangerous for the correctness and security of C code as they lead to less stringent type checking and may rely on implementation-defined behavior. However, modern compilers still accept these obsolete constructs by default unless instructed to pedantically give errors whenever the base standard requires them.
 
