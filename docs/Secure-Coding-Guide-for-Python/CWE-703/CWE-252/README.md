@@ -62,7 +62,7 @@ print(my_string)
 
 ## Non-Compliant Code Example - Invalid value handling
 
-Return values are also important when they may be used as an alternative to raising exceptions. `str.find()`, unlike `str.index()` return -1 [[Python Docs - str.find](https://docs.python.org/3/library/stdtypes.html#str.find)] instead of raising a `ValueError` [[Python Docs - str.index](https://docs.python.org/3/library/stdtypes.html#str.index)] when it cannot find the given sub-string.
+Return values are also important when they may be used as an alternative to raising exceptions. `str.find()`, unlike `str.index()` returns -1 [[Python Docs - str.find](https://docs.python.org/3/library/stdtypes.html#str.find)] instead of raising a `ValueError` [[Python Docs - str.index](https://docs.python.org/3/library/stdtypes.html#str.index)] when it cannot find the given sub-string.
 This non-compliant code example shows that using this value will point to the last element of the string regardless of what it is.
 
 *[noncompliant02.py](noncompliant02.py):*
