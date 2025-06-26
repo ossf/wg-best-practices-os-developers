@@ -6,7 +6,7 @@ Redefining identifiers from *The Python Standard Library* \[[Python 2025](https:
 
 ## Non-Compliant Code Example (Built-in Function)
 
-The redefined built-in function `len()` in `noncompliant01.py` in incorrectly adding each element to a "sum" instead of calculating the length of an object.
+The redefined built-in function `len()` in `noncompliant01.py` is incorrectly adding each element to a "sum" instead of calculating the length of an object.
 
 *[noncompliant01.py](noncompliant01.py):*
 
