@@ -169,8 +169,7 @@ On the 'class' example we have `C0103` complains about missing PascalCase naming
 |[MITRE CWE](http://cwe.mitre.org/)|Pillar: [CWE-710: Improper Adherence to Coding Standards)](https://cwe.mitre.org/data/definitions/710.html)|
 |[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE - CWE-1109: Use of Same Variable for Multiple Purposes](https://cwe.mitre.org/data/definitions/1109.html)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[DCL01-J. Do not reuse public identifiers from the Java Standard Library](https://wiki.sei.cmu.edu/confluence/display/java/DCL01-J.+Do+not+reuse+public+identifiers+from+the+Java+Standard+Library)|
-|[SEI CERT C Coding Standard](https://web.archive.org/web/20220511061752/https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[PRE04-C. Do not reuse a standard header file name](https://wiki.sei.cmu.edu/confluence/display/c/PRE04-C.+Do+not+reuse+a+standard+header+file+name)|
-|[SEI CERT C++ Coding Standard](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682)|[VOID PRE04-CPP. Do not reuse a standard header file name](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046904)|
+|[SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[PRE04-C. Do not reuse a standard header file name](https://wiki.sei.cmu.edu/confluence/display/c/PRE04-C.+Do+not+reuse+a+standard+header+file+name)|
 
 ## Bibliography
 
