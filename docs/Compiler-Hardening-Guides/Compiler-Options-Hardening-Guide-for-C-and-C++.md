@@ -1317,7 +1317,7 @@ To enable UBSan add `-fsanitize=undefined` to the compiler flags (`CFLAGS` for C
 
 The run-time behavior of UBSan can be influenced using the `UBSAN_OPTIONS` environment variable. If set to `UBSAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program.
 
-Unlike other sanitizers, UBSan comes with an option to enable a minimal runtime which does not expose additional attack surfaces and can be enabled in production environments. You can use `-fsanitize-minimal-runtime` flag to enable it.
+Unlike other sanitizers, UBSan comes with an option to enable a minimal runtime which does not expose additional attack surfaces and can be enabled in production environments. You can use the `-fsanitize-minimal-runtime` flag to enable it.
 
 [^gcc-instrumentation]: GCC team, [Program Instrumentation Options](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#Instrumentation-Options), GCC Manual, 2023-07-27.
 
