@@ -1308,6 +1308,7 @@ LSan cannot be used simultaneously with AddressSanitizer (ASan) or ThreadSanitiz
 |:------------------------------------------------------------------------- |:-------------------------:|:--------------------------------------------------------------------------------------------------------------------------------- |
 | <span id="-fsanitize=undefined">`-fsanitize=undefined`</span>             | GCC 4.9.0<br/>Clang 3.3.0 | Enables UndefinedBehaviorSanitizer to detect undefined behavior at run time. Requires `-O1` or higher.                            |
 | <span id="-fsanitize-minimal-runtime">`-fsanitize-minimal-runtime`</span> | Clang 6.0.0               | Enables minimal UBSan runtime rather than Clang's usual libubsan library for using UBSan in production code.                      |
+| <span id="-fsanitize-trap=undefined">`-fsanitize-trap=undefined`</span>   | GCC 13.1.0                | Enables UBSan with reporting through `__builtin_trap` rather than GCC's usual libubsan runtime library. Requires `-O1` or higher. |
 
 UndefinedBehaviorSanitizer (UBSan) is a detector of non-portable or erroneous program constructs which cause behavior which is not clearly defined in the ISO C standard. UBSan provides a large number of sub-options to enable / disable individual checks for different classes of undefined behavior. Consult the GCC[^gcc-instrumentation] and Clang[^clang-ubsan] documentation respectively for up-to-date information on supported sub-options.
 
