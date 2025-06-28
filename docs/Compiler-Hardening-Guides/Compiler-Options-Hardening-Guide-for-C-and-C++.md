@@ -294,8 +294,8 @@ In Clang, `-Wformat` includes the same diagnostics as `-Wformat=2`, but unlike i
 
 ### Enable implicit conversion warnings
 
-| Compiler Flag                                                                                             |       Supported since       | Description                         |
-|:--------------------------------------------------------------------------------------------------------- |:------------------------:|:----------------------------------- |
+| Compiler Flag                                                                                             | Supported since            | Description                         |
+|:--------------------------------------------------------------------------------------------------------- |:--------------------------:|:----------------------------------- |
 | <span id="-Wconversion">`-Wconversion`</span><br/><span id="-Wsign-conversion">`-Wsign-conversion`</span> | GCC 2.95.3<br/>Clang 4.0.0 | Enable implicit conversion warnings |
 
 #### Synopsis
@@ -314,6 +314,51 @@ Conversion between data types that cause the value of the data to be altered can
 If the resulting values are used in a context where they control memory accesses or security decisions, then dangerous behaviors may occur, e.g., integer signedness or truncation errors can cause buffer overflows.
 
 For C++ warnings about conversions between signed and unsigned integers are disabled by default unless `-Wsign-conversion` is explicitly enabled.
+
+This warning only applies where a data conversion may lead to data loss. C and C++ conditionals (such as after an "if" statement) accept types other than booleans, for example, integers (where non-zero is interpreted as true) and pointers (where non-NULL is interpreted as true). This interpretation of truthiness could be considered a data type conversion (in a sense), but this option does not create spurious warnings about these perfectly reasonable constructs.
+
+#### Additional Considerations
+
+On large, brown-field code bases the `-Wconversion` option can generate hundreds or thousands of warnings, many of which are benign or stem from idiomatic C patterns. The GCC wiki notes that `-Wconversion` *"is designed for a niche of uses […] where the programmer is willing to accept and workaround invalid warnings."*[^Taylor2012] Because of the volume of diagnostics, developers may start ignoring all warnings, defeating the purpose of the flag. For such projects it can be more pragmatic to start with the narrower `-Wsign-conversion` or to enable `-Wconversion` only for selected translation units.
+
+Consequently we recommend that green-field projects (new code) enable `-Wconversion` from day one and keep the build warning-free. Add the flag to continuous-integration (CI) checks so new patches cannot re-introduce conversions.
+
+For brown-field projects (existing code) we recommend a staged rollout:
+
+1. Build once with `-Wconversion` without failing the build (omit `-Werror`) to record a baseline.
+2. Suppress known-benign patterns with `#pragma GCC diagnostic ignored "-Wconversion"` or targeted `-Wno-conversion` flags.
+3. Triage remaining warnings, prioritising high-risk ones (conversions that influences array indexing, object size calculations, or security-sensitive logic) and refactor them or make the casts explicit.
+4. Gradually tighten the flag: warning → error → part of CI.
+
+##### Removing implicit casts
+
+Where practical, implicit casts that cause data loss should be refactored so that they are unnecessary. For example, they can be:
+
+- Eliminated by harmonizing the types
+- Rewritten to reflect the programmer’s intent clearly (e.g., clamping values instead of truncating bits).
+
+If such a cast is necessary, convert it from an implicit cast to an explicit cast. Each such cast should be justified with a comment. A problem with replacing implicit conversions with explicit C-style casts is that they can introduce new bugs when used incorrectly. For example, if an implicit cast from a 32-bit value to a 16-bit short is mistakenly replaced with a cast to an 8-bit char, this truncates more bits and misrepresents intent.
+
+##### Warning noise from third-party headers
+
+Warnings may originate from system or third-party headers (e.g., Linux headers from `/usr/include`). These should not block analysis of your own code. In such cases, wrap the includes with diagnostic pragmas[^Feske21]:
+
+~~~C
+/*
+ * Disable -Wconversion warnings caused by host headers
+ */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
+
+#include <sys/cdefs.h>
+#include <linux/futex.h>
+...
+
+#pragma GCC diagnostic pop  /* restore -Wconversion warnings */
+~~~
+
+[^Taylor2012]: Taylor, Ian Lance, [The new Wconversion option](https://gcc.gnu.org/wiki/NewWconversion), GCC Wiki, 2012-01-06.
+[^Feske21]: Feske, Norman, [Let's make -Wconversion our new friend!](https://genodians.org/nfeske/2021-12-07-wconversion), Genode Labs, 2021-12-07.
 
 ---
 
