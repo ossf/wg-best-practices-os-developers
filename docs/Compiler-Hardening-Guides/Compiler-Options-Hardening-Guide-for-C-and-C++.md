@@ -1206,7 +1206,7 @@ While more efficient compared to dynamic analysis, sanitizers are still prohibit
 
 As with all testing practices, sanitizers cannot absolutely prove the absence of bugs. However, when used appropriately and regularly they can help in identifying latent memory, concurrency, and undefined behavior-related bugs which may be difficult to pinpoint.
 
-Sanitizers should not be used for hardening in production environments (apart from UndefinedBehaviorSanitizer with [`-fsanitize-minimal-runtime`](#-fsanitize-minimal-runtime)), particularly for Set User ID (SUID) binaries, as they expose operational parameters via environmental variables which can be manipulated to clobber root-owned files and privilege escalation[^Nagy2016].
+Sanitizers should not be used for hardening in production environments (apart from UndefinedBehaviorSanitizer with minimal runtime which can be enabled with [`-fsanitize-minimal-runtime`](#-fsanitize-minimal-runtime) in Clang or [`-fsanitize-trap=undefined`](#-fsanitize-trap=undefined) in GCC), particularly for Set User ID (SUID) binaries, as they expose operational parameters via environmental variables which can be manipulated to clobber root-owned files and privilege escalation[^Nagy2016].
 
 [^Nagy2016]: Nagy , Szabolcs, [Address Sanitizer local root](https://www.openwall.com/lists/oss-security/2016/02/17/9), Openwall mailing list, 2016-02-16.
 
@@ -1317,7 +1317,7 @@ To enable UBSan add `-fsanitize=undefined` to the compiler flags (`CFLAGS` for C
 
 The run-time behavior of UBSan can be influenced using the `UBSAN_OPTIONS` environment variable. If set to `UBSAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program.
 
-Unlike other sanitizers, UBSan comes with an option to enable a minimal runtime which does not expose additional attack surfaces and can be enabled in production environments. You can use the `-fsanitize-minimal-runtime` flag to enable it.
+Unlike other sanitizers, UBSan comes with an option to enable a minimal runtime which does not expose additional attack surfaces and can be enabled in production environments. You can use the `-fsanitize-minimal-runtime` flag in Clang and `-fsanitize-trap=undefined` in GCC to enable it.
 
 [^gcc-instrumentation]: GCC team, [Program Instrumentation Options](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#Instrumentation-Options), GCC Manual, 2023-07-27.
 
