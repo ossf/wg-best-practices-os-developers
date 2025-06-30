@@ -145,4 +145,4 @@ Now, the latter print will correctly indicate the lack of `I'm evil` in `Secure 
 
 |||
 |:---|:---|
-|[[Python Docs - str.replace](https://docs.python.org/3.9/library/stdtypes.html#str.replace)]<br>[[Python Docs - str.find](https://docs.python.org/3/library/stdtypes.html#str.find)]<br>[[Python Docs - str.index](https://docs.python.org/3/library/stdtypes.html#str.index)]|Python Software Foundation. (2025). Built-in Types [online]. Available from: [https://docs.python.org/3.9/library/stdtypes.html](https://docs.python.org/3.9/library/stdtypes.html) [accessed 17 June 2025] |
+|[[Python Docs - str.replace](https://docs.python.org/3.9/library/stdtypes.html#str.replace)]<br>[[Python Docs - str.find](https://docs.python.org/3/library/stdtypes.html#str.find)]<br>[[Python Docs - str.index](https://docs.python.org/3/library/stdtypes.html#str.index)]|Python Software Foundation. (2025). Built-in Types [online]. Available from: [https://docs.python.org/3.9/library/stdtypes.html](https://docs.python.org/3.9/library/stdtypes.html) \[accessed 17 June 2025\] |
