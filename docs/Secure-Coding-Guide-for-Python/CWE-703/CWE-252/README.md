@@ -139,7 +139,7 @@ Now, the latter print will correctly indicate the lack of `I'm evil` in `Secure 
 |[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE-252: Unchecked Return Value](https://cwe.mitre.org/data/definitions/252.html)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[EXP00-J. Do not ignore values returned by methods](https://wiki.sei.cmu.edu/confluence/display/java/EXP00-J.+Do+not+ignore+values+returned+by+methods)|
 |[SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[EXP12-C. Do not ignore values returned by functions](https://wiki.sei.cmu.edu/confluence/display/c/EXP12-C.+Do+not+ignore+values+returned+by+functions)|
-|ISO/IEC TR 24772:2019|Passing Parameters and Return Values [CSJ]|
+|ISO/IEC TR 24772:2019|Passing Parameters and Return Values \[CSJ\]|
 
 ## Bibliography
 
