@@ -7,7 +7,7 @@ print(f"len({number_list}) == {len(number_list)}")
 
 
 def custom_len(numbers: list[int]) -> int:
-    """implementing a dodgy version of a build in method"""
+    """implementing a custom version of len"""
     result = 0
     for number in numbers:
         result += number
