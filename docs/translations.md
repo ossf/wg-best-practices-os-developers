@@ -43,3 +43,8 @@ other than creating a team to be rare events for them.
 * Non KAWANA - ninan27
 * Muuhh IKEDA - Muuhh-CTJ
 * Taku SHIMOSAWA - shimos
+
+### Swedish
+
+* Josef Andersson - janderssonse
+* Anders Jonsson - haaninjo
