@@ -31,7 +31,7 @@ print(my_string)
 
 ```
 
-Despite calling `sanitize_string()`, the value of my_string remains unchanged because the return value of str.replace() has been ignored.
+Despite calling `sanitize_string()`, the value of my_string remains "unsafe string" instead of the expected "very safe string" as the return value of `str.replace()` has been ignored.
 
 ## Compliant Solution - Immutable objects
 
