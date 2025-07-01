@@ -42,7 +42,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 | for x86_64                                              | `-fcf-protection=full`                                                                                   |
 | for aarch64                                             | `-mbranch-protection=standard`                                                                           |
 | for production code                                     | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
-| for treating obsolete C constructs as errors            | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion`                             |
+| for C code treating obsolete C constructs as errors     | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion`                             |
 | for multi-threaded C code using GNU C library pthreads  | `-fexceptions`                                                                                           |
 | during development but *not* when distributing source   | `-Werror`                                                                                                |
 
@@ -490,15 +490,15 @@ Some Linux distributions, such as Arch Linux[^arch-buildflags], Fedora[^fedora-f
 
 ### Treat obsolete C constructs as errors
 
-| Compiler Flag                                                                             | Supported since            | Description                                                                                      |
-|:----------------------------------------------------------------------------------------- |:--------------------------:|:-------------------------------------------------------------------------------------------------|
+| Compiler Flag                                                                             | Supported since              | Description                                                                                      |
+|:----------------------------------------------------------------------------------------- |:----------------------------:|:-------------------------------------------------------------------------------------------------|
 | <span id="-Werror=implicit">`-Werror=implicit`</span>                                     | GCC 2.95.3<br/> Clang 2.6.0  | Treat declarations that do not specify as type or functions used before being declared as errors |
-| <span id="-Werror=incompatible-pointer-types">`-Werror=incompatible-pointer-types`</span> | GCC 5.5.0<br/> Clang 7.0.0 | Treat conversion between pointers that have incompatible types as errors                         |
-| <span id="-Werror=int-conversion">`-Werror=int-conversion`</span>                         | GCC 2.95.3<br/> Clang 2.6.0  | Treat implicit integer to pointer and pointer to integer conversions as errors                   |
+| <span id="-Werror=incompatible-pointer-types">`-Werror=incompatible-pointer-types`</span> | GCC 5.1.0<br/> Clang 7.0.0   | Treat conversion between pointers that have incompatible types as errors                         |
+| <span id="-Werror=int-conversion">`-Werror=int-conversion`</span>                         | GCC 5.1.0<br/> Clang 2.6.0   | Treat implicit integer to pointer and pointer to integer conversions as errors                   |
 
 #### Synopsis
 
-Make the compiler treat obsolete C constructs as errors.
+Make the compiler treat obsolete C constructs as errors. These options are relevant for C code only.
 
 The ISO/IEC 9899:1999 standard, commonly referred to as C99, removed several backwards compatibility features, such as implicit function declarations and implicit return types from the C language. Similarly, the earlier C89/C90 standard (ANSI X3.159-1989 / ISO/IEC 9899:1990) removed certain implicit type conversion, such as implicit conversions from integer to pointer types. Such implicit declarations[^DCL31-C] and type conversions (whether implicit or explicit[^INT36-C]) can be considered dangerous for the correctness and security of C code as they lead to less stringent type checking and may rely on implementation-defined behavior. However, modern compilers still accept these obsolete constructs by default unless instructed to pedantically give errors whenever the base standard requires them.
 
@@ -515,6 +515,10 @@ Note that in particular, `_FORTIFY_SOURCE` is of either limited or entirely neut
 Note that the list of options indicated here do not capture a complete list of removed features. Some changes to the expected changes to compiler default cannot be previewed using compiler flags but require instructing the compiler to support a specific language standard (C99 or later dialect) and to give errors whenever the base standard requires a diagnostic[^gcc-pedantic-errors].
 
 Some tools, such as `autoconf`, automatically determine what the compiler supports by generating code and compiling it. Old versions of these tools may not use more modern practices internally, so enabling errors can cause spurious reports that some functionality isn't available. The best solution is to update the tool. Where that isn't an option, consider adding `-Werror` forms *after* the tool has determined the mechanisms supported by the compiler.
+
+#### Additional Considerations
+
+Clang and GCC 5.1 - 8.3 allow these options to be specified when compiling C++ code although they will not have any effect as these constructs are already illegal in C++. GCC 8.4 and later will warn these options are not valid for C++.
 
 [^DCL31-C]: Carnegie Mellon University (CMU), [DCL31-C. Declare identifiers before using them](https://wiki.sei.cmu.edu/confluence/display/c/DCL31-C.+Declare+identifiers+before+using+them), SEI CERT C Coding Standard, 2023-10-09.
 
