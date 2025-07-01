@@ -16,26 +16,24 @@ This non-compliant code example shows a common mistake when trying to update an 
 """ Non-compliant Code Example """
 
 
-def sanitize_string(user_input):
-    """Function that ensure a given string is safe"""
+def silly_string(user_input):
+    """Function that changes the content of a string"""
     user_input.replace("un", "very ")
+    return user_input
 
-
-my_string = "unsafe string"
-sanitize_string(my_string)
 
 #####################
 # exploiting above code example
 #####################
-print(my_string)
+print(silly_string("unsafe string"))
 
 ```
 
-Despite calling `sanitize_string()`, the value of my_string remains "unsafe string" instead of the expected "very safe string" as the return value of `str.replace()` has been ignored.
+Despite calling `silly_string()`, "unsafe string" is printed instead of the expected "very safe string" as the return value of `str.replace()` has been ignored.
 
 ## Compliant Solution - Immutable objects
 
-This compliant solution correctly returns the value from `str.replace()` and assigns it to `my_string`:
+This compliant solution correctly returns the value from `str.replace()` and then prints it:
 
 *[compliant01.py](compliant01.py):*
 
@@ -45,18 +43,15 @@ This compliant solution correctly returns the value from `str.replace()` and ass
 """ Compliant Code Example """
 
 
-def sanitize_string(user_input):
-    """Function that ensure a given string is safe"""
+def silly_string(user_input):
+    """Function that changes the content of a string"""
     return user_input.replace("un", "very ")
 
-
-my_string = "unsafe string"
-my_string = sanitize_string(my_string)
 
 #####################
 # exploiting above code example
 #####################
-print(my_string)
+print(silly_string("unsafe string"))
 
 ```
 
