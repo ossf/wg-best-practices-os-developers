@@ -35,7 +35,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 
 | When                                                    | Additional options flags                                                                                 |
 |:------------------------------------------------------- |:---------------------------------------------------------------------------------------------------------|
-| using GCC                                               | `-Wtrampolines`                                                                                          |
+| using GCC                                               | `-Wtrampolines -fzero-init-padding-bits=all`                                                             |
 | using GCC and only left-to-right writing in source code | `-Wbidi-chars=any`                                                                                       |
 | for executables                                         | `-fPIE -pie`                                                                                             |
 | for shared libraries                                    | `-fPIC -shared`                                                                                          |
@@ -118,6 +118,8 @@ How you apply this guide depends on your circumstances:
 - Existing non-trivial project ("Brown field"): It's usually impractical to enable all options at once. First, the number of warnings will probably be overwhelming. Second, while the run-time protection mechanisms will usually not cause correctly-working programs to fail, it's still possible for them to cause problems (e.g., due to increased binary size). Instead, enable one or a few options at a time, assess their impact, resolve any problems, and repeat over time. Some flags (like [`-Wall`](#-Wall)) are groups of other flags; consider breaking them down and enabling a few of those specific flags at a time.
 
 Applications should work towards compiling warning-free. This takes time, but warnings indicate a potential problem. Once done, any new warning indicates a potential problem.
+
+We encourage developers to always use the approach guaranteed by standards to do something, as long as it's supported by their build processes. For example, in C23 or C++, assigning `{}` to a union guarantees the clearing of a whole union including padding bits (except for static storage duration initialization). Assigning `{0}` to a union does not guarantee clearing the whole union (e.g., in GCC 14 and below, this cleared a union, but in GCC 15[^gcc-release-notes-15] it does not). Using the standards' approach greatly reduces the risk that using a different compiler or a different compiler version will cause problems. That said, there may be no mechanism in the standards to ensure a particular property, sometimes compilers don't implement the standard way, and developers sometimes make mistakes. Thus, using option flags in addition to working within the standards where practical can be a powerful combination.
 
 ### What does compiler options hardening not do?
 
@@ -237,6 +239,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6.0           | Enable exception propagation to harden multi-threaded C code                                 |
 | [`-fhardened`](#-fhardened)                                                               | GCC 14.0.0                           | Enable pre-determined set of hardening options in GCC                                        |
 | [`-Wl,--as-needed`](#-Wl,--as-needed)<br/>[`-Wl,--no-copy-dt-needed-entries`](#-Wl,--no-copy-dt-needed-entries) | Binutils 2.20.0 | Allow linker to omit libraries specified on the command line to link against if they are not used |
+| [`-fzero-init-padding-bits=all`](#-fzero-init-padding-bits=all)                           | GCC 15.0.0                            | Guarantee zero initialization of padding bits in all automatic variable initializers |
 
 [^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
@@ -1159,6 +1162,25 @@ In rare cases applications may link to libraries solely for the purpose of runni
 [^Berkholz08]: Berkholz, Donnie, [Bug 234710 - as-needed by default](https://bugs.gentoo.org/234710), Gentoo's Bugzilla, 2008-08-14.
 
 [^gentoo-as-needed]: Gentoo Foundation, [Project:Quality Assurance/As-needed](https://wiki.gentoo.org/wiki/Project:Quality_Assurance/As-needed), Gentoo Wiki, 2022-07-22.
+
+---
+
+### Guarantee zero initialization of padding bits in automatic variable initializers
+
+| Compiler Flag                                                                       | Supported since | Description                                                                                    |
+|:----------------------------------------------------------------------------------- |:---------------:|:---------------------------------------------------------------------------------------------- |
+| <span id="-fzero-init-padding-bits=all">`-fzero-init-padding-bits=all`</span>       | GCC 15.0.0      | Guarantee zero initialization of padding bits in all automatic variable initializers           |
+| <span id="-fzero-init-padding-bits=union">`-fzero-init-padding-bits=union`</span>   | GCC 15.0.0      | Guarantee zero initialization of padding bits in unions on top of what the standards guarantee |
+
+#### Synopsis
+
+The `-fzero-init-padding-bits=all` option in GCC guarantees zero initialization of padding bits of structures and unions and reduces the risk that an incomplete initialization reveals sensitive information.
+
+We recommend the use of `{}` initializers for unions as this is a standards-compliant way to zero-initialize a whole union, including its paddings bits, in the C23 and C++ standards. However, older code may use a different approach, some compilers may not support it, and developers sometimes make mistakes, so this option reduces the risk of such problems.
+
+Since version 15, GCC adopted a stricter standards-compliant implementation of struct and union initializers.[^gcc-release-notes-15] Until GCC 14, `{0}` initializers would zero-initialize the whole union. With GCC 15 and later `{0}` initializer in C or C++ for unions no longer guarantees clearing of the whole union (except for static storage duration initialization). Only the first union member is initialized to zero. The `-fzero-init-padding-bits=unions` option in GCC 15 restores the old GCC behavior.
+
+[^gcc-release-notes-15]: GCC team, [GCC 15 Release Series Changes, New Features, and Fixes](https://gcc.gnu.org/gcc-15/changes.html), 2025-05-30.
 
 ---
 
