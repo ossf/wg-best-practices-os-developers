@@ -88,7 +88,7 @@ find_in_string(my_string, "I'm evil")
 
 ```
 
-Even though `I'm evil` is clearly not a part of Secure Python coding, the `find_in_string()` method will suggest otherwise.
+Even though `I'm evil` is clearly not a part of "Secure Python coding", the `find_in_string()` method will suggest otherwise.
 
 ## Compliant Solution - Invalid value handling
 
