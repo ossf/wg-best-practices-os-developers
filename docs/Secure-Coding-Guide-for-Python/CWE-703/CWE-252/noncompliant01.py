@@ -3,15 +3,13 @@
 """ Non-compliant Code Example """
 
 
-def sanitize_string(user_input):
-    """Function that ensure a given string is safe"""
+def silly_string(user_input):
+    """Function that changes the content of a string"""
     user_input.replace("un", "very ")
+    return user_input
 
-
-my_string = "unsafe string"
-sanitize_string(my_string)
 
 #####################
 # exploiting above code example
 #####################
-print(my_string)
+print(silly_string("unsafe string"))
