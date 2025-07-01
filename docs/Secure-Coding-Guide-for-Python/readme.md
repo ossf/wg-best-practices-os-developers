@@ -109,7 +109,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-710: Improper Adherence to Coding Standards](https://cwe.mitre.org/data/definitions/710.html)|Prominent CVE|
 |:----------------------------------------------------------------|:----|
 |[CWE-1095: Loop Condition Value Update within the Loop](CWE-710/CWE-1095/README.md)||
-|[CWE-1109: Use of Same Variable for Multiple Purposes](CWE-710/CWE-1109/.)||
+|[CWE-1109: Use of Same Variable for Multiple Purposes](CWE-710/CWE-1109/README.md)||
 |[CWE-489: Active Debug Code](CWE-710/CWE-489/README.md)|[CVE-2018-14649](https://www.cvedetails.com/cve/CVE-2018-14649),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __69.64__ (12.12.2023)|
 
 ## Biblography

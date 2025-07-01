@@ -1,18 +1,23 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-""" Compliant Code Example """
+"""Compliant Code Example"""
+
 import os
 
-print(f"Logged in user is {os.getlogin()}")
+print(f"Process id='{os.getpid()}'")
 
 
 class custom_os:
-    """ redefining standard class """
+    """redefining standard class"""
 
     @staticmethod
-    def getlogin():
-        """ redefining standard class method """
+    def getpid():
+        """redefining standard class method"""
         return "Not implemented"
 
 
-print(f"Logged in user is {os.getlogin()}")
+#####################
+# Trying to exploit above code example
+#####################
+
+print(f"Process id='{os.getpid()}'")
