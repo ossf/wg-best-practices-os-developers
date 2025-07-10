@@ -6,20 +6,27 @@ In-place modification of mutable types such as `list`, `dict`, or `set` that are
 
 ## Non-Compliant Code Example (List)
 
-This `noncompliant01.py` example will successfully remove the Bob from `userlist` but this modifies the original list `userlist` and is not recommended.
+This `noncompliant01.py` example will remove only one name that starts with `B` despite trying to remove them all without any exception raised:
 
 [*noncompliant01.py:*](noncompliant01.py)
 
 ```py
 """ Non-compliant Code Example """
-userlist = ['Alice', 'Bob', 'Charlie']
+userlist = ['Alice', 'Bob', 'Bill', 'Charlie']
 print(f'Unmodified list: {userlist}')
 
 for user in userlist:
-    if user == 'Bob':
+    if user.startswith('B'):
         userlist.remove(user)
 
 print(f'Modified list: {userlist}')
+```
+
+Output from above noncompliant01.py:
+
+```bash
+Unmodified list: ['Alice', 'Bob', 'Bill', 'Charlie']
+Modified list: ['Alice', 'Bill', 'Charlie']
 ```
 
 ## Non-Compliant Code Example (Dict)
@@ -63,12 +70,12 @@ The `compliant01.py` solution demonstrates both strategies. The first example cr
 
 ```py
 """ Compliant Code Example """
-userlist = ['Alice', 'Bob', 'Charlie']
+userlist = ['Alice', 'Bob', 'Bill', 'Charlie']
 print(f'Unmodified list: {userlist}')
  
 # Create a copy
 for user in userlist.copy():
-    if user == 'Bob':
+    if user.startswith('B'):
         userlist.remove(user)
  
 print(f'Modified list: {userlist}')
@@ -80,7 +87,7 @@ print(f'Unmodified list: {userlist2}')
 # Create new list
 activeusers = []
 for user in userlist2:
-    if user != 'Bob':
+    if user.startswith('B'):
         activeusers.append(user)
 print(f'New list: {activeusers}')
 ```
