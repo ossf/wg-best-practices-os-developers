@@ -52,7 +52,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-197: Numeric Truncation Error](CWE-664/CWE-197/README.md)||
 |[CWE-197: Control rounding when converting to less precise numbers](CWE-664/CWE-197/01/README.md)||
 |[CWE-400: Uncontrolled Resource Consumption](CWE-664/CWE-400/README.md)||
-|[CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)](CWE-664/CWE-409/.)||
+|[CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)](CWE-664/CWE-409/README.md)||
 |[CWE-410: Insufficient Resource Pool](CWE-664/CWE-410/README.md)||
 |[CWE-426: Untrusted Search Path](CWE-664/CWE-426/README.md)|[CVE-2015-1326](https://www.cvedetails.com/cve/CVE-2015-1326),<br/>CVSSv3.0: __8.8__,<br/>EPSS: __00.20__ (23.11.2023)|
 |[CWE-459: Incomplete Cleanup](CWE-664/CWE-459/README.md)||

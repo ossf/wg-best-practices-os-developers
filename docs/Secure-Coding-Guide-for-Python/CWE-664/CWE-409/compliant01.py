@@ -1,63 +1,101 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-""" Compliant Code Example """
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+"""Compliant Code Example"""
+
 import zipfile
 from pathlib import Path
 
 MAXSIZE = 100 * 1024 * 1024  # limit is in bytes
-MAXAMT = 5  # max amount of files, includes directories in the archive
+MAXAMT = 1000  # max amount of files, includes directories in the archive
 
 
 class ZipExtractException(Exception):
     """Custom Exception"""
 
 
-def path_validation(input_path, base_path, permit_subdirs=True):
-    """Ensure to have only allowed path names"""
-    test_path = (Path(base_path) / input_path).resolve()
-    if permit_subdirs:
-        if not Path(base_path).resolve() in test_path.resolve().parents:
-            raise ZipExtractException(f"Filename {test_path} not in {Path(base_path)} directory")
-    else:
-        if test_path.parent != Path(base_path).resolve():
-            raise ZipExtractException(f"Filename {test_path} not in {Path(base_path)} directory")
+def path_validation(filepath: Path, base_path: Path):
+    """Ensure to have only allowed path names
+
+    Args:
+        filepath (Path): path to archive
+        base_path (Path): path to folder for extracting archives
+
+    Raises:
+        ZipExtractException: if a directory traversal is detected
+    """
+    input_path_resolved = (base_path / filepath).resolve()
+    base_path_resolved = base_path.resolve()
+
+    if not str(input_path_resolved).startswith(str(base_path_resolved)):
+        raise ZipExtractException(
+            f"Filename {str(input_path_resolved)} not in {str(base_path)} directory"
+        )
 
 
-def extract_files(file, base_path):
-    """Unpack zip file into base_path"""
-    with zipfile.ZipFile(file, mode="r") as archive:
-        dirs = []
-        # Validation:
+def extract_files(filepath: str, base_path: str, exist_ok: bool = True):
+    """Extract archive below base_path
+
+    Args:
+        filepath (str): path to archive
+        base_path (str): path to folder for extracting archives
+        exist_ok (bool, optional): Overwrite existing. Defaults to True.
+
+    Raises:
+        ZipExtractException: If there are to many files
+        ZipExtractException: If there are to big files
+        ZipExtractException: If a directory traversal is detected
+    """
+    # TODO: avoid exposing sensitive data to a lesser trusted entity via errors
+
+    with zipfile.ZipFile(filepath, mode="r") as archive:
+        # limit number of files:
         if len(archive.infolist()) > MAXAMT:
-            raise ZipExtractException(f"Metadata check: too many files, limit is {MAXAMT}")
-        for zm in archive.infolist():
-            if zm.file_size > MAXSIZE:
-                raise ZipExtractException(f"Metadata check: {zm.filename} is too big, limit is {MAXSIZE}")
-            path_validation(zm.filename, base_path)
-            with archive.open(zm.filename, mode='r') as mte:
-                read_data = mte.read(MAXSIZE + 1)
+            raise ZipExtractException(
+                f"Metadata check: too many files, limit is {MAXAMT}"
+            )
+
+        # validate by iterating over meta data:
+        for item in archive.infolist():
+            # limit file size using meta data:
+            if item.file_size > MAXSIZE:
+                raise ZipExtractException(
+                    f"Metadata check: {item.filename} is bigger than {MAXSIZE}"
+                )
+
+            path_validation(Path(item.filename), Path(base_path))
+
+        # create target folder
+        Path(base_path).mkdir(exist_ok=exist_ok)
+
+        # preparing for extraction, need to create directories first
+        # as they may come in random order to the files
+        for item in archive.infolist():
+            if item.is_dir():
+                xpath = Path(base_path).joinpath(item.filename).resolve()
+                xpath.mkdir(exist_ok=exist_ok)
+
+        # start of extracting files:
+        for item in archive.infolist():
+            if item.is_dir():
+                continue
+            # we got a file
+            with archive.open(item.filename, mode="r") as filehandle:
+                read_data = filehandle.read(MAXSIZE + 1)
                 if len(read_data) > MAXSIZE:
-                    raise ZipExtractException(f"File {zm.filename} bigger than {MAXSIZE}")
+                    # meta data was lying to us, actual size is bigger:
+                    raise ZipExtractException(
+                        f"Reality check, {item.filename} bigger than {MAXSIZE}"
+                    )
+                xpath = Path(base_path).joinpath(filehandle.name).resolve()
+                with open(xpath, mode="wb") as filehandle:
+                    filehandle.write(read_data)
+        print(f"extracted successfully below {base_path}")
 
-        if not Path(base_path).resolve().exists():
-            Path(base_path).resolve().mkdir(exist_ok=True)
 
-        for zm in archive.infolist():
-            # Extraction - create directories
-            if zm.is_dir():
-                dirs.append(Path(base_path).resolve().joinpath(zm.filename))
-
-        for directory in dirs:
-            Path.mkdir(directory)
-
-        for zm in archive.infolist():
-            with archive.open(zm.filename, mode='r') as mte:
-                xpath = Path(base_path).joinpath(mte.name).resolve()
-                print(f"Writing file {xpath}")
-                # Skip if directory
-                if xpath not in dirs:  # check if file is a directory
-                    with open(xpath, mode="wb") as filehandle:
-                        filehandle.write(read_data)
-
+#####################
+# Trying to exploit above code example
+#####################
 
 extract_files("zip_attack_test.zip", "ziptemp")
