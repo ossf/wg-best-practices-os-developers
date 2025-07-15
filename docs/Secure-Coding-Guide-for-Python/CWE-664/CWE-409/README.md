@@ -146,7 +146,7 @@ with zipfile.ZipFile("zip_attack_test.zip", mode="r") as archive:
 
 ```
 
-Depending on the underlaying zip library we should see `noncompliant02.py` prevent a zip bomb but not a traversal attack. 
+Depending on the underlaying zip library we should see `noncompliant02.py` prevent a zip bomb but not a traversal attack.
 
 __Example `noncompliant02.py` output:__
 

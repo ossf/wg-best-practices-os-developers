@@ -18,7 +18,7 @@ _[example01.py:](example01.py)_
 # Code goes here
 ```
 
- **Output of example01.py:**
+ __Output of example01.py:__
 
 ```bash
 Console output...
@@ -28,7 +28,7 @@ Console output...
 
 Introduction to the code example...
 
-**[noncompliant01.py](noncompliant01.py):**
+_[noncompliant01.py](noncompliant01.py):_
 
 ```python
 """Non-compliant Code Example"""
@@ -48,7 +48,7 @@ Short explanation of expected outcome of running the code example, e.g. "The cod
 
 Introduction to the code example...
 
-*[compliant01.py](compliant01.py):*
+_[compliant01.py](compliant01.py):_
 
 ```python
 """Compliant Code Example"""
