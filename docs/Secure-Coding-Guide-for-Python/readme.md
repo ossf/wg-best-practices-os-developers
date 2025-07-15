@@ -51,6 +51,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-134: Use of Externally-Controlled Format String](CWE-664/CWE-134/README.md)|[CVE-2022-27177](https://www.cvedetails.com/cve/CVE-2022-27177/),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __00.37__ (01.12.2023)|
 |[CWE-197: Numeric Truncation Error](CWE-664/CWE-197/README.md)||
 |[CWE-197: Control rounding when converting to less precise numbers](CWE-664/CWE-197/01/README.md)||
+|[CWE-209: Generation of Error Message Containing Sensitive Information](CWE-664/CWE-209/README.md)|[CVE-2013-0773](https://www.cvedetails.com/cve/CVE-2013-0773/),<br/>CVSSv3.1:__3.3__,<br/>EPSS: __00.95__ (23.11.2023)|
 |[CWE-400: Uncontrolled Resource Consumption](CWE-664/CWE-400/README.md)||
 |[CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)](CWE-664/CWE-409/.)||
 |[CWE-410: Insufficient Resource Pool](CWE-664/CWE-410/README.md)||
