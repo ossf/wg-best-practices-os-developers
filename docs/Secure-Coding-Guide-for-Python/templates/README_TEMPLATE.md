@@ -119,4 +119,4 @@ Short explanation of expected outcome of running the code example, e.g. "The cod
         <td>[SEI CERT C 2025]</td>
         <td>CERT C Coding Standard [online]. Available from: <a href=https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard>https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard</a> [Accessed 6 May 2025]</td>
     </tr>
-<table>
+</table>
