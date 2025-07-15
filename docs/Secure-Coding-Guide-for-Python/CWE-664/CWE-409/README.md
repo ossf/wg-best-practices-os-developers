@@ -352,4 +352,4 @@ The `compliant01.py` code will extract everything below the provided `base_path`
         <td>[port9org 2025]</td>
         <td><a href="https://github.com/port9org/SecLists/tree/master/Payloads/Zip-Bombs">https://github.com/port9org/SecLists/tree/master/Payloads/Zip-Bombs</a></td>
     </tr>
-<table>
+</table>
