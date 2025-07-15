@@ -272,6 +272,7 @@ The first objective of an implementation must be do allow observing a brute forc
 Consider using one of OWASP's [Blocking_Brute_Force_Attacks](https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks) tactics such as gradual delays for human accounts if the need arises.
 
 ## Automated Detection
+
 <table>
     <tr>
         <th>Tool</th>
