@@ -100,7 +100,7 @@ Prefabricated zip bombs and zip slip archives for testing can be found on: [[por
 
 ## Non-Compliant Code Example - No File Validation
 
-The `noncompliant01.py` example simply extracts all the files in the archive without performing any verification. The `extractall()` method will attempt to normalize the path name. Any archive from an untrusted source should be inspected prior to extraction. There is no attempt to control where the files are extracted, which is the script current working directory.
+The `extractall()` method in `noncompliant01.py` will attempt to normalize the path name while making no attempt to control where the files are extracted to. The script uses the current working directory as a starting point and allows to escape the default path. Any archive from an untrusted source must be inspected prior to extraction and extracted forced below a specific path in order to prevent traversal attacks.
 
 _[noncompliant01.py](noncompliant01.py):_
 
@@ -117,13 +117,13 @@ with zipfile.ZipFile("zip_attack_test.zip", mode="r") as archive:
 
 The `noncompliant01.py` code will extract any quantity of payloads. With a unmodified `example01.py` we get only `4 x 150MB` `zipbombfileX.txt`'s that are much bigger than the `0.58MB` `zip_attack_test.zip` archive.
 
-The directory traversal payload will try to extract a `\Temp\zip_slip_windows.txt` for Windows and a `/tmp/zip_slip_posix.txt` for Unix based systems. Depending on the zip library in use the files may either end up in their indented target, under the same directory as the `zipbombfile.txt` files, or not at all.
+The directory traversal payload will try to extract a `\Temp\zip_slip_windows.txt` for Windows and a `/tmp/zip_slip_posix.txt` for Unix based systems. Depending on the zip library in use the files may either end up in their intended target, under the same directory as the `zipbombfile.txt` files, or not at all.
 
 ## Non-Compliant Code Example - Incorrect File Validation
 
 Experiment with the code by varying the `MAXSIZE`.
 
-The `noncompliant02.py` code example tries to check the file_size from the `ZipInfo`  instances provided by the `infolist()` method from `ZipFile`. This information is read from the `zip` archive metadata, so it is not reliable and can be forged by an attacker. The `extract()` method will attempt to normalize the path name. Again, there is no attempt to control where the files are extracted to in order to prevent traversal attacks. The underlaying zip library may or may not prevent traversal attacks.
+The `noncompliant02.py` code example tries to check the `file_size` from the `ZipInfo`  instances provided by the `infolist()` method from `ZipFile`. This information is read from the `zip` archive metadata, so it is not reliable and can be forged by an attacker. The `extract()` method will attempt to normalize the path name. Again, there is no attempt to control where the files are extracted to in order to prevent traversal attacks. The underlying zip library may or may not prevent traversal attacks.
 
 _[noncompliant02.py](noncompliant02.py):_
 
@@ -146,7 +146,7 @@ with zipfile.ZipFile("zip_attack_test.zip", mode="r") as archive:
 
 ```
 
-Depending on the underlaying zip library we should see `noncompliant02.py` prevent a zip bomb but not a traversal attack.
+Depending on the underlying zip library we should see `noncompliant02.py` prevent a zip bomb but not a traversal attack.
 
 __Example `noncompliant02.py` output:__
 
@@ -227,7 +227,7 @@ def extract_files(filepath: str, base_path: str, exist_ok: bool = True):
         ZipExtractException: If there are to big files
         ZipExtractException: If a directory traversal is detected
     """
-    # TODO: avoid exposing sensitive data to a lesser trusted entity via errors
+    # TODO: avoid CWE-209: Generation of Error Message Containing Sensitive Information
     with zipfile.ZipFile(filepath, mode="r") as archive:
         # limit number of files:
         if len(archive.infolist()) > MAXAMT:
@@ -316,8 +316,16 @@ The `compliant01.py` code will extract everything below the provided `base_path`
         <td>Base: <a href="https://cwe.mitre.org/data/definitions/180.html">CWE-180: Incorrect behavior order: Validate before Canonicalize</a></td>
     </tr>
     <tr>
+        <td><a href="http://cwe.mitre.org/">MITRE CWE</a></td>
+        <td>Base: <a href="https://cwe.mitre.org/data/definitions/209.html">CWE-209: Generation of Error Message Containing Sensitive Information</a></td>
+    </tr>
+    <tr>
         <td>Secure Coding in Python</td>
         <td>Base: <a href="../../CWE-707/CWE-180/README.md">CWE-180: Incorrect behavior order: Validate before Canonicalize</a></td>
+    </tr>
+    <tr>
+        <td>Secure Coding in Python</td>
+        <td>Base: <a href="../../CWE-664/CWE-209/README.md">CWE-209: Generation of Error Message Containing Sensitive Information</a></td>
     </tr>
     <tr>
         <td><a href="https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java">[SEI CERT Oracle Coding Standard for Java]</a></td>

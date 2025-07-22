@@ -47,7 +47,7 @@ def extract_files(filepath: str, base_path: str, exist_ok: bool = True):
         ZipExtractException: If there are to big files
         ZipExtractException: If a directory traversal is detected
     """
-    # TODO: avoid exposing sensitive data to a lesser trusted entity via errors
+    # TODO: avoid CWE-209: Generation of Error Message Containing Sensitive Information
 
     with zipfile.ZipFile(filepath, mode="r") as archive:
         # limit number of files:

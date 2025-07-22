@@ -96,7 +96,7 @@ Short explanation of expected outcome of running the code example, e.g. "The cod
     </tr>
     <tr>
         <td><a href="http://cwe.mitre.org/">MITRE CWE</a></td>
-        <td>Base: <a href="https://cwe.mitre.org/data/definitions/1335.html">[CWE-1335: Incorrect Bitwise Shift of Integer (4.12)]</a></td>
+        <td>Base or Class (choose which one it is based on the abstraction on the CWE page): <a href="https://cwe.mitre.org/data/definitions/1335.html">[CWE-1335: Incorrect Bitwise Shift of Integer (4.12)]</a></td>
     </tr>
     <tr>
         <td><a href="https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java">[SEI CERT Oracle Coding Standard for Java]</a></td>
@@ -120,3 +120,4 @@ Short explanation of expected outcome of running the code example, e.g. "The cod
         <td>CERT C Coding Standard [online]. Available from: <a href=https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard>https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard</a> [Accessed 6 May 2025]</td>
     </tr>
 </table>
+When writing bibliography, follow the [Harvard reference guide](https://dkit.ie.libguides.com/harvard/citing-referencing)
