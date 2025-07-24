@@ -1,8 +1,10 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-""" Non-compliant Code Example """
+""" Compliant Code Example """
+
 import math
- 
+
+
 def balance_is_positive(value: str) -> bool:
     """Returns True if there is still enough value for a transaction"""
     _value = float(value)
@@ -12,8 +14,8 @@ def balance_is_positive(value: str) -> bool:
         return False
     else:
         return True
- 
- 
+
+
 #####################
 # attempting to exploit above code example
 #####################

@@ -5,15 +5,16 @@ In python, some datasets use `NaN` (not-a-number) to represent the missing data.
 
 This behavior is compliant with IEEE 754[[2024 Wikipedia]](https://en.wikipedia.org/wiki/IEEE_754) a hardware induced compromise.
 The [example01.py](example01.py) code demonstrates various comparisons of float('NaN') all resulting in False
+
 ```python
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """ Code Example """
- 
+
 foo = float('NaN')
 print(f"foo={foo} type = {type(foo)}")
- 
- 
+
+
 print(foo == float("NaN") or
       foo is float("NaN") or
       foo < 3 or
@@ -22,6 +23,7 @@ print(foo == float("NaN") or
       )
 
 ```
+
 ## Non-Compliant Code Example
 
 This noncompliant code example [[2024 docs.python.org]](https://docs.python.org/3/reference/expressions.html#value-comparisons) attempts a direct comparison with NaN in
@@ -34,8 +36,8 @@ _value == float("NaN").
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
- 
- 
+
+
 def balance_is_positive(value: str) -> bool:
     """Returns True if there is still enough value for a transaction"""
     _value = float(value)
@@ -45,8 +47,8 @@ def balance_is_positive(value: str) -> bool:
         return False
     else:
         return True
- 
- 
+
+
 #####################
 # attempting to exploit above code example
 #####################
@@ -70,17 +72,18 @@ The decision by the `balance_is_positive` method is to `ROUND_DOWN` instead of t
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """ Compliant Code Example """
+
 from decimal import ROUND_DOWN, Decimal
- 
- 
+
+
 def balance_is_positive(value: str) -> bool:
     """Returns True if there is still enough value for a transaction"""
     # TODO: additional input sanitation for expected type
     _value = Decimal(value)
     # TODO: exception handling
     return _value.quantize(Decimal(".01"), rounding=ROUND_DOWN) > Decimal("0.00")
- 
- 
+
+
 #####################
 # attempting to exploit above code example
 #####################
@@ -100,9 +103,10 @@ In `compliant02.py` we use the `math.isnan` to verify if the value passed is a v
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """ Compliant Code Example """
+
 import math
- 
- 
+
+
 def balance_is_positive(value: str) -> bool:
     """Returns True if there is still enough value for a transaction"""
     _value = float(value)
@@ -112,8 +116,8 @@ def balance_is_positive(value: str) -> bool:
         return False
     else:
         return True
- 
- 
+
+
 #####################
 # attempting to exploit above code example
 #####################
