@@ -4,7 +4,7 @@ The `NaN` value should be stripped before as they can cause surprising or undefi
 In python, some datasets use `NaN` (not-a-number) to represent the missing data. This can be problematic as the `NaN` values are unordered.  Any ordered comparison of a number to a not-a-number value are `False`. A counter-intuitive implication is that `not-a-number` values are not equal to themselves.
 
 This behavior is compliant with IEEE 754[[2024 Wikipedia]](https://en.wikipedia.org/wiki/IEEE_754) a hardware induced compromise.
-The [example01.py](example01.py) code demonstrates various comparisons of float('NaN') all resulting in False
+The [example01.py](example01.py) code demonstrates various comparisons of `float('NaN')` all resulting in `False`.
 
 ```python
 # SPDX-FileCopyrightText: OpenSSF project contributors
@@ -26,9 +26,7 @@ print(foo == float("NaN") or
 
 ## Non-Compliant Code Example
 
-This noncompliant code example [[2024 docs.python.org]](https://docs.python.org/3/reference/expressions.html#value-comparisons) attempts a direct comparison with NaN in
-
-_value == float("NaN").
+This noncompliant code example [[2024 docs.python.org]](https://docs.python.org/3/reference/expressions.html#value-comparisons) attempts a direct comparison with `NaN` in `_value == float("NaN")`.
 
 *[noncompliant01.py](noncompliant01.py):*
 
@@ -58,13 +56,13 @@ print(balance_is_positive("NaN"))
 
 ```
 
-The balance_is_positive method returns True for all 3 cases instead of throwing an ValureError exception for balance_is_positive("NaN")
+The `balance_is_positive` method returns `True` for all 3 cases instead of throwing an `ValureError` exception for `balance_is_positive("NaN")`.
 
 ## Compliant Solution
 
 In the `compliant01.py` code example, the method `Decimal.quantize` is used to gain control over known rounding errors in floating point values.
 
-The decision by the `balance_is_positive` method is to `ROUND_DOWN` instead of the default `ROUND_HALF_EVEN`.
+The decision by the balance_is_positive method is to `ROUND_DOWN` instead of the default `ROUND_HALF_EVEN`.
 
 *[compliant01.py](compliant01.py):*
 
@@ -93,9 +91,9 @@ print(balance_is_positive("NaN"))
 
 ```
 
-Decimal throws a decimal.InvalidOperation for NaN values, the controlled rounding causes only "0.01" to return True.
+`Decimal` throws a `decimal.InvalidOperation` for `NaN` values, the controlled rounding causes only `"0.01"` to return `True`.
 
-In `compliant02.py` we use the `math.isnan` to verify if the value passed is a valid `float` value.
+In `compliant02.py` we use the math.isnan to very if the value passed is a valid `float` value.
 
 *[compliant02.py](compliant02.py):*
 
@@ -127,7 +125,7 @@ print(balance_is_positive("NaN"))
 
 ```
 
-The balance_is_poitive method will raise an ValueError for NaN values.
+The `balance_is_poitive` method will raise an `ValueError` for `NaN` values.
 
 ## Automated Detection
 

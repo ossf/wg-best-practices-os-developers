@@ -92,7 +92,7 @@ It is __not production code__ and requires code-style or python best practices t
 
 |[CWE-703: Improper Check or Handling of Exceptional Conditions](https://cwe.mitre.org/data/definitions/703.html)|Prominent CVE|
 |:----------------------------------------------------------------|:----|
-|[CWE-230: Improper Handling of Missing Values](CWE-703/CWE-230/.)||
+|[CWE-230: Improper Handling of Missing Values](CWE-703/CWE-230/README.md)||
 |[CWE-252: Unchecked Return Value](CWE-703/CWE-252/README.md)||
 |[CWE-390: Detection of Error Condition without Action](CWE-703/CWE-390/README.md)||
 |[CWE-392: Missing Report of Error Condition](CWE-703/CWE-392/README.md)||
