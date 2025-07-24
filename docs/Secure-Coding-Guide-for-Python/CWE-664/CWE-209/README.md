@@ -14,7 +14,7 @@ Purposefully triggered errors can help an attacker to find out system details, s
 * How to correctly format requests and use an internal API
 * Other sensitive information such as keys or passwords.
 
-Sensitive data can be leaked on both ends of the client-server architecture. Not only can the attackers can gather sensitive information from vulnerable web servers, but they can do so from victims who use vulnerable web browsers as well. Cases of such vulnerabilities have been described in [CVE-2013-0773](https://www.cvedetails.com/cve/CVE-2013-0773/) or [CVE-2021-43536](http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-43536).
+Sensitive data can be leaked on both ends of the client-server architecture. Not only can the attackers gather sensitive information from vulnerable web servers, but they can do so from victims who use vulnerable web browsers as well. Cases of such vulnerabilities have been described in [CVE-2013-0773](https://www.cvedetails.com/cve/CVE-2013-0773/) or [CVE-2021-43536](http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-43536).
 
 Aside from a direct attack on a clients browser cache, it also must be assumed that any URL visited by an authorized user may become available to an unauthorized party. HTTP_REFERER  is a HTTP header containing the previous visited URL. It can become available to any untrusted entity without an active attack. This header could potentially be used to leak a URL that would allow the attacker to reset the password to the victim's account, as described in [[Mozilla Developers 2025](https://developer.mozilla.org/en-US/docs/Web/Security/Referer_header:_privacy_and_security_concerns)].
 
