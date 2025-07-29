@@ -102,7 +102,7 @@ print_number_of_students(None)
 
 ```
 
-The code example attempts to directly calling `len()` on a non-array value, but rather on `None`, which will raise a `TypeError`. Such unchecked dereferencing of a `None` value could result in an application crash or denial of service, impacting system availability.
+The code example attempts to directly call `len()` on a non-array value, in this case on `None`, which will raise a `TypeError`. Such unchecked dereferencing of a `None` value could result in an application crash or denial of service, impacting system availability.
 
 ## Compliant Code Example - Confirm the object is an array or similar data structure before taking its length
 
