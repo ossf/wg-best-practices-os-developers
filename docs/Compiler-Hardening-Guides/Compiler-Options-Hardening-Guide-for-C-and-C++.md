@@ -1,6 +1,6 @@
 # Compiler Options Hardening Guide for C and C++
 
-*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2025-06-17*
+*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2025-07-10*
 
 This document is a guide for compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++. The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
 
@@ -35,14 +35,14 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 
 | When                                                    | Additional options flags                                                                                 |
 |:------------------------------------------------------- |:---------------------------------------------------------------------------------------------------------|
-| using GCC                                               | `-Wtrampolines`                                                                                          |
+| using GCC                                               | `-Wtrampolines -fzero-init-padding-bits=all`                                                             |
 | using GCC and only left-to-right writing in source code | `-Wbidi-chars=any`                                                                                       |
 | for executables                                         | `-fPIE -pie`                                                                                             |
 | for shared libraries                                    | `-fPIC -shared`                                                                                          |
 | for x86_64                                              | `-fcf-protection=full`                                                                                   |
 | for aarch64                                             | `-mbranch-protection=standard`                                                                           |
 | for production code                                     | `-fno-delete-null-pointer-checks -fno-strict-overflow -fno-strict-aliasing -ftrivial-auto-var-init=zero` |
-| for treating obsolete C constructs as errors            | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion`                             |
+| for C code treating obsolete C constructs as errors     | `-Werror=implicit -Werror=incompatible-pointer-types -Werror=int-conversion`                             |
 | for multi-threaded C code using GNU C library pthreads  | `-fexceptions`                                                                                           |
 | during development but *not* when distributing source   | `-Werror`                                                                                                |
 
@@ -119,6 +119,8 @@ How you apply this guide depends on your circumstances:
 
 Applications should work towards compiling warning-free. This takes time, but warnings indicate a potential problem. Once done, any new warning indicates a potential problem.
 
+We encourage developers to always use the approach guaranteed by standards to do something, as long as it's supported by their build processes. For example, in C23 or C++, assigning `{}` to a union guarantees the clearing of a whole union including padding bits (except for static storage duration initialization). Assigning `{0}` to a union does not guarantee clearing the whole union (e.g., in GCC 14 and below, this cleared a union, but in GCC 15[^gcc-release-notes-15] it does not). Using the standards' approach greatly reduces the risk that using a different compiler or a different compiler version will cause problems. That said, there may be no mechanism in the standards to ensure a particular property, sometimes compilers don't implement the standard way, and developers sometimes make mistakes. Thus, using option flags in addition to working within the standards where practical can be a powerful combination.
+
 ### What does compiler options hardening not do?
 
 Compiler options hardening is not a silver bullet; it is not sufficient to rely solely on security features and functions to achieve secure software. Security is an emergent property of the entire system that relies on building and integrating all parts properly. However, if properly used, secure compiler options will complement existing processes, such as static and dynamic analysis, secure coding practices, negative test suites, profiling tools, and most importantly: security hygiene as a part of a solid design and architecture.
@@ -156,6 +158,8 @@ The recommendations in Table 1 and Table 2 are primarily applicable to compiling
 - widely deployed and enabled by default for pre-built packages in at least some major Linux distributions, including Debian, Ubuntu, Red Hat and SUSE Linux. See Voisin et al.'s continuous survey of compiler options used by distributions[^compiler-flags-distro].
 - supported both by the GCC and Clang / LLVM toolchains.
 - cross-platform and supported on (at least) Intel and AMD 64-bit x86 architectures as well as the 64-bit version of the ARM architecture (AArch64).
+
+Linker options covered by this guide are (unless otherwise noted) valid for GNU Linker (LD) provided as part of GNU Binary Utilities (binutils) and built off the GNU BFD (Binary File Descriptor) library. They may not be valid options for other linkers, such as binutils gold or the LLVM Linker (LLD).
 
 [^compiler-flags-distro]: Voisin, Julien et al., [Default compiler hardening flags used to build packages for Linux distributions](https://github.com/jvoisin/compiler-flags-distro), GitHub jvoisin/compiler-flags-distro, 2025-02-14.
 
@@ -237,6 +241,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6.0           | Enable exception propagation to harden multi-threaded C code                                 |
 | [`-fhardened`](#-fhardened)                                                               | GCC 14.0.0                           | Enable pre-determined set of hardening options in GCC                                        |
 | [`-Wl,--as-needed`](#-Wl,--as-needed)<br/>[`-Wl,--no-copy-dt-needed-entries`](#-Wl,--no-copy-dt-needed-entries) | Binutils 2.20.0 | Allow linker to omit libraries specified on the command line to link against if they are not used |
+| [`-fzero-init-padding-bits=all`](#-fzero-init-padding-bits=all)                           | GCC 15.0.0                            | Guarantee zero initialization of padding bits in all automatic variable initializers |
 
 [^Guelton20]: The implementation of `-D_FORTIFY_SOURCE={1,2,3}` in the GNU libc (glibc) relies heavily on implementation details within GCC. Clang implements its own style of fortified function calls (originally introduced for Android’s bionic libc) but as of Clang / LLVM 14.0.6 incorrectly produces non-fortified calls to some glibc functions with `_FORTIFY_SOURCE` . Code set to be fortified with Clang will still compile, but may not always benefit from the fortified function variants in glibc. For more information see: Guelton, Serge, [Toward _FORTIFY_SOURCE parity between Clang and GCC. Red Hat Developer](https://developers.redhat.com/blog/2020/02/11/toward-_fortify_source-parity-between-clang-and-gcc), Red Hat Developer, 2020-02-11 and Poyarekar, Siddhesh, [D91677 Avoid simplification of library functions when callee has an implementation](https://reviews.llvm.org/D91677), LLVM Phabricator, 2020-11-17.
 
@@ -490,15 +495,15 @@ Some Linux distributions, such as Arch Linux[^arch-buildflags], Fedora[^fedora-f
 
 ### Treat obsolete C constructs as errors
 
-| Compiler Flag                                                                             | Supported since            | Description                                                                                      |
-|:----------------------------------------------------------------------------------------- |:--------------------------:|:-------------------------------------------------------------------------------------------------|
+| Compiler Flag                                                                             | Supported since              | Description                                                                                      |
+|:----------------------------------------------------------------------------------------- |:----------------------------:|:-------------------------------------------------------------------------------------------------|
 | <span id="-Werror=implicit">`-Werror=implicit`</span>                                     | GCC 2.95.3<br/> Clang 2.6.0  | Treat declarations that do not specify as type or functions used before being declared as errors |
-| <span id="-Werror=incompatible-pointer-types">`-Werror=incompatible-pointer-types`</span> | GCC 5.5.0<br/> Clang 7.0.0 | Treat conversion between pointers that have incompatible types as errors                         |
-| <span id="-Werror=int-conversion">`-Werror=int-conversion`</span>                         | GCC 2.95.3<br/> Clang 2.6.0  | Treat implicit integer to pointer and pointer to integer conversions as errors                   |
+| <span id="-Werror=incompatible-pointer-types">`-Werror=incompatible-pointer-types`</span> | GCC 5.1.0<br/> Clang 7.0.0   | Treat conversion between pointers that have incompatible types as errors                         |
+| <span id="-Werror=int-conversion">`-Werror=int-conversion`</span>                         | GCC 5.1.0<br/> Clang 2.6.0   | Treat implicit integer to pointer and pointer to integer conversions as errors                   |
 
 #### Synopsis
 
-Make the compiler treat obsolete C constructs as errors.
+Make the compiler treat obsolete C constructs as errors. These options are relevant for C code only.
 
 The ISO/IEC 9899:1999 standard, commonly referred to as C99, removed several backwards compatibility features, such as implicit function declarations and implicit return types from the C language. Similarly, the earlier C89/C90 standard (ANSI X3.159-1989 / ISO/IEC 9899:1990) removed certain implicit type conversion, such as implicit conversions from integer to pointer types. Such implicit declarations[^DCL31-C] and type conversions (whether implicit or explicit[^INT36-C]) can be considered dangerous for the correctness and security of C code as they lead to less stringent type checking and may rely on implementation-defined behavior. However, modern compilers still accept these obsolete constructs by default unless instructed to pedantically give errors whenever the base standard requires them.
 
@@ -515,6 +520,10 @@ Note that in particular, `_FORTIFY_SOURCE` is of either limited or entirely neut
 Note that the list of options indicated here do not capture a complete list of removed features. Some changes to the expected changes to compiler default cannot be previewed using compiler flags but require instructing the compiler to support a specific language standard (C99 or later dialect) and to give errors whenever the base standard requires a diagnostic[^gcc-pedantic-errors].
 
 Some tools, such as `autoconf`, automatically determine what the compiler supports by generating code and compiling it. Old versions of these tools may not use more modern practices internally, so enabling errors can cause spurious reports that some functionality isn't available. The best solution is to update the tool. Where that isn't an option, consider adding `-Werror` forms *after* the tool has determined the mechanisms supported by the compiler.
+
+#### Additional Considerations
+
+Clang and GCC 5.1 - 8.3 allow these options to be specified when compiling C++ code although they will not have any effect as these constructs are already illegal in C++. GCC 8.4 and later will warn these options are not valid for C++.
 
 [^DCL31-C]: Carnegie Mellon University (CMU), [DCL31-C. Declare identifiers before using them](https://wiki.sei.cmu.edu/confluence/display/c/DCL31-C.+Declare+identifiers+before+using+them), SEI CERT C Coding Standard, 2023-10-09.
 
@@ -1162,6 +1171,25 @@ In rare cases applications may link to libraries solely for the purpose of runni
 
 ---
 
+### Guarantee zero initialization of padding bits in automatic variable initializers
+
+| Compiler Flag                                                                       | Supported since | Description                                                                                    |
+|:----------------------------------------------------------------------------------- |:---------------:|:---------------------------------------------------------------------------------------------- |
+| <span id="-fzero-init-padding-bits=all">`-fzero-init-padding-bits=all`</span>       | GCC 15.0.0      | Guarantee zero initialization of padding bits in all automatic variable initializers           |
+| <span id="-fzero-init-padding-bits=union">`-fzero-init-padding-bits=union`</span>   | GCC 15.0.0      | Guarantee zero initialization of padding bits in unions on top of what the standards guarantee |
+
+#### Synopsis
+
+The `-fzero-init-padding-bits=all` option in GCC guarantees zero initialization of padding bits of structures and unions and reduces the risk that an incomplete initialization reveals sensitive information.
+
+We recommend the use of `{}` initializers for unions as this is a standards-compliant way to zero-initialize a whole union, including its paddings bits, in the C23 and C++ standards. However, older code may use a different approach, some compilers may not support it, and developers sometimes make mistakes, so this option reduces the risk of such problems.
+
+Since version 15, GCC adopted a stricter standards-compliant implementation of struct and union initializers.[^gcc-release-notes-15] Until GCC 14, `{0}` initializers would zero-initialize the whole union. With GCC 15 and later `{0}` initializer in C or C++ for unions no longer guarantees clearing of the whole union (except for static storage duration initialization). Only the first union member is initialized to zero. The `-fzero-init-padding-bits=unions` option in GCC 15 restores the old GCC behavior.
+
+[^gcc-release-notes-15]: GCC team, [GCC 15 Release Series Changes, New Features, and Fixes](https://gcc.gnu.org/gcc-15/changes.html), 2025-05-30.
+
+---
+
 ## Discouraged Compiler Options
 
 This section describes discouraged compiler and linker option flags that may lead to potential defects with security implications in produced binaries.
@@ -1206,7 +1234,7 @@ While more efficient compared to dynamic analysis, sanitizers are still prohibit
 
 As with all testing practices, sanitizers cannot absolutely prove the absence of bugs. However, when used appropriately and regularly they can help in identifying latent memory, concurrency, and undefined behavior-related bugs which may be difficult to pinpoint.
 
-Sanitizers should not be used for hardening in production environments, particularly for Set User ID (SUID) binaries, as they expose operational parameters via environmental variables which can be manipulated to clobber root-owned files and privilege escalation[^Nagy2016].
+Sanitizers should not be used for hardening in production environments (apart from UndefinedBehaviorSanitizer with minimal runtime which can be enabled with [`-fsanitize-minimal-runtime`](#-fsanitize-minimal-runtime) in Clang or [`-fsanitize-trap=undefined`](#-fsanitize-trap=undefined) in GCC), particularly for Set User ID (SUID) binaries, as they expose operational parameters via environmental variables which can be manipulated to clobber root-owned files and privilege escalation[^Nagy2016].
 
 [^Nagy2016]: Nagy , Szabolcs, [Address Sanitizer local root](https://www.openwall.com/lists/oss-security/2016/02/17/9), Openwall mailing list, 2016-02-16.
 
@@ -1304,9 +1332,11 @@ LSan cannot be used simultaneously with AddressSanitizer (ASan) or ThreadSanitiz
 
 ### UndefinedBehaviorSanitizer
 
-| Compiler Flag          |     Supported since      | Description                                                                 |
-|:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
-| `-fsanitize=undefined`<br/>(requires `-O1` or higher) |   GCC 4.9.0<br/>Clang 3.3.0   | Enables UndefinedBehaviorSanitizer to detect undefined behavior at run time |
+| Compiler Flag                                                             | Supported since           | Description                                                                                                                       |
+|:------------------------------------------------------------------------- |:-------------------------:|:--------------------------------------------------------------------------------------------------------------------------------- |
+| <span id="-fsanitize=undefined">`-fsanitize=undefined`</span>             | GCC 4.9.0<br/>Clang 3.3.0 | Enables UndefinedBehaviorSanitizer to detect undefined behavior at run time. Requires `-O1` or higher.                            |
+| <span id="-fsanitize-minimal-runtime">`-fsanitize-minimal-runtime`</span> | Clang 6.0.0               | Enables minimal UBSan runtime rather than Clang's usual libubsan library for using UBSan in production code.                      |
+| <span id="-fsanitize-trap=undefined">`-fsanitize-trap=undefined`</span>   | GCC 13.1.0                | Enables UBSan with reporting through `__builtin_trap` rather than GCC's usual libubsan runtime library. Requires `-O1` or higher. |
 
 UndefinedBehaviorSanitizer (UBSan) is a detector of non-portable or erroneous program constructs which cause behavior which is not clearly defined in the ISO C standard. UBSan provides a large number of sub-options to enable / disable individual checks for different classes of undefined behavior. Consult the GCC[^gcc-instrumentation] and Clang[^clang-ubsan] documentation respectively for up-to-date information on supported sub-options.
 
@@ -1316,6 +1346,8 @@ To enable UBSan add `-fsanitize=undefined` to the compiler flags (`CFLAGS` for C
 - `-g` (to display source file names and line numbers in the produced warning messages)
 
 The run-time behavior of UBSan can be influenced using the `UBSAN_OPTIONS` environment variable. If set to `UBSAN_OPTIONS=help=1` the available options are shown at startup of the instrumented program.
+
+Unlike other sanitizers, UBSan comes with an option to enable a minimal runtime which does not expose additional attack surfaces and can be enabled in production environments. You can use the `-fsanitize-minimal-runtime` flag in Clang and `-fsanitize-trap=undefined` in GCC to enable it.
 
 [^gcc-instrumentation]: GCC team, [Program Instrumentation Options](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#Instrumentation-Options), GCC Manual, 2023-07-27.
 

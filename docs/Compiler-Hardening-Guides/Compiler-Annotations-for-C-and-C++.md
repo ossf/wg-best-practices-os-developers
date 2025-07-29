@@ -35,9 +35,9 @@ Table 1: Recommended attributes
 | `ownership_holds(`_`allocation-type`_`,` _`ptr-index`_`)`                                  | Clang 20.1.0                | Function                     | Mark function taking responsibility of deallocation for _`allocation-type`_.                      |
 | `alloc_size(`_`size-index`_`)`<br/>`alloc_size(`_`size-index-1`_`,`_`size-index-2`_`)`     | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | Mark positional arguments holding the allocation size that the returned pointer points to.        |
 | `access(`_`mode`_`,`_`ref-pos`_`)`<br/>`access(`_`mode`_`,` _`ref-pos`_`,` _`size-pos`_`)` | GCC 10.0.0                  | Function                     | Mark access restrictions for positional argument.                                                 |
-| `fd_arg(N)`                                                                                | GCC 13                      | Function                     | Argument N is an open file descriptor.                                                            |
-| `fd_arg_read(N)`                                                                           | GCC 13                      | Function                     | Argument N is an open file descriptor that can be read from.                                      |
-| `fd_arg_write(N)`                                                                          | GCC 13                      | Function                     | Argument N is an open file descriptor that can be written to.                                     |
+| `fd_arg(`_`fd-index`_`)`                                                                   | GCC 13.1.0                  | Function                     | Mark open file descriptors in positional arguments.                                               |
+| `fd_arg_read(`_`fd-index`_`)`                                                              | GCC 13.1.0                  | Function                     | Mark readable file descriptors in positional arguments.                                           |
+| `fd_arg_write(`_`fd-index`_`)`                                                             | GCC 13.1.0                  | Function                     | Mark writable file descriptors in positional arguments.                                           |
 | `noreturn`                                                                                 | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | The function does not return.                                                                     |
 | `tainted_args`                                                                             | GCC 12                      | Function or function pointer | Function needs sanitization of its arguments. Used by `-fanalyzer=taint`                          |
 
@@ -225,3 +225,42 @@ void to_uppercase(char *buffer, size_t size) __attribute__((access(read_write, 1
 [^gcc-access]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: access](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-access-function-attribute), GCC Manual, 2024-08-01.
 
 ---
+
+### Mark positional arguments holding open file desriptors
+
+| Attribute                                                                                      | Supported since             | Type                         | Description                                                                                       |
+|:-----------------------------------------------------------------------------------------------|:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
+| `fd_arg(`_`fd-index`_`)`                                                                       | GCC 13.0.0                  | Function                     | Mark positional argument holding a valid and open file descriptor.                                |
+| `fd_arg_read(`_`fd-index`_`)`                                                                  | GCC 13.0.0                  | Function                     | Mark positional argument holding a valid, open, and readable file descriptor.                     |
+| `fd_arg_write(`_`fd-index`_`)`                                                                 | GCC 13.0.0                  | Function                     | Mark positional argument holding a valid, open, and writable file descriptor.                     |
+
+The `fd_arg`, `fd_arg_read`, and `fd_arg_write` attributes in GCC[^gcc-fd_arg] indicate that the annotated function expects an open file descriptor as an argument. GCC’s static analyzer (`-fanalyzer`[^gcc-analyzer]) can use this information to to catch:
+
+- **Access mode mismatches** (`-Wanalyzer-fd-access-mode-mismatch`) if there are code paths through which a read on a write-only file descriptor or write on a read-only file descriptor is attempted.
+- **Double-close conditions** (`-Wanalyzer-fd-double-close`) if there are code paths thorugh which a file descriptor can be closed more than once.
+- **File descriptor leaks** (`-Wanalyzer-fd-leak`) if there are code paths through which a file descriptor goes out of scope without being closed.
+- **Use-after-close** (`-Wanalyzer-fd-use-after-close`) if there are code paths through which a read or write is attempted on a closed file descriptor.
+- **Use-without-check** (`-Wanalyzer-fd-use-without-check`) if there are code paths through which a file descriptor is used without being first checked for validity.
+
+The `fd_arg(`_`fd-index`_`)` form acts as a hint to the compiler that the positional argument at _`fd-index`_(using one-based indexing) must be an open file descriptor and must have been must have been checked for validity (such as by calling `fcntl(fd, F_GETFD)` on it) before usage.
+
+The `fd_arg_read(`_`fd-index`_`)` form is similar to `fd_arg` but also stipulates that the file descriptor must not have been opened as write-only.
+
+The  `fd_arg_write(`_`fd-index`_`)` form is similar to `fd_arg` but also stipulates that the file descriptor must not have been opened as read-only.
+
+#### Example usage
+
+~~~c
+// Denotes that use_file expects fd to be a valid and open file descriptor
+void use_file (int fd) __attribute__ ((fd_arg (1)));
+
+// Denotes that write_to_file expects fd to be a valid, open, and writable file descriptor
+void write_to_file (int fd, void *src, size_t size) __attribute__ ((fd_arg_write (1)));
+
+// Denotes that read_from_file expects fd to be a valid, open, and readable file descriptor
+void read_from_file (int fd, void *dst, size_t size) __attribute__ ((fd_arg_read (1)));
+~~~
+
+[[Extended example at Compiler Explorer](https://godbolt.org/z/T66Wj5YKv)]
+
+[^gcc-fd_arg]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: fd_arg](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-fd_005farg-function-attribute), GCC Manual, 2024-08-01.
