@@ -44,7 +44,7 @@ The `is_valid_name()` function could get called with a null argument, which rais
 
 ## Compliant Code Example - Verify that the object is not None before accessing or modifying its fields
 
-The `compliant solution` includes the same implementation as the previous `non-compliant example` but now checks if the string is `None`.
+The `compliant01.py` code includes the same implementation as the previous `noncompliant01.py` but now checks if the string is `None`.
 
 The type hint `Optional [str]` can be added to the method signature to show that it could be called with `None` (where `Optional[X]` is equivalent to `X` | `None` or `Union[X, None]`).
 
