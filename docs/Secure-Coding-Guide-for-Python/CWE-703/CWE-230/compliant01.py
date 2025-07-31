@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-""" Non-compliant Code Example """
+""" Compliant Code Example """
 
 from decimal import ROUND_DOWN, Decimal
 
