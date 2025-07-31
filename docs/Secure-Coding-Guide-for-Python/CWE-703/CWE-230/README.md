@@ -1,10 +1,13 @@
 # CWE-230: Improper Handling of Missing Values
 
-In python, some datasets use NaN (not-a-number) to represent the missing data. This can be problematic as the NaN values are unordered. The NaN value should be stripped before as they can cause surprising or undefined behaviours in the statistics functions that sort or count occurrences [[2024 doc.python.org]](https://docs.python.org/3/library/statistics.html) Any ordered comparison of a number to a not-a-number value are False. A counter-intuitive implication is that not-a-number values are not equal to themselves.
+The `NaN` value should be stripped before as they can cause surprising or undefined behaviours in the statistics functions that sort or count occurrences [[2024 doc.python.org]](https://docs.python.org/3/library/statistics.html).
+In python, some datasets use `NaN` (not-a-number) to represent the missing data. This can be problematic as the `NaN` values are unordered.  Any ordered comparison of a number to a not-a-number value are `False`. A counter-intuitive implication is that `not-a-number` values are not equal to themselves.
 
 This behavior is compliant with IEEE 754[[2024 Wikipedia]](https://en.wikipedia.org/wiki/IEEE_754) a hardware induced compromise.
 The [example01.py](example01.py) code demonstrates various comparisons of float('NaN') all resulting in False
 ```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Code Example """
  
 foo = float('NaN')
@@ -28,6 +31,8 @@ _value == float("NaN").
 *[noncompliant01.py](noncompliant01.py):*
 
 ```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
  
  
@@ -55,9 +60,9 @@ The balance_is_positive method returns True for all 3 cases instead of throwing 
 
 ## Compliant Solution
 
-The `compliant01.py` the method Decimal.quantize is used to gain control over known rounding errors in floating point values.
+In the `compliant01.py` code example, the method `Decimal.quantize` is used to gain control over known rounding errors in floating point values.
 
-The decision by the balance_is_positive method is to ROUND_DOWN instead of the default ROUND_HALF_EVEN.
+The decision by the `balance_is_positive` method is to `ROUND_DOWN` instead of the default `ROUND_HALF_EVEN`.
 
 *[compliant01.py](compliant01.py):*
 
@@ -87,7 +92,7 @@ print(balance_is_positive("NaN"))
 
 Decimal throws a decimal.InvalidOperation for NaN values, the controlled rounding causes only "0.01" to return True.
 
-In `compliant02.py` we use the math.isnan to very if the value passed is a valid float value.
+In `compliant02.py` we use the `math.isnan` to verify if the value passed is a valid `float` value.
 
 *[compliant02.py](compliant02.py):*
 
@@ -103,7 +108,7 @@ def balance_is_positive(value: str) -> bool:
     _value = float(value)
     if math.isnan(_value) or _value is None:
         raise ValueError("Expected a float")
-    if _value <= 0:
+    if _value < 0.01:
         return False
     else:
         return True
@@ -125,13 +130,13 @@ The balance_is_poitive method will raise an ValueError for NaN values.
 |Tool|Version|Checker|Description|
 |:----|:----|:----|:----|
 |Bandit|1.7.4 on Python 3.10.4|Not Available||
-|flake8|flake8-4.0.1 on python 3.10.4||FS002 '.format' used|
+|flake8|flake8-4.0.1 on python 3.10.4||Not Available|
 
 ## Related Guidelines
 
 |||
 |:---|:---|
-|[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[IDS06-J. Exclude unsanitized user input from format strings](https://wiki.sei.cmu.edu/confluence/display/java/IDS06-J.+Exclude+unsanitized+user+input+from+format+strings)|
+|[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[NUM07-J. Do not attempt comparisons with NaN](https://wiki.sei.cmu.edu/confluence/display/java/NUM07-J.+Do+not+attempt+comparisons+with+NaN)|
 |[ISO/IEC TR 24772:2013](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-ISO/IECTR24772-2013)|Injection RST|
 |[MITRE CWE Pillar](http://cwe.mitre.org/)|[CWE-703: Improper Check or Handling of Exceptional Conditions (mitre.org)](https://cwe.mitre.org/data/definitions/703.html)|
 |[MITRE CWE Pillar](http://cwe.mitre.org/)|[CWE-230: Improper Handling of Missing Values](https://cwe.mitre.org/data/definitions/230.html)|

@@ -3,13 +3,12 @@
 """ Non-compliant Code Example """
 import math
  
- 
 def balance_is_positive(value: str) -> bool:
     """Returns True if there is still enough value for a transaction"""
     _value = float(value)
     if math.isnan(_value) or _value is None:
         raise ValueError("Expected a float")
-    if _value <= 0:
+    if _value < 0.01:
         return False
     else:
         return True
