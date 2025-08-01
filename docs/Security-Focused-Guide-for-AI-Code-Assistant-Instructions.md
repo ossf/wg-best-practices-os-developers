@@ -97,8 +97,7 @@ To strengthen your AI assistant's guidance, you should point it toward establish
 
 <a id="haoyan2025a">[haoyan2025a]</a>  "These reductions suggest that newer models can effectively leverage security hints to improve code safety" (Hao Yan, Swapneel Suhas Vaidya, Xiaokuan Zhang, Ziyu Yao - [Guiding AI to Fix Its Own Flaws: An Empirical Study on LLM-Driven Secure Code Generation](https://arxiv.org/abs/2506.23034)])
 
-<a id="swaroopdora2025b">[swaroopdora2025b]</a>  "Injection attacks remain one of the most critical vulnerabilities in web applications ([OWASP Top 10](https://owasp.org/Top10/A03_2021-Injection/))... LLM-
-generated code must handle user input securely to prevent exploitation"(Swaroop Dora, Deven Lunkad, Naziya Aslam, S. Venkatesan, Sandeep Kumar Shukla - [The Hidden Risks of LLM-Generated Web Application Code](https://arxiv.org/abs/2504.20612))
+<a id="swaroopdora2025b">[swaroopdora2025b]</a>  "Injection attacks remain one of the most critical vulnerabilities in web applications ([OWASP Top 10](https://owasp.org/Top10/A03_2021-Injection/))... LLM-generated code must handle user input securely to prevent exploitation"(Swaroop Dora, Deven Lunkad, Naziya Aslam, S. Venkatesan, Sandeep Kumar Shukla - [The Hidden Risks of LLM-Generated Web Application Code](https://arxiv.org/abs/2504.20612))
 
 <a id="wiz2025b">[wiz2025b]</a>"... systematic review shows that code injection (CWE-94) and OS command injection (CWE-78) are common in AI-generated code." (Wiz Research - [Rules Files for Safer Vibe Coding](https://www.wiz.io/blog/safer-vibe-coding-rules-files))
 
