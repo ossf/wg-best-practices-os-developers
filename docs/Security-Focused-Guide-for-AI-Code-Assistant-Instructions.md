@@ -259,4 +259,5 @@ encryption can expose passwords, personal information, and financial data... If 
 ## Credit
 
 This work's development was led by Avishay Balter.
+
 Contributors include Avishay Balter, David A. Wheeler, Mihai Maruseac, Nell Shamrell-Harrington, Jason Goodsell, Roman Zhukov and others.
