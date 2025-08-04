@@ -29,7 +29,6 @@ User inputs should be checked for expected format and length.
 Always validate function arguments and use parameterized queries for database access.
 Escape special characters in user-generated content before rendering it in HTML.
 When generating output contexts such as HTML or SQL, use safe frameworks or encoding functions to avoid vulnerabilities.
-Note that we are *not* currently recommending in the general case that the AI be told to respond from a particular viewpoint (e.g., a role or persona) or character a.k.a. "persona pattern/memetic proxy". An example of this approach would be the instruction "Act as a software security expert. Provide outputs that a security expert would give". One set of experiments found that this approach performs poorly, producing the worst number of security weaknesses compared to other approaches. [[catherinetony2024b]](#catherinetony2024b) However, we encourage continued experimentation, and may change our recommendations based on future information.
 Use secure authentication flows and enforce role-based access checks where appropriate.
 When generating code, handle errors gracefully and log them, but do not expose internal details or secrets in error messages
 Use logging frameworks that can be configured for security.
