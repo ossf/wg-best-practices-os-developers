@@ -18,6 +18,71 @@ Short on time? Here's what really matters:
 * **Ask the AI to review and improve its own work**. Once you have some AI-written code, where possible, ask it to review and improve its own work (repeating these steps as necessary). This technique is sometimes called Recursive Criticism and Improvement (RCI) and can be remarkably effective. For instance, "Review your previous answer and find problems with your answer" followed by "Based on the problems you found, improve your answer" for one or more iterations. Encourage the use of tools such as linters, SAST, dependency checkers, etc. through the improvement cycles. [[catherinetony2024a]](#catherinetony2024a)
 
 By keeping these points in mind, you can harness AI code assistants effectively without sacrificing quality or security.
+## TL;DR Sample Instructions
+
+Here are sample instructions that you can copy and paste
+(details are below):
+
+
+> Provide secure code.
+User inputs should be checked for expected format and length.
+Always validate function arguments and use parameterized queries for database access.
+Escape special characters in user-generated content before rendering it in HTML.
+When generating output contexts such as HTML or SQL, use safe frameworks or encoding functions to avoid vulnerabilities.
+Never include API keys, passwords, or secrets in code output, and use environment variables or secure vault references instead.
+Use secure authentication flows and enforce role-based access checks where appropriate.
+When generating code, handle errors gracefully and log them, but do not expose internal details or secrets in error messages
+Use logging frameworks that can be configured for security.
+Prefer safe defaults in configurations – for example, use HTTPS by default, require strong encryption algorithms, and disable insecure protocols or options.
+Follow least privilege in any configuration or code.
+When applicable, generate unit tests for security-critical functions (including negative tests to ensure the code fails safely).
+If you generate placeholder code (e.g., `TODO` comments), ensure it is marked for security review before deployment.
+Avoid logging sensitive information of PII. Ensure that no sensitive or PII is stored in plaintext.
+Use popular, community-trusted libraries for common tasks (and avoid adding obscure dependencies if a standard library or well-known package can do the same job). Do not add dependencies that may be malicious or hallucinated.
+Always use the official package manager for the given language (npm, pip, Maven, etc.) to install libraries, rather than copying code snippets.
+Specify version ranges or exact versions.
+When suggesting dependency versions, prefer the latest stable release and mention updating dependencies regularly to patch vulnerabilities.
+Generate a Software Bill of Materials (SBOM) by using tools that support standard formats like SPDX or CycloneDX.
+Where applicable, use in-toto attestations or similar frameworks to create verifiable records of your build and deployment processes.
+Prefer high-level libraries for cryptography rather than rolling your own.
+
+> When adding important external resources (scripts, containers, etc.), include steps to verify integrity (like checksum verification or signature validation) if applicable.
+When writing file or OS-level operations, use safe functions and check for errors (e.g., use secure file modes, avoid temp files without proper randomness, etc.). If running as a service, drop privileges when possible.
+Always include appropriate security headers (Content Security Policy, X-Frame-Options, etc.) in web responses, and use frameworks' built-in protections for cookies and sessions.
+When generating code for cloud services (AWS/Azure/GCP), follow the provider's security guidelines (e.g., use parameterized queries for cloud databases, encrypt data at rest and in transit, handle keys via cloud KMS).
+When using containers,
+use minimal base images and avoid running containers with the root user. Use official images from trusted sources, and pin image versions using immutable digests (e.g., SHA256 hashes) instead of mutable tags like latest.
+When working with container images, verify both the integrity and authenticity of images using container signing tools like cosign or notation. Include steps to verify signatures from trusted publishers and implement admission controllers in Kubernetes to enforce signature verification policies.
+When generating HTML/JS, do not include direct links to untrusted third-party hosts for critical libraries; use our locally hosted or CDN with integrity checks.
+For mobile and desktop apps,
+do not suggest storing sensitive data in plaintext on the device; use the platform's secure storage APIs.
+When generating github actions or CI/CD pipelines, ensure secrets are stored securely (e.g., using GitHub Secrets or environment variables) and not hard-coded in the workflow files.
+Include steps to run security scans (SAST/DAST) and dependency checks in the CI/CD pipeline to catch vulnerabilities early.
+When generating infrastructure-as-code (IaC) scripts, ensure they follow security best practices (e.g., restrict access to resources, use secure storage for secrets, and validate inputs) and use the latest versions of devops dependencies such as GitHub actions and lock the version to specific SHA.
+In C or C++ code, always use bounds-checked functions (e.g., `strncpy` over `strcpy`), avoid dangerous functions like `gets`, and include buffer size constants to prevent overflow. Enable compiler defenses (stack canaries, fortify source, DEP/NX) in any build configurations you suggest.
+In Rust code, avoid using `unsafe` blocks unless absolutely necessary and document any `unsafe` usage with justification.
+In any memory-safe language, prefer using safe library functions and types; don't circumvent their safety without cause.
+In go code, use the data race detector when building the application.
+For Python, do not use `exec`/`eval` on user input and prefer safe APIs (e.g., use the `subprocess` module with `shell=False` to avoid shell injection).
+For Python, follow PEP 8 and use type hints, as this can catch misuse early.
+For JavaScript/TypeScript, when generating Node.js code, use prepared statements for database queries (just like any other language) and encode any data that goes into HTML to prevent XSS.
+For Java, when suggesting web code (e.g., using Spring), ensure to use built-in security annotations and avoid old, vulnerable libraries (e.g., use `BCryptPasswordEncoder` rather than writing a custom password hash).
+For C\#, Use .NET's cryptography and identity libraries instead of custom solutions.
+
+> Never suggest turning off security features like XML entity security or type checking during deserialization.
+Code suggestions should adhere to OWASP Top 10 principles (e.g., avoid injection, enforce access control) and follow the OWASP ASVS requirements where applicable.
+Our project follows SAFECode's secure development practices – the AI should prioritize those (e.g., proper validation, authentication, cryptography usage per SAFECode guidance).
+When generating code, consider compliance requirements (e.g., HIPAA privacy rules for medical data, PCI-DSS for credit card info) – do not output code that logs or transmits sensitive data in insecure ways.
+Include comments or TODOs in code suggesting security reviews for complex logic, and note if any third-party component might need a future update or audit.
+When writing or reviewing code, run or simulate the use of tools like CodeQL, Bandit, Semgrep, or OWASP Dependency-Check. Identify any flagged vulnerabilities or outdated dependencies and revise the code accordingly. Repeat this process until the code passes all simulated scans.
+
+Follow this with:
+
+> Review your previous answer and find problems with your answer.
+
+Follow this with:
+
+> Based on the problems you found, improve your answer.
 
 ---
 
