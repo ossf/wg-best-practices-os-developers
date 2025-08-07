@@ -38,7 +38,7 @@ Table 1: Recommended attributes
 | `fd_arg(`_`fd-index`_`)`                                                                   | GCC 13.1.0                  | Function                     | Mark open file descriptors in positional arguments.                                               |
 | `fd_arg_read(`_`fd-index`_`)`                                                              | GCC 13.1.0                  | Function                     | Mark readable file descriptors in positional arguments.                                           |
 | `fd_arg_write(`_`fd-index`_`)`                                                             | GCC 13.1.0                  | Function                     | Mark writable file descriptors in positional arguments.                                           |
-| `noreturn`                                                                                 | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | The function does not return.                                                                     |
+| `noreturn`                                                                                 | GCC 2.5.0<br/>Clang 4.0.0   | Function                     | Mark functions that never return.                                                                 |
 | `tainted_args`                                                                             | GCC 12                      | Function or function pointer | Function needs sanitization of its arguments. Used by `-fanalyzer=taint`                          |
 
 ## Performance considerations
@@ -264,3 +264,42 @@ void read_from_file (int fd, void *dst, size_t size) __attribute__ ((fd_arg_read
 [[Extended example at Compiler Explorer](https://godbolt.org/z/T66Wj5YKv)]
 
 [^gcc-fd_arg]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: fd_arg](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-fd_005farg-function-attribute), GCC Manual, 2024-08-01.
+
+### Mark functions that never return
+
+| Attribute                                                                                      | Supported since             | Type                         | Description                                                                                       |
+|:-----------------------------------------------------------------------------------------------|:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
+| `noreturn`                                                                                     | GCC 2.5.0<br/>Clang 4.0.0   | Function                     | Mark functions that never return.                                                                 |
+
+The `noreturn` attribute indicates that the annotation function never return control flow to the calling function (e.g. functions that terminate the application such as `abort()` and `exit()`, throw exceptions, loop indefinitely, etc.). Such functions and methods must be declared void.
+
+Using this attribute allows the compiler to optimize the generated code without regard to what would happen if the annotated function ever did return. In addition, compiler can generate a diagnostic for any function declared as `noreturn` that appears to return to its caller[^clang-noreturn] and `noreturn` functions can improve the accuracy of other diagnostics, e.g., by helping the compiler reduce false warnings for uninitialized variables[^gcc-noreturn].
+
+Users should be careful not to assume that registers saved by the calling function are restored before calling the `noreturn` function.
+
+#### Example usage
+
+~~~c
+// Denotes that fatal will never return
+void fatal () __attribute__ ((noreturn));
+          
+void    /* It does not make sense for a noreturn function to have a return type other than void. */
+fatal (...)
+{
+    ... /* Print error message. */ ...
+    exit (1);
+}
+~~~
+
+An alternative way to declare that a function does not return before the `noreturn` attribute was added in GCC 2.5.0 was[^gcc-voidfn]:
+
+~~~c
+typedef void voidfn ();
+volatile voidfn fatal;
+~~~
+
+[[Extended example at Compiler Explorer](https://godbolt.org/z/1csnxsjrc)]
+
+[^gcc-noreturn]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: noreturn](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-noreturn-function-attribute), GCC Manual, 2024-08-01.
+[^gcc-voidfn]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: noreturn](https://gcc.gnu.org/onlinedocs/gcc-3.2.3/gcc/Function-Attributes.html), GCC Manual, 2003-05-25.
+[^clang-noreturn]: LLVM team, [Attributes in Clang: noreturn](https://clang.llvm.org/docs/AttributeReference.html#noreturn-noreturn), Clang Compiler User's Manual, 2025-03-04.
