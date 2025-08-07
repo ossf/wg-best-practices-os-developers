@@ -15,15 +15,19 @@ Short on time? Here's what really matters:
 * **You Are the Pilot – AI is the Co-pilot:** The developer (you) remains in full control of the code. Critically evaluate and edit AI-generated code just as you would code written by a human colleague and never blindly accept suggestions. [[anssibsi2024a]](#anssibsi2024a)
 * **Apply Engineering Best Practices Always:** AI-generated code isn't a shortcut around engineering processes such as code reviews, testing, static analysis, documentation, and version control discipline. [[markvero2025a]](#markvero2025a)
 * **Be Security-Conscious:** Assume AI-written code can have bugs or vulnerabilities, because it often does. AI coding assistants can introduce security issues like using outdated cryptography or outdated dependencies, ignoring error handling, or leaking secrets. Check for any secrets or sensitive data in the suggested code. Make sure dependency suggestions are safe and not pulling in known vulnerable packages. [[shihchiehdai2025a]](#shihchiehdai2025a), [[anssibsi2024b]](#anssibsi2024b)
-* **Guide the AI:** AI is a powerful assistant, but it works best with your guidance. Write clear prompts that specify security requirements. Don't hesitate to modify or reject AI outputs. Direct your AI tool to build its own instructions file based on this guide. [[swaroopdora2025a]](#swaroopdora2025a) [[haoyan2025a]](#haoyan2025a)
+* **Guide the AI:** AI is a powerful assistant, but it works best with your guidance. Write clear precise prompts that specify security requirements. Don't hesitate to modify or reject AI outputs. Direct your AI tool to build its own instructions file based on this guide. [[swaroopdora2025a]](#swaroopdora2025a) [[haoyan2025a]](#haoyan2025a)
 * **Ask the AI to review and improve its own work**. Once you have some AI-written code, where possible, ask it to review and improve its own work (repeating these steps as necessary). This technique is sometimes called Recursive Criticism and Improvement (RCI) and can be remarkably effective. For instance, "Review your previous answer and find problems with your answer" followed by "Based on the problems you found, improve your answer" for one or more iterations. Encourage the use of tools such as linters, SAST, dependency checkers, etc. through the improvement cycles. [[catherinetony2024a]](#catherinetony2024a)
+* **Express your concerns to the AI**. If you have concerns about something AI has generated, express your concerns in detail, and ask it to analyze that code to determine whether or not it's okay. Review that answer.
 
 By keeping these points in mind, you can harness AI code assistants effectively without sacrificing quality or security.
 
 ### TL;DR Sample Instructions
 
-Here are sample instructions that you can copy and paste
-(details are below):
+Here are sample instructions that you can copy and paste.
+In most cases you should extract *from* this sample (for details see below):
+If you copy and paste irrelevant parts, the AI is more likely to generate
+extraneous or even incorrect code as it attempts to compensate for
+attacks that can't happen:
 
 > Provide secure code.
 User inputs should be checked for expected format and length.
