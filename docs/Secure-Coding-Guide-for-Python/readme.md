@@ -51,8 +51,9 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-134: Use of Externally-Controlled Format String](CWE-664/CWE-134/README.md)|[CVE-2022-27177](https://www.cvedetails.com/cve/CVE-2022-27177/),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __00.37__ (01.12.2023)|
 |[CWE-197: Numeric Truncation Error](CWE-664/CWE-197/README.md)||
 |[CWE-197: Control rounding when converting to less precise numbers](CWE-664/CWE-197/01/README.md)||
+|[CWE-209: Generation of Error Message Containing Sensitive Information](CWE-664/CWE-209/README.md)|[CVE-2013-0773](https://www.cvedetails.com/cve/CVE-2013-0773/),<br/>CVSSv3.1:__3.3__,<br/>EPSS: __00.95__ (23.11.2023)|
 |[CWE-400: Uncontrolled Resource Consumption](CWE-664/CWE-400/README.md)||
-|[CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)](CWE-664/CWE-409/.)||
+|[CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)](CWE-664/CWE-409/README.md)||
 |[CWE-410: Insufficient Resource Pool](CWE-664/CWE-410/README.md)||
 |[CWE-426: Untrusted Search Path](CWE-664/CWE-426/README.md)|[CVE-2015-1326](https://www.cvedetails.com/cve/CVE-2015-1326),<br/>CVSSv3.0: __8.8__,<br/>EPSS: __00.20__ (23.11.2023)|
 |[CWE-459: Incomplete Cleanup](CWE-664/CWE-459/README.md)||
@@ -96,6 +97,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-252: Unchecked Return Value](CWE-703/CWE-252/README.md)||
 |[CWE-390: Detection of Error Condition without Action](CWE-703/CWE-390/README.md)||
 |[CWE-392: Missing Report of Error Condition](CWE-703/CWE-392/README.md)||
+|[CWE-476: NULL Pointer Dereference](CWE-703/CWE-476/README.md)||
 |[CWE-754: Improper Check for Unusual or Exceptional Conditions - float](CWE-703/CWE-754/README.md)||
 |[CWE-755: Improper Handling of Exceptional Conditions](CWE-703/CWE-755/README.md)|[CVE-2024-39560](https://www.cvedetails.com/cve/CVE-2024-39560),<br/>CVSSv3.1: __6.5__,<br/>EPSS: __0.04__ (01.11.2024)|
 
