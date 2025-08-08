@@ -2,7 +2,7 @@
 
 by the OpenSSF Best Practices and the AI/ML Working Groups, 2025-08-01
 
-AI code assistants can significantly speed up development. However, they need guidance to produce **secure** and robust code. This guide explains how to create custom instructions (e.g. [GitHub Copilot instructions file](https://docs.github.com/en/copilot/how-tos/custom-instructions/adding-repository-custom-instructions-for-github-copilot), [Cline instructions file](https://docs.cline.bot/enterprise-solutions/custom-instructions), [Cursor rules](https://docs.cursor.com/context/rules), [Claude markdown](https://docs.anthropic.com/en/docs/claude-code/common-workflows#create-an-effective-claude-md-file), etc.). These instructions ensure the AI assistant accounts for application code security, supply chain safety, and platform or language-specific considerations. They also help embed a "security conscience" into the tool. In practice, this means fewer vulnerabilities making it into your codebase. Remember that these instructions should be kept concise, specific, and actionable. The goal is to influence the AI's behaviour without overwhelming it. [[wiz2025a]](#wiz2025a)
+AI code assistants can significantly speed up development. However, they need guidance to produce **secure** and robust code. This guide explains how to improve the security of their results by creating custom prompts or custom instructions (e.g. [GitHub Copilot instructions file](https://docs.github.com/en/copilot/how-tos/custom-instructions/adding-repository-custom-instructions-for-github-copilot), [Cline instructions file](https://docs.cline.bot/enterprise-solutions/custom-instructions), [Cursor rules](https://docs.cursor.com/context/rules), [Claude markdown](https://docs.anthropic.com/en/docs/claude-code/common-workflows#create-an-effective-claude-md-file), etc.). These instructions ensure the AI assistant accounts for application code security, supply chain safety, and platform or language-specific considerations. They also help embed a "security conscience" into the tool. In practice, this means fewer vulnerabilities making it into your codebase. Remember that these instructions should be kept concise, specific, and actionable. The goal is to influence the AI's behaviour without overwhelming it. [[wiz2025a]](#wiz2025a)
 
 These recommendations are based on expert opinion and various recommendations in the literature. We encourage experimentation and feedback to improve these recommendations. We, as an industry, are together learning how to best use these tools.
 
@@ -17,7 +17,7 @@ Short on time? Here's what really matters:
 * **Be Security-Conscious:** Assume AI-written code can have bugs or vulnerabilities, because it often does. AI coding assistants can introduce security issues like using outdated cryptography or outdated dependencies, ignoring error handling, or leaking secrets. Check for any secrets or sensitive data in the suggested code. Make sure dependency suggestions are safe and not pulling in known vulnerable packages. [[shihchiehdai2025a]](#shihchiehdai2025a), [[anssibsi2024b]](#anssibsi2024b)
 * **Guide the AI:** AI is a powerful assistant, but it works best with your guidance. Write clear precise prompts that specify security requirements. Don't hesitate to modify or reject AI outputs. Direct your AI tool to build its own instructions file based on this guide. [[swaroopdora2025a]](#swaroopdora2025a) [[haoyan2025a]](#haoyan2025a)
 * **Ask the AI to review and improve its own work**. Once you have some AI-written code, where possible, ask it to review and improve its own work (repeating these steps as necessary). This technique is sometimes called Recursive Criticism and Improvement (RCI) and can be remarkably effective. For instance, "Review your previous answer and find problems with your answer" followed by "Based on the problems you found, improve your answer" for one or more iterations. Encourage the use of tools such as linters, SAST, dependency checkers, etc. through the improvement cycles. [[catherinetony2024a]](#catherinetony2024a)
-* **Express your concerns to the AI**. If you have concerns about something AI has generated, express your concerns in detail, and ask it to analyze that code to determine whether or not it's okay. Review that answer.
+* **Express your concerns to the AI**. If you have concerns about something AI has generated, express your concerns in detail, and ask it to analyze that code to determine whether or not it's okay. Include relevant information to increase the likelihood of a useful response. Ensure that if something is stated as a fact, it's actually a fact. Review that answer.
 
 By keeping these points in mind, you can harness AI code assistants effectively without sacrificing quality or security.
 
@@ -87,6 +87,10 @@ Follow this with:
 Follow this with:
 
 > Based on the problems you found, improve your answer.
+
+If you see an issue in specific results, ask something like:
+
+> Analyze (specific area of code) to determine if it has (kind of vulnerability). Consider (relevant information 1, 2, 3, e.g., information about the code, language, etc.). Justify your answer with specific evidence.
 
 ---
 
