@@ -17,13 +17,19 @@ In the noncompliant.py example, a thread gets locked, but not unlocked due to an
 
 noncompliant.py:
 
-```import threading
+```
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+"""Non-compliant Code Example"""
+ import threading
 
 lock = threading.Lock()
 
 def noncompliant_example():
+    # the lock has been acquired for performing a critical operation
     lock.acquire()
     print("Lock acquired, performing critical operation...")
+    # simulating an error before it can be released 
     raise ValueError("Something went wrong!")
     lock.release()  # This line is never reached due to the exception
 
@@ -68,7 +74,7 @@ except ValueError as e:
     print(f"Caught exception: {e}")
 ```
 
-with lock: is shorthand for 
+### with lock: is shorthand for 
 
 ```
 lock.acquire()
@@ -77,6 +83,21 @@ try:
 finally:
     lock.release()
 ```
+
+It is best practice to use 'with' in such cases as it will make sure the resource gets released even if an exception occurs in the execution. 
+
+
+## Automated Detection
+
+|||||
+|:---|:---|:---|:---|
+|Tool|Version|Checker|Description|
+
+## Related Guidelines
+
+|||
+|:---|:---|
+|[CWE MITRE Pillar](http://cwe.mitre.org/)|[https://cwe.mitre.org/data/definitions/460.html]|
 
 
 
