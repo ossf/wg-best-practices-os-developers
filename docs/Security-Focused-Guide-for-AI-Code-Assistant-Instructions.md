@@ -24,7 +24,7 @@ By keeping these points in mind, you can harness AI code assistants effectively 
 ### TL;DR Sample Instructions
 
 Here are sample instructions that you can copy and paste.
-In most cases you should extract *from* this sample (for details see below):
+In most cases you should **extract from** this sample (for details see below).
 If you copy and paste irrelevant parts, the AI is more likely to generate
 extraneous or even incorrect code as it attempts to compensate for
 attacks that can't happen:
@@ -49,7 +49,7 @@ When suggesting dependency versions, prefer the latest stable release and mentio
 Generate a Software Bill of Materials (SBOM) by using tools that support standard formats like SPDX or CycloneDX.
 Where applicable, use in-toto attestations or similar frameworks to create verifiable records of your build and deployment processes.
 Prefer high-level libraries for cryptography rather than rolling your own.
----
+
 > When adding important external resources (scripts, containers, etc.), include steps to verify integrity (like checksum verification or signature validation) if applicable.
 When writing file or OS-level operations, use safe functions and check for errors (e.g., use secure file modes, avoid temp files without proper randomness, etc.). If running as a service, drop privileges when possible.
 Always include appropriate security headers (Content Security Policy, X-Frame-Options, etc.) in web responses, and use frameworks' built-in protections for cookies and sessions.
@@ -72,7 +72,7 @@ For Python, follow PEP 8 and use type hints, as this can catch misuse early.
 For JavaScript/TypeScript, when generating Node.js code, use prepared statements for database queries (just like any other language) and encode any data that goes into HTML to prevent XSS.
 For Java, when suggesting web code (e.g., using Spring), ensure to use built-in security annotations and avoid old, vulnerable libraries (e.g., use `BCryptPasswordEncoder` rather than writing a custom password hash).
 For C#, Use .NET's cryptography and identity libraries instead of custom solutions.
----
+
 > Never suggest turning off security features like XML entity security or type checking during deserialization.
 Code suggestions should adhere to OWASP Top 10 principles (e.g., avoid injection, enforce access control) and follow the OWASP ASVS requirements where applicable.
 Our project follows SAFECode's secure development practices – the AI should prioritize those (e.g., proper validation, authentication, cryptography usage per SAFECode guidance).
