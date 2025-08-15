@@ -34,7 +34,7 @@ def perform_critical_operation():
     lock.release()  # This line is never reached due to the exception
 
 try:
-    noncompliant_example()
+    perform_critical_operation()
 except ValueError as e:
     print(f"Caught exception: {e}")
 
