@@ -25,7 +25,7 @@ noncompliant.py:
 
 lock = threading.Lock()
 
-def noncompliant_example():
+def perform_critical_operation():
     # the lock has been acquired for performing a critical operation
     lock.acquire()
     print("Lock acquired, performing critical operation...")
