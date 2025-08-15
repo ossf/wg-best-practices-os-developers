@@ -41,6 +41,7 @@ except ValueError as e:
 # Next attempt to acquire the lock will block forever — deadlock!
 lock.acquire()
 print("This will never print because the lock was never released.")
+
 ```
 
 In the above code example, the acquired lock never gets released, as an error gets thrown before it can be released.
