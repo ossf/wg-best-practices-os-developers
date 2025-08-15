@@ -1,10 +1,13 @@
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+""" Non-compliant Code Example """
 import threading
 
 
 lock = threading.Lock()
 
 
-def noncompliant_example():
+def perform_critical_operation():
     lock.acquire()
     print("Lock acquired, performing critical operation...")
     raise ValueError("Something went wrong!")
@@ -12,7 +15,7 @@ def noncompliant_example():
 
 
 try:
-    noncompliant_example()
+    perform_critical_operation()
 except ValueError as e:
     print(f"Caught exception: {e}")
 
@@ -20,5 +23,4 @@ except ValueError as e:
 # Next attempt to acquire the lock will block forever; as there is a deadlock!
 lock.acquire()
 print("This will not print because the lock was never released.")
-
 
