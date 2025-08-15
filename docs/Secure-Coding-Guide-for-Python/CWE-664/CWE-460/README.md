@@ -60,6 +60,7 @@ import threading
 
 lock = threading.Lock()
 
+
 def compliant_example():
     with lock:
         # the lock has been acquired using the 'with' statement and will be released when the block exits; even if an exception occurs
