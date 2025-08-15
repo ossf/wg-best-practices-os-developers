@@ -33,6 +33,7 @@ def perform_critical_operation():
     raise ValueError("Something went wrong!")
     lock.release()  # This line is never reached due to the exception
 
+
 try:
     perform_critical_operation()
 except ValueError as e:
