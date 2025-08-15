@@ -1,7 +1,7 @@
 
 # CWE-460: Improper Cleanup on Thrown Exception
 
-The product does not clean up its state or incorrectly cleans up its state when an exception is thrown, leading to unexpected state or control flow.
+Make sure that your code fully and correctly cleans up its state whenever an exception occurs to avoid unexpected state or control flow.
 
 Often, when functions or loops become complicated, some level of resource cleanup is needed throughout execution. Exceptions can disturb the flow of the code and prevent the necessary cleanup from happening.
 
