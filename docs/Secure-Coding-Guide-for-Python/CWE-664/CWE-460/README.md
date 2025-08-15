@@ -68,6 +68,7 @@ def compliant_example():
         raise ValueError("Something went wrong!")
     print("Lock released.")
 
+
 try:
     compliant_example()
 except ValueError as e:
