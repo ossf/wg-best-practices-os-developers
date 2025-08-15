@@ -82,6 +82,7 @@ try:
     ...
 finally:
     lock.release()
+
 ```
 
 It is best practice to use 'with' in such cases as it will make sure the resource gets released even if an exception occurs in the execution. 
