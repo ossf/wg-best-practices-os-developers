@@ -21,7 +21,7 @@ noncompliant.py:
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """Non-compliant Code Example"""
- import threading
+import threading
 
 lock = threading.Lock()
 
