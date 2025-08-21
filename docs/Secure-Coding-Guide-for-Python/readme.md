@@ -97,6 +97,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-252: Unchecked Return Value](CWE-703/CWE-252/README.md)||
 |[CWE-390: Detection of Error Condition without Action](CWE-703/CWE-390/README.md)||
 |[CWE-392: Missing Report of Error Condition](CWE-703/CWE-392/README.md)||
+|[CWE-397: Declaration of Throws for Generic Exception](CWE-703/CWE-397/README.md)||
 |[CWE-476: NULL Pointer Dereference](CWE-703/CWE-476/README.md)||
 |[CWE-754: Improper Check for Unusual or Exceptional Conditions - float](CWE-703/CWE-754/README.md)||
 |[CWE-755: Improper Handling of Exceptional Conditions](CWE-703/CWE-755/README.md)|[CVE-2024-39560](https://www.cvedetails.com/cve/CVE-2024-39560),<br/>CVSSv3.1: __6.5__,<br/>EPSS: __0.04__ (01.11.2024)|
