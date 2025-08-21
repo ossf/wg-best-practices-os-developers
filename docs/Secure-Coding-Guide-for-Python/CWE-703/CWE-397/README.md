@@ -2,7 +2,7 @@
 
 Avoid raising exceptions that aren't informative on specific errors.
 
-`Exception` is the base class of all non-system-exiting exceptions [[Python docs 2025](https://docs.python.org/3/library/exceptions.html#Exception)]. Specific exceptions allow to determine why they were raised and attempt recovery. To catch a generic `Exception`, all more specific exceptions that subclass it would have to be caught. Raising `Exception` is likely to hide bugs and and prevents using more specialized except statements. The problem is even more severe when raising `BaseException`, which additionally includes subclasses signifying termination signals, such as `KeyboardInterrupt` and `SystemExit` [[PEP 2024](https://peps.python.org/pep-0352/#exception-hierarchy-changes)].
+`Exception` is the base class of all non-system-exiting exceptions [[Python docs 2025](https://docs.python.org/3/library/exceptions.html#Exception)]. Specific exceptions allow to determine why they were raised and attempt recovery. To catch a generic `Exception`, you must also account for any more specific exceptions that inherit from it. Raising `Exception` is likely to hide bugs and and prevents using more specialized except statements. The problem is even more severe when raising `BaseException`, which additionally includes subclasses signifying termination signals, such as `KeyboardInterrupt` and `SystemExit` [[PEP 2024](https://peps.python.org/pep-0352/#exception-hierarchy-changes)].
 
 ## Non-Compliant Code Example
 
