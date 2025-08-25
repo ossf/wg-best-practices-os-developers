@@ -93,7 +93,8 @@ print(balance_is_positive("NaN"))
 
 `Decimal` throws a `decimal.InvalidOperation` for `NaN` values, the controlled rounding causes only `"0.01"` to return `True`.
 
-In `compliant02.py` we use the math.isnan to very if the value passed is a valid `float` value.
+In `compliant02.py` we use the `math.isnan` to verify if the value passed is a valid `float` value.
+
 
 *[compliant02.py](compliant02.py):*
 
