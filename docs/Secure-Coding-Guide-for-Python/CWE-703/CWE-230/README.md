@@ -62,7 +62,8 @@ The `balance_is_positive` method returns `True` for all 3 cases instead of throw
 
 In the `compliant01.py` code example, the method `Decimal.quantize` is used to gain control over known rounding errors in floating point values.
 
-The decision by the balance_is_positive method is to `ROUND_DOWN` instead of the default `ROUND_HALF_EVEN`.
+The decision by the `balance_is_positive` method is to `ROUND_DOWN` instead of the default `ROUND_HALF_EVEN`.
+
 
 *[compliant01.py](compliant01.py):*
 
