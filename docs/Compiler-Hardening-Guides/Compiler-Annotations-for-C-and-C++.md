@@ -226,7 +226,7 @@ void to_uppercase(char *buffer, size_t size) __attribute__((access(read_write, 1
 
 ---
 
-### Mark positional arguments holding open file desriptors
+### Mark positional arguments holding open file descriptors
 
 | Attribute                                                                                      | Supported since             | Type                         | Description                                                                                       |
 |:-----------------------------------------------------------------------------------------------|:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
@@ -237,7 +237,7 @@ void to_uppercase(char *buffer, size_t size) __attribute__((access(read_write, 1
 The `fd_arg`, `fd_arg_read`, and `fd_arg_write` attributes in GCC[^gcc-fd_arg] indicate that the annotated function expects an open file descriptor as an argument. GCC’s static analyzer (`-fanalyzer`[^gcc-analyzer]) can use this information to to catch:
 
 - **Access mode mismatches** (`-Wanalyzer-fd-access-mode-mismatch`) if there are code paths through which a read on a write-only file descriptor or write on a read-only file descriptor is attempted.
-- **Double-close conditions** (`-Wanalyzer-fd-double-close`) if there are code paths thorugh which a file descriptor can be closed more than once.
+- **Double-close conditions** (`-Wanalyzer-fd-double-close`) if there are code paths thorough which a file descriptor can be closed more than once.
 - **File descriptor leaks** (`-Wanalyzer-fd-leak`) if there are code paths through which a file descriptor goes out of scope without being closed.
 - **Use-after-close** (`-Wanalyzer-fd-use-after-close`) if there are code paths through which a read or write is attempted on a closed file descriptor.
 - **Use-without-check** (`-Wanalyzer-fd-use-without-check`) if there are code paths through which a file descriptor is used without being first checked for validity.
