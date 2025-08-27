@@ -270,4 +270,4 @@ mechanisms, session management..." (Swaroop Dora, Deven Lunkad, Naziya Aslam, S.
 
 This work's development was led by Avishay Balter.
 
-Contributors include Avishay Balter, David A. Wheeler, Mihai Maruseac, Nell Shamrell-Harrington, Jason Goodsell, Roman Zhukov and others.
+Contributors include Avishay Balter (Microsoft), David A. Wheeler (The Linux Foundation), Mihai Maruseac (Google), Nell Shamrell-Harrington (Microsoft and Chair of Rust Foundation), Jason Goodsell (Microsoft), Roman Zhukov (Red Hat), and others.
