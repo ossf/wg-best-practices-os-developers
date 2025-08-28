@@ -8,7 +8,7 @@ Introduction paragraph, expanding on the introduction sentence...
 * Be brief.
 * Avoid duplicated content.
 
-An `example01.py` code is optional and usefull to demonstrate behaviour that does __not__ work well in the compliant or noncompliant code.
+An `example01.py` code is optional and useful to demonstrate behaviour that does __not__ work well in the compliant or noncompliant code.
 
 _[example01.py:](example01.py)_
 
