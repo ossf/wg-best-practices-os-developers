@@ -1,6 +1,11 @@
-# SPDX-FileCopyrightText: OpenSSF project contributors
-# SPDX-License-Identifier: MIT
-""" Compliant Code Example """
+<!--
+SPDX-FileCopyrightText: OpenSSF project contributors
+SPDX-License-Identifier: MIT
+-->
+
+## Compliant Code Example
+
+```python
 import threading
 
 lock = threading.Lock()
@@ -20,4 +25,3 @@ try:
     perform_critical_operation()
 except ValueError as e:
     print(f"Caught exception: {e}")
-    
