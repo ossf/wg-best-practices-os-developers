@@ -2,7 +2,7 @@
 
 _by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2025-03-28_
 
-As a software developer, before using open source software (OSS) dependencies or tools, identify candidates and evaluate the leading ones against your needs. To evaluate a potential OSS dependency for security and sustainability, consider these questions (all tools or services listed are merely examples):
+As a software developer, before using open source software (OSS) dependencies or tools, identify candidates and evaluate the leading ones against your needs. To evaluate a potential OSS dependency for security and sustainability, consider these questions (all tools or services listed are merely examples, and don't expect excellent ):
 
 ## Initial Assessment
 
@@ -19,7 +19,7 @@ Unmaintained software is a risk; most software needs continuous maintenance. If 
 |------|-------------|:--------:|
 | **Activity Level** | Confirm significant recent activity (e.g., commits) has occurred within the previous 12 months. |   |
 | **Communication** | Verify the existence of recent releases or announcements from the project maintainer(s). |   |
-| **Maintainer Diversity** | Verify the presence of more than one maintainer, ideally from different organizations, to reduce single-point-of-failure risk. |   |
+| **Maintainer Diversity** | Verify the presence of more than one maintainer, ideally from different organizations, to reduce single-point-of-failure risk. However, note that [many widely-used projects have one maintainer](https://opensourcesecurity.io/2025/08-oss-one-person/). |   |
 | **Release Recency** | Confirm that the last release was issued within the previous 12 months. |   |
 | **Version Stability** | Assess whether the version string indicates instability (e.g., begin with "0", include "alpha" or "beta", etc.). |   |
 
