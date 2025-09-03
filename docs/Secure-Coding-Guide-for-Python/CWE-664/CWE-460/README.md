@@ -80,7 +80,7 @@ except ValueError as e:
     print(f"Caught exception: {e}")
 ```
 
-### with lock: is shorthand for 
+### with lock: is shorthand for
 
 ```python
 # SPDX-FileCopyrightText: OpenSSF project contributors
@@ -94,8 +94,7 @@ finally:
 
 ```
 
-It is best practice to use 'with' in such cases as it will make sure the resource gets released even if an exception occurs in the execution. 
-
+It is best practice to use 'with' in such cases as it will make sure the resource gets released even if an exception occurs in the execution.
 
 ## Automated Detection
 
@@ -108,6 +107,3 @@ It is best practice to use 'with' in such cases as it will make sure the resourc
 |||
 |:---|:---|
 |[CWE MITRE Pillar](http://cwe.mitre.org/)|[https://cwe.mitre.org/data/definitions/460.html]|
-
-
-
