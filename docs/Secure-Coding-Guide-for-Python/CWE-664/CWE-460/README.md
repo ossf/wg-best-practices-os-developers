@@ -3,9 +3,10 @@
 
 Make sure that your code fully and correctly cleans up its state whenever an exception occurs to avoid unexpected state or control flow.
 
-Often, when functions or loops become complicated, some level of resource cleanup is needed throughout execution. Exceptions can disturb the flow of the code and prevent the necessary cleanup from happening.
+Often, when functions or loops become complicated, some level of resource cleanup is needed throughout execution.
+Exceptions can disturb the flow of the code and prevent the necessary cleanup from happening.
 
-A consequence of this is that the code is left in a bad state. 
+A consequence of this is that the code is left in a bad state.
 
 One of the ways to mitigate this is to make sure that cleanup happens or that you should exit the program. Use throwing exceptions sparsely.
 
@@ -17,14 +18,15 @@ In the noncompliant.py example, a thread gets locked, but not unlocked due to an
 
 noncompliant.py:
 
-```
+```python
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
+
 """Non-compliant Code Example"""
+
 import threading
 
 lock = threading.Lock()
-
 
 def perform_critical_operation():
     # the lock has been acquired for performing a critical operation
@@ -33,7 +35,6 @@ def perform_critical_operation():
     # simulating an error before it can be released 
     raise ValueError("Something went wrong!")
     lock.release()  # This line is never reached due to the exception
-
 
 try:
     perform_critical_operation()
@@ -53,16 +54,17 @@ In the above code example, the acquired lock never gets released, as an error ge
 In compliant01.py we use the with statement to ensure that the lock is released properly even if an error is to occur.
 
 compliant01.py:
+
 ## Compliant Code Example
 
-```
+```python
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
+
 """ Compliant Code Example """
 import threading
 
 lock = threading.Lock()
-
 
 def compliant_example():
     with lock:
@@ -71,7 +73,6 @@ def compliant_example():
         # raising an exception
         raise ValueError("Something went wrong!")
     print("Lock released.")
-
 
 try:
     compliant_example()
