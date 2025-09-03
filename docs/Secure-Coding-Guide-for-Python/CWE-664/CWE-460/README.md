@@ -100,12 +100,13 @@ It is best practice to use 'with' in such cases as it will make sure the resourc
 ## Automated Detection
 
 |||||
-
+|:---|:---|:---|:---|
 |Tool|Version|Checker|Description|
 
 ## Related Guidelines
 
 |||
+|:---|:---|
 |[CWE MITRE Pillar](http://cwe.mitre.org/)|[https://cwe.mitre.org/data/definitions/460.html]|
 
 
