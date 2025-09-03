@@ -82,7 +82,10 @@ except ValueError as e:
 
 ### with lock: is shorthand for 
 
-```
+```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+
 lock.acquire()
 try:
     ...
