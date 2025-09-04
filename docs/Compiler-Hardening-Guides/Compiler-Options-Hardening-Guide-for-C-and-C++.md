@@ -1283,7 +1283,7 @@ check_initialization_order=1:strict_init_order=1 ./instrumented-executable
 
 When ASan encounters a memory error it (by default) terminates the application and prints an error message and stack trace describing the nature and location of the detected error. A systematic description of the different error types and the corresponding root causes reported by ASan can be found in the AddressSanitizer article on the project's GitHub Wiki[^asan].
 
-ASan cannot be used simultaneously with ThreadSanitizer or LeakSanitizer. It is not possible to mix ASan-instrumented code produced by GCC with ASan-instrumented code produced Clang as the ASan implementations in GCC and Clang are mutually incompatible.
+ASan cannot be used simultaneously with ThreadSanitizer. It is not possible to mix ASan-instrumented code produced by GCC with ASan-instrumented code produced Clang as the ASan implementations in GCC and Clang are mutually incompatible.
 
 [^asan-flags]: LLVM Sanitizers team, [AddressSanitizerFlags](https://github.com/google/sanitizers/wiki/AddressSanitizerFlags), GitHub google/sanitizers Wiki, 2019-05-15.
 
