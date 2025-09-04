@@ -15,6 +15,7 @@ This is a list of materials (documents, services, and so on) released by the
 * [Simplifying Software Component Updates](https://best.openssf.org/Simplifying-Software-Component-Updates)
 * [The Memory Safety Continuum](https://memorysafety.openssf.org/memory-safety-continuum)
 * [Cyber Resilience Act (CRA) Brief Guide for Open Source Software (OSS) Developers](https://best.openssf.org/CRA-Brief-Guide-for-OSS-Developers)
+* [Security Focused Guide for AI Code Assistant Instructions](https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions)
 
 Note: You can also see the larger list of
 [Guides released by the OpenSSF](https://openssf.org/resources/guides/).
@@ -38,7 +39,6 @@ guidance about memory safety through our memory safety SIG, and so on.
 Examples of ongoing work include:
 
 * [Secure Coding One Stop Shop for Python](Secure-Coding-Guide-for-Python/readme.md)
-* [Security Focused Guide for AI Code Assistant Instructions](https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions)
 * [Compiler Annotations for C and C++](Compiler-Hardening-Guides/Compiler-Annotations-for-C-and-C++.md)
 
 We typically use the [Simplest Possible Process (SPP)](https://best.openssf.org/spp/Simplest-Possible-Process) to publish our results on the web.
