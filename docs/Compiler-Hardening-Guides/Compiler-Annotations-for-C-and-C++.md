@@ -265,13 +265,15 @@ void read_from_file (int fd, void *dst, size_t size) __attribute__ ((fd_arg_read
 
 [^gcc-fd_arg]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: fd_arg](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-fd_005farg-function-attribute), GCC Manual, 2024-08-01.
 
+---
+
 ### Mark functions that never return
 
 | Attribute                                                                                      | Supported since             | Type                         | Description                                                                                       |
 |:-----------------------------------------------------------------------------------------------|:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
 | `noreturn`                                                                                     | GCC 2.5.0<br/>Clang 4.0.0   | Function                     | Mark functions that never return.                                                                 |
 
-The `noreturn` attribute indicates that the annotation function never return control flow to the calling function (e.g. functions that terminate the application such as `abort()` and `exit()`, throw exceptions, loop indefinitely, etc.). Such functions and methods must be declared void.
+The `noreturn` attribute indicates that the annotated function never returns control flow to the calling function (e.g. functions that terminate the application such as `abort()` and `exit()`, throw exceptions, loop indefinitely, etc.). Such functions and methods must be declared void.
 
 Using this attribute allows the compiler to optimize the generated code without regard to what would happen if the annotated function ever did return. In addition, compiler can generate a diagnostic for any function declared as `noreturn` that appears to return to its caller[^clang-noreturn] and `noreturn` functions can improve the accuracy of other diagnostics, e.g., by helping the compiler reduce false warnings for uninitialized variables[^gcc-noreturn].
 
