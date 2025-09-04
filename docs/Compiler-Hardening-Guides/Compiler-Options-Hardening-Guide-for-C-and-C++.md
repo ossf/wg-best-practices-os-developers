@@ -631,6 +631,8 @@ Internally `-D_FORTIFY_SOURCE` relies on the built-in functions for object size 
 
 Applications that incorrectly use `malloc_usable_size`[^malloc_usable_size] to use the additional size reported by the function may abort at runtime. This is a bug in the application because the additional size reported by `malloc_usable_size` is not generally safe to dereference and is for diagnostic uses only. The correct fix for such issues is to avoid using `malloc_usable_size` as the glibc manual specifically states that it is for diagnostic purposes *only* [^malloc_usable_size]. On many Linux systems these incorrect uses can be detected by running `readelf -Ws <path>` on the ELF binaries and searching for `malloc_usable_size@GLIBC`[^kpyrd23]. If avoiding `malloc_usable_size` is not possible, one may call `realloc` to resize the block to its usable size and to benefit from `_FORTIFY_SOURCE=3`.
 
+Additionally, `_FORTIFY_SOURCE` is currently incompatible with [AddressSanitizer](#-fsanitize=address) (and other sanitizers[^Ostapenko16]) as they do not support source fortification. As a result, sanitizers can misbehave on binaries with source fortification enabled (they either produces false negatives or false positives). Consequently we do not recommend enabling `_FORTIFY_SOURCE` for instrumented test builds where sanitizers are used. Since most Linux distributions enable `_FORTIFY_SOURCE` by default[^compiler-flags-distro], it may need to be explicitly disabled for such sanitizer-instrumented test builds.
+
 [^glibc-fortification]: GNU C Library team, [Source Fortification in the GNU C Library](https://www.gnu.org/software/libc/manual/html_node/Source-Fortification.html), GNU C Library (glibc) manual, 2023-02-01.
 
 [^Poyarekar23]: Poyarekar, Siddhesh, [How to improve application security using _FORTIFY_SOURCE=3](https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3), Red Hat Developer, 2023-02-06.
@@ -644,6 +646,8 @@ Applications that incorrectly use `malloc_usable_size`[^malloc_usable_size] to u
 [^malloc_usable_size]: Linux Man Pages team, [malloc_usable_size(3)](https://man7.org/linux/man-pages/man3/malloc_usable_size.3.html), Linux manual page, 2023-03-30.
 
 [^kpyrd23]: kpcyrd, [Task Todo List Prepare packages for -D_FORTIFY_SOURCE=3](https://archlinux.org/todo/prepare-packages-for-d_fortify_source3/), Arch Linux Task Todo List, 2023-09-05.
+
+[^Ostapenko16]: Ostapenko, Maxim, [Do not allow asan/msan/tsan and fortify at the same time.](https://inbox.sourceware.org/libc-alpha/57CDAB08.8060601@samsung.com/), GNU C Library mailing list, 2016-09-05.
 
 ---
 
@@ -1318,9 +1322,9 @@ Table 4: Sanitizer options in GCC and Clang.
 
 ### AddressSanitizer
 
-| Compiler Flag          |     Supported since      | Description                                                                 |
-|:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
-| `-fsanitize=address`   | GCC 4.8.0<br/>Clang 3.1.0 | Enables AddressSanitizer to detect memory errors at run-time                |
+| Compiler Flag                                              | Supported since           | Description                                                                 |
+|:---------------------------------------------------------- |:-------------------------:|:--------------------------------------------------------------------------- |
+| <span id="-fsanitize=address">`-fsanitize=address`</span>  | GCC 4.8.0<br/>Clang 3.1.0 | Enables AddressSanitizer to detect memory errors at run-time                |
 
 AddressSanitizer (ASan) is a memory error detector that can identify memory defects that involve:
 
@@ -1349,6 +1353,8 @@ check_initialization_order=1:strict_init_order=1 ./instrumented-executable
 When ASan encounters a memory error it (by default) terminates the application and prints an error message and stack trace describing the nature and location of the detected error. A systematic description of the different error types and the corresponding root causes reported by ASan can be found in the AddressSanitizer article on the project's GitHub Wiki[^asan].
 
 ASan cannot be used simultaneously with ThreadSanitizer. It is not possible to mix ASan-instrumented code produced by GCC with ASan-instrumented code produced Clang as the ASan implementations in GCC and Clang are mutually incompatible.
+
+Additionally, ASan is known to report false negatives if combined with [`-D_FORTIFY_SOURCE`](#-D_FORTIFY_SOURCE=3) [^Ostapenko16].
 
 [^asan-flags]: LLVM Sanitizers team, [AddressSanitizerFlags](https://github.com/google/sanitizers/wiki/AddressSanitizerFlags), GitHub google/sanitizers Wiki, 2019-05-15.
 
