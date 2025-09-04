@@ -39,7 +39,7 @@ Table 1: Recommended attributes
 | `fd_arg_read(`_`fd-index`_`)`                                                              | GCC 13.1.0                  | Function                     | Mark readable file descriptors in positional arguments.                                           |
 | `fd_arg_write(`_`fd-index`_`)`                                                             | GCC 13.1.0                  | Function                     | Mark writable file descriptors in positional arguments.                                           |
 | `noreturn`                                                                                 | GCC 2.5.0<br/>Clang 4.0.0   | Function                     | Mark functions that never return.                                                                 |
-| `tainted_args`                                                                             | GCC 12                      | Function or function pointer | Function needs sanitization of its arguments. Used by `-fanalyzer=taint`                          |
+| `tainted_args`                                                                             | GCC 12.1.0                  | Function or function pointer | Mark functions with arguments that require sanitization.                                          |
 
 ## Performance considerations
 
@@ -305,3 +305,38 @@ volatile voidfn fatal;
 [^gcc-noreturn]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: noreturn](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-noreturn-function-attribute), GCC Manual, 2024-08-01.
 [^gcc-voidfn]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: noreturn](https://gcc.gnu.org/onlinedocs/gcc-3.2.3/gcc/Function-Attributes.html), GCC Manual, 2003-05-25.
 [^clang-noreturn]: LLVM team, [Attributes in Clang: noreturn](https://clang.llvm.org/docs/AttributeReference.html#noreturn-noreturn), Clang Compiler User's Manual, 2025-03-04.
+
+---
+
+### Mark functions functions with arguments that require sanitization
+
+| Attribute                                                                                  | Supported since             | Type                         | Description                                                                                       |
+|:------------------------------------------------------------------------------------------ |:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
+| `tainted_args`                                                                             | GCC 12.1.0                  | Function or function pointer | Mark functions with arguments that require sanitization.                                          |
+
+The `tainted_args` attribute indicates that the annotated function requires sanitization of its arguments[^gcc-tainted-args]. GCC's static analyzer (`-fanalyzer`[^gcc-analyzer]) use this information to treat all the function's parameters (and buffers pointed to by pointer parameters) as potentially under attacker control. The analyzer can subsequently warn when tainted arguments are used as:
+
+- **Allocation sizes** (`-Wanalyzer-tainted-allocation-size`) if there are code paths through which a tainted argument is used as a size argument to an memory allocation function such as `malloc()` without sanitization.
+- **Part of assertation conditions** (`-Wno-analyzer-tainted-assertion`) if there are code paths through which a tainted argument is used in a condition without sanitization which can lead to a function annotated with `noreturn`, such as assertion failure handlers.
+- **Array index** (`-Wno-analyzer-tainted-array-index`) if there are code paths through which a tainted argument is used as an array index without sanitization, potentially exposing the code to out-of-bounds conditions.
+- **Divisor** (`-Wanalyzer-tainted-divisor`) if there code paths through which a tainted argument is used a divisor in an arithmetic division operations without sanitization, potentially exposing the code to division-by-zero errors.
+- **Pointer offsets** (`-Wanalyzer-tainted-offset`) if there are code paths through which a tainted argument is used an offset in pointer arithmetic without sanitization, potentially exposing the code to spatial-safety violations.
+- **Sizes** (`-Wanalyzer-tainted-size`) if there are code paths through which a tainted argument is used a size argument to a (non-memory-allocation) function, such as `memset()`, potentially exposing the code to spatial-safety violations.
+
+The main use case of the `tainted_args` attribute is annotating the program's attack surface, i.e., the functions that are exposed to untrusted, potentially malicious inputs originating from outside the program. The associated static analysis ensures that such untrusted input cannot propagate to sensitive operations without sanitization.
+
+The `tainted_arg` attribute can be used both in function declarations, and field declarations containing function pointers. In the latter case, any function used as an initializer of such a callback field will be treated as being called with tainted arguments.
+
+Prior to GCC 14.1.0 the GCC analyzer's _taint mode_ had to be explicitly enabled by supplying the `-fanalyzer-checker=taint` option. In GCC 14.1.0 onwards taint tracking and the above diagnostics are enabled by default with the `-fanalyzer` option [^Malcolm23].
+
+### Example usage
+
+~~~c
+// Denotes that the arguments to do_with_untrusted contain values that must be sanitized before use
+void do_with_untrusted_input(int untrusted_input) __attribute__ ((tainted_args));
+~~~
+
+[[Extended example Compiler Explorer](https://godbolt.org/z/rWzd68YvW)]
+
+[^gcc-tainted-args]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: tainted_args](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-tainted_005fargs-function-attribute), GCC Manual, 2025-08-08.
+[^Malcolm23]: Malcolm, David. [Enable "taint" state machine with -fanalyzer without requiring -fanalyzer-checker=taint](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103533#c9), GCC Bug 103533, 2023-12-01.
