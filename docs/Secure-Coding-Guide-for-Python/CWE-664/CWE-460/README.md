@@ -33,7 +33,6 @@ finally:
 
 It is best practice to use `with` statement in such cases as it will make sure the resource gets released even if an exception occurs in the execution.
 
-
 ## Non-Compliant Code Example
 
 In the `noncompliant.py` example, a thread gets locked, but not unlocked due to an exception being thrown before it can be closed. This might lead to the lock remaining closed and inaccessible for further use.
@@ -106,7 +105,6 @@ except ValueError as e:
     print(f"Caught exception: {e}")
 
 ```
-
 
 ## Automated Detection
 
