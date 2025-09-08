@@ -6,12 +6,13 @@ Improper resource shutdown or release happens when a program allocates a resourc
 
 ## Non-Compliant Code Example
 
-In this noncompliant01.py code example, two elements are added to the list. Although the list continues to hold these two elements, they are never properly released, leading to retained memory that is never reclaimed. This can cause resource exhaustion or leaks.
+In this `noncompliant01.py` code example, two elements are added to the list. Although the list continues to hold these two elements, they are never properly released, leading to retained memory that is never reclaimed. This can cause resource exhaustion or leaks.
 
 [*noncompliant01.py:*](noncompliant01.py)
 
 ```py
-""" Non-Compliant Code Example """
+"""Non-Compliant Code Example"""
+
 my_list = []
 
 
@@ -38,12 +39,13 @@ if not any(resource["active"] for resource in my_list):
 
 ## Compliant Solution
 
-After adding two elements, to the list, the list in this compliant01.py code example now contains zero elements because they have been cleared and properly released.
+After adding two elements, to the list, the list in this `compliant01.py` code example now contains zero elements because they have been cleared and properly released.
 
 [*compliant01.py:*](compliant01.py)
 
 ```py
-""" Compliant Code Example """
+"""Compliant Code Example"""
+
 my_list = []
 
 
@@ -85,4 +87,4 @@ if not any(resource["active"] for resource in my_list):
 
 |||
 |:---|:---|
-|[Python Docs]|(<https://docs.python.org/3/tutorial/datastructures.html>)|
+|\[Python Docs\]|<https://docs.python.org/3/tutorial/datastructures.html>|
