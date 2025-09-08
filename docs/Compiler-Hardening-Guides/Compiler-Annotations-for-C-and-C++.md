@@ -340,3 +340,5 @@ void do_with_untrusted_input(int untrusted_input) __attribute__ ((tainted_args))
 
 [^gcc-tainted-args]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: tainted_args](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-tainted_005fargs-function-attribute), GCC Manual, 2025-08-08.
 [^Malcolm23]: Malcolm, David. [Enable "taint" state machine with -fanalyzer without requiring -fanalyzer-checker=taint](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103533#c9), GCC Bug 103533, 2023-12-01.
+
+## References
