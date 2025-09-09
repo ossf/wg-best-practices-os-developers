@@ -107,7 +107,7 @@ In `__attribute__` keyword syntax:
 void my_free(void *ptr);
 
 // Denotes that my_malloc will return with a dynamically allocated piece of memory which must be freed using my_free.
-void *my_malloc(size_t size) __attribute__ ((malloc, malloc (my_free, 1)));
+void *my_malloc(size_t size) __attribute__ ((malloc, malloc (my_free, 1))) { … }
 ~~~
 
 Note that to benefit both from the associated optimizations and improved detection of memory errors functions should be marked with _both_ the form of the attribute without arguments and the form of the attribute with one or two arguments. [[Extended example at Compiler Explorer](https://godbolt.org/z/bc97ahbnd)]
