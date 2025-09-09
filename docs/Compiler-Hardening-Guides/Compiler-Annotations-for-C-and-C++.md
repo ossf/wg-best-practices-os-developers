@@ -92,7 +92,16 @@ Using the `ownership_returns`, `ownership_takes`, and `ownership_holds` attribut
 
 #### Example usage
 
-GCC `malloc`, `malloc (`_`deallocator`_`)`, and `malloc (`_`deallocator`_, _`ptr-index`_`)` :
+GCC `malloc`, `malloc (`_`deallocator`_`)`, and `malloc (`_`deallocator`_, _`ptr-index`_`)` in C++11 / C23 attribute syntax:
+
+~~~c
+void my_free(void *ptr);
+
+// Denotes that my_malloc will return with a dynamically allocated piece of memory which must be freed using my_free.
+void * my_malloc(size_t size) [[gnu::malloc]] [[gnu::malloc(my_free, 1)]];
+~~~
+
+In `__attribute__` keyword syntax:
 
 ~~~c
 void my_free(void *ptr);
@@ -103,7 +112,20 @@ void *my_malloc(size_t size) __attribute__ ((malloc, malloc (my_free, 1)));
 
 Note that to benefit both from the associated optimizations and improved detection of memory errors functions should be marked with _both_ the form of the attribute without arguments and the form of the attribute with one or two arguments. [[Extended example at Compiler Explorer](https://godbolt.org/z/bc97ahbnd)]
 
-Clang `ownership_returns`, `ownership_takes`, and `ownership_holds`:
+Clang `ownership_returns`, `ownership_takes`, and `ownership_holds` in C++11 / C23 attribute syntax:
+
+~~~c
+// Denotes that my_malloc will return with a pointer to storage labeled as "my_allocation".
+void * my_malloc(size_t size) [[gnu::malloc]] [[clang::ownership_returns(my_allocation)]];
+
+// Denotes that my_free will deallocate storage pointed to by ptr that has been labeled "my_allocation".
+voidmy_free(void *ptr) [[clang::ownership_takes(my_allocation, 1)]] ;
+
+// Denotes that my_hold will take over the ownership of storage pointed to by ptr that has been labeled "my_allocation".
+void my_hold(void *ptr) [[clang::ownership_holds(my_allocation, 1)]];
+~~~
+
+In `__attribute__` keyword syntax:
 
 ~~~c
 // Denotes that my_malloc will return with a pointer to storage of labeled as "my_allocation" .
@@ -140,6 +162,21 @@ The `alloc_size(`_`size-index-1`_`,`_`size-index-2`_`)` form tells the compiler 
 In Clang, the size information hints provided via `alloc_size` attribute only affects `__builtin_object_size` and `__builtin_dynamic_object_size` calls for pointer variables that are declared `const`. In GCC the provided size information hints also affect `__builtin_object_size` and `__builtin_dynamic_object_size` calls for non-`const` pointer variables.
 
 #### Example usage
+
+In C++11 / C23 attribute syntax:
+
+~~~c
+// Denotes that my_malloc will return with a pointer to storage capable of holding up to size bytes.
+void * my_malloc(size_t size) [[gnu::alloc_size(1)]];
+
+// Denotes that my_realloc will return with a pointer to storage capable of holding up to size bytes.
+void * my_realloc(void* ptr, size_t size)  [[gnu::alloc_size(2)]];
+
+// Denotes that my_calloc will return with a pointer to storage capable of holding up to n * size bytes.
+void * my_calloc(size_t n, size_t size)  [[gnu::alloc_size(1, 2)]];
+~~~
+
+In `__attribute__` keyword syntax:
 
 ~~~c
 // Denotes that my_malloc will return with a pointer to storage capable of holding up to size bytes.
@@ -197,6 +234,33 @@ In the `read_only` and `read_write` access modes the object referenced by the po
 
 ### Example usage
 
+In C++11 / C23 attribute syntax:
+
+~~~c
+// Denotes that puts performs read-only access on the memory pointed to by ptr.
+int puts (const char* ptr) [[gnu::access(read_only, 1)]];
+
+// Denotes that strcat performs read-write access on the memory pointed to by destination and read-only access on the memory pointed to by source.
+char* strcat (char* destination, const char* source) [[gnu::access(read_write, 1)]] [[gnu::access(read_only, 2)]];
+
+// Denotes that strcpy performs write-only access on the memory pointed to by destination and read-only access on the memory pointed to by source.
+char* strcpy (char* destination, const char* source) [[gnu::access(write_only, 1)]] [[gnu::access(read_only, 2)]];
+
+// Denotes that fgets performs write-only access up to n characters on the memory pointed to by buff and read-write access on the memory pointed to by stream.
+int] fgets (char* buff, int n, FILE* stream) [[gnu::access(write_only, 1, 2)]] [[gnu::access(read_write, 3)];
+
+// Denotes that print_buffer performs read-only access up to size characters on memory pointed to by buffer.
+void print_buffer(const char *buffer, size_t size) [[gnu::access(read_only, 1, 2)]];
+
+// Denotes that fill_buffer performs write-only access up to size characters on memory pointed to by buffer.
+void fill_buffer(char *buffer, size_t size) [[gnu::access(write_only, 1, 2)]];
+
+// Denotes that to_uppercase performs read-write access up to size characters on memory pointed to by buffer.
+void to_uppercase(char *buffer, size_t size) [[gnu::access(read_write, 1, 2)]];
+~~~
+
+In `__attribute__` keyword syntax:
+
 ~~~c
 // Denotes that puts performs read-only access on the memory pointed to by ptr.
 int puts (const char* ptr) __attribute__ ((access (read_only, 1)));
@@ -250,6 +314,21 @@ The  `fd_arg_write(`_`fd-index`_`)` form is like `fd_arg` but also requires that
 
 #### Example usage
 
+In C++11 / C23 attribute syntax:
+
+~~~c
+// Denotes that use_file expects fd to be a valid and open file descriptor
+void use_file (int fd) [[gnu::fd_arg(1)]] ;
+
+// Denotes that write_to_file expects fd to be a valid, open, and writable file descriptor
+void write_to_file (int fd, void *src, size_t size) [[gnu::fd_arg_write(1)]];
+
+// Denotes that read_from_file expects fd to be a valid, open, and readable file descriptor
+void  read_from_file (int fd, void *dst, size_t size) [[gnu::fd_arg_read(1)]];
+~~~
+
+In `__attribute__` keyword syntax:
+
 ~~~c
 // Denotes that use_file expects fd to be a valid and open file descriptor
 void use_file (int fd) __attribute__ ((fd_arg (1)));
@@ -280,6 +359,22 @@ This lets the compiler optimize assuming the function never returns. In addition
 Users should be careful not to assume that registers saved by the calling function are restored before calling the `noreturn` function.
 
 #### Example usage
+
+In C++11 / C23 attribute syntax:
+
+~~~c
+// Denotes that fatal will never return
+void fatal () [[noreturn]];
+          
+void
+fatal (...)
+{
+    ... /* Print error message. */ ...
+    exit (1);
+}
+~~~
+
+In `__attribute__` keyword syntax:
 
 ~~~c
 // Denotes that fatal will never return
@@ -330,6 +425,15 @@ You can apply `tainted_args` to function declarations and to fields that hold fu
 Prior to GCC 14.1.0 the GCC analyzer's _taint mode_ had to be explicitly enabled by supplying the `-fanalyzer-checker=taint` option. In GCC 14.1.0 onwards taint tracking and the above diagnostics are enabled by default with the `-fanalyzer` option [^Malcolm23].
 
 ### Example usage
+
+In C++11 / C23 attribute syntax:
+
+~~~c
+// Marks arguments to do_with_untrusted as requiring sanitization
+void do_with_untrusted_input(int untrusted_input) [[gnu::tainted_args]];
+~~~
+
+In `__attribute__` keyword syntax:
 
 ~~~c
 // Marks arguments to do_with_untrusted as requiring sanitization
