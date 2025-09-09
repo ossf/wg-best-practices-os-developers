@@ -104,8 +104,6 @@ void * my_malloc(size_t size) [[gnu::malloc]] [[gnu::malloc(my_free, 1)]];
 In `__attribute__` keyword syntax:
 
 ~~~c
-void my_free(void *ptr);
-
 // Denotes that my_malloc will return with a dynamically allocated piece of memory which must be freed using my_free.
 void *my_malloc(size_t size) __attribute__ ((malloc, malloc (my_free, 1))) { … }
 ~~~
@@ -365,13 +363,6 @@ In C++11 / C23 attribute syntax:
 ~~~c
 // Denotes that fatal will never return
 void fatal () [[noreturn]];
-          
-void
-fatal (...)
-{
-    ... /* Print error message. */ ...
-    exit (1);
-}
 ~~~
 
 In `__attribute__` keyword syntax:
