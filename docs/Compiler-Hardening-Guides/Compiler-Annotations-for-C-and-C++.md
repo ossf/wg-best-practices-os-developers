@@ -207,7 +207,7 @@ char* strcat (char* destination, const char* source) __attribute__ ((access (rea
 // Denotes that strcpy performs write-only access on the memory pointed to by destination and read-only access on the memory pointed to by source.
 char* strcpy (char* destination, const char* source) __attribute__ ((access (write_only, 1), access (read_only, 2)));
 
-// Denotes that fgets performs write-only access up n character on the memory pointed to by buff and read-write access on the memory pointed to by stream.
+// Denotes that fgets performs write-only access up to n character on the memory pointed to by buff and read-write access on the memory pointed to by stream.
 int fgets (char* buff, int n, FILE* stream) __attribute__ ((access (write_only, 1, 2), access (read_write, 3)));
 
 // Denotes that print_buffer performs read-only access up to size characters on memory pointed to by buffer.
