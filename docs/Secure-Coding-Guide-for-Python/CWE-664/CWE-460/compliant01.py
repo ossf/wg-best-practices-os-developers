@@ -1,11 +1,7 @@
-<!--
-SPDX-FileCopyrightText: OpenSSF project contributors
-SPDX-License-Identifier: MIT
--->
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+"""Compliant Code Example"""
 
-## Compliant Code Example
-
-```python
 import threading
 
 lock = threading.Lock()
