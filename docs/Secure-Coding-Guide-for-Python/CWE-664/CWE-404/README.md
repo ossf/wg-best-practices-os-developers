@@ -4,6 +4,8 @@ Always close resources explicitly and ensure proper cleanup even if an error occ
 
 Improper resource shutdown or release happens when a program allocates a resource, such as a file, socket, or database connection, and fails to release it when finished. Unlike normal objects (like numbers or strings), these resources are tied to the operating system and are not freed automatically by garbage collection. If left open, they can pile up and cause memory leaks, file handle exhaustion, or stalled network connections.
 
+In Python, use the `with` statement to ensure handles are cleaned up automatically; note that `with` manages resource cleanup, not memory deallocation. Special care is required for long-running scripts, multiprocessing, or multithreading, where lingering handles can accumulate over time and exhaust system resources.
+
 ## Non-Compliant Code Example
 
 In this `noncompliant01.py` code example, two elements are added to the list. Although the list continues to hold these two elements, they are never properly released, leading to retained memory that is never reclaimed. This can cause resource exhaustion or leaks.
