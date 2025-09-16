@@ -72,7 +72,7 @@ print(f"html_form={html_form}, body={body}")
 
 In the code example, Alice increases her privileges using some browser developer tool, and the service now views her as an admin, with write permissions.
 
-A secure implementation should avoid relying on client-supplied fields like "session_user" for authentication. Instead, session state should be managed securely on the server side using mechanisms like session cookies, JSON Web Tokens with proper validation, or integration with an identity and access management solution (IdAM) such as OpenID Connect (OIDC).
+A secure implementation should avoid relying on client-supplied fields like `session_user` for authentication. Instead, session state should be managed securely on the server side using mechanisms like session cookies, JSON Web Tokens with proper validation, or integration with an identity and access management solution (IdAM) such as OpenID Connect (OIDC).
 
 ## Automated Detection
 
@@ -85,4 +85,6 @@ A secure implementation should avoid relying on client-supplied fields like "ses
 
 |||
 |:---|:---|
+|MITRE CWE Pillar| [CWE-693: Protection Mechanism Failure (4.12) (mitre.org)](https://cwe.mitre.org/data/definitions/693.html)|
+|MITRE CWE Class|[CWE-472: External Control of Assumed-Immutable Web Parameter](http://cwe.mitre.org/data/definitions/472.html)|
 |[SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[IDS14-J. Do not trust the contents of hidden form fields](https://wiki.sei.cmu.edu/confluence/display/java/IDS14-J.+Do+not+trust+the+contents+of+hidden+form+fields)|
