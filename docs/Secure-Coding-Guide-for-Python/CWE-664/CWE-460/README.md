@@ -69,7 +69,7 @@ print("This will not print because the lock was never released.")
 
 ```
 
-In the `noncompliant.py` code example, the acquired lock never gets released, as an error gets thrown before it can be released.
+In the `noncompliant01.py` code example, the acquired lock never gets released, as an error gets thrown before it can be released.
 
 ## Compliant Solution
 
