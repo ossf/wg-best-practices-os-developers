@@ -6,7 +6,7 @@ In multithreaded programming, use synchronization mechanisms, such as locks, to 
 > Prerequisite to understand this page:
 > [Intro to multiprocessing and multithreading](../../Intro_to_multiprocessing_and_multithreading/readme.md)
 
-Before Python 3.10, both `direct_add` and `method_calling_add` were at risk of race conditions. After Python 3.10 changed how eval breaking operations are handled ([GH-18334](https://github.com/python/cpython/pull/18334)), `direct_add` should not require additional locks while `method_calling_add` might give unpredictable results without them. The `example01.py` code example is demonstrating the issue. Its output will differ depending on the version of Python:
+Before Python 3.10, both `direct_add` and `method_calling_add` were at risk of race conditions. After Python 3.10 changed how eval breaking operations are handled [[GH-18334 (2021)](https://github.com/python/cpython/pull/18334)], `direct_add` should not require additional locks while `method_calling_add` might give unpredictable results without them. The `example01.py` code example is demonstrating the issue. Its output will differ depending on the version of Python:
 
 _[example01.py:](example01.py)_
 
@@ -76,7 +76,7 @@ method_calling_add():
              18 RETURN_VALUE
 ```
 
-An update to Python 3.10 has introduced the change that prevents such issues from occurring under specific condition. The [GH-18334](https://github.com/python/cpython/pull/18334) change has made it so that the GIL is released and re-aquired only after specific operations as opposed to a certain number of any of them. These operations, called "eval breaking", can be found in the `Python/ceval.c` file and call CHECK_EVAL_BREAKER() to check if the interpreter should process pending events, such as releasing GIL to switch threads. They don't include inplace operations, such as `INPLACE_ADD` (called when using the `+=` operator) but they do include `CALL_METHOD`. The `dis` library provides a disassembler for analyzing bytecode operations in specific functions [[Python docs 2025 - dis](https://docs.python.org/3/library/dis.html)].
+An update to Python 3.10 has introduced the change that prevents such issues from occurring under specific condition. The [[GH-18334 (2021)](https://github.com/python/cpython/pull/18334)] change has made it so that the GIL is released and re-aquired only after specific operations as opposed to a certain number of any of them. These operations, called "eval breaking", can be found in the `Python/ceval.c` file and call `CHECK_EVAL_BREAKER()` to check if the interpreter should process pending events, such as releasing GIL to switch threads. They don't include inplace operations, such as `INPLACE_ADD` (called when using the `+=` operator) but they do include `CALL_METHOD`. The `dis` library provides a disassembler for analyzing bytecode operations in specific functions [[Python docs 2025 - dis](https://docs.python.org/3/library/dis.html)].
 
 While both methods might cause race conditions on older versions of Python, only the latter method is risky since Python 3.10. Since Python 3.11, `CALL_FUNCTION` and `CALL_METHOD` have been replaced by a singular `CALL` operation, which is eval breaking as well. [[Python docs 2025 - dis](https://docs.python.org/3/library/dis.html)].
 
@@ -279,5 +279,9 @@ INFO:root:id=2799840487696 int=0 size=24
     <tr>
         <td>[Python docs 2025 - dis]</td>
         <td>Python Software Foundation. (2024). dis — Disassembler for Python bytecode [online]. Available from: <a href="https://docs.python.org/3/library/dis.html">https://docs.python.org/3/library/dis.html</a>,  [Accessed 18 September 2025]</td>
+    </tr>
+    <tr>
+        <td>[GH-18334 (2021)]</td>
+        <td>GitHub CPython bpo-29988: Only check evalbreaker after calls and on backwards egdes. #18334 [online]. Available from: <a href="https://github.com/python/cpython/pull/18334">https://github.com/python/cpython/pull/18334</a>,  [Accessed 18 September 2025]</td>
     </tr>
 </table>
