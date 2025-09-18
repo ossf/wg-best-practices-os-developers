@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-""" Non-compliant Code Example """
+"""Non-compliant Code Example"""
+
 import threading
 
 
@@ -23,4 +24,3 @@ except ValueError as e:
 # Next attempt to acquire the lock will block forever; as there is a deadlock!
 lock.acquire()
 print("This will not print because the lock was never released.")
-

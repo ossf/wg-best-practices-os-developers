@@ -58,6 +58,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-410: Insufficient Resource Pool](CWE-664/CWE-410/README.md)||
 |[CWE-426: Untrusted Search Path](CWE-664/CWE-426/README.md)|[CVE-2015-1326](https://www.cvedetails.com/cve/CVE-2015-1326),<br/>CVSSv3.0: __8.8__,<br/>EPSS: __00.20__ (23.11.2023)|
 |[CWE-459: Incomplete Cleanup](CWE-664/CWE-459/README.md)||
+|[CWE-460: Improper Cleanup on Thrown Exception](CWE-664/CWE-460/README.md)|[CVE-2008-0002](https://www.cvedetails.com/cve/CVE-2008-0002),<br/>CVSSv3.1: __5.8__,<br/>EPSS: __04.10__ (04.09.2025)|
 |[CWE-501: Trust Boundary Violation)](CWE-664/CWE-501/README.md)|[CVE-2023-28597](https://www.cvedetails.com/cve/CVE-2023-28597),<br/>CVSSv3.0: __7.5__,<br/>EPSS: __00.11__ (05.11.2024)|
 |[CWE-502: Deserialization of Untrusted Data)](CWE-664/CWE-502/.)|[CVE-2018-8021](https://www.cvedetails.com/cve/CVE-2018-8021),<br/>CVSSv3.0: __9.8__,<br/>EPSS: __93.54__ (05.11.2024)|
 |[CWE-532: Insertion of Sensitive Information into Log File](CWE-664/CWE-532/README.md)|[CVE-2023-45585](https://www.cvedetails.com/cve/CVE-2023-45585),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __0.04__ (01.11.2024)|
