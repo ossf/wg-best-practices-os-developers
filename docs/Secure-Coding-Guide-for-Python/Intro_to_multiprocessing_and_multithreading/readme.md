@@ -7,6 +7,7 @@ This page aims to explain the concepts that could be found in the following rule
 - [CWE-400: Uncontrolled Resource Consumption](../CWE-664/CWE-400/README.md)
 - [CWE-392: Missing Report of Error Condition](../CWE-703/CWE-392/README.md)
 - [CWE-665: Improper Initialization](../CWE-664/CWE-665/README.md)
+- [CWE-366: Race Condition within a Thread](../CWE-691/CWE-366/README.md)
 
 ## What is Multithreading in Python - Multithreading vs Multiprocessing
 
