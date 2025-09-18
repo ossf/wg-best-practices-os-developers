@@ -72,13 +72,12 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-682: Incorrect Calculation](https://cwe.mitre.org/data/definitions/682.html)|Prominent CVE|
 |:---------------------------------------------------------------------------------------------------------------|:----|
 |[CWE-191: Integer Underflow (Wrap or Wraparound)](CWE-682/CWE-191/README.md)||
-|[CWE-1335: Incorrect Bitwise Shift of Integer](CWE-682/CWE-1335/README.md)||
+|[# CWE-1335: Incorrect Bitwise Shift of Integer](CWE-682/CWE-1335/README.md)||
 |[CWE-1335: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations](CWE-682/CWE-1335/01/README.md)||
 |[CWE-1339: Insufficient Precision or Accuracy of a Real Number](CWE-682/CWE-1339/.)                            ||
 
 |[CWE-691: Insufficient Control Flow Management](https://cwe.mitre.org/data/definitions/691.html)|Prominent CVE|
 |:---------------------------------------------------------------------------------------------------------------|:----|
-|[CWE-366: Race Condition within a Thread](CWE-691/CWE-366/README.md)||
 |[CWE-362: Concurrent Execution Using Shared Resource with Improper Synchronization ("Race Condition")](CWE-691/CWE-362/README.md)||
 |[CWE-617: Reachable Assertion](CWE-691/CWE-617/README.md)||
 
@@ -87,7 +86,6 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-182: Collapse of Data into Unsafe Value](CWE-693/CWE-182/README.md)||
 |[CWE-184: Incomplete List of Disallowed Input](CWE-693/CWE-184/README.md)||
 |[CWE-330: Use of Insufficiently Random Values](CWE-693/CWE-330/README.md)|[CVE-2020-7548](https://www.cvedetails.com/cve/CVE-2020-7548),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __0.22__ (12.12.2024)|
-|[CWE-472: External Control of Assumed-Immutable Web Parameter](CWE-693/CWE-472/README.md)||
 |[CWE-778: Insufficient Logging](CWE-693/CWE-778/README.md)||
 |[CWE-798: Use of hardcoded credentials](CWE-693/CWE-798/README.md)||
 
