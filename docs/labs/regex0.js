@@ -31,6 +31,13 @@ info =
       ],
     },
     {
+      present: String.raw`\(`,
+      text: "Parentheses are not necessary or clarifying in this regex. Prefer simpler regex expressions.",
+      examples: [
+        [ "(cat)" ],
+      ],
+    },
+    {
       absent: "c",
       text: "If you are searching for \"cat\" you need to look for a \"c\"",
       text_ja: "\"cat\" を検索するにはまず \"c\" を検索する必要があります。",
@@ -91,6 +98,14 @@ info =
       text_ja: "\"一つかそれ以上の B\" には \"B+\" を使用します。または \"BB*\" とも書けます。",
       examples: [
         [ null, "A+B" ],
+      ],
+    },
+    {
+      present: String.raw`\(`,
+      index: 1,
+      text: "Parentheses are not necessary or clarifying in this regex. Prefer simpler regex expressions.",
+      examples: [
+        [ null, "(A+B+)" ],
       ],
     },
   ],
