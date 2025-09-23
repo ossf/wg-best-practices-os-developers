@@ -13,6 +13,7 @@ If you develop or build software, here are some ready-to-go resources from the O
 * [Concise Guide for Developing More Secure Software](https://best.openssf.org/Concise-Guide-for-Developing-More-Secure-Software) - a short "start here" page for how to develop secure software.
 * [Guide to Implementing a Coordinated Vulnerability Disclosure Process for Open Source Projects](https://github.com/ossf/oss-vulnerability-guide/blob/main/maintainer-guide.md#readme) - we recommend OSS projects use this _before_ you get a vulnerability report!
 * [Source Code Management Best Practices Guide](https://best.openssf.org/SCM-BestPractices/) - Guide for securing and implementing best practices for SCM platforms, including GitHub and GitLab.
+* [Secure AI Assistant Instructions](https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions) - a guide for how to write instructions for AI code assistants so that they generate more secure code.
 
 You can also see the full list of [Guides released by the OpenSSF](https://openssf.org/resources/guides/).
 

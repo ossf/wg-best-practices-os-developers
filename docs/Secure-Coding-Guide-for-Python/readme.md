@@ -51,11 +51,14 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-134: Use of Externally-Controlled Format String](CWE-664/CWE-134/README.md)|[CVE-2022-27177](https://www.cvedetails.com/cve/CVE-2022-27177/),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __00.37__ (01.12.2023)|
 |[CWE-197: Numeric Truncation Error](CWE-664/CWE-197/README.md)||
 |[CWE-197: Control rounding when converting to less precise numbers](CWE-664/CWE-197/01/README.md)||
+|[CWE-209: Generation of Error Message Containing Sensitive Information](CWE-664/CWE-209/README.md)|[CVE-2013-0773](https://www.cvedetails.com/cve/CVE-2013-0773/),<br/>CVSSv3.1:__3.3__,<br/>EPSS: __00.95__ (23.11.2023)|
 |[CWE-400: Uncontrolled Resource Consumption](CWE-664/CWE-400/README.md)||
-|[CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)](CWE-664/CWE-409/.)||
+|[CWE-404: Improper Resource Shutdown or Release](CWE-664/CWE-404/README.md)||
+|[CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)](CWE-664/CWE-409/README.md)||
 |[CWE-410: Insufficient Resource Pool](CWE-664/CWE-410/README.md)||
 |[CWE-426: Untrusted Search Path](CWE-664/CWE-426/README.md)|[CVE-2015-1326](https://www.cvedetails.com/cve/CVE-2015-1326),<br/>CVSSv3.0: __8.8__,<br/>EPSS: __00.20__ (23.11.2023)|
 |[CWE-459: Incomplete Cleanup](CWE-664/CWE-459/README.md)||
+|[CWE-460: Improper Cleanup on Thrown Exception](CWE-664/CWE-460/README.md)|[CVE-2008-0002](https://www.cvedetails.com/cve/CVE-2008-0002),<br/>CVSSv3.1: __5.8__,<br/>EPSS: __04.10__ (04.09.2025)|
 |[CWE-501: Trust Boundary Violation)](CWE-664/CWE-501/README.md)|[CVE-2023-28597](https://www.cvedetails.com/cve/CVE-2023-28597),<br/>CVSSv3.0: __7.5__,<br/>EPSS: __00.11__ (05.11.2024)|
 |[CWE-502: Deserialization of Untrusted Data)](CWE-664/CWE-502/.)|[CVE-2018-8021](https://www.cvedetails.com/cve/CVE-2018-8021),<br/>CVSSv3.0: __9.8__,<br/>EPSS: __93.54__ (05.11.2024)|
 |[CWE-532: Insertion of Sensitive Information into Log File](CWE-664/CWE-532/README.md)|[CVE-2023-45585](https://www.cvedetails.com/cve/CVE-2023-45585),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __0.04__ (01.11.2024)|
@@ -69,12 +72,13 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-682: Incorrect Calculation](https://cwe.mitre.org/data/definitions/682.html)|Prominent CVE|
 |:---------------------------------------------------------------------------------------------------------------|:----|
 |[CWE-191: Integer Underflow (Wrap or Wraparound)](CWE-682/CWE-191/README.md)||
-|[# CWE-1335: Incorrect Bitwise Shift of Integer](CWE-682/CWE-1335/README.md)||
+|[CWE-1335: Incorrect Bitwise Shift of Integer](CWE-682/CWE-1335/README.md)||
 |[CWE-1335: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations](CWE-682/CWE-1335/01/README.md)||
 |[CWE-1339: Insufficient Precision or Accuracy of a Real Number](CWE-682/CWE-1339/.)                            ||
 
 |[CWE-691: Insufficient Control Flow Management](https://cwe.mitre.org/data/definitions/691.html)|Prominent CVE|
 |:---------------------------------------------------------------------------------------------------------------|:----|
+|[CWE-366: Race Condition within a Thread](CWE-691/CWE-366/README.md)||
 |[CWE-362: Concurrent Execution Using Shared Resource with Improper Synchronization ("Race Condition")](CWE-691/CWE-362/README.md)||
 |[CWE-617: Reachable Assertion](CWE-691/CWE-617/README.md)||
 
@@ -83,6 +87,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-182: Collapse of Data into Unsafe Value](CWE-693/CWE-182/README.md)||
 |[CWE-184: Incomplete List of Disallowed Input](CWE-693/CWE-184/README.md)||
 |[CWE-330: Use of Insufficiently Random Values](CWE-693/CWE-330/README.md)|[CVE-2020-7548](https://www.cvedetails.com/cve/CVE-2020-7548),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __0.22__ (12.12.2024)|
+|[CWE-472: External Control of Assumed-Immutable Web Parameter](CWE-693/CWE-472/README.md)||
 |[CWE-778: Insufficient Logging](CWE-693/CWE-778/README.md)||
 |[CWE-798: Use of hardcoded credentials](CWE-693/CWE-798/README.md)||
 
@@ -96,6 +101,8 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-252: Unchecked Return Value](CWE-703/CWE-252/README.md)||
 |[CWE-390: Detection of Error Condition without Action](CWE-703/CWE-390/README.md)||
 |[CWE-392: Missing Report of Error Condition](CWE-703/CWE-392/README.md)||
+|[CWE-397: Declaration of Throws for Generic Exception](CWE-703/CWE-397/README.md)||
+|[CWE-476: NULL Pointer Dereference](CWE-703/CWE-476/README.md)||
 |[CWE-754: Improper Check for Unusual or Exceptional Conditions - float](CWE-703/CWE-754/README.md)||
 |[CWE-755: Improper Handling of Exceptional Conditions](CWE-703/CWE-755/README.md)|[CVE-2024-39560](https://www.cvedetails.com/cve/CVE-2024-39560),<br/>CVSSv3.1: __6.5__,<br/>EPSS: __0.04__ (01.11.2024)|
 
