@@ -3,15 +3,18 @@
 """Compliant Code Example"""
 
 
-def label(number: int):
+def label(number: int) -> list[str]:
+    labels = []
     if number < 0:
-        return "neg"
+        labels.append("neg")
     if number % 2 == 0:
-        return "even"
+        labels.append("even")
     if number < 5:
-        return "small"
-    return "big"
+        labels.append("small")
+    if number >= 5:
+        labels.append("big")
+    return labels
 
 
-for number in range(-3, 3):
+for number in range(-6, 6):
     print(f"{number} = {label(number)}")

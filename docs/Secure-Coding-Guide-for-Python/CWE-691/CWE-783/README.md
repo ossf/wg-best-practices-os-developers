@@ -50,7 +50,7 @@ If a method changes an object’s state (has side effects) and is called multipl
 
 ## Non-Compliant Code Example
 
-This `noncompliant01.py` code is expected to provide labels for numbers obfuscates the evaluation and logic.
+`noncompliant01.py` is expected to provide labels for numbers, but it unnecessarily obfuscates the evaluation and logic.
 
 _[noncompliant01.py](noncompliant01.py):_
 
@@ -58,38 +58,59 @@ _[noncompliant01.py](noncompliant01.py):_
 """Non-Compliant Code Example"""
 
 
-def label(number: int) -> str:
-    a = int(number < 0)  # negative flag
-    b = (number & 1) ^ 1  # even flag (1 for even, 0 for odd)
-    c = int(number < 5)  # small flag
+def label(number: int) -> list[str]:
+    key = int(number < 5)  # (1) small
+    key |= ((number & 1) ^ 1) << 1  # (2) for even, 0 for odd
+    key |= (number < 0) << 2  # (4) negative
+    key |= (number > 0) << 3  # (8) positive
 
-    key = (a << 2) | (b << 1) | c  # pack flags into a single key
-
-    parts = ("big", "small", "even", "even", "neg", "neg", "neg", "neg")
+    parts = (
+        "big",  # 0
+        "small",  # 1
+        "even small",  # 2
+        "even small",  # 3
+        "neg",  # 4
+        "neg small",  # 5
+        "neg even small",  # 6
+        "neg even small",  # 7
+        "big",  # 8
+        "big even",  # 9
+        "neg big",  # 10
+        "neg big even",  # 11
+        "big",  # 12
+        "big even",  # 13
+        "neg big",  # 14
+        "neg big even",  # 15
+    )
 
     permuted = tuple(parts[(i * 5) & 7] for i in range(8))
 
     idx = (key * 5) & 7
-    return permuted[idx]
+    return permuted[idx].split(" ")
 
 
-for number in range(-3, 3):
+for number in range(-6, 6):
     print(f"{number} = {label(number)}")
-
 ```
 
 _Example output of `noncompliant01.py`:_
 
 ```bash
--3 = neg
--2 = neg
--1 = neg
-0 = even
-1 = small
-2 = even
+-6 = ['neg', 'even', 'small']
+-5 = ['neg', 'small']
+-4 = ['neg', 'even', 'small']
+-3 = ['neg', 'small']
+-2 = ['neg', 'even', 'small']
+-1 = ['neg', 'small']
+0 = ['even', 'small']
+1 = ['small']
+2 = ['even', 'small']
+3 = ['small']
+4 = ['even', 'small']
+5 = ['big']
 ```
 
-Attempting to add a label for `zero` will be challenging.
+The `noncompliant01.py` does respond with the correct output. Extending the `noncompliant01.py` to also a label `postive` or `zero` numbers would be challenging.
 
 ## Compliant Solution
 
@@ -101,17 +122,20 @@ _[compliant01.py](compliant01.py):_
 """Compliant Code Example"""
 
 
-def label(number: int):
+def label(number: int) -> list[str]:
+    labels = []
     if number < 0:
-        return "neg"
+        labels.append("neg")
     if number % 2 == 0:
-        return "even"
+        labels.append("even")
     if number < 5:
-        return "small"
-    return "big"
+        labels.append("small")
+    if number >= 5:
+        labels.append("big")
+    return labels
 
 
-for number in range(-3, 3):
+for number in range(-6, 6):
     print(f"{number} = {label(number)}")
 
 ```
@@ -167,10 +191,10 @@ for number in range(-3, 3):
     </tr>
     <tr>
         <td>[python power 2025]</td>
-        <td>7.2.1. Augmented assignment statements [online]. Available from: <a href="https://docs.python.org/3/reference/simple_stmts.html?highlight=augmented%20assignment%20operators#augmented-assignment-statements">https://docs.python.org/3/reference/simple_stmts.html?highlight=augmented%20assignment%20operators#augmented-assignment-statement</a>,  [Accessed 19 September 2025]</td>
+        <td>6. Expressions [online]. Available from: <a href="https://docs.python.org/3/reference/expressions.html#index-59">https://docs.python.org/3/reference/expressions.html#index-59</a>,  [Accessed 19 September 2025]</td>
     </tr>
     <tr>
         <td>[PLR 2022]</td>
-        <td>6.16. Evaluation order [online]. Available from: <a href="https://docs.python.org/3/reference/expressions.html#evaluation-orde">https://docs.python.org/3/reference/expressions.html#evaluation-orde</a>,  [Accessed 19 September 2025]</td>
+        <td>6.16. Evaluation order [online]. Available from: <a href="https://docs.python.org/3/reference/expressions.html#evaluation-order">https://docs.python.org/3/reference/expressions.html#evaluation-order</a>,  [Accessed 19 September 2025]</td>
     </tr>
 </table>
