@@ -6,7 +6,7 @@ You want to implement the `__eq__` method on a class if you believe you ever wan
 
 ## Non-Compliant Code Example
 
-The non-compliant code shows how the default comparison operator compares object references rather than the object values. Furthermore, it displays how this causes issues when comparing lists of objects, although it applies to other types of collections as well. Finally, it shows how the `in` operator also depends on the behavior of the `__eq__` method and, therefore, also returns a non-desirable result.
+The non-compliant code shows how the default comparison operator compares object references rather than the object values. Furthermore, it displays how this causes issues when comparing lists of objects, although it applies to other types of collections as well. Then, it shows how the `in` operator also depends on the behavior of the `__eq__` method and, therefore, also returns a non-desirable result. Finally, it performs the comparison with the `is` operator, which checks as to whether the references point to the same object regardless of the stored value.
 
 [*noncompliant01.py:*](noncompliant01.py)
 
@@ -27,31 +27,40 @@ print(Integer(12) == Integer(12))
 print([Integer(12)] == [Integer(12)])
 # And this is equally this will always be False as well
 print(Integer(12) in [Integer(10), Integer(12)])
+# The 'is' will return True only if both references point to the same object
+a = Integer(12)
+b = a
+# Here, a and b point to the same Integer, so 'is' returns True
+print(a is b)
+
+b = Integer(12)
+# Even though b still points to an Integer of the same value, it is a new object, so 'is' returns False
+print(a is b)
 
 ```
 
 ## Compliant Solution
 
-In this compliant solution the `__eq__` method is implemented and all the comparisons now correctly compares the object values, rather than the object reference.
+In this compliant solution, the `__eq__` method is implemented and the comparisons that not use `is` now correctly compare the object values, rather than the object reference. The `is` operator does not call `__eq__`, hence the last print will still display `False`.
 
 [*compliant01.py:*](compliant01.py)
 
 ```py
 """ Compliant Code Example """
- 
- 
+
+
 class Integer:
     def __init__(self, value):
         self.value = value
- 
+
     def __eq__(self, other):
         if isinstance(other, type(self)):
             return self.value == other.value
         if isinstance(other, int):
             return self.value == other
         return False
- 
- 
+
+
 #####################
 # exploiting above code example
 #####################
@@ -59,9 +68,18 @@ class Integer:
 print(Integer(12) == Integer(12))
 print([Integer(12)] == [Integer(12)])
 print(Integer(12) in [Integer(10), Integer(12)])
- 
+
 # By adding the handling for int we also support
 print(Integer(12) == 12)
+# The 'is' will return True only if both references point to the same object
+a = Integer(12)
+b = a
+# Here, a and b point to the same Integer, so 'is' returns True
+print(a is b)
+
+b = Integer(12)
+# Since the 'is' operator does not call __eq__, print below will still return False
+print(a is b)
 
 ```
 
