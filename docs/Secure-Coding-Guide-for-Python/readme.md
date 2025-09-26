@@ -81,6 +81,7 @@ It is __not production code__ and requires code-style or python best practices t
 |[CWE-366: Race Condition within a Thread](CWE-691/CWE-366/README.md)||
 |[CWE-362: Concurrent Execution Using Shared Resource with Improper Synchronization ("Race Condition")](CWE-691/CWE-362/README.md)||
 |[CWE-617: Reachable Assertion](CWE-691/CWE-617/README.md)||
+|[CWE-783: Operator Precedence Logic Error](CWE-691/CWE-783/README.md)||
 
 |[CWE-693: Protection Mechanism Failure](https://cwe.mitre.org/data/definitions/693.html)|Prominent CVE|
 |:---------------------------------------------------------------------------------------------------------------|:----|
