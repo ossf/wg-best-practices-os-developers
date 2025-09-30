@@ -111,7 +111,7 @@ It is __not production code__ and requires code-style or python best practices t
 |:----------------------------------------------------------------|:----|
 |[CWE-78: Improper Neutralization of Special Elements Used in an OS Command ("OS Command Injection")](CWE-707/CWE-78/README.md)|[CVE-2024-43804](https://www.cvedetails.com/cve/CVE-2024-43804/),<br/>CVSSv3.1: __8.8__,<br/>EPSS: __00.06__ (08.11.2024)|
 |[CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')](CWE-707/CWE-89/README.md)|[CVE-2019-8600](https://www.cvedetails.com/cve/CVE-2019-8600/),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __01.43__ (18.02.2024)|
-|[CWE-117: Improper Output Neutralization for Logs](CWE-707/CWE-117/.)||
+|[CWE-117: Improper Output Neutralization for Logs](CWE-707/CWE-117/README.md)||
 |[CWE-175: Improper Handling of Mixed Encoding](CWE-707/CWE-175/README.md)||
 |[CWE-180: Incorrect behavior order: Validate before Canonicalize](CWE-707/CWE-180/README.md)|[CVE-2022-26136](https://www.cvedetails.com/cve/CVE-2022-26136/),<br/>CVSSv3.1: __9.8__,<br/>EPSS: __00.18__ (24.04.2025)|
 |[CWE-838: Inappropriate Encoding for Output Context](CWE-707/CWE-838/README.md)||
