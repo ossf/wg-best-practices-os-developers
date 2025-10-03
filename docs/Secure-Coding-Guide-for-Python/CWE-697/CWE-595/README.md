@@ -57,7 +57,13 @@ The first set of print statements illustrates string interning. While `a` and `b
 
 ## Non-Compliant Code Example
 
-The non-compliant code shows how the default comparison operator compares object references rather than the object values. Furthermore, it displays how this causes issues when comparing lists of objects, although it applies to other types of collections as well. Then, it shows how the `in` operator also depends on the behavior of the `__eq__` method and, therefore, also returns a non-desirable result. Finally, it performs the comparison with the `is` operator, which checks as to whether the references point to the same object regardless of the stored value.
+The `noncompliant01.py` code demonstrates potentially unexpected outcomes when using different comparisons. 
+
+* The `==` operator using `__eq__`, checks value equality for most build-in types, checks for reference equality if the `__eq__` is missing  in a custom class. So 12 == 12 is True and Integer(12) == Integer(12) is False.
+* The `==` comparing lists of objects, that also applies to other types of collections. 
+* The `in` operator also depends on the behavior of the `__eq__` method
+* The `is` operator that checks the references point to the same object regardless of the stored value.
+
 
 _[noncompliant01.py:](noncompliant01.py)_
 
