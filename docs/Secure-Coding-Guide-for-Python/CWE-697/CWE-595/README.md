@@ -37,7 +37,7 @@ while(a is b):
     print (f"{a} is {b}?", a is b)
 ```
 
- __Output of example01.py:__
+ **Output of example01.py:**
 
 ```bash
 ----------Memory optimization with strings----------
@@ -59,7 +59,7 @@ The first set of print statements illustrates string interning. While `a` and `b
 
 The non-compliant code shows how the default comparison operator compares object references rather than the object values. Furthermore, it displays how this causes issues when comparing lists of objects, although it applies to other types of collections as well. Then, it shows how the `in` operator also depends on the behavior of the `__eq__` method and, therefore, also returns a non-desirable result. Finally, it performs the comparison with the `is` operator, which checks as to whether the references point to the same object regardless of the stored value.
 
-[*noncompliant01.py:*](noncompliant01.py)
+_[noncompliant01.py:](noncompliant01.py)_
 
 ```py
 """ Non-compliant Code Example """
@@ -94,7 +94,7 @@ print(a is b)
 
 In this compliant solution, the `__eq__` method is implemented and the comparisons that not use `is` now correctly compare the object values, rather than the object reference. The `is` operator does not call `__eq__`, hence the last print will still display `False`.
 
-[*compliant01.py:*](compliant01.py)
+_[compliant01.py:](compliant01.py)_
 
 ```py
 """ Compliant Code Example """
