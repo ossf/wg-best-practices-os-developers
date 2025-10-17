@@ -2,7 +2,7 @@
 
 Prevent unexpected results by knowing the differences between comparison operators such as `==` and `is`.
 
-In Python, the `==` operator is implemented by the `__eq__` method on an object [[python.org data model 2023](https://docs.python.org/3/reference/datamodel.html?highlight=__eq__#object.__eq__)]. For built-in types like `int` and `str`, the comparison is implemented in the interpreter. The main issue comes when implementing custom classes, where the default implementation compares object references using the `is` operator. The `is` operator compares the identities of the objects, equivalent to `id(obj1) == id(obj2)`. 
+In Python, the `==` operator is implemented by the `__eq__` method on an object [[python.org data model 2023](https://docs.python.org/3/reference/datamodel.html?highlight=__eq__#object.__eq__)]. For built-in types like `int` and `str`, the comparison is implemented in the interpreter. The main issue comes when implementing custom classes, where the default implementation compares object references using the `is` operator. The `is` operator compares the identities of the objects, equivalent to `id(obj1) == id(obj2)`.
 In CPython, this is their memory address. Everything in Python is an object, and each object is stored at a specific memory location [[de Langen 2023](https://realpython.com/python-is-identity-vs-equality/)].
 
 You want to implement the `__eq__` method on a class if you believe you ever want to compare it to another object or find it in a list of objects. Actually, it is so common that the `dataclasses.dataclass` decorator by default implements it for you [[dataclasses — Data Classes — Python 3.11.4 documentation](https://docs.python.org/3/library/dataclasses.html#dataclasses.dataclass)].
