@@ -96,6 +96,16 @@ print(a is b)
 
 ```
 
+**Output of noncompliant01.py:**
+
+```bash
+False
+False
+False
+True
+False
+```
+
 ## Compliant Solution
 
 In this compliant solution, the `__eq__` method is implemented and the comparisons that not use `is` now correctly compare the object values, rather than the object reference. The `is` operator does not call `__eq__`, hence the last print will still display `False`.
@@ -138,6 +148,17 @@ b = Integer(12)
 # Since the 'is' operator does not call __eq__, print below will still return False
 print(a is b)
 
+```
+
+ **Output of compliant01.py:**
+
+```bash
+True
+True
+True
+True
+True
+False
 ```
 
 ## Automated Detection
