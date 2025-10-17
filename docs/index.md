@@ -31,7 +31,6 @@ Note: You can also see the larger list of
   * [A brief webinar summarizing the CRA is available](https://openchainproject.org/news/2025/09/16/webinar-cra)
   * The [presentation from LFEL1001](https://docs.google.com/presentation/d/1j3OlNz2k5rk9KRD8ZZz8xvsM_hyxqOioK4UUkJTWee8/edit) is available if you want to propose changes or reuse it for special purposes (CC-BY-4.0)
 * [Secure AI/ML-Driven Software Development (LFEL1012)](https://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012), to be released 2025-10-16. Developed with the OpenSSF AI/ML WG.
-  * [Fill in this form to receive an email notification when the LFEL1012 course is available](https://docs.google.com/forms/d/e/1FAIpQLSfWW8M6PwOM62VHgc-YyogzT-eK_scJVk21BtezFUnJmMx6DQ/viewform)
   * The [presentation from LFEL1012](https://docs.google.com/presentation/d/1SONjRe6mdtqNuUqVE9s5kLC6tUwtuw-XTAG23MjXIFI/edit) is available if you want to propose changes or reuse it for special purposes (CC-BY-4.0)
 
 See the [Education SIG](https://github.com/ossf/education/) page for more information.
