@@ -1,6 +1,8 @@
 # CWE-117: Improper Output Neutralization for Logs
 
-Ensure all untrusted data is properly neutralized or sanitized before writing to application logs. Log injection occurs when untrusted data is written to application logs without proper neutralization, allowing attackers to forge log entries or inject malicious content. Attackers can inject fake log records or hide real ones by inserting newline sequences (`\r` or `\n`), misleading auditors and incident-response teams. This vulnerability can also enable injection of XSS attacks when logs are viewed in vulnerable web applications.
+Ensure all untrusted data is properly neutralized or sanitized before writing to application logs.
+
+Log injection occurs when untrusted data is written to application logs without proper neutralization, allowing attackers to forge log entries or inject malicious content. Attackers can inject fake log records or hide real ones by inserting newline sequences (`\r` or `\n`), misleading auditors and incident-response teams. This vulnerability can also enable injection of XSS attacks when logs are viewed in vulnerable web applications.
 
 Attackers can exploit this weakness (see [*Attacks on Logs*](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html#attacks-on-logs) [[OWASP 2025]](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html#attacks-on-logs)) by submitting strings containing CRLF sequences that create fake log entries.
 
@@ -92,108 +94,34 @@ WARNING:root:Rejected login attempt: invalid username="guest'\nWARNING:root:User
 
 ## Automated Detection
 
-<table>
-  <thead>
-    <tr>
-      <th>Tool</th>
-      <th>Version</th>
-      <th>Check</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Bandit</td>
-      <td>1.7.5</td>
-      <td>Not Available</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>CodeQL</td>
-      <td>Latest</td>
-      <td><a href="https://codeql.github.com/codeql-query-help/python/py-log-injection/">py-log-injection</a></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>Veracode</td>
-      <td>Latest</td>
-      <td>CWE 117</td>
-      <td><a href="https://community.veracode.com/s/article/How-to-Fix-CWE-117-Improper-Output-Neutralization-for-Logs">How to Fix CWE-117</a></td>
-    </tr>
-  </tbody>
-</table>
+| Tool | Version | Check | Description |
+|------|---------|-------|-------------|
+| Bandit | 1.7.5 | Not Available | |
+| CodeQL | Latest | [py-log-injection](https://codeql.github.com/codeql-query-help/python/py-log-injection/) | |
+| Veracode | Latest | CWE 117 | [How to Fix CWE-117](https://community.veracode.com/s/article/How-to-Fix-CWE-117-Improper-Output-Neutralization-for-Logs) |
 
 ## Related Guidelines
 
-<table>
-    <tr>
-        <td><a href="http://cwe.mitre.org/">MITRE CWE</a></td>
-        <td>Pillar: <a href="https://cwe.mitre.org/data/definitions/707.html"> CWE-707: Improper Neutralization</a></td>
-    </tr>
-    <tr>
-        <td><a href="http://cwe.mitre.org/">MITRE CWE</a></td>
-        <td>Base: <a href="https://cwe.mitre.org/data/definitions/117.html">CWE-117: Improper Output Neutralization for Log </a></td>
-    </tr>
-    <tr>
-        <td><a href="http://cwe.mitre.org/">MITRE CWE</a></td>
-        <td>Base: <a href="https://cwe.mitre.org/data/definitions/93.html">CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection') </a></td>
-    </tr>
-    <tr>
-        <td><a href="http://cwe.mitre.org/">MITRE CWE</a></td>
-        <td>Variant: <a href="https://cwe.mitre.org/data/definitions/113.html">CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Request/Response Splitting') </a></td>
-    </tr>
-    <tr>
-        <td><a href="http://capec.mitre.org/">MITRE CAPEC</a></td>
-        <td>Detailed: <a href="https://capec.mitre.org/data/definitions/93.html">CAPEC-93: Log Injection-Tampering-Forging </a></td>
-    </tr>
-    <tr>
-        <td><a href="https://owasp.org/Top10/">OWASP Top 10</a></td>
-        <td><a href="https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/">A09:2021 – Security Logging and Monitoring Failures </a></td>
-    </tr>
-    <tr>
-        <td><a href="https://owasp.org/">OWASP ASVS 4.0</a></td>
-        <td><a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP Application Security Verification Standard (ASVS) </a>. See "V16 Security Logging and Error Handling".
-</td>
-    <tr>
-        <td><a href="https://cheatsheetseries.owasp.org/index.html">OWASP Cheat Sheet Series</a></td>
-        <td><a href="https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html">OWASP Logging Cheat Sheet</a></td>
-    </tr>
-    </tr>
-    <tr>
-        <td>ISO/IEC TR 24772:2013</td>
-        <td><a href="https://www.iso.org/standard/61457.html">ISO/IEC TR 24772:2013 Information technology — Programming languages — Guidance to avoiding vulnerabilities in programming languages through language selection and use </a></td>
-    </tr>
-    <tr>
-        <td>NIST SP 800-92</td>
-        <td><a href="https://csrc.nist.gov/pubs/sp/800/92/final">NIST SP 800-92 Guide to Computer Security Log Management </a></td>
-    </tr>
-</table>
+| Source | Reference |
+|--------|----------|
+| [MITRE CWE](http://cwe.mitre.org/) | Pillar: [CWE-707: Improper Neutralization](https://cwe.mitre.org/data/definitions/707.html) |
+| [MITRE CWE](http://cwe.mitre.org/) | Base: [CWE-117: Improper Output Neutralization for Log](https://cwe.mitre.org/data/definitions/117.html) |
+| [MITRE CWE](http://cwe.mitre.org/) | Base: [CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection')](https://cwe.mitre.org/data/definitions/93.html) |
+| [MITRE CWE](http://cwe.mitre.org/) | Variant: [CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Request/Response Splitting')](https://cwe.mitre.org/data/definitions/113.html) |
+| [MITRE CAPEC](http://capec.mitre.org/) | Detailed: [CAPEC-93: Log Injection-Tampering-Forging](https://capec.mitre.org/data/definitions/93.html) |
+| [OWASP Top 10](https://owasp.org/Top10/) | [A09:2021 – Security Logging and Monitoring Failures](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/) |
+| [OWASP ASVS 4.0](https://owasp.org/) | [OWASP Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/). See "V16 Security Logging and Error Handling". |
+| [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/index.html) | [OWASP Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) |
+| ISO/IEC TR 24772:2013 | [ISO/IEC TR 24772:2013 Information technology — Programming languages — Guidance to avoiding vulnerabilities in programming languages through language selection and use](https://www.iso.org/standard/61457.html) |
+| NIST SP 800-92 | [NIST SP 800-92 Guide to Computer Security Log Management](https://csrc.nist.gov/pubs/sp/800/92/final) |
 
 ## Bibliography
 
-<table>
-    <tr>
-        <td>[CWE-117]</a></td>
-        <td>CWE-117: Improper Output Neutralization for Log [online]. Available from <a href="https://cwe.mitre.org/data/definitions/117.html">https://cwe.mitre.org/data/definitions/117.html</a>, [Accessed 24 September 2025]</td>
-    </tr>
-    <tr>
-        <td>[CWE-93]</a></td>
-        <td>CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection') [online]. Available from: <a href="https://cwe.mitre.org/data/definitions/93.html">https://cwe.mitre.org/data/definitions/93.html</a>, [Accessed 24 September 2025]</td>
-    </tr>
-    <tr>
-        <td>[CWE-113]</a></td>
-        <td>CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Request/Response Splitting')<a href="https://cwe.mitre.org/data/definitions/113.html">https://cwe.mitre.org/data/definitions/113.html</a>, [Accessed 24 September 2025]</td>
-    </tr>
-    <tr>
-        <td>[CAPEC-93]</td>
-        <td>CAPEC-93: Log Injection-Tampering-Forging [online]. Available from: <a href="https://capec.mitre.org/data/definitions/93.html">https://capec.mitre.org/data/definitions/93.html</a>, [Accessed 24 September 2025]</td>
-    </tr>
-    <tr>
-        <td>[OWASP A09:2021]</td>
-        <td>A09:2021 – Security Logging and Monitoring Failures [online]. Available from:<a href="https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/">https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/</a>, [Accessed 24 September 2025]</td>
-    </tr>
-    <tr>
-        <td>[OWASP 2025]</td>
-        <td>OWASP Cheat Sheet Series: Logging Cheat Sheet [online]. Available from: <a href="https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html">https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html</a> (see “Event collection” and “Attacks on Logs”). [Accessed 24 September 2025]</td>
-    </tr>
-</table>
+| Reference | Description |
+|-----------|-------------|
+| [CWE-117] | CWE-117: Improper Output Neutralization for Log [online]. Available from [https://cwe.mitre.org/data/definitions/117.html](https://cwe.mitre.org/data/definitions/117.html), [Accessed 24 September 2025] |
+| [CWE-93] | CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection') [online]. Available from [https://cwe.mitre.org/data/definitions/93.html](https://cwe.mitre.org/data/definitions/93.html), [Accessed 24 September 2025] |
+| [CWE-113] | CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Request/Response Splitting') [online]. Available from [https://cwe.mitre.org/data/definitions/113.html](https://cwe.mitre.org/data/definitions/113.html), [Accessed 24 September 2025] |
+| [CAPEC-93] | CAPEC-93: Log Injection-Tampering-Forging [online]. Available from [https://capec.mitre.org/data/definitions/93.html](https://capec.mitre.org/data/definitions/93.html), [Accessed 24 September 2025] |
+| [OWASP A09:2021] | A09:2021 – Security Logging and Monitoring Failures [online]. Available from [https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/), [Accessed 24 September 2025] |
+| [OWASP 2025] | OWASP Cheat Sheet Series: Logging Cheat Sheet [online]. Available from [https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html), [Accessed 24 September 2025] [Logging_Cheat_Sheet.html"](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)</a> (see “Event collection” and “Attacks on Logs”). [Accessed 24 September 2025] |

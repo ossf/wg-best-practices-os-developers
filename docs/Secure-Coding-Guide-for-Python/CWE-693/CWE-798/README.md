@@ -87,7 +87,16 @@ Create reusable components by separating deployment such as connection informati
 |Passwords for machine to machine identity verification|time limited keys or access tokens that are unique per deployment or instances and get assigned at deployment time.|
 |Shared usernames|RBAC, ABAC or policy engines|
 |Hardcoded `UIDs`, `GIDs`|identity names|
-|Hardcoded `IPs` or ports|Rather than hardcoding IP addresses DNS should be properly implemented in the deployment in combination with solutions such as:<br>- `RFC 9250` - [DNS over Dedicated QUIC Connections (ietf.org)](https://datatracker.ietf.org/doc/rfc9250/)<br>- `RFC 7858` - [Specification for DNS over Transport Layer Security (TLS) (ietf.org)](https://datatracker.ietf.org/doc/html/rfc7858)<br>- `RFC 6494` - [Certificate Profile and Certificate Management for SEcure Neighbor Discovery (SEND) (ietf.org) for IPV6](https://datatracker.ietf.org/doc/rfc6494/)<br>- `DNSSEC` [RFC 9364](https://datatracker.ietf.org/doc/html/rfc9364), `RFC 6014`, `5155`, `4641`....<br><br>The order and ways to resolve IPs is configured via `/etc/nsswitch.conf` on most Unix systems.<br><br>Using `mTLS` with a high granularity of machine identities can reduce or remove `DNS` related risks.|
+|Hardcoded `IPs` or ports|Rather than hardcoding IP addresses DNS should be properly implemented in the deployment in combination with solutions such as:|
+
+* `RFC 9250` - [DNS over Dedicated QUIC Connections (ietf.org)](https://datatracker.ietf.org/doc/rfc9250/)
+* `RFC 7858` - [Specification for DNS over Transport Layer Security (TLS) (ietf.org)](https://datatracker.ietf.org/doc/html/rfc7858)
+* `RFC 6494` - [Certificate Profile and Certificate Management for SEcure Neighbor Discovery (SEND) (ietf.org) for IPV6](https://datatracker.ietf.org/doc/rfc6494/)
+* `DNSSEC` [RFC 9364](https://datatracker.ietf.org/doc/html/rfc9364), `RFC 6014`, `5155`, `4641`....
+
+The order and ways to resolve IPs is configured via `/etc/nsswitch.conf` on most Unix systems.
+
+Using `mTLS` with a high granularity of machine identities can reduce or remove `DNS` related risks.
 
 The `compliant01.py` code is using a `config.ini` file to decouple connection information. The deployment represented by `TestSimulateDeployingFrontEnd` is now in full control of proving connectivity information to the `front-end` and `back-end`. Using configuration files, such as `ini`, `yaml` or `json`, allows a language independent solution (`bash` vs `python`). The deployment, represented by `TestSimulateDeployingFrontEnd`, steering these files also secures them by making them read only to a single user via `self.config_file_path.chmod(0o400)`. The password based identity verification is replaced with a certificate based solution.
 
@@ -162,8 +171,13 @@ The `compliant01.py` code avoids using password based authentication in the firs
 
 |Tool|Version|Checker|Description|
 |:---|:---|:---|:---|
-|Bandit|1.7.4 on Python 3.10.4|B105<br>B106<br>B107|[B105: hardcoded_password_string — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b105_hardcoded_password_string.html)<br>[B106: hardcoded_password_funcarg — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b106_hardcoded_password_funcarg.html)<br>[B107: hardcoded_password_default — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b107_hardcoded_password_default.html)|
-|sonarsource||RSPEC-2068<br>RSPEC-6437|[Python static code analysis: Hard-coded credentials are security-sensitive (sonarsource.com)](https://rules.sonarsource.com/python/RSPEC-2068)<br>[Credentials should not be hard-coded (sonarsource.com)](https://rules.sonarsource.com/python/type/Vulnerability/RSPEC-6437/)|
+|Tool|Version|Checker|Description|
+|:---|:---|:---|:---|
+|Bandit|1.7.4 on Python 3.10.4|B105|[B105: hardcoded_password_string — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b105_hardcoded_password_string.html)|
+|Bandit|1.7.4 on Python 3.10.4|B106|[B106: hardcoded_password_funcarg — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b106_hardcoded_password_funcarg.html)|
+|Bandit|1.7.4 on Python 3.10.4|B107|[B107: hardcoded_password_default — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b107_hardcoded_password_default.html)|
+|sonarsource||RSPEC-2068|[Python static code analysis: Hard-coded credentials are security-sensitive (sonarsource.com)](https://rules.sonarsource.com/python/RSPEC-2068)|
+|sonarsource||RSPEC-6437|[Credentials should not be hard-coded (sonarsource.com)](https://rules.sonarsource.com/python/type/Vulnerability/RSPEC-6437/)|
 |codeQL|||[Hard-coded credentials — CodeQL query help documentation (github.com)](https://codeql.github.com/codeql-query-help/python/py-hardcoded-credentials/)|
 
 ## Related Guidelines

@@ -3,12 +3,12 @@
 """ Non-compliant Code Example """
 import time
 from threading import Thread
- 
- 
+
+
 def waste_time(t: float):
     time.sleep(t)
- 
- 
+
+
 WAIT_TIME = 4
 start = time.time()
 waste_time(WAIT_TIME)

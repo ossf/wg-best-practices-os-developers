@@ -1,5 +1,7 @@
 # CWE-1335: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations
 
+Avoid using bitwise operations for calculations, write math as math instead to ensure code clarity, compatibility and maintainability.
+
 `C` and `C++` used to have two design patterns in order to optimize resource utilization:
 
 * Bit-wise operations for divisions or multiplication shifting the whole content of a variable to left or right for increased speed.
@@ -12,6 +14,9 @@ The `example01.py` code demonstrates bit-wise operators available in Python.
 *[example01.py](example01.py):*
 
 ```py
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+"""example code"""
 foo = 50
 bar = 42
 print(f"foo = {foo} = {foo:08b}") # :08b is just for pretty print
@@ -45,6 +50,9 @@ The `example02.py` code demonstrates how Python 2 changes an int to long to prev
 *[example02.py](example02.py):*
 
 ```py
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+"""example code"""
 for shift in [16, 32, 64]:
     bar = 5225 << shift
     print("foo << " + str(shift) + ": type " + str(type(bar)) + " " + str(bin(bar)))
@@ -73,6 +81,8 @@ Multiplication by `4` can be archived by a `2x` left. The `noncompliant01.py` co
 *[noncompliant01.py](noncompliant01.py):*
 
 ```py
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
 
 print(8 << 2 + 10)
@@ -87,6 +97,8 @@ The statement in `compliant01.py` clarifies the programmer's intention.
 *[compliant01.py](compliant01.py):*
 
 ```py
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Compliant Code Example """
 
 print(8 * 4 + 10)
@@ -96,11 +108,13 @@ It is recommended by *[CWE-191, Integer Underflow (Wrap or Wraparound)](../../CW
 
 ## Non-compliant Code Example (Right Shift)
 
-In this non-compliant code example is using an arithmetic right shift >>= operator in an attempt to optimize performance for dividing x  by 4 without floating point.
+The `nonompliant02.py` code example is using an arithmetic right shift >>= operator in an attempt to optimize performance for dividing x  by 4 without floating point.
 
 *[noncompliant02.py](noncompliant02.py):*
 
 ```py
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
 
 foo: int
@@ -118,6 +132,8 @@ The right shift is replaced by division in `compliant02.py`.
 *[compliant02.py](compliant02.py):*
 
 ```py
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Compliant Code Example """
 
 foo: int = -50

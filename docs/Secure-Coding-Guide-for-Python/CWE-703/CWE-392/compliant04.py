@@ -9,7 +9,7 @@ from concurrent.futures import ThreadPoolExecutor
 def get_sqrt(a):
     try:
         return math.sqrt(a)
-    except ValueError as e:
+    except ValueError:
         print(f"Invalid argument: {a}")
         return None
 

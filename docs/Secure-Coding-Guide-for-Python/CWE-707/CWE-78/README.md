@@ -19,13 +19,13 @@ Following table 00 provides a limited list of Unix shell commands to Python modu
 |Action|Unix|Python|
 |:---|:---|:---|
 |Compress or decompress files|gzip, unzip|zlib, gzip, bz2, lzma|
-|Filesystem operations|`find .`<br>`tree`<br>`ls -1 *.txt`<br>`test -d`<br>`test -f`<br>`cp`|`Path.rglob("*.txt")`<br>`Path.glob("*.txt")`<br>`Path.is_dir()`<br>`Path.is_file()`<br>`shutil.copy()`|
-|Access control operations|`chown`<br>`chmod`|`shutil.chown()`<br>`shutil.chmod()`<br>`stat`|
-|Environment variables|`export`<br>`set`|`os.getenv()`<br>`os.setenv()`|
-|Get user/group id|id|`os.getuid()`<br>`os.setuid()`|
+|Filesystem operations|`find .` `tree` `ls -1 *.txt` `test -d` `test -f`s `cp`|`Path.rglob("*.txt")` `Path.glob("*.txt")` `Path.is_dir()` `Path.is_file()` `shutil.copy()`|
+|Access control operations|`chown` `chmod`|`shutil.chown()` `shutil.chmod()` `stat`|
+|Environment variables|`export` `set`|`os.getenv()` `os.setenv()`|
+|Get user/group id|id|`os.getuid()` `os.setuid()`|
 |Get OS and/or kernel type and name|uname -as|`os.uname()`|
 
-<sub>table 00, example list of Unix commands and their Python equivalents.</sub>
+*table 00, example list of Unix commands and their Python equivalents.*
 
 Any variation of using input from a lesser trusted source as part of a command line program has a very high probability of resulting in a potential attack including the use of specialized modules. Consider:
 
@@ -75,7 +75,7 @@ The `FileOperations().list_dir()` method allows an attacker to add commands via 
 
 The attack surface increases if a user is also allowed to upload or create files or folders.
 
-The `noncompliant02.py` example demonstrates the injection via file or folder name that is created prior to using the `list_dir()` method. We assume here that an untrusted user is allowed to create files or folders named `& calc.exe or ;ps aux` as part of another service such as upload area, submit form, or as a result of a zip-bomb as per *CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)*. Encoding issues as described in *[CWE-180: Incorrect Behavior Order: Validate Before Canonicalize](../CWE-180/README.md)* must also be considered.
+The `noncompliant02.py` example demonstrates the injection via file or folder name that is created prior to using the `list_dir()` method. We assume here that an untrusted user is allowed to create files or folders named `& calc.exe or ;ps aux` as part of another service such as upload area, submit form, or as a result of a zip-bomb as per *[CWE-409: Improper Handling of Highly Compressed Data](../../CWE-664/CWE-409/README.md) (Data Amplification)*. Encoding issues as described in *[CWE-180: Incorrect Behavior Order: Validate Before Canonicalize](../CWE-180/README.md)* must also be considered.
 
 The issue occurs when mixing shell commands with data from a lesser trusted source.
 
@@ -129,7 +129,7 @@ The result is that `list_dir(dirname)` will run the `toast.sh` as a shell script
 
 ## Compliant Solution
 
-The `compliant01.py` code using the cross-platform compatible pathlib module and restricting filesystem area. The `pathlib` on its own will not prevent all attacks.
+The `compliant01.py` code uses the cross-platform compatible pathlib module and restricting filesystem area. The `pathlib` on its own will not prevent all attacks.
 
 *[compliant01.py](compliant01.py):*
 
@@ -178,7 +178,7 @@ list_dir("temp")
 
 ```
 
-The `compliant01.py` does not use data that origins from a lesser trusted source in order to form a shell command and would throw an error for an attempt to list content outside of the allowed area. The code is actually not "neutralizing" data itself from an untrusted source as such, the attack is "neutralized" by no longer using `subprocess` or `os` to run `find`.
+The `compliant01.py` does not use data that originates from a lesser trusted source in order to form a shell command and would throw an error for an attempt to list content outside of the allowed area. The code is actually not "neutralizing" data itself from an untrusted source as such, the attack is "neutralized" by no longer using `subprocess` or `os` to run `find`.
 
 ## Automated Detection
 

@@ -90,7 +90,7 @@ def run_thread(var):
         try:
             res = future.result()
             return res
-        except ValueError as e:
+        except ValueError:
             # handle exception...
             raise ValueError(f"Invalid argument: {var}") from None
 
@@ -164,7 +164,7 @@ def map_threads(x):
                 ret.append(res)
                 invalid_arg += 1
             return ret
-        except ValueError as e:
+        except ValueError:
             # handle exception...
             raise ValueError(
                 f"Invalid argument: {x[invalid_arg]} at list index {invalid_arg}"
@@ -198,7 +198,7 @@ from concurrent.futures import ThreadPoolExecutor
 def get_sqrt(a):
     try:
         return math.sqrt(a)
-    except ValueError as e:
+    except ValueError:
         print(f"Invalid argument: {a}")
         return None
 

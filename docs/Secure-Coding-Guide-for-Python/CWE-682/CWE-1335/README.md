@@ -1,5 +1,7 @@
 # CWE-1335: Incorrect Bitwise Shift of Integer
 
+Avoid mixing bitwise shifts with arithmetic operations, instead, use clear mathematical expressions instead to maintain predictable behavior, readability, and compatibility.
+
 Ensure to know what bit-wise shift operators do in case you can not avoid them as recommended in *NUM01-J. Do not perform bitwise and arithmetic operations on the same data* [[SEI CERT JAVA 2024]](https://wiki.sei.cmu.edu/confluence/display/java/NUM01-J.+Do+not+perform+bitwise+and+arithmetic+operations+on+the+same+data) and use math instead.
 
 A need to use bit-wise operations in Python can be due to translations or dealings with `C`, `C++` or `Java`, system libraries, raw binary data, or cryptographic algorithms.  Existing Python modules hooking into system `C` libraries for cryptographic functions or math all to avoid the need to implement bit-shifting on a Python level. Bit-shifting can have unexpected outcomes. Python's ctypes  module allows integration of `C` based system libraries into Python and direct access to C-type variables that can have different behavior than using high-level Python.
@@ -169,72 +171,23 @@ Understanding `ctypes` or `C` requires understanding the *CERT C Coding Standard
 
 ## Automated Detection
 
-Not available
+|Tool|Version|Checker|Description|
+|:----|:----|:----|:----|
+|[Pylint](https://pylint.pycqa.org/)|2023.10.1|Not Available|Not detected|
 
 ## Related Guidelines
 
-<table>
-<tr>
-<td>
-<a href="https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python">[OpenSSF Secure Coding in Python 2025]</a>
-</td>
-<td>
-<a href="https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/CWE-682/CWE-1335/01/README.md">CWE-1335: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations</a>
-</td>
-</tr>
-<tr>
-<tr>
-<td>
-<a href="http://cwe.mitre.org/">MITRE CWE</a>
-</td>
-<td>
-Pillar: <a href="https://cwe.mitre.org/data/definitions/682.html"> [CWE-682: Incorrect Calculation]</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="http://cwe.mitre.org/">MITRE CWE</a>
-</td>
-<td>
-Base: <a href="https://cwe.mitre.org/data/definitions/1335.html">[CWE-1335: Incorrect Bitwise Shift of Integer (4.12)]</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java">[SEI CERT Oracle Coding Standard for Java]</a>
-</td>
-<td>
-<a href="https://wiki.sei.cmu.edu/confluence/display/java/NUM14-J.+Use+shift+operators+correctly">[NUM14-J. Use shift operators correctly]</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard">[CERT C Coding Standard]</a>
-</td>
-<td>
-<a href="https://wiki.sei.cmu.edu/confluence/display/c/INT34-C.+Do+not+shift+an+expression+by+a+negative+number+of+bits+or+by+greater+than+or+equal+to+the+number+of+bits+that+exist+in+the+operand">[INT34-C. Do not shift an expression by a negative number of bits or by greater than or equal to the number of
-bits that exist in the operand]</a>
-</td>
-</tr>
-</table>
+|Source|Reference|
+|:---|:---|
+|[OpenSSF Secure Coding in Python 2025](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python)|[CWE-1335: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/CWE-682/CWE-1335/01/README.md)|
+|[MITRE CWE](http://cwe.mitre.org/)|Pillar: [CWE-682: Incorrect Calculation](https://cwe.mitre.org/data/definitions/682.html)|
+|[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE-1335: Incorrect Bitwise Shift of Integer (4.12)](https://cwe.mitre.org/data/definitions/1335.html)|
+|[SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[NUM14-J. Use shift operators correctly](https://wiki.sei.cmu.edu/confluence/display/java/NUM14-J.+Use+shift+operators+correctly)|
+|[CERT C Coding Standard](https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard)|[INT34-C. Do not shift an expression by a negative number of bits or by greater than or equal to the number of bits that exist in the operand](https://wiki.sei.cmu.edu/confluence/display/c/INT34-C.+Do+not+shift+an+expression+by+a+negative+number+of+bits+or+by+greater+than+or+equal+to+the+number+of+bits+that+exist+in+the+operand)|
 
 ## Bibliography
 
-<table>
-<tr>
-<td>
-[SEI CERT JAVA 2024]
-</td>
-<td>
-NUM01-J. Do not perform bitwise and arithmetic operations on the same data [online]. Available from: <a href="https://wiki.sei.cmu.edu/confluence/display/java/NUM01-J.+Do+not+perform+bitwise+and+arithmetic+operations+on+the+same+data">https://wiki.sei.cmu.edu/confluence/display/java/NUM01-J.+Do+not+perform+bitwise+and+arithmetic+operations+on+the+same+data</a>,  [Accessed 6 May 2025]
-</td>
-</tr>
-<tr>
-<td>
-[SEI CERT C 2025]
-</td>
-<td>
-CERT C Coding Standard [online]. Available from: <a href=https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard>https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard</a> [Accessed 6 May 2025]
-</td>
-</tr>
-<table>
+|Reference|Description|
+|:---|:---|
+|[SEI CERT JAVA 2024]|NUM01-J. Do not perform bitwise and arithmetic operations on the same data [online]. Available from: [https://wiki.sei.cmu.edu/confluence/display/java/NUM01-J.+Do+not+perform+bitwise+and+arithmetic+operations+on+the+same+data](https://wiki.sei.cmu.edu/confluence/display/java/NUM01-J.+Do+not+perform+bitwise+and+arithmetic+operations+on+the+same+data), [Accessed 6 May 2025]|
+|[SEI CERT C 2025]|CERT C Coding Standard [online]. Available from: [https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard](https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard) [Accessed 6 May 2025]|

@@ -6,14 +6,14 @@ Avoid Incomplete 'deny lists' that can lead to security vulnerabilities such as 
 
 The `noncompliant01.py` code demonstrates the difficult handling of exclusion lists in a multi language support use case. `UTF-8` has __1,112,064__ mappings between `8-32` bit values and printable characters such as `生` known as "code points".
 
-The `noncompliant01.py` `filterString()` method attempts to search for disallowed inputs and fails to find the `script` tag due to the non-English character `生`  in `<script生>`.
+The `noncompliant01.py` `filterString()` method attempts to search for disallowed inputs and fails to find the `script` tag due to the non-English character `生`  in `<script生>`. Failure to filter such strings could lead to Cross-Site Scripting (XSS) injection, as per [CWE-182: Collapse of Data into Unsafe Value](../CWE-182/README.md)
 
 *[noncompliant01.py](noncompliant01.py):*
 
 ```python
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-"""Compliant Code Example"""
+""" Non-compliant Code Example """
 
 import re
 import sys
@@ -34,6 +34,10 @@ def filter_string(input_string: str):
     for tag in re.findall("<[^>]*>", input_string):
         if tag in ["<script>", "<img", "<a href"]:
             raise ValueError("Invalid input tag")
+        else:
+            # Showing why incorrectly filtering could cause problems
+            decoded = name.encode("utf-8")
+            print(decoded.decode("ascii", "ignore"))
 
 
 #####################
@@ -81,6 +85,10 @@ def filter_string(input_string: str):
     for tag in re.findall("<[^>]*>", input_string):
         if tag not in ["<b>", "<p>", "</p>"]:
             raise ValueError("Invalid input tag")
+        else:
+            # Showing why incorrectly filtering could cause problems
+            decoded = name.encode("utf-8")
+            print(decoded.decode("ascii", "ignore"))
     # TODO handle exception
 
 
