@@ -16,3 +16,12 @@ print(Integer(12) == Integer(12))
 print([Integer(12)] == [Integer(12)])
 # And this is equally this will always be False as well
 print(Integer(12) in [Integer(10), Integer(12)])
+# The 'is' will return True only if both references point to the same object
+a = Integer(12)
+b = a
+# Here, a and b point to the same Integer, so 'is' returns True
+print(a is b)
+
+b = Integer(12)
+# Even though b still points to an Integer of the same value, it is a new object, so 'is' returns False
+print(a is b)
