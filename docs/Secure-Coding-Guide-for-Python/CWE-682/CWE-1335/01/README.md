@@ -45,7 +45,7 @@ foo | bar  = 00111010
 foo ^ bar  = 00011000
 ```
 
-The `example02.py` code demonstrates how Python 2 changes an int to long to prevent an overflow condition while Python 3 is always storing an `int` as `long` [[Python 3.10.5 2022]](https://rushter.com/blog/python-integer-implementation/).
+The `example02.py` code demonstrates how Python 2 changes an `int` to `long` to prevent an overflow condition while Python 3 is always storing an `int` as `long` [[Python 3.10.5 2022]](https://rushter.com/blog/python-integer-implementation/).
 
 *[example02.py](example02.py):*
 
@@ -58,7 +58,7 @@ for shift in [16, 32, 64]:
     print("foo << " + str(shift) + ": type " + str(type(bar)) + " " + str(bin(bar)))
 ```
 
-Left shift in `example02.py` changes type to long class in Python 2:
+Left shift in `example02.py` changes type to `long` class in Python 2:
 
 ```bash
 foo << 16: type <type 'int'> 0b10100011010010000000000000000
@@ -66,7 +66,7 @@ foo << 32: type <type 'int'> 0b101000110100100000000000000000000000000000000
 foo << 64: type <type 'long'> 0b10100011010010000000000000000000000000000000000000000000000000000000000000000
 ```
 
-Left shift in `example02.py` stays type int class but stores as long Python 3:
+Left shift in `example02.py` stays type `int` class but stores as `long` Python 3:
 
 ```bash
 foo << 16: type <class 'int'> 0b10100011010010000000000000000
@@ -88,7 +88,7 @@ Multiplication by `4` can be archived by a `2x` left. The `noncompliant01.py` co
 print(8 << 2 + 10)
 ```
 
-The `noncompliaint01.py` code results in printing `32768` instead of `42`. Adding brackets `print((8 << 2) + 10)` would fix this specific issue whilst still remaining prune to other issues.
+The `noncompliant01.py` code results in printing `32768` instead of `42`. Adding brackets `print((8 << 2) + 10)` would fix this specific issue whilst still remaining prune to other issues.
 
 ## Compliant Solution (Left Shift)
 
