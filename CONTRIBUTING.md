@@ -37,6 +37,7 @@ We value all contributions, from improving documentation to participating in dis
 - All PRs are reviewed by maintainers.
 - Ensure your PR is well-documented and follows project guidelines.
 - Be open to feedback and ready to make improvements.
+- Don't hesitate to post a reminder if you didn't get any feedback after some time, e.g. two weeks.
 
 ## Code of Conduct
 
