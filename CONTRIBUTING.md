@@ -31,7 +31,6 @@ We value all contributions, from improving documentation to participating in dis
 - See here for more information on [signing your commit](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits).
 - Push your branch (`git push origin feature/your-feature-name`).
 - Open a Pull Request (PR) with a detailed description.
--
 
 ### 4. Review Process
 
