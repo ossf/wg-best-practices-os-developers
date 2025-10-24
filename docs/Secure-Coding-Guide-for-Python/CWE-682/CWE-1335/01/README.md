@@ -108,7 +108,7 @@ It is recommended by *[CWE-191, Integer Underflow (Wrap or Wraparound)](../../CW
 
 ## Non-compliant Code Example (Right Shift)
 
-The `nonompliant02.py` code example is using an arithmetic right shift >>= operator in an attempt to optimize performance for dividing x  by 4 without floating point.
+The `noncompliant02.py` code example is using an arithmetic right shift `>>=` operator in an attempt to optimize performance for dividing `x`  by `4` without floating point.
 
 *[noncompliant02.py](noncompliant02.py):*
 
