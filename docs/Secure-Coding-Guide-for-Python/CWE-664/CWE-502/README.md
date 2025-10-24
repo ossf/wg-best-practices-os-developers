@@ -16,7 +16,7 @@ Security-related concerns during object serialization and deserialization includ
 
 ## Noncompliant Code Example
 
-The `noncompliant01.py`  code demonstrates arbitrary code execution using `os.system` to launch a program during unpickling when `pickle.loads()`.
+The `noncompliant01.py`  code demonstrates arbitrary code execution using `os.system` to launch a program during unpickling when `pickle.loads()` [[Checkoway Oct 2013](https://checkoway.net/musings/pickle/)]
 
 *[noncompliant01.py](noncompliant01.py):*
 
@@ -318,6 +318,7 @@ Serialized data from a trusted input source does not require sanitization, provi
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[SER01-J. Do not deviate from the proper signatures of serialization methods](https://wiki.sei.cmu.edu/confluence/display/java/SER01-J.+Do+not+deviate+from+the+proper+signatures+of+serialization+methods)|
 |[MITRE CWE](http://cwe.mitre.org/)|Pillar [CWE-664: Improper Control of a Resource Through its Lifetime (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/664.html)|
 |[MITRE CWE](http://cwe.mitre.org/)|Base [CWE-502, Deserialization of Untrusted Data](http://cwe.mitre.org/data/definitions/502.html)|
+|[Checkoway 2013]|Checkoway, S. (2013) 'Arbitrary code execution with Python pickles', 8 October. Available from: https://stephen.checkoway.com/2013/10/08/arbitrary-code-execution-with-python-pickles/ [Accessed 07 May 2024]|
 
 ## Biblography
 
