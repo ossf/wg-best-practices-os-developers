@@ -129,7 +129,7 @@ The result is that `list_dir(dirname)` will run the `toast.sh` as a shell script
 
 ## Compliant Solution
 
-The `compliant01.py` code uses the cross-platform compatible pathlib module and restricting filesystem area. The `pathlib` on its own will not prevent all attacks.
+The `compliant01.py` code uses the cross-platform compatible `pathlib` module and restricting filesystem area. The `pathlib` on its own will not prevent all attacks.
 
 *[compliant01.py](compliant01.py):*
 
