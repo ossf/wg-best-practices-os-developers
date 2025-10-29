@@ -182,4 +182,3 @@ The requirement to use `copy()` or `deepcopy()` will vary depending on the probl
 |||
 |:---|:---|
 |[[Python 3.9 2024]](https://docs.python.org/3.9/tutorial/controlflow.html#for-statements)|4.2. for Statements. Available from: <https://docs.python.org/3.9/tutorial/controlflow.html#for-statements> \[Accessed 7 June 2024]|
-
