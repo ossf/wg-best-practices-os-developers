@@ -13,7 +13,7 @@ Therefore, the `random` module is unsuitable for applications requiring security
 
 Instead, for generating random numbers for security purposes, use an appropriate option, such as Python's `secrets` module.
 
-## Example Code Example
+## Code Example
 
 `example01.py`, demonstrates how the same seed value produces identical sequences of random numbers, showing the predictable nature of Python's random module.
 
