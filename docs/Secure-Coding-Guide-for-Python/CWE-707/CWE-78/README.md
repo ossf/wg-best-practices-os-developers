@@ -22,8 +22,8 @@ Following table 00 provides a limited list of Unix shell commands to Python modu
 |Filesystem operations|`find .` `tree` `ls -1 *.txt` `test -d` `test -f`s `cp`|`Path.rglob("*.txt")` `Path.glob("*.txt")` `Path.is_dir()` `Path.is_file()` `shutil.copy()`|
 |Access control operations|`chown` `chmod`|`shutil.chown()` `shutil.chmod()` `stat`|
 |Environment variables|`export` `set`|`os.getenv()` `os.setenv()`|
-|Get user/group id|id|`os.getuid()` `os.setuid()`|
-|Get OS and/or kernel type and name|uname -as|`os.uname()`|
+|Get user/group id|`id`|`os.getuid()` `os.setuid()`|
+|Get OS and/or kernel type and name|`uname -as`|`os.uname()`|
 
 *table 00, example list of Unix commands and their Python equivalents.*
 
