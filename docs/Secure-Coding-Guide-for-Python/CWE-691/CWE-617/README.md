@@ -120,7 +120,7 @@ except (AssertionError, OverflowError, TypeError, ValueError) as e:
  
 ```
 
-### Compliant Output
+ __Output of compliant01.py:__
 
 ```bash
 $ python3.9 compliant01.py
