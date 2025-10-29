@@ -2,7 +2,6 @@
 
 Promote predictable and secure `for` loops by iterating over a copy or new collection item as described in 4.2 `for` Statements [Python 3.9 2024](https://docs.python.org/3.9/tutorial/controlflow.html#for-statements).
 
-
 In-place modification of mutable types such as `list`, `dict`, or `set` that are part of a for loop can result in unpredictable outcomes.
 
 ## Non-Compliant Code Example (List)
@@ -183,3 +182,4 @@ The requirement to use `copy()` or `deepcopy()` will vary depending on the probl
 |||
 |:---|:---|
 |[[Python 3.9 2024]](https://docs.python.org/3.9/tutorial/controlflow.html#for-statements)|4.2. for Statements. Available from: <https://docs.python.org/3.9/tutorial/controlflow.html#for-statements> \[Accessed 7 June 2024]|
+
