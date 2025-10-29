@@ -1,17 +1,8 @@
 # CWE-501: Trust Boundary Violation
 
-In Python we need to implement different trust zone's by starting python runtime's with individual POSIX/Machine users. The POSIX/Machine user access rights must be set in accordance to level of trust per zone.
+Python's trust boundaries rely on explicit process isolation, rather than in-process access control within a single interpreter.
 
-STRIDE is a mnemonic which is useful in the identification of threats by prompting us to think about various attack steps. [[OWASP, Threat Modeling Process, 2025](https://owasp.org/www-community/Threat_Modeling_Process)]
-
-The acronym stands for six key threat categories:
-
-* Spoofing - Impersonating someone else, foten to gain unauthorized access.
-* Tampering - Unauthorised modification of data, code, or configurations.
-* Repudiation - Denying the performance of an action, making it difficult to prove responsibility wihtout proper logging or auditing.
-* Information Disclosure - Exposing sensitive information to unauthorised parties.
-* Denial of Service (DoS) - Disrupting system availability or performance.
-* Elevation of Privilege - Gaining higher access rights than intented, often leading to great system control.
+Unlike Java, where we have in-process mechanisms like [Oracle Access Management](https://docs.oracle.com/en/middleware/idm/access-manager/12.2.1.3/aiaag/introducing-oracle-access-management.html) that can enforce access boundaries inside the same runtime, standard Python does not provide a built-in in-process access manager. In Python we need to implement different trust zone's by starting python runtime's with individual POSIX/Machine users. The POSIX/Machine user access rights must be set in accordance to level of trust per zone.
 
 ## Noncompliant STRIDE example - New User Sign-up Process
 
@@ -55,4 +46,4 @@ unknown
 |:---|:---|
 |[[Python 2023]](https://docs.python.org/3.9/tutorial/classes.html?highlight=private#private-variables)|Python Software Foundation. (2023). Classes - Private Variables. Available from: [Python Documentation](https://docs.python.org/3.9/tutorial/classes.html?highlight=private#private-variables) [accessed 13 September 2023]|
 |[[OWASP, Conklin,  Drake, 2023]](https://cwe.mitre.org/data/definitions/134.html)|[CWE - CWE-134: Use of Externally-Controlled Format String (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/134.html)|
-|[[OWASP, Threat Modeling Process, 2025](https://owasp.org/www-community/Threat_Modeling_Process)]| OWASP Foundation; Conklin, L.; Drake, V.; Strittmatter, S.; Braiterman, Z.; Shostack, A. (2025). Threat Modeling Process – STRIDE. Available from: OWASP Threat Modeling Process [accessed 17 October 2025]|
+|[Oracle Docs](https://docs.oracle.com/en/)| [Administering Oracle Access Management](https://docs.oracle.com/en/middleware/idm/access-manager/12.2.1.3/aiaag/introducing-oracle-access-management.html#GUID-D1D083AA-538E-4063-A921-9328DB784319) [accessed 29 October 2025]|
