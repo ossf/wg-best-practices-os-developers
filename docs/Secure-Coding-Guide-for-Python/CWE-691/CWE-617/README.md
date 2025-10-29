@@ -55,7 +55,7 @@ except (AssertionError, OverflowError, TypeError, ValueError) as e:
 
 ```
 
-### Non-compliant Output
+ __Output of noncompliant01.py:__
 
 ```bash
 $ python3.9 noncompliant01.py
