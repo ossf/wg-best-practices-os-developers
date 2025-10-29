@@ -38,7 +38,7 @@ The `noncompliant01.py` code prints the error to `stdout` instead of allowing ce
 
 ## Compliant Solution
 
-The security exception output in `compliant01.py` is using the logger. The program catches the `ZeroDivisionError` exception and logs it with the `critical` level, ensuring that errors are properly recorded. Production projects should setup log forwarding to a remote logging service. The logging is also more generic and does not include a raw exception.
+The security exception output in `compliant01.py` is using the logger. The program catches the `ZeroDivisionError` exception and logs it with the `critical` level, ensuring that errors are properly recorded. The logging is also more generic and does not include a raw exception. Production projects should setup log forwarding to a remote logging service.
 
 *[compliant01.py](compliant01.py):*
 
