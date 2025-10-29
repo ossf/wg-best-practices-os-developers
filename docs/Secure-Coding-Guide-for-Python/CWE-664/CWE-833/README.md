@@ -164,7 +164,7 @@ browser_manager = BankingService(5)
 browser_manager.for_each_client()
 ```
 
-For the sake of the example, let's assume we have 5 clients, with 5 accounts and 5 cards for each account `number_of_times = 5`. In that case, we end up calling `check_card_validity() 125` times, exhausting `_max_workers`. [Source: Python Docs] You can additionally call `self.executor._work_queue.qsize()` to get the exact number of tasks that are waiting in the queue, unable to be executed by the already busy workers.
+For the sake of the example, let's assume we have 5 clients, with 5 accounts and 5 cards for each account `number_of_times = 5`. In that case, we end up calling `check_card_validity() 125` times, exhausting `_max_workers`. You can additionally call `self.executor._work_queue.qsize()` to get the exact number of tasks that are waiting in the queue, unable to be executed by the already busy workers.
 
 ## Compliant Solution (Caller runs when there are no available workers)
 
