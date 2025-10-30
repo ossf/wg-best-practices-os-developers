@@ -40,6 +40,10 @@ Table 1: Recommended attributes
 | `fd_arg_write(`_`fd-index`_`)`                                                             | GCC 13.1.0                  | Function                     | Mark writable file descriptors in positional arguments.                                           |
 | `noreturn`                                                                                 | GCC 2.5.0<br/>Clang 4.0.0   | Function                     | Mark functions that never return.                                                                 |
 | `tainted_args`                                                                             | GCC 12.1.0                  | Function or function pointer | Mark functions with arguments that require sanitization.                                          |
+| `counted_by(`_`variable`_`)`                                                               | GCC 15.1.0<br/>Clang 18.0.0 | Variable                     | Mark flexible array member or pointer in structure with _`variable`_ holding their element count. |
+| `counted_by_or_null(`_`variable`_`)`                                                       | Clang 19.1.0                | Variable                     | As above, but pointer is either a null pointer or is pointing to memory of the specified count.   |
+| `sized_by(`_`variable`_`)`                                                                 | Clang 20.1.0                | Variable                     | Mark flexible array member or pointer in structure with _`variable`_ holding their size in bytes. |
+| `sized_by_or_null(`_`variable`_`)`                                                         | Clang 20.1.0                | Variable                     | As above, but pointer is either a null pointer or is pointing to memory of the specified size.    |
 
 ## Performance considerations
 
@@ -435,6 +439,73 @@ void do_with_untrusted_input(int untrusted_input) __attribute__ ((tainted_args))
 
 [^gcc-tainted-args]: GCC team, [Using the GNU Compiler Collection (GCC): 6.35.1 Common Function Attributes: tainted_args](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-tainted_005fargs-function-attribute), GCC Manual, 2025-08-08.
 [^Malcolm23]: Malcolm, David. [Enable "taint" state machine with -fanalyzer without requiring -fanalyzer-checker=taint](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103533#c9), GCC Bug 103533, 2023-12-01.
+
+### Mark flexible array member or pointer in structure with variable holding their element count
+
+| Attribute                                                                                  | Supported since             | Type                         | Description                                                                                       |
+|:------------------------------------------------------------------------------------------ |:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
+| `counted_by(`_`variable`_`)`                                                               | GCC 15.1.0<br/>Clang 18.1.0 | Variable                     | Mark flexible array member or pointer in structure with _`variable`_ holding their element count. |
+| `counted_by_or_null(`_`variable`_`)`                                                       | Clang 19.1.0                | Variable                     | As above, but pointer is either a null pointer or is pointing to memory of the specified count.   |
+| `sized_by(`_`variable`_`)`                                                                 | Clang 19.1.0                | Variable                     | Mark flexible array member or pointer in structure with _`variable`_ holding their size in bytes. |
+| `sized_by_or_null(`_`variable`_`)`                                                         | Clang 19.1.0                | Variable                     | As above, but pointer is either a null pointer or is pointing to memory of the specified size.    |
+
+The `counted_by` attribute associates a C99 flexible array member or pointer field in a structure with another field that specifies the number of elements it contains[^gcc-counted-by].
+It improves compiler diagnostics and runtime checks (e.g., the `-fsanitize=bounds` array bound sanitizer and `__builtin_dynamic_object_size`).
+The associated `variable` must be of integer type and must be declared before the annotated field. Negative values of `variable` are treated as zero.
+
+The `counted_by` annotation cannot apply to pointers to incomplete types or types without size such as `void *`. However, `counted_by` is allowed for pointers to incomplete (non-void) struct/union types if they can be completed before first use.
+For incomplete types and `void *` Clang provides a `sized_by` annotation[^clang-counted-by] which can be used to associate the field to a `variable` holding their size in bytes.
+
+Neither `counted_by` nor `sized_by` is allowed for function pointers or for pointers to structs/unions with flexible array members.
+
+Clang's `counted_by_or_null` and `sized_by_or_null` variants accounts for cases where an annotated pointer is either a null pointer or is pointing to memory of the specified count/size.
+If the pointer is null the size is effectively 0.
+Accessing such a pointer with these bounds annotations will require a null check to avoid a null pointer dereference.
+
+### Example usage
+
+In C23 attribute syntax:
+
+~~~c
+struct P {
+  size_t count;
+  char array[] [[clang::counted_by(count)]];
+};
+
+struct P *p = malloc(sizeof struct P);
+~~~
+
+In `__attribute__` keyword syntax:
+
+~~~c
+struct P {
+  size_t count;
+  char array[] __attribute__((counted_by(count)));
+};
+
+struct P *p = malloc(sizeof struct P);
+~~~
+
+The use of `counted_by` or `sized_by` establishes a relationship between the annotated field `array` and `count` field in the same structure. The user is responsible to ensuring the following invariants hold for`array` and `count`:
+
+- `p->count` must be initialized before first use of `p->array`
+- `p->array` must always have at least `p->count elements`
+- if `p->array` is a pointer, both `p->array` and `p->count` must be updated together (e.g., by replacing the whole structure).
+
+For existing code where `counted_by` nor `sized_by` cannot be used without re-ordering struct field declarations, which may not be feasible since it would break application binary interface (ABI) compatibility, Clang enables late parsing of these attributes with the `-fexperimental-late-parse-attributes` flag[^clang-19.1.0], enabling usage in code such as the below example:
+
+~~~c
+struct Buffer {
+  /* Refering to `count` requires late parsing */
+  char* buffer [[clang::counted_by(count)]];
+  /* Swapping `buffer` and `count` to avoid late parsing would break ABI */
+  size_t count;
+};
+~~~
+
+[^gcc-counted-by]: GCC team, [Using the GNU Compiler Collection (GCC): 6.4.2.1 Common Variable Attributes: counted_by](https://gcc.gnu.org/onlinedocs/gcc/Common-Variable-Attributes.html#index-counted_005fby-variable-attribute), GCC Manual, 2025-08-08.
+[^clang-counted-by]: LLVM team, [Attributes in Clang: counted_by](https://clang.llvm.org/docs/AttributeReference.html#counted-by-counted-by-or-null-sized-by-sized-by-or-null), Clang Compiler User's Manual, 2025-09-17.
+[^clang-19.1.0]: LLVM team, [Clang 19.1.0 Release Notes](https://releases.llvm.org/19.1.0/tools/clang/docs/ReleaseNotes.html#new-compiler-flags), Clang Compiler User's Manual, 2025-09-17.
 
 ## License
 
