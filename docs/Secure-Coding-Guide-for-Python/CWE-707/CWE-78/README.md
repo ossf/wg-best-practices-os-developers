@@ -19,13 +19,13 @@ Following table 00 provides a limited list of Unix shell commands to Python modu
 |Action|Unix|Python|
 |:---|:---|:---|
 |Compress or decompress files|gzip, unzip|zlib, gzip, bz2, lzma|
-|Filesystem operations|`find .` `tree` `ls -1 *.txt` `test -d` `test -f`s `cp`|`Path.rglob("*.txt")` `Path.glob("*.txt")` `Path.is_dir()` `Path.is_file()` `shutil.copy()`|
-|Access control operations|`chown` `chmod`|`shutil.chown()` `shutil.chmod()` `stat`|
-|Environment variables|`export` `set`|`os.getenv()` `os.setenv()`|
-|Get user/group id|`id`|`os.getuid()` `os.setuid()`|
-|Get OS and/or kernel type and name|`uname -as`|`os.uname()`|
+|Filesystem operations|`find .`<br>`tree`<br>`ls -1 *.txt`<br>`test -d`<br>`test -f`<br>`cp`|`Path.rglob("*.txt")`<br>`Path.glob("*.txt")`<br>`Path.is_dir()`<br>`Path.is_file()`<br>`shutil.copy()`|
+|Access control operations|`chown`<br>`chmod`|`shutil.chown()`<br>`shutil.chmod()`<br>`stat`|
+|Environment variables|`export`<br>`set`|`os.getenv()`<br>`os.setenv()`|
+|Get user/group id|id|`os.getuid()`<br>`os.setuid()`|
+|Get OS and/or kernel type and name|uname -as|`os.uname()`|
 
-*table 00, example list of Unix commands and their Python equivalents.*
+<sub>table 00, example list of Unix commands and their Python equivalents.</sub>
 
 Any variation of using input from a lesser trusted source as part of a command line program has a very high probability of resulting in a potential attack including the use of specialized modules. Consider:
 
