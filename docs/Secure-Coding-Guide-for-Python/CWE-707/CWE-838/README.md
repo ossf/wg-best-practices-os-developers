@@ -9,7 +9,7 @@ Mixed encoding can lead to unexpected results and become a root cause for attack
 
 ## Non-Compliant Code Example - Forensic logging
 
-The `noncompliant01.py` code trying to process data that contains a byte outside the valid range of UTF-8 encoding, resulting in unexpected behavior.
+The `noncompliant01.py` code is trying to process data that contains a byte outside the valid range of UTF-8 encoding, resulting in unexpected behavior.
 
 *[noncompliant01.py](noncompliant01.py):*
 

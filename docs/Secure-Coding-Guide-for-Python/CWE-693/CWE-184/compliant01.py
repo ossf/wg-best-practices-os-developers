@@ -21,6 +21,10 @@ def filter_string(input_string: str):
     for tag in re.findall("<[^>]*>", input_string):
         if tag not in ["<b>", "<p>", "</p>"]:
             raise ValueError("Invalid input tag")
+        else:
+            # Showing why incorrectly filtering could cause problems
+            decoded = name.encode("utf-8")
+            print(decoded.decode("ascii", "ignore"))
     # TODO handle exception
 
 

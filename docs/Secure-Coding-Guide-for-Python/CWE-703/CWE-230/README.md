@@ -1,9 +1,11 @@
 # CWE-230: Improper Handling of Missing Values
 
+Detect and handle missing numberic values explicitly, either by removing, validating or converting them, before performing comparisons, sorting, or statistics, in order to avoid surprising or undefined behaviour.
+
 The `NaN` value should be stripped before as they can cause surprising or undefined behaviours in the statistics functions that sort or count occurrences [[2024 doc.python.org]](https://docs.python.org/3/library/statistics.html).
 In python, some datasets use `NaN` (not-a-number) to represent the missing data. This can be problematic as the `NaN` values are unordered.  Any ordered comparison of a number to a not-a-number value are `False`. A counter-intuitive implication is that `not-a-number` values are not equal to themselves.
 
-This behavior is compliant with IEEE 754[[2024 Wikipedia]](https://en.wikipedia.org/wiki/IEEE_754) a hardware induced compromise.
+This behavior is compliant with IEEE 754[[543-2019 - IEEE Standard for Floating-Point Arithmetic]](https://ieeexplore.ieee.org/document/8766229) a hardware induced compromise.
 The [example01.py](example01.py) code demonstrates various comparisons of `float('NaN')` all resulting in `False`.
 
 ```python
@@ -139,6 +141,7 @@ The `balance_is_poitive` method will raise an `ValueError` for `NaN` values.
 |[ISO/IEC TR 24772:2013](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-ISO/IECTR24772-2013)|Injection RST|
 |[MITRE CWE Pillar](http://cwe.mitre.org/)|[CWE-703: Improper Check or Handling of Exceptional Conditions (mitre.org)](https://cwe.mitre.org/data/definitions/703.html)|
 |[MITRE CWE Pillar](http://cwe.mitre.org/)|[CWE-230: Improper Handling of Missing Values](https://cwe.mitre.org/data/definitions/230.html)|
+|[[Real Python]](https://realpython.com/python-string-formatting/)|Real Python: <https://realpython.com/python-string-formatting/> \[Accessed 20 October 2025]|
 
 ## Bibliography
 
@@ -147,4 +150,4 @@ The `balance_is_poitive` method will raise an `ValueError` for `NaN` values.
 |[[Python 3.10.4 docs]](https://docs.python.org/3/library/string.html#formatstrings)|Format String Syntax. Available from: <https://docs.python.org/3/library/string.html#formatstrings> \[Accessed 22 July 2025]|
 |[Python docs](https://docs.python.org/3/)|<https://docs.python.org/3/library/math.html#math.nan> \[Accessed 22 July 2025]|
 |[Python docs](https://docs.python.org/3/)|Python Value comparisons<https://docs.python.org/3/reference/expressions.html#value-comparisons> \[Accessed 22 July 2025]|
-|[[Wikipedia 2024]](https://realpython.com/python-string-formatting/)|IEEE 754: <https://en.wikipedia.org/wiki/IEEE_754> \[Accessed 22 July 2025]|
+|[[IEEE Xplore]](https://ieeexplore.ieee.org/Xplore/home.jsp)|IEEE 754: <https://ieeexplore.ieee.org/document/8766229> \[Accessed 20 October 2025]|

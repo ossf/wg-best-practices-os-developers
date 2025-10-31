@@ -16,7 +16,11 @@ If errors occur while recording logs, they can hinder the logging process unless
 
 ## Non-Compliant Code Example
 
-In `noncompliant01.py`, if a risky operation occurs such as the division by zero, the try block catches the `ZeroDivisionError` exception and prints it to the console without logging it, leaving the system vulnerable to undetected issues. The error print is also vague.
+In `noncompliant01.py`, if a risky operation occurs such as the division by zero, the try block catches the `ZeroDivisionError` exception and prints it to the console without logging it, leaving the system vulnerable to undetected issues. The error print is also attempting to log from a raw exception, which could be problematic due to multiple reasons including:
+
+* Exception messages may contain sensitive data like file paths, database connection strings, or internal system details.
+* Attackers can trigger specific exceptions to gather reconnaissance information.
+* If exception messages contain user input, they could inject malicious content into logs.
 
 *[noncompliant01.py](noncompliant01.py):*
 
@@ -34,7 +38,7 @@ The `noncompliant01.py` code prints the error to `stdout` instead of allowing ce
 
 ## Compliant Solution
 
-The security exception output in `compliant01.py` is using the logger. The program catches the `ZeroDivisionError` exception and logs it with the `critical` level, ensuring that errors are properly recorded. Production projects should setup log forwarding to a remote logging service.
+The security exception output in `compliant01.py` is using the logger. The program catches the `ZeroDivisionError` exception and logs it with the `critical` level, ensuring that errors are properly recorded. The logging is also more generic and does not include a raw exception. Production projects should setup log forwarding to a remote logging service.
 
 *[compliant01.py](compliant01.py):*
 

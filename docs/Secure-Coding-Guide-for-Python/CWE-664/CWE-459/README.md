@@ -54,8 +54,6 @@ Thanks to the use of the `with` statement we ensure that the file is closed afte
 *[compliant01.py](compliant01.py):*
 
 ```python
-"""Compliant Code Example"""
-
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """ Compliant Code Example """

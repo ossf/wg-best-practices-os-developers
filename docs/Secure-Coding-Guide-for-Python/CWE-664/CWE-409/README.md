@@ -223,8 +223,8 @@ def extract_files(filepath: str, base_path: str, exist_ok: bool = True):
         exist_ok (bool, optional): Overwrite existing. Defaults to True.
 
     Raises:
-        ZipExtractException: If there are to many files
-        ZipExtractException: If there are to big files
+        ZipExtractException: If there are too many files
+        ZipExtractException: If the files are too big
         ZipExtractException: If a directory traversal is detected
     """
     # TODO: avoid CWE-209: Generation of Error Message Containing Sensitive Information

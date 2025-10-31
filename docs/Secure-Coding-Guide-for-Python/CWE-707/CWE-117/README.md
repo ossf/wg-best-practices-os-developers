@@ -1,6 +1,8 @@
 # CWE-117: Improper Output Neutralization for Logs
 
-Ensure all untrusted data is properly neutralized or sanitized before writing to application logs. Log injection occurs when untrusted data is written to application logs without proper neutralization, allowing attackers to forge log entries or inject malicious content. Attackers can inject fake log records or hide real ones by inserting newline sequences (`\r` or `\n`), misleading auditors and incident-response teams. This vulnerability can also enable injection of XSS attacks when logs are viewed in vulnerable web applications.
+Ensure all untrusted data is properly neutralized or sanitized before writing to application logs.
+
+Log injection occurs when untrusted data is written to application logs without proper neutralization, allowing attackers to forge log entries or inject malicious content. Attackers can inject fake log records or hide real ones by inserting newline sequences (`\r` or `\n`), misleading auditors and incident-response teams. This vulnerability can also enable injection of XSS attacks when logs are viewed in vulnerable web applications.
 
 Attackers can exploit this weakness (see [*Attacks on Logs*](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html#attacks-on-logs) [[OWASP 2025]](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html#attacks-on-logs)) by submitting strings containing CRLF sequences that create fake log entries.
 

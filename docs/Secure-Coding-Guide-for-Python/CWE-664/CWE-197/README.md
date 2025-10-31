@@ -126,7 +126,7 @@ while counter <= target:
 
 |Definition|Explanation|Reference|
 |:---|:---|:---|
-|Loop Counters|loop counters are variables used to control the iterations of a loop|[Loop counter - Wikipedia](https://en.wikipedia.org/wiki/For_loop#Loop_counters)|
+|Loop Counters|loop counters are variables used to control the iterations of a loop|[Loops and their control variables](http://www.knosof.co.uk/vulnerabilities/loopcntrl.pdf)|
 
 ## Automated Detection
 
@@ -150,6 +150,6 @@ while counter <= target:
 |||
 |:---|:---|
 |[IEEE Std 754-2019](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8766229)|IEEE Standard for Floating-Point Arithmetic, available from: [https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8766229](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8766229), [Last  accessed June 2024] |
-|[Wikipedia 2024]|Repeating Decimals, available from:[https://en.wikipedia.org/wiki/Repeating_decimal](https://en.wikipedia.org/wiki/Repeating_decimal), [Last accessed August 2024] |
+|[Loops and control variables]|Derek M. Jones(2006 )Loops and their control variables, Discussion and proposed guidelines:[http://www.knosof.co.uk/vulnerabilities/loopcntrl.pdf](http://www.knosof.co.uk/vulnerabilities/loopcntrl.pdf), [Last accessed October 2025] |
 |[Albing and Vossen, 2017]|Albin, C. and Vossen, JP (2017) 6.13 Looping with Floating Point Values. In: Bleiel, J., Brown, K. and Head, R. eds. bash Cookbook: Solutions and Examples for bash Users, 2d Edition. Sebastopol: O'Reilly Media, Inc., pp.159-160|
 |[Bloch 2005]|Puzzle 34, "Down for the Count", available from: [https://web.archive.org/web/20220511061752/https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Bloch05](https://web.archive.org/web/20220511061752/https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Bloch05), [Last accessed August 2024] |

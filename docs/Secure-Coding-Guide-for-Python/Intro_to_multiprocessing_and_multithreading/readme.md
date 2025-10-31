@@ -15,7 +15,7 @@ This page aims to explain the concepts that could be found in the following rule
 
 Source: Tug of War: MultiProcessing Vs MultiThreading [Zaman 2021](https://medium.com/@noueruzzaman/tug-of-war-multiprocessing-vs-multithreading-55341c1f2103)
 
-**Multithreading** is the ability of a CPU to provide multiple threads of execution concurrently [Wikipedia 2024](https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)). Usually, all instructions are performed sequentially in a single main thread. The multithreading approach allows the program to perform multiple tasks simultaneously. Multithreading should not be confused with **multiprocessing**. In multithreading, the threads share resources of a single or multiple cores - that includes the computing units, CPU caches, the translation lookaside buffer and memory space. Processes in the multiprocessing approach each have their own separate memory space and other resources.
+**Multithreading** is the ability of a CPU to provide multiple threads of execution concurrently [[Kirvan 2022](https://www.techtarget.com/whatis/definition/multithreading)]. Usually, all instructions are performed sequentially in a single main thread. The multithreading approach allows the program to perform multiple tasks simultaneously. Multithreading should not be confused with **multiprocessing**. In multithreading, the threads share resources of a single or multiple cores - that includes the computing units, CPU caches, the translation lookaside buffer and memory space. Processes in the multiprocessing approach each have their own separate memory space and other resources.
 
 In python:
 
@@ -24,7 +24,7 @@ In python:
 
 ## Locks
 
-Sometimes we do not want multiple threads to reach the same part of the code at the same time. For instance, when threads share access to the same resource, we must ensure that said resource won't be edited by them at the same time in case one overwrites changes of the other (ex. when two threads write to the same file). Locks are a type of object that allows the programmer to mark a *critical section* of the code so that only the threads currently holding the lock can perform operations. It can be compared to passing around a microphone during a meeting so that only one person at a time can speak, thus preventing the conversation from becoming chaotic.
+Sometimes we do not want multiple threads to reach the same part of the code at the same time. For instance, when threads share access to the same resource, we must ensure that said resource won't be edited by them at the same time in case one overwrites changes of the other (eg. when two threads write to the same file). Locks are a type of object that allows the programmer to mark a *critical section* of the code so that only the threads currently holding the lock can perform operations. It can be compared to passing around a microphone during a meeting so that only one person at a time can speak, thus preventing the conversation from becoming chaotic.
 The example01.py code is depicting a simple use of a lock from the `threading` module:
 
 *[example01.py](example01.py):*
@@ -104,30 +104,33 @@ GIL is a specific type of mutex (lock) that allows only one thread to hold contr
 *[noncompliant02.py](noncompliant02.py):*
 
 ```python
+# SPDX-FileCopyrightText: OpenSSF project contributors  
+# SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
 import time
 from threading import Thread
- 
- 
+
+
 def waste_time(t: int):
     for _ in range(t):
         _ += 1
- 
- 
-BIG_NUMBER = 100000000
-start = time.time()
-waste_time(BIG_NUMBER)
-end = time.time()
-print(f"Time taken when executing sequentially (in seconds): {end - start}")
-t1 = Thread(target=waste_time, args=(BIG_NUMBER // 2,))
-t2 = Thread(target=waste_time, args=(BIG_NUMBER // 2,))
-start = time.time()
-t1.start()
-t2.start()
-t1.join()
-t2.join()
-end = time.time()
-print(f"Time taken when executing in 2 threads (in seconds): {end - start}")
+
+
+if __name__ == '__main__':
+    BIG_NUMBER = 100000000
+    start = time.time()
+    waste_time(BIG_NUMBER)
+    end = time.time()
+    print(f"Time taken when executing sequentially (in seconds): {end - start}")
+    t1 = Thread(target=waste_time, args=(BIG_NUMBER // 2,))
+    t2 = Thread(target=waste_time, args=(BIG_NUMBER // 2,))
+    start = time.time()
+    t1.start()
+    t2.start()
+    t1.join()
+    t2.join()
+    end = time.time()
+    print(f"Time taken when executing in 2 threads (in seconds): {end - start}")
 
 ```
 
@@ -144,30 +147,34 @@ In order to avoid issues caused by GIL, one can use processes instead of threads
 *[compliant01.py](compliant01.py):*
 
 ```python
+# SPDX-FileCopyrightText: OpenSSF project contributors  
+# SPDX-License-Identifier: MIT
 """ Compliant Code Example """
 import time
 from multiprocessing import Process
- 
- 
+
+
 def waste_time(t: int):
     for _ in range(t):
         _ += 1
- 
- 
-BIG_NUMBER = 100000000
-start = time.time()
-waste_time(BIG_NUMBER)
-end = time.time()
-print(f"Time taken when executing sequentially (in seconds): {end - start}")
-p1 = Process(target=waste_time, args=(BIG_NUMBER // 2,))
-p2 = Process(target=waste_time, args=(BIG_NUMBER // 2,))
-start = time.time()
-p1.start()
-p2.start()
-p1.join()
-p2.join()
-end = time.time()
-print(f"Time taken when executing in 2 processes (in seconds): {end - start}")
+
+
+if __name__ == '__main__':
+    BIG_NUMBER = 100000000
+    start = time.time()
+    waste_time(BIG_NUMBER)
+    end = time.time()
+    print(f"Time taken when executing sequentially (in seconds): {end - start}")
+    p1 = Process(target=waste_time, args=(BIG_NUMBER // 2,))
+    p2 = Process(target=waste_time, args=(BIG_NUMBER // 2,))
+    start = time.time()
+    p1.start()
+    p2.start()
+    p1.join()
+    p2.join()
+    end = time.time()
+    print(f"Time taken when executing in 2 processes (in seconds): {end - start}")
+
 ```
 
 **Example output from `compliant01.py`:**
@@ -181,8 +188,8 @@ Time taken when executing in 2 processes (in seconds): 3.0721683502197266
 
 Threads can be separated into two categories depending on which factors have the biggest impact on their performance:
 
-- CPU bound - those threads are limited by the CPU performance (ex. doing complex calculations)
-- I/O bound - those threads need to wait for Input/Output operations (ex. reading from a database
+- CPU bound - those threads are limited by the CPU performance (eg. doing complex calculations)
+- I/O bound - those threads need to wait for Input/Output operations (eg. reading from a database
 
 `GIL` has a significantly greater impact on CPU-bound threads. While the threads wait for I/O, no additional Python code needs to be executed and the GIL is passed to threads that actively perform operations.
 
@@ -270,7 +277,7 @@ The creation of new threads and processes is considered a computationally expens
 Classes used for managing thread/process pools are called Executors. These classes provide methods for the creation of thread/process pools, defining their sizes, submitting tasks, and terminating the worker threads/processes. In Python, the `Executor` is an abstract class that is implemented in two concrete subclasses:
 
 - `ThreadPoolExecutor`
-- `ProcessPoolExecutot`
+- `ProcessPoolExecutor`
 
 ThreadPoolExecutor is a part of the `concurrent.futures` package, which is a high-level interface used for both multithreading and multiprocessing.
 The relationship between the concurrency-related packages mentioned on this page is shown in the diagram below:
@@ -293,7 +300,7 @@ Here is a list of modules that are commonly used when writing applications using
 |||
 |:---|:---|
 |[[Zaman 2021]](https://medium.com/@noueruzzaman/tug-of-war-multiprocessing-vs-multithreading-55341c1f2103)|Tug of War: MultiProcessing Vs MultiThreading. Available from: <https://medium.com/@noueruzzaman/tug-of-war-multiprocessing-vs-multithreading-55341c1f2103> \[Accessed 6 June 2024]|
-|[[Wikipedia 2024]](https://en.wikipedia.org/wiki/Multithreading_(computer_architecture))|Multithreading (computer architecture). Available from: <https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)> \[Accessed 6 June 2024]|
+|[[Kirvan 2022]](https://www.techtarget.com/whatis/definition/multithreading)|Kirvan, P. (2022). Multithreading. TechTarget. Available from: <https://www.techtarget.com/whatis/definition/multithreading> \[Accessed 20 October 2025]|
 |[[MITRE 2024]](https://cwe.mitre.org/data/definitions/667)|CWE-667: Improper Locking. Available from: <https://cwe.mitre.org/data/definitions/667> \[Accessed 6 June 2024]|
 |[[GitHub swtaarrs 2024]](https://github.com/python/cpython/pull/116338)|Allow disabling the `GIL` with `PYTHON_GIL=0` or `-X gil=0` GitHub pull request. Available from: <https://github.com/python/cpython/pull/116338> \[Accessed 6 June 2024]|
 |[[Python docs - event loop 2024]](https://docs.python.org/3/library/asyncio-eventloop.html)|Python docs - event loop 2024. Available from: <https://docs.python.org/3/library/asyncio-eventloop.html> \[Accessed 6 June 2024]|

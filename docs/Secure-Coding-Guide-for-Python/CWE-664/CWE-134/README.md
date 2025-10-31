@@ -2,7 +2,7 @@
 
 Ensure that all format string functions are passed a static string which cannot be controlled by the user [[MITRE 2023]](https://cwe.mitre.org/data/definitions/134.html)
 
-In Python, the use of string formatting combined with the ability to access a function's `__globals__` attribute can exposing internal variables and methods unless properly guarded.
+In Python, the use of string formatting combined with the ability to access a function's `__globals__` attribute can expose internal variables and methods unless properly guarded.
 
 ## Non-Compliant Code Example
 

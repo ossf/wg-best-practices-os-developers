@@ -11,13 +11,14 @@ def compare_number(number):
     return number == input_number
 
 
+locale.setlocale(locale.LC_ALL, 'English_Ireland.1252')
 print(f"Locale is {locale.getlocale()}")
 print(f"Do the numbers match? {compare_number(ORIGINAL_NUMBER)}")
 
 # Console output:
 # Locale is ('English_Ireland', '1252')
-# Enter a number: 12,345
-# Do the numbers match? False
+# Enter a number: 12.345
+# Do the numbers match? True
 
 # After setting the locale
 
@@ -27,5 +28,5 @@ print(f"Do the numbers match? {compare_number(ORIGINAL_NUMBER)}")
 
 # Console output:
 # Locale is ('de_DE', 'UTF-8')
-# Enter a number: 12,345
-# Do the numbers match? True
+# Enter a number: 12.345
+# Do the numbers match? False

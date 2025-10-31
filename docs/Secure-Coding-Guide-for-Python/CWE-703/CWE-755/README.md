@@ -1,5 +1,7 @@
 # CWE-755: Improper Handling of Exceptional Conditions
 
+Always catch and explicitly handle exceptions, then respond, log or recover appropriately instead of letting operations fail silently.
+
 There are two built-in Python modules that allow for file manipulation. The original module is called `os`. It provides the ability to perform various functions related to the operating system, among which are creating, updating, and deleting files [[Python docs - os]](https://docs.python.org/3/library/os.html). Python 3.4 introduced the `pathlib`  module, which represents file paths as objects as opposed to string variables [[Python docs - pathlib]](https://docs.python.org/3/library/pathlib.html).
 
 Both modules use the same OS exceptions for file-related errors. Here are some of the common file-related exceptions:

@@ -15,7 +15,7 @@ def run_thread(var):
         try:
             res = future.result()
             return res
-        except ValueError as e:
+        except ValueError:
             # handle exception...
             raise ValueError(f"Invalid argument: {var}") from None
 
