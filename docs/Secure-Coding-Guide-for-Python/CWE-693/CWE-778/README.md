@@ -18,9 +18,9 @@ If errors occur while recording logs, they can hinder the logging process unless
 
 In `noncompliant01.py`, if a risky operation occurs such as the division by zero, the try block catches the `ZeroDivisionError` exception and prints it to the console without logging it, leaving the system vulnerable to undetected issues. The error print is also attempting to log from a raw exception, which could be problematic due to multiple reasons including:
 
-* Exception messages may contain sensitive data like file paths, database conncetion strings, or internal system details.
+* Exception messages may contain sensitive data like file paths, database connection strings, or internal system details.
 * Attackers can trigger specific exceptions to gather reconnaissance information.
-* If exception messages contain user input, they could inject malicious content into logs
+* If exception messages contain user input, they could inject malicious content into logs.
 
 *[noncompliant01.py](noncompliant01.py):*
 
