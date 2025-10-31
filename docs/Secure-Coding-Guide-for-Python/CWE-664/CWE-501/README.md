@@ -2,7 +2,7 @@
 
 Python's trust boundaries rely on explicit process isolation, rather than in-process access control within a single interpreter.
 
-Unlike Java, where we have in-process mechanisms like [Oracle Access Management](https://docs.oracle.com/en/middleware/idm/access-manager/12.2.1.3/aiaag/introducing-oracle-access-management.html) that can enforce access boundaries inside the same runtime, standard Python does not provide a built-in in-process access manager. In Python we need to implement different trust zone's by starting python runtime's with individual POSIX/Machine users. The POSIX/Machine user access rights must be set in accordance to level of trust per zone.
+Unlike Java, where we have in-process mechanisms like [Oracle Access Management](https://docs.oracle.com/en/middleware/idm/access-manager/12.2.1.3/aiaag/introducing-oracle-access-management.html) that can enforce access boundaries inside the same runtime, standard Python does not provide a built-in in-process access manager. In Python we need to implement different trust zones by starting python runtimes with individual POSIX/Machine users. The POSIX/Machine user access rights must be set in accordance to level of trust per zone.
 
 ## Noncompliant STRIDE example - New User Sign-up Process
 
