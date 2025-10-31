@@ -240,5 +240,3 @@ CERT C Coding Standard [online]. Available from: <a href=https://www.securecodin
 </td>
 </tr>
 <table>
-|[SEI CERT JAVA 2024]|NUM01-J. Do not perform bitwise and arithmetic operations on the same data [online]. Available from: [https://wiki.sei.cmu.edu/confluence/display/java/NUM01-J.+Do+not+perform+bitwise+and+arithmetic+operations+on+the+same+data](https://wiki.sei.cmu.edu/confluence/display/java/NUM01-J.+Do+not+perform+bitwise+and+arithmetic+operations+on+the+same+data), [Accessed 6 May 2025]|
-|[SEI CERT C 2025]|CERT C Coding Standard [online]. Available from: [https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard](https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard) [Accessed 6 May 2025]|
