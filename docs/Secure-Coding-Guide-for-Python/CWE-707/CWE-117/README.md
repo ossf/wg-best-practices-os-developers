@@ -94,27 +94,108 @@ WARNING:root:Rejected login attempt: invalid username="guest'\nWARNING:root:User
 
 ## Automated Detection
 
-|Tool|Version|Checker|Description|
-|:---|:---|:---|:---|
-|Bandit|1.7.4 on Python 3.10.4|B105<br>B106<br>B107|[B105: hardcoded_password_string — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b105_hardcoded_password_string.html)<br>[B106: hardcoded_password_funcarg — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b106_hardcoded_password_funcarg.html)<br>[B107: hardcoded_password_default — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b107_hardcoded_password_default.html)|
-|sonarsource||RSPEC-2068<br>RSPEC-6437|[Python static code analysis: Hard-coded credentials are security-sensitive (sonarsource.com)](https://rules.sonarsource.com/python/RSPEC-2068)<br>[Credentials should not be hard-coded (sonarsource.com)](https://rules.sonarsource.com/python/type/Vulnerability/RSPEC-6437/)|
-|codeQL|||[Hard-coded credentials — CodeQL query help documentation (github.com)](https://codeql.github.com/codeql-query-help/python/py-hardcoded-credentials/)|
+<table>
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>Version</th>
+      <th>Check</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Bandit</td>
+      <td>1.7.5</td>
+      <td>Not Available</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>CodeQL</td>
+      <td>Latest</td>
+      <td><a href="https://codeql.github.com/codeql-query-help/python/py-log-injection/">py-log-injection</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Veracode</td>
+      <td>Latest</td>
+      <td>CWE 117</td>
+      <td><a href="https://community.veracode.com/s/article/How-to-Fix-CWE-117-Improper-Output-Neutralization-for-Logs">How to Fix CWE-117</a></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Related Guidelines
 
-|||
-|:---|:---|
-|[MITRE CWE](http://cwe.mitre.org/)|Pillar: [CWE-693: Protection Mechanism Failure (4.12) (mitre.org)](https://cwe.mitre.org/data/definitions/693.html)|
-|[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE-798: Use of hardcoded credentials](https://cwe.mitre.org/data/definitions/798.html)|
-|[MITRE CWE](http://cwe.mitre.org/)|Variant: [CWE-259: Use of hardcoded password](https://cwe.mitre.org/data/definitions/259.html)|
-|[MITRE CWE](http://cwe.mitre.org/)|Variant: [CWE-321: Use of hardcode cryptographic key](https://cwe.mitre.org/data/definitions/321.html)|
-|[SEI CERT Oracle Codign Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[MSC03-J: Never hardcode sensitive information](https://wiki.sei.cmu.edu/confluence/display/java/MSC03-J.+Never+hard+code+sensitive+information)|
+<table>
+    <tr>
+        <td><a href="http://cwe.mitre.org/">MITRE CWE</a></td>
+        <td>Pillar: <a href="https://cwe.mitre.org/data/definitions/707.html"> CWE-707: Improper Neutralization</a></td>
+    </tr>
+    <tr>
+        <td><a href="http://cwe.mitre.org/">MITRE CWE</a></td>
+        <td>Base: <a href="https://cwe.mitre.org/data/definitions/117.html">CWE-117: Improper Output Neutralization for Log </a></td>
+    </tr>
+    <tr>
+        <td><a href="http://cwe.mitre.org/">MITRE CWE</a></td>
+        <td>Base: <a href="https://cwe.mitre.org/data/definitions/93.html">CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection') </a></td>
+    </tr>
+    <tr>
+        <td><a href="http://cwe.mitre.org/">MITRE CWE</a></td>
+        <td>Variant: <a href="https://cwe.mitre.org/data/definitions/113.html">CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Request/Response Splitting') </a></td>
+    </tr>
+    <tr>
+        <td><a href="http://capec.mitre.org/">MITRE CAPEC</a></td>
+        <td>Detailed: <a href="https://capec.mitre.org/data/definitions/93.html">CAPEC-93: Log Injection-Tampering-Forging </a></td>
+    </tr>
+    <tr>
+        <td><a href="https://owasp.org/Top10/">OWASP Top 10</a></td>
+        <td><a href="https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/">A09:2021 – Security Logging and Monitoring Failures </a></td>
+    </tr>
+    <tr>
+        <td><a href="https://owasp.org/">OWASP ASVS 4.0</a></td>
+        <td><a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP Application Security Verification Standard (ASVS) </a>. See "V16 Security Logging and Error Handling".
+</td>
+    <tr>
+        <td><a href="https://cheatsheetseries.owasp.org/index.html">OWASP Cheat Sheet Series</a></td>
+        <td><a href="https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html">OWASP Logging Cheat Sheet</a></td>
+    </tr>
+    </tr>
+    <tr>
+        <td>ISO/IEC TR 24772:2013</td>
+        <td><a href="https://www.iso.org/standard/61457.html">ISO/IEC TR 24772:2013 Information technology — Programming languages — Guidance to avoiding vulnerabilities in programming languages through language selection and use </a></td>
+    </tr>
+    <tr>
+        <td>NIST SP 800-92</td>
+        <td><a href="https://csrc.nist.gov/pubs/sp/800/92/final">NIST SP 800-92 Guide to Computer Security Log Management </a></td>
+    </tr>
+</table>
 
 ## Bibliography
 
-|||
-|:---|:---|
-| [US Congress 1996] | Health Insurance Portability and Accountability Act (HIPAA) [online].Available from: [https://aspe.hhs.gov/reports/health-insurance-portability-accountability-act-1996](https://aspe.hhs.gov/reports/health-insurance-portability-accountability-act-1996) [accessed 27 February 2025]|
-| [European Parliament 2016] | General Data Protection Regulation (GDPR) [online]. Available from: [https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150) [accessed 27 February 2025]|
-| [CPPA 2025] |DIVISION 3. OBLIGATIONS [1427 - 3273.16] [online]. Available from: [https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150) [accessed 27 February 2025]|
-| [OSSF 2025] | CWE-532: Insertion of Sensitive Information into Log File [online]. Available from: [https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/](https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/) [accessed 27 February 2025]|
+<table>
+    <tr>
+        <td>[CWE-117]</a></td>
+        <td>CWE-117: Improper Output Neutralization for Log [online]. Available from <a href="https://cwe.mitre.org/data/definitions/117.html">https://cwe.mitre.org/data/definitions/117.html</a>, [Accessed 24 September 2025]</td>
+    </tr>
+    <tr>
+        <td>[CWE-93]</a></td>
+        <td>CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection') [online]. Available from: <a href="https://cwe.mitre.org/data/definitions/93.html">https://cwe.mitre.org/data/definitions/93.html</a>, [Accessed 24 September 2025]</td>
+    </tr>
+    <tr>
+        <td>[CWE-113]</a></td>
+        <td>CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Request/Response Splitting')<a href="https://cwe.mitre.org/data/definitions/113.html">https://cwe.mitre.org/data/definitions/113.html</a>, [Accessed 24 September 2025]</td>
+    </tr>
+    <tr>
+        <td>[CAPEC-93]</td>
+        <td>CAPEC-93: Log Injection-Tampering-Forging [online]. Available from: <a href="https://capec.mitre.org/data/definitions/93.html">https://capec.mitre.org/data/definitions/93.html</a>, [Accessed 24 September 2025]</td>
+    </tr>
+    <tr>
+        <td>[OWASP A09:2021]</td>
+        <td>A09:2021 – Security Logging and Monitoring Failures [online]. Available from:<a href="https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/">https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/</a>, [Accessed 24 September 2025]</td>
+    </tr>
+    <tr>
+        <td>[OWASP 2025]</td>
+        <td>OWASP Cheat Sheet Series: Logging Cheat Sheet [online]. Available from: <a href="https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html">https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html</a> (see “Event collection” and “Attacks on Logs”). [Accessed 24 September 2025]</td>
+    </tr>
+</table>
