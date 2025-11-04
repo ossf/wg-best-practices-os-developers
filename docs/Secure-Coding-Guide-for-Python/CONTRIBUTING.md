@@ -22,10 +22,16 @@ Please read and adhere to our [Code of Conduct](https://github.com/ossf/wg-best-
 
 We welcome contributions in many forms—whether it’s fixing a bug or typo, improving the readability of the guide, adding a new code example, or creating entirely new pages to cover missing material. Before you start, please check for existing issues.
 
-Become part of the reviewers for upcoming pull requests (PRs) that are organized via:
+Become part of the reviewers for upcoming pull requests (PRs) by joining slack and our bi-weekly meetings.
 
-* [OpenSSF.slack.com #secure-coding-guide-for-python #C07LH7RH8MT](https://openssf.slack.com/archives/C07LH7RH8MT)
-* [Meeting Notes](https://docs.google.com/document/d/1JY8FREBPCUUFpuv7-4B9EjeS2MLDpel0dbG5DFWrTns/edit)
+Steps to join #secure-coding-guide-for-python slack channel as per [Beginner to builder steps](https://openssf.org/blog/2025/08/08/from-beginner-to-builder-understanding-openssf-community-and-working-groups/):
+
+1) Request access [openssf.slack.com/join](https://openssf.slack.com/join/shared_invite/zt-3f3vlgwxt-PgpMDebRvroMuQSGe4aJzg#/shared-invite/email/expanded-email-form)
+2) in the search bar at the top: `/join secure-coding-guide-for-python`
+
+Become part of organizing bigger changes via our bi-weekly online meeting, see details in:
+
+* [Meeting Notes](https://docs.google.com/document/d/1u1gJMtOz-P5Z71B-vKKigzTbIDIS-bUNgNIcfnW4r-k)
 
 It is helpful to know:
 
