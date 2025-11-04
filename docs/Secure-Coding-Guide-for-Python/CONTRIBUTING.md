@@ -26,7 +26,7 @@ Become part of the reviewers for upcoming pull requests (PRs) by joining slack a
 
 Steps to join #secure-coding-guide-for-python slack channel as per [Beginner to builder steps](https://openssf.org/blog/2025/08/08/from-beginner-to-builder-understanding-openssf-community-and-working-groups/):
 
-1) Request access [openssf.slack.com/join](https://openssf.slack.com/join/shared_invite/zt-3f3vlgwxt-PgpMDebRvroMuQSGe4aJzg#/shared-invite/email/expanded-email-form)
+1) Request access [https://slack.openssf.org/](https://slack.openssf.org/)
 2) in the search bar at the top: `/join secure-coding-guide-for-python`
 
 Become part of organizing bigger changes via our bi-weekly online meeting, see details in:
