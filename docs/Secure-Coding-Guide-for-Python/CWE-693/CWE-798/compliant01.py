@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """Compliant Code Example"""
-# EXPECTED_FAILURE: uses deprecated Path() kwargs, scheduled for removal in Python 3.14
 
 import logging
 from pathlib import Path
@@ -43,7 +42,7 @@ class TestSimulateDeployingFrontEnd(unittest.TestCase):
         config["LOGGING"] = {
             "level": "DEBUG",
         }
-        self.config_file_path = Path("config.ini", exist_ok=True)
+        self.config_file_path = Path("config.ini")
         with open(self.config_file_path, "w", encoding="utf-8") as config_file:
             config.write(config_file)
         self.config_file_path.chmod(0o400)
