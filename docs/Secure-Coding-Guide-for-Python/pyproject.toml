@@ -2,7 +2,7 @@
 name = "secure-coding-guide-python-tests"
 version = "0.1.0"
 description = "Testing framework for Python Secure Coding Guide"
-readme = "README.md"
+readme = "tests/README.md"
 requires-python = ">=3.9"
 
 [build-system]
