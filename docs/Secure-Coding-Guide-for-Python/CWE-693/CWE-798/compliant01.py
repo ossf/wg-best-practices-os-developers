@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """Compliant Code Example"""
+# EXPECTED_FAILURE: uses deprecated Path() kwargs, scheduled for removal in Python 3.14
 
 import logging
 from pathlib import Path
