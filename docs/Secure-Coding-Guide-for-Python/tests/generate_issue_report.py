@@ -75,6 +75,22 @@ def parse_test_output(output):
                     elif "Section order issues:" in lines[j]:
                         error_msg = "Section order issue"
                         break
+                    elif "Inlined code mismatches:" in lines[j]:
+                        # Extract which files have mismatches
+                        k = j + 1
+                        inlined_files = []
+                        while k < len(lines) and k < j + 20:
+                            if lines[k].strip().startswith("- ") and ".py:" in lines[k]:
+                                # Extract filename
+                                file_match = re.search(r'- ([^:]+\.py):', lines[k])
+                                if file_match:
+                                    inlined_files.append(file_match.group(1))
+                            k += 1
+                        if inlined_files:
+                            error_msg = f"Inlined code mismatch: {', '.join(inlined_files)}"
+                        else:
+                            error_msg = "Inlined code doesn't match file content"
+                        break
                     j += 1
                 
                 if not error_msg:
