@@ -9,7 +9,7 @@ The objective of compiler options hardening is to produce application binaries (
 
 ## Usage in Tools
 
-A python script is also provided (in the `compiler-options-scraper` directory) that can fetch the latest version of the OpenSSF compiler hardening guide from the internet, obtain the recommended options tables from it and convert them to a machine readable JSON for usage in tools.
+A python script is also provided that can fetch the latest version of the OpenSSF compiler hardening guide from the internet, obtain the recommended options tables from it and convert them to a machine readable JSON for usage in tools.
 
 ## How to Contribute
 
