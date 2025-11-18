@@ -1,5 +1,7 @@
 # CWE-1335: Incorrect Bitwise Shift of Integer
 
+Avoid mixing bitwise shifts with arithmetic operations, instead, use clear mathematical expressions instead to maintain predictable behavior, readability, and compatibility.
+
 Ensure to know what bit-wise shift operators do in case you can not avoid them as recommended in *NUM01-J. Do not perform bitwise and arithmetic operations on the same data* [[SEI CERT JAVA 2024]](https://wiki.sei.cmu.edu/confluence/display/java/NUM01-J.+Do+not+perform+bitwise+and+arithmetic+operations+on+the+same+data) and use math instead.
 
 A need to use bit-wise operations in Python can be due to translations or dealings with `C`, `C++` or `Java`, system libraries, raw binary data, or cryptographic algorithms.  Existing Python modules hooking into system `C` libraries for cryptographic functions or math all to avoid the need to implement bit-shifting on a Python level. Bit-shifting can have unexpected outcomes. Python's ctypes  module allows integration of `C` based system libraries into Python and direct access to C-type variables that can have different behavior than using high-level Python.

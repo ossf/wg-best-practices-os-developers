@@ -20,7 +20,7 @@ def map_threads(x):
                 ret.append(res)
                 invalid_arg += 1
             return ret
-        except ValueError as e:
+        except ValueError:
             # handle exception...
             raise ValueError(
                 f"Invalid argument: {x[invalid_arg]} at list index {invalid_arg}"

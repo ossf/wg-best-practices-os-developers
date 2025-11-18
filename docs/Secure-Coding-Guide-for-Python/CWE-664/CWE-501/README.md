@@ -1,8 +1,8 @@
 # CWE-501: Trust Boundary Violation
 
-Python does not share the concept of different trust zones within the same runtime as explained in the *JAVA SEI CERT Rule 15 platform security (SEC)* [[SEI CERT 2022]](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88487683) rules. Python neither has a security manager that can control access between trusted and untrusted code running on the same JVM. “Private” instance variables that cannot be accessed except from inside an object don’t exist in Python [Python 2023].
+Python's trust boundaries rely on explicit process isolation, rather than in-process access control within a single interpreter.
 
-In Python we need to implement different trust zone's by starting  python runtime's with individual POSIX/Machine users. The POSIX/Machine user access rights must be set in accordance to level of trust per zone.
+Unlike Java, where we have in-process mechanisms like [Oracle Access Management](https://docs.oracle.com/en/middleware/idm/access-manager/12.2.1.3/aiaag/introducing-oracle-access-management.html) that can enforce access boundaries inside the same runtime, standard Python does not provide a built-in in-process access manager. In Python we need to implement different trust zones by starting python runtimes with individual POSIX/Machine users. The POSIX/Machine user access rights must be set in accordance to level of trust per zone.
 
 ## Noncompliant STRIDE example - New User Sign-up Process
 
@@ -44,6 +44,6 @@ unknown
 
 |||
 |:---|:---|
-|[[SEI CERT 2022]](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88487683)|Rule 15. Platform Security (SEC). Available from: [SEI CERT](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88487683) [accessed 07 May 2024]|
 |[[Python 2023]](https://docs.python.org/3.9/tutorial/classes.html?highlight=private#private-variables)|Python Software Foundation. (2023). Classes - Private Variables. Available from: [Python Documentation](https://docs.python.org/3.9/tutorial/classes.html?highlight=private#private-variables) [accessed 13 September 2023]|
 |[[OWASP, Conklin,  Drake, 2023]](https://cwe.mitre.org/data/definitions/134.html)|[CWE - CWE-134: Use of Externally-Controlled Format String (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/134.html)|
+|[Oracle Docs](https://docs.oracle.com/en/)| [Administering Oracle Access Management](https://docs.oracle.com/en/middleware/idm/access-manager/12.2.1.3/aiaag/introducing-oracle-access-management.html#GUID-D1D083AA-538E-4063-A921-9328DB784319) [accessed 29 October 2025]|

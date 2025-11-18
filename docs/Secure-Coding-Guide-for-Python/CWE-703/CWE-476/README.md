@@ -158,7 +158,7 @@ print_number_of_students(None)
 
 ```
 
-This code example returns: `TypeError: exceptions must derive from BaseException`. This is problematic because rasing `None` does not provide any useful error information or traceback, leading to less informative error handling and potentially causing the program to crash unexpectedly without clear diagnostic details.
+This code example returns: `TypeError: exceptions must derive from BaseException`. This is problematic because raising `None` does not provide any useful error information or traceback, leading to less informative error handling and potentially causing the program to crash unexpectedly without clear diagnostic details.
 
 ## Compliant Code Example - Raise only exceptions that properly inherit from the BaseException class, never raise "None"
 

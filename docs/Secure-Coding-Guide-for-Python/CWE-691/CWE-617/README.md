@@ -2,11 +2,11 @@
 
 Assertions are a useful developer tool, but they cannot be relied upon to be present in a production environment. Incorrect function arguments should be handled by an appropriate exception.
 
-Python removes assertions when a script is run with the `-O`  and `-OO` options [[Python 3.9 Documentation](https://docs.python.org/3.9/using/cmdline.html?highlight=pythonoptimize#cmdoption-o)].
+Python removes assertions when a script is run with the `-O`  and `-OO` options [[Python 3.9 Documentation](https://docs.python.org/3.9/using/cmdline.html?highlight=pythonoptimize#cmdoption-o)]. The `-O` options is for optimisation. It removes asserts statements from bytecode, removes docstrings from functions/classes and sets `__debug__` to False. It is used for slightly faster execution and smaller bytecode files. `-OO` does everything that `-O`does but it additionally removes module-level docstrings and creates an even more compact bytecode.
 
 ## Non-Compliant Code Example
 
-The code is checking for invalid arguments by using assertions. In this example, any positive integer between `1-709` inclusive is valid, and any other argument is invalid.
+The non-compliant code example is checking for invalid arguments by using assertions. In this example, any positive integer between `1-709` inclusive is valid, and any other argument is invalid.
 
 If the script is run normally, the assertions will catch the invalid arguments. If the script is run in optimized mode, assertions are removed from the bytecode and the function will not work as intended. To simplify the exploit code, the specific exception raised by the argument is caught.
 
@@ -53,21 +53,23 @@ try:
 except (AssertionError, OverflowError, TypeError, ValueError) as e:
     print(e)
 
-# output
+```
 
-# $ python3.9 noncompliant01.py
-# 2.718281828459045
-# 8.218407461554972e+307
-# Argument 710 is not valid
-# Argument 0 is not valid
-# Argument b is not valid
-# $ python3.9 -O noncompliant01.py
-# 2.718281828459045
-# 8.218407461554972e+307
-# math range error
-# 1.0
-# must be real number, not str
+ __Output of noncompliant01.py:__
 
+```bash
+$ python3.9 noncompliant01.py
+2.718281828459045
+8.218407461554972e+307
+Argument 710 is not valid
+Argument 0 is not valid
+Argument b is not valid
+$ python3.9 -O noncompliant01.py
+2.718281828459045
+8.218407461554972e+307
+math range error
+1.0
+must be real number, not str
 ```
 
 ## Compliant Solution
@@ -115,22 +117,24 @@ try:
     print(my_exp("b"))
 except (AssertionError, OverflowError, TypeError, ValueError) as e:
     print(e)
-
-# output
-
-# $ python3.9 compliant01.py
-# 2.718281828459045
-# 8.218407461554972e+307
-# Argument 710 is not valid
-# Argument 0 is not valid
-# Argument b is not valid
-# $ python3.9 -O compliant01.py
-# 2.718281828459045
-# 8.218407461554972e+307
-# Argument 710 is not valid
-# Argument 0 is not valid
-# Argument b is not valid
  
+```
+
+ __Output of compliant01.py:__
+
+```bash
+$ python3.9 compliant01.py
+2.718281828459045
+8.218407461554972e+307
+Argument 710 is not valid
+Argument 0 is not valid
+Argument b is not valid
+$ python3.9 -O compliant01.py
+2.718281828459045
+8.218407461554972e+307
+Argument 710 is not valid
+Argument 0 is not valid
+Argument b is not valid
 ```
 
 ## Automated Detection

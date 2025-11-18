@@ -162,8 +162,13 @@ The `compliant01.py` code avoids using password based authentication in the firs
 
 |Tool|Version|Checker|Description|
 |:---|:---|:---|:---|
-|Bandit|1.7.4 on Python 3.10.4|B105<br>B106<br>B107|[B105: hardcoded_password_string — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b105_hardcoded_password_string.html)<br>[B106: hardcoded_password_funcarg — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b106_hardcoded_password_funcarg.html)<br>[B107: hardcoded_password_default — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b107_hardcoded_password_default.html)|
-|sonarsource||RSPEC-2068<br>RSPEC-6437|[Python static code analysis: Hard-coded credentials are security-sensitive (sonarsource.com)](https://rules.sonarsource.com/python/RSPEC-2068)<br>[Credentials should not be hard-coded (sonarsource.com)](https://rules.sonarsource.com/python/type/Vulnerability/RSPEC-6437/)|
+|Tool|Version|Checker|Description|
+|:---|:---|:---|:---|
+|Bandit|1.7.4 on Python 3.10.4|B105|[B105: hardcoded_password_string — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b105_hardcoded_password_string.html)|
+|Bandit|1.7.4 on Python 3.10.4|B106|[B106: hardcoded_password_funcarg — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b106_hardcoded_password_funcarg.html)|
+|Bandit|1.7.4 on Python 3.10.4|B107|[B107: hardcoded_password_default — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b107_hardcoded_password_default.html)|
+|sonarsource||RSPEC-2068|[Python static code analysis: Hard-coded credentials are security-sensitive (sonarsource.com)](https://rules.sonarsource.com/python/RSPEC-2068)|
+|sonarsource||RSPEC-6437|[Credentials should not be hard-coded (sonarsource.com)](https://rules.sonarsource.com/python/type/Vulnerability/RSPEC-6437/)|
 |codeQL|||[Hard-coded credentials — CodeQL query help documentation (github.com)](https://codeql.github.com/codeql-query-help/python/py-hardcoded-credentials/)|
 
 ## Related Guidelines

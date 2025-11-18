@@ -1,6 +1,8 @@
 # CWE-833: Deadlock
 
-The number of threads that can simultaneously run within a `ThreadPoolExecutor` is limited by the `_max_workers` parameter. Submitting tasks whose execution is dependent on other tasks submitted to the same `ThreadPoolExecutor` may result in a *thread-starvation* deadlock. An example of this type of deadlock is shown in the following article [Brownlee, 2021], which describes it as "Deadlock 1: Submit and Wait for a Task Within a Task". Submitting a task will add it to an internal `ThreadPoolExecutor` queue. The task will be removed from the queue when one of the worker threads becomes available, i.e., after finishing its current task. If all workers are busy and all their current tasks are waiting for results from tasks that are waiting in the queue, the program will run indefinitely as no worker will be able to complete its task and take one of the blocking tasks from the queue.
+Submitting tasks whose execution is dependent on other tasks submitted to the same `ThreadPoolExecutor` may result in a *thread-starvation* deadlock.
+
+The number of threads that can simultaneously run within a `ThreadPoolExecutor` is limited by the `_max_workers` parameter. Since `Python 3.8`, the default value for `max_workers` is `min(32, os.cpu_count() + 4)` [[Python docs]](https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor). An example of this type of deadlock is shown in the following article [Brownlee, 2021], which describes it as "Deadlock 1: Submit and Wait for a Task Within a Task". Submitting a task will add it to an internal `ThreadPoolExecutor` queue. The task will be removed from the queue when one of the worker threads becomes available, i.e., after finishing its current task. If all workers are busy and all their current tasks are waiting for results from tasks that are waiting in the queue, the program will run indefinitely as no worker will be able to complete its task and take one of the blocking tasks from the queue.
 
 > [!NOTE]
 > Prerequisite to understand this page:
@@ -162,11 +164,11 @@ browser_manager = BankingService(5)
 browser_manager.for_each_client()
 ```
 
-For the sake of the example, let's assume we have 5 clients, with 5 accounts and 5 cards for each account `number_of_times = 5`. In that case, we end up calling `check_card_validity() 125` times, exhausting `_max_workers` which is typically at around `32`. [Source: Python Docs] You can additionally call `self.executor._work_queue.qsize()` to get the exact number of tasks that are waiting in the queue, unable to be executed by the already busy workers.
+For the sake of the example, let's assume we have 5 clients, with 5 accounts and 5 cards for each account `number_of_times = 5`. In that case, we end up calling `check_card_validity() 125` times, exhausting `_max_workers`. You can additionally call `self.executor._work_queue.qsize()` to get the exact number of tasks that are waiting in the queue, unable to be executed by the already busy workers.
 
 ## Compliant Solution (Caller runs when there are no available workers)
 
-Python, as opposed to Java, does not provide `CallerRunsPolicy`, which was suggested as a solution in [Gafter, 2006]. It is possible to recreate that functionality by manually keeping a count of currently executed tasks.
+Python, as opposed to Java, does not provide `CallerRunsPolicy`, which was suggested as a solution in [Gafter, 2006]. CallerRunsPolicy is a rejection policy used in Java's ThreadPoolExecutor to handle situations when the thread pool is saturated. It is possible to recreate that functionality by manually keeping a count of currently executed tasks.
 
 *[compliant02.py](compliant02.py):*
 

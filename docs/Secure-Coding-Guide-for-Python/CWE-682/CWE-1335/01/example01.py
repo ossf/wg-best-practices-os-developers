@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
+"""example code"""
 foo = 50
 bar = 42
 print(f"foo = {foo} = {foo:08b}") # :08b is just for pretty print

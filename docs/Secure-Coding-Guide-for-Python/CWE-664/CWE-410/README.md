@@ -1,6 +1,8 @@
 # CWE-410: Insufficient Resource Pool
 
-Ensure load control during traffic bursts or Denial of Service (DoS) by using a limited amount of threads in a pool. An attacker can cause a DoS by flooding a system with too many requests. Services with time-consuming, I/O-bound, or session-based sequential execution make limited use of available resources and can be blocked by a single hanging process or by overloading the queue.
+Ensure load control during traffic bursts or Denial of Service (DoS) by using a limited amount of threads in a pool.
+
+An attacker can cause a DoS by flooding a system with too many requests. Services with time-consuming, I/O-bound, or session-based sequential execution make limited use of available resources and can be blocked by a single hanging process or by overloading the queue.
 
 Thread pools combine:
 

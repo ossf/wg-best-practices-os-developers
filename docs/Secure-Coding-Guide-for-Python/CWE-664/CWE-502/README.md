@@ -1,7 +1,8 @@
 # CWE-502: Deserialization of Untrusted Data
 
+Even if data has been created from a trusted source, we need to verify that it has not been tampered with during transport.
+
 The `pickle` module is known to be vulnerable [[docs.python.org 2023]](https://docs.python.org/3.9/library/pickle.html) against unwanted code execution during deserialization and should only be used if there is no architectural text-based alternative.
-Even if data has been created from a trusted source we need to verify that it has not been tampered with during transport.
 
 Security-related concerns during object serialization and deserialization include:
 
@@ -15,7 +16,7 @@ Security-related concerns during object serialization and deserialization includ
 
 ## Noncompliant Code Example
 
-The `noncompliant01.py`  code demonstrates arbitrary code execution [Checkoway Oct 2013] using `os.system` to launch a program during unpickling when `pickle.loads()`.
+The `noncompliant01.py`  code demonstrates arbitrary code execution using `os.system` to launch a program during unpickling when `pickle.loads()` [[Checkoway Oct 2013](https://checkoway.net/musings/pickle/)]
 
 *[noncompliant01.py](noncompliant01.py):*
 
@@ -198,7 +199,7 @@ The integrity verification in `compliant01.py` throws an exception `ValueError: 
 
 Text-based formats, such as `JSON` and `YAML`, should always be preferred. They have a lower set of capabilities and reduce the attack surface [python.org comparison-with-json 2023] when compared to `pickle`.
 
-The `compliant01.py`  code only allows serializing and deserialization of object data and not object methods as in `noncompliant01.py` or `compliant01.py`.
+The `compliant01.py`  code only allows serializing and deserialization of object data and not object methods as in `noncompliant01.py` or `example01.py`.
 
 Consider converting binary data into text using `Base64` encoding for performance and size irrelevant operations.
 
@@ -288,7 +289,7 @@ message = None
 message = p3.uncan(PAYLOAD)
 ```
 
-The `compliant02.py` stops with the unpacking with a `json.decoder.JSONDecodeError`.
+The `compliant01.py` stops with the unpacking with a `json.decoder.JSONDecodeError`.
 
 ## Exceptions
 
@@ -317,6 +318,7 @@ Serialized data from a trusted input source does not require sanitization, provi
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[SER01-J. Do not deviate from the proper signatures of serialization methods](https://wiki.sei.cmu.edu/confluence/display/java/SER01-J.+Do+not+deviate+from+the+proper+signatures+of+serialization+methods)|
 |[MITRE CWE](http://cwe.mitre.org/)|Pillar [CWE-664: Improper Control of a Resource Through its Lifetime (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/664.html)|
 |[MITRE CWE](http://cwe.mitre.org/)|Base [CWE-502, Deserialization of Untrusted Data](http://cwe.mitre.org/data/definitions/502.html)|
+|[Checkoway 2013]|Checkoway, S. (2013) 'Arbitrary code execution with Python pickles', 8 October. Available from: [stephen.checkoway.com](https://stephen.checkoway.com/2013/10/08/arbitrary-code-execution-with-python-pickles/) [Accessed 07 May 2024]|
 
 ## Biblography
 

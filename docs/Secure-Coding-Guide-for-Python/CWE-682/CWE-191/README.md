@@ -10,13 +10,15 @@ Ensure that integer overflow is properly handled in order to avoid unexpected be
 
 Developers should follow the `C` guidelines when using or interacting with `C` type variables.
 
-## Non-Compliant Code Example
+## Non-Compliant Code Example -- Using numpy.int64
 
 Using a `numpy.int64` can cause an unintentional flip of its sign when reaching the maximum number that can be stored as demonstrated in `noncompliant01.py`.
 
 *[noncompliant01.py](noncompliant01.py):*
 
 ```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
 
 import numpy
@@ -35,13 +37,15 @@ An attempt to create `int` from a too big number causes an `OverflowError` and s
 > [!NOTE]
 > It has been observed that different results may occur depending on the version of `numpy`. For reference, we are using `numpy 1.23.1` and Python `3.9.12.`
 
-## Compliant Solution
+## Compliant Solution -- Using numpy.int64
 
 The `compliant01.py` code detects the integer overflow by catching the appropriate Exception.
 
 *[compliant01.py](compliant01.py):*
 
 ```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Compliant Code Example """
 
 import warnings
@@ -52,17 +56,17 @@ a = numpy.int64(numpy.iinfo(numpy.int64).max)
 with warnings.catch_warnings():
     try:
         print(a + 1)
-    except Warning as _:
+    except Warning:
         print("Failed to increment " + str(a) + " due to overflow error")
     # RuntimeWarning and continues
 
 try:
     b = numpy.int64(numpy.iinfo(numpy.int64).max + 1)  # OverflowError and stops
-except OverflowError as e:
+except OverflowError:
     print("Failed to assign value to B due to overflow error")
 ```
 
-## Non-Compliant Code Example
+## Non-Compliant Code Example -- Using datetime.timedelta()
 
 The `noncompliant02.py` example uses `datetime.timedelta()` to get `x` hours in the future or past for time travelers. The `datetime` is interfacing with the operating system through the `libpython` library written in `C`. Overall the Georgian calender ISO 8601 is limited to 1 - 9999 years [Python datetime 2025](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes).
 
@@ -125,7 +129,7 @@ The `noncompliant02.py` code is triggering various `OverflowError` exceptions in
 - `OverflowError('Python int too large to convert to C int')`
 - `days=1000000000; must have magnitude <= 999999999`
 
-## Compliant Solution
+## Compliant Solution -- Using datetime.timedelta()
 
 This `compliant02.py` solution is preventing `OverflowError` exception in `libpython` by safeguarding the upper and lower limits in the provided `hours`. Upper and lower limit for `currtime` as well as input sanitization and secure logging are missing and must be added when interfacing with a lesser trusted entity.
 
@@ -207,13 +211,15 @@ for hours in hours_list:
 
 The `compliant02.py` example is protecting the lower level c-lib from an `OverflowError` by setting boundaries for valid values in `hours`. Similar issues occur with any functionality provided through the operating system.
 
-## Non-Compliant Code Example
+## Non-Compliant Code Example -- Using math.exp
 
 The `noncompliant03.py` code example results in a `OverflowError: math range error`. This is due to `math.exp` being a `C` implementation behind the scenes for better performance. So while it returns a `Python float` it does use `C` type of variables internally for the calculation in `mathmodule.c` [[cpython 2024]](https://github.com/python/cpython/blob/main/Modules/mathmodule.c).
 
 *[noncompliant03.py](noncompliant03.py):*
 
 ```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
 
 import math
@@ -231,13 +237,15 @@ print(calculate_exponential_value(1000))
 
 ```
 
-## Compliant Solution
+## Compliant Solution -- Using math.exp
 
 This `compliant03.py` solution detects the `integer` overflow by catching the appropriate Exception on overflow:
 
 *[compliant03.py](compliant03.py):*
 
 ```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """ Compliant Code Example """
 import math
 
@@ -246,7 +254,7 @@ def calculate_exponential_value(number):
     """Return 'E' raised to the power of different numbers:"""
     try:
         return math.exp(number)
-    except OverflowError as _:
+    except OverflowError:
         return "Number " + str(number) + " caused an integer overflow"
 
 

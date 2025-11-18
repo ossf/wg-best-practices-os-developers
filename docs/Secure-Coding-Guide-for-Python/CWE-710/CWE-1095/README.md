@@ -1,12 +1,12 @@
 # CWE-1095: Loop Condition Value Update within the Loop
 
-Promote predictable and secure for loops by iterating over a copy or new collection item as described in 4.2 `for` Statements [Python 3.9 2024](https://docs.python.org/3.9/tutorial/controlflow.html#for-statements).
+Promote predictable and secure `for` loops by iterating over a copy or new collection item as described in 4.2 `for` Statements [Python 3.9 2024](https://docs.python.org/3.9/tutorial/controlflow.html#for-statements).
 
 In-place modification of mutable types such as `list`, `dict`, or `set` that are part of a for loop can result in unpredictable outcomes.
 
 ## Non-Compliant Code Example (List)
 
-This `noncompliant01.py` example will remove only one name that starts with `B` despite trying to remove them all without any exception raised:
+This `noncompliant01.py` example will remove only one name that starts with `B` despite trying to remove them all without any exception raised. This happens because removing an element shifts all subsequent elements one position left, causing the iterator to skip the next element:
 
 [*noncompliant01.py:*](noncompliant01.py)
 
@@ -153,6 +153,11 @@ print(f'Modified set: {activeuserset}')
 ```
 
 The requirement to use `copy()` or `deepcopy()` will vary depending on the problem that needs to be solved.
+
+### Difference between copy() and deepcopy()
+
+* **copy()** - Copy in Python is a function for Shallow Copy. This creates a new object, but references to nested objects remain shared with the original.
+* **deepycopy()** - Creates a completely independent copy where all nested objects are also copied recursively.
 
 ## Automated Detection
 

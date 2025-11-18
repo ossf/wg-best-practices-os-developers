@@ -9,7 +9,7 @@ Anti-patterns:
 * Printing debug information directly to stdout or to the web-interface
 * Ports left open such as 22 for ssh or 5678  for debugpy
 * Verbose logging enabled in production sites.
-* Monkey patching [[Monkey patch - Wikipedia 2023](https://en.wikipedia.org/wiki/Monkey_patch)].
+* Monkey patching [[Biswal 2012](https://web.archive.org/web/20120822051047/http://www.mindfiresolutions.com/Monkey-Patching-in-Python-1238.php)].
 * Hidden functions enabling/disabling verbose logging via external interfaces.
 * Hidden functions providing a shell for troubleshooting.
 * Operators need of root or superuser access for troubleshooting
@@ -45,5 +45,5 @@ Not knowing that a product must be deployed differently in production than in st
 
 |||
 |:---|:---|
-|[[Monkey patch - Wikipedia 2023](https://en.wikipedia.org/wiki/Monkey_patch)]|Wikimedia Foundation. (2024). Monkey patch [online]. Available from: [https://en.wikipedia.org/wiki/Monkey_patch](https://en.wikipedia.org/wiki/Monkey_patch) [accessed 3 January 2025]
-|[[Hammond 2022](https://www.youtube.com/watch?v=jwBRgaIRdgs)]|DANGEROUS Python Flask Debug Mode Vulnerabilities [online]. Available from: [https://www.youtube.com/watch?v=jwBRgaIRdgs](https://www.youtube.com/watch?v=jwBRgaIRdgs) [accessed 3 January 2025]
+|[[Biswal 2012](https://web.archive.org/web/20120822051047/http://www.mindfiresolutions.com/Monkey-Patching-in-Python-1238.php)]|Biswal, B. (2012). Monkey Patching in Python [archived]. Internet Archive Wayback Machine. Available from: [https://web.archive.org/web/20120822051047/http://www.mindfiresolutions.com/Monkey-Patching-in-Python-1238.php](https://web.archive.org/web/20120822051047/http://www.mindfiresolutions.com/Monkey-Patching-in-Python-1238.php) [accessed 3 January 2025] |
+|[[Hammond 2022](https://www.youtube.com/watch?v=jwBRgaIRdgs)]|DANGEROUS Python Flask Debug Mode Vulnerabilities [online]. Available from: [https://www.youtube.com/watch?v=jwBRgaIRdgs](https://www.youtube.com/watch?v=jwBRgaIRdgs) [accessed 3 January 2025] |

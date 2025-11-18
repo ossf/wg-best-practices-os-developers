@@ -10,11 +10,11 @@ a = numpy.int64(numpy.iinfo(numpy.int64).max)
 with warnings.catch_warnings():
     try:
         print(a + 1)
-    except Warning as _:
+    except Warning:
         print("Failed to increment " + str(a) + " due to overflow error")
     # RuntimeWarning and continues
 
 try:
     b = numpy.int64(numpy.iinfo(numpy.int64).max + 1)  # OverflowError and stops
-except OverflowError as e:
+except OverflowError:
     print("Failed to assign value to B due to overflow error")

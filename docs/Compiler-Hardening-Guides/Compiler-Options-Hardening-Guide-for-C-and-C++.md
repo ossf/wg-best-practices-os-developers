@@ -1,6 +1,6 @@
 # Compiler Options Hardening Guide for C and C++
 
-*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2025-07-10*
+*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2025-11-11*
 
 This document is a guide for compiler and linker options that contribute to delivering reliable and secure code using native (or cross) toolchains for C and C++. The objective of compiler options hardening is to produce application binaries (executables) with security mechanisms against potential attacks and/or misbehavior.
 
@@ -237,7 +237,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fno-delete-null-pointer-checks`](#-fno-delete-null-pointer-checks)                     | GCC 3.0.0<br/>Clang 7.0.0            | Force retention of null pointer checks                                                       |
 | [`-fno-strict-overflow`](#-fno-strict-overflow)                                           | GCC 4.2.0                            | Define behavior for signed integer and pointer arithmetic overflows                        |
 | [`-fno-strict-aliasing`](#-fno-strict-aliasing)                                           | GCC 2.95.3<br/>Clang 2.9.0        | Do not assume strict aliasing                                                                |
-| [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12.0.0<br/>Clang 8.0.0               | Perform trivial auto variable initialization                                                 |
+| [`-ftrivial-auto-var-init`](#-ftrivial-auto-var-init)                                     | GCC 12.0.0<br/>Clang 8.0.0           | Initialize automatic variables that lack explicit initializers |
 | [`-fexceptions`](#-fexceptions)                                                           | GCC 2.95.3<br/>Clang 2.6.0           | Enable exception propagation to harden multi-threaded C code                                 |
 | [`-fhardened`](#-fhardened)                                                               | GCC 14.0.0                           | Enable pre-determined set of hardening options in GCC                                        |
 | [`-Wl,--as-needed`](#-Wl,--as-needed)<br/>[`-Wl,--no-copy-dt-needed-entries`](#-Wl,--no-copy-dt-needed-entries) | Binutils 2.20.0 | Allow linker to omit libraries specified on the command line to link against if they are not used |
@@ -294,8 +294,8 @@ In Clang, `-Wformat` includes the same diagnostics as `-Wformat=2`, but unlike i
 
 ### Enable implicit conversion warnings
 
-| Compiler Flag                                                                                             |       Supported since       | Description                         |
-|:--------------------------------------------------------------------------------------------------------- |:------------------------:|:----------------------------------- |
+| Compiler Flag                                                                                             | Supported since            | Description                         |
+|:--------------------------------------------------------------------------------------------------------- |:--------------------------:|:----------------------------------- |
 | <span id="-Wconversion">`-Wconversion`</span><br/><span id="-Wsign-conversion">`-Wsign-conversion`</span> | GCC 2.95.3<br/>Clang 4.0.0 | Enable implicit conversion warnings |
 
 #### Synopsis
@@ -314,6 +314,51 @@ Conversion between data types that cause the value of the data to be altered can
 If the resulting values are used in a context where they control memory accesses or security decisions, then dangerous behaviors may occur, e.g., integer signedness or truncation errors can cause buffer overflows.
 
 For C++ warnings about conversions between signed and unsigned integers are disabled by default unless `-Wsign-conversion` is explicitly enabled.
+
+This warning only applies where a data conversion may lead to data loss. C and C++ conditionals (such as after an "if" statement) accept types other than booleans, for example, integers (where non-zero is interpreted as true) and pointers (where non-NULL is interpreted as true). This interpretation of truthiness could be considered a data type conversion (in a sense), but this option does not create spurious warnings about these perfectly reasonable constructs.
+
+#### Additional Considerations
+
+On large, brown-field code bases the `-Wconversion` option can generate hundreds or thousands of warnings, many of which are benign or stem from idiomatic C patterns. The GCC wiki notes that `-Wconversion` *"is designed for a niche of uses […] where the programmer is willing to accept and workaround invalid warnings."*[^Taylor2012] Because of the volume of diagnostics, developers may start ignoring all warnings, defeating the purpose of the flag. For such projects it can be more pragmatic to start with the narrower `-Wsign-conversion` or to enable `-Wconversion` only for selected translation units.
+
+Consequently we recommend that green-field projects (new code) enable `-Wconversion` from day one and keep the build warning-free. Add the flag to continuous-integration (CI) checks so new patches cannot re-introduce conversions.
+
+For brown-field projects (existing code) we recommend a staged rollout:
+
+1. Build once with `-Wconversion` without failing the build (omit `-Werror`) to record a baseline.
+2. Suppress known-benign patterns with `#pragma GCC diagnostic ignored "-Wconversion"` or targeted `-Wno-conversion` flags.
+3. Triage remaining warnings, prioritising high-risk ones (conversions that influences array indexing, object size calculations, or security-sensitive logic) and refactor them or make the casts explicit.
+4. Gradually tighten the flag: warning → error → part of CI.
+
+##### Removing implicit casts
+
+Where practical, implicit casts that cause data loss should be refactored so that they are unnecessary. For example, they can be:
+
+- Eliminated by harmonizing the types
+- Rewritten to reflect the programmer’s intent clearly (e.g., clamping values instead of truncating bits).
+
+If such a cast is necessary, convert it from an implicit cast to an explicit cast. Each such cast should be justified with a comment. A problem with replacing implicit conversions with explicit C-style casts is that they can introduce new bugs when used incorrectly. For example, if an implicit cast from a 32-bit value to a 16-bit short is mistakenly replaced with a cast to an 8-bit char, this truncates more bits and misrepresents intent.
+
+##### Warning noise from third-party headers
+
+Warnings may originate from system or third-party headers (e.g., Linux headers from `/usr/include`). These should not block analysis of your own code. In such cases, wrap the includes with diagnostic pragmas[^Feske21]:
+
+~~~C
+/*
+ * Disable -Wconversion warnings caused by host headers
+ */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
+
+#include <sys/cdefs.h>
+#include <linux/futex.h>
+...
+
+#pragma GCC diagnostic pop  /* restore -Wconversion warnings */
+~~~
+
+[^Taylor2012]: Taylor, Ian Lance, [The new Wconversion option](https://gcc.gnu.org/wiki/NewWconversion), GCC Wiki, 2012-01-06.
+[^Feske21]: Feske, Norman, [Let's make -Wconversion our new friend!](https://genodians.org/nfeske/2021-12-07-wconversion), Genode Labs, 2021-12-07.
 
 ---
 
@@ -586,6 +631,8 @@ Internally `-D_FORTIFY_SOURCE` relies on the built-in functions for object size 
 
 Applications that incorrectly use `malloc_usable_size`[^malloc_usable_size] to use the additional size reported by the function may abort at runtime. This is a bug in the application because the additional size reported by `malloc_usable_size` is not generally safe to dereference and is for diagnostic uses only. The correct fix for such issues is to avoid using `malloc_usable_size` as the glibc manual specifically states that it is for diagnostic purposes *only* [^malloc_usable_size]. On many Linux systems these incorrect uses can be detected by running `readelf -Ws <path>` on the ELF binaries and searching for `malloc_usable_size@GLIBC`[^kpyrd23]. If avoiding `malloc_usable_size` is not possible, one may call `realloc` to resize the block to its usable size and to benefit from `_FORTIFY_SOURCE=3`.
 
+Additionally, `_FORTIFY_SOURCE` is currently incompatible with [AddressSanitizer](#-fsanitize=address) (and other sanitizers[^Ostapenko16]) as they do not support source fortification. As a result, sanitizers can misbehave on binaries with source fortification enabled (they either produces false negatives or false positives). Consequently we do not recommend enabling `_FORTIFY_SOURCE` for instrumented test builds where sanitizers are used. Since most Linux distributions enable `_FORTIFY_SOURCE` by default[^compiler-flags-distro], it may need to be explicitly disabled for such sanitizer-instrumented test builds.
+
 [^glibc-fortification]: GNU C Library team, [Source Fortification in the GNU C Library](https://www.gnu.org/software/libc/manual/html_node/Source-Fortification.html), GNU C Library (glibc) manual, 2023-02-01.
 
 [^Poyarekar23]: Poyarekar, Siddhesh, [How to improve application security using _FORTIFY_SOURCE=3](https://developers.redhat.com/articles/2023/02/06/how-improve-application-security-using-fortifysource3), Red Hat Developer, 2023-02-06.
@@ -599,6 +646,8 @@ Applications that incorrectly use `malloc_usable_size`[^malloc_usable_size] to u
 [^malloc_usable_size]: Linux Man Pages team, [malloc_usable_size(3)](https://man7.org/linux/man-pages/man3/malloc_usable_size.3.html), Linux manual page, 2023-03-30.
 
 [^kpyrd23]: kpcyrd, [Task Todo List Prepare packages for -D_FORTIFY_SOURCE=3](https://archlinux.org/todo/prepare-packages-for-d_fortify_source3/), Arch Linux Task Todo List, 2023-09-05.
+
+[^Ostapenko16]: Ostapenko, Maxim, [Do not allow asan/msan/tsan and fortify at the same time.](https://inbox.sourceware.org/libc-alpha/57CDAB08.8060601@samsung.com/), GNU C Library mailing list, 2016-09-05.
 
 ---
 
@@ -1050,15 +1099,15 @@ This option eliminates this problem. It's used by the Linux kernel.
 
 ---
 
-### Perform trivial auto variable initialization
+### Initialize automatic variables that lack explicit initializers
 
-| Compiler Flag                                                       | Supported since     | Description                                  |
-|:--------------------------------------------------------------------|:-------------------:|:---------------------------------------------|
-| <span id="-ftrivial-auto-var-init">`-ftrivial-auto-var-init`</span> | GCC 12.0.0<br/>Clang 8.0.0| Perform trivial auto variable initialization |
+| Compiler Flag                                                       | Supported since            | Description                                                    |
+|:--------------------------------------------------------------------|:--------------------------:|:---------------------------------------------------------------|
+| <span id="-ftrivial-auto-var-init">`-ftrivial-auto-var-init`</span> | GCC 12.0.0<br/>Clang 8.0.0 | Initialize automatic variables that lack explicit initializers |
 
 #### Synopsis
 
-This option controls if (and how) automatic variables are initialized. Even with the option, the compiler will consider an automatic variable as uninitialized unless it is explicitly initialized.
+This option controls if (and how) automatic, (i.e., stack-allocated) variables are initialized by the compiler in the absence of an explicit initializer.
 
 This option has three choices:
 
@@ -1068,7 +1117,27 @@ This option has three choices:
 
 We recommend using `zero` for production code, to reduce the risk of a logic bug leading to a security vulnerability.
 
-This setting can sometimes interfere with other tools that are being used to monitor executable code, since it is expressly setting a value that was not set by the source code.
+Even when this option is used, GCC will still considers an automatic variable without an explicit initializer as uninitialized for the purpoes of the static analysis performed by `-Wuninitialized` and `-Wanalyzer-use-of-uninitialized-value` and report warning diagnostics accordingly[^gcc-trivial-auto-var-init]. GCC will also perform optimization as if the variable were uninitialized.
+
+#### Performance implications
+
+This option initializes automatic variables at the time they are allocated which can add overhead to programs. For example, in performance-critical code, the initialization of variables might be required to happen at a specific point in the code later than when storage for the variable is allocated on the stack, and the code generated by the compiler when can `-ftrivial-auto-var-init` slow down execution if the generated initialization occurs in a performance-critical code path.
+
+The overhead added by `-ftrivial-auto-var-init` scales with the size and frequency of allocations for which the compiler generates (unnecessary) initialization code.
+
+#### When not to use?
+
+Automatic initialization can interfere with dynamic analysis tools such as Valgrind[^valgrind], Dr. Memory[^drmemory], and Clang's Memory Sanitizer[^msan], since it is expressly setting a value that was not set by the source code. This can mask issues with uninitialized variables that could otherwise be detected and fixed, making it less suitable for debugging and software testing. Consequently, we discourage the use of `-ftrivial-auto-var-init` for instrumented test code intended to be used for dynamic analysis of unitialized variables issues.
+
+In specific cases, the `pattern` variant of this option can make uninitialized memory easier to spot when debugging because the patterns used are less likely to be used as real values[^arm-ftrivial-auto-var-init]. For example, the pointer values are chosen to be invalid for many systems.
+
+In addition, initializing all automatic variables can lead to an increase in the binary size of the compiled program[^arm-ftrivial-auto-var-init]. This can be an issue in embedded environments where memory is limited.
+
+[^gcc-trivial-auto-var-init]: GCC team, [Options That Control Optimization: `-ftrivial-auto-var-init`](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-ftrivial-auto-var-init), GCC Manual, 2025-05-30..
+[^arm-ftrivial-auto-var-init]: Arm, [Arm Compiler for Embedded Reference Guide: `-ftrivial-auto-var-init`](https://developer.arm.com/documentation/101754/0624/armclang-Reference/armclang-Command-line-Options/-ftrivial-auto-var-init), Arm Compiler for Embedded Reference Guide, Version 6.24, 2025-05-31.
+[^valgrind]: Valgrind Developers, [Valgrind](https://valgrind.org/), 2025-05-20.
+[^drmemory]: Dr. memory team, [Dr. Memory](https://drmemory.org/), 2025-04-11.
+[^msan]: LLVM Sanitizers team, [NemorySanitizer](https://github.com/google/sanitizers/wiki/memorysanitizerr), GitHub google/sanitizers Wiki, 2024-06-09.
 
 <!-- More information
 https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-ftrivial-auto-var-init
@@ -1253,9 +1322,9 @@ Table 4: Sanitizer options in GCC and Clang.
 
 ### AddressSanitizer
 
-| Compiler Flag          |     Supported since      | Description                                                                 |
-|:---------------------- |:---------------------:|:--------------------------------------------------------------------------- |
-| `-fsanitize=address`   | GCC 4.8.0<br/>Clang 3.1.0 | Enables AddressSanitizer to detect memory errors at run-time                |
+| Compiler Flag                                              | Supported since           | Description                                                                 |
+|:---------------------------------------------------------- |:-------------------------:|:--------------------------------------------------------------------------- |
+| <span id="-fsanitize=address">`-fsanitize=address`</span>  | GCC 4.8.0<br/>Clang 3.1.0 | Enables AddressSanitizer to detect memory errors at run-time                |
 
 AddressSanitizer (ASan) is a memory error detector that can identify memory defects that involve:
 
@@ -1283,7 +1352,9 @@ check_initialization_order=1:strict_init_order=1 ./instrumented-executable
 
 When ASan encounters a memory error it (by default) terminates the application and prints an error message and stack trace describing the nature and location of the detected error. A systematic description of the different error types and the corresponding root causes reported by ASan can be found in the AddressSanitizer article on the project's GitHub Wiki[^asan].
 
-ASan cannot be used simultaneously with ThreadSanitizer or LeakSanitizer. It is not possible to mix ASan-instrumented code produced by GCC with ASan-instrumented code produced Clang as the ASan implementations in GCC and Clang are mutually incompatible.
+ASan cannot be used simultaneously with ThreadSanitizer. It is not possible to mix ASan-instrumented code produced by GCC with ASan-instrumented code produced Clang as the ASan implementations in GCC and Clang are mutually incompatible.
+
+Additionally, ASan is known to report false negatives if combined with [`-D_FORTIFY_SOURCE`](#-D_FORTIFY_SOURCE=3) [^Ostapenko16].
 
 [^asan-flags]: LLVM Sanitizers team, [AddressSanitizerFlags](https://github.com/google/sanitizers/wiki/AddressSanitizerFlags), GitHub google/sanitizers Wiki, 2019-05-15.
 
