@@ -213,3 +213,42 @@ def test_readme_follows_template_order(readme_file: Path):
         f"{readme_file}:\n  Section order issues:\n"
         + "\n".join(f"    - {issue}" for issue in order_issues)
     )
+
+
+@pytest.mark.markdown
+def test_readme_inlined_code_matches_files(readme_file: Path):
+    """
+    Validate that inlined code in README.md matches actual Python files.
+
+    README files contain inlined code blocks that reference Python files like:
+    *[noncompliant01.py](noncompliant01.py):*
+    ```python
+    ... code ...
+    ```
+
+    This test ensures the inlined code matches the actual file content
+    (after stripping SPDX headers and test markers).
+
+    Args:
+        readme_file: Path to README.md file to validate
+    """
+    from tests.utils.code_inline_validator import compare_inlined_code, format_diff
+
+    mismatches = compare_inlined_code(readme_file)
+
+    if mismatches:
+        error_messages = []
+        for filename, issue_type, inlined, actual in mismatches:
+            if issue_type == "missing_file":
+                error_messages.append(f"  - {filename}: {inlined}")
+            elif issue_type == "content_mismatch":
+                error_messages.append(
+                    f"  - {filename}: Inlined code doesn't match file content"
+                )
+                # Expected = actual file content, Actual = what's inlined in README
+                error_messages.append(f"    {format_diff(actual, inlined)}")
+
+        assert False, (
+            f"{readme_file}:\n  Inlined code mismatches:\n"
+            + "\n".join(error_messages)
+        )
