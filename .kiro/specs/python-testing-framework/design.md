@@ -8,7 +8,7 @@ This design describes a pytest-based testing framework for the Secure Coding Gui
 
 ### High-Level Structure
 
-```
+```text
 docs/Secure-Coding-Guide-for-Python/
 ├── tests/                          # New testing directory
 │   ├── __init__.py
@@ -26,7 +26,7 @@ docs/Secure-Coding-Guide-for-Python/
 
 ### GitHub Actions Integration
 
-```
+```text
 .github/workflows/
 ├── linter.yml                      # Existing markdown linter
 └── python-tests.yml                # New Python testing workflow
@@ -39,11 +39,13 @@ docs/Secure-Coding-Guide-for-Python/
 **Purpose**: Discover Python files and README.md files in the directory structure
 
 **Key Functions**:
+
 - `find_python_files(root_dir: str) -> List[Path]`: Recursively finds all `.py` files under the root directory, excluding the tests directory itself
 - `find_readme_files(root_dir: str) -> List[Path]`: Recursively finds all `README.md` files in CWE directories
 - `get_cwe_directories(root_dir: str) -> List[Path]`: Identifies all CWE-specific directories
 
 **Implementation Notes**:
+
 - Use `pathlib.Path` for cross-platform compatibility
 - Exclude template files and test files from validation
 - Cache results in pytest fixtures for performance
@@ -71,6 +73,7 @@ docs/Secure-Coding-Guide-for-Python/
    - Output: Pass/fail with import error details
 
 **Implementation Strategy**:
+
 - Use `pytest.mark.parametrize` with file list from scanner
 - Capture stdout/stderr during execution to prevent test output pollution
 - Use subprocess for isolated execution to prevent side effects
@@ -81,12 +84,14 @@ docs/Secure-Coding-Guide-for-Python/
 **Purpose**: Parse README.md files and extract structural elements
 
 **Key Functions**:
+
 - `parse_markdown(file_path: Path) -> Dict`: Parses markdown and returns structure
 - `extract_sections(content: str) -> List[str]`: Extracts all heading sections
 - `extract_code_references(content: str) -> List[str]`: Finds references to Python files (e.g., `compliant01.py`)
 - `validate_table_structure(content: str, table_name: str) -> bool`: Validates presence and structure of required tables
 
 **Implementation Notes**:
+
 - Use regex patterns to identify markdown elements
 - Consider using `markdown` library or simple regex for lightweight parsing
 - Return structured data for easy test assertions
@@ -125,6 +130,7 @@ docs/Secure-Coding-Guide-for-Python/
    - Output: Pass/fail with ordering issues
 
 **Implementation Strategy**:
+
 - Use markdown parser utility to extract structure
 - Compare against template requirements
 - Provide clear error messages indicating what's missing or incorrect
@@ -151,6 +157,7 @@ docs/Secure-Coding-Guide-for-Python/
    - Output: Pass/fail with broken index links
 
 **Implementation Strategy**:
+
 - Use `lychee` CLI tool for comprehensive link checking (supports internal and external links)
 - Alternative: Use `markdownlint-cli2` with link validation plugins
 - Wrap CLI tool execution in pytest tests for integration with test suite
@@ -162,12 +169,14 @@ docs/Secure-Coding-Guide-for-Python/
 **Purpose**: Centralize test configuration and shared fixtures
 
 **Fixtures**:
+
 - `python_files`: Session-scoped fixture returning list of all Python files to validate
 - `readme_files`: Session-scoped fixture returning list of all README.md files to validate
 - `project_root`: Fixture providing path to Secure-Coding-Guide-for-Python directory
 - `template_structure`: Fixture providing parsed template structure for comparison
 
 **Configuration**:
+
 - Set pytest markers for test categorization (`@pytest.mark.python`, `@pytest.mark.markdown`)
 - Configure test output formatting
 - Set up logging for detailed error reporting
@@ -177,6 +186,7 @@ docs/Secure-Coding-Guide-for-Python/
 **Purpose**: Modern Python project configuration following PEP 735 standards
 
 **Configuration Structure**:
+
 ```toml
 [project]
 name = "secure-coding-guide-python-tests"
@@ -253,6 +263,7 @@ exclude_lines = [
 ```
 
 **Design Decisions**:
+
 - Use PEP 735 `[dependency-groups]` instead of `[project.optional-dependencies]`
 - Separate `test` group (minimal) from `dev` group (includes linting/tox)
 - Configure pytest, ruff, and coverage in single file
@@ -264,6 +275,7 @@ exclude_lines = [
 **Purpose**: Enable local multi-version testing with the same matrix as CI/CD
 
 **Configuration Structure**:
+
 ```ini
 [tox]
 requires = tox-uv
@@ -297,6 +309,7 @@ commands =
 ```
 
 **Design Decisions**:
+
 - Use `requires = tox-uv` to enable uv integration
 - Use `groups = test` to install from PEP 735 dependency groups
 - Match CI/CD Python version matrix (3.9-3.14) for consistency
@@ -304,6 +317,7 @@ commands =
 - No `skipsdist` needed - tox-uv handles this automatically
 
 **Local Usage**:
+
 ```bash
 # Install uv and tox
 uv pip install tox tox-uv
@@ -329,6 +343,7 @@ tox -e links
 **Purpose**: Automate test execution on pull requests and pushes using `uv`
 
 **Workflow Structure**:
+
 ```yaml
 name: Python Tests
 
@@ -381,6 +396,7 @@ jobs:
 ```
 
 **Design Decisions**:
+
 - Test against multiple Python versions (3.9-3.14) to ensure broad compatibility and catch version-specific deprecation warnings
 - Use `astral-sh/setup-uv@v3` action with caching enabled for fast, reliable uv installation
 - Use `uv python install` to install specific Python version (uv manages Python versions)
@@ -392,6 +408,7 @@ jobs:
 - Use verbose output (`-v`) and short traceback (`--tb=short`) for readable CI logs
 
 **Performance Benefits**:
+
 - `uv` is 10-100x faster than pip for dependency resolution and installation
 - Parallel dependency downloads
 - Better caching in CI/CD environments
@@ -400,6 +417,7 @@ jobs:
 ## Data Models
 
 ### Python File Validation Result
+
 ```python
 @dataclass
 class PythonValidationResult:
@@ -413,6 +431,7 @@ class PythonValidationResult:
 ```
 
 ### Markdown Validation Result
+
 ```python
 @dataclass
 class MarkdownValidationResult:
@@ -456,6 +475,7 @@ class MarkdownValidationResult:
 ### Unit Tests for Test Utilities
 
 Create tests for the testing framework itself:
+
 - `test_file_scanner.py`: Validate file discovery logic
 - `test_markdown_parser.py`: Validate markdown parsing logic
 
@@ -484,11 +504,13 @@ Create tests for the testing framework itself:
 All dependencies are managed via PEP 735 dependency groups in `pyproject.toml`:
 
 ### Test Dependencies (dependency-groups.test)
+
 - `pytest>=8.0.0` - Testing framework
 - `pytest-cov>=4.1.0` - Coverage reporting
 - `pytest-xdist>=3.5.0` - Parallel test execution
 
 ### Development Dependencies (dependency-groups.dev)
+
 - All test dependencies plus:
 - `ruff>=0.4.0` - Fast Python linter and formatter
 - `tox>=4.0.0` - Multi-version testing orchestration
@@ -498,6 +520,7 @@ All dependencies are managed via PEP 735 dependency groups in `pyproject.toml`:
 ### Installation
 
 **Install uv** (one-time setup):
+
 ```bash
 # Linux/macOS
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -513,6 +536,7 @@ brew install uv
 ```
 
 **Install project dependencies**:
+
 ```bash
 cd docs/Secure-Coding-Guide-for-Python
 
@@ -532,6 +556,7 @@ uv run tox
 ## Migration and Rollout
 
 ### Phase 1: Initial Implementation
+
 1. Create `pyproject.toml` with PEP 735 dependency groups
 2. Create `tox.ini` with multi-version testing configuration
 3. Create test directory structure
@@ -541,12 +566,14 @@ uv run tox
 7. Test with subset of files
 
 ### Phase 2: Enhanced Validation
+
 1. Add deprecation warning detection
 2. Add import validation
 3. Implement markdown parser utility
 4. Add markdown structure validation
 
 ### Phase 3: Refinement
+
 1. Add code reference validation
 2. Add table structure validation
 3. Optimize performance with pytest-xdist
@@ -554,6 +581,7 @@ uv run tox
 5. Add documentation
 
 ### Phase 4: Documentation and Adoption
+
 1. Add README in tests/ directory with local testing instructions
 2. Document uv and tox usage
 3. Update CONTRIBUTING.md with testing framework information

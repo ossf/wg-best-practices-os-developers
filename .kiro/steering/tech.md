@@ -3,7 +3,7 @@
 ## Build System & Tools
 
 - **Package Manager**: npm
-- **Linting & Formatting**: 
+- **Linting & Formatting**:
   - Prettier for code formatting
   - markdownlint-cli for Markdown linting
   - GitHub Super-Linter for CI/CD validation
@@ -11,6 +11,7 @@
 ## Documentation Publishing
 
 The project uses the **Simplest Possible Process (SPP)** for publishing documentation:
+
 - **Static Site Generator**: Jekyll (GitHub Pages default)
 - **Markdown Processor**: kramdown (default)
 - **Template**: Minima (default Jekyll theme)

@@ -91,6 +91,7 @@ uv run pytest tests/test_python_validation.py::test_python_syntax_valid -v
 ```
 
 **What it checks:**
+
 - Syntax validation using `ast.parse()`
 - Deprecation warnings when executing code
 - Expected output matches documentation (for files with documented output)
@@ -109,6 +110,7 @@ uv run pytest tests/test_markdown_validation.py::test_readme_has_required_sectio
 ```
 
 **What it checks:**
+
 - Required sections presence (title, introduction, Non-Compliant Code Example, Compliant Solution, etc.)
 - Code file references (compliant01.py, noncompliant01.py) exist
 
@@ -122,6 +124,7 @@ uv run pytest tests/test_link_validation.py -v
 ```
 
 **What it checks:**
+
 - Internal links point to existing files
 - Index table links are valid
 - Code file references exist
@@ -161,6 +164,7 @@ uv run tox -p
 The `tox.ini` configuration provides several environments:
 
 **Test Environments:**
+
 ```bash
 # Python 3.9
 uv run tox -e py39
@@ -182,18 +186,21 @@ uv run tox -e py314
 ```
 
 **Linting:**
+
 ```bash
 # Run ruff linting checks
 uv run tox -e lint
 ```
 
 **Coverage:**
+
 ```bash
 # Run tests with full coverage reporting
 uv run tox -e coverage
 ```
 
 **Link Checking:**
+
 ```bash
 # Check internal markdown links only (fast, reliable)
 uv run tox -e links
@@ -203,18 +210,20 @@ uv run tox -e links-external
 ```
 
 > **Note:** Both `links` environments require [lychee](https://github.com/lycheeverse/lychee), a Rust-based link checker, to be installed separately. The `links-external` environment checks external URLs which can be slow and may fail due to network issues or rate limiting - use it locally before major releases:
-> 
+>
 > **Windows:**
+>
 > - Scoop: `scoop install lychee`
 > - Chocolatey: `choco install lychee`
 > - Cargo: `cargo install lychee`
 > - [Download binary](https://github.com/lycheeverse/lychee/releases)
-> 
+>
 > **Linux/macOS:**
+>
 > - Cargo: `cargo install lychee`
 > - Homebrew: `brew install lychee`
 > - [Download binary](https://github.com/lycheeverse/lychee/releases)
-> 
+>
 > Internal link validation is already covered by `test_link_validation.py` and doesn't require lychee.
 
 ## Coverage Reports
@@ -293,6 +302,7 @@ lychee --offline --base . **/*.md
 ```
 
 **What it checks:**
+
 - Internal links (relative paths to other files)
 - Anchor links within documents
 - Code file references
@@ -383,7 +393,7 @@ def my_fixture():
 
 ### Directory Structure
 
-```
+```text
 tests/
 ├── __init__.py                     # Package marker
 ├── conftest.py                     # Pytest configuration and fixtures
@@ -400,11 +410,13 @@ tests/
 ### Key Components
 
 **Fixtures (`conftest.py`):**
+
 - `project_root`: Path to Secure-Coding-Guide-for-Python directory
 - `python_files`: Session-scoped list of all Python files to validate
 - `readme_files`: Session-scoped list of all README.md files to validate
 
 **Utilities:**
+
 - `file_scanner.py`: Discovers Python and README files recursively
 - `markdown_parser.py`: Parses markdown structure and extracts elements
 - `output_validator.py`: Validates Python output against expected results
@@ -416,17 +428,20 @@ Tests run automatically on GitHub Actions with smart optimizations for speed:
 ### Test Execution Strategy
 
 **Pull Requests (Fast - Targeted Testing):**
+
 - Only tests files in changed CWE directories
 - Significantly faster for focused changes (typically 30-60 seconds)
 - Example: Changing `CWE-089/compliant01.py` only tests CWE-089 files
 - Reduces CI time from ~3 minutes to under 1 minute for typical PRs
 
 **Pushes to main (Comprehensive):**
+
 - Runs full test suite across all 661+ tests
 - Ensures overall repository health
 - Takes ~3 minutes across Python 3.9-3.14
 
 **Manual Trigger (On-Demand):**
+
 - Can manually trigger full test suite via GitHub Actions UI
 - Go to Actions → Python Tests → Run workflow
 - Useful for validating entire codebase after major changes
@@ -436,6 +451,7 @@ Tests run automatically on GitHub Actions with smart optimizations for speed:
 The workflow (`.github/workflows/python-tests.yml`) runs tests across Python versions 3.9-3.14 using a matrix strategy.
 
 **Viewing CI Results:**
+
 1. Navigate to the "Actions" tab in GitHub
 2. Select the "Python Tests" workflow
 3. View test results for each Python version
@@ -448,24 +464,28 @@ Coverage reports are uploaded to Codecov from the Python 3.12 run.
 ### Common Issues
 
 **Issue: `uv: command not found`**
+
 ```bash
 # Install uv first
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 **Issue: Tests fail with import errors**
+
 ```bash
 # Ensure dependencies are installed
 uv sync --group test
 ```
 
 **Issue: Tox fails to find Python version**
+
 ```bash
 # Install the required Python version with uv
 uv python install 3.11
 ```
 
 **Issue: Coverage report not generated**
+
 ```bash
 # Ensure pytest-cov is installed
 uv sync --group test

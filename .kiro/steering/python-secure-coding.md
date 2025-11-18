@@ -54,6 +54,7 @@ An educational resource providing secure coding guidance for CPython >= 3.9 with
 ### What NOT to Include in Examples
 
 Code examples are educational only, NOT production-ready. They intentionally omit:
+
 - Inline documentation
 - Custom exceptions
 - Full descriptive variable names
@@ -74,7 +75,7 @@ Use `# TODO:` comments for aspects not covered.
 
 ### Example Structure
 
-```
+```text
 docs/Secure-Coding-Guide-for-Python/
 ├── CWE-707/                    # Pillar
 │   └── CWE-89/                 # Rule (Base/Variant/Class)
@@ -111,12 +112,14 @@ Each rule's README.md must include:
 ## Branch Naming
 
 Use prefix `pySCG-` for Python Secure Coding Guide branches:
+
 - `pySCG-issue-123`
 - `pySCG-add-logging-feature`
 
 ## Review Requirements
 
 Pull requests require approval from:
+
 1. At least one core team member for this Python project
 2. At least one additional reviewer (can be any GitHub user)
 
