@@ -18,6 +18,122 @@ Please read and adhere to our [Code of Conduct](https://github.com/ossf/wg-best-
 
 3. Set up the development environment with a Python environment >= `3.9` and a `Markdown` reader.
 
+## Running Tests
+
+Before submitting a pull request, run the testing framework to ensure your changes meet quality standards. The testing framework validates Python code examples and Markdown documentation structure.
+
+### Quick Start
+
+Install [uv](https://docs.astral.sh/uv/), a fast Python package manager:
+
+```bash
+# Linux/macOS
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Windows
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Navigate to the Secure Coding Guide directory and install test dependencies:
+
+```bash
+cd docs/Secure-Coding-Guide-for-Python
+uv sync --group test
+```
+
+Run all tests:
+
+```bash
+uv run pytest tests/ -v
+```
+
+### What the Tests Validate
+
+The testing framework checks:
+
+- **Python Code Quality**: Syntax validation, deprecation warnings, and expected output
+- **Documentation Consistency**: README.md files conform to the template structure
+- **Link Integrity**: All internal links and code references are valid
+
+### Expected Test Results
+
+When you run tests, you should see output like:
+
+```
+tests/test_python_validation.py::test_python_syntax_valid PASSED
+tests/test_markdown_validation.py::test_readme_has_required_sections PASSED
+tests/test_link_validation.py::test_internal_links_valid PASSED
+```
+
+### Interpreting Test Failures
+
+**Syntax Errors:**
+```
+FAILED tests/test_python_validation.py::test_python_syntax_valid[CWE-089/noncompliant01.py]
+  Syntax error in CWE-089/noncompliant01.py:
+    Line 5: invalid syntax
+```
+Fix the syntax error in the specified file at the indicated line.
+
+**Missing README Sections:**
+```
+FAILED tests/test_markdown_validation.py::test_readme_has_required_sections[CWE-089/README.md]
+  Missing required sections: Compliant Solution, Bibliography
+```
+Add the missing sections to your README.md file following the [template](templates/README_TEMPLATE.md).
+
+**Broken Links:**
+```
+FAILED tests/test_link_validation.py::test_internal_links_valid[CWE-089/README.md]
+  Broken link: [compliant01.py](compliant01.py) -> /path/to/compliant01.py
+```
+Create the referenced file or fix the link in your README.md.
+
+**Deprecation Warnings:**
+```
+FAILED tests/test_python_validation.py::test_python_no_deprecation_warnings[CWE-089/example01.py]
+  DeprecationWarning in CWE-089/example01.py:
+    DeprecationWarning: 'method' is deprecated, use 'new_method' instead
+```
+Update the code to use non-deprecated APIs. If the deprecation is intentional for educational purposes, add `# EXPECTED_FAILURE: demonstrating deprecated API` to the top of the file.
+
+### Running Specific Tests
+
+Run only Python validation tests:
+
+```bash
+uv run pytest tests/test_python_validation.py -v
+```
+
+Run only Markdown validation tests:
+
+```bash
+uv run pytest tests/test_markdown_validation.py -v
+```
+
+Run tests for a specific CWE:
+
+```bash
+uv run pytest tests/ -k "CWE-089" -v
+```
+
+### Multi-Version Testing
+
+Test across Python versions 3.9-3.14 using tox:
+
+```bash
+uv sync --group dev
+uv run tox
+```
+
+### Continuous Integration
+
+All pull requests automatically run tests via GitHub Actions across multiple Python versions. You can view test results in the "Checks" tab of your pull request. Tests must pass before your PR can be merged.
+
+### Detailed Documentation
+
+For comprehensive testing documentation, including how to add new validation rules and advanced usage, see [tests/README.md](tests/README.md).
+
 ## How to Contribute
 
 We welcome contributions in many forms—whether it’s fixing a bug or typo, improving the readability of the guide, adding a new code example, or creating entirely new pages to cover missing material. Before you start, please check for existing issues.
