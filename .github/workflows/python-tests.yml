@@ -91,12 +91,12 @@ jobs:
           CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
         run: |
           # Extract unique CWE directories from changed files
-          CHANGED_DIRS=$(echo "$CHANGED_FILES" | tr ' ' '\n' | grep -E 'CWE-|Intro_' | sed 's|docs/Secure-Coding-Guide-for-Python/||' | sed 's|/.*||' | sort -u | tr '\n' ' ')
+          CHANGED_DIRS=$(echo "$CHANGED_FILES" | tr ' ' '\n' | grep -E 'CWE-|Intro_' | sed 's|docs/Secure-Coding-Guide-for-Python/||' | sed 's|/.*||' | sort -u)
           
           if [ -n "$CHANGED_DIRS" ]; then
             echo "::notice::Testing changed directories: $CHANGED_DIRS"
-            # Build pytest -k filter for changed directories
-            FILTER=$(echo "$CHANGED_DIRS" | sed 's/ / or /g')
+            # Build pytest -k filter for changed directories (trim spaces and join with ' or ')
+            FILTER=$(echo "$CHANGED_DIRS" | tr '\n' ' ' | sed 's/^ *//;s/ *$//' | sed 's/ / or /g')
             uv run pytest tests/ --tb=line -q -k "$FILTER" || {
               echo "::error::Tests failed. See details above."
               exit 1
