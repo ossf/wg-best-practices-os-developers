@@ -170,6 +170,9 @@ Python Code Issues:
   CWE-664/CWE-460/noncompliant01.py
     -> Execution timeout (intentional infinite loop/blocking)
 
+  CWE-664/CWE-502/noncompliant01.py
+    -> Execution timeout (intentional infinite loop/blocking)
+
   CWE-664/CWE-833/noncompliant01.py
     -> Execution timeout (intentional infinite loop/blocking)
 
@@ -180,7 +183,7 @@ Python Code Issues:
     -> Execution timeout (intentional infinite loop/blocking)
 
 ======================================================================
-Total Files with Issues: 52
+Total Files with Issues: 53
 
 For detailed output: uv run pytest tests/ -v
 For fix instructions: see tests/README.md

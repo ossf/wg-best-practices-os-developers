@@ -206,7 +206,7 @@ def main():
     # Optionally save to file
     if args.save:
         output_file = Path(__file__).parent.parent / "KNOWN_ISSUES.md"
-        output_file.write_text(report, encoding="utf-8")
+        output_file.write_text(report + "\n", encoding="utf-8")
         print(f"\nReport saved to: {output_file}")
 
     return 1
