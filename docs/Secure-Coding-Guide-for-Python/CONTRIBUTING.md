@@ -8,15 +8,139 @@ Please read and adhere to our [Code of Conduct](https://github.com/ossf/wg-best-
 
 ## Getting Started
 
-1. __Fork the repository:__ Click the "Fork" button at the top of this page to create a copy of the repository under your GitHub account.
+1. **Fork the repository:** Click the "Fork" button at the top of this page to create a copy of the repository under your GitHub account.
 
-2. __Clone your fork:__ Use the following command to clone the repository to your local machine:
+2. **Clone your fork:** Use the following command to clone the repository to your local machine:
 
     ```bash
     git clone https://github.com/your-username/repo-name.git
     ```
 
 3. Set up the development environment with a Python environment >= `3.9` and a `Markdown` reader.
+
+## Running Tests
+
+Before submitting a pull request, run the testing framework to ensure your changes meet quality standards. The testing framework validates Python code examples and Markdown documentation structure.
+
+### Quick Start
+
+Install [uv](https://docs.astral.sh/uv/), a fast Python package manager:
+
+```bash
+# Linux/macOS
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Windows
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Navigate to the Secure Coding Guide directory and install test dependencies:
+
+```bash
+cd docs/Secure-Coding-Guide-for-Python
+uv sync --group test
+```
+
+Run all tests:
+
+```bash
+uv run pytest tests/ -v
+```
+
+### What the Tests Validate
+
+The testing framework checks:
+
+- **Python Code Quality**: Syntax validation, deprecation warnings, and expected output
+- **Documentation Consistency**: README.md files conform to the template structure
+- **Link Integrity**: All internal links and code references are valid
+
+### Expected Test Results
+
+When you run tests, you should see output like:
+
+```text
+tests/test_python_validation.py::test_python_syntax_valid PASSED
+tests/test_markdown_validation.py::test_readme_has_required_sections PASSED
+tests/test_link_validation.py::test_internal_links_valid PASSED
+```
+
+### Interpreting Test Failures
+
+**Syntax Errors:**
+
+```text
+FAILED tests/test_python_validation.py::test_python_syntax_valid[CWE-089/noncompliant01.py]
+  Syntax error in CWE-089/noncompliant01.py:
+    Line 5: invalid syntax
+```
+
+Fix the syntax error in the specified file at the indicated line.
+
+**Missing README Sections:**
+
+```text
+FAILED tests/test_markdown_validation.py::test_readme_has_required_sections[CWE-089/README.md]
+  Missing required sections: Compliant Solution, Bibliography
+```
+
+Add the missing sections to your README.md file following the [template](templates/README_TEMPLATE.md).
+
+**Broken Links:**
+
+```text
+FAILED tests/test_link_validation.py::test_internal_links_valid[CWE-089/README.md]
+  Broken link: [compliant01.py](compliant01.py) -> /path/to/compliant01.py
+```
+
+Create the referenced file or fix the link in your README.md.
+
+**Deprecation Warnings:**
+
+```text
+FAILED tests/test_python_validation.py::test_python_no_deprecation_warnings[CWE-089/example01.py]
+  DeprecationWarning in CWE-089/example01.py:
+    DeprecationWarning: 'method' is deprecated, use 'new_method' instead
+```
+
+Update the code to use non-deprecated APIs. If the deprecation is intentional for educational purposes, add `# EXPECTED_FAILURE: demonstrating deprecated API` to the top of the file.
+
+### Running Specific Tests
+
+Run only Python validation tests:
+
+```bash
+uv run pytest tests/test_python_validation.py -v
+```
+
+Run only Markdown validation tests:
+
+```bash
+uv run pytest tests/test_markdown_validation.py -v
+```
+
+Run tests for a specific CWE:
+
+```bash
+uv run pytest tests/ -k "CWE-089" -v
+```
+
+### Multi-Version Testing
+
+Test across Python versions 3.9-3.14 using tox:
+
+```bash
+uv sync --group dev
+uv run tox
+```
+
+### Continuous Integration
+
+All pull requests automatically run tests via GitHub Actions across multiple Python versions. You can view test results in the "Checks" tab of your pull request. Tests must pass before your PR can be merged.
+
+### Detailed Documentation
+
+For comprehensive testing documentation, including how to add new validation rules and advanced usage, see [tests/README.md](tests/README.md).
 
 ## How to Contribute
 
@@ -31,14 +155,14 @@ Steps to join #secure-coding-guide-for-python slack channel as per [Beginner to 
 
 Become part of organizing bigger changes via our bi-weekly online meeting, see details in:
 
-* [Meeting Notes](https://docs.google.com/document/d/1u1gJMtOz-P5Z71B-vKKigzTbIDIS-bUNgNIcfnW4r-k)
+- [Meeting Notes](https://docs.google.com/document/d/1u1gJMtOz-P5Z71B-vKKigzTbIDIS-bUNgNIcfnW4r-k)
 
 It is helpful to know:
 
-* Why we do this, as explained in our mission statement.
-* Our documentation style
-* Code standards, Python and Markdown linters and such
-* Folder, file layout and naming conventions
+- Why we do this, as explained in our mission statement.
+- Our documentation style
+- Code standards, Python and Markdown linters and such
+- Folder, file layout and naming conventions
 
 ## Target Audience
 
@@ -76,33 +200,33 @@ The goal is to provide a learning resource for secure coding in `Python` that is
 
 Similar to Python itself, the learning shall be as fun as possible by providing:
 
-* Working code examples
-* Usable in a local coding programming IDE or online either CLI or web.
-* Independence of any specific web framework or module.
-* Documentation free of bias towards a single commercial vendor of security tooling
-* Short concise and way below 40+ hours of other secure coding resources for a full study.
-* Overview table of rule vs risk rating.
-* Evidence based approach on risk rating.
+- Working code examples
+- Usable in a local coding programming IDE or online either CLI or web.
+- Independence of any specific web framework or module.
+- Documentation free of bias towards a single commercial vendor of security tooling
+- Short concise and way below 40+ hours of other secure coding resources for a full study.
+- Overview table of rule vs risk rating.
+- Evidence based approach on risk rating.
 
 Join us to explore how this resource can become an indispensable part of your secure coding toolkit
 
 ## Documentation Style
 
-* Bottom Line Up Front (BLUF), conclusion is in the first sentence of a rule
-* Keep It Small and Simple (KISS)
-* Working code examples
-* Academic in wording whilst aiming for low word count.
-* No fluff, "in software security it is important to be aware of ...."
-* Use imperative "do x and y to ensure z" instead of vague wording "might want to, could be a good idea..."
-* bibliography, follow the Harvard reference guide
+- Bottom Line Up Front (BLUF), conclusion is in the first sentence of a rule
+- Keep It Small and Simple (KISS)
+- Working code examples
+- Academic in wording whilst aiming for low word count.
+- No fluff, "in software security it is important to be aware of ...."
+- Use imperative "do x and y to ensure z" instead of vague wording "might want to, could be a good idea..."
+- bibliography, follow the Harvard reference guide
 
 A template for a rule is available here: [README_TEMPLATE.md](templates/README_TEMPLATE.md) with inline documentation on each section.
 
 Each rule should have:
 
-* At least one `noncompliant01.py` demonstrating an antipattern.
-* At least one `compliant01.py` providing a fix for the issue demonstrated in `noncompliant01.py`.
-* Be within 20 lines of code per file.
+- At least one `noncompliant01.py` demonstrating an antipattern.
+- At least one `compliant01.py` providing a fix for the issue demonstrated in `noncompliant01.py`.
+- Be within 20 lines of code per file.
 
 ## Structure Guide
 
@@ -110,10 +234,10 @@ Each rule should have:
 
 The guide is structured in two levels. The top level readme is to list all rules whilst also providing an idea of:
 
-* Chapter
-* Related risks
-* Available automated detection
-* Available automated correction
+- Chapter
+- Related risks
+- Available automated detection
+- Available automated correction
 
 The sublevel has an a individual rule with a single CWE where possible.
 
@@ -123,12 +247,12 @@ The sublevel has an a individual rule with a single CWE where possible.
 
 ### From a author perspective
 
-* Top-level folders are Pillars `CWE-1000` such as `CWE-707`
-* Second-level folders are either a CWE of Base, Variant, or Class type representing one rule such as `CWE-89`
-* If multiple rules match a single CWE such as `CWE-197` we create another subfolder with a two-digit number starting at `01`
+- Top-level folders are Pillars `CWE-1000` such as `CWE-707`
+- Second-level folders are either a CWE of Base, Variant, or Class type representing one rule such as `CWE-89`
+- If multiple rules match a single CWE such as `CWE-197` we create another subfolder with a two-digit number starting at `01`
 since `00` is in the main folder.
-* Rules without a matching CWE are stored in an incrementing placeholder `XXX-000`, `XXX-001`.
-* Rules matching multiple CWEs to use the best matching one as a folder and list it at the top of its reference list
+- Rules without a matching CWE are stored in an incrementing placeholder `XXX-000`, `XXX-001`.
+- Rules matching multiple CWEs to use the best matching one as a folder and list it at the top of its reference list
 
 Example structure with mocked up data:
 
@@ -174,8 +298,9 @@ Idealistically we have a `noncompliantXX.py` code matching in number the `XX` nu
 
 To avoid running into linters or lighting up the programming IDE of others ensure to have the following installed:
 
-* `Ruff` with enabled `flake8-bandit` plugin
-* `GitHub` `Markdown` linter such as `markdownlint` (this is enforced via GitHub action) * `Python` type hints.
+- `Ruff` with enabled `flake8-bandit` plugin
+- `GitHub` `Markdown` linter such as `markdownlint` (this is enforced via GitHub action)
+- `Python` type hints.
 
 Linter warnings should be kept to a minimum.
 
@@ -185,14 +310,14 @@ There is the option to add `# TODO:` instead of overloading compliant code examp
 
 ## Submitting Your Contribution
 
-1. __Create a new branch:__ Use descriptive names for branches, e.g., `pySCG-issue-123` or  `pySCG-add-logging-feature` using `git checkout -b branch-name`
+1. **Create a new branch:** Use descriptive names for branches, e.g., `pySCG-issue-123` or  `pySCG-add-logging-feature` using `git checkout -b branch-name`
 
-2. __Make your changes:__ Commit your changes with clear and concise commit messages.
+2. **Make your changes:** Commit your changes with clear and concise commit messages.
 
-3. __Push your changes:__ Push your branch to your forked repository.
+3. **Push your changes:** Push your branch to your forked repository.
 `git push origin branch-name`
 
-4. __Submit a pull request:__ Go to the original repository and click on "New Pull Request". Fill out the template provided, detailing your changes and their purpose.
+4. **Submit a pull request:** Go to the original repository and click on "New Pull Request". Fill out the template provided, detailing your changes and their purpose.
 
 ## Review Process
 
@@ -200,6 +325,6 @@ A Pull Request is expected to have approval of at least 2 reviewers. One reviewe
 
 Once you submit a pull request:
 
-* A project maintainer will review your submission.
-* You may be asked to make revisions based on feedback.
-* Once approved, your changes will be merged into the main branch.
+- A project maintainer will review your submission.
+- You may be asked to make revisions based on feedback.
+- Once approved, your changes will be merged into the main branch.
