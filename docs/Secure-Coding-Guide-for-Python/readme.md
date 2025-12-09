@@ -54,30 +54,30 @@ It is __not production code__ and requires code-style or python best practices t
 
 <tr>
 <td>CWE-501</td>
-<td><a href="CWE-664/CWE-501/README.md">pyscg-0040: Trust Boundary Violation</a></td>
+<td><a href=01_introduction/pyscg-0040/README.md>pyscg-0040: Trust Boundary Violation</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2023-28597">CVE-2023-28597</a>, CVSSv3.0: <b style='color:orange'>7.5</b>,<br>EPSS: <b>00.11</b> (05.11.2024)</td>
 </tr>
 
-<tr><td>CWE-798</td><td><a href="CWE-693/CWE-798/README.md">pyscg-0041: Use of hardcoded credentials</a></td><td></td></tr>
-<tr><td>CWE-783</td><td><a href="CWE-691/CWE-783/README.md">pyscg-0042: Operator Precedence Logic Error</a></td><td></td></tr>
-<tr><td>CWE-472</td><td><a href="CWE-693/CWE-472/README.md">pyscg-0055: External Control of Assumed-Immutable Web Parameter</a></td><td></td></tr>
+<tr><td>CWE-798</td><td><a href=01_introduction/pyscg-0041/README.md>pyscg-0041: Use of hardcoded credentials</a></td><td></td></tr>
+<tr><td>CWE-783</td><td><a href=01_introduction/pyscg-0042/README.md>pyscg-0042: Operator Precedence Logic Error</a></td><td></td></tr>
+<tr><td>CWE-472</td><td><a href=01_introduction/pyscg-0055/README.md>pyscg-0055: External Control of Assumed-Immutable Web Parameter</a></td><td></td></tr>
 
 <tr>
 <th>MITRE</th>
 <th>02 Encoding and Strings</th>
 <th>Prominent CVEs</th>
 </tr>
-<tr><td>CWE-175</td><td><a href="CWE-707/CWE-175/README.md">pyscg-0043: Improper Handling of Mixed Encoding</a></td><td></td></tr>
+<tr><td>CWE-175</td><td><a href=02_encoding_and_strings/pyscg-0043/README.md>pyscg-0043: Improper Handling of Mixed Encoding</a></td><td></td></tr>
 
 <tr>
 <td>CWE-180</td>
-<td><a href="CWE-707/CWE-180/README.md">pyscg-0044: Incorrect behavior order: Validate before Canonicalize</a></td>
+<td><a href=02_encoding_and_strings/pyscg-0044/README.md>pyscg-0044: Incorrect behavior order: Validate before Canonicalize</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2022-26136/">CVE-2022-26136</a>,<br>CVSSv3.1: <b style='color:red'>9.8</b>, <br>EPSS: <b>00.28</b> (31.12.20255)</td>
 </tr>
 
-<tr><td>CWE-182</td><td><a href="CWE-693/CWE-182/README.md">pyscg-0045: Enforce control over encoding such as UTF-8</a></td></tr>
+<tr><td>CWE-182</td><td><a href=02_encoding_and_strings/pyscg-0045/README.md>pyscg-0045: Enforce control over encoding such as UTF-8</a></td></tr>
 
-<tr><td>CWE-838</td><td><a href="CWE-707/CWE-838/README.md">pyscg-0046: Inappropriate Encoding for Output Context</a></td><td></td></tr>
+<tr><td>CWE-838</td><td><a href=02_encoding_and_strings/pyscg-0046/README.md>pyscg-0046: Inappropriate Encoding for Output Context</a></td><td></td></tr>
 
 <tr>
 <th>MITRE</th>

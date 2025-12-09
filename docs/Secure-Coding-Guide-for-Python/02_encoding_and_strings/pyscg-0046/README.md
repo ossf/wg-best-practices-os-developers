@@ -1,4 +1,4 @@
-# CWE-838: Inappropriate Encoding for Output Context
+# pyscg-0046: Inappropriate Encoding for Output Context
 
 Inappropriate handling of an encoding from untrusted sources or unexpected encoding can lead to unexpected values, data loss, or become the root cause of an attack.
 

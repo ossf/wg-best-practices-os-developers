@@ -1,4 +1,4 @@
-# CWE-501: Trust Boundary Violation
+# pyscg-0040: Trust Boundary Violation
 
 Python's trust boundaries rely on explicit process isolation, rather than in-process access control within a single interpreter.
 
