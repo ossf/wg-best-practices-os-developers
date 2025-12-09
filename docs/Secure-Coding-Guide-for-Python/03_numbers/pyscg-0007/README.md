@@ -50,4 +50,5 @@ print(Decimal("0.45"))
 |||
 |:---|:---|
 |[Wikipedia 2025](https://en.wikipedia.org)|IEEE 754 [online]. Available from: [https://en.wikipedia.org/wiki/IEEE_754](https://en.wikipedia.org/wiki/IEEE_754)|
+
 |[Python docs](https://docs.python.org/3/)|decimal — Decimal fixed-point and floating-point arithmetic [online]. Available from: [https://docs.python.org/3/library/decimal.html](https://docs.python.org/3/library/decimal.html) [accessed 2 February 2025]|
