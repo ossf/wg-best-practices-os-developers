@@ -1,4 +1,4 @@
-# CWE-209: Generation of Error Message Containing Sensitive Information
+# pyscg-0050: Generation of Error Message Containing Sensitive Information
 
 Prevent an attacker from discovering internal or sensitive system information by filtering, splitting and applying brute force prevention tactics when displaying error messages to a user.
 This rule is closely related to [CWE-532: Insertion of Sensitive Information into Log File](../CWE-532/README.md).

@@ -160,13 +160,13 @@ It is __not production code__ and requires code-style or python best practices t
 
 <tr>
 <td>CWE-532</td>
-  <td><a href="CWE-664/CWE-532/README.md">pyscg-0019: Insertion of Sensitive Information into Log File</a></td>
+  <td><a href=06_logging/pyscg-0019/README.md>pyscg-0019: Insertion of Sensitive Information into Log File</a></td>
   <td><a href="https://www.cvedetails.com/cve/CVE-2023-45585">CVE-2023-45585</a>,<br/>CVSSv3.1: <strong>9.8</strong>,<br/>EPSS: <strong>0.04</strong> (01.11.2024)</td>
 </tr>
-<tr><td>CWE-778</td><td><a href="CWE-693/CWE-778/README.md">pyscg-0020: Insufficient Logging</a></td><td></td></tr>
-<tr><td>CWE-489</td><td><a href="CWE-710/CWE-489/README.md">pyscg-0021: Active Debug Code</a></td><td><a href="https://www.cvedetails.com/cve/CVE-2018-14649">CVE-2018-14649</a>, CVSSv3.1: <strong style='color:red'>9.8</strong>, EPSS: <strong>69.64</strong> (12.12.2023)</td></tr>
-<tr><td>CWE-117</td><td><a href="CWE-707/CWE-117/.">pyscg-0022: Improper Output Neutralization for Logs</a></td><td></td></tr>
-<tr><td>CWE-209</td><td><a href="CWE-664/CWE-209/README.md">pyscg-0050: Generation of Error Message Containing Sensitive Information</a></td><td></td></tr>
+<tr><td>CWE-778</td><td><a href=06_logging/pyscg-0020/README.md>pyscg-0020: Insufficient Logging</a></td><td></td></tr>
+<tr><td>CWE-489</td><td><a href=06_logging/pyscg-0021/README.md>pyscg-0021: Active Debug Code</a></td><td><a href=https://www.cvedetails.com/cve/CVE-2018-14649>CVE-2018-14649</a>, CVSSv3.1: <strong style='color:red'>9.8</strong>, EPSS: <strong>69.64</strong> (12.12.2023)</td></tr>
+<tr><td>CWE-117</td><td><a href=06_logging/pyscg-0022/.>pyscg-0022: Improper Output Neutralization for Logs</a></td><td></td></tr>
+<tr><td>CWE-209</td><td><a href=06_logging/pyscg-0050/README.md>pyscg-0050: Generation of Error Message Containing Sensitive Information</a></td><td></td></tr>
 
 <tr>
 <th>MITRE</th>

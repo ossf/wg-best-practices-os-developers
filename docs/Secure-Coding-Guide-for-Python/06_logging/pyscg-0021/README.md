@@ -1,4 +1,4 @@
-# CWE-489: Active Debug Code
+# pyscg-0021: Active Debug Code
 
 Keep design tooling in separate packages from the actual product and supply useful logging.
 

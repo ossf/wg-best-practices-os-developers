@@ -1,4 +1,4 @@
-# CWE-778: Insufficient Logging
+# pyscg-0020: Insufficient Logging
 
 Ensure you have sufficient logging in order to adequately record important events within an application and/or system.
 
