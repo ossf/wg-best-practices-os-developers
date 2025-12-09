@@ -193,13 +193,13 @@ It is __not production code__ and requires code-style or python best practices t
 <th>Prominent CVE</th>
 </tr>
 
-<tr><td>CWE-1095</td><td><a href="CWE-710/CWE-1095/README.md">pyscg-0031: Loop Condition Value Update within the Loop</a></td><td></td></tr>
-<tr><td>CWE-1109</td><td><a href="CWE-710/CWE-1109/README.md">pyscg-0032: Use of Same Variable for Multiple Purposes</a></td><td></td></tr>
-<tr><td>CWE-595</td><td><a href="CWE-697/CWE-595/README.md">pyscg-0033: Comparison of Object References Instead of Object Contents</a></td><td></td></tr>
-<tr><td>CWE-476</td><td><a href="CWE-703/CWE-476/README.md">pyscg-0034: NULL Pointer Dereference</a></td><td></td></tr>
-<tr><td>CWE-459</td><td><a href="CWE-664/CWE-459/README.md">pyscg-0035: Incomplete Cleanup</a></td><td></td></tr>
-<tr><td>CWE-252</td><td><a href="CWE-703/CWE-252/README.md">pyscg-0036: Unchecked Return Value</a></td><td></td></tr>
-<tr><td>CWE-617</td><td><a href="CWE-691/CWE-617/README.md">pyscg-0037: Reachable Assertion</a></td><td></td></tr>
+<tr><td>CWE-1095</td><td><a href=09_coding_standards/pyscg-0031/README.md>pyscg-0031: Loop Condition Value Update within the Loop</a></td><td></td></tr>
+<tr><td>CWE-1109</td><td><a href=09_coding_standards/pyscg-0032/README.md>pyscg-0032: Use of Same Variable for Multiple Purposes</a></td><td></td></tr>
+<tr><td>CWE-595</td><td><a href=09_coding_standards/pyscg-0033/README.md>pyscg-0033: Comparison of Object References Instead of Object Contents</a></td><td></td></tr>
+<tr><td>CWE-476</td><td><a href=09_coding_standards/pyscg-0034/README.md>pyscg-0034: NULL Pointer Dereference</a></td><td></td></tr>
+<tr><td>CWE-459</td><td><a href=09_coding_standards/pyscg-0035/README.md>pyscg-0035: Incomplete Cleanup</a></td><td></td></tr>
+<tr><td>CWE-252</td><td><a href=09_coding_standards/pyscg-0036/README.md>pyscg-0036: Unchecked Return Value</a></td><td></td></tr>
+<tr><td>CWE-617</td><td><a href=09_coding_standards/pyscg-0037/README.md>pyscg-0037: Reachable Assertion</a></td><td></td></tr>
 
 <tr>
 <th>MITRE</th>

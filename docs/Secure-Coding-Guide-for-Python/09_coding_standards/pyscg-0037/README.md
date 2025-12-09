@@ -1,4 +1,4 @@
-# CWE-617: Reachable Assertion
+# pyscg-0037: Reachable Assertion
 
 Assertions are a useful developer tool, but they cannot be relied upon to be present in a production environment. Incorrect function arguments should be handled by an appropriate exception.
 

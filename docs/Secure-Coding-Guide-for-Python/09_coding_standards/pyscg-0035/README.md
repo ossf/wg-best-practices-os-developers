@@ -1,4 +1,4 @@
-# CWE-459: Incomplete Cleanup
+# pyscg-0035: Incomplete Cleanup
 
 Leftover temporary files not properly cleaned up after the completion of any script, can lead to resource exhaustion and disable a service.
 

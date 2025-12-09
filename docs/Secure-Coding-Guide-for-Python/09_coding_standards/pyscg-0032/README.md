@@ -1,4 +1,4 @@
-# CWE-1109: Use of Same Variable for Multiple Purposes
+# pyscg-0032: Use of Same Variable for Multiple Purposes
 
 Avoid reusing names of variables, functions, classes, built-in functions, packages, or standard Python modules
 
