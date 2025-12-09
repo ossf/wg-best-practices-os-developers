@@ -110,4 +110,5 @@ print(
 |:---|:---|
 |[Bloch 2008]|Item 48, "Avoid `float` and `double` If Exact Answers Are Required"|
 |[Bloch 2005]|Puzzle 2, "Time for a Change"|
+
 |[IEEE 754]||
