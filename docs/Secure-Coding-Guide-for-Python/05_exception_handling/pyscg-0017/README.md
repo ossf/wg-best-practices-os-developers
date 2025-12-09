@@ -1,4 +1,4 @@
-# CWE-230: Improper Handling of Missing Values
+# pyscg-0017: Improper Handling of Missing Values
 
 Detect and handle missing numberic values explicitly, either by removing, validating or converting them, before performing comparisons, sorting, or statistics, in order to avoid surprising or undefined behaviour.
 

@@ -145,12 +145,12 @@ It is __not production code__ and requires code-style or python best practices t
 <th>Prominent CVEs</th>
 </tr>
 
-<tr><td>CWE-397</td><td><a href="CWE-703/CWE-397/README.md">pyscg-0014: Declaration of Throws for Generic Exception</a></td><td></td></tr>
-<tr><td>CWE-755</td><td><a href="CWE-703/CWE-755/README.md">pyscg-0015: Improper Handling of Exceptional Conditions</a></td><td><a href="https://www.cvedetails.com/cve/CVE-2024-39560">CVE-2024-39560</a>,CVSSv3.1: <strong style='color:yellow'>6.5</strong>,<br/>EPSS: <strong>0.04</strong> (01.11.2024)</td></tr>
-<tr><td>CWE-390</td><td><a href="CWE-703/CWE-390/README.md">pyscg-0016: Detection of Error Condition without Action</a></td><td></td></tr>
-<tr><td>CWE-230</td><td><a href="CWE-703/CWE-230/README.md">pyscg-0017: Improper Handling of Missing Values</a></td><td></td></tr>
-<tr><td>CWE-754</td><td><a href="CWE-703/CWE-754/README.md">pyscg-0018: Improper Check for Unusual or Exceptional Conditions - float</a></td><td></td></tr>
-<tr><td>CWE-460</td><td><a href="CWE-664/CWE-460/README.md">pyscg-0052: Improper Cleanup on Thrown Exception</a></td><td></td></tr>
+<tr><td>CWE-397</td><td><a href=05_exception_handling/pyscg-0014/README.md>pyscg-0014: Declaration of Throws for Generic Exception</a></td><td></td></tr>
+<tr><td>CWE-755</td><td><a href=05_exception_handling/pyscg-0015/README.md>pyscg-0015: Improper Handling of Exceptional Conditions</a></td><td><a href=https://www.cvedetails.com/cve/CVE-2024-39560>CVE-2024-39560</a>,CVSSv3.1: <strong style='color:yellow'>6.5</strong>,<br/>EPSS: <strong>0.04</strong> (01.11.2024)</td></tr>
+<tr><td>CWE-390</td><td><a href=05_exception_handling/pyscg-0016/README.md>pyscg-0016: Detection of Error Condition without Action</a></td><td></td></tr>
+<tr><td>CWE-230</td><td><a href=05_exception_handling/pyscg-0017/README.md>pyscg-0017: Improper Handling of Missing Values</a></td><td></td></tr>
+<tr><td>CWE-754</td><td><a href=05_exception_handling/pyscg-0018/README.md>pyscg-0018: Improper Check for Unusual or Exceptional Conditions - float</a></td><td></td></tr>
+<tr><td>CWE-460</td><td><a href=05_exception_handling/pyscg-0052/README.md>pyscg-0052: Improper Cleanup on Thrown Exception</a></td><td></td></tr>
 
 <tr>
 <th>MITRE</th>

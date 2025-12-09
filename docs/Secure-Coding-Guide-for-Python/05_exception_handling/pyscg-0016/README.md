@@ -1,4 +1,4 @@
-# CWE-390: Detection of Error Condition without Action
+# pyscg-0016: Detection of Error Condition without Action
 
 Allow exceptions to bubble up and handle exceptions at the right level in the stack.
 
