@@ -174,18 +174,18 @@ It is __not production code__ and requires code-style or python best practices t
 <th>Prominent CVEs</th>
 </tr>
 
-<tr><td>CWE-502</td><td><a href="CWE-664/CWE-502/README.md">pyscg-0023: Deserialization of Untrusted Data</a></td><td><a href="https://www.cvedetails.com/cve/CVE-2018-8021">CVE-2018-8021</a>, CVSSv3.0: <strong style='color:red'>9.8</strong>,<br/>EPSS: <strong>93.54</strong> (05.11.2024)</td></tr>
+<tr><td>CWE-502</td><td><a href=07_serialization_deserialization/pyscg-0023/README.md>pyscg-0023: Deserialization of Untrusted Data</a></td><td><a href=https://www.cvedetails.com/cve/CVE-2018-8021>CVE-2018-8021</a>, CVSSv3.0: <strong style='color:red'>9.8</strong>,<br/>EPSS: <strong>93.54</strong> (05.11.2024)</td></tr>
 
 <tr><td></td><th><a href="Intro_to_multiprocessing_and_multithreading">08 Concurrency</a></th><th>Prominent CVE</th></tr>
-<tr><td>CWE-400</td><td><a href="CWE-664/CWE-400/README.md">pyscg-0024: Uncontrolled Resource Consumption</a></td><td></td></tr>
-<tr><td>CWE-410</td><td><a href="CWE-664/CWE-410/README.md">pyscg-0025: Insufficient Resource Pool</a></td><td></td></tr>
-<tr><td>CWE-833</td><td><a href="CWE-664/CWE-833/README.md">pyscg-0026: Deadlock</a></td><td></td></tr>
-<tr><td>CWE-362</td><td><a href="CWE-691/CWE-362/README.md">pyscg-0027: Concurrent Execution Using Shared Resource with Improper Synchronization ("Race Condition")</a></td><td></td></tr>
-<tr><td>CWE-584</td><td><a href="CWE-664/CWE-584/README.md">pyscg-0028: Return Inside Finally Block</a></td><td></td></tr>
-<tr><td>CWE-665</td><td><a href="CWE-664/CWE-665/README.md">pyscg-0029: Improper Initialization</a></td><td></td></tr>
-<tr><td>CWE-392</td><td><a href="CWE-703/CWE-392/README.md">pyscg-0030: Missing Report of Error Condition in a Threadpool</a></td><td></td></tr>
-<tr><td>CWE-404</td><td><a href="CWE-664/CWE-404/README.md">pyscg-0051: Improper Resource Shutdown or Release</a></td><td></td></tr>
-<tr><td>CWE-366</td><td><a href="CWE-691/CWE-366/README.md">pyscg-0054: Race Condition within a Thread</a></td><td></td></tr>
+<tr><td>CWE-400</td><td><a href=08_concurrency/pyscg-0024/README.md>pyscg-0024: Uncontrolled Resource Consumption</a></td><td></td></tr>
+<tr><td>CWE-410</td><td><a href=08_concurrency/pyscg-0025/README.md>pyscg-0025: Insufficient Resource Pool</a></td><td></td></tr>
+<tr><td>CWE-833</td><td><a href=08_concurrency/pyscg-0026/README.md>pyscg-0026: Deadlock</a></td><td></td></tr>
+<tr><td>CWE-362</td><td><a href=08_concurrency/pyscg-0027/README.md>pyscg-0027: Concurrent Execution Using Shared Resource with Improper Synchronization (Race Condition)</a></td><td></td></tr>
+<tr><td>CWE-584</td><td><a href=08_concurrency/pyscg-0028/README.md>pyscg-0028: Return Inside Finally Block</a></td><td></td></tr>
+<tr><td>CWE-665</td><td><a href=08_concurrency/pyscg-0029/README.md>pyscg-0029: Improper Initialization</a></td><td></td></tr>
+<tr><td>CWE-392</td><td><a href=08_concurrency/pyscg-0030/README.md>pyscg-0030: Missing Report of Error Condition in a Threadpool</a></td><td></td></tr>
+<tr><td>CWE-404</td><td><a href=08_concurrency/pyscg-0051/README.md>pyscg-0051: Improper Resource Shutdown or Release</a></td><td></td></tr>
+<tr><td>CWE-366</td><td><a href=08_concurrency/pyscg-0054/README.md>pyscg-0054: Race Condition within a Thread</a></td><td></td></tr>
 
 <tr>
 <th>MITRE</th>

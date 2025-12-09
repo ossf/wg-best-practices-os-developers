@@ -1,4 +1,4 @@
-# CWE-362: Concurrent Execution Using Shared Resource with Improper Synchronization ("Race Condition")
+# pyscg-0027: Concurrent Execution Using Shared Resource with Improper Synchronization ("Race Condition")
 
 Ensure to implement locking mechanisms when chaining methods in a multithreaded environment to prevent unexpected results.
 

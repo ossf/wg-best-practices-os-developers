@@ -1,4 +1,4 @@
-# CWE-502: Deserialization of Untrusted Data
+# pyscg-0023: Deserialization of Untrusted Data
 
 Even if data has been created from a trusted source, we need to verify that it has not been tampered with during transport.
 

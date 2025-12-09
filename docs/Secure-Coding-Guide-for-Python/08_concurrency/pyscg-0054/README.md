@@ -1,4 +1,4 @@
-# CWE-366: Race Condition within a Thread
+# pyscg-0054: Race Condition within a Thread
 
 In multithreaded programming, use synchronization mechanisms, such as locks, to avoid race conditions, which occur when multiple threads access shared resources simultaneously and lead to unpredictable results.
 

@@ -1,4 +1,4 @@
-# CWE-665: Improper Initialization
+# pyscg-0029: Improper Initialization
 
 Prevent unexpected states by applying correct initialized of local objects as they remain available when a thread's resources are re-used in a thread-pool.
 

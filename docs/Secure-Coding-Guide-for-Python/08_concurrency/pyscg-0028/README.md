@@ -1,4 +1,4 @@
-# CWE-584: Return Inside Finally Block
+# pyscg-0028: Return Inside Finally Block
 
 Do not use `return`, `break` or `continue` statements in a try-finally block, as the exception will not be processed. The Python documentation [[Python 3.9]](https://docs.python.org/3.9/reference/compound_stmts.html#finally) notes, "If the `finally` clause executes a [`return`](https://docs.python.org/3.9/reference/simple_stmts.html#return), [`break`](https://docs.python.org/3.9/reference/simple_stmts.html#break) or [`continue`](https://docs.python.org/3.9/reference/simple_stmts.html#continue) statement, the saved exception is discarded."
 
