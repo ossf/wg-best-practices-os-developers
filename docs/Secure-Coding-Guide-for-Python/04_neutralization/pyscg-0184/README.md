@@ -1,4 +1,4 @@
-# CWE-184: Incomplete List of Disallowed Input
+# pyscg-0184: Incomplete List of Disallowed Input
 
 Avoid Incomplete 'deny lists' that can lead to security vulnerabilities such as cross-site scripting (XSS) by using 'allow lists' instead.
 

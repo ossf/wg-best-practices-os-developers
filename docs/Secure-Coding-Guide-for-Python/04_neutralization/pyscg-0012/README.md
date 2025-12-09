@@ -1,4 +1,4 @@
-# CWE-409: Improper Handling of Highly Compressed Data (Data Amplification)
+# pyscg-0012: Improper Handling of Highly Compressed Data (Data Amplification)
 
 Prevent slip and bomb attacks when decompressing and unpacking compressed data such as `ZIP`, `TAR.GZ`, `JAR`, `WAR`, `RPM`  or `DOCX`.
 

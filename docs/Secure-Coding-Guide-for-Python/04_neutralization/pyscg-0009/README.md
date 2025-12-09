@@ -1,4 +1,4 @@
-# CWE-78: Improper Neutralization of Special Elements Used in an OS Command ("OS Command Injection")
+# pyscg-0009: Improper Neutralization of Special Elements Used in an OS Command ("OS Command Injection")
 
 Avoid input from untrusted sources to be used directly as part of an OS command and use specialized Python modules where possible instead.
 
