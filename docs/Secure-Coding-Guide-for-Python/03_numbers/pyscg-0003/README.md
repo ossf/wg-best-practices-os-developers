@@ -1,4 +1,4 @@
-# CWE-1335: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations
+# pyscg-0003: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations
 
 Avoid using bitwise operations for calculations, write math as math instead to ensure code clarity, compatibility and maintainability.
 

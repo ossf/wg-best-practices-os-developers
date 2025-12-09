@@ -1,4 +1,4 @@
-# CWE-191, Integer Underflow (Wrap or Wraparound)
+# pyscg-0002, Integer Underflow (Wrap or Wraparound)
 
 Ensure that integer overflow is properly handled in order to avoid unexpected behavior. Python data types can be divided into two categories:
 

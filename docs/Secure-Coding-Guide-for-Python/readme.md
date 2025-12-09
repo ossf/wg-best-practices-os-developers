@@ -85,14 +85,14 @@ It is __not production code__ and requires code-style or python best practices t
 <th>Prominent CVEs</th>
 </tr>
 
-<tr><td>CWE-1339</td><td><a href="CWE-682/CWE-1339/README.md">pyscg-0001: Avoid floating-point and use integers or the decimal module to ensure precision in applications that require high accuracy, such as in financial or banking computations</a></td><td></td></tr>
-<tr><td>CWE-191</td><td><a href="CWE-682/CWE-191/README.md">pyscg-0002: Ensure that integer overflow is properly handled in order to avoid unexpected behavior.</a></td><td></td></tr>
-<tr><td>CWE-1335</td><td><a href="CWE-682/CWE-1335/README.md">pyscg-0053: PIncorrect Bitwise Shift of Intege</a></td><td></td></tr>
-<tr><td>CWE-1335</td><td><a href="CWE-682/CWE-1335/01/README.md">pyscg-0003: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations</a></td><td></td></tr>
-<tr><td>CWE-197</td><td><a href="CWE-664/CWE-197/README.md">pyscg-0004:Ensure to have predictable outcomes in loops by using int instead of float variables as a counter</a></td><td></td></tr>
-<tr><td>CWE-197</td><td><a href="CWE-664/CWE-197/01/README.md">pyscg-0005: Make conscious design decisions on how conversions are rounded</a></td><td></td></tr>
-<tr><td>CWE-681</td><td><a href="CWE-664/CWE-681/README.md">pyscg-0006: String representations of floating-point numbers must not be compared or inspected outside of specialized modules such as decimal or math</a></td><td></td></tr>
-<tr><td>CWE-681</td><td><a href="CWE-664/CWE-681/01/README.md">pyscg-0007: Avoid using floating-point literals.</a></td><td></td></tr>
+<tr><td>CWE-1339</td><td><a href=03_numbers/pyscg-0001/README.md>pyscg-0001: Avoid floating-point and use integers or the decimal module to ensure precision in applications that require high accuracy, such as in financial or banking computations</a></td><td></td></tr>
+<tr><td>CWE-191</td><td><a href=03_numbers/pyscg-0002/README.md>pyscg-0002: Ensure that integer overflow is properly handled in order to avoid unexpected behavior.</a></td><td></td></tr>
+<tr><td>CWE-1335</td><td><a href=03_numbers/pyscg-0053/README.md>pyscg-0053: Incorrect Bitwise Shift of Intege</a></td><td></td></tr>
+<tr><td>CWE-1335</td><td><a href=03_numbers/pyscg-0053/01/README.md>pyscg-0003: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations</a></td><td></td></tr>
+<tr><td>CWE-197</td><td><a href=03_numbers/pyscg-0004/README.md>pyscg-0004: Ensure to have predictable outcomes in loops by using int instead of float variables as a counter</a></td><td></td></tr>
+<tr><td>CWE-197</td><td><a href=03_numbers/pyscg-0004/01/README.md>pyscg-0005: Make conscious design decisions on how conversions are rounded</a></td><td></td></tr>
+<tr><td>CWE-681</td><td><a href=03_numbers/pyscg-0006/README.md>pyscg-0006: String representations of floating-point numbers must not be compared or inspected outside of specialized modules such as decimal or math</a></td><td></td></tr>
+<tr><td>CWE-681</td><td><a href=03_numbers/pyscg-0006/01/README.md>pyscg-0007: Avoid using floating-point literals.</a></td><td></td></tr>
 
 <tr>
 <th>MITRE</th>

@@ -1,4 +1,4 @@
-# CWE-197: Numeric Truncation Error
+# pyscg-0004: Numeric Truncation Error
 
 Ensure to have predictable outcomes in loops by using int instead of `float` variables as a counter.
 
