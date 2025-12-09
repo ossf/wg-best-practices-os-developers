@@ -207,7 +207,7 @@ It is __not production code__ and requires code-style or python best practices t
 <th>Prominent CVE</th>
 </tr>
 
-<tr><td>CWE-330</td><td><a href="CWE-693/CWE-330/README.md">pyscg-0038: Use of Insufficiently Random Values</a></td><td><a href="https://www.cvedetails.com/cve/CVE-2020-7548">CVE-2020-7548</a>, CVSSv3.1: <strong style='color:red'>9.8</strong><br>EPSS: <strong>0.22</strong> (12.12.2024)</td></tr>
+<tr><td>CWE-330</td><td><a href=10_cryptography/pyscg-0038/README.md>pyscg-0038: Use of Insufficiently Random Values</a></td><td><a href=https://www.cvedetails.com/cve/CVE-2020-7548>CVE-2020-7548</a>, CVSSv3.1: <strong style='color:red'>9.8</strong><br>EPSS: <strong>0.22</strong> (12.12.2024)</td></tr>
 </table>
 
 ## Biblography
