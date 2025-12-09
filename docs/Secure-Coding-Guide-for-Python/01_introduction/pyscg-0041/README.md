@@ -1,4 +1,4 @@
-# CWE-798: Use of hardcoded credentials
+# pyscg-0041: Use of hardcoded credentials
 
 Ensure that unique keys or secrets can be replaced or rejected at runtime and never hard-code sensitive information, such as passwords, and encryption keys in a component.
 

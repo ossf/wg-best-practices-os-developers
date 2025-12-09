@@ -54,13 +54,13 @@ It is __not production code__ and requires code-style or python best practices t
 
 <tr>
 <td>CWE-501</td>
-<td><a href="CWE-664/CWE-501/README.md">pyscg-0040: Trust Boundary Violation</a></td>
+<td><a href=01_introduction/pyscg-0040/README.md>pyscg-0040: Trust Boundary Violation</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2023-28597">CVE-2023-28597</a>, CVSSv3.0: <b style='color:orange'>7.5</b>,<br>EPSS: <b>00.11</b> (05.11.2024)</td>
 </tr>
 
-<tr><td>CWE-798</td><td><a href="CWE-693/CWE-798/README.md">pyscg-0041: Use of hardcoded credentials</a></td><td></td></tr>
-<tr><td>CWE-783</td><td><a href="CWE-691/CWE-783/README.md">pyscg-0042: Operator Precedence Logic Error</a></td><td></td></tr>
-<tr><td>CWE-472</td><td><a href="CWE-693/CWE-472/README.md">pyscg-0055: External Control of Assumed-Immutable Web Parameter</a></td><td></td></tr>
+<tr><td>CWE-798</td><td><a href=01_introduction/pyscg-0041/README.md>pyscg-0041: Use of hardcoded credentials</a></td><td></td></tr>
+<tr><td>CWE-783</td><td><a href=01_introduction/pyscg-0042/README.md>pyscg-0042: Operator Precedence Logic Error</a></td><td></td></tr>
+<tr><td>CWE-472</td><td><a href=01_introduction/pyscg-0055/README.md>pyscg-0055: External Control of Assumed-Immutable Web Parameter</a></td><td></td></tr>
 
 <tr>
 <th>MITRE</th>
