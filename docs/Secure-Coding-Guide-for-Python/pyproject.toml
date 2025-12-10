@@ -1,0 +1,75 @@
+[project]
+name = "secure-coding-guide-python-tests"
+version = "0.1.0"
+description = "Testing framework for Python Secure Coding Guide"
+readme = "tests/README.md"
+requires-python = ">=3.9"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+markers = [
+    "python: marks Python code validation tests",
+    "markdown: marks Markdown structure validation tests",
+    "slow: marks tests as slow (deselected by default)",
+]
+addopts = """
+    -v
+    --tb=short
+    --strict-markers
+    --cov=tests
+    --cov-branch
+    --cov-report=term-missing:skip-covered
+    --cov-report=html:reports/coverage/html
+    --cov-report=xml:reports/coverage/coverage.xml
+"""
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "C4"]
+ignore = [
+    "S101",  # Allow assert statements (used in tests)
+]
+
+[dependency-groups]
+# PEP 735: Development dependencies (local-only, never published)
+# Install with: uv sync --group test
+test = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-xdist>=3.5.0",
+]
+
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-xdist>=3.5.0",
+    "ruff>=0.4.0",
+    "tox>=4.0.0",
+    "tox-uv>=1.0.0",
+]
+
+[tool.coverage.run]
+source = ["tests"]
+branch = true
+relative_files = true
+
+[tool.coverage.report]
+show_missing = true
+precision = 2
+skip_covered = false
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "if __name__ == .__main__.:",
+]

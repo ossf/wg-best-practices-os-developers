@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """ Compliant Code Example """
+# EXPECTED_TIMEOUT: intentional blocking operation for educational purposes
 from time import sleep
 
 

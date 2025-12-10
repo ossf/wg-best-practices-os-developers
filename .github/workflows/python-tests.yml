@@ -1,0 +1,136 @@
+---
+###############################################
+###############################################
+## Python Testing Framework GitHub Actions ##
+###############################################
+###############################################
+name: Python Tests
+
+#############################
+# Start the job on all push #
+#############################
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/Secure-Coding-Guide-for-Python/**'
+      - '.github/workflows/python-tests.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'docs/Secure-Coding-Guide-for-Python/**'
+      - '.github/workflows/python-tests.yml'
+  workflow_dispatch:  # Allow manual trigger for full test suite
+
+###############
+# Set the Job #
+###############
+jobs:
+  test:
+    # Name the Job
+    name: Run Python Tests (Python ${{ matrix.python-version }})
+    # Set the agent to run on
+    runs-on: ubuntu-latest
+    
+    # Matrix strategy for multiple Python versions
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13', '3.14']
+      fail-fast: false
+    
+    ##################
+    # Load all steps #
+    ##################
+    steps:
+      ##########################
+      # Checkout the code base #
+      ##########################
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      ######################
+      # Install uv package #
+      ######################
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: "docs/Secure-Coding-Guide-for-Python/pyproject.toml"
+      
+      ########################
+      # Set up Python version #
+      ########################
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+      
+      ##########################
+      # Install dependencies   #
+      ##########################
+      - name: Install Dependencies
+        working-directory: docs/Secure-Coding-Guide-for-Python
+        run: uv sync --group test
+      
+      ##########################
+      # Get changed files      #
+      ##########################
+      - name: Get Changed Files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            docs/Secure-Coding-Guide-for-Python/CWE-*/**
+            docs/Secure-Coding-Guide-for-Python/Intro_*/**
+      
+      ##########################
+      # Run pytest tests       #
+      ##########################
+      - name: Run Tests on Changed Files (PR)
+        if: github.event_name == 'pull_request' && steps.changed-files.outputs.any_changed == 'true'
+        working-directory: docs/Secure-Coding-Guide-for-Python
+        env:
+          CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          # Extract unique CWE directories from changed files
+          CHANGED_DIRS=$(echo "$CHANGED_FILES" | tr ' ' '\n' | grep -E 'CWE-|Intro_' | sed 's|docs/Secure-Coding-Guide-for-Python/||' | sed 's|/.*||' | sort -u)
+          
+          if [ -n "$CHANGED_DIRS" ]; then
+            echo "::notice::Testing changed directories: $CHANGED_DIRS"
+            # Build pytest -k filter for changed directories (trim spaces and join with ' or ')
+            FILTER=$(echo "$CHANGED_DIRS" | tr '\n' ' ' | sed 's/^ *//;s/ *$//' | sed 's/ / or /g')
+            uv run pytest tests/ --tb=line -q -k "$FILTER" || {
+              echo "::error::Tests failed. See details above."
+              exit 1
+            }
+          else
+            echo "::notice::No CWE directories changed, skipping tests"
+          fi
+      
+      - name: Run Full Test Suite (Push to main or manual trigger)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        working-directory: docs/Secure-Coding-Guide-for-Python
+        run: |
+          uv run pytest tests/ --tb=line -q || {
+            echo "::error::Tests failed. Review the output above for specific issues."
+            exit 1
+          }
+      
+      ##########################
+      # Link checking          #
+      ##########################
+      - name: Link Checking with Lychee
+        if: matrix.python-version == '3.12'
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --offline --verbose --no-progress 'docs/Secure-Coding-Guide-for-Python/**/*.md'
+          fail: true
+      
+      ##########################
+      # Upload coverage report #
+      ##########################
+      - name: Upload Coverage
+        if: matrix.python-version == '3.12'
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./docs/Secure-Coding-Guide-for-Python/reports/coverage/coverage.xml
+          flags: python-tests
+          token: ${{ secrets.CODECOV_TOKEN }}
