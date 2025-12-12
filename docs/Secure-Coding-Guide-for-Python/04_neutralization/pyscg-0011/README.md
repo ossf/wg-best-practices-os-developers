@@ -1,7 +1,7 @@
-# pyscg-0011: Access of Resource Using Incompatible Type ('Type Confusion')
+# pyscg-0011: Prevent Type Confusion
 
 When operating on unsigned values coming from external sources, such as `C` or `C++` applications, they should be unpacked using variable types that can represent their entire value range.
-This rule is related to [CWE-197: Control rounding when converting to less precise numbers](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/CWE-664/CWE-197/01/README.md).
+This rule is related to [pyscg-0005: Control Rounding Behavior](../../03_numbers/pyscg-0005/README.md).
 
 The scenario in `example01.py` demonstrates what can go wrong when Python needs to interact with `C` or `C++` data types using the `struct` module [[Python docs](https://docs.python.org/3/library/struct.html)]. This can be either over the network, via file, or an interaction with the operating system. A file or stream is simulated with `io.BytesIO`.
 

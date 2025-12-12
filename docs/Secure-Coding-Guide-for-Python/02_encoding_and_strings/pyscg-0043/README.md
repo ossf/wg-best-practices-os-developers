@@ -1,4 +1,4 @@
-# pyscg-0043: Improper Handling of Mixed Encoding
+# pyscg-0043: Handle Mixed Character Encoding
 
 Locale-dependent programs may produce unexpected behavior or security bypasses in an environment whose locale is unset, or not set to an appropriate value.
 

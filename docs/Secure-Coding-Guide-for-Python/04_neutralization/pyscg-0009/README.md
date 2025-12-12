@@ -1,4 +1,4 @@
-# pyscg-0009: Improper Neutralization of Special Elements Used in an OS Command ("OS Command Injection")
+# pyscg-0009: Prevent OS Command Injection
 
 Avoid input from untrusted sources to be used directly as part of an OS command and use specialized Python modules where possible instead.
 
@@ -31,7 +31,7 @@ Any variation of using input from a lesser trusted source as part of a command l
 
 * *CWE-184: Incomplete List of Disallowed Input.*
 * *CWE-209: Generation of Error Message Containing Sensitive Information.*
-* *[CWE-501: Trust Boundary Violation](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/CWE-664/CWE-501/README.md)*
+* *[pyscg-0040: Respect Trust Boundaries](../../01_introduction/pyscg-0040/README.md)*
 
 ## Non-Compliant Code Example (Read Only)
 
@@ -75,7 +75,7 @@ The `FileOperations().list_dir()` method allows an attacker to add commands via 
 
 The attack surface increases if a user is also allowed to upload or create files or folders.
 
-The `noncompliant02.py` example demonstrates the injection via file or folder name that is created prior to using the `list_dir()` method. We assume here that an untrusted user is allowed to create files or folders named `& calc.exe or ;ps aux` as part of another service such as upload area, submit form, or as a result of a zip-bomb as per *[CWE-409: Improper Handling of Highly Compressed Data](../../CWE-664/CWE-409/README.md) (Data Amplification)*. Encoding issues as described in *[CWE-180: Incorrect Behavior Order: Validate Before Canonicalize](../CWE-180/README.md)* must also be considered.
+The `noncompliant02.py` example demonstrates the injection via file or folder name that is created prior to using the `list_dir()` method. We assume here that an untrusted user is allowed to create files or folders named `& calc.exe or ;ps aux` as part of another service such as upload area, submit form, or as a result of a zip-bomb as per *[pyscg-0012: Handle Data Amplification](../pyscg-0012/README.md)*. Encoding issues as described in *[pyscg-0044: Validate Before Canonicalize](../../02_encoding_and_strings/pyscg-0044/README.md)* must also be considered.
 
 The issue occurs when mixing shell commands with data from a lesser trusted source.
 

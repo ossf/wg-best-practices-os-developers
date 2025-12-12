@@ -1,4 +1,4 @@
-# pyscg-0006: Incorrect Conversion between Numeric Types
+# pyscg-0006: Avoid Float String Comparisons
 
 String representations of floating-point numbers must not be compared or inspected outside of specialized modules such as `decimal` or `math`.
 

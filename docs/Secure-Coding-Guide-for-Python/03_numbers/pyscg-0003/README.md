@@ -1,4 +1,4 @@
-# pyscg-0003: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations
+# pyscg-0003: Use Arithmetic Over Bitwise Operations
 
 Avoid using bitwise operations for calculations, write math as math instead to ensure code clarity, compatibility and maintainability.
 
@@ -104,7 +104,7 @@ The statement in `compliant01.py` clarifies the programmer's intention.
 print(8 * 4 + 10)
 ```
 
-It is recommended by *[CWE-191, Integer Underflow (Wrap or Wraparound)](../../CWE-191/README.md)* to also check for under or overflow.
+It is recommended by *[pyscg-0002: Handle Integer Overflow](../pyscg-0002/README.md)* to also check for under or overflow.
 
 ## Non-compliant Code Example (Right Shift)
 

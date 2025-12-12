@@ -1,10 +1,10 @@
-# pyscg-0012: Improper Handling of Highly Compressed Data (Data Amplification)
+# pyscg-0012: Handle Data Amplification
 
 Prevent slip and bomb attacks when decompressing and unpacking compressed data such as `ZIP`, `TAR.GZ`, `JAR`, `WAR`, `RPM`  or `DOCX`.
 
 Zip is used reprehensively in this rule for all compression formats.
 
-Zip Slip, or directory traversal attacks, use files with a relative path such as `../../../../../bin/bash` or full path `/bin/bash` in order to extract malicious code into an unwanted location [[2018  Snyk](https://snyk.io/blog/zip-slip-vulnerability/)]. Zip slip attacks can be prevented by sanitizing path names as described in _[CWE-180: Incorrect behavior order: Validate before Canonicalize](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/CWE-707/CWE-180/README.md)_.
+Zip Slip, or directory traversal attacks, use files with a relative path such as `../../../../../bin/bash` or full path `/bin/bash` in order to extract malicious code into an unwanted location [[2018  Snyk](https://snyk.io/blog/zip-slip-vulnerability/)]. Zip slip attacks can be prevented by sanitizing path names as described in _[pyscg-0044: Validate Before Canonicalize](../../02_encoding_and_strings/pyscg-0044/README.md)_.
 
 Zip bomb attacks try to overload a system that tries to unpack it for a denial-of-service attack by either containing:
 

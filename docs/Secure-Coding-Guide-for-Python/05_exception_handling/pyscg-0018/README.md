@@ -1,4 +1,4 @@
-# pyscg-0018: Improper Check for Unusual or Exceptional Conditions - Float
+# pyscg-0018: Check Float Exceptional Conditions
 
 Ensure to have handling for exceptional floating-point values.
 

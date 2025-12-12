@@ -1,7 +1,7 @@
-# pyscg-0050: Generation of Error Message Containing Sensitive Information
+# pyscg-0050: Avoid Sensitive Error Messages
 
 Prevent an attacker from discovering internal or sensitive system information by filtering, splitting and applying brute force prevention tactics when displaying error messages to a user.
-This rule is closely related to [CWE-532: Insertion of Sensitive Information into Log File](../CWE-532/README.md).
+This rule is closely related to [pyscg-0019: Avoid Sensitive Data in Logs](../pyscg-0019/README.md).
 
 Ensure that detailed troubleshooting and security sensitive error information can only reach authorized personnel while avoiding overload from brute force attacks.
 
@@ -178,12 +178,12 @@ The `compliant01.py` code example only demonstrates basic control over errors di
 
 Details on other best practices are only mentioned as a TODO comment such as:
 
-* [CWE-180: Incorrect Behavior Order: Validate Before Canonicalize](../../CWE-707/CWE-180/README.md)
-* [CWE-390: Detection of Error Condition without Action](../../CWE-703/CWE-390/README.md)
-* Rules related to logging ([CWE-117](../../CWE-707/CWE-117/README.md), [CWE-532](../CWE-532/README.md))
+* [pyscg-0044: Validate Before Canonicalize](../../02_encoding_and_strings/pyscg-0044/README.md)
+* [pyscg-0016: Act on Error Conditions](../../05_exception_handling/pyscg-0016/README.md)
+* Rules related to logging ([pyscg-0022: Neutralize Log Output](../pyscg-0022/README.md), [pyscg-0019: Avoid Sensitive Data in Logs](../pyscg-0019/README.md))
 * File access, log access control
 * Log level, log format in accordance with [rfc5424](https://www.rfc-editor.org/rfc/rfc5424)
-* [CWE-778: Insufficient Logging](../../CWE-693/CWE-778/README.md)
+* [pyscg-0020: Ensure Sufficient Logging](../pyscg-0020/README.md)
 
 Useful internal logging must be resilient against brute force attacks currently not covered in `compliant01.py`.
 
