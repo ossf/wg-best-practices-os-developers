@@ -169,11 +169,9 @@ It is __not production code__ and requires code-style or python best practices t
 <tr><td>CWE-117</td><td><a href=06_logging/pyscg-0022/README.md>pyscg-0022: Neutralize Log Output</a></td><td></td></tr>
 <tr><td>CWE-209</td><td><a href=06_logging/pyscg-0050/README.md>pyscg-0050: Avoid Sensitive Error Messages</a></td><td></td></tr>
 
-
-
 <tr>
 <th>MITRE</th>
-<th><a href="Intro_to_multiprocessing_and_multithreading">07 Concurrency</a></th>
+<th><a href="07_concurrency/readme.md">07 Concurrency</a></th>
 <th>Prominent CVE</th>
 </tr>
 <tr><td>CWE-400</td><td><a href=07_concurrency/pyscg-0024/README.md>pyscg-0024: Control Resource Consumption</a></td><td></td></tr>
