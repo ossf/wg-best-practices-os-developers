@@ -1,4 +1,4 @@
-# pyscg-0038: Use Secure Random Values
+# pyscg-0038: Use of Insufficiently Random Values
 
 When programming cryptographic functions ensure to use a Pseudo-Random Number Generator (PRNG) source that is random enough to be suitable for encryption.
 

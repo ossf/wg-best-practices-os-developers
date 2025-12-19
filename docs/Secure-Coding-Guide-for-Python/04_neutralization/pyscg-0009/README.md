@@ -1,4 +1,4 @@
-# pyscg-0009: Prevent OS Command Injection
+# pyscg-0009: Improper Neutralization of Special Elements Used in an OS Command (OS Command Injection)
 
 Avoid input from untrusted sources to be used directly as part of an OS command and use specialized Python modules where possible instead.
 
@@ -75,7 +75,7 @@ The `FileOperations().list_dir()` method allows an attacker to add commands via 
 
 The attack surface increases if a user is also allowed to upload or create files or folders.
 
-The `noncompliant02.py` example demonstrates the injection via file or folder name that is created prior to using the `list_dir()` method. We assume here that an untrusted user is allowed to create files or folders named `& calc.exe or ;ps aux` as part of another service such as upload area, submit form, or as a result of a zip-bomb as per *[pyscg-0012: Handle Data Amplification](../pyscg-0012/README.md)*. Encoding issues as described in *[pyscg-0044: Validate Before Canonicalize](../../02_encoding_and_strings/pyscg-0044/README.md)* must also be considered.
+The `noncompliant02.py` example demonstrates the injection via file or folder name that is created prior to using the `list_dir()` method. We assume here that an untrusted user is allowed to create files or folders named `& calc.exe or ;ps aux` as part of another service such as upload area, submit form, or as a result of a zip-bomb as per *[pyscg-0012: Improper Handling of Highly Compressed Data (Data Amplification)](../pyscg-0012/README.md)*. Encoding issues as described in *[pyscg-0044: Incorrect behavior order: Validate before Canonicalize](../../02_encoding_and_strings/pyscg-0044/README.md)* must also be considered.
 
 The issue occurs when mixing shell commands with data from a lesser trusted source.
 

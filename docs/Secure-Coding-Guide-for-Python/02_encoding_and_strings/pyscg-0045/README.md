@@ -1,8 +1,8 @@
-# pyscg-0045: Enforce Consistent Encoding
+# pyscg-0045: Enforce control over encoding such as UTF-8
 
 Handling data between different encodings or while filtering out untrusted characters and strings can cause malicious content to slip through input sanitation.
 
-Encoding changes, such as changing from `UTF-8` to pure `ASCII`, can result in turning non-functional payloads, such as `<script生>`, into functional `<script>` tags. Mixed encoding modes [pyscg-0044: Validate Before Canonicalize](../pyscg-0044/README.md) can also play a role. The recommendation by [Batchelder 2022](https://www.youtube.com/watch?v=sgHbC6udIqc) to use a single type of encoding and mode is only applicable for a single project or supplier. The recommendation to always choose the `UTF-8` by [W3c.org 2025](https://www.w3.org/International/questions/qa-what-is-encoding) provides no guarantee and is already flawed by Windows having `Windows-1252` encoding for some Python installations.
+Encoding changes, such as changing from `UTF-8` to pure `ASCII`, can result in turning non-functional payloads, such as `<script生>`, into functional `<script>` tags. Mixed encoding modes [pyscg-0044: Incorrect behavior order: Validate before Canonicalize](../pyscg-0044/README.md) can also play a role. The recommendation by [Batchelder 2022](https://www.youtube.com/watch?v=sgHbC6udIqc) to use a single type of encoding and mode is only applicable for a single project or supplier. The recommendation to always choose the `UTF-8` by [W3c.org 2025](https://www.w3.org/International/questions/qa-what-is-encoding) provides no guarantee and is already flawed by Windows having `Windows-1252` encoding for some Python installations.
 
 The `example01.py` is a crudely simplified version of two methods simulating two completely different systems using different encodings. We are simulating the data at rest and data in transit part in a variable named `floppy`. The write_message and read_message method would be delivered independently in a real world scenario, each with their own encoding.
 
@@ -64,7 +64,7 @@ The `example01.py` turns a non-functional `UTF-8` encoded message `<script��
 
 A compliant solution will have to adhere to at least:
 
-* [pyscg-0044: Validate Before Canonicalize](../pyscg-0044/README.md)
+* [pyscg-0044: Incorrect behavior order: Validate before Canonicalize](../pyscg-0044/README.md)
 * [pyscg-0047: Use Allow Lists Over Deny Lists](../../04_neutralization/pyscg-0047/README.md)
 
 Reduction of data into a subset is not limited to strings and characters.
@@ -83,7 +83,7 @@ Reduction of data into a subset is not limited to strings and characters.
 |[MITRE CWE](http://cwe.mitre.org/)|Pillar: CWE-693, Protection Mechanism Failure \[online\], available from <https://cwe.mitre.org/data/definitions/693.html> \[Accessed April 2025\]|
 |[MITRE CWE](http://cwe.mitre.org/)|Base: CWE-182: Collapse of Data into Unsafe Value \[online\], available from <https://cwe.mitre.org/data/definitions/182.html> \[Accessed April 2025\]|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|IDS11-J. Perform any string modifications before validation\[online\], available from: <https://wiki.sei.cmu.edu/confluence/display/java/IDS11-J.+Perform+any+string+modifications+before+validation> \[Accessed April 2025\]|
-|[OpenSSF Secure Coding in Python](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python)|pyscg-0044: Validate Before Canonicalize \[online\], available from <https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/02_encoding_and_strings/pyscg-0044/README.md> \[Accessed April 2025\]|
+|[OpenSSF Secure Coding in Python](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python)|pyscg-0044: Incorrect behavior order: Validate before Canonicalize], available from <https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/02_encoding_and_strings/pyscg-0044/README.md> \[Accessed April 2025\]|
 |[OpenSSF Secure Coding in Python](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python)|pyscg-0047: Use Allow Lists Over Deny Lists \[online\], available from <https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/04_neutralization/pyscg-0047/README.md> \[Accessed April 2025\]|
 
 ## Bibliography

@@ -6,7 +6,7 @@ Avoid Incomplete 'deny lists' that can lead to security vulnerabilities such as 
 
 The `noncompliant01.py` code demonstrates the difficult handling of exclusion lists in a multi language support use case. `UTF-8` has __1,112,064__ mappings between `8-32` bit values and printable characters such as `生` known as "code points".
 
-The `noncompliant01.py` `filterString()` method attempts to search for disallowed inputs and fails to find the `script` tag due to the non-English character `生`  in `<script生>`. Failure to filter such strings could lead to Cross-Site Scripting (XSS) injection, as per [pyscg-0045: Enforce Consistent Encoding](../../02_encoding_and_strings/pyscg-0045/README.md)
+The `noncompliant01.py` `filterString()` method attempts to search for disallowed inputs and fails to find the `script` tag due to the non-English character `生`  in `<script生>`. Failure to filter such strings could lead to Cross-Site Scripting (XSS) injection, as per [pyscg-0045: Enforce control over encoding such as UTF-8](../../02_encoding_and_strings/pyscg-0045/README.md)
 
 *[noncompliant01.py](noncompliant01.py):*
 
@@ -57,7 +57,7 @@ for name in names:
 
 ## Compliant Solution
 
-The `compliant01.py` uses an allow list instead of a deny list and prevents the use of unwanted characters by raising an exception even without canonicalization. The missing canonicalization in `compliant01.py` according to [pyscg-0044: Validate Before Canonicalize](../../02_encoding_and_strings/pyscg-0044/README.md) must be added in order to make logging or displaying them safe!
+The `compliant01.py` uses an allow list instead of a deny list and prevents the use of unwanted characters by raising an exception even without canonicalization. The missing canonicalization in `compliant01.py` according to [pyscg-0044: Incorrect behavior order: Validate before Canonicalize](../../02_encoding_and_strings/pyscg-0044/README.md) must be added in order to make logging or displaying them safe!
 
 *[compliant01.py](compliant01.py):*
 

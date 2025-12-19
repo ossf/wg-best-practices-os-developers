@@ -1,4 +1,4 @@
-# pyscg-0052: Clean Up on Exceptions
+# pyscg-0052: Improper Cleanup on Thrown Exception
 
 Make sure that your code fully and correctly cleans up its state whenever an exception occurs to avoid unexpected state or control flow.
 

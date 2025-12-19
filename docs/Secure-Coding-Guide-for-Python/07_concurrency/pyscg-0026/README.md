@@ -1,4 +1,4 @@
-# pyscg-0026: Prevent Deadlock
+# pyscg-0026: Deadlock
 
 Submitting tasks whose execution is dependent on other tasks submitted to the same `ThreadPoolExecutor` may result in a *thread-starvation* deadlock.
 

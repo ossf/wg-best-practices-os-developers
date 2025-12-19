@@ -1,4 +1,4 @@
-# pyscg-0006: Avoid Float String Comparisons
+# pyscg-0006: String representations of floating-point numbers must not be compared or inspected outside of specialized modules such as decimal or math
 
 String representations of floating-point numbers must not be compared or inspected outside of specialized modules such as `decimal` or `math`.
 

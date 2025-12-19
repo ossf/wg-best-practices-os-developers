@@ -1,4 +1,4 @@
-# pyscg-0022: Neutralize Log Output
+# pyscg-0022: Improper Output Neutralization for Logs
 
 Ensure all untrusted data is properly neutralized or sanitized before writing to application logs.
 

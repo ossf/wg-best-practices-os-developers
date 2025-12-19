@@ -1,4 +1,4 @@
-# pyscg-0013: Secure Search Paths
+# pyscg-0013: Untrusted Search Path
 
 In an environment where an untrusted or less trusted entity can modify the environment variables, consider validating hash-based byte code [Python 2023 Command line and environment].
 

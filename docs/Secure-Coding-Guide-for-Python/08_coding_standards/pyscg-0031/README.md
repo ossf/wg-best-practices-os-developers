@@ -1,4 +1,4 @@
-# pyscg-0031: Avoid Loop Condition Updates
+# pyscg-0031: Loop Condition Value Update within the Loop
 
 Promote predictable and secure `for` loops by iterating over a copy or new collection item as described in 4.2 `for` Statements [Python 3.9 2024](https://docs.python.org/3.9/tutorial/controlflow.html#for-statements).
 

@@ -1,4 +1,4 @@
-# pyscg-0053: Handle Bitwise Shifts Safely
+# pyscg-0053: Incorrect Bitwise Shift of Intege
 
 Avoid mixing bitwise shifts with arithmetic operations, instead, use clear mathematical expressions instead to maintain predictable behavior, readability, and compatibility.
 
@@ -166,7 +166,7 @@ print("Will never reach here")
 
 ## Compliant Solution
 
-Bit-shifting is an optimization pattern that works better for languages closer to the CPU than Python. Math in Python is better done by arithmetical functions in Python as stated by *CWE-1335: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations* [[pyscg-0003: Use Arithmetic Over Bitwise Operations]](../pyscg-0003/README.md).
+Bit-shifting is an optimization pattern that works better for languages closer to the CPU than Python. Math in Python is better done by arithmetical functions in Python as stated by *CWE-1335: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations* [[pyscg-0003: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations]](../pyscg-0003/README.md).
 Understanding `ctypes` or `C` requires understanding the *CERT C Coding Standard* [[SEI CERT C 2025]](https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard)and setting boundaries manually in Python.
 
 ## Automated Detection
@@ -181,7 +181,7 @@ Not available
 <a href="https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python">[OpenSSF Secure Coding in Python 2025]</a>
 </td>
 <td>
-<a href="https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/03_numbers/pyscg-0003/README.md">pyscg-0003: Use Arithmetic Over Bitwise Operations</a>
+<a href="https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/03_numbers/pyscg-0003/README.md">pyscg-0003: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations</a>
 </td>
 </tr>
 <tr>

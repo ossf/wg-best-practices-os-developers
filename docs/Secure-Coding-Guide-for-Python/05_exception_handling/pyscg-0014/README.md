@@ -1,4 +1,4 @@
-# pyscg-0014: Avoid Generic Exception Declarations
+# pyscg-0014: Declaration of Throws for Generic Exception
 
 Avoid raising exceptions that aren't informative on specific errors.
 

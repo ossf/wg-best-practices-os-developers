@@ -1,8 +1,8 @@
-# pyscg-0004: Use Integer Loop Counters
+# pyscg-0004: Ensure to have predictable outcomes in loops by using int instead of float variables as a counter
 
 Ensure to have predictable outcomes in loops by using int instead of `float` variables as a counter.
 
-Floating-point arithmetic can only represent a finite subset of real numbers [[IEEE Std 754-2019](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8766229)], such as `0.555....` represented by `0.5555555555555556` also discussed in [pyscg-0001: Control Numeric Precision](../pyscg-0001/README.md). Code examples in this rule are based on [Albing and Vossen, 2017].
+Floating-point arithmetic can only represent a finite subset of real numbers [[IEEE Std 754-2019](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8766229)], such as `0.555....` represented by `0.5555555555555556` also discussed in [pyscg-0001: Avoid floating-point and use integers or the decimal module to ensure precision in applications that require high accuracy, such as in financial or banking computations](../pyscg-0001/README.md). Code examples in this rule are based on [Albing and Vossen, 2017].
 
 Side effects of using `float` as a counter is demonstrated in `example01.py` showcasing that calculating `0.1 + 0.2` does not end up as `0.3`.
 

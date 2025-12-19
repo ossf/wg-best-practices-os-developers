@@ -1,4 +1,4 @@
-# pyscg-0025: Size Resource Pools
+# pyscg-0025: Insufficient Resource Pool
 
 Ensure load control during traffic bursts or Denial of Service (DoS) by using a limited amount of threads in a pool.
 

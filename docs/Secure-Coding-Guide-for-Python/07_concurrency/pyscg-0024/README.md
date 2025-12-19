@@ -1,4 +1,4 @@
-# pyscg-0024: Control Resource Consumption
+# pyscg-0024: Uncontrolled Resource Consumption
 
 Canceling the task in a thread pool only prevents it from being executed if it has not started yet. For the task to be interruptible, it must handle the `threading.Event` flag.
 

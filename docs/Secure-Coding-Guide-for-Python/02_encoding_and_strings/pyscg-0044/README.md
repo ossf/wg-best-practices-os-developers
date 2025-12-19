@@ -1,4 +1,4 @@
-# pyscg-0044: Validate Before Canonicalize
+# pyscg-0044: Incorrect behavior order: Validate before Canonicalize
 
 Normalize/canonicalize strings before validating them to prevent risky strings such as  `../../../../passwd` allowing directory traversal attacks, and to reduce `XSS` attacks.
 

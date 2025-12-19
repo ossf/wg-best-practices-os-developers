@@ -1,4 +1,4 @@
-# pyscg-0034: Check for None Values
+# pyscg-0034: NULL Pointer Dereference
 
 Avoiding NULL Pointer Dereference is crucial for preventing runtime errors, and ensuring that your code executes successfully.
 
@@ -8,7 +8,7 @@ Avoiding NULL Pointer Dereference is crucial for preventing runtime errors, and 
 * Check the object is an array before accessing or modifying its elements.
 * Raise only exceptions that properly inherit from the BaseException class, never raise "None".
 
-If the data originates from a lesser trusted source, verifying that objects are not None becomes a mandatory security measure to prevent potential vulnerabilities such as unauthorized access or unexpected behavior. However, when dealing with data from trusted and well-controlled sources, the primary concern shifts from a security one, to more of a stability issue as per [pyscg-0016: Act on Error Conditions](../../05_exception_handling/pyscg-0016/README.md).
+If the data originates from a lesser trusted source, verifying that objects are not None becomes a mandatory security measure to prevent potential vulnerabilities such as unauthorized access or unexpected behavior. However, when dealing with data from trusted and well-controlled sources, the primary concern shifts from a security one, to more of a stability issue as per [pyscg-0016: Detection of Error Condition without Action](../../05_exception_handling/pyscg-0016/README.md).
 
 ## Non-Compliant Code Example - Verify that the object is not None before accessing or modifying its fields
 

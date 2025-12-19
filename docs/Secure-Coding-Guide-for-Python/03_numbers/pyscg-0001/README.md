@@ -1,4 +1,4 @@
-# pyscg-0001: Control Numeric Precision
+# pyscg-0001: Avoid floating-point and use integers or the decimal module to ensure precision in applications that require high accuracy, such as in financial or banking computations
 
 Avoid floating-point and use integers or the `decimal` module to ensure precision in applications that require high accuracy, such as in financial or banking computations.
 

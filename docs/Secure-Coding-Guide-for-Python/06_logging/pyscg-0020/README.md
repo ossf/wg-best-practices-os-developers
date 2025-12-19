@@ -1,4 +1,4 @@
-# pyscg-0020: Ensure Sufficient Logging
+# pyscg-0020: Insufficient Logging
 
 Ensure you have sufficient logging in order to adequately record important events within an application and/or system.
 

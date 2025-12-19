@@ -1,4 +1,4 @@
-# pyscg-0005: Control Rounding Behavior
+# pyscg-0005: Make conscious design decisions on how conversions are rounded
 
 While defensive coding requires enforcing types, it is important to make conscious design decisions on how conversions are rounded.
 

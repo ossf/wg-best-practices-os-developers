@@ -1,4 +1,4 @@
-# pyscg-0002: Handle Integer Overflow
+# pyscg-0002: Ensure that integer overflow is properly handled in order to avoid unexpected behavior.
 
 Ensure that integer overflow is properly handled in order to avoid unexpected behavior. Python data types can be divided into two categories:
 
