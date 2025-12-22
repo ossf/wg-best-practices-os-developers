@@ -1,4 +1,4 @@
-# pyscg-0003: Insufficient Precision Or Accuracy Of A Real Number
+# pyscg-0003: Promote Readability And Compatibility By Using Mathematical Written Code With Arithmetic Operations Instead Of Bit-wise Operations
 
 Avoid using bitwise operations for calculations, write math as math instead to ensure code clarity, compatibility and maintainability.
 
