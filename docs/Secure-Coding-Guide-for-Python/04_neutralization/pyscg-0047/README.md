@@ -57,7 +57,7 @@ for name in names:
 
 ## Compliant Solution
 
-The `compliant01.py` uses an allow list instead of a deny list and prevents the use of unwanted characters by raising an exception even without canonicalization. The missing canonicalization in `compliant01.py` according to [pyscg-0044: Incorrect behavior order: Validate before Canonicalize](../../02_encoding_and_strings/pyscg-0044/README.md) must be added in order to make logging or displaying them safe!
+The `compliant01.py` uses an allow list instead of a deny list and prevents the use of unwanted characters by raising an exception even without canonicalization. The missing canonicalization in `compliant01.py` according to [pyscg-0044: Incorrect Behavior Order: Validate Before Canonicalize](../../02_encoding_and_strings/pyscg-0044/README.md) must be added in order to make logging or displaying them safe!
 
 *[compliant01.py](compliant01.py):*
 
