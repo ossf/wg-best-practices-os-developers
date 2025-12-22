@@ -1,4 +1,4 @@
-# pyscg-0023: Deserialization of Untrusted Data
+# pyscg-0023: Deserialization Of Untrusted Data
 
 Even if data has been created from a trusted source, we need to verify that it has not been tampered with during transport.
 
@@ -8,7 +8,7 @@ Security-related concerns during object serialization and deserialization includ
 
 * Prefer text-based formats such as `JSON` or `YAML` if possible.
 * Consider using `Base64` encoding for binary data
-* Only unpickle data you trust [docs.python.org 2023].
+* Only unpickle data you trust \[docs.python.org 2023\].
 * Restricting Globals during deserialization.
 * Prefer `xmlrpc.client` for network operations that are already `XML` based.
 * Sign data that is crossing trust boundaries with `hmac`.
@@ -197,7 +197,7 @@ The integrity verification in `compliant01.py` throws an exception `ValueError: 
 
 ## Compliant Solution JSON without pickle
 
-Text-based formats, such as `JSON` and `YAML`, should always be preferred. They have a lower set of capabilities and reduce the attack surface [python.org comparison-with-json 2023] when compared to `pickle`.
+Text-based formats, such as `JSON` and `YAML`, should always be preferred. They have a lower set of capabilities and reduce the attack surface \[python.org comparison-with-json 2023\] when compared to `pickle`.
 
 The `compliant01.py`  code only allows serializing and deserialization of object data and not object methods as in `noncompliant01.py` or `example01.py`.
 
@@ -318,12 +318,12 @@ Serialized data from a trusted input source does not require sanitization, provi
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[SER01-J. Do not deviate from the proper signatures of serialization methods](https://wiki.sei.cmu.edu/confluence/display/java/SER01-J.+Do+not+deviate+from+the+proper+signatures+of+serialization+methods)|
 |[MITRE CWE](http://cwe.mitre.org/)|Pillar [CWE-664: Improper Control of a Resource Through its Lifetime (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/664.html)|
 |[MITRE CWE](http://cwe.mitre.org/)|Base [CWE-502, Deserialization of Untrusted Data](http://cwe.mitre.org/data/definitions/502.html)|
-|[Checkoway 2013]|Checkoway, S. (2013) 'Arbitrary code execution with Python pickles', 8 October. Available from: [stephen.checkoway.com](https://stephen.checkoway.com/2013/10/08/arbitrary-code-execution-with-python-pickles/) [Accessed 07 May 2024]|
+|\[Checkoway 2013\]|Checkoway, S. (2013) 'Arbitrary code execution with Python pickles', 8 October. Available from: [stephen.checkoway.com](https://stephen.checkoway.com/2013/10/08/arbitrary-code-execution-with-python-pickles/) \[Accessed 07 May 2024\]|
 
 ## Biblography
 
 |||
 |:---|:---|
 |[[docs.python.org 2023]](https://docs.python.org/)|pickle — Python object serialization. Available from: <https://docs.python.org/3.9/library/pickle.html> \[Accessed 07 May 2024]|
-|[python.org comparison-with-json 2023]|pickle - Comparison with JSON. Available from: <https://docs.python.org/3.9/library/pickle.html#comparison-with-json> \[Accessed 07 May 2024]|
-|[pyca/cryptography 2023]|Welcome to pyca/cryptography. Available from: <https://cryptography.io/en/latest/> \[Accessed 07 May 2024]|
+|\[python.org comparison-with-json 2023\]|pickle - Comparison with JSON. Available from: <https://docs.python.org/3.9/library/pickle.html#comparison-with-json> \[Accessed 07 May 2024]|
+|\[pyca/cryptography 2023\]|Welcome to pyca/cryptography. Available from: <https://cryptography.io/en/latest/> \[Accessed 07 May 2024]|

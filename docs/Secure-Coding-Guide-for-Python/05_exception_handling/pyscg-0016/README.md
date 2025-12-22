@@ -1,4 +1,4 @@
-# pyscg-0016: Detection of Error Condition without Action
+# pyscg-0016: Detection Of Error Condition Without Action
 
 Allow exceptions to bubble up and handle exceptions at the right level in the stack.
 
@@ -23,7 +23,7 @@ In Python `Exception` extends from `BaseException`and a bare `except` will catch
 
 For instance, catching a bare `except` causes a user to be unable to stop a script via `CTRL+C`, due to the base `except` catching all exceptions. In comparison, catching `except Exception` allows a `KeyboardInterrupt` to be the Python interpreter itself or other parts of the code. This is due to `KeyboardInterrupt` extending `BaseException` and not `Exception`.
 
-Note that using `except Exception` is still too broad as per [pyscg-0015: Improper Handling of Exceptional Conditions](../pyscg-0015/README.md) and that a more specific exception handling is preferred.
+Note that using `except Exception` is still too broad as per [pyscg-0015: Improper Handling Of Exceptional Conditions](../pyscg-0015/README.md) and that a more specific exception handling is preferred.
 
 The `noncompliant01.py` code demonstrates a bare `except` on a `ZeroDivisionError` and must be run on the command line in order to experience the issue.
 

@@ -104,7 +104,7 @@ The statement in `compliant01.py` clarifies the programmer's intention.
 print(8 * 4 + 10)
 ```
 
-It is recommended by *[pyscg-0002: Integer Underflow (Wrap or Wraparound)](../pyscg-0002/README.md)* to also check for under or overflow.
+It is recommended by *[pyscg-0002: Integer Underflow (Wrap Or Wraparound)](../pyscg-0002/README.md)* to also check for under or overflow.
 
 ## Non-compliant Code Example (Right Shift)
 

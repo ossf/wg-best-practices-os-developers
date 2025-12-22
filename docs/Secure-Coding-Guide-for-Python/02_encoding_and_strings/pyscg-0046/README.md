@@ -1,8 +1,8 @@
-# pyscg-0046: Inappropriate Encoding for Output Context
+# pyscg-0046: Inappropriate Encoding For Output Context
 
 Inappropriate handling of an encoding from untrusted sources or unexpected encoding can lead to unexpected values, data loss, or become the root cause of an attack.
 
-Mixed encoding can lead to unexpected results and become a root cause for attacks as showcased in [pyscg-0044: Incorrect behavior order: Validate before Canonicalize](../pyscg-0044/README.md) and [pyscg-0043: Improper Handling of Mixed Encoding](../pyscg-0043/README.md) This rule showcases capturing the root cause by untrusted source its original binary without compromising the logging system for forensics.
+Mixed encoding can lead to unexpected results and become a root cause for attacks as showcased in [pyscg-0044: Incorrect Behavior Order: Validate Before Canonicalize](../pyscg-0044/README.md) and [pyscg-0043: Improper Handling Of Mixed Encoding](../pyscg-0043/README.md) This rule showcases capturing the root cause by untrusted source its original binary without compromising the logging system for forensics.
 
 > [!CAUTION]
 > Processing any type of forensic data requires an environment that is sealed off to an extent that prevents any exploit from reaching other systems, including hardware!

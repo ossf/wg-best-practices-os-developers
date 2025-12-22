@@ -101,7 +101,7 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="02_encoding_and_strings/pyscg-0046/README.md">pyscg-0046: Inappropriate Encoding for Output Context</a></td>
+<td><a href="02_encoding_and_strings/pyscg-0046/README.md">pyscg-0046: Inappropriate Encoding For Output Context</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/838.html">CWE-838</a></td>
 </tr>
@@ -119,7 +119,7 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="03_numbers/pyscg-0002/README.md">pyscg-0002: Integer Underflow (Wrap or Wraparound)</a></td>
+<td><a href="03_numbers/pyscg-0002/README.md">pyscg-0002: Integer Underflow (Wrap Or Wraparound)</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/191.html">CWE-191</a></td>
 </tr>
@@ -179,7 +179,7 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0009/README.md">pyscg-0009: Improper Neutralization Of Special Elements Used In An OS Command (OS Command Injection)</a></td>
+<td><a href="04_neutralization/pyscg-0009/README.md">pyscg-0009: Improper Neutralization Of Special Elements Used In An OS Command ('OS Command Injection')</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2024-43804/">CVE-2024-43804</a>,<br>CVSSv3.1: <strong>8.8</strong>,<br>EPSS: <strong>00.06</strong> (08.11.2024)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/78.html">CWE-78</a></td>
 </tr>

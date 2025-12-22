@@ -1,4 +1,4 @@
-# pyscg-0011: Access of Resource Using Incompatible Type ('Type Confusion')
+# pyscg-0011: Access Of Resource Using Incompatible Type ('Type Confusion')
 
 When operating on unsigned values coming from external sources, such as `C` or `C++` applications, they should be unpacked using variable types that can represent their entire value range.
 This rule is related to [pyscg-0005: Control Rounding When Converting To Less Precise Numbers](../../03_numbers/pyscg-0005/README.md).
@@ -106,5 +106,5 @@ Depending on the use case, it can instead be safer to throw an exception when an
 
 |||
 |:---|:---|
-|[[Python docs](https://docs.python.org/3/library/struct.html)]|Python Software Foundation. (2025). struct — Interpret bytes as packed binary data [online]. Available from: [https://docs.python.org/3/library/struct.html](https://docs.python.org/3/library/struct.html) [accessed 12 May 2025]|
-|[[SEI CERT 2015](https://wiki.sei.cmu.edu/confluence/display/java/NUM03-J.+Use+integer+types+that+can+fully+represent+the+possible+range+of++unsigned+data)]|Software Engineering Institute CERT Coordination Center. (2025). NUM03-J. Use integer types that can fully represent the possible range of unsigned data [online]. Available from: [https://wiki.sei.cmu.edu/confluence/display/java/NUM03-J.+Use+integer+types+that+can+fully+represent+the+possible+range+of++unsigned+data](https://wiki.sei.cmu.edu/confluence/display/java/NUM03-J.+Use+integer+types+that+can+fully+represent+the+possible+range+of++unsigned+data) [accessed 12 May 2025]|
+|[[Python docs](https://docs.python.org/3/library/struct.html)]|Python Software Foundation. (2025). struct — Interpret bytes as packed binary data \[online\]. Available from: [https://docs.python.org/3/library/struct.html](https://docs.python.org/3/library/struct.html) \[accessed 12 May 2025\]|
+|[[SEI CERT 2015](https://wiki.sei.cmu.edu/confluence/display/java/NUM03-J.+Use+integer+types+that+can+fully+represent+the+possible+range+of++unsigned+data)]|Software Engineering Institute CERT Coordination Center. (2025). NUM03-J. Use integer types that can fully represent the possible range of unsigned data \[online\]. Available from: [https://wiki.sei.cmu.edu/confluence/display/java/NUM03-J.+Use+integer+types+that+can+fully+represent+the+possible+range+of++unsigned+data](https://wiki.sei.cmu.edu/confluence/display/java/NUM03-J.+Use+integer+types+that+can+fully+represent+the+possible+range+of++unsigned+data) \[accessed 12 May 2025\]|

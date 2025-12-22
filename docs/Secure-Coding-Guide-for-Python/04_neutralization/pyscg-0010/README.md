@@ -1,4 +1,4 @@
-# pyscg-0010: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
+# pyscg-0010: Improper Neutralization Of Special Elements Used In An SQL Command ('SQL Injection')
 
 To prevent SQL injections, use input sanitization and parameterized queries instead of `executescript()`.
 
