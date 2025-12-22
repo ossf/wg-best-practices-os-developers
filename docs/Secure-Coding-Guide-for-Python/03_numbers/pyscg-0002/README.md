@@ -1,4 +1,4 @@
-# pyscg-0002: Ensure that integer overflow is properly handled in order to avoid unexpected behavior.
+# pyscg-0002: Ensure that integer overflow is properly handled in order to avoid unexpected behavior
 
 Ensure that integer overflow is properly handled in order to avoid unexpected behavior. Python data types can be divided into two categories:
 
@@ -270,7 +270,7 @@ print(calculate_exponential_value(710))
 |:---|:---|
 |[SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[INT32-C. Ensure that operations on signed integers do not result in overflow](https://wiki.sei.cmu.edu/confluence/display/c/INT32-C.+Ensure+that+operations+on+signed+integers+do+not+result+in+overflow)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[NUM00-J. Detect or prevent integer overflow](https://wiki.sei.cmu.edu/confluence/display/java/NUM00-J.+Detect+or+prevent+integer+overflow)|
-|ISO/IEC TR 24772:2010|Wrap-around Error [XYY]|
+|ISO/IEC TR 24772:2010|Wrap-around Error \[XYY\]|
 |[MITRE CWE Pillar](http://cwe.mitre.org/)|[CWE-682: Incorrect Calculation](https://cwe.mitre.org/data/definitions/682.html)|
 |[MITRE CWE Base](http://cwe.mitre.org/)|[CWE-191, Integer Underflow (Wrap or Wraparound)](http://cwe.mitre.org/data/definitions/191.html)|
 |[MITRE CWE Base](http://cwe.mitre.org/)|[CWE-190, Integer Overflow or Wraparound](http://cwe.mitre.org/data/definitions/190.html)|
@@ -279,6 +279,6 @@ print(calculate_exponential_value(710))
 
 |||
 |:---|:---|
-|[[Python 2024]](https://docs.python.org/3.9/library/stdtypes.html)|Format String Syntax. [online] Available from: <https://docs.python.org/3.9/library/stdtypes.html> \[Accessed 20 June 2024]|
-|[[cpython 2024]](https://github.com/python/cpython/blob/main/Modules/mathmodule.c)|mathmodule.c. [online] Available from: <https://github.com/python/cpython/blob/main/Modules/mathmodule.c)> \[Accessed 20 June 2024]|
-|[Python datetime 2025]|datetime strftime() and strptime() Format Codes [online], Available from: <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes> [Accessed 27 March 2025]|
+|[[Python 2024]](https://docs.python.org/3.9/library/stdtypes.html)|Format String Syntax. \[online\] Available from: <https://docs.python.org/3.9/library/stdtypes.html> \[Accessed 20 June 2024]|
+|[[cpython 2024]](https://github.com/python/cpython/blob/main/Modules/mathmodule.c)|mathmodule.c. \[online\] Available from: <https://github.com/python/cpython/blob/main/Modules/mathmodule.c)> \[Accessed 20 June 2024]|
+|\[Python datetime 2025\]|datetime strftime() and strptime() Format Codes \[online\], Available from: <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes> \[Accessed 27 March 2025\]|

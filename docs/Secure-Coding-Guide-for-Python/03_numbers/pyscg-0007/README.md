@@ -1,4 +1,4 @@
-# pyscg-0007: Avoid using floating-point literals.
+# pyscg-0007: Avoid using floating-point literals
 
 When working with decimal numbers in Python, using floating-point literals as input to the `Decimal` constructor can lead to unintended imprecision due to the limitations of `IEEE 754` [Wikipedia 2025](https://en.wikipedia.org/wiki/IEEE_754) floating-point representation; therefore, to ensure accurate decimal representation, it is advisable to avoid using floating-point literals.
 
@@ -49,6 +49,6 @@ print(Decimal("0.45"))
 
 |||
 |:---|:---|
-|[Wikipedia 2025](https://en.wikipedia.org)|IEEE 754 [online]. Available from: [https://en.wikipedia.org/wiki/IEEE_754](https://en.wikipedia.org/wiki/IEEE_754)|
+|[Wikipedia 2025](https://en.wikipedia.org)|IEEE 754 \[online\]. Available from: [https://en.wikipedia.org/wiki/IEEE_754](https://en.wikipedia.org/wiki/IEEE_754)|
 
-|[Python docs](https://docs.python.org/3/)|decimal — Decimal fixed-point and floating-point arithmetic [online]. Available from: [https://docs.python.org/3/library/decimal.html](https://docs.python.org/3/library/decimal.html) [accessed 2 February 2025]|
+|[Python docs](https://docs.python.org/3/)|decimal — Decimal fixed-point and floating-point arithmetic \[online\]. Available from: [https://docs.python.org/3/library/decimal.html](https://docs.python.org/3/library/decimal.html) \[accessed 2 February 2025\]|
