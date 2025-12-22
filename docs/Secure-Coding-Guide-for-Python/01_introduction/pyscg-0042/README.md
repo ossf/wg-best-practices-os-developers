@@ -1,4 +1,4 @@
-# pyscg-0042: Mind Operator Precedence
+# pyscg-0042: Operator Precedence Logic Error
 
 Failing to understand the order of precedence in expressions that read and write to the same object can lead to unintended side effects.
 

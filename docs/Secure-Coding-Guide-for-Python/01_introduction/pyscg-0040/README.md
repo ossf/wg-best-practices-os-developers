@@ -1,4 +1,4 @@
-# pyscg-0040: Respect Trust Boundaries
+# pyscg-0040: Trust Boundary Violation
 
 Python's trust boundaries rely on explicit process isolation, rather than in-process access control within a single interpreter.
 
@@ -44,6 +44,6 @@ unknown
 
 |||
 |:---|:---|
-|[[Python 2023]](https://docs.python.org/3.9/tutorial/classes.html?highlight=private#private-variables)|Python Software Foundation. (2023). Classes - Private Variables. Available from: [Python Documentation](https://docs.python.org/3.9/tutorial/classes.html?highlight=private#private-variables) [accessed 13 September 2023]|
+|[[Python 2023]](https://docs.python.org/3.9/tutorial/classes.html?highlight=private#private-variables)|Python Software Foundation. (2023). Classes - Private Variables. Available from: [Python Documentation](https://docs.python.org/3.9/tutorial/classes.html?highlight=private#private-variables) \[accessed 13 September 2023\]|
 |[[OWASP, Conklin,  Drake, 2023]](https://cwe.mitre.org/data/definitions/134.html)|[CWE - CWE-134: Use of Externally-Controlled Format String (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/134.html)|
-|[Oracle Docs](https://docs.oracle.com/en/)| [Administering Oracle Access Management](https://docs.oracle.com/en/middleware/idm/access-manager/12.2.1.3/aiaag/introducing-oracle-access-management.html#GUID-D1D083AA-538E-4063-A921-9328DB784319) [accessed 29 October 2025]|
+|[Oracle Docs](https://docs.oracle.com/en/)|[Administering Oracle Access Management](https://docs.oracle.com/en/middleware/idm/access-manager/12.2.1.3/aiaag/introducing-oracle-access-management.html#GUID-D1D083AA-538E-4063-A921-9328DB784319) \[accessed 29 October 2025\]|

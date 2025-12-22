@@ -1,4 +1,4 @@
-# pyscg-0009: Improper Neutralization of Special Elements Used in an OS Command (OS Command Injection)
+# pyscg-0009: Improper Neutralization of Special Elements Used in an OS Command ("OS Command Injection")
 
 Avoid input from untrusted sources to be used directly as part of an OS command and use specialized Python modules where possible instead.
 
@@ -201,13 +201,13 @@ The `compliant01.py` does not use data that originates from a lesser trusted sou
 |[SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[ENV03-C. Sanitize the environment when invoking external programs](https://wiki.sei.cmu.edu/confluence/display/c/ENV03-C.+Sanitize+the+environment+when+invoking+external+programs)|
 |[SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[ENV33-C. Do not call system()](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=87152177)|
 |[SEI CERT C++ Coding Standard](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682)|[ENV03-CPP. Sanitize the environment when invoking external programs VOID ENV02-CPP. Do not call system() if you do not need a command processor](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046815)|
-|[ISO/IEC TR 24772:2013](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-ISO/IECTR24772-2013)|Injection [RST]|
+|[ISO/IEC TR 24772:2013](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-ISO/IECTR24772-2013)|Injection \[RST\]|
 
 ## Bibliography
 
 |||
 |:---|:---|
-|[[Python docs](https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations)]|subprocess — Subprocess management — Python 3.10.4 documentation [online]. Available from: [https://docs.python.org/3/library/subprocess.html](https://docs.python.org/3/library/subprocess.html), [accessed 1 November 2024] |
-|[[Python docs](https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations)]|os — Miscellaneous operating system interfaces — Python 3.10.4 documentation [online]. Available from: [https://docs.python.org/3/library/os.html#os.system](https://docs.python.org/3/library/os.html#os.system), [accessed 1 November 2024] |
-|[CTFOBins]|GTFOBins is a curated list of Unix binaries that can be used to bypass local security restrictions in misconfigured systems. [online]. Available from: [https://gtfobins.github.io/](https://gtfobins.github.io/), [accessed 1 November 2024] |
-|[LOLBAS]|LOLBAS Living Off The Land Binaries, Scripts and Libraries. [online]. Available from: [https://lolbas-project.github.io/](https://lolbas-project.github.io/), [accessed 1 November 2024] |
+|[[Python docs](https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations)]|subprocess — Subprocess management — Python 3.10.4 documentation \[online\]. Available from: [https://docs.python.org/3/library/subprocess.html](https://docs.python.org/3/library/subprocess.html), \[accessed 1 November 2024\]|
+|[[Python docs](https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations)]|os — Miscellaneous operating system interfaces — Python 3.10.4 documentation \[online\]. Available from: [https://docs.python.org/3/library/os.html#os.system](https://docs.python.org/3/library/os.html#os.system), \[accessed 1 November 2024\]|
+|\[CTFOBins\]|GTFOBins is a curated list of Unix binaries that can be used to bypass local security restrictions in misconfigured systems. \[online\]. Available from: [https://gtfobins.github.io/](https://gtfobins.github.io/), \[accessed 1 November 2024\]|
+|\[LOLBAS\]|LOLBAS Living Off The Land Binaries, Scripts and Libraries. \[online\]. Available from: [https://lolbas-project.github.io/](https://lolbas-project.github.io/), \[accessed 1 November 2024\]|

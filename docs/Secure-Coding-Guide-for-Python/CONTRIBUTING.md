@@ -98,6 +98,8 @@ Please read and adhere to our [Code of Conduct](https://github.com/ossf/wg-best-
 * Academic in wording whilst aiming for low word count.
 * No fluff, "in software security it is important to be aware of ...."
 * Use imperative "do x and y to ensure z" instead of vague wording "might want to, could be a good idea..."
+* Rule use title case (capitalize first letter)
+* Rule IDs are lowercase (pyscg-0040)
 * bibliography, follow the Harvard reference guide
 
 A template for a rule is available here: [README_TEMPLATE.md](templates/README_TEMPLATE.md) with inline documentation on each section.

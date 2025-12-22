@@ -1,4 +1,4 @@
-# pyscg-0053: Incorrect Bitwise Shift of Intege
+# pyscg-0053: Incorrect Bitwise Shift of Integer
 
 Avoid mixing bitwise shifts with arithmetic operations, instead, use clear mathematical expressions instead to maintain predictable behavior, readability, and compatibility.
 
