@@ -181,7 +181,7 @@ Not available
 <a href="https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python">[OpenSSF Secure Coding in Python 2025]</a>
 </td>
 <td>
-<a href="https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/03_numbers/pyscg-0003/README.md">pyscg-0003: Promote readability and compatibility by using mathematical written code with arithmetic operations instead of bit-wise operations</a>
+<a href="https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Secure-Coding-Guide-for-Python/03_numbers/pyscg-0003/README.md">pyscg-0003: Promote Readability And Compatibility By Using Mathematical Written Code With Arithmetic Operations Instead Of Bit-wise Operations</a>
 </td>
 </tr>
 <tr>

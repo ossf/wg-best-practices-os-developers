@@ -39,11 +39,11 @@ Not knowing that a product must be deployed differently in production than in st
 |[MITRE CWE](http://cwe.mitre.org/)|Pillar: [CWE-710: Improper Adherence to Coding Standards (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/710.html)|
 |[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE-489: Active Debug Code (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/489.html)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[ENV05-J. Do not deploy an application that can be remotely monitored](https://wiki.sei.cmu.edu/confluence/display/java/ENV05-J.+Do+not+deploy+an+application+that+can+be+remotely+monitored)|
-|[Python - Secure Coding One Stop Shop](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python/)|[pyscg-0019: Insertion of Sensitive Information into Log File](../pyscg-0019/README.md)|
+|[Python - Secure Coding One Stop Shop](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python/)|[pyscg-0019: Insertion Of Sensitive Information Into Log File](../pyscg-0019/README.md)|
 
 ## Bibliography
 
 |||
 |:---|:---|
-|[[Biswal 2012](https://web.archive.org/web/20120822051047/http://www.mindfiresolutions.com/Monkey-Patching-in-Python-1238.php)]|Biswal, B. (2012). Monkey Patching in Python [archived]. Internet Archive Wayback Machine. Available from: [https://web.archive.org/web/20120822051047/http://www.mindfiresolutions.com/Monkey-Patching-in-Python-1238.php](https://web.archive.org/web/20120822051047/http://www.mindfiresolutions.com/Monkey-Patching-in-Python-1238.php) [accessed 3 January 2025] |
-|[[Hammond 2022](https://www.youtube.com/watch?v=jwBRgaIRdgs)]|DANGEROUS Python Flask Debug Mode Vulnerabilities [online]. Available from: [https://www.youtube.com/watch?v=jwBRgaIRdgs](https://www.youtube.com/watch?v=jwBRgaIRdgs) [accessed 3 January 2025] |
+|[[Biswal 2012](https://web.archive.org/web/20120822051047/http://www.mindfiresolutions.com/Monkey-Patching-in-Python-1238.php)]|Biswal, B. (2012). Monkey Patching in Python \[archived\]. Internet Archive Wayback Machine. Available from: [https://web.archive.org/web/20120822051047/http://www.mindfiresolutions.com/Monkey-Patching-in-Python-1238.php](https://web.archive.org/web/20120822051047/http://www.mindfiresolutions.com/Monkey-Patching-in-Python-1238.php) \[accessed 3 January 2025\]|
+|[[Hammond 2022](https://www.youtube.com/watch?v=jwBRgaIRdgs)]|DANGEROUS Python Flask Debug Mode Vulnerabilities \[online\]. Available from: [https://www.youtube.com/watch?v=jwBRgaIRdgs](https://www.youtube.com/watch?v=jwBRgaIRdgs) \[accessed 3 January 2025\]|

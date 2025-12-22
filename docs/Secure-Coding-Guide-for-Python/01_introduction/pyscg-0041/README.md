@@ -1,4 +1,4 @@
-# pyscg-0041: Avoid Hardcoded Credentials
+# pyscg-0041: Use Of Hardcoded Credentials
 
 Ensure that unique keys or secrets can be replaced or rejected at runtime and never hard-code sensitive information, such as passwords, and encryption keys in a component.
 
@@ -156,7 +156,7 @@ if __name__ == "__main__":
     unittest.main()
 ```
 
-The `compliant01.py` code avoids using password based authentication in the first place. It prints connection information only for convenience here and should not be considered in a real world implementation as per [CWE-532: Insertion of Sensitive Information into Log File](https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/) [OSSF 2025].
+The `compliant01.py` code avoids using password based authentication in the first place. It prints connection information only for convenience here and should not be considered in a real world implementation as per [CWE-532: Insertion of Sensitive Information into Log File](https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/) \[OSSF 2025\].
 
 ## Automated Detection
 
@@ -185,7 +185,7 @@ The `compliant01.py` code avoids using password based authentication in the firs
 
 |||
 |:---|:---|
-| [US Congress 1996] | Health Insurance Portability and Accountability Act (HIPAA) [online].Available from: [https://aspe.hhs.gov/reports/health-insurance-portability-accountability-act-1996](https://aspe.hhs.gov/reports/health-insurance-portability-accountability-act-1996) [accessed 27 February 2025]|
-| [European Parliament 2016] | General Data Protection Regulation (GDPR) [online]. Available from: [https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150) [accessed 27 February 2025]|
-| [CPPA 2025] |DIVISION 3. OBLIGATIONS [1427 - 3273.16] [online]. Available from: [https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150) [accessed 27 February 2025]|
-| [OSSF 2025] | CWE-532: Insertion of Sensitive Information into Log File [online]. Available from: [https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/](https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/) [accessed 27 February 2025]|
+|\[US Congress 1996\]|Health Insurance Portability and Accountability Act (HIPAA) \[online\].Available from: [https://aspe.hhs.gov/reports/health-insurance-portability-accountability-act-1996](https://aspe.hhs.gov/reports/health-insurance-portability-accountability-act-1996) \[accessed 27 February 2025]|
+|\[European Parliament 2016\]|General Data Protection Regulation (GDPR) \[online\]. Available from: [https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150) \[accessed 27 February 2025\]|
+|\[CPPA 2025\]|DIVISION 3. OBLIGATIONS \[1427 - 3273.16\] \[online\]. Available from: [https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150)\[accessed 27 February 2025\]|
+|\[OSSF 2025\]|CWE-532: Insertion of Sensitive Information into Log File \[online\]. Available from: [https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/](https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/) \[accessed 27 February 2025\]|

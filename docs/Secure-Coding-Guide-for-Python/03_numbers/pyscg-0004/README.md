@@ -1,8 +1,8 @@
-# pyscg-0004: Ensure to have predictable outcomes in loops by using int instead of float variables as a counter
+# pyscg-0004: Numeric Truncation Error
 
 Ensure to have predictable outcomes in loops by using int instead of `float` variables as a counter.
 
-Floating-point arithmetic can only represent a finite subset of real numbers [[IEEE Std 754-2019](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8766229)], such as `0.555....` represented by `0.5555555555555556` also discussed in [pyscg-0001: Avoid floating-point and use integers or the decimal module to ensure precision in applications that require high accuracy, such as in financial or banking computations](../pyscg-0001/README.md). Code examples in this rule are based on [Albing and Vossen, 2017].
+Floating-point arithmetic can only represent a finite subset of real numbers [[IEEE Std 754-2019](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8766229)], such as `0.555....` represented by `0.5555555555555556` also discussed in [pyscg-0001: Insufficient Precision Or Accuracy Of A Real Number](../pyscg-0001/README.md). Code examples in this rule are based on \[Albing and Vossen, 2017\].
 
 Side effects of using `float` as a counter is demonstrated in `example01.py` showcasing that calculating `0.1 + 0.2` does not end up as `0.3`.
 
@@ -143,13 +143,13 @@ while counter <= target:
 |[MITRE CWE](http://cwe.mitre.org/)|Class [CWE-197: Numeric Truncation Error](https://cwe.mitre.org/data/definitions/197.html)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[NUM09-J. Do not use floating-point variables as loop counters](https://wiki.sei.cmu.edu/confluence/display/java/NUM09-J.+Do+not+use+floating-point+variables+as+loop+counters)|
 |[SEI CERT C Coding Standard](https://web.archive.org/web/20220511061752/https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[FLP30-C. Do not use floating-point variables as loop counters](https://web.archive.org/web/20220511061752/https://wiki.sei.cmu.edu/confluence/display/c/FLP30-C.+Do+not+use+floating-point+variables+as+loop+counters)|
-|[ISO/IEC TR 24772:2019]|Programming languages — Guidance to avoiding vulnerabilities in programming languages, available from [https://www.iso.org/standard/71091.html](https://www.iso.org/standard/71091.html)|
+|\[ISO/IEC TR 24772:2019\]|Programming languages — Guidance to avoiding vulnerabilities in programming languages, available from [https://www.iso.org/standard/71091.html](https://www.iso.org/standard/71091.html)|
 
 ## Biblography
 
 |||
 |:---|:---|
-|[IEEE Std 754-2019](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8766229)|IEEE Standard for Floating-Point Arithmetic, available from: [https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8766229](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8766229), [Last  accessed June 2024] |
-|[Loops and control variables]|Derek M. Jones(2006 )Loops and their control variables, Discussion and proposed guidelines:[http://www.knosof.co.uk/vulnerabilities/loopcntrl.pdf](http://www.knosof.co.uk/vulnerabilities/loopcntrl.pdf), [Last accessed October 2025] |
-|[Albing and Vossen, 2017]|Albin, C. and Vossen, JP (2017) 6.13 Looping with Floating Point Values. In: Bleiel, J., Brown, K. and Head, R. eds. bash Cookbook: Solutions and Examples for bash Users, 2d Edition. Sebastopol: O'Reilly Media, Inc., pp.159-160|
-|[Bloch 2005]|Puzzle 34, "Down for the Count", available from: [https://web.archive.org/web/20220511061752/https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Bloch05](https://web.archive.org/web/20220511061752/https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Bloch05), [Last accessed August 2024] |
+|[IEEE Std 754-2019](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8766229)|IEEE Standard for Floating-Point Arithmetic, available from: [https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8766229](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8766229), \[Last  accessed June 2024\]|
+|\[Loops and control variables\]|Derek M. Jones(2006 )Loops and their control variables, Discussion and proposed guidelines:[http://www.knosof.co.uk/vulnerabilities/loopcntrl.pdf](http://www.knosof.co.uk/vulnerabilities/loopcntrl.pdf), \[Last accessed October 2025\]|
+|\[Albing and Vossen, 2017\]|Albin, C. and Vossen, JP (2017) 6.13 Looping with Floating Point Values. In: Bleiel, J., Brown, K. and Head, R. eds. bash Cookbook: Solutions and Examples for bash Users, 2d Edition. Sebastopol: O'Reilly Media, Inc., pp.159-160|
+|\[Bloch 2005\]|Puzzle 34, "Down for the Count", available from: [https://web.archive.org/web/20220511061752/https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Bloch05](https://web.archive.org/web/20220511061752/https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Bloch05), \[Last accessed August 2024\]|

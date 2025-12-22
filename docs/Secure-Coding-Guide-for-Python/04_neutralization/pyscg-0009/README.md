@@ -29,9 +29,9 @@ Following table 00 provides a limited list of Unix shell commands to Python modu
 
 Any variation of using input from a lesser trusted source as part of a command line program has a very high probability of resulting in a potential attack including the use of specialized modules. Consider:
 
-* *CWE-184: Incomplete List of Disallowed Input.*
-* *CWE-209: Generation of Error Message Containing Sensitive Information.*
-* *[pyscg-0040: Respect Trust Boundaries](../../01_introduction/pyscg-0040/README.md)*
+* *[pyscg-0047: Incomplete List Of Disallowed Input](../../04_neutralization/pyscg-0047/README.md)*
+* *[pyscg-0050: Generation Of Error Message Containing Sensitive Information](../../06_logging/pyscg-0050/README.md)*
+* *[pyscg-0040: Trust Boundary Violation](../../01_introduction/pyscg-0040/README.md)*
 
 ## Non-Compliant Code Example (Read Only)
 

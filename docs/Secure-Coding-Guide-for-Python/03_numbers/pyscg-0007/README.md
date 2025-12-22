@@ -1,4 +1,4 @@
-# pyscg-0007: Avoid using floating-point literals
+# pyscg-0007: Avoid An Uncontrolled Loss Of Precision When Passing Floating-point Literals To A Decimal Constructor
 
 When working with decimal numbers in Python, using floating-point literals as input to the `Decimal` constructor can lead to unintended imprecision due to the limitations of `IEEE 754` [Wikipedia 2025](https://en.wikipedia.org/wiki/IEEE_754) floating-point representation; therefore, to ensure accurate decimal representation, it is advisable to avoid using floating-point literals.
 
@@ -35,7 +35,7 @@ print(Decimal("0.45"))
 |||
 |:---|:---|
 |[SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java?src=breadcrumbs)|[NUM10-J. Do not construct BigDecimal objects from floating-point literals](https://wiki.sei.cmu.edu/confluence/display/java/NUM10-J.+Do+not+construct+BigDecimal+objects+from+floating-point+literals)|
-|[MITRE CWE Base](http://cwe.mitre.org/)| [CWE-681](https://cwe.mitre.org/data/definitions/681.html)|
+|[MITRE CWE Base](http://cwe.mitre.org/)|[CWE-681](https://cwe.mitre.org/data/definitions/681.html)|
 |[MITRE CWE Pillar](http://cwe.mitre.org/)|[CWE-664: Improper Control of a Resource Through its Lifetime](https://cwe.mitre.org/data/definitions/664.html)|
 
 ## Automated Detection

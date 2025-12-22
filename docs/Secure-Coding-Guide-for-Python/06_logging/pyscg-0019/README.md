@@ -1,4 +1,4 @@
-# pyscg-0019: Insertion of Sensitive Information into Log File
+# pyscg-0019: Insertion Of Sensitive Information Into Log File
 
 Do not log any sensitive information such as passwords or credit card numbers. Encrypt or anonymize personal information such as user names, and date of birth in plain text.
 
@@ -214,8 +214,8 @@ process_order("10 Grafton Street")
 |[SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java?src=breadcrumbs)|[FIO13-J. Do not log sensitive information outside a trust boundary - SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/FIO13-J.+Do+not+log+sensitive+information+outside+a+trust+boundary)|
 |[MITRE CWE Base](http://cwe.mitre.org/)|[CWE-359](http://cwe.mitre.org/data/definitions/359.html), Privacy Violation|
 |[MITRE CWE Base](http://cwe.mitre.org/)|[CWE-532](http://cwe.mitre.org/data/definitions/532.html), Information Exposure through Log Files|
-|[MITRE CWE Pillar](http://cwe.mitre.org/)| [CWE-664](https://cwe.mitre.org/data/definitions/664.html), Improper Control of a Resource Through its Lifetime|
-|[RFC](https://www.rfc-editor.org/)| [RFC 5424: The Syslog Protocol](https://www.rfc-editor.org/rfc/rfc5424.html)|
+|[MITRE CWE Pillar](http://cwe.mitre.org/)|[CWE-664](https://cwe.mitre.org/data/definitions/664.html), Improper Control of a Resource Through its Lifetime|
+|[RFC](https://www.rfc-editor.org/)|[RFC 5424: The Syslog Protocol](https://www.rfc-editor.org/rfc/rfc5424.html)|
 
 ## Automated Detection
 
@@ -227,7 +227,7 @@ process_order("10 Grafton Street")
 
 |||
 |:---|:---|
-|(Python Software Foundation 2023)|[logging - Logging facility for Python](https://docs.python.org/3/library/logging.html) [accessed 11 May 2023]|
-|California Consumer Privacy Act (CCPA) USA|[CCPA DIVISION 3. OBLIGATIONS [1427 - 3273.16]](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150) [accessed 16 October 2024]|
-|General Data Protection Regulation (GDPR)|[Fines / Penalties - General Data Protection Regulation (GDPR) (gdpr-info.eu)](https://gdpr-info.eu/issues/fines-penalties/) [accessed 16 October 2024]|
-|European Commission International Data Protection|[Rules on international data transfers](https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/rules-international-data-transfers_en) [accessed 16 October 2024]|
+|(Python Software Foundation 2023)|[logging - Logging facility for Python](https://docs.python.org/3/library/logging.html) \[accessed 11 May 2023\]|
+|California Consumer Privacy Act (CCPA) USA|[CCPA DIVISION 3. OBLIGATIONS [1427 - 3273.16]](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150) \[accessed 16 October 2024\]|
+|General Data Protection Regulation (GDPR)|[Fines / Penalties - General Data Protection Regulation (GDPR) (gdpr-info.eu)](https://gdpr-info.eu/issues/fines-penalties/) \[accessed 16 October 2024\]|
+|European Commission International Data Protection|[Rules on international data transfers](https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/rules-international-data-transfers_en) \[accessed 16 October 2024\]|

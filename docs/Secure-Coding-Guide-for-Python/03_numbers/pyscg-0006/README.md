@@ -1,4 +1,4 @@
-# pyscg-0006: String representations of floating-point numbers must not be compared or inspected outside of specialized modules such as decimal or math
+# pyscg-0006: Incorrect Conversion Between Numeric Types
 
 String representations of floating-point numbers must not be compared or inspected outside of specialized modules such as `decimal` or `math`.
 
@@ -58,4 +58,4 @@ if Decimal("2").compare(t) == 0:
 
 |||
 |:---|:---|
-|[[Python docs](https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations)]|Python Software Foundation. (2024). Expressions, Binary arithmetic operations [online].<br>Available from: [https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations](https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations)<br>[accessed 11 April 2024].|
+|[[Python docs](https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations)]|Python Software Foundation. (2024). Expressions, Binary arithmetic operations \[online\].<br>Available from: [https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations](https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations)<br>\[accessed 11 April 2024\]|

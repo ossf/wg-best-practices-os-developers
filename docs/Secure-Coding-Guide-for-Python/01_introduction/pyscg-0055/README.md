@@ -1,4 +1,4 @@
-# pyscg-0055: Validate Web Parameters
+# pyscg-0055: External Control Of Assumed-Immutable Web Parameter
 
 Ensuring user roles are determined on the server side prevents attackers from manipulating permissions through client-side data.
 
@@ -85,6 +85,6 @@ A secure implementation should avoid relying on client-supplied fields like `ses
 
 |||
 |:---|:---|
-|MITRE CWE Pillar| [CWE-693: Protection Mechanism Failure (4.12) (mitre.org)](https://cwe.mitre.org/data/definitions/693.html)|
+|MITRE CWE Pillar|[CWE-693: Protection Mechanism Failure (4.12) (mitre.org)](https://cwe.mitre.org/data/definitions/693.html)|
 |MITRE CWE Class|[CWE-472: External Control of Assumed-Immutable Web Parameter](http://cwe.mitre.org/data/definitions/472.html)|
 |[SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[IDS14-J. Do not trust the contents of hidden form fields](https://wiki.sei.cmu.edu/confluence/display/java/IDS14-J.+Do+not+trust+the+contents+of+hidden+form+fields)|

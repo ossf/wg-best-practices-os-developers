@@ -6,7 +6,7 @@ Each `except` block must ensure that the program continues only with formally sp
 
 * Recovering from the exceptional condition
 * Re-throwing the exception with additional information
-* Throwing custom exception only if it provides a benefit over Python's [Built-in Exceptions](https://docs.python.org/3.9/library/exceptions.html) [Python.org 2022].
+* Throwing custom exception only if it provides a benefit over Python's [Built-in Exceptions](https://docs.python.org/3.9/library/exceptions.html) \[Python.org 2022\].
 
 Invalid reasons for suppressing exceptions cause:
 
@@ -149,5 +149,5 @@ The following two exceptions, highlighted in [SEI Cert's Oracle Coding Standard 
 
 |||
 |:---|:---|
-|[[Python.org](https://docs.python.org/3.9/) 2022]| python.org. (2022). Built-in Exceptions [online]. Available from: [https://docs.python.org/3.9/library/exceptions.html](https://docs.python.org/3.9/library/exceptions.html) [accessed 08 February 2023]|
-|[SEI CERT ERR00-J 2025]|ERR00-J. Do not suppress or ignore checked exceptions [online]. Available from: [https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions](https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions) [Accessed February 2025]|
+|[[Python.org](https://docs.python.org/3.9/) 2022]|python.org. (2022). Built-in Exceptions \[online\]. Available from: [https://docs.python.org/3.9/library/exceptions.html](https://docs.python.org/3.9/library/exceptions.html) \[accessed 08 February 2023\]|
+|\[SEI CERT ERR00-J 2025\]|ERR00-J. Do not suppress or ignore checked exceptions \[online\]. Available from: [https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions](https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions) \[Accessed February 2025\]|

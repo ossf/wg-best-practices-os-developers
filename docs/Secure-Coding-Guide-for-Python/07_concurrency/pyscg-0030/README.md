@@ -1,10 +1,10 @@
-# pyscg-0030: Missing Report of Error Condition in a Threadpool
+# pyscg-0030: Missing Report Of Error Condition
 
 Failure to provide a mechanism for reporting that tasks in a thread pool failed as a result of an exceptional condition can make it difficult or impossible to diagnose the problem.
 
 > [!NOTE]
 > Prerequisite to understand this page:
-> [Intro to multiprocessing and multithreading](../../Intro_to_multiprocessing_and_multithreading/readme.md)
+> [Intro to multiprocessing and multithreading](../../07_concurrency/readme.md)
 
 **ThreadPoolExecutor** from the `concurrent.futures` module is used in Python to asynchronously execute callable tasks [[Python Docs - concurrent.futures]](https://docs.python.org/3/library/concurrent.futures.html). The `ThreadPoolExecutor` suppresses exceptions raised by tasks to ensure that the failure of a task does not result in the failure of a worker thread in the thread pool. Otherwise, worker threads would close whenever an exception is raised, negatively impacting the performance of the `ThreadPoolExecutor`.
 
@@ -235,8 +235,8 @@ unknown
 
 |||
 |:----|:----|
-|[Python Docs - concurrent.futures]| Python 3.10.4 documentation - concurrent.futures — Launching parallel tasks \[online]. Available from: <https://docs.python.org/3/library/concurrent.futures.html> \[accessed 9 May 2024]|
-|[Python Docs - Errors and Exceptions]| Python 3.10.4 documentation - 8. Errors and Exceptions \[online]. Available from: <https://docs.python.org/3/tutorial/errors.html> \[accessed 9 May 2024]|
-|[Ross 2020]|Ross, E. (2020). Raising Exceptions in Python Futures \[online]. Available from: <https://skeptric.com/python-futures-exception/index.html> \[accessed 21 December 2023].|
-|[Brownlee 2022]|Brownlee, J. (2022). How to Handle Exceptions With the ThreadPoolExecutor in Python \[online]. Available from: <https://superfastpython.com/threadpoolexecutor-exception-handling/> \[accessed 21 December 2023].|
-|[PEP 0255]|PEP 255 - Simple Generators Specification: Generators and Exception Propagation \[online]. Available from: <https://peps.python.org/pep-0255/#specification-generators-and-exception-propagation> \[accessed 9 May 2024]|
+|\[Python Docs - concurrent.futures\]|Python 3.10.4 documentation - concurrent.futures — Launching parallel tasks \[online]. Available from: <https://docs.python.org/3/library/concurrent.futures.html> \[accessed 9 May 2024]|
+|\[Python Docs - Errors and Exceptions\]|Python 3.10.4 documentation - 8. Errors and Exceptions \[online]. Available from: <https://docs.python.org/3/tutorial/errors.html> \[accessed 9 May 2024]|
+|\[Ross 2020\]|Ross, E. (2020). Raising Exceptions in Python Futures \[online]. Available from: <https://skeptric.com/python-futures-exception/index.html> \[accessed 21 December 2023].|
+|\[Brownlee 2022\]|Brownlee, J. (2022). How to Handle Exceptions With the ThreadPoolExecutor in Python \[online]. Available from: <https://superfastpython.com/threadpoolexecutor-exception-handling/> \[accessed 21 December 2023].|
+|\[PEP 0255\]|PEP 255 - Simple Generators Specification: Generators and Exception Propagation \[online]. Available from: <https://peps.python.org/pep-0255/#specification-generators-and-exception-propagation> \[accessed 9 May 2024]|

@@ -1,4 +1,4 @@
-# pyscg-0005: Make conscious design decisions on how conversions are rounded
+# pyscg-0005: Control Rounding When Converting To Less Precise Numbers
 
 While defensive coding requires enforcing types, it is important to make conscious design decisions on how conversions are rounded.
 
@@ -100,5 +100,5 @@ Initializing `Decimal` with an actual `float`, such as `0.10`, and without round
 
 |||
 |:---|:---|
-|[python round( ) 2024](https://docs.python.org/3/library/functions.html#round)|python round( ), available from: [https://docs.python.org/3/library/functions.html#round](https://docs.python.org/3/library/functions.html#round), [Last  accessed June 2024] |
+|[python round( ) 2024](https://docs.python.org/3/library/functions.html#round)|python round( ), available from: [https://docs.python.org/3/library/functions.html#round](https://docs.python.org/3/library/functions.html#round), \[Last  accessed June 2024\]|
 |[python decimal 2024](https://docs.python.org/3/library/decimal.html#rounding-modes)|Python decimal module, available from: [https://docs.python.org/3/library/decimal.html#rounding-modes](https://docs.python.org/3/library/decimal.html#rounding-modes)|

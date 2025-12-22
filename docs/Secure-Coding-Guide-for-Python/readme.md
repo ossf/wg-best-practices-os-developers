@@ -59,7 +59,7 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="01_introduction/pyscg-0041/README.md">pyscg-0041: Use of Hardcoded Credentials</a></td>
+<td><a href="01_introduction/pyscg-0041/README.md">pyscg-0041: Use Of Hardcoded Credentials</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/798.html">CWE-798</a></td>
 </tr>
@@ -71,7 +71,7 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="01_introduction/pyscg-0055/README.md">pyscg-0055: External Control of Assumed-Immutable Web Parameter</a></td>
+<td><a href="01_introduction/pyscg-0055/README.md">pyscg-0055: External Control Of Assumed-Immutable Web Parameter</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/472.html">CWE-472</a></td>
 </tr>
@@ -83,19 +83,19 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="02_encoding_and_strings/pyscg-0043/README.md">pyscg-0043: Improper Handling of Mixed Encoding</a></td>
+<td><a href="02_encoding_and_strings/pyscg-0043/README.md">pyscg-0043: Improper Handling Of Mixed Encoding</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/175.html">CWE-175</a></td>
 </tr>
 
 <tr>
-<td><a href="02_encoding_and_strings/pyscg-0044/README.md">pyscg-0044: Incorrect Behavior Order: Validate before Canonicalize</a></td>
+<td><a href="02_encoding_and_strings/pyscg-0044/README.md">pyscg-0044: Incorrect Behavior Order: Validate Before Canonicalize</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2022-26136/">CVE-2022-26136</a>,<br>CVSSv3.1: <strong style='color:red'>9.8</strong>,<br>EPSS: <strong>00.28</strong> (31.12.2025)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/180.html">CWE-180</a></td>
 </tr>
 
 <tr>
-<td><a href="02_encoding_and_strings/pyscg-0045/README.md">pyscg-0045: Collapse of Data Into Unsafe Value</a></td>
+<td><a href="02_encoding_and_strings/pyscg-0045/README.md">pyscg-0045: Collapse Of Data Into Unsafe Value</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/182.html">CWE-182</a></td>
 </tr>
@@ -113,7 +113,7 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="03_numbers/pyscg-0001/README.md">pyscg-0001: Insufficient Precision or Accuracy of a Real Number</a></td>
+<td><a href="03_numbers/pyscg-0001/README.md">pyscg-0001: Insufficient Precision Or Accuracy Of A Real Number</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/1339.html">CWE-1339</a></td>
 </tr>

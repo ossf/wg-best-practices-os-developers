@@ -242,6 +242,6 @@ print(f"{len(output.getvalue().decode('utf-8'))} characters in string")
 
 |||
 |:---|:---|
-|[[Python 3.9 locale](https://docs.python.org/3.9/library/locale.html)]|Python Software Foundation. (2024). locale — Internationalization services [online]. Available from: [https://docs.python.org/3.9/library/locale.html](https://docs.python.org/3.9/library/locale.html) [accessed 31 October 2024] |
-|[[Python Issue 34928](https://bugs.python.org/issue34928)]|Python Software Foundation. (2024). string method .upper() converts 'ß' to 'SS' instead of 'ẞ' [online]. Available from: [https://bugs.python.org/issue34928](https://bugs.python.org/issue34928) [accessed 31 October 2024] |
-|[[Language Log 2008](https://languagelog.ldc.upenn.edu/nll/?p=73)]|Poser, B. (2008). Two Dots Too Many [online]. Available from: [https://languagelog.ldc.upenn.edu/nll/?p=73](https://languagelog.ldc.upenn.edu/nll/?p=73) [accessed 31 October 2024] |
+|[[Python 3.9 locale](https://docs.python.org/3.9/library/locale.html)]|Python Software Foundation. (2024). locale — Internationalization services \[online\]. Available from: [https://docs.python.org/3.9/library/locale.html](https://docs.python.org/3.9/library/locale.html) \[accessed 31 October 2024\]|
+|[[Python Issue 34928](https://bugs.python.org/issue34928)]|Python Software Foundation. (2024). string method .upper() converts 'ß' to 'SS' instead of 'ẞ' \[online\]. Available from: [https://bugs.python.org/issue34928](https://bugs.python.org/issue34928) \[accessed 31 October 2024\]|
+|[[Language Log 2008](https://languagelog.ldc.upenn.edu/nll/?p=73)]|Poser, B. (2008). Two Dots Too Many \[online\]. Available from: [https://languagelog.ldc.upenn.edu/nll/?p=73](https://languagelog.ldc.upenn.edu/nll/?p=73) \[accessed 31 October 2024\]|

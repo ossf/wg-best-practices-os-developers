@@ -8,7 +8,7 @@ Avoiding NULL Pointer Dereference is crucial for preventing runtime errors, and 
 * Check the object is an array before accessing or modifying its elements.
 * Raise only exceptions that properly inherit from the BaseException class, never raise "None".
 
-If the data originates from a lesser trusted source, verifying that objects are not None becomes a mandatory security measure to prevent potential vulnerabilities such as unauthorized access or unexpected behavior. However, when dealing with data from trusted and well-controlled sources, the primary concern shifts from a security one, to more of a stability issue as per [pyscg-0016: Detection of Error Condition without Action](../../05_exception_handling/pyscg-0016/README.md).
+If the data originates from a lesser trusted source, verifying that objects are not None becomes a mandatory security measure to prevent potential vulnerabilities such as unauthorized access or unexpected behavior. However, when dealing with data from trusted and well-controlled sources, the primary concern shifts from a security one, to more of a stability issue as per [pyscg-0016: Detection Of Error Condition Without Action](../../05_exception_handling/pyscg-0016/README.md).
 
 ## Non-Compliant Code Example - Verify that the object is not None before accessing or modifying its fields
 
@@ -192,7 +192,7 @@ print_number_of_students(None)
 
 |Tool|Version|Checker|Description|
 |:----|:----|:----|:----|
-|[mypy](https://mypy-lang.org/)|0.960 on python 3.10.4||Item "None" of "Optional[str]" has no attribute "split"|
+|[mypy](https://mypy-lang.org/)|0.960 on python 3.10.4||Item "None" of "Optional\[str\]" has no attribute "split"|
 |[pylint](https://pylint.pycqa.org/)|3.3.4|[E0702-raising bad-type](https://pylint.readthedocs.io/en/latest/user_guide/messages/error/raising-bad-type.html)|Raising NoneType while only classes or instances are allowed|
 |[pyright](https://github.com/microsoft/pyright)|1.1.402||noncompliant01.py:17:22 - error: Argument of type "None" cannot be assigned to parameter "s" of type "str" in function "is_valid_name" None" is not assignable to "str" (reportArgumentType) noncompliant03.py:21:19 - error: Invalid exception class or object "None" does not derive from BaseException (reportGeneralTypeIssues) 2 errors, 0 warnings, 0 informations|
 |[pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)|2025.6.2||Argument of type "None" cannot be assigned to parameter "s" of type "str" in function "is_valid_name"|
@@ -203,7 +203,7 @@ print_number_of_students(None)
 |:---|:---|
 |[SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[EXP34-C. Do not dereference null pointers](https://wiki.sei.cmu.edu/confluence/display/c/EXP34-C.+Do+not+dereference+null+pointers)|
 |[SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[ERR00-J. Do not suppress or ignore checked exceptions](https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions)|
-|[ISO/IEC TR 24772:2010](http://www.aitcnet.org/isai/)|Null Pointer Dereference [XYH]|
+|[ISO/IEC TR 24772:2010](http://www.aitcnet.org/isai/)|Null Pointer Dereference \[XYH\]|
 |[MITRE CWE Pillar](http://cwe.mitre.org/)|[CWE-703, Improper Check or Handling of Exceptional Conditions](https://cwe.mitre.org/data/definitions/703.html)|
 |[MITRE CWE Base](http://cwe.mitre.org/)|[CWE-476, NULL Pointer Dereference](http://cwe.mitre.org/data/definitions/476.html)|
 

@@ -1,4 +1,4 @@
-# pyscg-0027: Concurrent Execution Using Shared Resource with Improper Synchronization (Race Condition)
+# pyscg-0027: Concurrent Execution Using Shared Resource With Improper Synchronization ("Race Condition")
 
 Ensure to implement locking mechanisms when chaining methods in a multithreaded environment to prevent unexpected results.
 
@@ -10,7 +10,7 @@ Although the individual methods may be thread-safe, that might not be the case w
 
 ## Non-Compliant Code Example
 
-The practice of chaining methods is often used in the `Builder` design pattern for setting optional object fields [Bloch 2017]. Values shared fields can become inconsistent during concurrent access as demonstrated in `noncompliant01.py`.
+The practice of chaining methods is often used in the `Builder` design pattern for setting optional object fields \[Bloch 2017\]. Values shared fields can become inconsistent during concurrent access as demonstrated in `noncompliant01.py`.
 
 Since the order of threads may differ between runs, you might need to run `noncomplilant01.py` multiple times to see the effect.
 
@@ -202,5 +202,5 @@ if __name__ == "__main__":
 
 |||
 |:---|:---|
-|[[Python docs](https://docs.python.org/3/library/threading.html)]|Python Software Foundation. (2024). threading — Thread-based parallelism [online]. Available from: [https://docs.python.org/3/library/threading.html](https://docs.python.org/3/library/threading.html) [accessed 18 March 2024]|
-|[Bloch 2017]|Bloch, J. (2017) Creating and Destroying Objects. In: Friendly, S. and Lindholm, T. and Hendrickson, M., eds. Effective Java. 3rd ed. Boston: Addison-Wesley Professional, pp.10-17.|
+|[[Python docs](https://docs.python.org/3/library/threading.html)]|Python Software Foundation. (2024). threading — Thread-based parallelism \[online\]. Available from: [https://docs.python.org/3/library/threading.html](https://docs.python.org/3/library/threading.html) \[accessed 18 March 2024\]|
+|\[Bloch 2017\]|Bloch, J. (2017) Creating and Destroying Objects. In: Friendly, S. and Lindholm, T. and Hendrickson, M., eds. Effective Java. 3rd ed. Boston: Addison-Wesley Professional, pp.10-17.|

@@ -1,4 +1,4 @@
-# pyscg-0044: Incorrect behavior order: Validate before Canonicalize
+# pyscg-0044: Incorrect Behavior Order: Validate Before Canonicalize
 
 Normalize/canonicalize strings before validating them to prevent risky strings such as  `../../../../passwd` allowing directory traversal attacks, and to reduce `XSS` attacks.
 
@@ -172,7 +172,7 @@ None known
 
 |||
 |:---|:---|
-|\[Davis 2008\]|Mark Davis and Ken Whistler, Unicode Standard Annex #15, Unicode Normalization Forms, 2008. \[online\], available from: <http://unicode.org/reports/tr15/> \[Accessed April 2025\]<br>Mark Davis and Michel Suignard, Unicode Technical Report #36, Unicode Security Considerations, 2008.\[online\], Available from:<http://www.unicode.org/reports/tr36/> \[Accessed 4 April 2025\] |
+|\[Davis 2008\]|Mark Davis and Ken Whistler, Unicode Standard Annex #15, Unicode Normalization Forms, 2008. \[online\], available from: <http://unicode.org/reports/tr15/> \[Accessed April 2025\]<br>Mark Davis and Michel Suignard, Unicode Technical Report #36, Unicode Security Considerations, 2008.\[online\], Available from:<http://www.unicode.org/reports/tr36/> \[Accessed 4 April 2025\]|
 |\[Weber 2009\]|MUnraveling Unicode: A Bag of Tricks for Bug Hunting \[online\], available from: <http://www.lookout.net/wp-content/uploads/2009/03/chris_weber_exploiting-unicode-enabled-software-v15.pdf> \[Accessed April 2025\]|
 |\[Ned Batchelder 2022\]|Pragmatic Unicode, or, How do I stop the pain? - YouTube \[online\], available from: <https://www.youtube.com/watch?v=sgHbC6udIqc> \[Accessed April 2025\]|
 |\[Kuchling 2022\]|Unicode HOWTO \[online\], available from: <https://docs.python.org/3/howto/unicode.html> \[Accessed April 2025\]|

@@ -1,4 +1,4 @@
-# pyscg-0045: Enforce control over encoding such as UTF-8
+# pyscg-0045: Collapse Of Data Into Unsafe Value
 
 Handling data between different encodings or while filtering out untrusted characters and strings can cause malicious content to slip through input sanitation.
 
@@ -64,8 +64,8 @@ The `example01.py` turns a non-functional `UTF-8` encoded message `<script��
 
 A compliant solution will have to adhere to at least:
 
-* [pyscg-0044: Incorrect behavior order: Validate before Canonicalize](../pyscg-0044/README.md)
-* [pyscg-0047: Use Allow Lists Over Deny Lists](../../04_neutralization/pyscg-0047/README.md)
+* [pyscg-0044: Incorrect Behavior Order: Validate Before Canonicalize](../pyscg-0044/README.md)
+* [pyscg-0047: Incomplete List Of Disallowed Input](../../04_neutralization/pyscg-0047/README.md)
 
 Reduction of data into a subset is not limited to strings and characters.
 
@@ -90,5 +90,5 @@ Reduction of data into a subset is not limited to strings and characters.
 
 |||
 |:---|:---|
-|\[Batchelder 2022\]|Ned Batchelder, Pragmatic Unicode, or, How do I stop the pain? \[online\], Available from: <https://www.youtube.com/watch?v=sgHbC6udIqc> \[Accessed 4 April 2025\] |
-|\[W3c.org 2015\]|Character encodings for beginners \[online\], Available from: <https://www.w3.org/International/questions/qa-what-is-encoding>, \[Accessed 4 April 2025\] |
+|\[Batchelder 2022\]|Ned Batchelder, Pragmatic Unicode, or, How do I stop the pain? \[online\], Available from: <https://www.youtube.com/watch?v=sgHbC6udIqc> \[Accessed 4 April 2025\]|
+|\[W3c.org 2015\]|Character encodings for beginners \[online\], Available from: <https://www.w3.org/International/questions/qa-what-is-encoding>, \[Accessed 4 April 2025\]|
