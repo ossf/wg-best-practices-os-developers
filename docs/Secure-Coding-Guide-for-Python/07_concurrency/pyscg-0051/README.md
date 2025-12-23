@@ -1,4 +1,4 @@
-# pyscg-0051: Improper Resource Shutdown Or Release
+# pyscg-0051: Improper Resource Shutdown or Release
 
 Always close resources explicitly and ensure proper cleanup even if an error occurs.
 

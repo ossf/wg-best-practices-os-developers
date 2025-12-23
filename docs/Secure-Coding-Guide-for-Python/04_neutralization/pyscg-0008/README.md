@@ -1,4 +1,4 @@
-# pyscg-0008: Use Of Externally-Controlled Format String
+# pyscg-0008: Use of Externally-Controlled Format String
 
 Ensure that all format string functions are passed a static string which cannot be controlled by the user [[MITRE 2023]](https://cwe.mitre.org/data/definitions/134.html)
 

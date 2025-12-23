@@ -1,4 +1,4 @@
-# pyscg-0005: Control Rounding When Converting To Less Precise Numbers
+# pyscg-0005: Control Rounding When Converting to Less Precise Numbers
 
 While defensive coding requires enforcing types, it is important to make conscious design decisions on how conversions are rounded.
 

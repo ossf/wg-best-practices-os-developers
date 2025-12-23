@@ -1,4 +1,4 @@
-# pyscg-0007: Avoid An Uncontrolled Loss Of Precision When Passing Floating-point Literals To A Decimal Constructor
+# pyscg-0007: Avoid an Uncontrolled Loss of Precision When Passing Floating-point Literals to a Decimal Constructor
 
 When working with decimal numbers in Python, using floating-point literals as input to the `Decimal` constructor can lead to unintended imprecision due to the limitations of `IEEE 754` [Wikipedia 2025](https://en.wikipedia.org/wiki/IEEE_754) floating-point representation; therefore, to ensure accurate decimal representation, it is advisable to avoid using floating-point literals.
 

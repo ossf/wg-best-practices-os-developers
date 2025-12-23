@@ -1,4 +1,4 @@
-# pyscg-0012: Improper Handling Of Highly Compressed Data (Data Amplification)
+# pyscg-0012: Improper Handling of Highly Compressed Data (Data Amplification)
 
 Prevent slip and bomb attacks when decompressing and unpacking compressed data such as `ZIP`, `TAR.GZ`, `JAR`, `WAR`, `RPM`  or `DOCX`.
 
@@ -325,7 +325,7 @@ The `compliant01.py` code will extract everything below the provided `base_path`
     </tr>
     <tr>
         <td>Secure Coding in Python</td>
-        <td>Base: <a href="../../06_logging/pyscg-0050/README.md">pyscg-0050: Generation Of Error Message Containing Sensitive Information</a></td>
+        <td>Base: <a href="../../06_logging/pyscg-0050/README.md">pyscg-0050: Generation of Error Message Containing Sensitive Information</a></td>
     </tr>
     <tr>
         <td><a href="https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java">[SEI CERT Oracle Coding Standard for Java]</a></td>

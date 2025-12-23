@@ -1,4 +1,4 @@
-# pyscg-0045: Collapse Of Data Into Unsafe Value
+# pyscg-0045: Collapse of Data into Unsafe Value
 
 Handling data between different encodings or while filtering out untrusted characters and strings can cause malicious content to slip through input sanitation.
 

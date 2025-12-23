@@ -1,4 +1,4 @@
-# pyscg-0050: Generation Of Error Message Containing Sensitive Information
+# pyscg-0050: Generation of Error Message Containing Sensitive Information
 
 Prevent an attacker from discovering internal or sensitive system information by filtering, splitting and applying brute force prevention tactics when displaying error messages to a user.
 This rule is closely related to [pyscg-0019: Insertion of Sensitive Information into Log File](../pyscg-0019/README.md).
@@ -179,8 +179,8 @@ The `compliant01.py` code example only demonstrates basic control over errors di
 Details on other best practices are only mentioned as a TODO comment such as:
 
 * [pyscg-0044: Incorrect Behavior Order: Validate Before Canonicalize](../../02_encoding_and_strings/pyscg-0044/README.md)
-* [pyscg-0016: Detection Of Error Condition without Action](../../05_exception_handling/pyscg-0016/README.md)
-* Rules related to logging ([pyscg-0022: Improper Output Neutralization for Logs](../pyscg-0022/README.md), [pyscg-0019: Insertion Of Sensitive Information Into Log File](../pyscg-0019/README.md))
+* [pyscg-0016: Detection of Error Condition without Action](../../05_exception_handling/pyscg-0016/README.md)
+* Rules related to logging ([pyscg-0022: Improper Output Neutralization for Logs](../pyscg-0022/README.md), [pyscg-0019: Insertion of Sensitive Information into Log File](../pyscg-0019/README.md))
 * File access, log access control
 * Log level, log format in accordance with [rfc5424](https://www.rfc-editor.org/rfc/rfc5424)
 * [pyscg-0020: Insufficient Logging](../pyscg-0020/README.md)

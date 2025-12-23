@@ -1,4 +1,4 @@
-# pyscg-0055: External Control Of Assumed-Immutable Web Parameter
+# pyscg-0055: External Control of Assumed-Immutable Web Parameter
 
 Ensuring user roles are determined on the server side prevents attackers from manipulating permissions through client-side data.
 

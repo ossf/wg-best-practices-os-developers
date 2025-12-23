@@ -1,4 +1,4 @@
-# pyscg-0019: Insertion Of Sensitive Information Into Log File
+# pyscg-0019: Insertion of Sensitive Information into Log File
 
 Do not log any sensitive information such as passwords or credit card numbers. Encrypt or anonymize personal information such as user names, and date of birth in plain text.
 

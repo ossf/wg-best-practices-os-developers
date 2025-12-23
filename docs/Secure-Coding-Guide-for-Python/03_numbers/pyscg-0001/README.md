@@ -1,4 +1,4 @@
-# pyscg-0001: Insufficient Precision Or Accuracy Of A Real Number
+# pyscg-0001: Insufficient Precision or Accuracy of a Real Number
 
 Avoid floating-point and use integers or the `decimal` module to ensure precision in applications that require high accuracy, such as in financial or banking computations.
 

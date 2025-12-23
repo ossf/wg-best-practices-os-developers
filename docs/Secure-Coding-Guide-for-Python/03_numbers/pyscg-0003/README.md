@@ -1,4 +1,4 @@
-# pyscg-0003: Promote Readability And Compatibility By Using Mathematical Written Code With Arithmetic Operations Instead Of Bit-wise Operations
+# pyscg-0003: Promote Readability and Compatibility by Using Mathematical Written Code with Arithmetic Operations Instead of Bit-wise Operations
 
 Avoid using bitwise operations for calculations, write math as math instead to ensure code clarity, compatibility and maintainability.
 
