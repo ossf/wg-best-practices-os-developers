@@ -95,7 +95,7 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="02_encoding_and_strings/pyscg-0045/README.md">pyscg-0045: Collapse of Data Into Unsafe Value</a></td>
+<td><a href="02_encoding_and_strings/pyscg-0045/README.md">pyscg-0045: Collapse of Data into Unsafe Value</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/182.html">CWE-182</a></td>
 </tr>
@@ -119,7 +119,7 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="03_numbers/pyscg-0002/README.md">pyscg-0002: Integer Underflow (Wrap or Wraparound)</a></td>
+<td><a href="03_numbers/pyscg-0002/README.md">pyscg-0002: Integer Underflow ('Wrap or Wraparound')</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/191.html">CWE-191</a></td>
 </tr>
@@ -197,7 +197,7 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0012/README.md">pyscg-0012: Improper Handling of Highly Compressed Data (Data Amplification)</a></td>
+<td><a href="04_neutralization/pyscg-0012/README.md">pyscg-0012: Improper Handling of Highly Compressed Data ('Data Amplification')</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2019-9674/">CVE-2019-9674</a>,<br>CVSSv3.1: <strong style='color:orange'>7.5</strong>,<br>EPSS: <strong>1.2%</strong> (10.09.2025)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/409.html">CWE-409</a></td>
 </tr>
@@ -347,7 +347,7 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="07_concurrency/pyscg-0054/README.md">pyscg-0054: Race Condition within a Thread</a></td>
+<td><a href="07_concurrency/pyscg-0054/README.md">pyscg-0054: Race Condition Within a Thread</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/366.html">CWE-366</a></td>
 </tr>
@@ -359,7 +359,7 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0031/README.md">pyscg-0031: Loop Condition Value Update within the Loop</a></td>
+<td><a href="08_coding_standards/pyscg-0031/README.md">pyscg-0031: Loop Condition Value Update Within the Loop</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/1095.html">CWE-1095</a></td>
 </tr>
