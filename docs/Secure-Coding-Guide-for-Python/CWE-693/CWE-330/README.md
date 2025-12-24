@@ -17,7 +17,7 @@ Instead, for generating random numbers for security purposes, use an appropriate
 
 `example01.py`, demonstrates how the same seed value produces identical sequences of random numbers, showing the predictable nature of Python's random module.
 
-*[example01.py](exammple01.py):*
+*[example01.py](example01.py):*
 
 ```py
 # SPDX-FileCopyrightText: OpenSSF project contributors

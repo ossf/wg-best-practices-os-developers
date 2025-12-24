@@ -1,0 +1,37 @@
+# Python Testing Framework - Generated Files
+
+# Test output files (temporary)
+TEST_FAILURES.txt
+test-failures.txt
+test_output.txt
+
+# Note: KNOWN_ISSUES.md is NOT ignored - it can be committed as a reference
+
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.tox/
+
+# Coverage reports
+.coverage
+.coverage.*
+htmlcov/
+reports/
+
+# UV lock file (generated)
+uv.lock
+
+# Test artifacts from code examples
+*.db
+*.zip
+tempfile.txt
+safe_dir/
+tmp/
+Temp/
+zipbombfile*.txt
+....................Temp/
