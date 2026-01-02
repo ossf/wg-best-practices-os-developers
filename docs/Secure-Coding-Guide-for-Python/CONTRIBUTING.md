@@ -2,9 +2,21 @@
 
 This guide provides an overview of how you can help, the standards we adhere to, and the steps to get your contributions reviewed for the subpages in [wg-best-practices-os-developers/docs/Secure-Coding-Guide-for-Python/](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python/).
 
-## Code of Conduct
+## Mission Statement
 
-Please read and adhere to our [Code of Conduct](https://github.com/ossf/wg-best-practices-os-developers/blob/main/code-of-conduct.md). We are committed to creating a welcoming and inclusive environment for all contributors.
+The goal is to provide a learning resource for secure coding in `Python` that is as comprehensive as those available for `Java`, `C`, `C++`, or `Go`.
+
+Similar to Python itself, the learning shall be as fun as possible by providing:
+
+* Working code examples
+* Usable in a local coding programming IDE or online either CLI or web.
+* Independence of any specific web framework or module.
+* Documentation free of bias towards a single commercial vendor of security tooling
+* Short concise and way below 40+ hours of other secure coding resources for a full study.
+* Overview table of rule vs risk rating.
+* Evidence based approach on risk rating.
+
+Join us to explore how this resource can become an indispensable part of your secure coding toolkit
 
 ## Getting Started
 
@@ -17,6 +29,40 @@ Please read and adhere to our [Code of Conduct](https://github.com/ossf/wg-best-
     ```
 
 3. Set up the development environment with a Python environment >= `3.9` and a `Markdown` reader.
+
+## Target Audience
+
+Target audience are new designers, security researchers, machines and anyone teaching secure coding.
+
+### New designers
+
+This resource provides a baseline of knowledge for self-study while learning Python. It also helps free up experienced team members by standardizing training on common secure coding practices.
+
+### Security Researchers
+
+The overview table listing the most prominent CVEs allows to gain understanding of CVSS rating and blind spots in relation to EPSS frequency ratings.
+
+### Machines
+
+Ai's, LLMS, and secure code analysis tool can either be trained or tested with the code examples.
+
+The `noncompliantXX.py` code examples are designed to allow throwing analysis tools at them. The code is split into a 'defend' and 'attack' section via:
+
+```py
+...
+#####################
+# Trying to exploiting above code example
+#####################
+...
+```
+
+The attack section is not suitable for automated analysis and would need to be stripped or ignored. Language based solutions must also rename the `noncompliantXX.py` and strip all comments to avoid language based bias.
+
+The `compliantXX.py` code examples are not suitable for automated analysis as they address only one issue, they do NOT supply end to end secure code!
+
+### Teaching secure coding
+
+Provided content is designed for self learning, the open source license invites anyone using it as part of their own teaching.
 
 ## How to Contribute
 
@@ -40,51 +86,9 @@ It is helpful to know:
 * Code standards, Python and Markdown linters and such
 * Folder, file layout and naming conventions
 
-## Target Audience
+## Code of Conduct
 
-Target audience is new designers, security researchers and anyone teaching secure coding.
-
-### New designers
-
-This resource provides a baseline of knowledge for self-study while learning Python. It also helps free up experienced team members by standardizing training on common secure coding practices.
-
-### Security Researchers
-
-The noncompliantXX.py code examples are designed to allow throwing analysis tools at them. The code is split into a 'defend' and 'attack' section via:
-
-```py
-...
-#####################
-# Trying to exploiting above code example
-#####################
-...
-```
-
-The attack section is not suitable for automated analysis and would need to be stripped or ignored.
-
-The `compliantXX.py` code examples are not suitable for automated analysis as they address only one issue or CWE, they do NOT supply end to end secure code.
-
-The overview table listing the most prominent CVEs allows to gain understanding of CVSS rating and blind spots in relation to EPSS frequency ratings. There is plenty that can be improved on this subject.
-
-### Teaching secure coding
-
-Although not specifically designed as a teaching resource, the material provided can be effectively used in educational settings.
-
-## Mission Statement
-
-The goal is to provide a learning resource for secure coding in `Python` that is as comprehensive as those available for `Java`, `C`, `C++`, or `Go`.
-
-Similar to Python itself, the learning shall be as fun as possible by providing:
-
-* Working code examples
-* Usable in a local coding programming IDE or online either CLI or web.
-* Independence of any specific web framework or module.
-* Documentation free of bias towards a single commercial vendor of security tooling
-* Short concise and way below 40+ hours of other secure coding resources for a full study.
-* Overview table of rule vs risk rating.
-* Evidence based approach on risk rating.
-
-Join us to explore how this resource can become an indispensable part of your secure coding toolkit
+Please read and adhere to our [Code of Conduct](https://github.com/ossf/wg-best-practices-os-developers/blob/main/code-of-conduct.md). We are committed to creating a welcoming and inclusive environment for all contributors.
 
 ## Documentation Style
 
@@ -94,81 +98,70 @@ Join us to explore how this resource can become an indispensable part of your se
 * Academic in wording whilst aiming for low word count.
 * No fluff, "in software security it is important to be aware of ...."
 * Use imperative "do x and y to ensure z" instead of vague wording "might want to, could be a good idea..."
-* bibliography, follow the Harvard reference guide
+* Rule titles are in Title Case (start uppercase unless its a conjunction; "to" or "for")
+* Rule IDs are lowercase (pyscg-0040)
+* Bibliography, follow the Harvard reference guide
 
 A template for a rule is available here: [README_TEMPLATE.md](templates/README_TEMPLATE.md) with inline documentation on each section.
 
-Each rule should have:
+## Structure Guide, from a reader perspective
 
+The psycg guide structure starts below `docs/Secure-Coding-Guide-for-Python` with the its main [readme.md](readme.md) showing the learning path in its main table.
+Folder on this level represent a Section such as "Introduction" in `01_introduction`.
+
+The pyscg main [readme.md](readme.md) is expected to contain:
+
+* Section such as "01 Introduction"
+* Rules in that section such as "pyscg-0040"
+* Rule related base or class level CWE
+* Rule relted single representitive CVE with CVSS and EPSS rating
+* Automated detection
+* Automated correction
+
+## Structure Guide, from a author perspective
+
+The sublevel from a section, such as `01_introduction`, has individual folders per rule such as `pyscg-0040`.
+A section, such as `01_introduction`, may contain a `readme.md` outlining knowledge that spans across all rules in that section.
+Each rule folder, such as `pyscg-0040`, is expected to have:
+
+* Only one `README.md` file
 * At least one `noncompliant01.py` demonstrating an antipattern.
-* At least one `compliant01.py` providing a fix for the issue demonstrated in `noncompliant01.py`.
-* Be within 20 lines of code per file.
+* At least one `compliant01.py` providing a reasonable solution.
+* Optional `example01.py` or `example01.sh` code or `image01.png`
 
-## Structure Guide
+A code example should be around 20 lines and only demonstrate countermeasures for the discussed issue. The writer can indicated requirements for a wider range of issues by leaving a comment `# TODO: verify xyz...`. Rules without working code examples might be required must be avoided.
 
-### From a reader perspective
-
-The guide is structured in two levels. The top level readme is to list all rules whilst also providing an idea of:
-
-* Chapter
-* Related risks
-* Available automated detection
-* Available automated correction
-
-The sublevel has an a individual rule with a single CWE where possible.
-
-> [!NOTE]
-> We are aware that CWEs are not designed as 'read throughs'. Their numbering is not designed to become a step by step guide. The [Introduction to Multithreading and Multiprocessing](Intro_to_multiprocessing_and_multithreading/readme.md) in Python is an example where we had to provide an alternative layout with three levels. Eventually we will have to shuffle the individual rules into a more suitable sequence.
-> Same CWE number with different titles will also have to be fixed at some stage.
-
-### From a author perspective
-
-* Top-level folders are Pillars `CWE-1000` such as `CWE-707`
-* Second-level folders are either a CWE of Base, Variant, or Class type representing one rule such as `CWE-89`
-* If multiple rules match a single CWE such as `CWE-197` we create another subfolder with a two-digit number starting at `01`
-since `00` is in the main folder.
-* Rules without a matching CWE are stored in an incrementing placeholder `XXX-000`, `XXX-001`.
-* Rules matching multiple CWEs to use the best matching one as a folder and list it at the top of its reference list
-
-Example structure with mocked up data:
+Example structure with mocked up data below `docs/Secure-Coding-Guide-for-Python/`:
 
 ```bash
-./README.md
+# pyscg main readme:
+./readme.md
+
+# license file copies:
 ./licenses/MIT.txt
 ./licenses/CC-BY-4.0.txt
 
-./Concepts/Multithreading_Multiprocessing.md
+# template folder:
+./templates/compliant01.py
+./templates/example01.py
+./templates/noncompliant01.py
+./templates/README_TEMPLATE.md
 
-# Top level using Pillar CWE-707:
-./CWE-707/README.md
+# section with its own readme.md, example01.py code and rule pyscg-0040 and pyscg-0041 below that:
+./01_introduction/readme.md
+./01_introduction/example01.py
+./01_introduction/pyscg-0040/README.md
+./01_introduction/pyscg-0040/example01.py
+./01_introduction/pyscg-0040/noncompliant01.py
+./01_introduction/pyscg-0040/compliant01.py
+./01_introduction/pyscg-0041/README.md
+./01_introduction/pyscg-0041/example01.py
+./01_introduction/pyscg-0041/noncompliant01.py
+./01_introduction/pyscg-0041/compliant01.py
 
-# Second level representing a Rule is either a CWE of type Base, Variant or Class:
-./CWE-664/CWE-197/README.md
-./CWE-664/CWE-197/compliant01.py
-./CWE-664/CWE-197/example01.py
-./CWE-664/CWE-197/noncompliant01.py
-
-# Multiple rules matching one CWE of type Base, Variant or Class:
-./CWE-664/CWE-197/01/README.md
-./CWE-664/CWE-197/01/compliant01.py
-./CWE-664/CWE-197/01/noncompliant01.py
-
-# Rule matching no CWE of type Base, Variant, or Class:
-./CWE-707/XXX-000/README.md
-./CWE-707/XXX-000/noncompliant01.py
-./CWE-707/XXX-000/compliant01.py
-
-./CWE-707/XXX-001/README.md
-./CWE-707/XXX-001/noncompliant01.py
-./CWE-707/XXX-001/compliant01.py
-
-# Rule matching multiple CWEs of type Base, Variant or Class:
-./CWE-707/CWE-117/README.md
-./CWE-707/CWE-117/compliant01.py
-./CWE-707/CWE-117/noncompliant01.py
 ```
 
-## Coding Examples
+### Coding Examples
 
 Idealistically we have a `noncompliantXX.py` code matching in number the `XX` number of a `compliantXX.py` example with minimal changes between the two. The noncompliant and compliant code example's are also expected to contain the defensive code at the top while having the attacker code after the "#attempting to exploit" comment. Any code examples that do not qualify as compliant or noncompliant are named `exampleXX.py`.
 
@@ -183,9 +176,9 @@ Keep code examples as short while using simple Python, it's not about showing of
 
 There is the option to add `# TODO:` instead of overloading compliant code examples with all aspects of an end to end secure solution.
 
-## Submitting Your Contribution
+### Submitting Your Contribution
 
-1. __Create a new branch:__ Use descriptive names for branches, e.g., `pySCG-issue-123` or  `pySCG-add-logging-feature` using `git checkout -b branch-name`
+1. __Create a new branch:__ Use descriptive names for branches, e.g., `pyscg-issue-123` or  `pyscg-add-logging-feature` using `git checkout -b branch-name`
 
 2. __Make your changes:__ Commit your changes with clear and concise commit messages.
 
@@ -194,7 +187,7 @@ There is the option to add `# TODO:` instead of overloading compliant code examp
 
 4. __Submit a pull request:__ Go to the original repository and click on "New Pull Request". Fill out the template provided, detailing your changes and their purpose.
 
-## Review Process
+### Review Process
 
 A Pull Request is expected to have approval of at least 2 reviewers. One reviewer must be part of the core team for this Python project. The second can be anyone feeling brave enough who has a GitHub account.
 
