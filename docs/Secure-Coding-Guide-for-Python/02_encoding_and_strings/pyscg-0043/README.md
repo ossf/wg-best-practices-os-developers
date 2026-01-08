@@ -235,7 +235,7 @@ print(f"{len(output.getvalue().decode('utf-8'))} characters in string")
 |||
 |:---|:---|
 |[MITRE CWE](http://cwe.mitre.org/)|Pillar: [CWE-707: Improper Neutralization (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/707.html)|
-|[MITRE CWE](http://cwe.mitre.org/)|Variant: [CWE-175: Improper Handling Of Mixed Encoding (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/175.html)|
+|[MITRE CWE](http://cwe.mitre.org/)|Variant: [CWE-175: Improper Handling of Mixed Encoding (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/175.html)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[STR02-J. Specify an appropriate locale when comparing locale-dependent data](https://wiki.sei.cmu.edu/confluence/display/java/STR02-J.+Specify+an+appropriate+locale+when+comparing+locale-dependent+data)|
 
 ## Bibliography
