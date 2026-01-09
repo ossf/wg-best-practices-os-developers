@@ -143,7 +143,6 @@ Find below current and historic meeting notes of the Working Group. Sub-initiati
 
 Please consult the [public OSSF calendar](https://calendar.google.com/calendar?cid=czYzdm9lZmhwNWk5cGZsdGI1cTY3bmdwZXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ) for an up-to-date list of meeting times and links.
 
-
 ## Governance
 
 The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group activities.
