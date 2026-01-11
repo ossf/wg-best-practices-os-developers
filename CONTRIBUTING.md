@@ -10,7 +10,6 @@ Welcome! We're excited that you're interested in contributing to the Best Practi
 
 - **Mailing List:** Subscribe to the Best Practices [mailing list](https://lists.openssf.org/g/openssf-wg-best-practices). You can also [manage your subscriptions](https://lists.openssf.org/g/main/subgroups) to all OpenSSF mailing lists.
 
-
 ## How to Contribute
 
 We value all contributions, from improving documentation to participating in discussions and developing new initiatives. Here’s how you can get started:

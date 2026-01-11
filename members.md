@@ -1,16 +1,21 @@
-GitHub Team memberships and repository access are based on the following groups. If this file is in error, please notify the project/SIG lead or opeartions@openssf.org
+# Members
 
-- Lead - [Christopher "CRob" Robinson](https://github.com/SecurityCRob)
-- Co-Lead -
-- Backlog Warden - 
+This file lists the leads and contributors to the Best Practices Working Group to acknowledge their efforts and contributions. We recognize that this file gets easily outdated. If you think a contributor is missing - including yourself - please contact the WG leads.
+
+## WG Leads
+
+- Co-chair - [Avishay Balter, Microsoft](https://github.com/balteravishay)
+- Co-chair - [Georg Kunz, Ericsson](https://github.com/gkunz)
 - "*" denotes a project/SIG lead
 
-### Project Maintainers
+## Project Maintainers
+
 - [Christopher "CRob" Robinson*, Intel](https://github.com/SecurityCRob)
 - [David A Wheeler, LF/OSSF](https://github.com/david-a-wheeler)
 - [Dave Russo*, Red Hat](https://github.com/drusso-rh)
 
-### Project Collaborators
+## Project Collaborators
+
 - [Arnaud J Le Hors, IBM](https://github.com/lehors)
 - Avishay Balter, Microsoft
 - [Christine Abernathy*, F5](https://github.com/caabernathy)
@@ -29,7 +34,8 @@ GitHub Team memberships and repository access are based on the following groups.
 - [Thomas Nyman*, Ericsson](https://github.com/thomasnyman)
 - Yotam Perkal, Rezilion
 
-### Project Contributors
+## Project Contributors
+
 - [Chris de Almeida, IBM](https://github.com/ctcpip)
 - [Emily Fox](https://github.com/TheFoxAtWork)
 - [Jeffrey Borek, IBM](https://github.com/jtborek)
@@ -40,14 +46,15 @@ GitHub Team memberships and repository access are based on the following groups.
 - Riccardo ten Cate, SKF
 - Spyros Gasteratos*, OWASP/CRE
 
-
 ## Toolbelt
 
 ### Toolbelt Leads
+
 - [Sarah Evans, Dell](https://github.com/sevansdell)
 - [John Kjell, TestifySec](https://github.com/jkjell)
 
 ### Toolbelt Collaborators
+
 - [Andrea Frittoli, IBM](https://github.com/afrittoli)
 - [Arnaud Le Hors, IBM](https://github.com/lehors)
 - [Behan Webster, The Linux Foundation](https://github.com/behanw)
@@ -78,18 +85,20 @@ GitHub Team memberships and repository access are based on the following groups.
 - [Tom Hennen, Google](https://github.com/TomHennen)
 - [Tracy Ragan, Deployhub/Ortelius/CDEvents](https://github.com/TracyRagan)
 
-### Hall of Fame
+## Hall of Fame
+
 Former BEST contributors that are always welcome!
+
 - Aeva Black, Microsoft
-- [Björn Kimminich](https://github.com/orgs/ossf/people/bkimminich) 
+- [Björn Kimminich](https://github.com/orgs/ossf/people/bkimminich)
 - Azeem Shaikh, Google/Scorecard
 - [Dan Lorenc](https://github.com/orgs/ossf/people/dlorenc)
 - [Eric Tice, WiPro](https://github.com/)
-- [Eva Sarafianou](https://github.com/orgs/ossf/people/esarafianou) 
-- [Federico](https://github.com/orgs/ossf/people/rhaidiz) 
+- [Eva Sarafianou](https://github.com/orgs/ossf/people/esarafianou)
+- [Federico](https://github.com/orgs/ossf/people/rhaidiz)
 - Harimohan Rajamohanan, Wipro
 - Jory Burson, Linux Foundation
-- [Maya Kaczorowski](https://github.com/orgs/ossf/people/mayakacz) 
+- [Maya Kaczorowski](https://github.com/orgs/ossf/people/mayakacz)
 - Kara Olive, Google
 - Patricia Tarro, Dell
 - Rosaria Carr, Indeed

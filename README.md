@@ -129,7 +129,6 @@ The Education SIG provides industry standard secure software development trainin
 - [The Security Toolbelt](https://github.com/ossf/toolbelt) - currently on hold
   - Assemble a “sterling” collection of capabilities (**software frameworks, specifications, and human and automated processes**) that work together to **automatically list, scan, remediate, and secure the components flowing through the software supply chain** that come together as software is written, built, deployed, consumed, and maintained. Each piece of the collection will represent an **interoperable** link in that supply chain, enabling adaptation and integration into the major upstream language toolchains, developer environments, and CI/CD systems.
 
-
 ## Contributing
 
 Contributions to all initiatives of the Working Group are highly welcome. Please see our [Contribution Guide](CONTRIBUTING.md) for more details.
