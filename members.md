@@ -40,6 +40,9 @@ GitHub Team memberships and repository access are based on the following groups.
 - Riccardo ten Cate, SKF
 - Spyros Gasteratos*, OWASP/CRE
 
+
+## Toolbelt
+
 ### Toolbelt Leads
 - [Sarah Evans, Dell](https://github.com/sevansdell)
 - [John Kjell, TestifySec](https://github.com/jkjell)

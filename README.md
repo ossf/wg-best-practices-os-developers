@@ -2,9 +2,7 @@
 
 [![GitHub Super-Linter](https://github.com/ossf/wg-best-practices-os-developers/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
-Anyone is welcome to join our open discussions related to the group's mission and charter.
-
-The BEST Working group is officially a [Graduated-level](https://github.com/ossf/tac/blob/main/process/working-group-lifecycle.md) working group within the OpenSSF <img align="right" src="https://github.com/ossf/tac/blob/main/files/images/OpenSSF_StagesBadges_graduated.png" width="100" height="100">
+Anyone is welcome to join our open discussions related to the group's mission and charter. The BEST Working group is officially a [Graduated-level](https://github.com/ossf/tac/blob/main/process/working-group-lifecycle.md) working group within the OpenSSF <img align="right" src="https://github.com/ossf/tac/blob/main/files/images/OpenSSF_StagesBadges_graduated.png" width="100" height="100">
 
 <img align="right" src="https://github.com/ossf/wg-best-practices-os-developers/blob/main/img/ossf-best-goose.png" width="300" height="300">
 
@@ -44,10 +42,6 @@ To achieve our Mission and Vision, the BEST Working group will execute on the fo
 To deliver on our Strategy, the BEST Working Group will do the following:
 
 - Evangelize OpenSSF “best practices” and tooling through blogs, podcasts, conference presentations, and the like.
--- Create a “Secure from the (open) source” expert podcast to showcase the work across the foundation.
--- As new guides/best practices are launched, we will create blogs and a conference presentation to raise awareness about it.
--- Amplify talks and artifacts created by other groups within the foundation
--- Create 3 EvilTux artifacts each quarter
 - Create express learning classes for our body of work: working group explainer, SCM BP Guide, C/C++ Guide, Scorecard/Badges, Concise Guides
 - Create a “Best Practices Member Badge” for member organizations
 - Support and promote our sub-projects with contributions and feedback - Scorecard, BP Badges, OpenSSF - SkillFoundry, Classes, and Guides, Secure Software Guiding Principles (SSGP)
@@ -56,96 +50,108 @@ To deliver on our Strategy, the BEST Working Group will do the following:
 - Identify, curate, produce, and deliver new secure development education such as Developer Manager Training, Implementing/Integrating OSSF tools (such as Scorecard, Badges, OSV, OpenVEX, etc), advanced secure development techniques, and more.
 - Evangelize and embed all of our guides across OpenSSF Technical Initiatives and understand what makes sense to integrate into Scorecard
 
-## Help build a community
-
-- Program to attract open source contributors and incentivize them to use and contribute to the inventory
-
-Supply a Learning platform
--Any free course can be integrated into the platform
-
-- The learner can follow a track, track their progress and get badges
-- A suite of exercises are available for each best practice of the inventory
-
 ## Current Work
 
-We welcome contributions, suggestions and updates to our projects. To contribute please fill in an [issue](https://github.com/ossf/wg-best-practices-os-developers/issues) or create a [pull request](https://github.com/ossf/wg-best-practices-os-developers/pulls).
+### Active SIGs and Initiatives
 
-We typically use the [Simplest Possible Process (SPP)](https://best.openssf.org/spp/Simplest-Possible-Process) to publish and maintain the documents we publish; see the [SPP documentation](https://best.openssf.org/spp/Simplest-Possible-Process) if you have questions about it.
+The table below lists the active initiatives and efforts of the Best Practices Working Group. The meeting times may change, so please check the [public OpenSSF calendar](https://openssf.org/getinvolved/) for up-to-date information about all community meetings.
 
-Our work is organized into several discrete-yet-related projects that help us achieve our goals:
+| Effort                            | Description                                                           |    Meeting Times                                         |    Meeting Notes/Agenda    |       Git Repo        | Slack Channel | Mailing List |
+| :-------------------------------- |:----------------------------------------------------------------------| :------------------------------------------------------- | :------------------------- | :-------------------- | :------------ | :----------- |
+| Full WG                           | Secure Software Development Best Practices                            | Every two weeks, Tuesday 7:00a PT/10:00a ET/1600 CET     | [Meeting Notes](https://docs.google.com/document/d/1b2yGx6sVONsxMW8bdHhfBFCX2WbmaqvIDuWmKfiLgRo/)       | [Git Repo](https://github.com/ossf/wg-best-practices-os-developers)                                                  | [Slack](https://openssf.slack.com/archives/C01AHCRP8BT)      | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) |
+| Allstar                           | Monitors GitHub repositories for adherence to security best practices | Every 2 weeks, Thursday 1:00p PT/4:00p ET/2200 CET       | See Scorecard Notes                                                                                     | [Git Repo](https://github.com/ossf/allstar)                                                                          | [Slack](https://openssf.slack.com/archives/C02UQ2RL0HM)      |                                                                       |
+| C/C++ Compiler Guides             | C/C++ compiler hardening best practices guide                         | Every month, Thursday 6:00a PT/9:00a ET/1500 CET         | See Full SIG Notes                                                                                      | [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Compiler-Hardening-Guides)         | [Slack](https://openssf.slack.com/archives/C058E884WN7)      | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) |
+| EDU.SIG                           | Provide industry standard secure software development training.       | Every 2 weeks, Wednesday 6:00a PT/9:00a ET/1500 CET      | [Meeting Notes](https://docs.google.com/document/d/1th8joOtmQa3y9KNlH-QBcYADMEHtCynSYwRR1r_WB6Q/)       | [Git Repo](https://github.com/ossf/education)                                                                        | [Slack](https://openssf.slack.com/archives/C03FW3YGXH9)      | [Mailing List](https://lists.openssf.org/g/openssf-sig-education)     |
+| Memory Safety SIG                 | Eliminating memory safety vulnerabilities                             | Every 2 weeks, Thursday 10:00a PT/1:00p ET/1900 CET      | [Meeting Notes](https://docs.google.com/document/d/1HyfvC3FuEn6xrueQJrCIUokuRT0c8Pk-IkpW_MfqJaM/)       | [Git Repo](https://github.com/ossf/Memory-Safety)                                                                    | [Slack](https://openssf.slack.com/archives/C03G8NZH58R)      | [Mailing List](https://lists.openssf.org/g/openssf-sig-memory-safety) |
+| OpenSSF Best Practices Badge      | Identifies FLOSS best practices & implements a badging system         | Full SIG call                                            | See Full SIG Notes                                                                                      | [OpenSSF Best Practices Badge](https://www.bestpractices.dev/)                                                       |                                                              |                                                                       |
+| Python Hardening Guide SIG        | A secure coding guide for Python and with code examples               | Every two weeks, Monday 8:00a PT/12a ET/1700 CET         | See Full SIG Notes                                                                                      | [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python)    | [Slack](https://openssf.slack.com/archives/C07LH7RH8MT)      |                                                                       |
+| Scorecard                         | Automate analysis on the security posture of open source projects.    | Every 2 weeks, Thursday 1:00p PT/4:00p ET/2200 CET       | [Meeting Notes](https://docs.google.com/document/d/1b6d3CVJLsl7YnTE7ZaZQHdkdYIvuOQ8rzAmvVdypOWM/)       | [Git Repo](https://github.com/ossf/scorecard)                                                                        | [Slack](https://openssf.slack.com/archives/C0235AR8N2C)      |                                                                       |
+| Web Developer Security Guidelines | Security guidelines specific to web developers                        | See Full SIG Notes                                       | See Full SIG Notes                                                                                      | [Git Repo](https://github.com/w3c-cg/swag)                                                              | [Slack](https://w3ccommunity.slack.com/archives/C079JKV32RX) |                                                       |
 
-| Effort                  |     Description           |       Git Repo        | Slack Channel | Mailing List |
-| ------------------      | ------------------------  |  -------------------  |  -----------  |  ----------  |
-| Best Practices Guides   | Longer reference documents on implementing specific secure techniques   | - [Compiler Annotations for C and C++ (incubating)](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Annotations-for-C-and-C++.html), </p> - [Compiler Options Hardening Guide for C and C++](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++), </p> - [Existing Guidelines for Developing and Distributing Secure Software](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Existing%20Guidelines%20for%20Developing%20and%20Distributing%20Secure%20Software.md), </p> - [Package Manager Best Practices (archived)](https://github.com/ossf/package-manager-best-practices), </p> - [npm Best Practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md), </p> - [Source Code Management Platform Configuration Best Practices](docs/SCM-BestPractices/README.md), </p> - [Cyber Resilience Act (CRA) Brief Guide for Open Source Software (OSS) Developers](https://best.openssf.org/CRA-Brief-Guide-for-OSS-Developers). </p> - [Secure Coding Guide for Python](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python), </p> - [Security Focused Guide for AI Code Assistant Instructions](https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions), </p>| - [#wg-best-practices-compilers](https://openssf.slack.com/archives/C07LH7RH8MT), </p> - [#wg-best-practices-scm](https://openssf.slack.com/archives/C058EC1EZ5Y) | |
-|  Concise Guides SIGs   |  Quick Guidance around Open Source Software Development Good Practices | - [Concise Guide for Developing More Secure Software](https://best.openssf.org/Concise-Guide-for-Developing-More-Secure-Software), </p> - [Concise Guide for Evaluating Open Source Software](https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software) |  | [Mailing List](https://lists.openssf.org/g/openssf-wg-best-practices) |
-| Education SIG | To provide industry standard secure software development training materials that will educate learners of all levels and backgrounds on how to create, compose, deploy, and maintain software securely using best practices in cyber and application security. | [EDU.SIG](https://github.com/ossf/education/) (course links are there) | [stream-01-security-education](https://openssf.slack.com/archives/C03FW3YGXH9)  |  [Mailing List](https://lists.openssf.org/g/openssf-sig-education)  |
-|[OpenSSF Best Practices Badge - formerly CII Best Practices badge](https://www.bestpractices.dev/) | Identifies FLOSS best practices & implements a badging system for those practices, | [best-practices-badge](https://github.com/coreinfrastructure/best-practices-badge) | | |
-| [OpenSSF Scorecard](https://scorecard.dev/) | Automate analysis on the security posture of open source projects | [OpenSSF Scorecard](https://github.com/ossf/scorecard) | [#scorecard](https://openssf.slack.com/archives/C0235AR8N2C) | [Contribute!](https://github.com/ossf/scorecard?tab=readme-ov-file#contribute) |
-| [OpenSSF Scorecard — Allstar](https://github.com/ossf/allstar) | Monitors GitHub organizations or repositories for adherence to security best practices | [Allstar](https://github.com/ossf/allstar) | [#allstar](https://openssf.slack.com/archives/C02UQ2RL0HM) | [Contribute!](https://github.com/ossf/scorecard?tab=readme-ov-file#contribute) |
-| [OpenSSF Security Baseline](https://github.com/ossf/security-baseline) | Provide avenue for participants to help evolve the OpenSSF security baseline into a security baseline that can be applied to a broad range of software-based projects |[OpenSSF Security Baseline](https://github.com/ossf/security-baseline) | [#sig-security-baseline](https://app.slack.com/client/T019QHUBYQ3/C07DC6TT2QY) | [Mailing List](https://lists.openssf.org/g/openssf-sig-security-baseline) |
-| [Secure Software Development Fundamentals - online course](https://openssf.org/training/courses/)  |Teach software developers fundamentals of developing secure software  | [GitHub](https://github.com/ossf/secure-sw-dev-fundamentals) | | |
-| Memory Safety SIG | The Memory Safety SIG is a group working within the OpenSSF's Best Practices Working Group formed to advance and deliver upon The OpenSSF's Mobilization Plan - Stream 4.   |[Git Repo](https://github.com/ossf/Memory-Safety) | [Slack](https://openssf.slack.com/archives/C03G8NZH58R) | [Mailing List](https://lists.openssf.org/g/openssf-sig-memory-safety) |
-|  The Security Toolbelt | Assemble a “sterling” collection of capabilities (**software frameworks, specifications, and human and automated processes**) that work together to **automatically list, scan, remediate, and secure the components flowing through the software supply chain** that come together as software is written, built, deployed, consumed, and maintained. Each piece of the collection will represent an **interoperable** link in that supply chain, enabling adaptation and integration into the major upstream language toolchains, developer environments, and CI/CD systems. | [Security Toolbelt](https://github.com/ossf/toolbelt) | [security-toolbelt](https://openssf.slack.com/archives/C057BN7K19B) | [Mailing List](Openssf-sig-sterling-toolchain@lists.openssf.org) |
-| Python Hardening Guide SIG | A group working to document a secure coding guide for python and associates code examples | [Git Repo](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python) | [#secure-coding-guide-for-python](https://openssf.slack.com/archives/C07LH7RH8MT) |  |
-| Web Developer Security Guidelines | A group working on security guidelines specific to web developers. This work is happening in the W3C SWAG Community Group in coordination with the OpenSSF Best Practices working group. (W3C communith groups are open to any participant.) | [SWAG home page](https://www.w3.org/community/swag/) [Git Repo](https://github.com/w3c-cg/swag) | [#swag-cg on the W3C Community Slack](https://w3ccommunity.slack.com/archives/C079JKV32RX) |  |
+## Work Items, Outputs, Deliverables
 
-## Related resources
+We develop our material on GitHub and publish a rendered version of our guides on <https://best.openssf.org>.
+
+We currently use the [Simplest Possible Process (SPP)](https://best.openssf.org/spp/Simplest-Possible-Process) for publishing.
+Please see the [SPP documentation](https://best.openssf.org/spp/Simplest-Possible-Process) if you have questions about it.
+
+### Best Practices Guides
+
+Longer reference documents on implementing specific secure techniques
+
+- [Compiler Annotations for C and C++ (incubating)](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Annotations-for-C-and-C++.html)
+- [Compiler Options Hardening Guide for C and C++](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++)
+- [Correctly Using Regular Expressions for Secure Input Validation](https://best.openssf.org/Correctly-Using-Regular-Expressions)
+- [Cyber Resilience Act (CRA) Brief Guide for Open Source Software (OSS) Developers](https://best.openssf.org/CRA-Brief-Guide-for-OSS-Developers)
+- [Existing Guidelines for Developing and Distributing Secure Software](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Existing%20Guidelines%20for%20Developing%20and%20Distributing%20Secure%20Software.md)
+- [npm Best Practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md)
+- [Package Manager Best Practices (archived)](https://github.com/ossf/package-manager-best-practices)
+- [Secure Coding Guide for Python](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python)
+- [Security Focused Guide for AI Code Assistant Instructions](https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions)
+- [Simplifying Software Component Updates](https://best.openssf.org/Simplifying-Software-Component-Updates)
+- [Source Code Management Platform Configuration Best Practices](docs/SCM-BestPractices/README.md)
+- [The Memory Safety Continuum](https://memorysafety.openssf.org/memory-safety-continuum)
+
+### Concise Guides
+
+Quick Guidance around Open Source Software Development Good Practices
+
+- [Concise Guide for Developing More Secure Software](https://best.openssf.org/Concise-Guide-for-Developing-More-Secure-Software)
+- [Concise Guide for Evaluating Open Source Software](https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software)
+
+### Education Material and Training Courses
+
+The Education SIG provides industry standard secure software development training materials that will educate learners of all levels and backgrounds on how to create, compose, deploy, and maintain software securely using best practices in cyber and application security.
+
+- [Developing Secure Software (LFD121)](https://openssf.org/training/courses/)
+  - The [presentation "A Brief Introduction to Developing Secure Software"](https://docs.google.com/presentation/d/12b7Wm6KRp9kd1oV3QVrJpiCWVDexxF8doYZOFOfLy2Y/edit) summarizes its content
+- [Security for Software Development Managers (LFD125)](https://training.linuxfoundation.org/training/security-for-software-development-managers-lfd125). We thank Intel for contributing the starting material for this course.
+  - The [presentation from LFD125](https://docs.google.com/presentation/d/19lolYrumwUa7qHV65OW0IJ-oTpLV0l2KqEVGzjf0FSI/edit) is available if you want to propose changes or reuse it for special purposes (CC-BY-4.0)
+- [Understanding the EU Cyber Resilience Act (CRA) (LFEL1001)](https://training.linuxfoundation.org/express-learning/understanding-the-eu-cyber-resilience-act-cra-lfel1001). Developed with the OpenSSF Global Cyber Policy WG.
+  - The [presentation from LFEL1001](https://docs.google.com/presentation/d/1j3OlNz2k5rk9KRD8ZZz8xvsM_hyxqOioK4UUkJTWee8/edit) is available if you want to propose changes or reuse it for special purposes (CC-BY-4.0)
+- [Secure AI/ML-Driven Software Development (LFEL1012)](https://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012), to be released 2025-10-16. Developed with the OpenSSF AI/ML WG.
+  - The [presentation from LFEL1012](https://docs.google.com/presentation/d/1SONjRe6mdtqNuUqVE9s5kLC6tUwtuw-XTAG23MjXIFI/edit) is available if you want to propose changes or reuse it for special purposes (CC-BY-4.0)
+
+### Related resources
 
 - [A Brief Introduction to Developing Secure Software (short presentation)](https://docs.google.com/presentation/d/12b7Wm6KRp9kd1oV3QVrJpiCWVDexxF8doYZOFOfLy2Y/edit)
 
-## Past Work/Greatest Hits
+## Past Work
 
-- _Interactive artwork_ - (incubating) <https://github.com/blabla1337/wg-best-practices-os-developers/tree/main/infinity2>
-  - Place where we want to guide developers in what stage they can use what type of tooling or approach. We have tons of great tools and materials but hard to find for devs, using this page and interactive loop we want to guide them to find the right stuff.
-- _Great MFA Distribution Project_ - (archived) <https://github.com/ossf/great-mfa-project>
+- [OpenSSF Security Baseline](https://github.com/ossf/security-baseline) - spun out
+  - Baseline is now a part of the ORBIT Working Group
+- [Interactive artwork](https://github.com/blabla1337/wg-best-practices-os-developers/tree/main/infinity2) - archived
+  - A place where we want to guide developers in what stage they can use what type of tooling or approach. We have tons of great tools and materials but hard to find for devs, using this page and interactive loop we want to guide them to find the right stuff.
+- [Great MFA Distribution Project](https://github.com/ossf/great-mfa-project) - completed
   - Distribute MFA tokens to OSS developers and best practices on how to easily use them
-- [(Archived) Recommended compiler option flags for C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b).
+- [Recommended compiler option flags for C/C++ programs](https://docs.google.com/document/d/1SslnJuqbFUyTFnhzkhC_Q3PPGZ1zrG89COrS6LV6pz4/edit#heading=h.b3casmpemf1b) - spun out
+  - This early draft inspired the group's work on the C/C++ Compiler Hardening Guide.
+- [The Security Toolbelt](https://github.com/ossf/toolbelt) - currently on hold
+  - Assemble a “sterling” collection of capabilities (**software frameworks, specifications, and human and automated processes**) that work together to **automatically list, scan, remediate, and secure the components flowing through the software supply chain** that come together as software is written, built, deployed, consumed, and maintained. Each piece of the collection will represent an **interoperable** link in that supply chain, enabling adaptation and integration into the major upstream language toolchains, developer environments, and CI/CD systems.
 
-## Related Activities
 
-There are many great projects both within and outside the Foundation that compliment and intersect our work here. Some other great projects/resources to explore:
+## Contributing
 
-- _SLSA Supply-chain Levels for Software Artifacts_ - <https://github.com/slsa-framework/slsa>
-  - Purpose - A security framework from source to service, giving anyone working with software a common language for increasing levels of software security and supply chain integrity
+Contributions to all initiatives of the Working Group are highly welcome. Please see our [Contribution Guide](CONTRIBUTING.md) for more details.
 
-## Quick Start
+## Translations
 
-### Areas that need contributions
+We are _delighted_ that some are willing to help us translate materials to other languages. Please ensure all pull requests that add or modify translations are labeled with its language.
+Such pull requests (PRs) must be first reviewed and approved by a trusted translator.
 
-- Any topics related to helping developers more easily make more secure software or consumers to better understand the security qualities of the software they wish to ingest
+See [translations](docs/translations) for specific details.
 
-### Where to file issues
+## Meeting Notes
 
-- Issues can be reviewed and filed [here](https://github.com/ossf/wg-best-practices-os-developers/issues)
-
-## Get Involved
-
-Anyone is welcome to join our open discussions related to the group's mission and charter.
-
-### Meeting Notes
-
-Find below current and historic meeting notes of the Working Group. Sub-initiatives may take notes in separate documents, listed in the table in the section below. Meeting notes are maintained in a Google Doc found in the above table. If attending please add your name, and if a returning attendee, please change the color of your name from gray to black.
-
-- [2026 Meeting Notes](https://docs.google.com/document/d/1b2yGx6sVONsxMW8bdHhfBFCX2WbmaqvIDuWmKfiLgRo/)
-- [2025 Meeting Notes](https://docs.google.com/document/d/1u1gJMtOz-P5Z71B-vKKigzTbIDIS-bUNgNIcfnW4r-k/)
-- [2024 Meeting Notes](https://docs.google.com/document/d/1JY8FREBPCUUFpuv7-4B9EjeS2MLDpel0dbG5DFWrTns/)
-- [2023 Meeting Notes](https://docs.google.com/document/d/1UClGUnOSkOH_wab6Lx43KUdkaK37L8sbWJ_GPZvc1YY/edit?usp=sharing)
-- [2022 Meeting Minutes](https://docs.google.com/document/d/159RLmTvW-G6DqDOw3ya-7RI5KNNd1yHxQ5XP0D9OB4o/edit?usp=sharing)
-- [Historic Group Notes 1](https://github.com/ossf/wg-best-practices-oss-developers/blob/main/meeting-minutes.md)
-- [Historic Notes 2021](https://docs.google.com/document/d/1Fw6EIk47_rUFmi6m7jYObFofcD6gj1FK-QgGC8YuUr0/edit?usp=sharing)
-- [WG reports to the TAC](https://github.com/ossf/tac/tree/main/TI-reports), (all TIs including the Best Practices WG)
-- [Discussions](https://github.com/ossf/wg-best-practices-os-developers/discussions)
-- Official communications occur on the Best Practices [mailing list](https://lists.openssf.org/g/openssf-wg-best-practices)
-- [Manage your subscriptions to Open SSF mailing lists](https://lists.openssf.org/g/main/subgroups)
-- Join the conversation on [Slack](https://openssf.slack.com/archives/C01AHCRP8BT)
-
-### Meeting Times
-
-Please consult the [public OSSF calendar](https://calendar.google.com/calendar?cid=czYzdm9lZmhwNWk5cGZsdGI1cTY3bmdwZXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ) for an up-to-date list of meeting times and links.
+We take notes for each meeting. Please see [Meeting Notes](meeting-minutes.md) for links to the documents.
 
 ## Governance
 
-The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group activities.
+### Charter
+
+The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group activities. Like all OpenSSF working groups, this working group reports to the [OpenSSF Technical Advisory Council (TAC)](https://github.com/ossf/tac). For more organizational information, see the [OpenSSF Charter](https://openssf.org/about/charter/).
+
+### Project Leads
 
 - Co-chair - [Avishay Balter, Microsoft](https://github.com/balteravishay)
 - Co-chair - [Georg Kunz, Ericsson](https://github.com/gkunz)
@@ -185,68 +191,15 @@ The [CHARTER.md](CHARTER.md) outlines the scope and governance of our group acti
 - [Sal Kimmich, EscherCloud](https://github.com/salkimmich)
 - [Helge Wehder, Ericsson](https://github.com/myteron)
 - Noam Dotan, Legit Security
-- [Eddie Knight, Sonotype](https://github.com/eddie-knight)
+- [Eddie Knight, Sonatype](https://github.com/eddie-knight)
 - [Randall T. Vasquez*, The Linux Foundation](https://github.com/ran-dall)
-
-### Toolbelt Collaborators
-
-- [Andrea Frittoli, IBM](https://github.com/afrittoli)
-- [Arnaud Le Hors, IBM](https://github.com/lehors)
-- [Behan Webster, The Linux Foundation](https://github.com/)
-- [Brandon Mitchell, IBM](https://github.com/sudo-bmitch)
-- [Brian Behlendorf, The Linux Foundation](https://github.com/)
-- [Brian Wagner, IBM](https://github.com/wags007)
-- [Christopher "CRob" Robinson, Intel](https://github.com/SecurityCRob)
-- [Daniel Appelquist, Samsung](https://github.com/Torgo)
-- [David A Wheeler, LF/OSSF](https://github.com/david-a-wheeler)
-- [Georg Kunz, Ericsson](https://github.com/)
-- [Jacques Chester, independent](https://github.com/jchester)
-- [Jay White, Microsoft](https://github.com/camaleon2016)
-- [Jeff Borek, IBM](https://github.com/jtborek)
-- [Jon Meadows, Citi](https://github.com/)
-- [Josh Clements, Analog Devices](https://github.com/)
-- [Joshua Lock, Verizon](https://github.com/)
-- [Kris Borchers, independent](https://github.com/)
-- [Marcela Melara, Intel](https://github.com/marcelamelara)
-- [Matt Rutkowski, IBM](https://github.com/mrutkows)
-- [Melba Lopez, IBM](https://github.com/)
-- [Michael Leiberman, Kusari](https://github.com/mlieberman85)
-- [Phil Estes, AWS](https://github.com/estesp)
-- [Ryan Ware, Intel](https://github.com/ware)
-- [Sal Kimmich, EscherCloud AI](https://github.com/salkimmich)
-- [Sarah Evans, Dell](https://github.com/sevansdell)
-- [Steve Taylor, Deployhub/Ortelius/Pyrsia](https://github.com/)
-- [Tom Hennen, Google](https://github.com/TomHennen)
-- [Tracy Ragan, Deployhub/Ortelius/CDEvents](https://github.com/)
 
 A listing of our current and past group [members](https://github.com/ossf/wg-best-practices-os-developers/blob/main/members.md).
 
 ## Licenses
 
-Unless otherwise specifically noted, software released by this working
-group is released under the [Apache 2.0 license](LICENSES/Apache-2.0.txt),
-and documentation is released under the
-[CC-BY-4.0 license](LICENSES/CC-BY-4.0.txt).
-Formal specifications would be licensed under the
-[Community Specification License](https://github.com/CommunitySpecification/1.0)
+Unless otherwise specifically noted, software released by this working group is released under the [Apache 2.0 license](LICENSES/Apache-2.0.txt), and documentation is released under the [CC-BY-4.0 license](LICENSES/CC-BY-4.0.txt). Formal specifications would be licensed under the [Community Specification License](https://github.com/CommunitySpecification/1.0)
 (though at this time we don't have any examples of that).
-
-## Reviewing translations
-
-We are _delighted_ that some are willing to help us translate materials
-to other languages. Please ensure all
-pull requests that add or modify translations are labeled with its language.
-Such pull requests (PRs) must be first
-reviewed and approved by a trusted translator.
-
-See [translations](docs/translations) for specific details.
-
-## Charter
-
-Like all OpenSSF working groups, this working group reports to the
-[OpenSSF Technical Advisory Council (TAC)](https://github.com/ossf/tac).
-For more organizational information, see the
-[OpenSSF Charter](https://openssf.org/about/charter/).
 
 ## Antitrust Policy Notice
 
