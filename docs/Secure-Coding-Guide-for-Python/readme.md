@@ -428,19 +428,19 @@ It is __not production code__ and requires code-style or python best practices t
 
 This guide was jointly developed by the following group of awesome contributors:
 
-- Andrew Costello
-- Bartlomiej Karas
-- David A. Wheeler
-- Dean Wiley
-- Georg Kunz
-- Helge Wehder
-- Hubert Daniszewski
-- Ketki Davda
-- Kyrylo Yatsenko
-- Michael Scovetta
-- Noah Spahn
-- Tom McDermott
-- Viktor Szépe
+* Andrew Costello
+* Bartlomiej Karas
+* David A. Wheeler
+* Dean Wiley
+* Georg Kunz
+* Helge Wehder
+* Hubert Daniszewski
+* Ketki Davda
+* Kyrylo Yatsenko
+* Michael Scovetta
+* Noah Spahn
+* Tom McDermott
+* Viktor Szépe
 
 ## License
 
