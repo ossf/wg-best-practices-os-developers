@@ -1,4 +1,4 @@
-DOCKER_RUN = docker run --rm -v $(PWD):/workspace compiler-hardening-example-cmake sh -c
+DOCKER_RUN = docker run --rm -v $(PWD):/workspace:ro compiler-hardening-example-cmake sh -c
 
 .PHONY: require-docker # Ensure Docker is installed and running
 require-docker:
