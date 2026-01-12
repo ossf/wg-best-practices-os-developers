@@ -1,8 +1,8 @@
-DOCKER_RUN = docker run --rm -v $(PWD):/workspace main sh -c
+DOCKER_RUN = docker run --rm -v $(PWD):/workspace compiler-hardening-example-cmake sh -c
 
 .PHONY: build-image
 build-image:
-	docker build -t main .
+	docker build -t compiler-hardening-example-cmake .
 
 .PHONY: run-gcc
 run-gcc: build-image
@@ -14,4 +14,4 @@ run-clang: build-image
 
 .PHONY: clean
 clean:
-	docker rmi main
+	docker rmi compiler-hardening-example-cmake
