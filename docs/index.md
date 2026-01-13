@@ -55,7 +55,7 @@ Examples of ongoing work include:
 ## Collaborations
 
 The OpenSSF Best Practices Working Group is collaborating with groups inside and outside of the OpenSSF.
-We are currently collaborating with the following external groups: 
+We are currently collaborating with the following external groups:
 
 * The [Security Web Application Guidelines (SWAG) Community Group](https://www.w3.org/community/swag/) has published two guides:
   * [Guidelines for developing more secure web applications](https://github.com/w3c-cg/swag/blob/main/docs/security_guidelines.md)
