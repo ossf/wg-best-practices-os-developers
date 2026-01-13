@@ -11,6 +11,7 @@ This is a list of materials (documents, services, and so on) released by the
 * [npm Best Practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md)
 * [Source Code Management Platform Configuration Best Practices Guide](https://best.openssf.org/SCM-BestPractices/)
 * [Compiler Options Hardening Guide for C and C++](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++)
+* [Compiler Annotations for C and C++](Compiler-Hardening-Guides/Compiler-Annotations-for-C-and-C++.md)
 * [Correctly Using Regular Expressions for Secure Input Validation](https://best.openssf.org/Correctly-Using-Regular-Expressions)
 * [Simplifying Software Component Updates](https://best.openssf.org/Simplifying-Software-Component-Updates)
 * [The Memory Safety Continuum](https://memorysafety.openssf.org/memory-safety-continuum)
@@ -50,7 +51,6 @@ guidance about memory safety through our memory safety SIG, and so on.
 Examples of ongoing work include:
 
 * [Secure Coding One Stop Shop for Python](Secure-Coding-Guide-for-Python/readme.md)
-* [Compiler Annotations for C and C++](Compiler-Hardening-Guides/Compiler-Annotations-for-C-and-C++.md)
 
 We typically use the [Simplest Possible Process (SPP)](https://best.openssf.org/spp/Simplest-Possible-Process) to publish our results on the web.
 
