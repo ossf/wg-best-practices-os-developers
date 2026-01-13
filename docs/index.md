@@ -52,6 +52,17 @@ Examples of ongoing work include:
 * [Secure Coding One Stop Shop for Python](Secure-Coding-Guide-for-Python/readme.md)
 * [Compiler Annotations for C and C++](Compiler-Hardening-Guides/Compiler-Annotations-for-C-and-C++.md)
 
+## Collaborations
+
+The OpenSSF Best Practices Working Group is collaborating with groups inside and outside of the OpenSSF.
+We are currently collaborating with the following external groups: 
+
+* The [Security Web Application Guidelines (SWAG) Community Group](https://www.w3.org/community/swag/) has published two guides:
+  * [Guidelines for developing more secure web applications](https://github.com/w3c-cg/swag/blob/main/docs/security_guidelines.md)
+  * [Security Guidelines for Framework & Library Developers](https://github.com/w3c-cg/swag/blob/main/docs/guidelines_for_libraries.md)
+
+## Get involved
+
 We typically use the [Simplest Possible Process (SPP)](https://best.openssf.org/spp/Simplest-Possible-Process) to publish our results on the web.
 
 [Please join the OpenSSF Best Practices working group if you're interested in helping](https://github.com/ossf/wg-best-practices-os-developers)!
