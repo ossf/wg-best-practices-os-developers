@@ -1,6 +1,6 @@
 # Compiler Annotations for C and C++
 
-> ⓘ NOTE: _This is a draft document by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/). Help to [improve it on GitHub](https://github.com/ossf/wg-best-practices-os-developers/edit/main/docs/Compiler-Hardening-Guides/Compiler-Annotations-for-C-and-C++.md)._
+*by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2025-12-16*
 
 Compile time security analysis and runtime mitigation implemented in compilers both depend on the compiler being able to see the flow of data between different points in a program, across functions and modules. This is quite a challenge in C and C++ because both languages allow passing around opaque references, thus losing information about objects. To work around this problem, both GCC and Clang implement attributes to annotate functions and data structures, enabling better analysis. These annotations improve security. They also help compilers make better optimization decisions, often resulting in better code.
 
