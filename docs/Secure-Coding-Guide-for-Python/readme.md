@@ -424,6 +424,24 @@ It is __not production code__ and requires code-style or python best practices t
 |\[MITRE Pillar 2024\]|_Pillar Weakness_ \[online\], available form [https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness](https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness) \[accessed Dec 2024\]|
 |\[MITRE 2024\]|CWE Top 25 \[online\], available form [https://cwe.mitre.org/top25/index.html](https://cwe.mitre.org/top25/archive/2022/2022_cwe_top25.html) \[accessed Dec 2024\]|
 
+## Contributors
+
+This guide was jointly developed by the following group of awesome contributors:
+
+* Andrew Costello
+* Bartlomiej Karas
+* David A. Wheeler
+* Dean Wiley
+* Georg Kunz
+* Helge Wehder
+* Hubert Daniszewski
+* Ketki Davda
+* Kyrylo Yatsenko
+* Michael Scovetta
+* Noah Spahn
+* Tom McDermott
+* Viktor Szépe
+
 ## License
 
 * [CC-BY 4.0](../../LICENSES/CC-BY-4.0.txt) for documentation
