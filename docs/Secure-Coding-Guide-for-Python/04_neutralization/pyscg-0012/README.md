@@ -4,7 +4,7 @@ Prevent slip and bomb attacks when decompressing and unpacking compressed data s
 
 Zip is used reprehensively in this rule for all compression formats.
 
-Zip Slip, or directory traversal attacks, use files with a relative path such as `../../../../../bin/bash` or full path `/bin/bash` in order to extract malicious code into an unwanted location [[2018  Snyk](https://snyk.io/blog/zip-slip-vulnerability/)]. Zip slip attacks can be prevented by sanitizing path names as described in _[pyscg-0044: Incorrect Behavior Order: Validate Before Canonicalize](../../02_encoding_and_strings/pyscg-0044/README.md)_.
+Zip Slip, or directory traversal attacks, use files with a relative path such as `../../../../../bin/bash` or full path `/bin/bash` in order to extract malicious code into an unwanted location [[2018  Snyk](https://snyk.io/blog/zip-slip-vulnerability/)]. Zip slip attacks can be prevented by sanitizing path names as described in _[pyscg-0044: Canonicalize Input Before Validating](../../02_encoding_and_strings/pyscg-0044/README.md)_.
 
 Zip bomb attacks try to overload a system that tries to unpack it for a denial-of-service attack by either containing:
 
@@ -321,7 +321,7 @@ The `compliant01.py` code will extract everything below the provided `base_path`
     </tr>
     <tr>
         <td>Secure Coding in Python</td>
-        <td>Base: <a href="../../02_encoding_and_strings/pyscg-0044/README.md">pyscg-0044: Incorrect Behavior Order: Validate Before Canonicalize</a></td>
+        <td>Base: <a href="../../02_encoding_and_strings/pyscg-0044/README.md">pyscg-0044: Canonicalize Input Before Validating</a></td>
     </tr>
     <tr>
         <td>Secure Coding in Python</td>
