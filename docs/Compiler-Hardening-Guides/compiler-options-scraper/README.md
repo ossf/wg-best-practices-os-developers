@@ -1,17 +1,25 @@
 # Compiler Options Scraper
 
-This directory contains a Python3 script that can fetch the latest OpenSSF Compiler Hardening Guide
-from the website, obtain the recommended options tables and convert them to a machine readable format (JSON).
-The output is saved in a JSON file: `compiler-options.json`
-This can be changed by changing the global variable at the top of the script.
+Technical utility for scraping compiler flags from OSSF hardening guides.
+
+## Data Source
+
+The scraper normalizes content from the [OSSF Compiler Options Hardening Guide for C/C++](https://raw.githubusercontent.com/ossf/wg-best-practices-os-developers/refs/heads/main/docs/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C%2B%2B.md).
 
 ## Usage
 
-`python3 main.py`
+The project utilizes a `Makefile` for standard operations.
 
-## Dependencies
+```bash
+make help  # Show all available commands
+make run   # Execute the scraper (bootstrapping venv if required)
+```
 
-Dependencies are specified in `requirements.txt`. The main dependencies are:
+## Dependency Management
 
-1. requests: To fetch the HTML page from the given OpenSSF URL.
-2. BeautifulSoup4: To parse the HTML page to convert it to JSON
+Dependencies are locked via `requirements.txt` to support Dependabot analysis (which currently lacks `uv.lock` parsing support).
+
+To add, update or remove dependencies, do not manually edit `requirements.txt`. Instead:
+
+1. Install or update the package in your local environment.
+2. Run the lock command to regenerate the lock file: `make lock`

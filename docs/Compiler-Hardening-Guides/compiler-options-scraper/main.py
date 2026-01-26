@@ -1,149 +1,91 @@
-# compiler-options-scraper.py
-# Author: mayank-ramnani
-# Date: 2024-06-26
-# Description: Python script to scrape recommended compiler options from the OpenSSF \
-        # Compiler Options Hardening Guide HTML page
-        # Scrapes the webpage and stores the options in JSON format in `compiler-options.json` \
-        # file in the execution directory
-
-import requests
-from bs4 import BeautifulSoup
 import json
 import re
-from typing import Optional, List, Dict, Tuple, Any
+import sys
+import urllib.request
+from pathlib import Path
+from typing import Any, Dict, List, Tuple
 
-
-OPENSSF_URL = ("https://best.openssf.org/Compiler-Hardening-Guides/"
-                "Compiler-Options-Hardening-Guide-for-C-and-C++.html")
-DB_FILE = "compiler-options.json"
-
-
-def scrape_document(url: str) -> Optional[BeautifulSoup]:
-    """Scrape the document from the given URL."""
-    response = requests.get(url)
-    if response.status_code == 200:
-        return BeautifulSoup(response.text, 'html.parser')
-    print("Failed to fetch HTML content")
-    return None
-
-# Assumes version date is in the first paragraph element
-def extract_version_from_soup(soup: BeautifulSoup) -> Optional[str]:
-    """Extract version date from the document's subtitle."""
-    subtitle = soup.find('p').get_text()
-    if not subtitle:
-        print("No subtitle found in the document")
-        return None
-
-    date_pattern = r'\b\d{4}-\d{2}-\d{2}\b'
-    match = re.search(date_pattern, subtitle)
-    if not match:
-        print("No version date found in the subtitle of document.")
-        return None
-
-    version_date = match.group(0)
-    return version_date
-
-
-def table_to_dicts(table: BeautifulSoup) -> List[Dict[str, str]]:
-    """Convert a BeautifulSoup table to a list of dictionaries."""
-    # get table headers
-    headers = [header.get_text() for header in table.find_all('th')]
-    # get table rows
-    rows = table.find_all('tr')[1:]  # Skip the header row, start from index 1
-
-    # convert rows to dictionaries
-    data = []
-    for row in rows:
-        row_data = []
-        for cell in row.find_all('td'):
-            for r in cell:
-                if (r.string is None):
-                    r.string = ' '
-            row_data.append(cell.get_text())
-        row_dict = dict(zip(headers, row_data))
-        data.append(row_dict)
-
-    return data
-
-
-def split_description(desc: str) -> Tuple[str, str]:
-    """Split description into main description and prerequisite."""
-    index = desc.find("Requires")
-    if index != -1:
-        return desc[:index], desc[index:]
-    return desc, ""
-
-
-def convert_to_json(table_data: List[Dict[str, str]]) -> List[Dict[str, Any]]:
-    """Convert table data to JSON format."""
-    json_data = []
-    for entry in table_data:
-        flags = [entry['Compiler Flag']]
-        for flag in flags:
-            desc, prereq = split_description(entry['Description'])
-            json_entry = {}
-            json_entry["opt"] = flag
-            json_entry["desc"] = desc
-            if prereq:
-                json_entry["prereq"] = prereq
-            json_entry["requires"] = extract_versions(entry['Supported since'])
-
-            json_data.append(json_entry)
-    return json_data
+import markdown
+from bs4 import BeautifulSoup
 
 
 def extract_versions(input_string: str) -> Dict[str, str]:
-    """Extract version information of dependencies from the input string."""
-    versions = {}
-    # Regex for various dependencies
-    # NOTE: the last version node is assumed to be single digit
-    # if you need to support multiple digits, d+ can be added
-    # however, it will start including the superscript references in the version number
-    # example: -D_FORTIFY_SOURCE=3
     version_patterns = {
-        'gcc': r'GCC\s+(\d+\.\d+\.\d)',
-        'clang': r'Clang\s+(\d+\.\d+\.\d)',
-        'binutils': r'Binutils\s+(\d+\.\d+\.\d)',
-        'libc++': r'libc\+\+\s+(\d+\.\d+\.\d)',
-        'libstdc++': r'libstdc\+\+\s+(\d+\.\d+\.\d)'
+        "gcc": r"GCC\s+(\d+\.\d+\.\d)",
+        "clang": r"Clang\s+(\d+\.\d+\.\d)",
+        "binutils": r"Binutils\s+(\d+\.\d+\.\d)",
+        "libc++": r"libc\+\+\s+(\d+\.\d+\.\d)",
+        "libstdc++": r"libstdc\+\+\s+(\d+\.\d+\.\d)",
+    }
+    return {
+        key: match.group(1)
+        for key, pattern in version_patterns.items()
+        if (match := re.search(pattern, input_string))
     }
 
-    versions = {}
-    for key, pattern in version_patterns.items():
-        match = re.search(pattern, input_string)
-        if match:
-            versions[key] = match.group(1)
 
-    return versions
+def get_desc_preq_pair(desc: str) -> Tuple[str, str]:
+    split_index = desc.find("Requires")
+    return (desc[:split_index], desc[split_index:]) if split_index != -1 else (desc, "")
 
 
-def main():
-    """Main function to scrape and process the document."""
-    soup = scrape_document(OPENSSF_URL)
-    if not soup:
-        print("Error: Unable to scrape document")
-        return
+def create_option_dict(row_data: Dict[str, str]) -> Dict[str, Any]:
+    description, prerequisite = get_desc_preq_pair(row_data["Description"])
 
-    # extract document version info
-    version = extract_version_from_soup(soup)
-    # extract all tables from soup: finds all <table> tags
-    tables = soup.find_all('table')
+    option_dict = {
+        "opt": row_data["Compiler Flag"],
+        "description": description,
+        "requires": extract_versions(row_data["Supported since"]),
+    }
 
-    # NOTE: we only care about tables 1 and 2, since those contain recommended options
-    # convert tables to list of dictionaries and merge entries
-    recommended_data = table_to_dicts(tables[1]) + table_to_dicts(tables[2])
+    if prerequisite:
+        option_dict["prerequisite"] = prerequisite
 
-    # convert table to JSON format
-    json_data = convert_to_json(recommended_data)
+    return option_dict
 
-    output_db = {"version": version, "options": {"recommended": json_data}}
 
-    with open(DB_FILE, "w") as fp:
-        # json_formatted_str = json.dumps(output_db, indent=4)
-        # fp.write(json_formatted_str)
-        json.dump(output_db, fp, indent=4)
-        print("Write compiler options in json to:", DB_FILE)
+def table_to_dict(table: BeautifulSoup) -> List[Dict[str, Any]]:
+    headers = [header.get_text().strip() for header in table.find_all("th")]
+    rows = table.find_all("tr")[1:]
+
+    clean = lambda c: (
+        [(br.insert_before(" "), br.unwrap()) for br in c.find_all("br")],
+        " ".join(c.get_text().split()),
+    )[1]
+
+    header_value_dicts = [
+        dict(zip(headers, [clean(cell) for cell in row.find_all("td")])) for row in rows
+    ]
+
+    return [create_option_dict(row_data) for row_data in header_value_dicts]
+
+
+def get_content() -> str:
+    filename = "Compiler-Options-Hardening-Guide-for-C-and-C++.md"
+    cwd_files = list(Path().cwd().glob(filename))
+    if cwd_files:
+        return cwd_files[0].read_text()
+
+    # remote fallback if not found in current working directory
+    fallback = "https://raw.githubusercontent.com/ossf/wg-best-practices-os-developers/refs/heads/main/docs/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C%2B%2B.md"
+    with urllib.request.urlopen(fallback) as response:
+        assert response.getcode() == 200
+        return response.read().decode("utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    content = get_content()
+
+    html = markdown.markdown(content, extensions=["tables"])
+    soup = BeautifulSoup(html, "html.parser")
+    tables = soup.find_all("table")
+
+    version = re.search(r"\b\d{4}-\d{2}-\d{2}\b", content).group(0)
+    compile_time_options = table_to_dict(tables[1])
+    runtime_options = table_to_dict(tables[2])
+
+    output = {
+        "version": version,
+        "options": {"recommended": compile_time_options + runtime_options},
+    }
+    json.dump(output, fp=sys.stdout, indent=4)
