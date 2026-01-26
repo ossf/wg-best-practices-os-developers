@@ -211,7 +211,7 @@ def file_reader(args: list):
     # To avoid path traversal attacks,
     # use the realpath method
     filepath = Path(os.path.realpath(filepath))
-    # TODO: follow CWE-180: Incorrect Behavior Order: Validate Before Canonicalize.
+    # TODO: follow pyscg-0044: Canonicalize Input Before Validating
     # Depending on the use case, it can include removing special characters
     # from the filename, ensuring it adheres to a predefined regex, etc.
     try:
