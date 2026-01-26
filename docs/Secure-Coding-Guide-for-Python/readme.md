@@ -97,7 +97,7 @@ It is __not production code__ and requires code-style or python best practices t
 <tr>
 <td><a href="02_encoding_and_strings/pyscg-0045/README.md">pyscg-0045: Enforce Consistent Encoding</a></td>
 <td></td>
-<td><a href="https://cwe.mitre.org/data/definitions/182.html">CWE-182</a></td>
+<td><a href="https://cwe.mitre.org/data/definitions/176.html">CWE-176</a></td>
 </tr>
 
 <tr>
