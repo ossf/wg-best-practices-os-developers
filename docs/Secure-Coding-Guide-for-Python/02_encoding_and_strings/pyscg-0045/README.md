@@ -205,7 +205,7 @@ report_record_attack(payload)
 |||
 |:---|:---|
 |[MITRE CWE](http://cwe.mitre.org/)|Pillar: CWE-693, Protection Mechanism Failure \[online\], available from <https://cwe.mitre.org/data/definitions/693.html> \[Accessed April 2025\]|
-|[MITRE CWE](http://cwe.mitre.org/)|Base: CWE-182: Collapse of Data into Unsafe Value \[online\], available from <https://cwe.mitre.org/data/definitions/182.html> \[Accessed April 2025\]|
+|[MITRE CWE](http://cwe.mitre.org/)|Base: CWE-176: Improper Handling of Unicode Encoding \[online\], available from <https://cwe.mitre.org/data/definitions/176.html> \[Accessed January 2026\]|
 |[MITRE CWE](http://cwe.mitre.org/)|Pillar: [CWE-707: Improper Neutralization](https://cwe.mitre.org/data/definitions/707.html)|
 |[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE-838: Inappropriate Encoding for Output Context](https://cwe.mitre.org/data/definitions/838.html)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[STR03-J. Do not encode noncharacter data as a string](https://wiki.sei.cmu.edu/confluence/display/java/STR03-J.+Do+not+encode+noncharacter+data+as+a+string)|
