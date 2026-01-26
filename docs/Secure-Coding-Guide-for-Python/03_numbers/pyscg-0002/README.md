@@ -1,14 +1,14 @@
-# pyscg-0002: Integer Underflow ('Wrap or Wraparound')
+# pyscg-0002: Guard C-Backed Numbers Against Overflow
 
 Ensure that integer overflow is properly handled in order to avoid unexpected behavior. Python data types can be divided into two categories:
 
 - Built-in types such as `int`, `float`, or `complex` [[Python 2024]](https://docs.python.org/3.9/library/stdtypes.html). These types are provided by classes and are protected against overflows.
 
-- Primitive types share issues known from `C` , or `C++` and appear in `Python` to:
+- C-backed numbers are numeric types implemented in C (rather than pure Python) for performance or system compatibility. These primitive types share issues known from `C` or `C++` and appear in `Python` to:
   - interact with the operating system modules such as `time`.
-  - to be memory efficiency using modules such as `numpy` or `ctype`.
+  - to be memory efficient using modules such as `numpy` or `ctypes`.
 
-Developers should follow the `C` guidelines when using or interacting with `C` type variables.
+Developers should follow the `C` guidelines when using or interacting with C-backed numbers.
 
 ## Non-Compliant Code Example -- Using numpy.int64
 
@@ -213,7 +213,7 @@ The `compliant02.py` example is protecting the lower level c-lib from an `Overfl
 
 ## Non-Compliant Code Example -- Using math.exp
 
-The `noncompliant03.py` code example results in a `OverflowError: math range error`. This is due to `math.exp` being a `C` implementation behind the scenes for better performance. So while it returns a `Python float` it does use `C` type of variables internally for the calculation in `mathmodule.c` [[cpython 2024]](https://github.com/python/cpython/blob/main/Modules/mathmodule.c).
+The `noncompliant03.py` code example results in a `OverflowError: math range error`. This is due to `math.exp` being a `C` implementation behind the scenes for better performance. So while it returns a `Python float` it does use C-backed numbers internally for the calculation in `mathmodule.c` [[cpython 2024]](https://github.com/python/cpython/blob/main/Modules/mathmodule.c).
 
 *[noncompliant03.py](noncompliant03.py):*
 
