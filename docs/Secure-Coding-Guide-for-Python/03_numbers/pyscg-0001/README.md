@@ -1,8 +1,8 @@
-# pyscg-0001: Control Numeric Precision
+# pyscg-0001: Insufficient Precision or Accuracy of a Real Number
 
 Avoid floating-point and use integers or the `decimal` module to ensure precision in applications that require high accuracy, such as in financial or banking computations.
 
-In Python, floating-point types have limited precision, typically accurate to about seven decimal digits. Consequently, they cannot represent many numbers with full accuracy. For example, irrational numbers such as `√7` or `π` cannot be represented exactly. Additionally, due to their binary nature, floating-point types are incapable of exactly representing some terminating decimals in `base 10`, such as `0.3`, which has a repeating binary representation.
+In Python, floating-point types are constrained by a fixed number of binary mantissa bits, typically allowing for around seven decimal digits of precision (24-bit values). Consequently, they are not well-suited for representing surds, such as `√7` or `π` with full accuracy. Additionally, due to their binary nature, floating-point types are incapable of exactly terminating decimals in `base 10`, such as `0.3`, which has a repeating binary representation.
 
 To ensure precision in applications requiring high accuracy, such as in financial or banking computations, it is recommended to avoid using floating-point types. Instead, integers or more precise data types like the `Decimal` class should be employed.
 
