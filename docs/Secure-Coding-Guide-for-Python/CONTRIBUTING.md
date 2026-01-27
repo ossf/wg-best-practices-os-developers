@@ -161,6 +161,16 @@ Example structure with mocked up data below `docs/Secure-Coding-Guide-for-Python
 
 ```
 
+### Rule Titles
+
+Titles should be:
+
+* Positive
+* Action-oriented guideline statements
+* APA Title Case style [[APA 2022](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case)]
+
+Using a negative form only when it reads more naturally.
+
 ### Coding Examples
 
 Idealistically we have a `noncompliantXX.py` code matching in number the `XX` number of a `compliantXX.py` example with minimal changes between the two. The noncompliant and compliant code example's are also expected to contain the defensive code at the top while having the attacker code after the "#attempting to exploit" comment. Any code examples that do not qualify as compliant or noncompliant are named `exampleXX.py`.
