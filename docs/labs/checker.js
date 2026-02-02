@@ -27,6 +27,10 @@ let lastHintTarget = null; // Last hint button user used.
  * they are allowed to see their first hint on an unchanged page. */
 let changedInputSinceHint = true;
 
+/* Track changes to input; only allow "give up" if this number of changes
+ * exceeds GIVE_UP_MIN_CHANGES. */
+let inputChanges = 0;
+
 let BACKQUOTE = "`"; // Make it easy to use `${BACKQUOTE}`
 let DOLLAR = "$"; // Make it easy to use `${DOLLAR}`
 
@@ -52,7 +56,7 @@ const resources = {
             no_matching_hint: 'Sorry, I cannot find a hint that matches your attempt.',
             reset_title: 'Reset initial state (throwing away current attempt).',
             to_be_completed: 'to be completed',
-            try_harder_give_up: "Try harder! Don't give up so soon. Current time spent since start or last hint (in seconds): {0}",
+            try_harder_give_up: "Try harder! You need to try to answer it and to not give up soon. Current time spent since start or last hint (in seconds): {0}",
             try_harder_hint: "Try harder! Don't ask for a hint so soon, wait at least {0} seconds.",
         },
     },
@@ -88,9 +92,8 @@ const resources = {
             no_matching_hint: "Désolé, je ne trouve pas d'indice correspondant à votre tentative.",
             reset_title: "Réinitialiser l'état initial (abandonner la tentative actuelle).",
             to_be_completed: 'à compléter',
-            try_harder_give_up: "Essayez plus fort ! N'abandonnez pas si tôt. Temps actuel passé (en secondes) : {0}",
-            try_harder_give_up: "Essayez plus fort ! N'abandonnez pas si tôt. Temps actuel passé depuis le début ou le dernier indice (en secondes) : {0}",
-            try_harder_hint: "Essayez plus fort ! Ne demandez pas d'indice si tôt, attendez au moins {0} secondes.",
+            try_harder_give_up: "Faites plus d’efforts ! Vous devez essayer de répondre et ne pas abandonner trop vite. Temps écoulé depuis le début ou le dernier indice (en secondes) : {0}",
+            try_harder_hint: "Faites plus d’efforts ! Ne demandez pas d'indice si tôt, attendez au moins {0} secondes.",
         },
     },
 };
@@ -516,6 +519,8 @@ function runCheck() {
     // This is only called when *something* has changed in the input.
     // From now on, enforce hint delays.
     changedInputSinceHint = true;
+    // We track # of changes so people must try before giving up.
+    inputChanges++;
 
     let attempt = retrieveAttempt();
 
@@ -601,6 +606,10 @@ function showAnswer(e) {
 // since a clue (lab start or a hint given).
 const GIVE_UP_DELAY_TIME = 60;
 
+// "Give up" only shows the answer after this changes have been made to
+// the answer.
+const GIVE_UP_MIN_CHANGES = 5;
+
 // "Hint" only shows hint after this many seconds have elapsed
 // since a clue (lab start or a hint given).
 // WARNING: If you change this value, you *may* need to adjust some of
@@ -628,11 +637,17 @@ function elapsedTimeSinceClue() {
     return ((currentTime - lastTime) / 1000); // in seconds
 }
 
+/** return number rounded to nearest tenth as a string. */
+function round_tenths_s(x) {
+    return (Math.round(x * 10)/10).toString();
+}
+
 /** Maybe show the answer to the user (depending on timer). */
 function maybeShowAnswer(e) {
     let elapsedTime = elapsedTimeSinceClue();
-    if (elapsedTime < GIVE_UP_DELAY_TIME) {
-        alert(myFormat(t('try_harder_give_up'), [elapsedTime.toString()]));
+    if ((elapsedTime < GIVE_UP_DELAY_TIME) ||
+        (inputChanges < GIVE_UP_MIN_CHANGES)) {
+        alert(myFormat(t('try_harder_give_up'), [round_tenths_s(elapsedTime)]));
     } else {
         showAnswer(e);
     }
@@ -688,6 +703,8 @@ function resetForm(e) {
     form = e.target.form;
     form.reset();
     runCheck();
+    // Normally a "runcheck" means we had an input, but we're starting over.
+    inputChanges = 0;
 }
 
 /** Accept input array of hints, return cleaned-up array of hints */
@@ -982,6 +999,9 @@ function initPage() {
 
     // Run check of the answer so its visual appearance matches its content.
     runCheck();
+    // Make our count of changes start at 0. Otherwise, the line before
+    // would count as an "input".
+    inputChanges = 0;
 }
 
 // When the requesting web page loads, initialize things
