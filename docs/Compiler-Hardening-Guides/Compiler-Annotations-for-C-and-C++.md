@@ -451,7 +451,7 @@ void do_with_untrusted_input(int untrusted_input) __attribute__ ((tainted_args))
 
 The `counted_by` attribute associates a C99 flexible array member or pointer field in a structure with another field that specifies the number of elements it contains[^gcc-counted-by].
 It improves compiler diagnostics and runtime checks (e.g., the `-fsanitize=bounds` array bound sanitizer and `__builtin_dynamic_object_size`).
-The associated `variable` must be of integer type and must be declared before the annotated field. Negative values of `variable` are treated as zero.
+The associated `variable` must be of integer type and must be declared before the annotated field. Negative values of `variable` are treated as zero.  Note that gcc does not yet have support for this attribute on pointers in structs.
 
 The `counted_by` annotation cannot apply to pointers to incomplete types or types without size such as `void *`. However, `counted_by` is allowed for pointers to incomplete (non-void) struct/union types if they can be completed before first use.
 For incomplete types and `void *` Clang provides a `sized_by` annotation[^clang-counted-by] which can be used to associate the field to a `variable` holding their size in bytes.
