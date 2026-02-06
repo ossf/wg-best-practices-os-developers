@@ -163,13 +163,11 @@ Example structure with mocked up data below `docs/Secure-Coding-Guide-for-Python
 
 ### Rule Titles
 
-Titles should be:
+Titles should:
 
-* Positive
-* Action-oriented guideline statements
-* APA Title Case style [[APA 2022](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case)]
-
-Using a negative form only when it reads more naturally.
+* Be written in APA Title Case style [[APA 2022](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case)]
+* Be action-oriented
+* Preferably describe wanted design over anti-pattern
 
 ### Coding Examples
 
