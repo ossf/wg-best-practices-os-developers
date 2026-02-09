@@ -1,6 +1,6 @@
 # pyscg-0003: Use Arithmetic Over Bitwise Operations
 
-Avoid mixing bitwise shifts with arithmetic operations, instead, use clear mathematical expressions instead to maintain predictable behavior, readability, and compatibility
+Avoid mixing bitwise shifts with arithmetic operations, instead, use clear mathematical expressions instead to maintain predictable behavior, readability, and compatibility.
 
 Ensure to know what bit-wise shift operators do in case you can not avoid them as recommended in NUM01-J. Do not perform bitwise and arithmetic operations on the same data [[SEI CERT JAVA 2024](https://wiki.sei.cmu.edu/confluence/display/java/NUM01-J.+Do+not+perform+bitwise+and+arithmetic+operations+on+the+same+data)] and use math instead.
 
