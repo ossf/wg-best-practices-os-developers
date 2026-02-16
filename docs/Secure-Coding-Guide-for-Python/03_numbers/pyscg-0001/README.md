@@ -2,7 +2,16 @@
 
 Avoid floating-point and use integers or the `decimal` module to ensure precision in applications that require high accuracy, such as in financial or banking computations.
 
-In Python, floating-point types have limited precision, typically accurate to about seven decimal digits. Consequently, they cannot represent many numbers with full accuracy. For example, irrational numbers such as `√7` or `π` cannot be represented exactly. Additionally, due to their binary nature, floating-point types are incapable of exactly representing some terminating decimals in `base 10`, such as `0.3`, which has a repeating binary representation.
+In Python, floating-point types have limited precision. A Python `float` has `~15–17` significant decimal digits total as per _Build Changes_ in _What's New in Python 3.11_ [python.org 2022](https://docs.python.org/3/whatsnew/3.11.html)— not `~15–17` digits after the decimal point.  
+
+Significant decimal digits are shared between:  
+
+* Digits before the decimal point  
+* Digits after the decimal point  
+
+A number getting bigger before the decimal point results in loss of precision after the decimal point.
+
+Consequently, they cannot represent many numbers with full accuracy. For example, irrational numbers such as `√7` or `π` cannot be represented exactly. Additionally, due to their binary nature, floating-point types are incapable of exactly representing some terminating decimals in base 10, such as `0.3`, which has a repeating binary representation.  
 
 To ensure precision in applications requiring high accuracy, such as in financial or banking computations, it is recommended to avoid using floating-point types. Instead, integers or more precise data types like the `Decimal` class should be employed.
 
