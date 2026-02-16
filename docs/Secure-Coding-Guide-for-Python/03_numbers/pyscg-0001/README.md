@@ -19,7 +19,7 @@ To ensure precision in applications requiring high accuracy, such as in financia
 
 This `noncompliant01.py` demonstrates the use of floating-point arithmetic to simulate purchasing items and subsequent
 
-*[noncompliant01.py](noncompliant01.py):*
+_[noncompliant01.py](noncompliant01.py):_
 
 ```py
 # SPDX-FileCopyrightText: OpenSSF project contributors
@@ -47,7 +47,7 @@ The imprecise `base 10` representation during the multiplication of `5` with `0.
 
 This compliant solution adheres more to standards by representing the account balance and item cost as `integers` in cents instead of using dollars. This approach eliminates the imprecision associated with floating-point numbers:
 
-*[compliant01.py](compliant01.py):*
+_[compliant01.py](compliant01.py):
 
 ```py
 # SPDX-FileCopyrightText: OpenSSF project contributors
@@ -73,7 +73,7 @@ print(
 
 This compliant solution adheres to standards by utilizing the imported `Decimal` type, which allows for precise representation of decimal values. It's important to note that, on most platforms, calculations using `Decimal` tend to be less efficient compared to those using basic data types.
 
-*[compliant02.py](compliant02.py):*
+_[compliant02.py](compliant02.py):_
 
 ```py
 
