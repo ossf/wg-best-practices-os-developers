@@ -1,4 +1,4 @@
-# pyscg-0011: Access of Resource Using Incompatible Type ('Type Confusion')
+# pyscg-0011: Prevent Type Confusion
 
 When operating on unsigned values coming from external sources, such as `C` or `C++` applications, they should be unpacked using variable types that can represent their entire value range.
 This rule is related to [pyscg-0005: Control Rounding When Converting to Less Precise Numbers](../../03_numbers/pyscg-0005/README.md).
