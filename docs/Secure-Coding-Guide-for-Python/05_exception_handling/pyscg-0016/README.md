@@ -1,4 +1,4 @@
-# pyscg-0016: Detection of Error Condition Without Action
+# pyscg-0016: Propagate Exceptions and Preserve Context
 
 Allow exceptions to bubble up and handle exceptions at the right level in the stack.
 
@@ -23,7 +23,7 @@ In Python `Exception` extends from `BaseException`and a bare `except` will catch
 
 For instance, catching a bare `except` causes a user to be unable to stop a script via `CTRL+C`, due to the base `except` catching all exceptions. In comparison, catching `except Exception` allows a `KeyboardInterrupt` to be the Python interpreter itself or other parts of the code. This is due to `KeyboardInterrupt` extending `BaseException` and not `Exception`.
 
-Note that using `except Exception` is still too broad as per [pyscg-0015: Improper Handling of Exceptional Conditions](../pyscg-0015/README.md) and that a more specific exception handling is preferred.
+Note that using `except Exception` is still too broad as per [pyscg-0015: Handle Error Conditions](../pyscg-0015/README.md) and that a more specific exception handling is preferred.
 
 The `noncompliant01.py` code demonstrates a bare `except` on a `ZeroDivisionError` and must be run on the command line in order to experience the issue.
 
@@ -143,7 +143,7 @@ The following two exceptions, highlighted in [SEI Cert's Oracle Coding Standard 
 |[MITRE](https://cwe.mitre.org/)|[CWE-209: Generation of Error Message Containing Sensitive Information](https://cwe.mitre.org/data/definitions/209.html)|
 |[SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[ERR00-J. Do not suppress or ignore checked exceptions](https://wiki.sei.cmu.edu/confluence/display/java/ERR00-J.+Do+not+suppress+or+ignore+checked+exceptions)|
 |[MITRE CWE Base](http://cwe.mitre.org/)|[CWE-703](https://cwe.mitre.org/data/definitions/703.html), Improper Check or Handling of Exceptional Conditions|
-|[MITRE CWE Pillar](http://cwe.mitre.org/)|[CWE-390](http://cwe.mitre.org/data/definitions/390.html), Detection of Error Condition without Action|
+|[MITRE CWE Base](http://cwe.mitre.org/)|[CWE-396](http://cwe.mitre.org/data/definitions/396.html), Declaration of Catch for Generic Exception|
 
 ## Biblography
 
