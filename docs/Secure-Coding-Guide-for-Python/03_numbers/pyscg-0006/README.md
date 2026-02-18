@@ -1,6 +1,6 @@
-# pyscg-0006: Incorrect Conversion Between Numeric Types
+# pyscg-0006: Use an Appropriate Comparator for Numbers
 
-String representations of floating-point numbers must not be compared or inspected outside of specialized modules such as `decimal` or `math`.
+Use the appropriate numeric type/module such as `decimal`, `fractions`, `math.isclose()` instead of `string` comparators.
 
 For example, a `Decimal` object must be created from a `string`, but it is inaccurate to use the string representation of a floating-point number outside of `Decimal`. The `Decimal` module provides a `compare()` method that allows the calculation to stay within its configured precision.
 
