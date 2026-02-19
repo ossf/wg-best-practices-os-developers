@@ -215,37 +215,31 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="05_exception_handling/pyscg-0014/README.md">pyscg-0014: Declaration of Throws for Generic Exception</a></td>
+<td><a href="05_exception_handling/pyscg-0014/README.md">pyscg-0014: Use Specific Exception Types</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/397.html">CWE-397</a></td>
 </tr>
 
 <tr>
-<td><a href="05_exception_handling/pyscg-0015/README.md">pyscg-0015: Improper Handling of Exceptional Conditions</a></td>
+<td><a href="05_exception_handling/pyscg-0015/README.md">pyscg-0015: Handle Error Conditions</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2024-39560">CVE-2024-39560</a>,<br>CVSSv3.1: <strong style='color:yellow'>6.5</strong>,<br>EPSS: <strong>0.04</strong> (01.11.2024)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/755.html">CWE-755</a></td>
 </tr>
 
 <tr>
-<td><a href="05_exception_handling/pyscg-0016/README.md">pyscg-0016: Detection of Error Condition Without Action</a></td>
+<td><a href="05_exception_handling/pyscg-0016/README.md">pyscg-0016: Propagate Exceptions and Preserve Context</a></td>
 <td></td>
-<td><a href="https://cwe.mitre.org/data/definitions/390.html">CWE-390</a></td>
+<td><a href="https://cwe.mitre.org/data/definitions/396.html">CWE-396</a></td>
 </tr>
 
 <tr>
-<td><a href="05_exception_handling/pyscg-0017/README.md">pyscg-0017: Improper Handling of Missing Values</a></td>
-<td></td>
-<td><a href="https://cwe.mitre.org/data/definitions/230.html">CWE-230</a></td>
-</tr>
-
-<tr>
-<td><a href="05_exception_handling/pyscg-0018/README.md">pyscg-0018: Improper Check for Unusual or Exceptional Conditions - Float</a></td>
+<td><a href="05_exception_handling/pyscg-0018/README.md">pyscg-0018: Validate Numeric Data Beyond Type Checking</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/754.html">CWE-754</a></td>
 </tr>
 
 <tr>
-<td><a href="05_exception_handling/pyscg-0052/README.md">pyscg-0052: Improper Cleanup on Thrown Exception</a></td>
+<td><a href="05_exception_handling/pyscg-0052/README.md">pyscg-0052: Ensure Cleanup on Exceptions</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/460.html">CWE-460</a></td>
 </tr>
