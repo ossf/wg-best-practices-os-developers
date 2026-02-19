@@ -161,49 +161,49 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0047/README.md">pyscg-0047: Incomplete List of Disallowed Input</a></td>
+<td><a href="04_neutralization/pyscg-0047/README.md">pyscg-0047: Use Allow Lists Over Deny Lists</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/184.html">CWE-184</a></td>
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0008/README.md">pyscg-0008: Use of Externally-Controlled Format String</a></td>
+<td><a href="04_neutralization/pyscg-0008/README.md">pyscg-0008: Prevent Format String Injection</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2022-27177/">CVE-2022-27177</a>,<br>CVSSv3.1: <strong style='color:darkred'>9.8</strong>,<br>EPSS: <strong>00.37</strong> (01.12.2023)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/134.html">CWE-134</a></td>
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0009/README.md">pyscg-0009: Improper Neutralization of Special Elements Used in an OS Command ('OS Command Injection')</a></td>
+<td><a href="04_neutralization/pyscg-0009/README.md">pyscg-0009: Prevent OS Command Injection</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2024-43804/">CVE-2024-43804</a>,<br>CVSSv3.1: <strong>8.8</strong>,<br>EPSS: <strong>00.06</strong> (08.11.2024)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/78.html">CWE-78</a></td>
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0010/README.md">pyscg-0010: Improper Neutralization of Special Elements Used in an SQL Command ('SQL Injection')</a></td>
+<td><a href="04_neutralization/pyscg-0010/README.md">pyscg-0010: Prevent SQL Injection</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2019-8600">CVE-2019-8600</a>,<br>CVSSv3.1: <strong style='color:red'>9.8</strong>,<br>EPSS: <strong>01.43</strong> (18.02.2024)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/89.html">CWE-89</a></td>
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0011/README.md">pyscg-0011: Access of Resource Using Incompatible Type ('Type Confusion')</a></td>
+<td><a href="04_neutralization/pyscg-0011/README.md">pyscg-0011: Prevent Type Confusion</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2021-29513">CVE-2021-29513</a>,<br>CVSSv3.1: <strong style='color:orange'>7.8</strong>,<br>EPSS: <strong>00.02</strong> (13.05.2025)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/843.html">CWE-843</a></td>
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0012/README.md">pyscg-0012: Improper Handling of Highly Compressed Data ('Data Amplification')</a></td>
+<td><a href="04_neutralization/pyscg-0012/README.md">pyscg-0012: Extract Archives Safely</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2019-9674/">CVE-2019-9674</a>,<br>CVSSv3.1: <strong style='color:orange'>7.5</strong>,<br>EPSS: <strong>1.2%</strong> (10.09.2025)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/409.html">CWE-409</a></td>
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0013/README.md">pyscg-0013: Untrusted Search Path</a></td>
+<td><a href="04_neutralization/pyscg-0013/README.md">pyscg-0013: Secure Search Paths</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2015-1326">CVE-2015-1326</a>,<br>CVSSv3.0: <strong style='color:red'>8.8</strong>,<br>EPSS: <strong>00.20</strong> (23.11.2023)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/426.html">CWE-426</a></td>
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0023/README.md">pyscg-0023: Deserialization of Untrusted Data</a></td>
+<td><a href="04_neutralization/pyscg-0023/README.md">pyscg-0023: Secure Deserialization</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2018-8021">CVE-2018-8021</a>,<br>CVSSv3.0: <strong style='color:red'>9.8</strong>,<br>EPSS: <strong>93.54</strong> (05.11.2024)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/502.html">CWE-502</a></td>
 </tr>
