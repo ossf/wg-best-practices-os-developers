@@ -2,7 +2,23 @@
 name: OpenSSF Best Practices Working Group
 # Don't insert the name of the repo at the beginning
 # https://stackoverflow.com/questions/46375765/how-do-you-remove-header-on-github-pages
-title: null
+title: OpenSSF Best Practices Working Group
+description: This is a list of materials (documents, services, and so on) released by the Open Source Security Foundation (OpenSSF) Best Practices Working Group (WG).
+logo: /assets/logo.svg
+url: "https://best.openssf.org"
+
+titles_from_headings:
+  enabled:     true
+  strip_title: true
+
+# Add to plugins: list
+plugins:
+  - jekyll-remote-theme
+  - jekyll-feed
+  - jekyll-seo-tag
+
+remote_theme: jekyll/minima
+
 kramdown:
   # See: https://dieghernan.github.io/chulapa-101/cheatsheets/02-kramdown-cheat-sheet
   toc_levels: 2..6
@@ -28,3 +44,54 @@ defaults:
       path: "Concise-Guide-for-Evaluating-Open-Source-Software*"
     values:
       description: This is a concise guide for evaluating Open Source Software (OSS) for its security and sustainability.
+# Minima-specific settings (applicable to Minima v3 and above only)
+# -----------------------------------------------------------------
+#
+#  *All described config keys below should be nested under the top-level
+#   `minima` key.*
+#
+minima:
+#   Minima skin selection. Available skins are:
+#     * classic            Default, light color scheme.
+#     * dark               Dark variant of the classic skin.
+#     * auto               Adaptive skin based on the classic and dark skins.
+#     * solarized-light    Light variant of solarized color scheme.
+#     * solarized-dark     Dark variant of solarized color scheme.
+#     * solarized          Adaptive skin for solarized color scheme skins.
+   skin: classic
+#
+#   Specific pages for site navigation.
+#     If you wish to link only specific pages in the site-navigation, use this
+#     and list the `path` property (as represented via Liquid) of the pages in
+#     the order they should be rendered.
+   nav_pages:
+     - developers.md
+     - translations.md
+#
+#   Set to `true` to show excerpts on the homepage.
+   show_excerpts: false
+#
+#   Minima date format.
+#     The default value is "%b %d, %Y" (e.g. Nov 14, 2023).
+#     Refer to https://shopify.github.io/liquid/filters/date/ for valid values
+#   date_format: "%b-%d-%Y"
+#
+#   Social Media Links.
+#     Renders icons via Font Awesome Free webfonts CDN, based on ordered list of
+#     entries. Valid entry keys:
+#       * title    Tooltip rendered on hovering over icon.
+#       * icon     Font Awesome icon id. `github` corresponds to `fa-github`.
+#       * url      Full URL of social profile.
+   social_links:
+     - title: OpenSSF GitHub
+       icon: github
+       url: "https://github.com/ossf"
+     - title: OpenSSF at X (formerly Twitter)
+       icon: x-twitter
+       url: "https://x.com/openssf"
+     - title: OpenSSF at BlueSky
+       icon: bluesky
+       url: "https://bsky.app/profile/openssf.org"
+     - title: OpenSSF at LinkedIn
+       icon: linkedin
+       url: "https://www.linkedin.com/company/openssf/"
