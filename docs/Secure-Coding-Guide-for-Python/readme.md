@@ -107,49 +107,43 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="03_numbers/pyscg-0001/README.md">pyscg-0001: Insufficient Precision or Accuracy of a Real Number</a></td>
+<td><a href="03_numbers/pyscg-0001/README.md">pyscg-0001: Control Numeric Precision</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/1339.html">CWE-1339</a></td>
 </tr>
 
 <tr>
-<td><a href="03_numbers/pyscg-0002/README.md">pyscg-0002: Integer Underflow ('Wrap or Wraparound')</a></td>
+<td><a href="03_numbers/pyscg-0002/README.md">pyscg-0002: Guard C-Backed Numbers Against Overflow</a></td>
 <td></td>
-<td><a href="https://cwe.mitre.org/data/definitions/191.html">CWE-191</a></td>
+<td><a href="https://cwe.mitre.org/data/definitions/191.html">CWE-191</a>, <a href="https://cwe.mitre.org/data/definitions/190.html">CWE-190</a></td>
 </tr>
 
 <tr>
-<td><a href="03_numbers/pyscg-0053/README.md">pyscg-0053: Incorrect Bitwise Shift of Integer</a></td>
-<td></td>
-<td><a href="https://cwe.mitre.org/data/definitions/1335.html">CWE-1335</a></td>
-</tr>
-
-<tr>
-<td><a href="03_numbers/pyscg-0003/README.md">pyscg-0003: Promote Readability and Compatibility by Using Mathematical Written Code with Arithmetic Operations Instead of Bit-wise Operations</a></td>
+<td><a href="03_numbers/pyscg-0003/README.md">pyscg-0003: Use Arithmetic Over Bitwise Operations</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/1335.html">CWE-1335</a></td>
 </tr>
 
 <tr>
-<td><a href="03_numbers/pyscg-0004/README.md">pyscg-0004: Numeric Truncation Error</a></td>
+<td><a href="03_numbers/pyscg-0004/README.md">pyscg-0004: Use Integer Loop Counters</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/197.html">CWE-197</a></td>
 </tr>
 
 <tr>
-<td><a href="03_numbers/pyscg-0005/README.md">pyscg-0005: Control Rounding When Converting to Less Precise Numbers</a></td>
+<td><a href="03_numbers/pyscg-0005/README.md">pyscg-0005: Specify Rounding for Numeric Conversions</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/197.html">CWE-197</a></td>
 </tr>
 
 <tr>
-<td><a href="03_numbers/pyscg-0006/README.md">pyscg-0006: Incorrect Conversion Between Numeric Types</a></td>
+<td><a href="03_numbers/pyscg-0006/README.md">pyscg-0006: Use an Appropriate Comparator for Numbers</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/681.html">CWE-681</a></td>
 </tr>
 
 <tr>
-<td><a href="03_numbers/pyscg-0007/README.md">pyscg-0007: Avoid an Uncontrolled Loss of Precision When Passing Floating-point Literals to a Decimal Constructor</a></td>
+<td><a href="03_numbers/pyscg-0007/README.md">pyscg-0007: Use String Literals for Decimal Construction</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/681.html">CWE-681</a></td>
 </tr>
