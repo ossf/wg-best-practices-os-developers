@@ -8,7 +8,7 @@ As the Cyber Resilience Act (CRA) comes into full force, commercial users of ope
 
 For example, these two obligations of commercial software vendors ("Manufacturers" in CRA terms) defined in the CRA will necessitate interaction:
 
-* **Due Diligence** ([CRA, article 13 (5)](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202402847#art_13)): Commercial users must now assess the security of the open source components they use. This process will uncover security issues — both real and perceived — triggering the need to report findings to the project maintainers.
+* **Security Due Diligence** ([CRA, article 13 (5)](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202402847#art_13)): Commercial users must now assess the security of the open source components they use. This process will uncover security issues — both real and perceived — triggering the need to report findings to the project maintainers. This due diligence is both a step that must be performed when an OSS component is being evaluated, and also when such dependencies are updated. [OSPS Baseline](https://baseline.openssf.org/) can be a useful as a set of criteria to incorporate into such a due diligence process. Also note: this is distinct from any licence due diligence that you may already be performing.
 
 * **Sharing of Security Fixes** ([CRA, article 13 (6)](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202402847#art_13)): The CRA mandates that manufacturers share security fixes with the upstream open source projects.
 While increased corporate involvement is vital for the long-term sustainability of the open source ecosystem, it carries a risk of friction. Most commercial developers are accustomed to a "consumer" relationship with software, managed through procurement departments, contracts, and service-level agreements.
@@ -20,7 +20,8 @@ This guide aims to bridge that gap, helping commercial developers navigate these
 ## Scope and Purpose of this guide
 
 Drawing from established industry research on open source collaboration, this guide compiles a concise checklist of essential behaviors for organizations and developers. It is designed to cover the fundamental requirements for new contributors, acting as both a practical manual for immediate compliance and a gateway to more extensive educational resources.
-
+When engaging with open source projects, don't expect having any CRA-related conversations *by default*. 
+Project maintainers don’t have to do anything at all because of the CRA, if they're maintaining an open source project without commercial monetization or placing products on the EU market. Which applies to *almost all* open source projects. The CRA does not impose obligations on individual open source developers or volunteer maintainers merely for publishing or maintaining code. However, maintainers *may voluntarily choose* to implement widely accepted security best practices that align with modern secure development expectations and may assist downstream users who integrate your software into regulated products.
 ## Recommendations
 
 The following recommendations are structured along the lifecycle of a typical engagement.
