@@ -28,14 +28,17 @@ The following recommendations are structured along the lifecycle of a typical en
 
 ### Prepare by understanding how the project works
 
+* **Read the project's security policy:** Following a project's security policy for any disclosures is crucial. Unwarranted or accidental public vulnerability disclosures must be avoided.
 * **Read the project’s contribution guide:** Locate and carefully study files named CONTRIBUTING.md or similar documentation, as these outline the specific technical and procedural standards required for patches. Ignoring these instructions is often viewed as disrespectful and is the most common reason for contributions being ignored or rejected.
+* **Determine the project's copyright policy:** Projects may use a DCO (Developer Certifiacte of Origin) or a CLA (Contributor License Agreement) to manage the copyright of the contributed code. Contributors must ensure that they indeed have the copyright as well as the permission to contirbute code. In particular CLAs often require signing by a company representative and cannot be signed by developers on behalf of the company.
 * **Review the code of conduct**: Familiarize yourself with the project's Code of Conduct to understand the behavioral expectations and social norms of that specific community. Unlike a corporate environment governed by HR policies, open source projects relies on these documents to maintain a healthy collaboration space, and violating them can lead to immediate exclusion.
 * **Read through the project’s issue tracker to learn about related (past) discussions:** Before raising a new issue, perform a thorough search of closed tickets and pull requests to see if the topic has already been addressed or debated. This demonstrates respect for the maintainers' time and prevents you from potentially re-igniting settled arguments or reporting known duplicates.
 * **Find out how the project members communicate: GitHub issues, Slack, IRC, …:** Identify the preferred channels for different types of interaction, as many projects separate general support questions (often on Discord, Slack, or mailing lists) from technical bug tracking. Using the correct medium ensures your message reaches the right audience without cluttering the project's development workflow.
 
 ### Start participating
 
-* **Describe why your contribution is important to you and the project:** Clearly articulate the problem your contribution solves, linking your specific commercial use case (such as a security vulnerability) to the broader benefit for the project's user base. Maintainers are more likely to accept changes when they understand the context and see how the improvement strengthens the software for everyone, not just for your organization.
+* **Initiate a discussion by opening an issue:** Depending on the contirbution policy of the project and the complexity of contribution, the best approach to initiate a contribution is open an issue rather than contributing via Pull Request / Merge Request / Change right away, in particular for non-trivial contributions.
+* **Describe why your contribution is important to you and the project:** In issues and PRs, always clearly articulate the problem your contribution solves, linking your specific commercial use case (such as a security vulnerability) to the broader benefit for the project's user base. Maintainers are more likely to accept changes when they understand the context and see how the improvement strengthens the software for everyone, not just for your organization.
 * **Make your motivations transparent and disclose your affiliation:** Openly state your employer and the reason for your involvement, such as compliance with the Cyber Resilience Act or internal security requirements. Transparency builds trust within the community, preventing suspicions of hidden agendas and helping maintainers understand the resources and constraints backing the contribution.
 * **Describe the design of your contribution and be willing to modify it based on feedback:** Provide a high-level summary of your technical approach alongside the code to help maintainers assess how well it fits the project's existing architecture. Be prepared to iterate on your solution. Viewing code review as a collaborative design process rather than a gatekeeping hurdle is essential for getting your changes merged.
 * **Always show respectful behavior:** Approach every interaction with patience and courtesy, recognizing that maintainers are often volunteers with limited time and competing priorities. Avoid demanding language or imposing corporate deadlines, as professional empathy is the most effective tool for fostering long-term cooperation and avoiding friction.
@@ -52,16 +55,27 @@ More information is available
 * [Participating in Open Source Communities](https://todogroup.org/resources/guides/participating-in-open-source-communities/), guide, TODO Group
 * [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/), guide, GitHub
 
-# List of additional content to cover in this guide
+## List of additional content to cover in this guide
 
 These are ideas + a make-shift backlog
 
-# Challenges
+### Challenges
+
+#### Release Mnagement and Cadence
 
 * how to deal with new releases: often teams desire a new release which includes a bug fix, but the project does not necessarily cut a release after a bug fix / vuln fix
 
+@tuminoid: Release cadence is surely one area leading to friction with CRA. Not everyone does releases at all, some do releases from main only, release branches have
+serious maintenance burden etc. CNCF has open initiative on releases guidance too.
 
-## Scenarios
+#### Disagreements on the direction of a project
+
+* @tuminoid: Should we also describe scenarios where the project maintainer disagrees and says no? This is common for corporate contributions, and creates tension, especially if contributor feels compelled by the CRA or internal pressure to get the fix in, and the maintainer disagrees for whatever reason?
+
+* @balteravishay: not sure if this should be it's own section, or part of showing respectful behaviour, but would add a note about respecting maintainer autonomy &
+project direction by avoiding pressuring maintainers to accept changes that serve only commercial interests or attempting to steer a project's roadmap to align with corporate goals.
+
+### Scenarios
 
 * bumping versions of dependencies
   * manual effort
@@ -73,3 +87,4 @@ These are ideas + a make-shift backlog
   * security-focused test cases
 * adding additional tools
   * causes additional overhead of dealing with the output
+  * @balteravishay: yes, but: Avoid "Drive-by" Tooling by not adding any CI tools, linters, or bots without maintainer buy-in. Proposing automation should be a conversation, not a surprise PR.
