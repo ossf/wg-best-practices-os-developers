@@ -1,7 +1,9 @@
 ---
 ---
 
-@import "{{ site.theme }}";
+@import
+  "minima/skins/{{ site.minima.skin | default: 'auto' }}",
+  "minima/initialize";
 
 /* For information on use Jekyll in GitHub:
   https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/adding-a-theme-to-your-github-pages-site-using-jekyll
@@ -174,4 +176,35 @@ a:hover {
 /* selected link */
 a:active {
   color: #04ee5f;
+}
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 10px;
+}
+
+.site-logo {
+  flex: 0 0 auto;
+}
+
+.site-title {
+  flex: 1 1 auto;
+  text-align: right;
+  margin-bottom: 0;
+  padding-left: 20px;
+}
+
+.warning {
+    background: rgba(114, 83, 237, 0.2);
+    border-left: 4px solid #381885;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
+    padding: .8rem;
+}
+
+.warning::before {
+    font-weight: bold;
+    font-size: 80%;
+    content: "WARNING ";
 }

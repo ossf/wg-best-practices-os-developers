@@ -52,6 +52,19 @@ Examples of ongoing work include:
 
 * [Secure Coding One Stop Shop for Python](Secure-Coding-Guide-for-Python/readme.md)
 
+## Collaborations
+
+The OpenSSF Best Practices Working Group is collaborating with groups inside and outside of the OpenSSF.
+We are currently collaborating with the following external groups:
+
+* The [Security Web Application Guidelines (SWAG) Community Group](https://www.w3.org/community/swag/) has published three guides:
+  * [Guidelines for developing more secure web applications](https://github.com/w3c-cg/swag/blob/main/docs/security_guidelines.md)
+  * [Security Guidelines for Framework & Library Developers](https://github.com/w3c-cg/swag/blob/main/docs/guidelines_for_libraries.md)
+  * [Regulatory & Policy Guidelines](https://github.com/w3c-cg/swag/blob/main/docs/regulatory_policy.md)
+  Of these, the main guidelines document is the most mature.
+
+## Get involved
+
 We typically use the [Simplest Possible Process (SPP)](https://best.openssf.org/spp/Simplest-Possible-Process) to publish our results on the web.
 
 [Please join the OpenSSF Best Practices working group if you're interested in helping](https://github.com/ossf/wg-best-practices-os-developers)!

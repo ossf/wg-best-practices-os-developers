@@ -1,4 +1,4 @@
-# pyscg-0043: Improper Handling of Mixed Encoding
+# pyscg-0043: Specify Locale Explicitly
 
 Locale-dependent programs may produce unexpected behavior or security bypasses in an environment whose locale is unset, or not set to an appropriate value.
 
@@ -175,52 +175,6 @@ print(f"Do the numbers match? {compare_number(ORIGINAL_NUMBER)}")
 # Locale is ('de_DE', 'UTF-8')
 # Enter a number: 12.345
 # Do the numbers match? False
-
-```
-
-## Non-Compliant Code Example (Encoding)
-
-The developer should be aware of the text encoding that is used for input data and output data in the program. The code example attempts to use `UTF-16 LE` encoding to read the LOREM `TextIOWrapper` stream which raises a `UnicodeDecodeError` exception as it was created with `UTF-8`.
-
-*[noncompliant02.py](noncompliant02.py):*
-
-```python
-""" Non-compliant Code Example """
-import io
-
-LOREM = """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."""
-
-output = io.BytesIO()
-wrapper = io.TextIOWrapper(output, encoding='utf-8', line_buffering=True)
-wrapper.write(LOREM)
-wrapper.seek(0, 0)
-# Below outputs UnicodeDecodeError: 'utf-16-le' codec can't decode byte 0x2e in position 1336: truncated data
-print(f"{len(output.getvalue().decode('utf-16le'))} characters in string")
-
-```
-
-## Compliant Solution (Encoding)
-
-The correct text encoding, `UTF-8` for the LOREM `TextIOWrapper` stream has been included in the program. Ensure the encoding of data is known and explicitly stated when parsing and creating data.
-
-*[compliant02.py](compliant02.py):*
-
-```python
-""" Compliant Code Example """
-import io
-
-LOREM = """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."""
-
-output = io.BytesIO()
-wrapper = io.TextIOWrapper(output, encoding='utf-8', line_buffering=True)
-wrapper.write(LOREM)
-wrapper.seek(0, 0)
-# 1337 characters in string
-print(f"{len(output.getvalue().decode('utf-8'))} characters in string")
 
 ```
 
