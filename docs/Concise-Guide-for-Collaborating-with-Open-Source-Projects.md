@@ -20,8 +20,9 @@ This guide aims to bridge that gap, helping commercial developers navigate these
 ## Scope and Purpose of this guide
 
 Drawing from established industry research on open source collaboration, this guide compiles a concise checklist of essential behaviors for organizations and developers. It is designed to cover the fundamental requirements for new contributors, acting as both a practical manual for immediate compliance and a gateway to more extensive educational resources.
-When engaging with open source projects, don't expect having any CRA-related conversations *by default*. 
-Project maintainers don’t have to do anything at all because of the CRA, if they're maintaining an open source project without commercial monetization or placing products on the EU market. Which applies to *almost all* open source projects. The CRA does not impose obligations on individual open source developers or volunteer maintainers merely for publishing or maintaining code. However, maintainers *may voluntarily choose* to implement widely accepted security best practices that align with modern secure development expectations and may assist downstream users who integrate your software into regulated products.
+When engaging with open source projects, don't expect having any CRA-related conversations _by default_.
+Project maintainers don’t have to do anything at all because of the CRA, if they're maintaining an open source project without commercial monetization or placing products on the EU market. Which applies to _almost all_ open source projects. The CRA does not impose obligations on individual open source developers or volunteer maintainers merely for publishing or maintaining code. However, maintainers _may voluntarily choose_ to implement widely accepted security best practices that align with modern secure development expectations and may assist downstream users who integrate your software into regulated products.
+
 ## Recommendations
 
 The following recommendations are structured along the lifecycle of a typical engagement.
