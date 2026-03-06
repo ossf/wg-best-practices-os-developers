@@ -395,7 +395,7 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="09_cryptography/pyscg-0038/README.md">pyscg-0038: Use of Insufficiently Random Values</a></td>
+<td><a href="09_cryptography/pyscg-0038/README.md">pyscg-0038: Use Sufficiently Random Values</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2020-7548">CVE-2020-7548</a>,<br>CVSSv3.1: <strong style='color:red'>9.8</strong>,<br>EPSS: <strong>0.22</strong> (12.12.2024)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/330.html">CWE-330</a></td>
 </tr>
