@@ -11,7 +11,7 @@ There are two `C` and `C++` design patterns for resource optimisation that are n
 
 The use of bit-wise operations for arithmetic or flag registers can reduce readability, predictability of the code and can also cause compatibility issues. Some bit-wise operations can reduce performance. Python tries to safeguard changes between positive and negative numbers by storing the sign separately. It tries to prevent overflows by using either `32-bit unsigned integer` arrays with `30-bit` digits or `16-bit` unsigned integer arrays with `15-bit` digit [[Rusher 2017]](https://rushter.com/blog/python-integer-implementation/). In other words, Python changes and adapts on the fly.
 
-A need to use bit-wise operations in Python can be due to translations or dealings with `C`, `C++` or `Java`, system libraries, raw binary data, or cryptographic algorithms. Existing Python modules hooking into system `C` libraries for cryptographic functions or math all to avoid the need to implement bit-shifting on a Python level. Bit-shifting can have unexpected outcomes. Python's ctypes module allows integration of `C` based system libraries into Python and direct access to C-backed numbers that can have different behavior than using high-level Python. Understanding `ctypes` or `C` requires understanding the *CERT C Coding Standard* [[SEI CERT C 2025]](https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard) and setting boundaries manually in Python.
+A need to use bit-wise operations in Python can be due to translations or dealings with `C`, `C++` or `Java`, system libraries, raw binary data, or cryptographic algorithms. Existing Python modules hooking into system `C` libraries for cryptographic functions or math all to avoid the need to implement bit-shifting on a Python level. Bit-shifting can have unexpected outcomes. Python's ctypes module allows integration of `C` based system libraries into Python and direct access to Fixed-Width numbers that can have different behavior than using high-level Python. Understanding `ctypes` or `C` requires understanding the *CERT C Coding Standard* [[SEI CERT C 2025]](https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard) and setting boundaries manually in Python.
 
 The `example01.py` code demonstrates bit-wise operators available in Python.
 
@@ -241,7 +241,7 @@ The statement in `compliant01.py` clarifies the programmer's intention.
 print(8 * 4 + 10)
 ```
 
-It is recommended by *[pyscg-0002: Guard C-Backed Numbers Against Overflow](../pyscg-0002/README.md)* to also check for under or overflow.
+It is recommended by *[pyscg-0002: Guard Fixed-Width Numbers Against Overflow](../pyscg-0002/README.md)* to also check for under or overflow.
 
 ## Non-compliant Code Example (Right Shift)
 

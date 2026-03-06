@@ -119,7 +119,7 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="03_numbers/pyscg-0002/README.md">pyscg-0002: Guard C-Backed Numbers Against Overflow</a></td>
+<td><a href="03_numbers/pyscg-0002/README.md">pyscg-0002: Guard Fixed-Width Numbers Against Overflow</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/191.html">CWE-191</a>, <a href="https://cwe.mitre.org/data/definitions/190.html">CWE-190</a></td>
 </tr>
