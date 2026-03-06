@@ -1,4 +1,4 @@
-# pyscg-0018: Improper Check for Unusual or Exceptional Conditions - Float
+# pyscg-0018: Validate Numeric Data Beyond Type Checking
 
 Ensure to have handling for exceptional floating-point values.
 
@@ -9,6 +9,30 @@ The `float` class has the capability to interpret various input values as floati
 * `NaN` (Not-a-Number)
 
 These floating-point class values represent numbers that fall outside the typical range and exhibit unique behaviors. `NaN` (Not a Number) lacks a defined order and is not considered equal to any value, including itself. Hence, evaluating an expression such as `NaN == NaN` returns `False`.
+
+In Python, some datasets use `NaN` (not-a-number) to represent missing data. This can be problematic as the `NaN` values are unordered. Any ordered comparison of a number to a not-a-number value is `False`. A counter-intuitive implication is that `not-a-number` values are not equal to themselves. This behavior is compliant with IEEE 754 [[IEEE Standard for Floating-Point Arithmetic](https://ieeexplore.ieee.org/document/8766229)], a hardware-induced compromise.
+
+The `NaN` value should be stripped before performing operations as they can cause surprising or undefined behaviours in statistics functions that sort or count occurrences [[Python docs - statistics](https://docs.python.org/3/library/statistics.html)].
+
+The following code example demonstrates various comparisons of `float('NaN')` all resulting in `False`:
+
+*[example01.py](example01.py):*
+
+```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+""" Code Example """
+
+foo = float('NaN')
+print(f"foo={foo} type = {type(foo)}")
+
+print(foo == float("NaN") or
+      foo is float("NaN") or
+      foo < 3 or
+      foo == foo or
+      foo is None
+      )
+```
 
 ## Non-Compliant Code Example
 
@@ -187,6 +211,106 @@ package.add_to_package(-100)
 Weight must be a non-negative number.
 ```
 
+## Non-Compliant Code Example (Direct NaN Comparison)
+
+This noncompliant code example [[Python docs - value comparisons](https://docs.python.org/3/reference/expressions.html#value-comparisons)] attempts a direct comparison with `NaN` in `_value == float("NaN")`, which will always fail because `NaN` is never equal to anything, including itself.
+
+*[noncompliant02.py](noncompliant02.py):*
+
+```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+""" Non-compliant Code Example """
+
+
+def balance_is_positive(value: str) -> bool:
+    """Returns True if there is still enough value for a transaction"""
+    _value = float(value)
+    if _value == float("NaN") or _value is float("NaN") or _value is None:
+        raise ValueError("Expected a float")
+    if _value <= 0:
+        return False
+    else:
+        return True
+
+
+#####################
+# attempting to exploit above code example
+#####################
+print(balance_is_positive("0.01"))
+print(balance_is_positive("0.001"))
+print(balance_is_positive("NaN"))
+```
+
+## Compliant Solution (Using math.isnan)
+
+In `compliant02.py` we use the `math.isnan` to verify if the value passed is a valid `float` value.
+
+*[compliant02.py](compliant02.py):*
+
+```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+""" Compliant Code Example """
+
+import math
+
+
+def balance_is_positive(value: str) -> bool:
+    """Returns True if there is still enough value for a transaction"""
+    _value = float(value)
+    if math.isnan(_value) or _value is None:
+        raise ValueError("Expected a float")
+    if _value < 0.01:
+        return False
+    else:
+        return True
+
+
+#####################
+# attempting to exploit above code example
+#####################
+print(balance_is_positive("0.01"))
+print(balance_is_positive("0.001"))
+print(balance_is_positive("NaN"))
+```
+
+The `balance_is_positive` method will raise a `ValueError` for `NaN` values.
+
+## Compliant Solution (Using Decimal)
+
+In the `compliant03.py` code example, the method `Decimal.quantize` is used to gain control over known rounding errors in floating point values.
+
+The decision by the `balance_is_positive` method is to `ROUND_DOWN` instead of the default `ROUND_HALF_EVEN`.
+
+*[compliant03.py](compliant03.py):*
+
+```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+""" Compliant Code Example """
+
+from decimal import ROUND_DOWN, Decimal
+
+
+def balance_is_positive(value: str) -> bool:
+    """Returns True if there is still enough value for a transaction"""
+    # TODO: additional input sanitation for expected type
+    _value = Decimal(value)
+    # TODO: exception handling
+    return _value.quantize(Decimal(".01"), rounding=ROUND_DOWN) > Decimal("0.00")
+
+
+#####################
+# attempting to exploit above code example
+#####################
+print(balance_is_positive("0.01"))
+print(balance_is_positive("0.001"))
+print(balance_is_positive("NaN"))
+```
+
+`Decimal` throws a `decimal.InvalidOperation` for `NaN` values, the controlled rounding causes only `"0.01"` to return `True`.
+
 ## Automated Detection
 
 |||||
@@ -200,5 +324,16 @@ Weight must be a non-negative number.
 |:---|:---|
 |[SEI CERT C Coding Standard](https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard)|[FLP04-C. Check floating-point inputs for exceptional values](https://wiki.sei.cmu.edu/confluence/display/c/FLP04-C.+Check+floating-point+inputs+for+exceptional+values)|
 |[SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java?src=sidebar)|[NUM08-J. Check floating-point inputs for exceptional values](https://wiki.sei.cmu.edu/confluence/display/java/NUM08-J.+Check+floating-point+inputs+for+exceptional+values)|
+|[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[NUM07-J. Do not attempt comparisons with NaN](https://wiki.sei.cmu.edu/confluence/display/java/NUM07-J.+Do+not+attempt+comparisons+with+NaN)|
 |[CWE MITRE Pillar](http://cwe.mitre.org/)|[CWE-703: Improper Check or Handling of Exceptional Conditions](https://cwe.mitre.org/data/definitions/703.html)|
 |[MITRE CWE Base](https://cwe.mitre.org/)|[CWE-754: Improper Check for Unusual or Exceptional Conditions](https://cwe.mitre.org/data/definitions/754.html)|
+|[MITRE CWE Base](http://cwe.mitre.org/)|[CWE-230: Improper Handling of Missing Values](https://cwe.mitre.org/data/definitions/230.html)|
+
+## Bibliography
+
+|||
+|:---|:---|
+|[[Python docs - statistics]](https://docs.python.org/3/library/statistics.html)|Python Software Foundation. (2024). statistics - Mathematical statistics functions [online]. Available from: <https://docs.python.org/3/library/statistics.html> [Accessed 22 July 2025]|
+|[[Python docs - value comparisons]](https://docs.python.org/3/reference/expressions.html#value-comparisons)|Python Software Foundation. (2024). Value comparisons [online]. Available from: <https://docs.python.org/3/reference/expressions.html#value-comparisons> [Accessed 22 July 2025]|
+|[[Python docs - math]](https://docs.python.org/3/library/math.html#math.nan)|Python Software Foundation. (2024). math - Mathematical functions [online]. Available from: <https://docs.python.org/3/library/math.html#math.nan> [Accessed 22 July 2025]|
+|[[IEEE Standard for Floating-Point Arithmetic]](https://ieeexplore.ieee.org/document/8766229)|IEEE. (2019). 754-2019 - IEEE Standard for Floating-Point Arithmetic [online]. Available from: <https://ieeexplore.ieee.org/document/8766229> [Accessed 20 October 2025]|
