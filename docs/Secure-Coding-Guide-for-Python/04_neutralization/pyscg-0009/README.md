@@ -1,4 +1,4 @@
-# pyscg-0009: Improper Neutralization of Special Elements Used in an OS Command ('OS Command Injection')
+# pyscg-0009: Prevent OS Command Injection
 
 Avoid input from untrusted sources to be used directly as part of an OS command and use specialized Python modules where possible instead.
 
@@ -29,7 +29,7 @@ Following table 00 provides a limited list of Unix shell commands to Python modu
 
 Any variation of using input from a lesser trusted source as part of a command line program has a very high probability of resulting in a potential attack including the use of specialized modules. Consider:
 
-* *[pyscg-0047: Incomplete List of Disallowed Input](../../04_neutralization/pyscg-0047/README.md)*
+* *[pyscg-0047: Use Allows Lists Over Deny Lists](../../04_neutralization/pyscg-0047/README.md)*
 * *[pyscg-0050: Generation of Error Message Containing Sensitive Information](../../06_logging/pyscg-0050/README.md)*
 * *[pyscg-0040: Trust Boundary Violation](../../01_introduction/pyscg-0040/README.md)*
 
@@ -75,7 +75,7 @@ The `FileOperations().list_dir()` method allows an attacker to add commands via 
 
 The attack surface increases if a user is also allowed to upload or create files or folders.
 
-The `noncompliant02.py` example demonstrates the injection via file or folder name that is created prior to using the `list_dir()` method. We assume here that an untrusted user is allowed to create files or folders named `& calc.exe or ;ps aux` as part of another service such as upload area, submit form, or as a result of a zip-bomb as per *[pyscg-0012: Improper Handling of Highly Compressed Data (Data Amplification)](../pyscg-0012/README.md)*. Encoding issues as described in *[pyscg-0044: Canonicalize Input Before Validating](../../02_encoding_and_strings/pyscg-0044/README.md)* must also be considered.
+The `noncompliant02.py` example demonstrates the injection via file or folder name that is created prior to using the `list_dir()` method. We assume here that an untrusted user is allowed to create files or folders named `& calc.exe or ;ps aux` as part of another service such as upload area, submit form, or as a result of a zip-bomb as per *[pyscg-0012: Extract Archives Safely)](../pyscg-0012/README.md)*. Encoding issues as described in *[pyscg-0044: Canonicalize Input Before Validating](../../02_encoding_and_strings/pyscg-0044/README.md)* must also be considered.
 
 The issue occurs when mixing shell commands with data from a lesser trusted source.
 
