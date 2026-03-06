@@ -1,8 +1,17 @@
-# pyscg-0001: Insufficient Precision or Accuracy of a Real Number
+# pyscg-0001: Control Numeric Precision
 
 Avoid floating-point and use integers or the `decimal` module to ensure precision in applications that require high accuracy, such as in financial or banking computations.
 
-In Python, floating-point types are constrained by a fixed number of binary mantissa bits, typically allowing for around seven decimal digits of precision (24-bit values). Consequently, they are not well-suited for representing surds, such as `√7` or `π` with full accuracy. Additionally, due to their binary nature, floating-point types are incapable of exactly terminating decimals in `base 10`, such as `0.3`, which has a repeating binary representation.
+In Python, floating-point types have limited precision. A Python `float` has `~15–17` significant decimal digits total as per _Build Changes_ in _What's New in Python 3.11_ [python.org 2022](https://docs.python.org/3/whatsnew/3.11.html)— not `~15–17` digits after the decimal point.  
+
+Significant decimal digits are shared between:  
+
+* Digits before the decimal point  
+* Digits after the decimal point  
+
+A number getting bigger before the decimal point results in loss of precision after the decimal point.
+
+Consequently, they cannot represent many numbers with full accuracy. For example, irrational numbers such as `√7` or `π` cannot be represented exactly. Additionally, due to their binary nature, floating-point types are incapable of exactly representing some terminating decimals in base 10, such as `0.3`, which has a repeating binary representation.  
 
 To ensure precision in applications requiring high accuracy, such as in financial or banking computations, it is recommended to avoid using floating-point types. Instead, integers or more precise data types like the `Decimal` class should be employed.
 
@@ -10,7 +19,7 @@ To ensure precision in applications requiring high accuracy, such as in financia
 
 This `noncompliant01.py` demonstrates the use of floating-point arithmetic to simulate purchasing items and subsequent
 
-*[noncompliant01.py](noncompliant01.py):*
+_[noncompliant01.py](noncompliant01.py):_
 
 ```py
 # SPDX-FileCopyrightText: OpenSSF project contributors
@@ -38,7 +47,7 @@ The imprecise `base 10` representation during the multiplication of `5` with `0.
 
 This compliant solution adheres more to standards by representing the account balance and item cost as `integers` in cents instead of using dollars. This approach eliminates the imprecision associated with floating-point numbers:
 
-*[compliant01.py](compliant01.py):*
+_[compliant01.py](compliant01.py):
 
 ```py
 # SPDX-FileCopyrightText: OpenSSF project contributors
@@ -64,7 +73,7 @@ print(
 
 This compliant solution adheres to standards by utilizing the imported `Decimal` type, which allows for precise representation of decimal values. It's important to note that, on most platforms, calculations using `Decimal` tend to be less efficient compared to those using basic data types.
 
-*[compliant02.py](compliant02.py):*
+_[compliant02.py](compliant02.py):_
 
 ```py
 
