@@ -1,4 +1,4 @@
-# pyscg-0033: Comparison of Object References Instead of Object Contents
+# pyscg-0033: Implement Comparisons by Value Rather Than Reference
 
 Prevent unexpected results by knowing the differences between comparison operators such as `==` and `is`.
 
