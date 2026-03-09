@@ -40,7 +40,7 @@ Character Encoding systems such as `ASCII`, `Windows-1252`, or `UTF-8` consist o
     </tr>
     <tr>
         <td >/</td>
-        <td>\u003f</td>
+        <td>\u002f</td>
         <td>SOLIDUS</td>
         <td>／</td>
         <td>\uff0f</td>
