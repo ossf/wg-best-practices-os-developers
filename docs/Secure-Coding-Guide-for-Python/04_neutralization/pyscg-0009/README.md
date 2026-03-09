@@ -30,8 +30,13 @@ Following table 00 provides a limited list of Unix shell commands to Python modu
 Any variation of using input from a lesser trusted source as part of a command line program has a very high probability of resulting in a potential attack including the use of specialized modules. Consider:
 
 * *[pyscg-0047: Incomplete List of Disallowed Input](../../04_neutralization/pyscg-0047/README.md)*
+<<<<<<< HEAD
 * *[pyscg-0050: Generation of Error Message Containing Sensitive Information](../../06_logging/pyscg-0050/README.md)*
 * *[pyscg-0040: Trust Boundary Violation](../../01_introduction/pyscg-0040/README.md)*
+=======
+* *[pyscg-0050: Sanitize Error Output to Prevent Information Disclosure](../../06_logging/pyscg-0050/README.md)*
+* *[pyscg-0040: Use Process Isolation for Trust Zones](../../01_introduction/pyscg-0040/README.md)*
+>>>>>>> 0dc93b4 (pyscg 06_logging, updated titles as part of #1017)
 
 ## Non-Compliant Code Example (Read Only)
 
