@@ -36,7 +36,6 @@ Any variation of using input from a lesser trusted source as part of a command l
 =======
 * *[pyscg-0050: Sanitize Error Output to Prevent Information Disclosure](../../06_logging/pyscg-0050/README.md)*
 * *[pyscg-0040: Use Process Isolation for Trust Zones](../../01_introduction/pyscg-0040/README.md)*
->>>>>>> 0dc93b4 (pyscg 06_logging, updated titles as part of #1017)
 
 ## Non-Compliant Code Example (Read Only)
 
