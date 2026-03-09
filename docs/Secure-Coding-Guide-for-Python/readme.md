@@ -53,25 +53,25 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="01_introduction/pyscg-0040/README.md">pyscg-0040: Trust Boundary Violation</a></td>
+<td><a href="01_introduction/pyscg-0040/README.md">pyscg-0040: Use Process Isolation for Trust Zones</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2023-28597">CVE-2023-28597</a>,<br>CVSSv3.0: <strong style='color:orange'>7.5</strong>,<br>EPSS: <strong>00.11</strong> (05.11.2024)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/501.html">CWE-501</a></td>
 </tr>
 
 <tr>
-<td><a href="01_introduction/pyscg-0041/README.md">pyscg-0041: Use of Hardcoded Credentials</a></td>
+<td><a href="01_introduction/pyscg-0041/README.md">pyscg-0041: Externalize Configuration and Secrets</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/798.html">CWE-798</a></td>
 </tr>
 
 <tr>
-<td><a href="01_introduction/pyscg-0042/README.md">pyscg-0042: Operator Precedence Logic Error</a></td>
+<td><a href="01_introduction/pyscg-0042/README.md">pyscg-0042: Ensure Correct Operator Precedence</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/783.html">CWE-783</a></td>
 </tr>
 
 <tr>
-<td><a href="01_introduction/pyscg-0055/README.md">pyscg-0055: External Control of Assumed-Immutable Web Parameter</a></td>
+<td><a href="01_introduction/pyscg-0055/README.md">pyscg-0055: Determine Access on Server Side</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/472.html">CWE-472</a></td>
 </tr>
