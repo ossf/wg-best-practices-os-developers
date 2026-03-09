@@ -22,6 +22,8 @@ _[example01.py](example01.py)_:
 ```python
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
+"""Example Code Example"""
+
 import sysconfig
 import sys
 print("sysconfig.get_paths().values())", end=" ")
