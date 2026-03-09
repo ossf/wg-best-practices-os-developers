@@ -2,7 +2,38 @@
 
 In an environment where an untrusted or less trusted entity can modify the environment variables, consider validating hash-based byte code [Python 2023 Command line and environment].
 
-The search path module is a list of directories that are searched when importing modules and packages using `import`. This search path is storeed in `sys.path` [[note.nkmk.me 2023]](https://note.nkmk.me/en/python-import-module-search-path/). An attacker who can modify these paths may inject malicious modules that get loaded instead of legitimate ones.
+A search path, such as `$PATH` in `bash`, is a list of directories used to find scripts, modules or binaries.
+
+Python has a 'hard coded' and 'soft coded' search path lists:
+
+    * `sysconfig` determined during installation 
+    * `sys.path` determined at runtime using:
+    ** Script/current dir
+    ** Site-packages
+    ** Standard library (`/usr/lib/python3.xx`)
+    ** Environment variable `PYTHONPATH` defined by the operating system or runtime shell
+
+The `example01.py` code prints the content of `sysconfig` and `sys.path`.
+
+## Example Code Example
+
+_[example01.py](example01.py)_:
+
+```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+import sysconfig
+import sys
+print("sysconfig.get_paths().values())", end=" ")
+print(sysconfig.get_paths().values())
+print("")
+print("print(sys.path)", end=" ")
+print(print(sys.path))
+```
+
+An attacker who can modify a search paths via environmental variables or other means can potentially inject malicious modules that get loaded instead of legitimate ones.
+
+Consider validating hash-based byte code [[Python 2023 Command line and environment](https://docs.python.org/3.9/using/cmdline.html#cmdoption-check-hash-based-pycs)].
 
 Python source code `.py` files need to be converted into "byte code" `.pyc` or `.pyo` in memory or in a filesystem `__pycache__` before running on the Python Virtual Machine (PVM) [Dec 2009 PEP 3147].
 Python 3.8 [Dec 2009 PEP 3147] also has a backward compatibility mode supporting delivering only byte code.
@@ -92,4 +123,3 @@ Currently None.
 |[Python 2023 Command line and environment](https://docs.python.org/3.9/using/cmdline.html#cmdoption-check-hash-based-pycs)|<https://docs.python.org/3.9/using/cmdline.html#cmdoption-check-hash-based-pycs>|
 |[Python 2023 The import system](https://docs.python.org/3.9/reference/import.html#pyc-invalidation)|<https://docs.python.org/3.9/reference/import.html#pyc-invalidation>|
 |CPython 2023|<https://github.com/python/cpython/blob/main/Lib/importlib/_bootstrap_external.py>|
-|[note.nkmk.me](https://note.nkmk.me/)|<https://note.nkmk.me/en/python-import-module-search-path/>|
