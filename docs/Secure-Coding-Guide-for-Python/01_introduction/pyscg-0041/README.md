@@ -157,7 +157,7 @@ if __name__ == "__main__":
     unittest.main()
 ```
 
-The `compliant01.py` code avoids using password based authentication in the first place. It prints connection information only for convenience here and should not be considered in a real world implementation as per [pyscg-0019: Insertion of Sensitive Information into Log File](../../06_logging/pyscg-0019/README.md) \[OSSF 2025\].
+The `compliant01.py` code avoids using password based authentication in the first place. It prints connection information only for convenience here and should not be considered in a real world implementation as per [pyscg-0019: Exclude Sensitive Data From Logs](../../06_logging/pyscg-0019/README.md) \[OSSF 2025\].
 
 ## Automated Detection
 

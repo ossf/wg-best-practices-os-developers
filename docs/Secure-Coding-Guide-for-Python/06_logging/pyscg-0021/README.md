@@ -1,4 +1,4 @@
-# pyscg-0021: Active Debug Code
+# pyscg-0021: Exclude Developer Tools From the Final Product
 
 Keep design tooling in separate packages from the actual product and supply useful logging.
 
