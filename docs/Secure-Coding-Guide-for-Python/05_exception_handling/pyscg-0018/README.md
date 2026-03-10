@@ -34,7 +34,7 @@ print(foo == float("NaN") or
       )
 ```
 
-## Non-Compliant Code Example
+## Non-Compliant Code Example (Validate)
 
 The `noncompliant01.py` intent is to ensure that adding objects will not exceed a total weight of `100` units. Validation fails as the code to test for exceptional conditions, such as `NaN` or `infinity`, is missing.
 
@@ -120,7 +120,7 @@ package.add_to_package(-100)
 package.get_package_weight() = nan
 ```
 
-## Compliant Solution
+## Compliant Solution (Validate)
 
 Exceptional values and out-of-range values are handled in `compliant01.py`. Some negative values are also checked for due to the nature of the code example.
 The `isfinite` function from the `math` library is useful for checking for `NaN`, `infinity` and `-infinity` values. `math.isfinite` checks if a value is neither `infinite` nor a `NaN`.
@@ -333,7 +333,7 @@ print(balance_is_positive("NaN"))
 
 |||
 |:---|:---|
-|[[Python docs - statistics]](https://docs.python.org/3/library/statistics.html)|Python Software Foundation. (2024). statistics - Mathematical statistics functions [online]. Available from: <https://docs.python.org/3/library/statistics.html> [Accessed 22 July 2025]|
-|[[Python docs - value comparisons]](https://docs.python.org/3/reference/expressions.html#value-comparisons)|Python Software Foundation. (2024). Value comparisons [online]. Available from: <https://docs.python.org/3/reference/expressions.html#value-comparisons> [Accessed 22 July 2025]|
-|[[Python docs - math]](https://docs.python.org/3/library/math.html#math.nan)|Python Software Foundation. (2024). math - Mathematical functions [online]. Available from: <https://docs.python.org/3/library/math.html#math.nan> [Accessed 22 July 2025]|
-|[[IEEE Standard for Floating-Point Arithmetic]](https://ieeexplore.ieee.org/document/8766229)|IEEE. (2019). 754-2019 - IEEE Standard for Floating-Point Arithmetic [online]. Available from: <https://ieeexplore.ieee.org/document/8766229> [Accessed 20 October 2025]|
+|[[Python docs - statistics]](https://docs.python.org/3/library/statistics.html)|Python Software Foundation. (2024). statistics - Mathematical statistics functions \[online\]. Available from: <https://docs.python.org/3/library/statistics.html> \[Accessed 22 July 2025\]|
+|[[Python docs - value comparisons]](https://docs.python.org/3/reference/expressions.html#value-comparisons)|Python Software Foundation. (2024). Value comparisons \[online\]. Available from: <https://docs.python.org/3/reference/expressions.html#value-comparisons> \[Accessed 22 July 2025\]|
+|[[Python docs - math]](https://docs.python.org/3/library/math.html#math.nan)|Python Software Foundation. (2024). math - Mathematical functions \[online\]. Available from: <https://docs.python.org/3/library/math.html#math.nan> \[Accessed 22 July 2025\]|
+|[[IEEE Standard for Floating-Point Arithmetic]](https://ieeexplore.ieee.org/document/8766229)|IEEE. (2019). 754-2019 - IEEE Standard for Floating-Point Arithmetic \[online\]. Available from: <https://ieeexplore.ieee.org/document/8766229> \[Accessed 20 October 2025\]|
