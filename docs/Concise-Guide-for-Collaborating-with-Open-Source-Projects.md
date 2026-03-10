@@ -4,7 +4,7 @@ _by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best P
 
 ## Why This Guide Exists: The Impact of the Cyber Resilience Act
 
-As the Cyber Resilience Act (CRA) comes into full force, commercial users of open source software face a new landscape of cybersecurity obligations. Complying with these regulations will inevitably require commercial developers to interact directly with open source maintainers - often for the first time.
+As the [Cyber Resilience Act (CRA)](https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng) enters into full force, commercial users of open source software face a new landscape of cybersecurity obligations. Complying with these regulations will inevitably require commercial developers to interact directly with open source maintainers - often for the first time.
 
 For example, these two obligations of commercial software vendors ("Manufacturers" in CRA terms) defined in the CRA will necessitate interaction:
 
@@ -20,18 +20,24 @@ This guide aims to bridge that gap, helping commercial developers navigate these
 ## Scope and Purpose of this guide
 
 Drawing from established industry research on open source collaboration, this guide compiles a concise checklist of essential behaviors for organizations and developers. It is designed to cover the fundamental requirements for new contributors, acting as both a practical manual for immediate compliance and a gateway to more extensive educational resources.
-When engaging with open source projects, don't expect having any CRA-related conversations _by default_.
-Project maintainers don’t have to do anything at all because of the CRA, if they're maintaining an open source project without commercial monetization or placing products on the EU market. Which applies to _almost all_ open source projects. The CRA does not impose obligations on individual open source developers or volunteer maintainers merely for publishing or maintaining code. However, maintainers _may voluntarily choose_ to implement widely accepted security best practices that align with modern secure development expectations and may assist downstream users who integrate your software into regulated products.
 
 ## Recommendations
 
 The following recommendations are structured along the lifecycle of a typical engagement.
 
+### Open Source Projects and the CRA
+
+Open Source projects are collaborative communities that each have their own way of operating.
+More importantly, projects do not bear responsibility for performing any specific tasks that an individual or organization may want, including providing cyber security compliance information.
+
+When engaging with open source projects, don't expect having any CRA-related conversations _by default_.
+Project maintainers don’t have to do anything at all because of the CRA, if they're maintaining an open source project without commercial monetization or placing products on the EU market. Which applies to _almost all_ open source projects. The CRA does not impose obligations on individual open source developers or volunteer maintainers merely for publishing or maintaining code. However, maintainers _may voluntarily choose_ to implement widely accepted security best practices that align with modern secure development expectations and may assist downstream users who integrate your software into regulated products.
+
 ### Prepare by understanding how the project works
 
 * **Read the project's security policy:** Following a project's security policy for any disclosures is crucial. Unwarranted or accidental public vulnerability disclosures must be avoided.
 * **Read the project’s contribution guide:** Locate and carefully study files named CONTRIBUTING.md or similar documentation, as these outline the specific technical and procedural standards required for patches. Ignoring these instructions is often viewed as disrespectful and is the most common reason for contributions being ignored or rejected.
-* **Determine the project's copyright policy:** Projects may use a DCO (Developer Certifiacte of Origin) or a CLA (Contributor License Agreement) to manage the copyright of the contributed code. Contributors must ensure that they indeed have the copyright as well as the permission to contirbute code. In particular CLAs often require signing by a company representative and cannot be signed by developers on behalf of the company.
+* **Determine the project's copyright policy:** Projects may use a DCO (Developer Certifiacte of Origin) or a CLA (Contributor License Agreement) to manage the copyright of the contributed code. Contributors must ensure that they indeed have the copyright as well as the permission to contribute code. In particular CLAs often require signing by a company representative and cannot be signed by developers on behalf of the company.
 * **Review the code of conduct**: Familiarize yourself with the project's Code of Conduct to understand the behavioral expectations and social norms of that specific community. Unlike a corporate environment governed by HR policies, open source projects relies on these documents to maintain a healthy collaboration space, and violating them can lead to immediate exclusion.
 * **Read through the project’s issue tracker to learn about related (past) discussions:** Before raising a new issue, perform a thorough search of closed tickets and pull requests to see if the topic has already been addressed or debated. This demonstrates respect for the maintainers' time and prevents you from potentially re-igniting settled arguments or reporting known duplicates.
 * **Find out how the project members communicate: GitHub issues, Slack, IRC, …:** Identify the preferred channels for different types of interaction, as many projects separate general support questions (often on Discord, Slack, or mailing lists) from technical bug tracking. Using the correct medium ensures your message reaches the right audience without cluttering the project's development workflow.
@@ -55,6 +61,10 @@ More information is available
 
 * [Participating in Open Source Communities](https://todogroup.org/resources/guides/participating-in-open-source-communities/), guide, TODO Group
 * [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/), guide, GitHub
+* [Start Contributing to Open Source](https://contribute.cncf.io/contributors/getting-started/), guide, CNCF
+* [Security Hygiene Guide for Project Maintainers](https://contribute.cncf.io/projects/best-practices/security/security-hygiene/), guide, CNCF
+* [Governance](https://contribute.cncf.io/projects/best-practices/governance/), guide, CNCF
+* [HowTo: Make a Contributing Guide](https://contribute.cncf.io/projects/best-practices/templates/contributing/), guide, CNCF
 
 ## List of additional content to cover in this guide
 
@@ -89,3 +99,9 @@ project direction by avoiding pressuring maintainers to accept changes that serv
 * adding additional tools
   * causes additional overhead of dealing with the output
   * @balteravishay: yes, but: Avoid "Drive-by" Tooling by not adding any CI tools, linters, or bots without maintainer buy-in. Proposing automation should be a conversation, not a surprise PR.
+
+## Contributors
+
+This guide is a collaborative effort of the OpenSSF community. The following people have contributed to this guide (in alphabetical order):
+
+* TBD
