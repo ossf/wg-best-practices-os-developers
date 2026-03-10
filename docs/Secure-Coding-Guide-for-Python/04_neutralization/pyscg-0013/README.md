@@ -6,20 +6,18 @@ A search path, such as `$PATH` in `bash`, is a list of directories used to find 
 
 Python has a 'hard coded' and 'soft coded' search path lists:
 
-    * `sysconfig` determined during installation 
-    * `sys.path` determined at runtime using:
-    ** Script/current dir
-    ** Site-packages
-    ** Standard library (`/usr/lib/python3.xx`)
-    ** Environment variable `PYTHONPATH` defined by the operating system or runtime shell
+* `sysconfig` determined during installation
+* `sys.path` determined at runtime using:
+  * Script/current dir
+  * Site-packages
+  * Standard library (`/usr/lib/python3.xx`)
+  * Environment variable `PYTHONPATH` defined by the operating system or runtime shell
 
 The `example01.py` code prints the content of `sysconfig` and `sys.path`.
 
-## Example Code Example
-
 _[example01.py](example01.py)_:
 
-```python
+```py
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """Example Code Example"""
@@ -52,7 +50,7 @@ Setting `--check-hash-based-pycs` to `default` or `never` skips integrity verifi
 
 The following `noncompliant01.bash` code uses the Python standard library `http.server` as an example of a Python process started from a bash script without hash-based verification:
 
-*[noncompliant01.bash](noncompliant01.bash):*
+_[noncompliant01.bash](noncompliant01.bash):_
 
 ```bash
 # Non-compliant Code Example
@@ -61,7 +59,7 @@ python3 -m http.server -b 127.0.0.42 8080
 
 An attacker can exploit this by manipulating the `PYTHONPATH` to inject their code that can go unnoticed without hash-based verification as shown in the following example:
 
-*[example01.bash](example01.bash)*
+_[example01.bash](example01.bash)_
 
 ```bash
 cd
@@ -83,7 +81,7 @@ In the following compliant solution, a user custom `PYTHONPATH` is suppressed wi
 
 compliant01.bash:
 
-*[compliant01.bash](compliant01.bash):*
+_[compliant01.bash](compliant01.bash):_
 
 ```bash
 # Compliant Code Example
