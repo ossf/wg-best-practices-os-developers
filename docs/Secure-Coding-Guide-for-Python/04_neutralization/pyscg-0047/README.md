@@ -1,4 +1,4 @@
-# pyscg-0047: Incomplete List of Disallowed Input
+# pyscg-0047: Use Allow Lists Over Deny Lists
 
 Avoid Incomplete 'deny lists' that can lead to security vulnerabilities such as cross-site scripting (XSS) by using 'allow lists' instead.
 

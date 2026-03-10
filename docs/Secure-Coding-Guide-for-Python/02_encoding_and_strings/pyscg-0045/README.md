@@ -65,7 +65,7 @@ The `example01.py` turns a non-functional `UTF-8` encoded message `<script��
 A compliant solution will have to adhere to at least:
 
 * [pyscg-0044: Canonicalize Input Before Validating](../pyscg-0044/README.md)
-* [pyscg-0047: Incomplete List Of Disallowed Input](../../04_neutralization/pyscg-0047/README.md)
+* [pyscg-0047: Use Allows Lists Over Deny Lists](../../04_neutralization/pyscg-0047/README.md)
 
 Reduction of data into a subset is not limited to strings and characters.
 
