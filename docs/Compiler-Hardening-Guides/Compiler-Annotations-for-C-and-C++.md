@@ -109,7 +109,7 @@ In `__attribute__` keyword syntax:
 
 ~~~c
 // Denotes that my_malloc will return with a dynamically allocated piece of memory which must be freed using my_free.
-void *my_malloc(size_t size) __attribute__ ((malloc, malloc (my_free, 1))) { … }
+void *my_malloc(size_t size) __attribute__ ((malloc, malloc (my_free, 1)));
 ~~~
 
 Note that to benefit both from the associated optimizations and improved detection of memory errors functions should be marked with _both_ the form of the attribute without arguments and the form of the attribute with one or two arguments. [[Extended example at Compiler Explorer](https://godbolt.org/z/bc97ahbnd)]
@@ -121,7 +121,7 @@ Clang `ownership_returns`, `ownership_takes`, and `ownership_holds` in C++11 / C
 void * my_malloc(size_t size) [[gnu::malloc]] [[clang::ownership_returns(my_allocation)]];
 
 // Denotes that my_free will deallocate storage pointed to by ptr that has been labeled "my_allocation".
-voidmy_free(void *ptr) [[clang::ownership_takes(my_allocation, 1)]] ;
+void my_free(void *ptr) [[clang::ownership_takes(my_allocation, 1)]] ;
 
 // Denotes that my_hold will take over the ownership of storage pointed to by ptr that has been labeled "my_allocation".
 void my_hold(void *ptr) [[clang::ownership_holds(my_allocation, 1)]];
@@ -320,7 +320,7 @@ In C++11 / C23 attribute syntax:
 
 ~~~c
 // Denotes that use_file expects fd to be a valid and open file descriptor
-void use_file (int fd) [[gnu::fd_arg(1)]] ;
+void use_file (int fd) [[gnu::fd_arg(1)]];
 
 // Denotes that write_to_file expects fd to be a valid, open, and writable file descriptor
 void write_to_file (int fd, void *src, size_t size) [[gnu::fd_arg_write(1)]];
