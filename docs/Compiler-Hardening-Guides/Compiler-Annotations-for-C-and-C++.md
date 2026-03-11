@@ -19,7 +19,7 @@ extern void *custom_allocator (size_t sz) [[gnu::malloc]] [[alloc_size (1)]];
 In a function definition, place attributes before the function name:
 
 ~~~c
-void * [[gnu::malloc]] [[gnu::alloc_size (1)]] custom_allocator (size_t sz);
+void * [[gnu::malloc]] [[gnu::alloc_size (1)]] custom_allocator (size_t sz) { … }
 ~~~
 
 Some function attributes accept parameters. Parameters can be numbers that indicate the position of the argument to the function; 1 indicates the first argument, 2 the second and so on. Parameters can also be keywords or names of identifiers that have been declared earlier in the program.
