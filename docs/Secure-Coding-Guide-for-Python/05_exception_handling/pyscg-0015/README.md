@@ -1,4 +1,4 @@
-# pyscg-0015: Improper Handling of Exceptional Conditions
+# pyscg-0015: Handle Error Conditions
 
 Always catch and explicitly handle exceptions, then respond, log or recover appropriately instead of letting operations fail silently.
 
