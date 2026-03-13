@@ -1,4 +1,4 @@
-# pyscg-0034: NULL Pointer Dereference
+# pyscg-0034: Check for None Values
 
 Avoiding NULL Pointer Dereference is crucial for preventing runtime errors, and ensuring that your code executes successfully.
 

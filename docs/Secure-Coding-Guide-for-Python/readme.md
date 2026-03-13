@@ -347,43 +347,43 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0031/README.md">pyscg-0031: Loop Condition Value Update Within the Loop</a></td>
+<td><a href="08_coding_standards/pyscg-0031/README.md">pyscg-0031: Use Copies When Modifying Iterables</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/1095.html">CWE-1095</a></td>
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0032/README.md">pyscg-0032: Use of Same Variable for Multiple Purposes</a></td>
+<td><a href="08_coding_standards/pyscg-0032/README.md">pyscg-0032: Avoid Redefining Built-in Functions or Standard Library Identifiers</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/1109.html">CWE-1109</a></td>
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0033/README.md">pyscg-0033: Comparison of Object References Instead of Object Contents</a></td>
+<td><a href="08_coding_standards/pyscg-0033/README.md">pyscg-0033: Implement Comparisons by Value Rather Than Reference</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/595.html">CWE-595</a></td>
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0034/README.md">pyscg-0034: NULL Pointer Dereference</a></td>
+<td><a href="08_coding_standards/pyscg-0034/README.md">pyscg-0034: Check for None Values</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/476.html">CWE-476</a></td>
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0035/README.md">pyscg-0035: Incomplete Cleanup</a></td>
+<td><a href="08_coding_standards/pyscg-0035/README.md">pyscg-0035: Complete Resource Cleanup</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/459.html">CWE-459</a></td>
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0036/README.md">pyscg-0036: Unchecked Return Value</a></td>
+<td><a href="08_coding_standards/pyscg-0036/README.md">pyscg-0036: Check Return Values</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/252.html">CWE-252</a></td>
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0037/README.md">pyscg-0037: Reachable Assertion</a></td>
+<td><a href="08_coding_standards/pyscg-0037/README.md">pyscg-0037: Avoid Assertions In Production</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/617.html">CWE-617</a></td>
 </tr>
