@@ -1,7 +1,7 @@
 # pyscg-0050: Sanitize Error Output to Prevent Information Disclosure
 
 Prevent an attacker from discovering internal or sensitive system information by filtering, splitting and applying brute force prevention tactics when displaying error messages to a user.
-This rule is closely related to [pyscg-0019: Insertion of Sensitive Information into Log File](../pyscg-0019/README.md).
+This rule is closely related to [pyscg-0019: Exclude Sensitive Data From Logs](../pyscg-0019/README.md).
 
 Ensure that detailed troubleshooting and security sensitive error information can only reach authorized personnel while avoiding overload from brute force attacks.
 
