@@ -183,7 +183,7 @@ Details on other best practices are only mentioned as a TODO comment such as:
 * Rules related to logging ([pyscg-0022: Neutralize Untrusted Data in Logs](../pyscg-0022/README.md), [pyscg-0019: Exclude Sensitive Data From Logs](../pyscg-0019/README.md))
 * File access, log access control
 * Log level, log format in accordance with [rfc5424](https://www.rfc-editor.org/rfc/rfc5424)
-* [pyscg-0020: Insufficient Logging](../pyscg-0020/README.md)
+* [pyscg-0020: Implement Informative Event Logging](../pyscg-0020/README.md)
 
 Useful internal logging must be resilient against brute force attacks currently not covered in `compliant01.py`.
 
