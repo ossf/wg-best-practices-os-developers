@@ -31,7 +31,7 @@ Any variation of using input from a lesser trusted source as part of a command l
 
 * *[pyscg-0047: Use Allows Lists Over Deny Lists](../../04_neutralization/pyscg-0047/README.md)*
 * *[pyscg-0050: Generation of Error Message Containing Sensitive Information](../../06_logging/pyscg-0050/README.md)*
-* *[pyscg-0040: Trust Boundary Violation](../../01_introduction/pyscg-0040/README.md)*
+* *[pyscg-0040: Use Process Isolation for Trust Zones](../../01_introduction/pyscg-0040/README.md)*
 
 ## Non-Compliant Code Example (Read Only)
 
