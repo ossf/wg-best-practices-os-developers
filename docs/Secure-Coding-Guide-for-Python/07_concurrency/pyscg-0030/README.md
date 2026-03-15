@@ -1,4 +1,4 @@
-# pyscg-0030: Missing Report of Error Condition
+# pyscg-0030: Ensure Thread Pool Tasks Do Not Fail Silently
 
 Failure to provide a mechanism for reporting that tasks in a thread pool failed as a result of an exceptional condition can make it difficult or impossible to diagnose the problem.
 
