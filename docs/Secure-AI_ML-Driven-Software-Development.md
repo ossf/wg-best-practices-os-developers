@@ -221,7 +221,7 @@ Source: [Karpathy2025], [Willison2025-03-19]
 
 The problem isn't AI. The problem is unwise *use* of AI. **Use AI *wisely*.**
 
-### As always: Manage your risks!
+### As always: Manage your risks
 
 ![Risk management diagram (ISO 31000:2018)](Secure-AI_ML-Driven-Software-Development_images/risk-management-diagram-iso-31000.png)
 
@@ -427,7 +427,7 @@ Developers need to trust the assistants less, and engage them more.
 - **Assistants — not replacements [Sonar]:**
   - Use AI assistants as helpers, not replacements. Never blindly accept their results.
   - Experiments found "[developers] who trusted AI less and engaged more... provided code with fewer vulnerabilities" [Perry2022].
-- **_KEY_: "Find vulnerabilities and other defects in your proposal" / (if valid) "Fix them."**<br>
+- **KEY: "Find vulnerabilities and other defects in your proposal" / (if valid) "Fix them."**<br>
 <img src="Secure-AI_ML-Driven-Software-Development_images/magnifying-glass-revealing-a-bug-scrutinize-proposals.png" alt="Magnifying glass revealing a bug — scrutinize proposals" width="120" style="vertical-align:middle">
 
   - This is called Recursive Criticism and Improvement [Tony2025]. Ask the assistant to find vulnerabilities and other defects in its proposal, and if they're valid, have it fix them. It's not a complete solution, but it helps.
@@ -582,18 +582,21 @@ So, let's wrap this up.
 Look at other guidance, too! Pragmatic Coders wrote "Secure AI-Assisted Coding: A Definitive Guide". Here are their main points (we've discussed these already, in a different order, and this serves as a recap):
 
 **Keep Your Code and Data Safe While Using AI Assistants:**
+
 - Developer's Responsibility — fundamentally the code and data are the developer's responsibility.
 - Manage Sensitive Information.
 - Beware of External AI Configurations.
 - No Shortcuts in Testing and Validation.
 
 **Control AI's Behavior When Coding:**
+
 - Guide the AI with Clear Prompts.
 - Double-Check Dependencies.
 - Require User Confirmation.
 - Protect Sensitive Data in Prompts.
 
 **Minimize Risk in AI-Assisted Coding:**
+
 - Block Destructive Commands.
 - Limit AI's Access.
 - Control Integration Points.
