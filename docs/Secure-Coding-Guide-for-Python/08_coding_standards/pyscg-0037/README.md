@@ -1,4 +1,4 @@
-# pyscg-0037: Reachable Assertion
+# pyscg-0037: Avoid Assertions In Production
 
 Assertions are a useful developer tool, but they cannot be relied upon to be present in a production environment. Incorrect function arguments should be handled by an appropriate exception.
 

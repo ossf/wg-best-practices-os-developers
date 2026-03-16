@@ -1,4 +1,4 @@
-# pyscg-0036: Unchecked Return Value
+# pyscg-0036: Check Return Values
 
 Return values of methods and functions should always be checked to ensure operations have been performed correctly.
 

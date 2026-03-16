@@ -1,4 +1,4 @@
-# pyscg-0032: Use of Same Variable for Multiple Purposes
+# pyscg-0032: Avoid Redefining Built-in Functions or Standard Library Identifiers
 
 Avoid reusing names of variables, functions, classes, built-in functions, packages, or standard Python modules
 
