@@ -1,6 +1,6 @@
 # Compiler Annotations for C and C++
 
-_by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2026-02-13_
+_by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2026-03-13_
 
 Compile time security analysis and runtime mitigation implemented in compilers both depend on the compiler being able to see the flow of data between different points in a program, across functions and modules. This is quite a challenge in C and C++ because both languages allow passing around opaque references, thus losing information about objects. To work around this problem, both GCC and Clang implement attributes to annotate functions and data structures, enabling better analysis. These annotations improve security. They also help compilers make better optimization decisions, often resulting in better code.
 
@@ -19,31 +19,31 @@ extern void *custom_allocator (size_t sz) [[gnu::malloc]] [[alloc_size (1)]];
 In a function definition, place attributes before the function name:
 
 ~~~c
-void * [[gnu::malloc]] [[gnu::alloc_size (1)]] custom_allocator (size_t sz);
+void * [[gnu::malloc]] [[gnu::alloc_size (1)]] custom_allocator (size_t sz) { … }
 ~~~
 
 Some function attributes accept parameters. Parameters can be numbers that indicate the position of the argument to the function; 1 indicates the first argument, 2 the second and so on. Parameters can also be keywords or names of identifiers that have been declared earlier in the program.
 
 Table 1: Recommended attributes
 
-| Attribute                                                                                      | Supported since             | Type                         | Description                                                                                       |
-|:---------------------------------------------------------------------------------------------- |:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
-| `malloc`                                                                                       | GCC 2.95.3<br/>Clang 13.0.0 | Function                     | Mark custom allocation functions that return non-aliased (possibly NULL) pointers.                |
-| `malloc (`_`deallocator`_`)`                                                                   | GCC 11.0.0<br/>Clang 21.0.0 | Function                     | Associates _`deallocator`_ as the valid deallocator for the storage allocated by marked function. |
-| `ownership_returns(`_`allocation-type`_`)`                                                     | Clang 20.1.0                | Function                     | Associate pointers returned by custom allocation function with _`allocation-type`_ .              |
-| `ownership_takes(`_`allocation-type`_`,` _`ptr-index`_`)`                                      | Clang 20.1.0                | Function                     | Mark function as valid deallocator for _`allocation-type`_.                                       |
-| `ownership_holds(`_`allocation-type`_`,` _`ptr-index`_`)`                                      | Clang 20.1.0                | Function                     | Mark function taking responsibility of deallocation for _`allocation-type`_.                      |
-| `alloc_size(`_`size-index`_`)`<br/>`alloc_size(`_`size-index-1`_`,`_`size-index-2`_`)`         | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | Mark positional arguments holding the allocation size that the returned pointer points to.        |
-| `access(`_`mode`_`,`_`ref-index`_`)`<br/>`access(`_`mode`_`,` _`ref-index`_`,` _`size-pos`_`)` | GCC 10.0.0                  | Function                     | Mark access restrictions for positional argument.                                                 |
-| `fd_arg(`_`fd-index`_`)`                                                                       | GCC 13.1.0                  | Function                     | Mark open file descriptors in positional arguments.                                               |
-| `fd_arg_read(`_`fd-index`_`)`                                                                  | GCC 13.1.0                  | Function                     | Mark readable file descriptors in positional arguments.                                           |
-| `fd_arg_write(`_`fd-index`_`)`                                                                 | GCC 13.1.0                  | Function                     | Mark writable file descriptors in positional arguments.                                           |
-| `noreturn`                                                                                     | GCC 2.5.0<br/>Clang 4.0.0   | Function                     | Mark functions that never return.                                                                 |
-| `tainted_args`                                                                                 | GCC 12.1.0                  | Function or function pointer | Mark functions with arguments that require sanitization.                                          |
-| `counted_by(`_`variable`_`)`                                                                   | GCC 15.1.0<br/>Clang 18.0.0 | Variable                     | Mark flexible array member or pointer in structure with _`variable`_ holding their element count. |
-| `counted_by_or_null(`_`variable`_`)`                                                           | Clang 19.1.0                | Variable                     | As above, but pointer is either a null pointer or is pointing to memory of the specified count.   |
-| `sized_by(`_`variable`_`)`                                                                     | Clang 20.1.0                | Variable                     | Mark flexible array member or pointer in structure with _`variable`_ holding their size in bytes. |
-| `sized_by_or_null(`_`variable`_`)`                                                             | Clang 20.1.0                | Variable                     | As above, but pointer is either a null pointer or is pointing to memory of the specified size.    |
+| Attribute                                                                                                 | Supported since             | Type                         | Description                                                                                       |
+|:--------------------------------------------------------------------------------------------------------- |:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
+| [`malloc`](#malloc)                                                                                       | GCC 2.95.3<br/>Clang 13.0.0 | Function                     | Mark custom allocation functions that return non-aliased (possibly NULL) pointers.                |
+| [`malloc (`_`deallocator`_`)`](#malloc-dealloc)                                                           | GCC 11.0.0<br/>Clang 21.0.0 | Function                     | Associates _`deallocator`_ as the valid deallocator for the storage allocated by marked function. |
+| [`ownership_returns(`_`allocation-type`_`)`](#ownership_returns)                                          | Clang 20.1.0                | Function                     | Associate pointers returned by custom allocation function with _`allocation-type`_ .              |
+| [`ownership_takes(`_`allocation-type`_`,` _`ptr-index`_`)`](#ownership_takes)                             | Clang 20.1.0                | Function                     | Mark function as valid deallocator for _`allocation-type`_.                                       |
+| [`ownership_holds(`_`allocation-type`_`,` _`ptr-index`_`)`](#ownership_holds)                             | Clang 20.1.0                | Function                     | Mark function taking responsibility of deallocation for _`allocation-type`_.                      |
+| [`alloc_size(`_`size-index`_`)`](#alloc_size)<br/>`alloc_size(`_`size-index-1`_`,`_`size-index-2`_`)`     | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | Mark positional arguments holding the allocation size that the returned pointer points to.        |
+| [`access(`_`mode`_`,`_`ref-index`_`)`](#access)<br/>`access(`_`mode`_`,` _`ref-index`_`,` _`size-pos`_`)` | GCC 10.0.0                  | Function                     | Mark access restrictions for positional argument.                                                 |
+| [`fd_arg(`_`fd-index`_`)`](#fd_arg)                                                                       | GCC 13.1.0                  | Function                     | Mark open file descriptors in positional arguments.                                               |
+| [`fd_arg_read(`_`fd-index`_`)`](#fd_arg_read)                                                             | GCC 13.1.0                  | Function                     | Mark readable file descriptors in positional arguments.                                           |
+| [`fd_arg_write(`_`fd-index`_`)`](#fd_arg_write)                                                           | GCC 13.1.0                  | Function                     | Mark writable file descriptors in positional arguments.                                           |
+| [`noreturn`](#noreturn)                                                                                   | GCC 2.5.0<br/>Clang 4.0.0   | Function                     | Mark functions that never return.                                                                 |
+| [`tainted_args`](#tainted_args)                                                                           | GCC 12.1.0                  | Function or function pointer | Mark functions with arguments that require sanitization.                                          |
+| [`counted_by(`_`variable`_`)`](#counted_by)                                                               | GCC 15.1.0<br/>Clang 18.0.0 | Variable                     | Mark flexible array member or pointer in structure with _`variable`_ holding their element count. |
+| [`counted_by_or_null(`_`variable`_`)`](#counted_by_or_null)                                               | C lang 19.1.0               | Variable                     | As above, but pointer is either a null pointer or is pointing to memory of the specified count.   |
+| [`sized_by(`_`variable`_`)`](#sized_by)                                                                   | Clang 20.1.0                | Variable                     | Mark flexible array member or pointer in structure with _`variable`_ holding their size in bytes. |
+| [`sized_by_or_null(`_`variable`_`)`](#sized_by_or_null)                                                   | Clang 20.1.0                | Variable                     | As above, but pointer is either a null pointer or is pointing to memory of the specified size.    |
 
 ## Performance considerations
 
@@ -57,14 +57,14 @@ Attributes influence not only diagnostics generated by the compiler but also the
 
 ### Mark custom allocation and deallocation functions
 
-| Attribute                                                                                   | Supported since             | Type                         | Description                                                                                       |
-|:--------------------------------------------------------------------------------------------|:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
-| <span id="malloc">`malloc`</span>                                                           | GCC 2.95.3<br/>Clang 13.0.0 | Function                     | Mark custom allocation functions that return non-aliased (possibly NULL) pointers.                |
-| <span id="malloc (dealloc)">`malloc (`_`deallocator`_`)`</span>                             | GCC 11.0.0<br/>Clang 21.0.0 | Function                     | Associates _`deallocator`_ as the valid deallocator for the storage allocated by marked function. |
-| <span id="malloc (dealloc, ptr-index)">`malloc (`_`deallocator`_`,` _`ptr-index`_`)`</span> | GCC 11.0.0                  | Function                     | Same as above but also denotes the positional argument where the pointer must be passed.          |
-| <span id="ownership_returns">`ownership_returns(`_`allocation-type`_`)`</span>              | Clang 20.1.0                | Function                     | Associate pointers returned by custom allocation function with _`allocation-type`_ .              |
-| <span id="ownership_takes">`ownership_takes(`_`allocation-type`_`,` _`ptr-index`_`)`</span> | Clang 20.1.0                | Function                     | Mark function as valid deallocator for _`allocation-type`_.                                       |
-| <span id="ownership_holds">`ownership_holds(`_`allocation-type`_`,` _`ptr-index`_`)`</span> | Clang 20.1.0                | Function                     | Mark function taking responsibility of deallocation for _`allocation-type`_.                      |
+| Attribute                                                                                   | Supported since             | Type     | Description                                                                                       |
+|:--------------------------------------------------------------------------------------------|:---------------------------:|:--------:|:------------------------------------------------------------------------------------------------- |
+| <span id="malloc">`malloc`</span>                                                           | GCC 2.95.3<br/>Clang 13.0.0 | Function | Mark custom allocation functions that return non-aliased (possibly NULL) pointers.                |
+| <span id="malloc-dealloc">`malloc (`_`deallocator`_`)`</span>                               | GCC 11.0.0<br/>Clang 21.0.0 | Function | Associates _`deallocator`_ as the valid deallocator for the storage allocated by marked function. |
+| <span id="malloc (dealloc, ptr-index)">`malloc (`_`deallocator`_`,` _`ptr-index`_`)`</span> | GCC 11.0.0                  | Function | Same as above but also denotes the positional argument where the pointer must be passed.          |
+| <span id="ownership_returns">`ownership_returns(`_`allocation-type`_`)`</span>              | Clang 20.1.0                | Function | Associate pointers returned by custom allocation function with _`allocation-type`_ .              |
+| <span id="ownership_takes">`ownership_takes(`_`allocation-type`_`,` _`ptr-index`_`)`</span> | Clang 20.1.0                | Function | Mark function as valid deallocator for _`allocation-type`_.                                       |
+| <span id="ownership_holds">`ownership_holds(`_`allocation-type`_`,` _`ptr-index`_`)`</span> | Clang 20.1.0                | Function | Mark function taking responsibility of deallocation for _`allocation-type`_.                      |
 
 The `malloc` attribute in GCC[^gcc-malloc] and Clang[^clang-malloc] indicates that the function behaves like an allocator, meaning it returns a pointer to allocated storage that is disjoint (non-aliased) from the storage for any other object accessible to the caller.
 
@@ -109,7 +109,7 @@ In `__attribute__` keyword syntax:
 
 ~~~c
 // Denotes that my_malloc will return with a dynamically allocated piece of memory which must be freed using my_free.
-void *my_malloc(size_t size) __attribute__ ((malloc, malloc (my_free, 1))) { … }
+void *my_malloc(size_t size) __attribute__ ((malloc, malloc (my_free, 1)));
 ~~~
 
 Note that to benefit both from the associated optimizations and improved detection of memory errors functions should be marked with _both_ the form of the attribute without arguments and the form of the attribute with one or two arguments. [[Extended example at Compiler Explorer](https://godbolt.org/z/bc97ahbnd)]
@@ -121,7 +121,7 @@ Clang `ownership_returns`, `ownership_takes`, and `ownership_holds` in C++11 / C
 void * my_malloc(size_t size) [[gnu::malloc]] [[clang::ownership_returns(my_allocation)]];
 
 // Denotes that my_free will deallocate storage pointed to by ptr that has been labeled "my_allocation".
-voidmy_free(void *ptr) [[clang::ownership_takes(my_allocation, 1)]] ;
+void my_free(void *ptr) [[clang::ownership_takes(my_allocation, 1)]] ;
 
 // Denotes that my_hold will take over the ownership of storage pointed to by ptr that has been labeled "my_allocation".
 void my_hold(void *ptr) [[clang::ownership_holds(my_allocation, 1)]];
@@ -151,9 +151,9 @@ void my_hold(void *ptr) __attribute((ownership_holds(my_allocation, 1)));
 
 ### Mark positional arguments holding allocation size information
 
-| Attribute                                                                                   | Supported since             | Type                         | Description                                                                                       |
-|:--------------------------------------------------------------------------------------------|:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
-| `alloc_size(`_`size-index`_`)`<br/>`alloc_size(`_`size-index-1`_`,`_`size-index-2`_`)`      | GCC 2.95.3<br/>Clang 4.0.0  | Function                     | Mark positional arguments holding the allocation size that the returned pointer points to.        |
+| Attribute                                                                                                                | Supported since            | Type     | Description                                                                                |
+|:-------------------------------------------------------------------------------------------------------------------------|:--------------------------:|:--------:|:-------------------------------------------------------------------------------------------|
+| <span id="alloc_size">`alloc_size(`_`size-index`_`)`</span><br/>`alloc_size(`_`size-index-1`_`,`_`size-index-2`_`)`      | GCC 2.95.3<br/>Clang 4.0.0 | Function | Mark positional arguments holding the allocation size that the returned pointer points to. |
 
 The `alloc_size` attribute in GCC[^gcc-alloc_size] and Clang[^clang-alloc_size] indicates that the function's return value points to a memory The `alloc_size` attribute in GCC[^gcc-alloc_size] and Clang[^clang-alloc_size] indicates that the function's return value points to a memory allocation and the specified positional arguments hold the size of that allocation. The compiler uses this information to improve the results of `__builtin_object_size` and `__builtin_dynamic_object_size`[^gcc-object-size]. This can improve the accuracy of source fortification for unsafe libc usage and buffer overflows, as these builtins are used by [`__FORTIFY_SOURCE`](Compiler-Options-Hardening-Guide-for-C-and-C++.html#-D_FORTIFY_SOURCE=3) to determine correct object bounds.
 
@@ -215,9 +215,9 @@ assert(__builtin_object_size(s, 0) == 100);
 
 ### Mark access restrictions for positional arguments
 
-| Attribute                                                                                      | Supported since             | Type                         | Description                                                                                       |
-|:-----------------------------------------------------------------------------------------------|:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
-| `access(`_`mode`_`,`_`ref-index`_`)`<br/>`access(`_`mode`_`,`_`ref-index`_`,`_`size-index`_`)` | GCC 11.0.0                  | Function                     | Mark access restrictions for positional argument.                                                 |
+| Attribute                                                                                                               | Supported since | Type     | Description                                       |
+|:------------------------------------------------------------------------------------------------------------------------|:---------------:|:--------:|:------------------------------------------------- |
+| <span id="access">`access(`_`mode`_`,`_`ref-index`_`)`</span><br/>`access(`_`mode`_`,`_`ref-index`_`,`_`size-index`_`)` | GCC 11.0.0      | Function | Mark access restrictions for positional argument. |
 
 The `access` attribute in GCC[^gcc-access] specifies how the function uses the specified argument. GCC uses this to detect nonconforming accesses and write-only accesses to objects that are never read. Diagnostics of such non-conforming accesses are reported through compiler warnings. Examples include `-Wstringop-overread`, `-Wstringop-overflow`, `-Wuninitialized`, `-Wmaybe-uninitialized`, and `-Wunused`.
 
@@ -294,11 +294,11 @@ void to_uppercase(char *buffer, size_t size) __attribute__((access(read_write, 1
 
 ### Mark positional arguments holding open file descriptors
 
-| Attribute                                                                                      | Supported since             | Type                         | Description                                                                                       |
-|:-----------------------------------------------------------------------------------------------|:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
-| `fd_arg(`_`fd-index`_`)`                                                                       | GCC 13.0.0                  | Function                     | Mark positional argument holding a valid and open file descriptor.                                |
-| `fd_arg_read(`_`fd-index`_`)`                                                                  | GCC 13.0.0                  | Function                     | Mark positional argument holding a valid, open, and readable file descriptor.                     |
-| `fd_arg_write(`_`fd-index`_`)`                                                                 | GCC 13.0.0                  | Function                     | Mark positional argument holding a valid, open, and writable file descriptor.                     |
+| Attribute                                                     | Supported since | Type     | Description                                                                   |
+|:--------------------------------------------------------------|:---------------:|:--------:|:----------------------------------------------------------------------------- |
+| <span id="fd_arg">`fd_arg(`_`fd-index`_`)`</span>             | GCC 13.0.0      | Function | Mark positional argument holding a valid and open file descriptor.            |
+| <span id="fd_arg_read">`fd_arg_read(`_`fd-index`_`)`</span>   | GCC 13.0.0      | Function | Mark positional argument holding a valid, open, and readable file descriptor. |
+| <span id="fd_arg_write">`fd_arg_write(`_`fd-index`_`)`</span> | GCC 13.0.0      | Function | Mark positional argument holding a valid, open, and writable file descriptor. |
 
 The `fd_arg`, `fd_arg_read`, and `fd_arg_write` attributes in GCC[^gcc-fd_arg] indicate that the annotated function expects an open file descriptor as an argument. GCC’s static analyzer (`-fanalyzer`[^gcc-analyzer]) can use this information to catch:
 
@@ -320,7 +320,7 @@ In C++11 / C23 attribute syntax:
 
 ~~~c
 // Denotes that use_file expects fd to be a valid and open file descriptor
-void use_file (int fd) [[gnu::fd_arg(1)]] ;
+void use_file (int fd) [[gnu::fd_arg(1)]];
 
 // Denotes that write_to_file expects fd to be a valid, open, and writable file descriptor
 void write_to_file (int fd, void *src, size_t size) [[gnu::fd_arg_write(1)]];
@@ -350,9 +350,9 @@ void read_from_file (int fd, void *dst, size_t size) __attribute__ ((fd_arg_read
 
 ### Mark functions that never return
 
-| Attribute                                                                                      | Supported since             | Type                         | Description                                                                                       |
-|:-----------------------------------------------------------------------------------------------|:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
-| `noreturn`                                                                                     | GCC 2.5.0<br/>Clang 4.0.0   | Function                     | Mark functions that never return.                                                                 |
+| Attribute                             | Supported since           | Type     | Description                       |
+|:--------------------------------------|:-------------------------:|:--------:|:--------------------------------- |
+| <span id="noreturn">`noreturn`</span> | GCC 2.5.0<br/>Clang 4.0.0 | Function | Mark functions that never return. |
 
 The `noreturn` attribute indicates that the annotated function never returns to its caller. Examples include functions that terminate the application (e.g., `abort()` and `exit()`), throw exceptions, or loop indefinitely. Such functions and methods must be declared void.
 
@@ -400,9 +400,9 @@ volatile voidfn fatal;
 
 ### Mark functions with arguments that require sanitization
 
-| Attribute                                                                                  | Supported since             | Type                         | Description                                                                                       |
-|:------------------------------------------------------------------------------------------ |:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
-| `tainted_args`                                                                             | GCC 12.1.0                  | Function or function pointer | Mark functions with arguments that require sanitization.                                          |
+| Attribute                                     | Supported since | Type                         | Description                                              |
+|:----------------------------------------------|:---------------:|:----------------------------:|:-------------------------------------------------------- |
+| <span id="tainted_args">`tainted_args`</span> | GCC 12.1.0      | Function or function pointer | Mark functions with arguments that require sanitization. |
 
 The `tainted_args` attribute marks functions whose arguments must be sanitized[^gcc-tainted-args]. GCC's static analyzer (`-fanalyzer`[^gcc-analyzer]) uses this information to treat all parameters (and pointed-to buffers) as potentially attacker-controlled. It then checks how those values are used. The analyzer can subsequently warn when tainted arguments are used as:
 
@@ -442,12 +442,12 @@ void do_with_untrusted_input(int untrusted_input) __attribute__ ((tainted_args))
 
 ### Mark flexible array member or pointer in structure with variable holding their element count
 
-| Attribute                                                                                  | Supported since             | Type                         | Description                                                                                       |
-|:------------------------------------------------------------------------------------------ |:---------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------- |
-| `counted_by(`_`variable`_`)`                                                               | GCC 15.1.0<br/>Clang 18.1.0 | Variable                     | Mark flexible array member or pointer in structure with _`variable`_ holding their element count. |
-| `counted_by_or_null(`_`variable`_`)`                                                       | Clang 19.1.0                | Variable                     | As above, but pointer is either a null pointer or is pointing to memory of the specified count.   |
-| `sized_by(`_`variable`_`)`                                                                 | Clang 19.1.0                | Variable                     | Mark flexible array member or pointer in structure with _`variable`_ holding their size in bytes. |
-| `sized_by_or_null(`_`variable`_`)`                                                         | Clang 19.1.0                | Variable                     | As above, but pointer is either a null pointer or is pointing to memory of the specified size.    |
+| Attribute                                                                 | Supported since             | Type     | Description                                                                                       |
+|:------------------------------------------------------------------------- |:---------------------------:|:--------:|:------------------------------------------------------------------------------------------------- |
+| <span id="counted_by">`counted_by(`_`variable`_`)`</span>                 | GCC 15.1.0<br/>Clang 18.1.0 | Variable | Mark flexible array member or pointer in structure with _`variable`_ holding their element count. |
+| <span id="counted_by_or_null">`counted_by_or_null(`_`variable`_`)`</span> | Clang 19.1.0                | Variable | As above, but pointer is either a null pointer or is pointing to memory of the specified count.   |
+| <span id="sized_by">`sized_by(`_`variable`_`)`</span>                     | Clang 19.1.0                | Variable | Mark flexible array member or pointer in structure with _`variable`_ holding their size in bytes. |
+| <span id="sized_by_or_null">`sized_by_or_null(`_`variable`_`)`</span>     | Clang 19.1.0                | Variable | As above, but pointer is either a null pointer or is pointing to memory of the specified size.    |
 
 The `counted_by` attribute associates a C99 flexible array member or pointer field in a structure with another field that specifies the number of elements it contains[^gcc-counted-by].
 It improves compiler diagnostics and runtime checks (e.g., the `-fsanitize=bounds` array bound sanitizer and `__builtin_dynamic_object_size`).

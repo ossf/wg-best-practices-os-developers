@@ -1,4 +1,4 @@
-# pyscg-0012: Improper Handling of Highly Compressed Data ('Data Amplification')
+# pyscg-0012: Extract Archives Safely
 
 Prevent slip and bomb attacks when decompressing and unpacking compressed data such as `ZIP`, `TAR.GZ`, `JAR`, `WAR`, `RPM`  or `DOCX`.
 

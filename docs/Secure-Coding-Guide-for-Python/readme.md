@@ -53,25 +53,25 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="01_introduction/pyscg-0040/README.md">pyscg-0040: Trust Boundary Violation</a></td>
+<td><a href="01_introduction/pyscg-0040/README.md">pyscg-0040: Use Process Isolation for Trust Zones</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2023-28597">CVE-2023-28597</a>,<br>CVSSv3.0: <strong style='color:orange'>7.5</strong>,<br>EPSS: <strong>00.11</strong> (05.11.2024)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/501.html">CWE-501</a></td>
 </tr>
 
 <tr>
-<td><a href="01_introduction/pyscg-0041/README.md">pyscg-0041: Use of Hardcoded Credentials</a></td>
+<td><a href="01_introduction/pyscg-0041/README.md">pyscg-0041: Externalize Configuration and Secrets</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/798.html">CWE-798</a></td>
 </tr>
 
 <tr>
-<td><a href="01_introduction/pyscg-0042/README.md">pyscg-0042: Operator Precedence Logic Error</a></td>
+<td><a href="01_introduction/pyscg-0042/README.md">pyscg-0042: Ensure Correct Operator Precedence</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/783.html">CWE-783</a></td>
 </tr>
 
 <tr>
-<td><a href="01_introduction/pyscg-0055/README.md">pyscg-0055: External Control of Assumed-Immutable Web Parameter</a></td>
+<td><a href="01_introduction/pyscg-0055/README.md">pyscg-0055: Determine Access on Server Side</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/472.html">CWE-472</a></td>
 </tr>
@@ -155,49 +155,49 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0047/README.md">pyscg-0047: Incomplete List of Disallowed Input</a></td>
+<td><a href="04_neutralization/pyscg-0047/README.md">pyscg-0047: Use Allow Lists Over Deny Lists</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/184.html">CWE-184</a></td>
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0008/README.md">pyscg-0008: Use of Externally-Controlled Format String</a></td>
+<td><a href="04_neutralization/pyscg-0008/README.md">pyscg-0008: Prevent Format String Injection</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2022-27177/">CVE-2022-27177</a>,<br>CVSSv3.1: <strong style='color:darkred'>9.8</strong>,<br>EPSS: <strong>00.37</strong> (01.12.2023)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/134.html">CWE-134</a></td>
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0009/README.md">pyscg-0009: Improper Neutralization of Special Elements Used in an OS Command ('OS Command Injection')</a></td>
+<td><a href="04_neutralization/pyscg-0009/README.md">pyscg-0009: Prevent OS Command Injection</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2024-43804/">CVE-2024-43804</a>,<br>CVSSv3.1: <strong>8.8</strong>,<br>EPSS: <strong>00.06</strong> (08.11.2024)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/78.html">CWE-78</a></td>
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0010/README.md">pyscg-0010: Improper Neutralization of Special Elements Used in an SQL Command ('SQL Injection')</a></td>
+<td><a href="04_neutralization/pyscg-0010/README.md">pyscg-0010: Prevent SQL Injection</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2019-8600">CVE-2019-8600</a>,<br>CVSSv3.1: <strong style='color:red'>9.8</strong>,<br>EPSS: <strong>01.43</strong> (18.02.2024)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/89.html">CWE-89</a></td>
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0011/README.md">pyscg-0011: Access of Resource Using Incompatible Type ('Type Confusion')</a></td>
+<td><a href="04_neutralization/pyscg-0011/README.md">pyscg-0011: Prevent Type Confusion</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2021-29513">CVE-2021-29513</a>,<br>CVSSv3.1: <strong style='color:orange'>7.8</strong>,<br>EPSS: <strong>00.02</strong> (13.05.2025)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/843.html">CWE-843</a></td>
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0012/README.md">pyscg-0012: Improper Handling of Highly Compressed Data ('Data Amplification')</a></td>
+<td><a href="04_neutralization/pyscg-0012/README.md">pyscg-0012: Extract Archives Safely</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2019-9674/">CVE-2019-9674</a>,<br>CVSSv3.1: <strong style='color:orange'>7.5</strong>,<br>EPSS: <strong>1.2%</strong> (10.09.2025)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/409.html">CWE-409</a></td>
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0013/README.md">pyscg-0013: Untrusted Search Path</a></td>
+<td><a href="04_neutralization/pyscg-0013/README.md">pyscg-0013: Secure Search Paths</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2015-1326">CVE-2015-1326</a>,<br>CVSSv3.0: <strong style='color:red'>8.8</strong>,<br>EPSS: <strong>00.20</strong> (23.11.2023)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/426.html">CWE-426</a></td>
 </tr>
 
 <tr>
-<td><a href="04_neutralization/pyscg-0023/README.md">pyscg-0023: Deserialization of Untrusted Data</a></td>
+<td><a href="04_neutralization/pyscg-0023/README.md">pyscg-0023: Secure Deserialization</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2018-8021">CVE-2018-8021</a>,<br>CVSSv3.0: <strong style='color:red'>9.8</strong>,<br>EPSS: <strong>93.54</strong> (05.11.2024)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/502.html">CWE-502</a></td>
 </tr>
@@ -209,37 +209,31 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="05_exception_handling/pyscg-0014/README.md">pyscg-0014: Declaration of Throws for Generic Exception</a></td>
+<td><a href="05_exception_handling/pyscg-0014/README.md">pyscg-0014: Use Specific Exception Types</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/397.html">CWE-397</a></td>
 </tr>
 
 <tr>
-<td><a href="05_exception_handling/pyscg-0015/README.md">pyscg-0015: Improper Handling of Exceptional Conditions</a></td>
+<td><a href="05_exception_handling/pyscg-0015/README.md">pyscg-0015: Handle Error Conditions</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2024-39560">CVE-2024-39560</a>,<br>CVSSv3.1: <strong style='color:yellow'>6.5</strong>,<br>EPSS: <strong>0.04</strong> (01.11.2024)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/755.html">CWE-755</a></td>
 </tr>
 
 <tr>
-<td><a href="05_exception_handling/pyscg-0016/README.md">pyscg-0016: Detection of Error Condition Without Action</a></td>
+<td><a href="05_exception_handling/pyscg-0016/README.md">pyscg-0016: Propagate Exceptions and Preserve Context</a></td>
 <td></td>
-<td><a href="https://cwe.mitre.org/data/definitions/390.html">CWE-390</a></td>
+<td><a href="https://cwe.mitre.org/data/definitions/396.html">CWE-396</a></td>
 </tr>
 
 <tr>
-<td><a href="05_exception_handling/pyscg-0017/README.md">pyscg-0017: Improper Handling of Missing Values</a></td>
-<td></td>
-<td><a href="https://cwe.mitre.org/data/definitions/230.html">CWE-230</a></td>
-</tr>
-
-<tr>
-<td><a href="05_exception_handling/pyscg-0018/README.md">pyscg-0018: Improper Check for Unusual or Exceptional Conditions - Float</a></td>
+<td><a href="05_exception_handling/pyscg-0018/README.md">pyscg-0018: Validate Numeric Data Beyond Type Checking</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/754.html">CWE-754</a></td>
 </tr>
 
 <tr>
-<td><a href="05_exception_handling/pyscg-0052/README.md">pyscg-0052: Improper Cleanup on Thrown Exception</a></td>
+<td><a href="05_exception_handling/pyscg-0052/README.md">pyscg-0052: Ensure Cleanup on Exceptions</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/460.html">CWE-460</a></td>
 </tr>
@@ -347,43 +341,43 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0031/README.md">pyscg-0031: Loop Condition Value Update Within the Loop</a></td>
+<td><a href="08_coding_standards/pyscg-0031/README.md">pyscg-0031: Use Copies When Modifying Iterables</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/1095.html">CWE-1095</a></td>
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0032/README.md">pyscg-0032: Use of Same Variable for Multiple Purposes</a></td>
+<td><a href="08_coding_standards/pyscg-0032/README.md">pyscg-0032: Avoid Redefining Built-in Functions or Standard Library Identifiers</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/1109.html">CWE-1109</a></td>
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0033/README.md">pyscg-0033: Comparison of Object References Instead of Object Contents</a></td>
+<td><a href="08_coding_standards/pyscg-0033/README.md">pyscg-0033: Implement Comparisons by Value Rather Than Reference</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/595.html">CWE-595</a></td>
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0034/README.md">pyscg-0034: NULL Pointer Dereference</a></td>
+<td><a href="08_coding_standards/pyscg-0034/README.md">pyscg-0034: Check for None Values</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/476.html">CWE-476</a></td>
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0035/README.md">pyscg-0035: Incomplete Cleanup</a></td>
+<td><a href="08_coding_standards/pyscg-0035/README.md">pyscg-0035: Complete Resource Cleanup</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/459.html">CWE-459</a></td>
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0036/README.md">pyscg-0036: Unchecked Return Value</a></td>
+<td><a href="08_coding_standards/pyscg-0036/README.md">pyscg-0036: Check Return Values</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/252.html">CWE-252</a></td>
 </tr>
 
 <tr>
-<td><a href="08_coding_standards/pyscg-0037/README.md">pyscg-0037: Reachable Assertion</a></td>
+<td><a href="08_coding_standards/pyscg-0037/README.md">pyscg-0037: Avoid Assertions In Production</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/617.html">CWE-617</a></td>
 </tr>
@@ -395,7 +389,7 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="09_cryptography/pyscg-0038/README.md">pyscg-0038: Use of Insufficiently Random Values</a></td>
+<td><a href="09_cryptography/pyscg-0038/README.md">pyscg-0038: Use Sufficiently Random Values</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2020-7548">CVE-2020-7548</a>,<br>CVSSv3.1: <strong style='color:red'>9.8</strong>,<br>EPSS: <strong>0.22</strong> (12.12.2024)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/330.html">CWE-330</a></td>
 </tr>

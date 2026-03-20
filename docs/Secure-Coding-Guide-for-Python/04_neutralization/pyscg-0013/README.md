@@ -1,6 +1,39 @@
-# pyscg-0013: Untrusted Search Path
+# pyscg-0013: Secure Search Paths
 
 In an environment where an untrusted or less trusted entity can modify the environment variables, consider validating hash-based byte code [Python 2023 Command line and environment].
+
+A search path, such as `$PATH` in `bash`, is a list of directories used to find scripts, modules or binaries.
+
+Python has a 'hard coded' and 'soft coded' search path lists:
+
+* `sysconfig` determined during installation
+* `sys.path` determined at runtime using:
+  * Script/current dir
+  * Site-packages
+  * Standard library (`/usr/lib/python3.xx`)
+  * Environment variable `PYTHONPATH` defined by the operating system or runtime shell
+
+The `example01.py` code prints the content of `sysconfig` and `sys.path`.
+
+_[example01.py](example01.py)_:
+
+```py
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+"""Example Code Example"""
+
+import sysconfig
+import sys
+print("sysconfig.get_paths().values())", end=" ")
+print(sysconfig.get_paths().values())
+print("")
+print("print(sys.path)", end=" ")
+print(print(sys.path))
+```
+
+An attacker who can modify a search paths via environmental variables or other means can potentially inject malicious modules that get loaded instead of legitimate ones.
+
+Consider validating hash-based byte code [[Python 2023 Command line and environment](https://docs.python.org/3.9/using/cmdline.html#cmdoption-check-hash-based-pycs)].
 
 Python source code `.py` files need to be converted into "byte code" `.pyc` or `.pyo` in memory or in a filesystem `__pycache__` before running on the Python Virtual Machine (PVM) [Dec 2009 PEP 3147].
 Python 3.8 [Dec 2009 PEP 3147] also has a backward compatibility mode supporting delivering only byte code.
@@ -17,7 +50,7 @@ Setting `--check-hash-based-pycs` to `default` or `never` skips integrity verifi
 
 The following `noncompliant01.bash` code uses the Python standard library `http.server` as an example of a Python process started from a bash script without hash-based verification:
 
-*[noncompliant01.bash](noncompliant01.bash):*
+_[noncompliant01.bash](noncompliant01.bash):_
 
 ```bash
 # Non-compliant Code Example
@@ -26,7 +59,7 @@ python3 -m http.server -b 127.0.0.42 8080
 
 An attacker can exploit this by manipulating the `PYTHONPATH` to inject their code that can go unnoticed without hash-based verification as shown in the following example:
 
-*[example01.bash](example01.bash)*
+_[example01.bash](example01.bash)_
 
 ```bash
 cd
@@ -48,7 +81,7 @@ In the following compliant solution, a user custom `PYTHONPATH` is suppressed wi
 
 compliant01.bash:
 
-*[compliant01.bash](compliant01.bash):*
+_[compliant01.bash](compliant01.bash):_
 
 ```bash
 # Compliant Code Example
