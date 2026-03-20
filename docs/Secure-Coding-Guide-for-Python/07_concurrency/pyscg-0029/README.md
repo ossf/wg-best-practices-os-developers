@@ -1,4 +1,4 @@
-# pyscg-0029: Improper Initialization
+# pyscg-0029: Reinitialize Reused Thread Objects
 
 Prevent unexpected states by applying correct initialized of local objects as they remain available when a thread's resources are re-used in a thread-pool.
 

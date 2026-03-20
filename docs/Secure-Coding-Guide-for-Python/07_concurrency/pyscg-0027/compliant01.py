@@ -1,78 +1,57 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-"""Compliant Code Example"""
-
-from time import sleep
+""" Non-compliant Code Example """
 import logging
+import sys
 import threading
-import secrets
+from threading import Thread
 
-LOCK = threading.Lock()
-
-
-def thread_function(animal: "Animal", animal_name: str, animal_sound: str):
-    """Function that changes animal's characteristics using method chaining"""
-    for _ in range(3):
-        LOCK.acquire()
-        logging.info(
-            "Thread: starting - %s goes %s",
-            animal.name,
-            animal.sound,
-        )
-        # First time, name and sound will be blank because
-        # the object isn't initialized yet.
-        animal.set_name(animal_name).set_sound(animal_sound)
-        logging.info(
-            "Thread: finishing - %s goes %s",
-            animal.name,
-            animal.sound,
-        )
-        LOCK.release()
-        # Simulate a longer operation on non-shared resources
-        for i in range(10, 1000):
-            _ = (secrets.randbelow(i) + 1) / i
+logging.basicConfig(level=logging.INFO)
 
 
-class Animal:
-    """Class that represents an animal"""
+class Number():
+    """
+    Multithreading compatible class with locks.
+    """
+    value = 0
+    repeats = 1000000
 
-    # The characteristics of the animal (optional fields)
     def __init__(self):
-        self.name = ""
-        self.sound = ""
+        self.lock = threading.Lock()
 
-    def set_name(self, name: str):
-        """Sets the animal's name"""
-        self.name = name
-        # force the thread to lose the lock on the object by
-        # simulating a long running operation
-        sleep(0.1)
-        return self
+    def add(self):
+        """Simulating hard work"""
+        for _ in range(self.repeats):
+            logging.debug("Number.add: id=%i int=%s size=%s", id(self.value), self.value, sys.getsizeof(self.value))
+            self.lock.acquire()
+            self.value += self.read_amount()
+            self.lock.release()
 
-    def set_sound(self, sound: str):
-        """Sets the sound that the animal makes"""
-        self.sound = sound
-        sleep(0.2)
-        return self
+    def remove(self):
+        """Simulating hard work"""
+        for _ in range(self.repeats):
+            self.lock.acquire()
+            self.value -= self.read_amount()
+            self.lock.release()
 
+    def read_amount(self):
+        """ Simulating reading amount from an external source, i.e. a file, a database, etc. """
+        return 100
 
-#####################
-# Exploiting above code example
-#####################
 
 if __name__ == "__main__":
-    MESSAGE_FORMAT = "%(asctime)s: %(message)s"
-    logging.basicConfig(
-        format=MESSAGE_FORMAT, level=logging.INFO, datefmt="%H:%M:%S"
-    )
+    #####################
+    # exploiting above code example
+    #####################
+    number = Number()
+    logging.info("id=%i int=%s size=%s", id(number.value), number.value, sys.getsizeof(number.value))
+    add = Thread(target=number.add)
+    substract = Thread(target=number.remove)
+    add.start()
+    substract.start()
 
-    animal = Animal()
-    dog = threading.Thread(
-        target=thread_function,
-        args=(animal, "DOG", "WOOF"),
-    )
-    cat = threading.Thread(
-        target=thread_function, args=(animal, "CAT", "MEOW")
-    )
-    dog.start()
-    cat.start()
+    logging.info('Waiting for threads to finish...')
+    add.join()
+    substract.join()
+
+    logging.info("id=%i int=%s size=%s", id(number.value), number.value, sys.getsizeof(number.value))

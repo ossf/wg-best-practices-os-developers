@@ -2,15 +2,12 @@
 
 This page aims to explain the concepts that could be found in the following rules:
 
-- [pyscg-0025: Insufficient Resource Pool](pyscg-0025/README.md)
-- [pyscg-0026: Deadlock](pyscg-0026/README.md)
-- [pyscg-0024: Uncontrolled Resource Consumption](pyscg-0024/README.md)
-- [pyscg-0027: Concurrent Execution Using Shared Resource with Improper Synchronization ("Race Condition")](pyscg-0027/README.md)
-- [pyscg-0028: Return Inside Finally Block](pyscg-0028/README.md)
-- [pyscg-0030: Missing Report of Error Condition](pyscg-0030/README.md)
-- [pyscg-0029: Improper Initialization](pyscg-0029/README.md)
-- [pyscg-0051: Improper Resource Shutdown Or Release](pyscg-0051/README.md)
-- [pyscg-0054: Race Condition Within A Thread](pyscg-0054/README.md)
+- [pyscg-0024: Ensure Thread Pool Tasks Can Be Interrupted](pyscg-0024/README.md)
+- [pyscg-0025: Configure Adequate Resource Pools](pyscg-0025/README.md)
+- [pyscg-0026: Prevent Deadlocks](pyscg-0026/README.md)
+- [pyscg-0027: Prevent Race Conditions](pyscg-0027/README.md)
+- [pyscg-0029: Reinitialize Reused Thread Objects](pyscg-0029/README.md)
+- [pyscg-0030: Ensure Thread Pool Tasks Do Not Fail Silently](pyscg-0030/README.md)
 
 ## What is Multithreading in Python - Multithreading vs Multiprocessing
 

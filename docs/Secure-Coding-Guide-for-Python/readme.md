@@ -233,6 +233,12 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
+<td><a href="05_exception_handling/pyscg-0028/README.md">pyscg-0028: Preserve Exceptions in Finally Blocks</a></td>
+<td></td>
+<td><a href="https://cwe.mitre.org/data/definitions/584.html">CWE-584</a></td>
+</tr>
+
+<tr>
 <td><a href="05_exception_handling/pyscg-0052/README.md">pyscg-0052: Ensure Cleanup on Exceptions</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/460.html">CWE-460</a></td>
@@ -281,57 +287,39 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="07_concurrency/pyscg-0024/README.md">pyscg-0024: Uncontrolled Resource Consumption</a></td>
+<td><a href="07_concurrency/pyscg-0024/README.md">pyscg-0024: Ensure Thread Pool Tasks Can Be Interrupted</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/400.html">CWE-400</a></td>
 </tr>
 
 <tr>
-<td><a href="07_concurrency/pyscg-0025/README.md">pyscg-0025: Insufficient Resource Pool</a></td>
+<td><a href="07_concurrency/pyscg-0025/README.md">pyscg-0025: Configure Adequate Resource Pools</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/410.html">CWE-410</a></td>
 </tr>
 
 <tr>
-<td><a href="07_concurrency/pyscg-0026/README.md">pyscg-0026: Deadlock</a></td>
+<td><a href="07_concurrency/pyscg-0026/README.md">pyscg-0026: Prevent Deadlocks</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/833.html">CWE-833</a></td>
 </tr>
 
 <tr>
-<td><a href="07_concurrency/pyscg-0027/README.md">pyscg-0027: Concurrent Execution Using Shared Resource with Improper Synchronization ('Race Condition')</a></td>
+<td><a href="07_concurrency/pyscg-0027/README.md">pyscg-0027: Prevent Race Conditions</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/362.html">CWE-362</a></td>
 </tr>
 
 <tr>
-<td><a href="07_concurrency/pyscg-0028/README.md">pyscg-0028: Return inside Finally Block</a></td>
-<td></td>
-<td><a href="https://cwe.mitre.org/data/definitions/584.html">CWE-584</a></td>
-</tr>
-
-<tr>
-<td><a href="07_concurrency/pyscg-0029/README.md">pyscg-0029: Improper Initialization</a></td>
+<td><a href="07_concurrency/pyscg-0029/README.md">pyscg-0029: Reinitialize Reused Thread Objects</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/665.html">CWE-665</a></td>
 </tr>
 
 <tr>
-<td><a href="07_concurrency/pyscg-0030/README.md">pyscg-0030: Missing Report of Error Condition</a></td>
+<td><a href="07_concurrency/pyscg-0030/README.md">pyscg-0030: Ensure Thread Pool Tasks Do Not Fail Silently</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/392.html">CWE-392</a></td>
-</tr>
-
-<tr>
-<td><a href="07_concurrency/pyscg-0051/README.md">pyscg-0051: Improper Resource Shutdown or Release</a></td>
-<td></td>
-<td><a href="https://cwe.mitre.org/data/definitions/404.html">CWE-404</a></td>
-</tr>
-
-<tr>
-<td><a href="07_concurrency/pyscg-0054/README.md">pyscg-0054: Race Condition Within a Thread</a></td>
-<td></td>
-<td><a href="https://cwe.mitre.org/data/definitions/366.html">CWE-366</a></td>
 </tr>
 
 <tr>
@@ -380,6 +368,12 @@ It is __not production code__ and requires code-style or python best practices t
 <td><a href="08_coding_standards/pyscg-0037/README.md">pyscg-0037: Avoid Assertions In Production</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/617.html">CWE-617</a></td>
+</tr>
+
+<tr>
+<td><a href="08_coding_standards/pyscg-0051/README.md">pyscg-0051: Release Unused Resources</a></td>
+<td></td>
+<td><a href="https://cwe.mitre.org/data/definitions/404.html">CWE-404</a></td>
 </tr>
 
 <tr>
