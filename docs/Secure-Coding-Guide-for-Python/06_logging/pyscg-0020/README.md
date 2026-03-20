@@ -1,6 +1,6 @@
-# pyscg-0020: Insufficient Logging
+# pyscg-0020: Implement Informative Event Logging
 
-Ensure you have sufficient logging in order to adequately record important events within an application and/or system.
+Log security events such as authentication attempts, authorization failures, and data access to support incident response.
 
 Without comprehensive and sufficient logging, it becomes challenging to identify and respond to security incidents, leading to delayed and/or inefficient incident response efforts.
 

@@ -1,6 +1,6 @@
-# pyscg-0019: Insertion of Sensitive Information into Log File
+# pyscg-0019: Exclude Sensitive Data From Logs
 
-Do not log any sensitive information such as passwords or credit card numbers. Encrypt or anonymize personal information such as user names, and date of birth in plain text.
+Do not log any sensitive information such as passwords or credit card numbers. Encrypt or anonymize personal information such as user names and date of birth.
 
 Logging is crucial for tasks like debugging, forensic analysis, and the general management of various incidents, however, it poses significant challenges when it comes to personal information and sensitive information.
 

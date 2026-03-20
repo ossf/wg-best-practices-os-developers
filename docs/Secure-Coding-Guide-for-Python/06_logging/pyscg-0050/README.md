@@ -1,7 +1,7 @@
-# pyscg-0050: Generation of Error Message Containing Sensitive Information
+# pyscg-0050: Sanitize Error Output to Prevent Information Disclosure
 
 Prevent an attacker from discovering internal or sensitive system information by filtering, splitting and applying brute force prevention tactics when displaying error messages to a user.
-This rule is closely related to [pyscg-0019: Insertion of Sensitive Information into Log File](../pyscg-0019/README.md).
+This rule is closely related to [pyscg-0019: Exclude Sensitive Data From Logs](../pyscg-0019/README.md).
 
 Ensure that detailed troubleshooting and security sensitive error information can only reach authorized personnel while avoiding overload from brute force attacks.
 
@@ -99,7 +99,7 @@ class FileReader:
             fh.readlines()
         except OSError as e:
             # TODO: log the original exception
-            # For more details, check CWE-693/CWE-778: Insufficient Logging
+            # For more details, check pyscg-0020: Implement Informative Event Logging
 
             # Throw a generic exception instead
             sys.tracebacklimit = 0
@@ -183,7 +183,7 @@ Details on other best practices are only mentioned as a TODO comment such as:
 * Rules related to logging ([pyscg-0022: Improper Output Neutralization for Logs](../pyscg-0022/README.md), [pyscg-0019: Insertion of Sensitive Information into Log File](../pyscg-0019/README.md))
 * File access, log access control
 * Log level, log format in accordance with [rfc5424](https://www.rfc-editor.org/rfc/rfc5424)
-* [pyscg-0020: Insufficient Logging](../pyscg-0020/README.md)
+* [pyscg-0020: Implement Informative Event Logging](../pyscg-0020/README.md)
 
 Useful internal logging must be resilient against brute force attacks currently not covered in `compliant01.py`.
 
@@ -227,10 +227,10 @@ def file_reader(args: list):
         logging.exception("ERROR %s", error_id)
 
         # TODO: handle the exception in accordance with
-        # - CWE-390: Detection of Error Condition without Action
+        # - pyscg-0016: Propagate Exceptions and Preserve Context
         # TODO: log the error with a unique error_id and apply:
-        # - CWE-117: Improper Output Neutralization for Logs
-        # - CWE-532: Insertion of Sensitive Information into Log File
+        # - pyscg-0022: Neutralize Untrusted Data in Logs
+        # - pyscg-0019: Exclude Sensitive Data From Logs
 
         # Present a simplified error to the client
         print("\n***** Frontend 'client' error: *****")

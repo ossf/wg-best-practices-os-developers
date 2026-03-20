@@ -245,31 +245,31 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
-<td><a href="06_logging/pyscg-0019/README.md">pyscg-0019: Insertion of Sensitive Information into Log File</a></td>
+<td><a href="06_logging/pyscg-0019/README.md">pyscg-0019: Exclude Sensitive Data From Logs</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2023-45585">CVE-2023-45585</a>,<br>CVSSv3.1: <strong>9.8</strong>,<br>EPSS: <strong>0.04</strong> (01.11.2024)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/532.html">CWE-532</a></td>
 </tr>
 
 <tr>
-<td><a href="06_logging/pyscg-0020/README.md">pyscg-0020: Insufficient Logging</a></td>
+<td><a href="06_logging/pyscg-0020/README.md">pyscg-0020: Implement Informative Event Logging</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/778.html">CWE-778</a></td>
 </tr>
 
 <tr>
-<td><a href="06_logging/pyscg-0021/README.md">pyscg-0021: Active Debug Code</a></td>
+<td><a href="06_logging/pyscg-0021/README.md">pyscg-0021: Exclude Developer Tools From the Final Product</a></td>
 <td><a href="https://www.cvedetails.com/cve/CVE-2018-14649">CVE-2018-14649</a>,<br>CVSSv3.1: <strong style='color:red'>9.8</strong>,<br>EPSS: <strong>69.64</strong> (12.12.2023)</td>
 <td><a href="https://cwe.mitre.org/data/definitions/489.html">CWE-489</a></td>
 </tr>
 
 <tr>
-<td><a href="06_logging/pyscg-0022/README.md">pyscg-0022: Improper Output Neutralization for Logs</a></td>
+<td><a href="06_logging/pyscg-0022/README.md">pyscg-0022: Neutralize Untrusted Data in Logs</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/117.html">CWE-117</a></td>
 </tr>
 
 <tr>
-<td><a href="06_logging/pyscg-0050/README.md">pyscg-0050: Generation of Error Message Containing Sensitive Information</a></td>
+<td><a href="06_logging/pyscg-0050/README.md">pyscg-0050: Sanitize Error Output to Prevent Information Disclosure</a></td>
 <td></td>
 <td><a href="https://cwe.mitre.org/data/definitions/209.html">CWE-209</a></td>
 </tr>

@@ -15,7 +15,7 @@ class FileReader:
             fh.readlines()
         except OSError as e:
             # TODO: log the original exception
-            # For more details, check CWE-693/CWE-778: Insufficient Logging
+            # For more details, check pyscg-0020: Implement Informative Event Logging
 
             # Throw a generic exception instead
             sys.tracebacklimit = 0
