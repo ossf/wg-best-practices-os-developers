@@ -99,7 +99,7 @@ class FileReader:
             fh.readlines()
         except OSError as e:
             # TODO: log the original exception
-            # For more details, check CWE-693/CWE-778: Insufficient Logging
+            # For more details, check pyscg-0020: Implement Informative Event Logging
 
             # Throw a generic exception instead
             sys.tracebacklimit = 0
@@ -227,10 +227,10 @@ def file_reader(args: list):
         logging.exception("ERROR %s", error_id)
 
         # TODO: handle the exception in accordance with
-        # - CWE-390: Detection of Error Condition without Action
+        # - pyscg-0016: Propagate Exceptions and Preserve Context
         # TODO: log the error with a unique error_id and apply:
-        # - CWE-117: Improper Output Neutralization for Logs
-        # - CWE-532: Insertion of Sensitive Information into Log File
+        # - pyscg-0022: Neutralize Untrusted Data in Logs
+        # - pyscg-0019: Exclude Sensitive Data From Logs
 
         # Present a simplified error to the client
         print("\n***** Frontend 'client' error: *****")
