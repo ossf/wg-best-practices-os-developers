@@ -68,22 +68,26 @@ This non-compliant code example shows that using this value will point to the la
 """ Non-compliant Code Example """
 
 
-def find_in_string(full_string, sub_string):
-    """Function that searches for a sub-string in a given string"""
-    index = full_string.find(sub_string)
-    print(f"Sub-string '{sub_string}' appears in '{full_string}' at index {index}'")
+    """Function that wraps a substring inside of a string in quotes"""
+    index_start = full_string.find(sub_string)
+    index_end = index_start + len(sub_string)
+    return (full_string[:index_start]
+            + "\""
+            + full_string[index_start:index_end]
+            + "\""
+            + full_string[index_end:])
 
 
 #####################
 # exploiting above code example
 #####################
 my_string = "Secure Python coding"
-find_in_string(my_string, "Python")
-find_in_string(my_string, "I'm evil")
+print(wrap_in_quotes(my_string, "Secure"))
+print(wrap_in_quotes(my_string, "I'm evil"))
 
 ```
 
-Even though `I'm evil` is clearly not a part of "Secure Python coding", the `find_in_string()` method will suggest otherwise.
+Even though `I'm evil` is clearly not a part of "Secure Python coding", the `wrap_in_quotes()` method will attempt to insert the quotation marks anyway and will incorrectly reassemble the modified `full_string`.
 
 ## Compliant Solution - Invalid value handling
 
@@ -97,25 +101,32 @@ Since `str.find()` indicates the fact that the sub-string couldn't be found with
 """ Non-compliant Code Example """
 
 
-def find_in_string(full_string, sub_string):
-    """Function that searches for a sub-string in a given string"""
-    index = full_string.find(sub_string)
-    if index >= 0:
-        print(f"Sub-string '{sub_string}' appears in '{full_string}' at index {index}'")
+def wrap_in_quotes(full_string, sub_string):
+    """Function that wraps a substring inside of a string in quotes"""
+    index_start = full_string.find(sub_string)
+  
+    if index_start >= 0:
+        index_end = index_start + len(sub_string)
+        return  (full_string[:index_start]
+                 + "\""
+                 + full_string[index_start:index_end]
+                 + "\""
+                 + full_string[index_end:])
     else:
-        print(f"There is no '{sub_string}' in '{full_string}'")
+        # Nothing to wrap, return unchanged string
+        return full_string
 
 
 #####################
 # exploiting above code example
 #####################
 my_string = "Secure Python coding"
-find_in_string(my_string, "Python")
-find_in_string(my_string, "I'm evil")
+print(wrap_in_quotes(my_string, "Secure"))
+print(wrap_in_quotes(my_string, "I'm evil"))
 
 ```
 
-Now, the latter print will correctly indicate the lack of `I'm evil` in `Secure Python coding`.
+Now, since there is no `I'm evil` in `Secure Python coding`, no quotes will be added to the string.
 
 ## Automated Detection
 
