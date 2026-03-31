@@ -129,9 +129,9 @@ login("admin", "s3cr3t")
 **Output of `compliant02.py`:**
 
 ```bash
-2026-03-31T11:40:48 WARNING event=login_failed user=admin
-2026-03-31T11:40:48 WARNING event=login_failed user=admin
-2026-03-31T11:40:48 INFO event=login_success user=admin
+2026-03-31T11:50:30 WARNING event=login_failed user=admin
+2026-03-31T11:50:30 WARNING event=login_failed user=admin
+2026-03-31T11:50:30 INFO event=login_success user=admin
 ```
 
 Each attempt is now visible, enabling operators to detect brute-force patterns, identify compromised accounts, and trigger automated responses.
