@@ -17,6 +17,7 @@ This is a list of materials (documents, services, and so on) released by the
 * [The Memory Safety Continuum](https://memorysafety.openssf.org/memory-safety-continuum)
 * [Cyber Resilience Act (CRA) Brief Guide for Open Source Software (OSS) Developers](https://best.openssf.org/CRA-Brief-Guide-for-OSS-Developers)
 * [Security Focused Guide for AI Code Assistant Instructions](https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions)
+* [Secure Web Application Guidelines](https://w3c-cg.github.io/swag/docs/swag.html) - currently in draft, developed in the W3C Secure Web Application Guidelines (SWAG) Community Group, in partnership with OpenSSF Best Practices working group.
 
 Note: You can also see the larger list of
 [Guides released by the OpenSSF](https://openssf.org/resources/guides/).
