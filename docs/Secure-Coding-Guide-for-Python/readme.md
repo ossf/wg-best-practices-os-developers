@@ -1,6 +1,6 @@
 # Secure Coding One Stop Shop for Python
 
-> ⓘ  NOTE: This is a draft. Contributions welcome!<br>
+> Contributions welcome!<br>
 > Web: [https://best.openssf.org/Secure-Coding-Guide-for-Python/](https://best.openssf.org/Secure-Coding-Guide-for-Python/)<br>
 > GitHub: [https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python)
 

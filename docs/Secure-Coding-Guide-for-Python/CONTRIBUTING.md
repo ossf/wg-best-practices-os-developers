@@ -184,6 +184,14 @@ Keep code examples as short while using simple Python, it's not about showing of
 
 There is the option to add `# TODO:` instead of overloading compliant code examples with all aspects of an end to end secure solution.
 
+### Versioning
+
+The guide follows a `MAJOR.MINOR.PATCH` scheme such as `pyscg-v1.0.0`.
+
+* **MAJOR** — structural changes that break automation consuming the guide (e.g. renamed columns in `readme.md`, file naming convention changes).
+* **MINOR** — content changes that preserve structure (new rules, rule merges, title renames, updated code examples).
+* **PATCH** — bugs, typo fixes, bibliography corrections, minor wording improvements. Optional.
+
 ### Submitting Your Contribution
 
 1. __Create a new branch:__ Use descriptive names for branches, e.g., `pyscg-issue-123` or  `pyscg-add-logging-feature` using `git checkout -b branch-name`
