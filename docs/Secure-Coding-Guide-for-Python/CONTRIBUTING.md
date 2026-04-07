@@ -188,9 +188,9 @@ There is the option to add `# TODO:` instead of overloading compliant code examp
 
 The guide follows a `MAJOR.MINOR.PATCH` scheme such as `pyscg-v1.0.0`.
 
-* **MAJOR** — structural changes that break automation consuming the guide (e.g. renamed columns in `readme.md`, file naming convention changes).
-* **MINOR** — content changes that preserve structure (new rules, rule merges, title renames, updated code examples).
-* **PATCH** — bugs, typo fixes, bibliography corrections, minor wording improvements. Optional.
+* __MAJOR__: structural changes that break automation consuming the guide (e.g. renamed columns in `readme.md`, file naming convention changes, removal or merging of rules).
+* __MINOR__: content changes that preserve structure (new rules, title renames, updated code examples).
+* __PATCH__: bugs, typo fixes, bibliography corrections, minor wording improvements.
 
 ### Submitting Your Contribution
 
