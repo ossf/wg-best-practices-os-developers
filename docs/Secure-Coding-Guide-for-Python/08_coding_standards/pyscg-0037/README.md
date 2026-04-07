@@ -1,6 +1,6 @@
-# pyscg-0037: Avoid Assertions In Production
+# pyscg-0037: Do not Depend on Assertions In Production
 
-Assertions are a useful developer tool, but they cannot be relied upon to be present in a production environment. Incorrect function arguments should be handled by an appropriate exception.
+Assertions are a useful developer tool, but they cannot be relied upon to be present in a production environment. Assertions can be used, but incorrect function arguments should be handled by an appropriate exception instead.
 
 Python removes assertions when a script is run with the `-O`  and `-OO` options [[Python 3.9 Documentation](https://docs.python.org/3.9/using/cmdline.html?highlight=pythonoptimize#cmdoption-o)]. The `-O` options is for optimisation. It removes asserts statements from bytecode, removes docstrings from functions/classes and sets `__debug__` to False. It is used for slightly faster execution and smaller bytecode files. `-OO` does everything that `-O`does but it additionally removes module-level docstrings and creates an even more compact bytecode.
 
