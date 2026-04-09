@@ -178,7 +178,7 @@ The `compliant01.py` code avoids using password based authentication in the firs
 |[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE-798: Use of hardcoded credentials](https://cwe.mitre.org/data/definitions/798.html)|
 |[MITRE CWE](http://cwe.mitre.org/)|Variant: [CWE-259: Use of hardcoded password](https://cwe.mitre.org/data/definitions/259.html)|
 |[MITRE CWE](http://cwe.mitre.org/)|Variant: [CWE-321: Use of hardcode cryptographic key](https://cwe.mitre.org/data/definitions/321.html)|
-|[SEI CERT Oracle Codign Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[MSC03-J: Never hardcode sensitive information](https://wiki.sei.cmu.edu/confluence/display/java/MSC03-J.+Never+hard+code+sensitive+information)|
+|[SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[MSC03-J: Never hardcode sensitive information](https://wiki.sei.cmu.edu/confluence/display/java/MSC03-J.+Never+hard+code+sensitive+information)|
 
 ## Bibliography
 
