@@ -223,7 +223,7 @@ process_order("10 Grafton Street")
 |:----|:----|:----|:----|
 |[Pylint](https://pylint.pycqa.org/)|2023.10.1|[W1203:logging-fstring-interpolation](https://pylint.readthedocs.io/en/latest/user_guide/messages/warning/logging-fstring-interpolation.html)|Use lazy % formatting in logging functions|
 
-## Biblography
+## Bibliography
 
 |||
 |:---|:---|
