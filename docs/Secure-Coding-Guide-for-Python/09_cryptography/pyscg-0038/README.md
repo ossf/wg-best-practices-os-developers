@@ -116,7 +116,7 @@ print(f"Your secure token is: {TOKEN}")
 |MITRE CWE Pillar|[CWE-693: Protection Mechanism Failure (4.12) (mitre.org)](https://cwe.mitre.org/data/definitions/693.html)|
 |MITRE CWE Class|[CWE-330, Use of Insufficiently Random Values](http://cwe.mitre.org/data/definitions/330.html)|
 
-## Biblography
+## Bibliography
 
 |||
 |:---|:---|
