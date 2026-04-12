@@ -9,11 +9,11 @@ def wrap_in_quotes(full_string, sub_string):
   
     if index_start >= 0:
         index_end = index_start + len(sub_string)
-        return  (full_string[:index_start]
-                 + "\""
-                 + full_string[index_start:index_end]
-                 + "\""
-                 + full_string[index_end:])
+        return (full_string[:index_start]
+                + "\""
+                + full_string[index_start:index_end]
+                + "\""
+                + full_string[index_end:])
     else:
         # Nothing to wrap, return unchanged string
         return full_string
