@@ -68,6 +68,7 @@ This non-compliant code example shows that using this value will point to the la
 """ Non-compliant Code Example """
 
 
+def wrap_in_quotes(full_string, sub_string):
     """Function that wraps a substring inside of a string in quotes"""
     index_start = full_string.find(sub_string)
     index_end = index_start + len(sub_string)
@@ -82,8 +83,8 @@ This non-compliant code example shows that using this value will point to the la
 # exploiting above code example
 #####################
 MY_STRING = "Secure Python coding"
-print(wrap_in_quotes(my_string, "Secure"))
-print(wrap_in_quotes(my_string, "I'm evil"))
+print(wrap_in_quotes(MY_STRING, "Secure"))
+print(wrap_in_quotes(MY_STRING, "I'm evil"))
 
 ```
 
@@ -91,7 +92,7 @@ Even though `I'm evil` is clearly not a part of "Secure Python coding", the `wra
 
 ## Compliant Solution - Invalid value handling
 
-Since `str.find()` indicates the fact that the sub-string couldn't be found with a negative index, a simple `if` check is enough to tackle the issue from the previous code example.
+Because `str.find()` returns `-1` when the substring isn’t found, checking for `-1` is required before using the result as an index.
 
 *[compliant02.py](compliant02.py):*
 
@@ -104,25 +105,25 @@ Since `str.find()` indicates the fact that the sub-string couldn't be found with
 def wrap_in_quotes(full_string, sub_string):
     """Function that wraps a substring inside of a string in quotes"""
     index_start = full_string.find(sub_string)
-  
-    if index_start >= 0:
-        index_end = index_start + len(sub_string)
-        return  (full_string[:index_start]
-                 + "\""
-                 + full_string[index_start:index_end]
-                 + "\""
-                 + full_string[index_end:])
-    else:
+
+    if index_start < 0:
         # Nothing to wrap, return unchanged string
         return full_string
+
+    index_end = index_start + len(sub_string)
+    return (full_string[:index_start]
+            + "\""
+            + full_string[index_start:index_end]
+            + "\""
+            + full_string[index_end:])
 
 
 #####################
 # exploiting above code example
 #####################
 MY_STRING = "Secure Python coding"
-print(wrap_in_quotes(my_string, "Secure"))
-print(wrap_in_quotes(my_string, "I'm evil"))
+print(wrap_in_quotes(MY_STRING, "Secure"))
+print(wrap_in_quotes(MY_STRING, "I'm evil"))
 
 ```
 

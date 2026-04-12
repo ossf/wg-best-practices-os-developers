@@ -18,5 +18,5 @@ def wrap_in_quotes(full_string, sub_string):
 # exploiting above code example
 #####################
 MY_STRING = "Secure Python coding"
-print(wrap_in_quotes(my_string, "Secure"))
-print(wrap_in_quotes(my_string, "I'm evil"))
+print(wrap_in_quotes(MY_STRING, "Secure"))
+print(wrap_in_quotes(MY_STRING, "I'm evil"))
