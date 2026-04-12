@@ -22,6 +22,6 @@ def wrap_in_quotes(full_string, sub_string):
 #####################
 # exploiting above code example
 #####################
-my_string = "Secure Python coding"
+MY_STRING = "Secure Python coding"
 print(wrap_in_quotes(my_string, "Secure"))
 print(wrap_in_quotes(my_string, "I'm evil"))
