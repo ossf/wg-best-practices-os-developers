@@ -81,7 +81,7 @@ This non-compliant code example shows that using this value will point to the la
 #####################
 # exploiting above code example
 #####################
-my_string = "Secure Python coding"
+MY_STRING = "Secure Python coding"
 print(wrap_in_quotes(my_string, "Secure"))
 print(wrap_in_quotes(my_string, "I'm evil"))
 
