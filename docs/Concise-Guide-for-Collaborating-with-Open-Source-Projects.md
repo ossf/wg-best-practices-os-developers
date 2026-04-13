@@ -52,8 +52,43 @@ Project maintainers don’t have to do anything at all because of the CRA, if th
 
 ### End participation
 
-* **TBD:** once done, ie contirbution merged or problem fixed, regonize the support and wrap up your work.
-* **End participation gracefully by communicating early and wrapping up:**  If your internal priorities change or you are reassigned, inform the maintainers immediately rather than simply abandoning open pull requests or discussions ("ghosting"). Make an effort to either finalize outstanding work or clearly document the state of your contribution, ensuring you do not leave the community with the burden of deciphering or maintaining unfinished code.
+* **Wrapping up after the contribution landed:** If the contribution is of limited scope and there is no intention for a longer-term engagement with the project, clearly wrap up once the contribution has landed: regonize the support of the maintainers and close remaining open issues, such as bug reports or feature requests.
+* **End long-term participation gracefully by communicating early and wrapping up:**  In case of ending a longer-term engagement, for instance due to a change in internal priorities, inform the maintainers immediately rather than simply abandoning open pull requests or discussions ("ghosting"). Make an effort to either finalize outstanding work or clearly document the state of your contribution, ensuring you do not leave the community with the burden of deciphering or maintaining unfinished code.
+
+## Navigating common pitfalls
+
+It is valuable for new open source contributors to be aware of common pitfalls to avoid misunderstandings and resulting friction and frustration among contributors and project maintainers.
+This section outlines situations that frequently arise and provides guidance on how to resolve them.
+
+### Release Management and Cadence
+
+After contributing a fix for a particular issue, such as a bug or a security vulnerability, product teams frequently request that a new release incorporating their fix be published shortly after the contribution has been merged. This urgency is driven by the desire to update the open source component in their product as soon as possible, and is further heightened by the CRA-mandated obligation for manufacturers to resolve vulnerabilities within specific deadlines.
+
+However, open source projects follow very diverse release patterns. Some projects do not create releases at all, while others only publish releases from the main branch. Very few projects issue dedicated bugfix releases or maintain stable branches, as supporting maintenance branches for older releases represents a significant burden and is therefore only practiced by the largest and most well-resourced projects, such as the Linux kernel. Most commonly, projects follow a regular release cadence with intervals of weeks or months between releases.
+
+Larger communities, such as the CNCF, are cognizant of the need to recommend [common release practices across their projects](https://github.com/cncf/toc/issues/1849).
+
+#### Possible Solutions
+
+The decision to create a release remains solely at the discretion of the project maintainers. Rather than requesting an expedited release, contributors should consider the following approaches:
+
+* Support the project maintainers in preparing the next scheduled release, for instance by running test suites and verifying release candidates.
+* Contribute improvements to the project's test coverage, thereby helping to increase the maintainers' confidence in releasing more frequently.
+* Accept the responsibility of maintaining a temporary public fork, or a corresponding branch within the project's repository, until the fix is included in an official release.
+
+### Disagreements about the direction of a project
+
+Contributions from commercial organizations are sometimes rejected by project maintainers. A maintainer may disagree with the technical approach, consider the change out of scope for the project, or determine that it introduces unwanted complexity or maintenance burden. This situation creates particular tension when the contributor feels compelled by the CRA or internal pressure to get a fix merged, while the maintainer declines for legitimate technical or architectural reasons.
+
+It is essential to recognize that maintainers have the final say over the direction of their project. Open source projects are not vendors, and maintainers are under no obligation to accept any contribution, regardless of the contributor's regulatory or business needs. Pressuring maintainers to accept changes that primarily serve commercial interests, or attempting to steer a project's roadmap to align with corporate goals, undermines the trust and collaborative spirit on which open source depends. Even when a contribution addresses a genuine security concern, the maintainer's judgment about how — or whether — to address it within their project must be respected.
+
+#### Possible Solutions
+
+When a contribution is rejected, contributors should consider the following approaches rather than escalating pressure on the maintainers:
+
+* Engage constructively with the maintainer's feedback to understand the reasons for the rejection and explore whether an alternative approach could address both the project's concerns and your requirements.
+* Accept the responsibility of maintaining a public fork that incorporates your changes. A fork is a legitimate and well-established mechanism in open source for pursuing a different direction without imposing on the original project.
+* Re-evaluate whether the specific open source component is still the best fit for your product, considering the divergence in priorities between your organization's needs and the project's direction.
 
 ## References
 
@@ -69,22 +104,6 @@ More information is available
 ## List of additional content to cover in this guide
 
 These are ideas + a make-shift backlog
-
-### Challenges
-
-#### Release Mnagement and Cadence
-
-* how to deal with new releases: often teams desire a new release which includes a bug fix, but the project does not necessarily cut a release after a bug fix / vuln fix
-
-@tuminoid: Release cadence is surely one area leading to friction with CRA. Not everyone does releases at all, some do releases from main only, release branches have
-serious maintenance burden etc. CNCF has open initiative on releases guidance too.
-
-#### Disagreements on the direction of a project
-
-* @tuminoid: Should we also describe scenarios where the project maintainer disagrees and says no? This is common for corporate contributions, and creates tension, especially if contributor feels compelled by the CRA or internal pressure to get the fix in, and the maintainer disagrees for whatever reason?
-
-* @balteravishay: not sure if this should be it's own section, or part of showing respectful behaviour, but would add a note about respecting maintainer autonomy &
-project direction by avoiding pressuring maintainers to accept changes that serve only commercial interests or attempting to steer a project's roadmap to align with corporate goals.
 
 ### Scenarios
 
