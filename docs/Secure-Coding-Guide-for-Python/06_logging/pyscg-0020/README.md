@@ -56,6 +56,86 @@ except ZeroDivisionError:
 
 In `compliant01.py`, using `logging` and loglevels allows better integration with a centralized logging system.
 
+## Non-Compliant Code Example (Audit Logging)
+
+Log security-critical events such as authentication failures to allow detection of brute-force attacks and unauthorized access attempts.
+
+In `noncompliant02.py`, the `login()` function silently returns `False` on authentication failure and does not log the event.Due to this an attacker can perform repeated login attempts without any trace in the system, making incident detection and forensic analysis impossible, and making brute-force attacks a possibility.
+
+*[noncompliant02.py](noncompliant02.py):*
+
+```python
+"""Non-compliant Code Example"""
+
+
+def login(username: str, password: str) -> bool:
+    """Authenticate user without any audit logging"""
+    # TODO: use a proper credential store
+    if username == "admin" and password == "s3cr3t":
+        return True
+    return False
+
+
+#####################
+# Trying to exploit above code example
+#####################
+login("admin", "wrong_password")
+login("admin", "password123!")
+login("admin", "sEcrEt")
+```
+
+Running `noncompliant02.py` produces no output. Three failed login attempts are completely invisible to operators and security monitoring systems.
+
+## Compliant Solution (Audit Logging)
+
+The `compliant02.py` solution configures a `logging.Formatter` with timestamp, severity, and a structured event message. Both successful and failed authentication attempts are logged with the event type and username, without exposing sensitive data such as the password. Successful logins are logged at `INFO` level and failures at `WARNING` level.
+
+Logging successful logins is essential because a success following repeated failures indicates a compromised account, and success logs establish a baseline of normal activity needed to detect anomalies.
+
+*[compliant02.py](compliant02.py):*
+
+```python
+"""Compliant Code Example"""
+
+import logging
+
+logging.basicConfig(
+    format="%(asctime)s %(levelname)s event=%(message)s",
+    datefmt="%Y-%m-%dT%H:%M:%S",
+    level=logging.INFO,
+)
+_audit = logging.getLogger("audit")
+
+
+def login(username: str, password: str) -> bool:
+    """Authenticate user with audit logging"""
+    # TODO: use a proper credential store
+    if username == "admin" and password == "s3cr3t":
+        _audit.info("login_success user=%s", username)
+        return True
+    _audit.warning("login_failed user=%s", username)
+    # TODO: forward logs to a remote logging service in production
+    return False
+
+
+#####################
+# Trying to exploit above code example
+#####################
+login("admin", "wrong_password")
+login("admin", "password123!")
+login("admin", "s3cr3t")
+```
+
+**Output of `compliant02.py`:**
+
+```bash
+2026-03-31T11:50:30 WARNING event=login_failed user=admin
+2026-03-31T11:50:30 WARNING event=login_failed user=admin
+2026-03-31T11:50:30 INFO event=login_success user=admin
+```
+
+Each attempt is now visible, enabling operators to detect brute-force patterns, identify compromised accounts, and trigger automated responses.
+
 ## Automated Detection
 
 |Tool|Version|Checker|Description|
@@ -67,5 +147,6 @@ In `compliant01.py`, using `logging` and loglevels allows better integration wit
 |||
 |:---|:---|
 |MITRE CWE Pillar|[CWE-693: Protection Mechanism Failure (4.16) (mitre.org)](https://cwe.mitre.org/data/definitions/693.html)|
-|MITRE CWE Base|[CWE-778: Numeric Truncation Error](https://cwe.mitre.org/data/definitions/778.html)|
+|MITRE CWE Base|[CWE-778: Insufficient Logging](https://cwe.mitre.org/data/definitions/778.html)|
 |[SEI CERT](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[ERR02-J. Prevent exceptions while logging data](https://wiki.sei.cmu.edu/confluence/display/java/ERR02-J.+Prevent+exceptions+while+logging+data)|
+|[OWASP Top 10](https://owasp.org/Top10/)|[A09:2021 – Security Logging and Monitoring Failures](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/)|
