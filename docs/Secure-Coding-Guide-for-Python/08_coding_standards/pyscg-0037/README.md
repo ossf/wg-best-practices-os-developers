@@ -1,4 +1,4 @@
-# pyscg-0037: Do not Depend on Assertions In Production
+# pyscg-0037: Presume Assertions May Be Disabled In Production
 
 Assertions are a useful developer tool, but they cannot be relied upon to be present in a production environment. Assertions can be used, but incorrect function arguments should be handled by an appropriate exception instead.
 
