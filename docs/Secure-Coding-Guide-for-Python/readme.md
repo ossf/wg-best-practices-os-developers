@@ -8,7 +8,7 @@ An initiative by the OpenSSF to provide new Python programmers a resource to stu
 
 Documentation is written in academic style to support security researchers while using plain English to cater for an international audience.
 
-Python modules outside of the _Python Module Index_ [[Python 2023](https://docs.python.org/3.9/py-modindex.html)] are specifically not covered by this document.
+Python modules outside of the _Python Module Index_ [[Python 2026](https://docs.python.org/3/py-modindex.html)] are specifically not covered by this document.
 
 Please join us, see [contributing](CONTRIBUTING.md)
 
@@ -23,7 +23,7 @@ Code examples are NOT to be used to cause harm of any kind to anyone or anything
 Every person writing code shall study the following:
 
 * _OWASP Developer Guide_ [[OWASP dev 2024](https://owasp.org/www-project-developer-guide/release/)]
-* _OWASP Top 10 Report_ [[OWASP 2021](https://owasp.org/Top10/A00_2021_Introduction/)]
+* _OWASP Top 10 Report_ [[OWASP 2025](https://owasp.org/Top10/2025/)]
 * _CWE Top 25_ [[MITRE 2024](https://cwe.mitre.org/top25/index.html)]
 
 ## Secure Coding Standard for Python
@@ -393,10 +393,10 @@ It is __not production code__ and requires code-style or python best practices t
 
 |Ref|Detail|
 |-----|-----|
-|\[Python 2023\]|3.9 Module Index \[online\], available from [https://docs.python.org/3.9/py-modindex.html](https://docs.python.org/3.9/py-modindex.html) \[accessed Dec 2024\]|
+|\[Python 2026\]|Python Module Index \[online\], available from [https://docs.python.org/3/py-modindex.html](https://docs.python.org/3/py-modindex.html) \[accessed April 2026\]|
 |\[mitre.org 2023\]|CWE - CWE-1000: Research Concepts \[online\], available from [https://cwe.mitre.org/data/definitions/1000.html](https://cwe.mitre.org/data/definitions/1000.html) \[accessed Dec 2024\]|
 |\[OWASP dev 2024\]|OWASP Developer Guide \[online\], available from [https://owasp.org/www-project-developer-guide/release/](https://owasp.org/www-project-developer-guide/release/) \[accessed Dec 2024\]|
-|\[OWASP 2021\]|OWASP Top 10 Report 2021 \[online\], available from [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)|
+|\[OWASP 2025\]|OWASP Top 10 Report 2025 \[online\], available from [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)|
 |\[MITRE Pillar 2024\]|_Pillar Weakness_ \[online\], available form [https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness](https://cwe.mitre.org/documents/glossary/#Pillar%20Weakness) \[accessed Dec 2024\]|
 |\[MITRE 2024\]|CWE Top 25 \[online\], available form [https://cwe.mitre.org/top25/index.html](https://cwe.mitre.org/top25/archive/2022/2022_cwe_top25.html) \[accessed Dec 2024\]|
 

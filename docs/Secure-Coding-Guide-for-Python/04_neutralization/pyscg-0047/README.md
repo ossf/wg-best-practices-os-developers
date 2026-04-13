@@ -149,4 +149,3 @@ According to *Unicode Technical Report #36, Unicode Security Considerations [Dav
 |:---|:---|
 |\[Unicode 2024\]|Unicode 16.0.0 \[online\]. Available from: [https://www.unicode.org/versions/Unicode16.0.0/](https://www.unicode.org/versions/Unicode16.0.0/) \[accessed 20 March 2025\]|
 |\[Davis 2008b\]|Unicode Technical Report #36, Unicode Security Considerations, Section 3.5 "Deletion of Code Points" \[online\]. Available from: [https://www.unicode.org/reports/tr36/](https://www.unicode.org/reports/tr36/) \[accessed 20 March 2025\]|
-|\[Davis 2008b\]|Unicode Technical Report #36, Unicode Security Considerations, Section 3.5 "Deletion of Code Points" \[online\]. Available from: [https://www.unicode.org/reports/tr36/](https://www.unicode.org/reports/tr36/) \[accessed 20 March 2025\]|

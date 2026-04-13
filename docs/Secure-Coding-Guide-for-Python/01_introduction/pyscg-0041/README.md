@@ -163,14 +163,12 @@ The `compliant01.py` code avoids using password based authentication in the firs
 
 |Tool|Version|Checker|Description|
 |:---|:---|:---|:---|
-|Tool|Version|Checker|Description|
-|:---|:---|:---|:---|
 |Bandit|1.7.4 on Python 3.10.4|B105|[B105: hardcoded_password_string — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b105_hardcoded_password_string.html)|
 |Bandit|1.7.4 on Python 3.10.4|B106|[B106: hardcoded_password_funcarg — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b106_hardcoded_password_funcarg.html)|
 |Bandit|1.7.4 on Python 3.10.4|B107|[B107: hardcoded_password_default — Bandit documentation](https://bandit.readthedocs.io/en/latest/plugins/b107_hardcoded_password_default.html)|
-|sonarsource||RSPEC-2068|[Python static code analysis: Hard-coded credentials are security-sensitive (sonarsource.com)](https://rules.sonarsource.com/python/RSPEC-2068)|
-|sonarsource||RSPEC-6437|[Credentials should not be hard-coded (sonarsource.com)](https://rules.sonarsource.com/python/type/Vulnerability/RSPEC-6437/)|
-|codeQL|||[Hard-coded credentials — CodeQL query help documentation (github.com)](https://codeql.github.com/codeql-query-help/python/py-hardcoded-credentials/)|
+|SonarSource||RSPEC-2068|[Python static code analysis: Hard-coded credentials are security-sensitive (sonarsource.com)](https://rules.sonarsource.com/python/RSPEC-2068)|
+|SonarSource||RSPEC-6437|[Credentials should not be hard-coded (sonarsource.com)](https://rules.sonarsource.com/python/type/Vulnerability/RSPEC-6437/)|
+|CodeQL|||[Hard-coded credentials — CodeQL query help documentation (github.com)](https://codeql.github.com/codeql-query-help/python/py-hardcoded-credentials/)|
 
 ## Related Guidelines
 
@@ -180,13 +178,13 @@ The `compliant01.py` code avoids using password based authentication in the firs
 |[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE-798: Use of hardcoded credentials](https://cwe.mitre.org/data/definitions/798.html)|
 |[MITRE CWE](http://cwe.mitre.org/)|Variant: [CWE-259: Use of hardcoded password](https://cwe.mitre.org/data/definitions/259.html)|
 |[MITRE CWE](http://cwe.mitre.org/)|Variant: [CWE-321: Use of hardcode cryptographic key](https://cwe.mitre.org/data/definitions/321.html)|
-|[SEI CERT Oracle Codign Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[MSC03-J: Never hardcode sensitive information](https://wiki.sei.cmu.edu/confluence/display/java/MSC03-J.+Never+hard+code+sensitive+information)|
+|[SEI CERT Oracle Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[MSC03-J: Never hardcode sensitive information](https://wiki.sei.cmu.edu/confluence/display/java/MSC03-J.+Never+hard+code+sensitive+information)|
 
 ## Bibliography
 
 |||
 |:---|:---|
-|\[US Congress 1996\]|Health Insurance Portability and Accountability Act (HIPAA) \[online\].Available from: [https://aspe.hhs.gov/reports/health-insurance-portability-accountability-act-1996](https://aspe.hhs.gov/reports/health-insurance-portability-accountability-act-1996) \[accessed 27 February 2025]|
-|\[European Parliament 2016\]|General Data Protection Regulation (GDPR) \[online\]. Available from: [https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150) \[accessed 27 February 2025\]|
+|\[US Congress 1996\]|Health Insurance Portability and Accountability Act (HIPAA) \[online\]. Available from: [https://aspe.hhs.gov/reports/health-insurance-portability-accountability-act-1996](https://aspe.hhs.gov/reports/health-insurance-portability-accountability-act-1996) \[accessed 27 February 2025]|
+|\[European Parliament 2016\]|General Data Protection Regulation (GDPR) \[online\]. Available from: [https://gdpr-info.eu/](https://gdpr-info.eu/) \[accessed 9 April 2026\]|
 |\[CPPA 2025\]|DIVISION 3. OBLIGATIONS \[1427 - 3273.16\] \[online\]. Available from: [https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.150)\[accessed 27 February 2025\]|
 |\[OSSF 2025\]|CWE-532: Insertion of Sensitive Information into Log File \[online\]. Available from: [https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/](https://best.openssf.org/Secure-Coding-Guide-for-Python/CWE-664/CWE-532/) \[accessed 27 February 2025\]|

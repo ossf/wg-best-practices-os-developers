@@ -20,7 +20,7 @@ Following table 00 provides a limited list of Unix shell commands to Python modu
 |:---|:---|:---|
 |Compress or decompress files|gzip, unzip|zlib, gzip, bz2, lzma|
 |Filesystem operations|`find .`<br>`tree`<br>`ls -1 *.txt`<br>`test -d`<br>`test -f`<br>`cp`|`Path.rglob("*.txt")`<br>`Path.glob("*.txt")`<br>`Path.is_dir()`<br>`Path.is_file()`<br>`shutil.copy()`|
-|Access control operations|`chown`<br>`chmod`|`shutil.chown()`<br>`shutil.chmod()`<br>`stat`|
+|Access control operations|`chown`<br>`chmod`|`shutil.chown()`<br>`os.chmod()`<br>`stat`|
 |Environment variables|`export`<br>`set`|`os.getenv()`<br>`os.setenv()`|
 |Get user/group id|id|`os.getuid()`<br>`os.setuid()`|
 |Get OS and/or kernel type and name|uname -as|`os.uname()`|
