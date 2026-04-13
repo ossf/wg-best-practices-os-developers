@@ -24,6 +24,7 @@ When compiling C or C++ code on compilers such as GCC and clang, turn on these f
 -Werror=format-security \
 -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 \
 -D_GLIBCXX_ASSERTIONS \
+-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_FAST \
 -fstrict-flex-arrays=3 \
 -fstack-clash-protection -fstack-protector-strong \
 -Wl,-z,nodlopen -Wl,-z,noexecstack \
@@ -223,7 +224,8 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | Compiler Flag                                                                                                   | Supported since                        | Description                                                                                                                                                                                                           |
 |:--------------------------------------------------------------------------------------------------------------- |:--------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [`-D_FORTIFY_SOURCE=3`](#-D_FORTIFY_SOURCE=3)                                                                   | GCC 12.0.0<br/>Clang 9.0.0[^Guelton20] | Fortify sources with compile- and run-time checks for unsafe libc usage and buffer overflows. Some fortification levels can impact performance. Requires `-O1` or higher, may require prepending `-U_FORTIFY_SOURCE`. |
-| [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)                                                               | libstdc++ 6.0.0                        | Precondition checks for C++ standard library calls. Can impact performance.                                                                                                                                           |
+| [`-D_GLIBCXX_ASSERTIONS`](#-D_GLIBCXX_ASSERTIONS)                                                               | libstdc++ 6.0.0                        | Precondition checks for GNU C++ standard library calls. Can impact performance.                                                                                                                                       |
+| [`-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_FAST`](#-D_LIBCPP_HARDENING_MODE_FAST)                        | libc++                                 | Precondition checks for LLVM/Clang C++ standard library calls. Can impact performance.                                                                                                                                |
 | [`-fstrict-flex-arrays=3`](#-fstrict-flex-arrays)                                                               | GCC 13.0.0<br/>Clang 16.0.0            | Consider a trailing array in a struct as a flexible array if declared as `[]`.                                                                                                                                        |
 | [`-fstack-clash-protection`](#-fstack-clash-protection)                                                         | GCC 8.0.0<br/>Clang 11.0.0             | Enable run-time checks for variable-size stack allocation validity. Can impact performance.                                                                                                                           |
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                                         | GCC 4.9.0<br/>Clang 6.0.0              | Enable run-time checks for stack-based buffer overflows. Can impact performance.                                                                                                                                      |
@@ -653,27 +655,53 @@ Additionally, `_FORTIFY_SOURCE` is currently incompatible with [AddressSanitizer
 
 ### Precondition checks for C++ standard library calls
 
-| Compiler Flag                                                   | Supported since | Description                                                                                  |
-| ----------------------------------------------------------------| ----------------| -------------------------------------------------------------------------------------------- |
-| <span id="-D_GLIBCXX_ASSERTIONS">`-D_GLIBCXX_ASSERTIONS`</span> | libstdc++ 6.0.0 | (C++ using libcstdc++ only) Precondition checks for libstdc++ calls; can impact performance. |
+| Compiler Flag                                                                                                    | Supported since | Description                                                                                                 |
+| -----------------------------------------------------------------------------------------------------------------| ----------------| ----------------------------------------------------------------------------------------------------------- |
+| <span id="-D_GLIBCXX_ASSERTIONS">`-D_GLIBCXX_ASSERTIONS`</span>                                                  | libstdc++ 6.0.0 | (C++ using libcstdc++ only) Precondition checks for GNU libstdc++ calls; can impact performance.            |
+| <span id="-D_GLIBCXX_DEBUG">`-D_GLIBCXX_DEBUG`</span>                                                            | libstdc++ 3.4.0 | (C++ using libcstdc++ only) Precondition checks for GNU libstdc++ calls; will impact performance.           |
+| <span id="-D_LIBCPP_HARDENING_MODE_FAST">`-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_FAST`</span>           | libc++ 18.1.0   | (C++ using libcc++ only) Fast precondition checks for LLVM/Clang libc++ calls; can impact performance.      |
+| <span id="-D_LIBCPP_HARDENING_MODE_EXTENSIVE">`-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE`</span> | libc++ 18.1.0   | (C++ using libcc++ only) Extensive precondition checks for LLVM/Clang libc++ calls; can impact performance. |
+| <span id="-D_LIBCPP_HARDENING_MODE_DEBUG">`-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_DEBUG`</span>         | libc++ 18.1.0   | (C++ using libcc++ only) Debug precondition checks for LLVM/Clang libc++ calls; will impact performance.    |
+| <span id="-D_LIBCPP_HARDENING_MODE_NONE">`-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_NONE`</span>           | libc++ 18.1.0   | (C++ using libcc++ only) Unchecked LLVM/Clang libc++ calls (the default).                                   |
 
 #### Synopsis
 
-The C++ standard library implementation in GCC (libstdc++) provides run-time precondition checks for C++ standard library calls, such as bounds-checks for C++ strings and containers, and null-pointer checks when dereferencing smart pointers.
+The C++ standard library implementation in GCC (libstdc++) and LLVM/Clang (libc++) provide run-time precondition checks for C++ standard library calls, such as bounds-checks for C++ strings and containers, and null-pointer checks when dereferencing smart pointers.
 
-These precondition checks can be enabled by defining the `-D_GLIBCXX_ASSERTIONS` macro when compiling C++ code that calls into libstdc++[^libsdcpp-macros].
+These precondition checks can be enabled by defining the `-D_GLIBCXX_ASSERTIONS` macro when compiling C++ code that calls into libstdc++[^libsdcpp-macros] or by defining the `-D_LIBCPP_HARDENING_MODE` to an appropriate value when C++ code that calls into libc++[^libcpp-hardening].
+
+The `-D_GLIBCXX_ASSERTIONS` or `-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_FAST` are recommended for most C++ applications in their production configuration. The `-D_GLIBCXX_DEBUG` for libcx++[^libsdcpp-debug-mode] and as well as `-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_DEBUG` for libc++ are recommended for C++ application in non-production test builds.
 
 #### Performance implications
 
-Most calls into the C++ standard library have preconditions. Some preconditions can be checked in constant-time, others are more expensive. The checks enabled by `-D_GLIBCXX_ASSERTIONS` are  intended to be lightweight[^Wakely15], i.e., constant-time checks but the exact behavior can differ between standard library versions. In some versions of libstdc++ the `-D_GLIBCXX_ASSERTIONS` macro can have a non-trivial impact on performance. Slowdowns of up to 6% have been reported[^Kraus21].
+Most calls into the C++ standard library have preconditions. Some preconditions can be checked in constant-time, others are more expensive. The checks enabled by `-D_GLIBCXX_ASSERTIONS` are intended to be lightweight[^Wakely15], i.e., constant-time checks but the exact behavior can differ between standard library versions. In some versions of libstdc++ the `-D_GLIBCXX_ASSERTIONS` macro can have a non-trivial impact on performance. Slowdowns of up to 6% have been reported[^Kraus21].
+
+The `-D_LIBCPP_HARDENING_MODE` macro provides more fine-grained control over individual precondition check categories in libc++. The available hardening modes are:
+
+- **Fast mode** (`_LIBCPP_HARDENING_MODE_FAST` ) contains security-critical checks with relatively little overhead, i.e. constant-time checks that are intended to be used in production.
+- **Extensive mode** (`_LIBCPP_HARDENING_MODE_EXTENSIVE`) contains all the checks fast mode and additional checks for undefined behavior that incur relatively little overhead but aren’t security-critical. Extensive mode impacts performance more than fast mode.
+- **Debug mode** (`_LIBCPP_HARDENING_MODE_DEBUG`) enables all checks, including heuristic checks that might have significant performance overhead as well as internal library assertions.
+- **Unchecked mode** (`_LIBCPP_HARDENING_MODE_NONE`) disables all hardening checks.
+
+The exact set of assertion categories enabled by each mode can be found in the libc++ documentation for the applicable libc++ version[^libcpp-categories].
 
 #### When not to use?
 
-`-D_GLIBCXX_ASSERTIONS` is recommended for C++ applications that may handle untrusted data, as well as for any C++ application during testing.
+The `-D_GLIBCXX_DEBUG` macro for libcx++ impacts application binary interface (ABI) by altering the size and behavior of standard class templates such as `std::vector`. Code compiled with `-D_GLIBCXX_DEBUG` mode and code compiled without it cannot be interlinked if instantiation of a debug mode container is passed between the two translation units. The `-D_GLIBCXX_ASSERTIONS` mnacro for libcx++ does not does not affect the ABI.
 
-This option is unnecessary for security for applications in production that only handle completely trusted data.
+The `-D_LIBCPP_HARDENING_MODE` macro for libc++ does not affect the ABI. Each mode uses the subset of checks available in the current ABI configuration which is determined by the platform. Additional checks in libc++ which impact the ABI can optionally be enabled when building libc++ itself[^libcpp-abi-options].
+
+Applications which are unable control the ABI used by the underlying C++ standard library should only use the preconditions check variants that do not affect the ABI.
 
 [^libsdcpp-macros]: GCC team, [Using Macros in the GNU C++ Library](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_macros.html), The GNU C++ Library Manual, 2023-07-27.
+
+[^libsdcpp-debug-mode]: GCC team, [Debug Mode](https://gcc.gnu.org/onlinedocs/libstdc++/manual/debug_mode.html), The GNU C++ Library Manual, 2025-08-08.
+
+[^libcpp-hardening]: LLVM team, [Hardening Modes](https://libcxx.llvm.org/Hardening.html), libc++ documentation, 2026-02-24.
+
+[^libcpp-categories]: LLVM team, [Hardening Modes: Assertion categories](https://libcxx.llvm.org/Hardening.html#assertion-categories), libc++ documentation, 2026-02-24.
+
+[^libcpp-abi-options]: LLVM team, [Hardening Modes: ABI options](https://libcxx.llvm.org/Hardening.html#abi-options), libc++ documentation, 2026-02-24.
 
 [^Wakely15]: Wakely, Jonathan, [Enable lightweight checks with _GLIBCXX_ASSERTIONS](https://patchwork.ozlabs.org/project/gcc/patch/20150907182755.GP2631@redhat.com/), GCC Mailing List, 2015-09-07
 
