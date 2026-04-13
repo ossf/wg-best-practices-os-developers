@@ -125,7 +125,7 @@ Exception: Unable to retrieve file C:\Users\user1\Documents
 
 To avoid leaking the filepath, this non-compliant code example throws a `BaseException` exception that does not wrap the `PermissionError` exception:
 
-*[noncompliant02.py](noncompliant02.py):*
+*[noncompliant03.py](noncompliant03.py):*
 
 ```python
 # SPDX-FileCopyrightText: OpenSSF project contributors
