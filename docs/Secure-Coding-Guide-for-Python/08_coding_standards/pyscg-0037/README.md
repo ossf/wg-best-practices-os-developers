@@ -1,8 +1,21 @@
-# pyscg-0037: Avoid Assertions In Production
+# pyscg-0037: Presume Assertions May Be Disabled In Production
 
-Assertions are a useful developer tool, but they cannot be relied upon to be present in a production environment. Incorrect function arguments should be handled by an appropriate exception.
+Assertions are a useful developer tool, but they cannot be relied upon to be applied in a production environment.
+Only use `assert` for internal invariants and debug-only checks that are *not required for correct or safe execution*.
 
-Python removes assertions when a script is run with the `-O`  and `-OO` options [[Python 3.9 Documentation](https://docs.python.org/3.9/using/cmdline.html?highlight=pythonoptimize#cmdoption-o)]. The `-O` options is for optimisation. It removes asserts statements from bytecode, removes docstrings from functions/classes and sets `__debug__` to False. It is used for slightly faster execution and smaller bytecode files. `-OO` does everything that `-O`does but it additionally removes module-level docstrings and creates an even more compact bytecode.
+__Do not use `assert` for:__
+
+* Security checks (including input validation)
+* Enforcing runtime conditions whose removal would affect correctness or security
+* Error handling
+
+__Reason:__
+
+Python’s optimization options (`-O` and `-OO`) remove `assert` statements from the bytecode and set `__debug__` to `False`  [[Python 3.9 Documentation](https://docs.python.org/3.9/using/cmdline.html?highlight=pythonoptimize#cmdoption-o)]. This means any logic implemented using `assert` may not execute in optimized runs.
+
+As a result, using `assert` incorrectly (that is, for security or correctness-critical checks) can introduce vulnerabilities or other undesired behavior when optimization is enabled.
+
+Instead, raise appropriate exceptions to ensure the checks are always enforced regardless of interpreter settings.
 
 ## Non-Compliant Code Example
 
