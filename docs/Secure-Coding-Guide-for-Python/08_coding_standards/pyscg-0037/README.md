@@ -1,6 +1,6 @@
 # pyscg-0037: Presume Assertions May Be Disabled In Production
 
-Assertions are a useful developer tool, but they cannot be relied upon to be applied in a production environment. 
+Assertions are a useful developer tool, but they cannot be relied upon to be applied in a production environment.
 Only use `assert` for internal invariants and debug-only checks that are *not required for correct or safe execution*.
 
 __Do not use `assert` for:__
