@@ -4,6 +4,7 @@ Assertions are a useful developer tool, but they cannot be relied upon to be app
 Only use `assert` for internal invariants and debug-only checks that are *not required for correct or safe execution*.
 
 __Do not use `assert` for:__
+
 * Security checks (including input validation)
 * Enforcing runtime conditions whose removal would affect correctness or security
 * Error handling
