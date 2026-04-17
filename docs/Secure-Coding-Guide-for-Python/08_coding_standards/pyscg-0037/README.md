@@ -12,7 +12,7 @@ __Reason:__
 
 Python’s optimization options (`-O` and `-OO`) remove `assert` statements from the bytecode and set `__debug__` to `False`  [[Python 3.9 Documentation](https://docs.python.org/3.9/using/cmdline.html?highlight=pythonoptimize#cmdoption-o)]. This means any logic implemented using `assert` may not execute in optimized runs.
 
-As a result, using `assert` for security or correctness-critical checks can introduce vulnerabilities or undefined behavior regardless if optimization is enabled. Its neither recommended to depend on `-O` or `-OO` as a "switch" to make assertions unreachable. 
+As a result, using `assert` incorrectly (that is, for security or correctness-critical checks) can introduce vulnerabilities or other undesired behavior when optimization is enabled.
 
 Instead, raise appropriate exceptions to ensure the checks are always enforced regardless of interpreter settings.
 
