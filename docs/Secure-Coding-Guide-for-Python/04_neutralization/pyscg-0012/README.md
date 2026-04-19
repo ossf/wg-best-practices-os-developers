@@ -321,11 +321,11 @@ The `compliant01.py` code will extract everything below the provided `base_path`
     </tr>
     <tr>
         <td>Secure Coding in Python</td>
-        <td>Base: <a href="../../02_encoding_and_strings/pyscg-0044/README.md">pyscg-0044: Canonicalize Input Before Validating</a></td>
+        <td>Base: <a href="../../02_encoding_and_strings/pyscg-0044/">pyscg-0044: Canonicalize Input Before Validating</a></td>
     </tr>
     <tr>
         <td>Secure Coding in Python</td>
-        <td>Base: <a href="../../06_logging/pyscg-0050/README.md">pyscg-0050: Sanitize Error Output to Prevent Information Disclosure</a></td>
+        <td>Base: <a href="../../06_logging/pyscg-0050/">pyscg-0050: Sanitize Error Output to Prevent Information Disclosure</a></td>
     </tr>
     <tr>
         <td><a href="https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java">[SEI CERT Oracle Coding Standard for Java]</a></td>
