@@ -107,7 +107,6 @@ if "posix" in os.name:
 
 ```
 
-
 ## Non-Compliant Code Example (Read, Write)
 
 The attack surface increases if a user is also allowed to upload or create files or folders.
