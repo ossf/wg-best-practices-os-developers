@@ -71,15 +71,52 @@ if "posix" in os.name:
 The code in `noncompliant01.py` prints the first line of `/etc/passwd` on Linux or starts `net user` under Windows.
 The `FileOperations().list_dir()` method allows an attacker to add commands via `;` in Linux and `&` in Windows.
 
+## Compliant Solution (pathlib)
+
+The `compliant01.py` code uses the cross-platform compatible `pathlib` module and checking if the `dirname` provided by the user is an actual directory. The `pathlib` on its own will not prevent all attacks.
+
+*[compliant01.py](compliant01.py):*
+
+```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+""" Compliant Code Example """
+import os
+from pathlib import Path
+
+class FileOperations:
+    """Helper class for file system operations"""
+
+    def list_dir(self, dirname: str):
+        """List the contents of a directory"""
+        path = Path(dirname)
+        # TODO: input sanitation
+        # TODO: Add secure logging
+        if path.is_dir():
+            for item in path.iterdir():
+                print(item)
+
+
+#####################
+# Trying to exploit above code example
+#####################
+if "nt" in os.name:
+    FileOperations().list_dir("temp")
+if "posix" in os.name:
+    FileOperations().list_dir("/etc/shadow; head -1 /etc/passwd")
+
+```
+
+
 ## Non-Compliant Code Example (Read, Write)
 
 The attack surface increases if a user is also allowed to upload or create files or folders.
 
-The `noncompliant02.py` example demonstrates the injection via file or folder name that is created prior to using the `list_dir()` method. We assume here that an untrusted user is allowed to create files or folders named `& calc.exe or ;ps aux` as part of another service such as upload area, submit form, or as a result of a zip-bomb as per *[pyscg-0012: Extract Archives Safely)](../pyscg-0012/README.md)*. Encoding issues as described in *[pyscg-0044: Canonicalize Input Before Validating](../../02_encoding_and_strings/pyscg-0044/README.md)* must also be considered.
+The `noncompliant02.py` example demonstrates the injection via file or folder name that is created prior to using the `list_dir()` method. We assume here that an untrusted user managed to create files or folders, whose names contain shell or batch commands, using another compromised service, such as an upload area, submit form, or via a zip-bomb as described in *[pyscg-0012: Extract Archives Safely](../pyscg-0012/README.md)*. Encoding issues as per *[pyscg-0044: Canonicalize Input Before Validating](../../02_encoding_and_strings/pyscg-0044/README.md)* must also be considered. Those names could contain direct commands, such as `& calc.exe` or `;ps aux`, or they could point to script files containing those commands.
 
 The issue occurs when mixing shell commands with data from a lesser trusted source.
 
-Some shell commands, such as `find` with `-exec`, allow running secondary commands via arguments [[CTFOBins]](https://gtfobins.github.io/) [[LOLBAS]](https://lolbas-project.github.io/) that can be misused for shell injections if no shell is provided `shell=False`. The `shlex.split()` method is frequently used to split a string into a list for `subprocess.run()` in order to run a non-interactive shell such as `ls -la`  into `["ls", "-la"]` and plays a minor role in simplifying the attack. The `noncompliant02.py` code only works on Linux, in this example calling a rather harmless uptime.
+Some shell commands, such as `find` with `-exec`, allow running secondary commands via arguments [[CTFOBins]](https://gtfobins.github.io/) [[LOLBAS]](https://lolbas-project.github.io/) that can be misused for shell injections if no shell is provided `shell=False`. The `shlex.split()` method is frequently used to split a string into a list for `subprocess.run()` in order to run a non-interactive shell such as `ls -la`  into `["ls", "-la"]` and plays a minor role in simplifying the attack. The `noncompliant02.py` code works on Linux, in this example calling a rather harmless uptime, and on Windows it opens the calculator application.
 
 *[noncompliant02.py](noncompliant02.py):*
 
@@ -91,18 +128,30 @@ import os
 import shlex
 from subprocess import run
 
+IS_WINDOWS = "nt" in os.name
+IS_LINUX = "posix" in os.name
 
 def list_dir(dirname: str):
     """Lists only 2 levels of folders in a default directory"""
     os.chdir(dirname)
-    cmd = "find . -maxdepth 1 -type d"
-    result = run(shlex.split(cmd), check=True, capture_output=True)
+    if IS_WINDOWS:
+        cmd = "cmd /c dir {dir} /ad /b"
+    elif IS_LINUX:
+        cmd = "find . -maxdepth 1 -type d"
+    else:
+        raise NotImplementedError("Detected OS is not supported")
+
+    print(shlex.split(cmd.format(dir=".")))
+    result = run(shlex.split(cmd.format(dir=".")), check=True, capture_output=True)
+    if IS_WINDOWS:
+        for item in result.stdout.decode("utf-8").splitlines():
+            print(item)
 
     for subfolder in result.stdout.decode("utf-8").splitlines():
-        cmd = "find " + subfolder + " -maxdepth 1 -type d"
-        subresult = run(shlex.split(cmd), check=True, capture_output=True)
+        subresult = run(shlex.split(cmd.format(dir=subfolder)), check=True, capture_output=True)
         for item in subresult.stdout.decode("utf-8").splitlines():
-            print(item)
+            if IS_WINDOWS:
+                print(f"{subfolder}\\{item}" if IS_WINDOWS else item)
 
 
 #####################
@@ -113,7 +162,11 @@ os.makedirs("temp", exist_ok=True)
 
 # simulating upload area (payload):
 print("Testing Corrupted Directory")
-if "posix" in os.name:
+if IS_WINDOWS:
+    with open("temp/toast.bat", "w", encoding="utf-8") as file_handle:
+        file_handle.write("start calc.exe")
+    os.makedirs("temp\\temp & toast.bat", exist_ok=True)
+if IS_LINUX:
     with open("temp/toast.sh", "w", encoding="utf-8") as file_handle:
         file_handle.write("uptime\n")
     os.makedirs("temp/. -exec bash toast.sh {} +", exist_ok=True)
@@ -123,15 +176,17 @@ list_dir("temp")
 
 ```
 
-In `noncompliant02.py` the attacker creates a `toast.sh` file that contains the commands to run. The attacker also creates a folder named `. -exec bash toast.sh {} +` that will later become part of the shell `find` command forming `find . -exec bash toast.sh {} +`.
+When run on Linux, `noncompliant02.py` creates a `toast.sh` file that contains the commands to run. The attacker also creates a folder named `. -exec bash toast.sh {} +` that will later become part of the shell `find` command forming `find . -exec bash toast.sh {} +`.
 
-The result is that `list_dir(dirname)` will run the `toast.sh` as a shell script. The `toast.sh` file does not require execute rights and can contain any quantity of shell command complexity.
+The attack is similar on Windows, where `noncompliant02.py` instead creates a `toast.bat` file and a directory named `temp & toast.bat`, which is injected into the `dir` command run by the `list_dir()` method.
 
-## Compliant Solution
+The result is that `list_dir(dirname)` will run the OS-specific script file without the attacker needing execute rights. Such a file can contain harmful scripts of unlimited length and complexity.
 
-The `compliant01.py` code uses the cross-platform compatible `pathlib` module and restricting filesystem area. The `pathlib` on its own will not prevent all attacks.
+## Compliant Solution (using pathlib recursively)
 
-*[compliant01.py](compliant01.py):*
+The `compliant02.py` also uses `pathlib`, additionally restricting the filesystem area. Again, `pathlib` on its will not sanitize the input or provide a secure logging system.
+
+*[compliant02.py](compliant02.py):*
 
 ```python
 # SPDX-FileCopyrightText: OpenSSF project contributors
@@ -140,6 +195,8 @@ The `compliant01.py` code uses the cross-platform compatible `pathlib` module an
 import os
 from pathlib import Path
 
+IS_WINDOWS = "nt" in os.name
+IS_LINUX = "posix" in os.name
 
 def list_dir(dirname: str):
     """List the contents of a directory recursively
@@ -156,7 +213,7 @@ def list_dir(dirname: str):
         .resolve()
         .relative_to(allowed_directory.resolve())
     ):
-        for item in path.glob("*"):
+        for item in path.rglob("*"):
             print(item)
 
 
@@ -168,7 +225,11 @@ os.makedirs("temp", exist_ok=True)
 
 # simulating upload area (payload):
 print("Testing Corrupted Directory")
-if "posix" in os.name:
+if IS_WINDOWS:
+    with open("temp/toast.bat", "w", encoding="utf-8") as file_handle:
+        file_handle.write("start calc.exe")
+    os.makedirs("temp\\temp & toast.bat ", exist_ok=True)
+if IS_LINUX:
     with open("temp/toast.sh", "w", encoding="utf-8") as file_handle:
         file_handle.write("uptime\n")
     os.makedirs("temp/. -exec bash toast.sh {} +", exist_ok=True)
@@ -178,7 +239,7 @@ list_dir("temp")
 
 ```
 
-The `compliant01.py` does not use data that originates from a lesser trusted source in order to form a shell command and would throw an error for an attempt to list content outside of the allowed area. The code is actually not "neutralizing" data itself from an untrusted source as such, the attack is "neutralized" by no longer using `subprocess` or `os` to run `find`.
+The `compliant02.py` does not use data that originates from a lesser trusted source in order to form a shell command and would throw an error for an attempt to list content outside of the allowed area. The code is actually not "neutralizing" data itself from an untrusted source as such, the attack is "neutralized" by no longer using `subprocess` or `os` to run `find`.
 
 ## Automated Detection
 

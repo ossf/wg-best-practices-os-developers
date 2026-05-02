@@ -4,6 +4,8 @@
 import os
 from pathlib import Path
 
+IS_WINDOWS = "nt" in os.name
+IS_LINUX = "posix" in os.name
 
 def list_dir(dirname: str):
     """List the contents of a directory recursively
@@ -20,7 +22,7 @@ def list_dir(dirname: str):
         .resolve()
         .relative_to(allowed_directory.resolve())
     ):
-        for item in path.glob("*"):
+        for item in path.rglob("*"):
             print(item)
 
 
@@ -32,7 +34,11 @@ os.makedirs("temp", exist_ok=True)
 
 # simulating upload area (payload):
 print("Testing Corrupted Directory")
-if "posix" in os.name:
+if IS_WINDOWS:
+    with open("temp/toast.bat", "w", encoding="utf-8") as file_handle:
+        file_handle.write("start calc.exe")
+    os.makedirs("temp\\temp & toast.bat ", exist_ok=True)
+if IS_LINUX:
     with open("temp/toast.sh", "w", encoding="utf-8") as file_handle:
         file_handle.write("uptime\n")
     os.makedirs("temp/. -exec bash toast.sh {} +", exist_ok=True)
