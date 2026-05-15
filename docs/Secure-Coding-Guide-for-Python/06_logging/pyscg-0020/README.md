@@ -90,6 +90,12 @@ Running `noncompliant02.py` produces no output. Three failed login attempts are 
 
 The `compliant02.py` solution configures a `logging.Formatter` with timestamp, severity, and a structured event message. Both successful and failed authentication attempts are logged with the event type and username, without exposing sensitive data such as the password. Successful logins are logged at `INFO` level and failures at `WARNING` level.
 
+RFC 5424 defines the standard transport protocol for system logs using plain-text. This guide instead recommends structured JSON payloads to ensure logs are machine-readable and suitable for automated security analysis, as supported by:
+
+* [OWASP Logging Vocabulary](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Vocabulary_Cheat_Sheet.html)
+* [Python.org Logging Cookbook](https://docs.python.org/3/howto/logging-cookbook.html)
+* [Google Structured Logging](https://docs.cloud.google.com/logging/docs/structured-logging)
+
 Logging successful logins is essential because a success following repeated failures indicates a compromised account, and success logs establish a baseline of normal activity needed to detect anomalies.
 
 *[compliant02.py](compliant02.py):*
@@ -150,3 +156,6 @@ Each attempt is now visible, enabling operators to detect brute-force patterns, 
 |MITRE CWE Base|[CWE-778: Insufficient Logging](https://cwe.mitre.org/data/definitions/778.html)|
 |[SEI CERT](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[ERR02-J. Prevent exceptions while logging data](https://wiki.sei.cmu.edu/confluence/display/java/ERR02-J.+Prevent+exceptions+while+logging+data)|
 |[OWASP Top 10](https://owasp.org/Top10/)|[A09:2021 – Security Logging and Monitoring Failures](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/)|
+|[OWASP Logging Vocabulary](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Vocabulary_Cheat_Sheet.html)|Structured logging vocabulary for consistent, machine-readable security logs|
+|[Python.org Logging Cookbook](https://docs.python.org/3/howto/logging-cookbook.html)|Practical Python logging patterns and best practices|
+|[Google Structured Logging](https://docs.cloud.google.com/logging/docs/structured-logging)|Guide for writing structured JSON logs for automated analysis|
