@@ -8,7 +8,7 @@ Using `shell=False` is recommended but is not going to prevent all attacks.
 
 Examples of reduced functionality with `shell=False`:
 
-* Asterisks `ls -1 *.txt` get surrounded by single quotes `ls -1 '*.txt'` so that some Unix commands to no longer work.
+* Asterisks `ls -1 *.txt` get surrounded by single quotes `ls -1 '*.txt'` so that some Unix commands no longer work.
 * Piping commands  `ls -1 |grep *.txt` is prohibited.
 * Escape sequences can be difficult to manage
 
