@@ -238,7 +238,7 @@ list_dir("temp")
 
 ```
 
-The `compliant02.py` does not use data that originates from a lesser trusted source in order to form a shell command and would throw an error for an attempt to list content outside of the allowed area. The code is actually not "neutralizing" data itself from an untrusted source as such, the attack is "neutralized" by no longer using `subprocess` or `os` to run `find`.
+The `compliant02.py` does not use data that originates from a lesser trusted source in order to form a shell command. It will throw an error for an attempt to list content outside of the allowed area. The code is actually not "neutralizing" data itself from an untrusted source as such, the attack is "neutralized" by no longer using `subprocess` or `os` to run `find`.
 
 ## Automated Detection
 
