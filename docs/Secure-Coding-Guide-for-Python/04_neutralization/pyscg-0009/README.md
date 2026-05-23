@@ -183,7 +183,7 @@ The result is that `list_dir(dirname)` will run the OS-specific script file with
 
 ## Compliant Solution (using pathlib recursively)
 
-The `compliant02.py` also uses `pathlib`, additionally restricting the filesystem area. Again, `pathlib` on its will not sanitize the input or provide a secure logging system.
+The `compliant02.py` also uses `pathlib`, additionally restricting the filesystem area. Again, `pathlib` on its own will not sanitize the input or provide a secure logging system.
 
 *[compliant02.py](compliant02.py):*
 
