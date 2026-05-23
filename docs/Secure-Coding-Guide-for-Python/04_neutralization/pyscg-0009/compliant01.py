@@ -21,6 +21,6 @@ class FileOperations:
 # Trying to exploit above code example
 #####################
 if "nt" in os.name:
-    FileOperations().list_dir("temp")
+    FileOperations().list_dir("%HOMEPATH% & net user")
 if "posix" in os.name:
     FileOperations().list_dir("/etc/shadow; head -1 /etc/passwd")
