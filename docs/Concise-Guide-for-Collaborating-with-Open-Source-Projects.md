@@ -52,7 +52,7 @@ Project maintainers don’t have to do anything at all because of the CRA, if th
 
 ### End participation
 
-* **Wrapping up after the contribution landed:** If the contribution is of limited scope and there is no intention for a longer-term engagement with the project, clearly wrap up once the contribution has landed: regonize the support of the maintainers and close remaining open issues, such as bug reports or feature requests.
+* **Wrapping up after the contribution landed:** If the contribution is of limited scope and there is no intention for a longer-term engagement with the project, clearly wrap up once the contribution has landed. Recognize the support of the maintainers and close remaining open issues such as bug reports or feature requests.
 * **End long-term participation gracefully by communicating early and wrapping up:**  In case of ending a longer-term engagement, for instance due to a change in internal priorities, inform the maintainers immediately rather than simply abandoning open pull requests or discussions ("ghosting"). Make an effort to either finalize outstanding work or clearly document the state of your contribution, ensuring you do not leave the community with the burden of deciphering or maintaining unfinished code.
 
 ## Navigating common pitfalls
