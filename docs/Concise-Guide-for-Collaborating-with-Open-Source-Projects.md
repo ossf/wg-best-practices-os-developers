@@ -87,7 +87,7 @@ It is essential to recognize that maintainers have the final say over the direct
 
 When a contribution is rejected, contributors should consider the following approaches rather than escalating pressure on the maintainers:
 
-* Engage constructively with the maintainer's feedback to understand the reasons for the rejection and explore whether an alternative approach could address both the project's concerns and your requirements.
+* Engage constructively with the maintainer's feedback to understand the reasons for the rejection and explore whether an alternative approach could address both the project's concerns and your requirements. For example, if it adds new functionality but only deals with the special cases your application needs, discuss what it would take to fully address the new functionality.
 * Accept the responsibility of maintaining a public fork that incorporates your changes. A fork is a legitimate and well-established mechanism in open source for pursuing a different direction without imposing on the original project.
 * Re-evaluate whether the specific open source component is still the best fit for your product, considering the divergence in priorities between your organization's needs and the project's direction.
 
