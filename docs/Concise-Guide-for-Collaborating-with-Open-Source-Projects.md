@@ -74,6 +74,7 @@ The decision to create a release remains solely at the discretion of the project
 
 * Support the project maintainers in preparing the next scheduled release, for instance by running test suites and verifying release candidates.
 * Contribute improvements to the project's test coverage, thereby helping to increase the maintainers' confidence in releasing more frequently.
+* Temporarily use a specific commit instead of a release as a dependency. Many package managers permit identifying and retrieving a specific commit instead of a formal release, specifically to deal with this situation. This avoids the problems of creating a fork. One risk is that any later security patches will not be incorporated, so monitor such situations and switch to a later commit or release when available.
 * Accept the responsibility of maintaining a temporary public fork, or a corresponding branch within the project's repository, until the fix is included in an official release.
 
 ### Disagreements about the direction of a project
