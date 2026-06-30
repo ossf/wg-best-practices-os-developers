@@ -67,12 +67,12 @@ Short explanation of expected outcome of running the code example, e.g. "The cod
 ## Automated Detection
 
 <table>
-    <hr>
+    <tr>
         <td>Tool</td>
         <td>Version</td>
         <td>Checker</td>
         <td>Description</td>
-    </hr>
+    </tr>
     <tr>
         <td>Bandit</td>
         <td>1.7.4 on Python 3.10.4</td>

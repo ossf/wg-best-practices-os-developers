@@ -18,6 +18,82 @@ Anti-patterns:
 
 Not knowing that a product must be deployed differently in production than in staging can leave well known entry points wide open. [[Hammond 2022](https://www.youtube.com/watch?v=jwBRgaIRdgs)]. Well written test-driven design can avoid the need to have such excessive troubleshooting design tooling as seen in Flask.
 
+## Non-Compliant Code Example (Monkey Patching)
+
+In `noncompliant01.py`, a monkey patch replaces the `process_payment` method at module level with a debug version that prints sensitive internal state to stdout and logs verbose object details. This type of patch is often introduced during development for troubleshooting and should not be left in the production deployment. This exposes internal data and increasing the attack surface.
+
+*[noncompliant01.py](noncompliant01.py):*
+
+```py
+""" Non-compliant Code Example """
+
+import logging
+
+
+class PaymentProcessor:
+    """Class to process payments"""
+
+    def process_payment(self, amount):
+        """Process a payment transaction"""
+        logging.info("Processing payment of %s", amount)
+        # Payment processing logic
+        return True
+
+
+def patched_process_payment(self, amount):
+    """Monkey-patched method that logs sensitive details for debugging"""
+    print(f"DEBUG: Payment amount: {amount}, processor state: {self.__dict__}")
+    logging.debug("Full payment details: %s", self.__dict__)
+    return True
+
+
+# Monkey patching left in production code
+PaymentProcessor.process_payment = patched_process_payment
+
+
+#####################
+# exploiting above code example
+#####################
+
+processor = PaymentProcessor()
+processor.process_payment(99.99)
+```
+
+## Compliant Solution (Monkey Patching)
+
+The `compliant01.py` solution keeps the class method intact and uses Python's `logging` module, and never "print", with an appropriate log level to control verbosity.
+
+*[compliant01.py](compliant01.py):*
+
+```py
+""" Compliant Code Example """
+
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+class PaymentProcessor:
+    """Class to process payments"""
+
+    def process_payment(self, amount):
+        """Process a payment transaction"""
+        logger.info("Processing payment of %s", amount)
+        # Payment processing logic
+        return True
+
+
+#####################
+# exploiting above code example
+#####################
+
+processor = PaymentProcessor()
+processor.process_payment(99.99)
+```
+
+In `compliant01.py`, the code behaviour matches the source, logging is controlled through configuration rather than code modification, and no sensitive internal state is exposed.
+
 ## Automated Detection
 
 |Tool|Version|Checker|Description|
@@ -40,6 +116,7 @@ Not knowing that a product must be deployed differently in production than in st
 |[MITRE CWE](http://cwe.mitre.org/)|Base: [CWE-489: Active Debug Code (4.13) (mitre.org)](https://cwe.mitre.org/data/definitions/489.html)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[ENV05-J. Do not deploy an application that can be remotely monitored](https://wiki.sei.cmu.edu/confluence/display/java/ENV05-J.+Do+not+deploy+an+application+that+can+be+remotely+monitored)|
 |[Python - Secure Coding One Stop Shop](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python/)|[pyscg-0019: Exclude Sensitive Data From Logs](../pyscg-0019/README.md)|
+|[Python - Secure Coding One Stop Shop](https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Secure-Coding-Guide-for-Python/)|[pyscg-0037: Presume Assertions May Be Disabled In Production](../../08_coding_standards/pyscg-0037/README.md)|
 
 ## Bibliography
 

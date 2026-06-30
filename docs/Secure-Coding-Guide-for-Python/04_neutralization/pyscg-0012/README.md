@@ -286,12 +286,12 @@ The `compliant01.py` code will extract everything below the provided `base_path`
 ## Automated Detection
 
 <table>
-    <hr>
+    <tr>
         <td>Tool</td>
         <td>Version</td>
         <td>Checker</td>
         <td>Description</td>
-    </hr>
+    </tr>
     <tr>
         <td>SonarQube</td>
         <td>6.7</td>

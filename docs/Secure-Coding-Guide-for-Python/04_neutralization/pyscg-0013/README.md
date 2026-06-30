@@ -115,7 +115,7 @@ Currently None.
 | MITRE | Pillar: [CWE-664: Improper Control of a Resource Through its Lifetime](https://cwe.mitre.org/data/definitions/664.html)<br>Base: [CWE-426: Untrusted Search Path](https://cwe.mitre.org/data/definitions/426.html)|
 |[OWASP 2005](https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-OWASP05)|[A Guide to Building Secure Web Applications and Web Services](http://sourceforge.net/projects/owasp/files/Guide/2.0.1/OWASPGuide2.0.1.pdf/download) |
 
-## Biblography
+## Bibliography
 
 |||
 |:---|:---|

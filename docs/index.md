@@ -18,6 +18,7 @@ This is a list of materials (documents, services, and so on) released by the
 * [Cyber Resilience Act (CRA) Brief Guide for Open Source Software (OSS) Developers](https://best.openssf.org/CRA-Brief-Guide-for-OSS-Developers)
 * [Security Focused Guide for AI Code Assistant Instructions](https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions)
 * [Secure Web Application Guidelines](https://w3c-cg.github.io/swag/docs/swag.html) - currently in draft, developed in the W3C Secure Web Application Guidelines (SWAG) Community Group, in partnership with OpenSSF Best Practices working group.
+* [Secure Coding One Stop Shop for Python](https://best.openssf.org/Secure-Coding-Guide-for-Python/)
 
 Note: You can also see the larger list of
 [Guides released by the OpenSSF](https://openssf.org/resources/guides/).
@@ -48,10 +49,6 @@ The OpenSSF Best Practices WG is working on many more materials, such as
 more educational materials through our education special interest group (SIG),
 compiler hardening guides,
 guidance about memory safety through our memory safety SIG, and so on.
-
-Examples of ongoing work include:
-
-* [Secure Coding One Stop Shop for Python](Secure-Coding-Guide-for-Python/readme.md)
 
 ## Collaborations
 

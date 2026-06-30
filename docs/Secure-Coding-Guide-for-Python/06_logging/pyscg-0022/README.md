@@ -154,12 +154,11 @@ WARNING:root:Rejected login attempt: invalid username="guest'\nWARNING:root:User
     </tr>
     <tr>
         <td><a href="https://owasp.org/">OWASP ASVS 4.0</a></td>
-        <td><a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP Application Security Verification Standard (ASVS) </a>. See "V16 Security Logging and Error Handling".
-</td>
+   <td><a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP Application Security Verification Standard (ASVS) </a>. See "V16 Security Logging and Error Handling".</td>
+    </tr>
     <tr>
         <td><a href="https://cheatsheetseries.owasp.org/index.html">OWASP Cheat Sheet Series</a></td>
         <td><a href="https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html">OWASP Logging Cheat Sheet</a></td>
-    </tr>
     </tr>
     <tr>
         <td>ISO/IEC TR 24772:2013</td>
@@ -175,15 +174,15 @@ WARNING:root:Rejected login attempt: invalid username="guest'\nWARNING:root:User
 
 <table>
     <tr>
-        <td>[CWE-117]</a></td>
+        <td>[CWE-117]</td>
         <td>CWE-117: Improper Output Neutralization for Log [online]. Available from <a href="https://cwe.mitre.org/data/definitions/117.html">https://cwe.mitre.org/data/definitions/117.html</a>, [Accessed 24 September 2025]</td>
     </tr>
     <tr>
-        <td>[CWE-93]</a></td>
+        <td>[CWE-93]</td>
         <td>CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection') [online]. Available from: <a href="https://cwe.mitre.org/data/definitions/93.html">https://cwe.mitre.org/data/definitions/93.html</a>, [Accessed 24 September 2025]</td>
     </tr>
     <tr>
-        <td>[CWE-113]</a></td>
+        <td>[CWE-113]</td>
         <td>CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Request/Response Splitting')<a href="https://cwe.mitre.org/data/definitions/113.html">https://cwe.mitre.org/data/definitions/113.html</a>, [Accessed 24 September 2025]</td>
     </tr>
     <tr>
