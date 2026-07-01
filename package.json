@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/ossf/wg-best-practices-os-developers#readme",
   "devDependencies": {
-    "markdownlint-cli": "^0.32.2",
+    "markdownlint-cli": "^0.49.0",
     "prettier": "^2.7.1"
   }
 }
