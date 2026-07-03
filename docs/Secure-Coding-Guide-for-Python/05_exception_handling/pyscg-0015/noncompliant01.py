@@ -9,7 +9,7 @@ import uuid
 def read_file(file):
     """Function for opening a file and reading it's content."""
     fd = os.open(file, os.O_RDONLY)
-    content = os.read(fd)
+    content = os.read(fd, 1024)
     return content.decode()
 
 
