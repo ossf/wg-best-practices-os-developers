@@ -51,95 +51,72 @@ If a method changes an object’s state (has side effects) and is called multipl
 
 ## Non-Compliant Code Example
 
-`noncompliant01.py` is expected to provide labels for numbers, but it unnecessarily obfuscates the evaluation and logic.
+`noncompliant01.py` demonstrates an operator precedence logic error that can lead to a buffer overflow vulnerability. This code example is based on a real vulnerability ([CVE-2026-7270](https://nvd.nist.gov/vuln/detail/CVE-2026-7270)) that occurred in 'FreeBSD's' execve argument handling. The code fails to use parentheses to clarify the intended order of operations, causing the bounds check to pass when it should fail.
 
 _[noncompliant01.py](noncompliant01.py):_
 
 ```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """Non-Compliant Code Example"""
 
+ARG_MAX_BYTES = 16  # small buffer
+argbuf = bytearray(ARG_MAX_BYTES)
 
-def label(number: int) -> list[str]:
-    key = int(number < 5)  # (1) small
-    key |= ((number & 1) ^ 1) << 1  # (2) for even, 0 for odd
-    key |= (number < 0) << 2  # (4) negative
-    key |= (number > 0) << 3  # (8) positive
+USED = 10                       # 10 bytes already used
+ARG = b"AAAAAAAA"               # attacker-controlled, needs 8 + 1 = 9 bytes
+LENGTH = len(ARG) + 1           # 9 (include NUL terminator)
 
-    parts = (
-        "big",  # 0
-        "small",  # 1
-        "even small",  # 2
-        "even small",  # 3
-        "neg",  # 4
-        "neg small",  # 5
-        "neg even small",  # 6
-        "neg even small",  # 7
-        "big",  # 8
-        "big even",  # 9
-        "neg big",  # 10
-        "neg big even",  # 11
-        "big",  # 12
-        "big even",  # 13
-        "neg big",  # 14
-        "neg big even",  # 15
-    )
+REMAINING = ARG_MAX_BYTES - USED + LENGTH  # Wrong: 15, expected -3
 
-    permuted = tuple(parts[(i * 5) & 7] for i in range(8))
+if LENGTH > REMAINING:
+    print("Rejected: not enough space")
+else:
+    print(f"Bounds check passed: remaining={REMAINING}")
 
-    idx = (key * 5) & 7
-    return permuted[idx].split(" ")
-
-
-for number in range(-6, 6):
-    print(f"{number} = {label(number)}")
 ```
 
 _Example output of `noncompliant01.py`:_
 
 ```bash
--6 = ['neg', 'even', 'small']
--5 = ['neg', 'small']
--4 = ['neg', 'even', 'small']
--3 = ['neg', 'small']
--2 = ['neg', 'even', 'small']
--1 = ['neg', 'small']
-0 = ['even', 'small']
-1 = ['small']
-2 = ['even', 'small']
-3 = ['small']
-4 = ['even', 'small']
-5 = ['big']
+Bounds check passed: remaining=15
 ```
 
-The `noncompliant01.py` does respond with the correct output. Extending the `noncompliant01.py` to also a label `postive` or `zero` numbers would be challenging.
+The bounds check incorrectly passes because the expression evaluates left-to-right as `(16 - 10) + 9 = 15` instead of the intended `16 - (10 + 9) = -3`. This allows the attacker-controlled data to overflow the buffer.
 
 ## Compliant Solution
 
-This compliant solution, uses equivalent logic and performs at most one write operation per expression, which makes the code easier to understand and maintain.
+The compliant solution fixes the operator precedence by comparing additions instead of subtracting, making the code clear, with no precedence trap. While adding parentheses like `ARG_MAX_BYTES - (USED + LENGTH)` would fix the precedence issue also, restructuring to `USED + LENGTH > ARG_MAX_BYTES` is clearer and avoids confusing negative values.
 
 _[compliant01.py](compliant01.py):_
 
 ```python
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 """Compliant Code Example"""
 
+ARG_MAX_BYTES = 16
+argbuf = bytearray(ARG_MAX_BYTES)
 
-def label(number: int) -> list[str]:
-    labels = []
-    if number < 0:
-        labels.append("neg")
-    if number % 2 == 0:
-        labels.append("even")
-    if number < 5:
-        labels.append("small")
-    if number >= 5:
-        labels.append("big")
-    return labels
+USED = 10
+ARG = b"AAAAAAAA"
+LENGTH = len(ARG) + 1  
 
-
-for number in range(-6, 6):
-    print(f"{number} = {label(number)}")
+# Compare additions instead of subtracting: clear, and no precedence trap
+if USED + LENGTH > ARG_MAX_BYTES:
+    print("Rejected: not enough space")
+else:
+    print(f"Bounds check passed: remaining={ARG_MAX_BYTES - USED - LENGTH}")
 
 ```
+
+_Example output of `compliant01.py`:_
+
+```bash
+Rejected: not enough space
+```
+
+Now the bounds check correctly rejects the operation because `USED + LENGTH = 10 + 9 = 19`, which exceeds `ARG_MAX_BYTES = 16`.
 
 ## Automated Detection
 
@@ -197,5 +174,9 @@ for number in range(-6, 6):
     <tr>
         <td>[PLR 2022]</td>
         <td>6.16. Evaluation order [online]. Available from: <a href="https://docs.python.org/3/reference/expressions.html#evaluation-order">https://docs.python.org/3/reference/expressions.html#evaluation-order</a>,  [Accessed 19 September 2025]</td>
+    </tr>
+    <tr>
+        <td>[CVE-2026-7270]</td>
+        <td>FreeBSD execve argument handling buffer overflow [online]. Available from: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-7270">https://nvd.nist.gov/vuln/detail/CVE-2026-7270</a></td>
     </tr>
 </table>

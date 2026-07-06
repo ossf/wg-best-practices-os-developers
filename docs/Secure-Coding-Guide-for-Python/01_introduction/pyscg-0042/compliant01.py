@@ -2,19 +2,15 @@
 # SPDX-License-Identifier: MIT
 """Compliant Code Example"""
 
+ARG_MAX_BYTES = 16
+argbuf = bytearray(ARG_MAX_BYTES)
 
-def label(number: int) -> list[str]:
-    labels = []
-    if number < 0:
-        labels.append("neg")
-    if number % 2 == 0:
-        labels.append("even")
-    if number < 5:
-        labels.append("small")
-    if number >= 5:
-        labels.append("big")
-    return labels
+USED = 10
+ARG = b"AAAAAAAA"
+LENGTH = len(ARG) + 1
 
-
-for number in range(-6, 6):
-    print(f"{number} = {label(number)}")
+# Compare additions instead of subtracting: clear, and no precedence trap
+if USED + LENGTH > ARG_MAX_BYTES:
+    print("Rejected: not enough space")
+else:
+    print(f"Bounds check passed: remaining={ARG_MAX_BYTES - USED - LENGTH}")
