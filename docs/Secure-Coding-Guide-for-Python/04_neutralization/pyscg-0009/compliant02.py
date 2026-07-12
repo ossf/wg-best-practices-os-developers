@@ -29,19 +29,12 @@ def list_dir(dirname: str):
 #####################
 # Trying to exploit above code example
 #####################
-# just to keep it clean we create folder for this test
 os.makedirs("temp", exist_ok=True)
-
-# simulating upload area (payload):
 print("Testing Corrupted Directory")
 if IS_WINDOWS:
-    with open("temp/toast.bat", "w", encoding="utf-8") as file_handle:
-        file_handle.write("start calc.exe")
-    os.makedirs("temp\\temp & toast.bat ", exist_ok=True)
+    os.makedirs("temp\\temp; Start-Process calc", exist_ok=True)
 if IS_LINUX:
     with open("temp/toast.sh", "w", encoding="utf-8") as file_handle:
         file_handle.write("uptime\n")
     os.makedirs("temp/. -exec bash toast.sh {} +", exist_ok=True)
-
-# running the query:
 list_dir("temp")
