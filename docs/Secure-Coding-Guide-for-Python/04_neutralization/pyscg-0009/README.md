@@ -8,7 +8,7 @@ Using `shell=False` is recommended but is not going to prevent all attacks.
 
 Examples of reduced functionality with `shell=False`:
 
-* Asterisks `ls -1 *.txt` get surrounded by single quotes `ls -1 '*.txt'` so that some Unix commands to no longer work.
+* Asterisks `ls -1 *.txt` get surrounded by single quotes `ls -1 '*.txt'` so that some Unix commands no longer work.
 * Piping commands  `ls -1 |grep *.txt` is prohibited.
 * Escape sequences can be difficult to manage
 
@@ -73,7 +73,9 @@ The `FileOperations().list_dir()` method allows an attacker to add commands via 
 
 ## Compliant Solution (pathlib)
 
-The `compliant01.py` code uses the cross-platform compatible `pathlib` module and checking if the `dirname` provided by the user is an actual directory. The `pathlib` on its own will not prevent all attacks.
+The `compliant01.py` code uses the cross-platform compatible `pathlib` module to check if the provided `dirname` is an actual directory, and if so, it iterates over the files inside. The `pathlib.Path` class will treat the string that you pass it as a literal file system path, preventing any command line injections. Instead of interpreting environment variables like `%HOMEPATH%` or `&` as a command separator, it will search for a folder by the literal name of the raw string (e.g `%HOMEPATH% & net user` in the windows example.).
+
+The `pathlib` on its own will not prevent all attacks. It will not fully sanitize the string or make it safe for logging. These aspects have been skipped for brevity here and have been covered in rules such as [pyscg-0044: Canonicalize Input Before Validating](../../02_encoding_and_strings/pyscg-0044/README.md) and the logging section of our guide.
 
 *[compliant01.py](compliant01.py):*
 
@@ -101,7 +103,7 @@ class FileOperations:
 # Trying to exploit above code example
 #####################
 if "nt" in os.name:
-    FileOperations().list_dir("temp")
+    FileOperations().list_dir("%HOMEPATH% & net user")
 if "posix" in os.name:
     FileOperations().list_dir("/etc/shadow; head -1 /etc/passwd")
 
@@ -183,7 +185,7 @@ The result is that `list_dir(dirname)` will run the OS-specific script file with
 
 ## Compliant Solution (using pathlib recursively)
 
-The `compliant02.py` also uses `pathlib`, additionally restricting the filesystem area. Again, `pathlib` on its will not sanitize the input or provide a secure logging system.
+The `compliant02.py` also uses `pathlib`, additionally restricting the filesystem area. Again, `pathlib` on its own will not sanitize the input or provide a secure logging system.
 
 *[compliant02.py](compliant02.py):*
 
@@ -238,7 +240,7 @@ list_dir("temp")
 
 ```
 
-The `compliant02.py` does not use data that originates from a lesser trusted source in order to form a shell command and would throw an error for an attempt to list content outside of the allowed area. The code is actually not "neutralizing" data itself from an untrusted source as such, the attack is "neutralized" by no longer using `subprocess` or `os` to run `find`.
+The `compliant02.py` does not use data that originates from a lesser trusted source in order to form a shell command. It will throw an error for an attempt to list content outside of the allowed area. The code is actually not "neutralizing" data itself from an untrusted source as such, the attack is "neutralized" by no longer using `subprocess` or `os` to run `find`.
 
 ## Automated Detection
 
