@@ -4,38 +4,23 @@
 import os
 from pathlib import Path
 
+class FileOperations:
+    """Helper class for file system operations"""
 
-def list_dir(dirname: str):
-    """List the contents of a directory recursively
-
-    Parameters:
-        dirname (string): Directory name
-    """
-    path = Path(dirname)
-    allowed_directory = Path.home()
-    # TODO: input sanitation
-    # TODO: Add secure logging
-    if Path(
-        allowed_directory.joinpath(dirname)
-        .resolve()
-        .relative_to(allowed_directory.resolve())
-    ):
-        for item in path.glob("*"):
-            print(item)
+    def list_dir(self, dirname: str):
+        """List the contents of a directory"""
+        path = Path(dirname)
+        # TODO: input sanitation
+        # TODO: Add secure logging
+        if path.is_dir():
+            for item in path.iterdir():
+                print(item)
 
 
 #####################
 # Trying to exploit above code example
 #####################
-# just to keep it clean we create folder for this test
-os.makedirs("temp", exist_ok=True)
-
-# simulating upload area (payload):
-print("Testing Corrupted Directory")
+if "nt" in os.name:
+    FileOperations().list_dir("%HOMEPATH% & net user")
 if "posix" in os.name:
-    with open("temp/toast.sh", "w", encoding="utf-8") as file_handle:
-        file_handle.write("uptime\n")
-    os.makedirs("temp/. -exec bash toast.sh {} +", exist_ok=True)
-
-# running the query:
-list_dir("temp")
+    FileOperations().list_dir("/etc/shadow; head -1 /etc/passwd")
