@@ -171,7 +171,7 @@ list_dir("temp")
 
 When run on Linux, `noncompliant02.py` creates a `toast.sh` file that contains the commands to run. The attacker also creates a folder named `. -exec bash toast.sh {} +` that will later become part of the shell `find` command forming `find . -exec bash toast.sh {} +`.
 
-The attack is similar on Windows, where `noncompliant02.py` instead creates a `toast.bat` file and a directory named `temp & toast.bat`, which is injected into the `dir` command run by the `list_dir()` method.
+The attack is similar on Windows, where `noncompliant02.py` instead injects a command to start the `calc` process, which is run by the `list_dir()` method.
 
 The result is that `list_dir(dirname)` will run the OS-specific script file without the attacker needing execute rights. Such a file can contain harmful scripts of unlimited length and complexity.
 
