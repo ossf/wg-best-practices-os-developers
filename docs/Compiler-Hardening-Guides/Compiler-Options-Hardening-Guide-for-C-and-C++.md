@@ -231,6 +231,7 @@ Table 2: Recommended compiler options that enable run-time protection mechanisms
 | [`-fstack-protector-strong`](#-fstack-protector-strong)                                                         | GCC 4.9.0<br/>Clang 6.0.0              | Enable run-time checks for stack-based buffer overflows. Can impact performance.                                                                                                                                      |
 | [`-fcf-protection=full`](#-fcf-protection=full)                                                                 | GCC 8.0.0<br/>Clang 7.0.0              | Enable control-flow protection against return-oriented programming (ROP) and jump-oriented programming (JOP) attacks on x86_64.                                                                                       |
 | [`-mbranch-protection=standard`](#-mbranch-protection-standard)                                                 | GCC 9.0.0<br/>Clang 8.0.0              | Enable branch protection against ROP and JOP attacks on AArch64.                                                                                                                                                      |
+| [`-fzero-call-used-regs=used-gpr`](#-fzero-call-used-regs=used-gpr)                                             | GCC 11.0.0<br/>Clang 16.0.0            | Zero call-used registers on function return, limiting register data lifetime and the ROP gadgets available to an attacker. Can impact performance.                                                                    |
 | [`-Wl,-z,nodlopen`](#-Wl,-z,nodlopen)                                                                           | Binutils 2.10.0                        | Restrict `dlopen(3)` calls to shared objects.                                                                                                                                                                         |
 | [`-Wl,-z,noexecstack`](#-Wl,-z,noexecstack)                                                                     | Binutils 2.14.0                        | Enable data execution prevention by marking stack memory as non-executable.                                                                                                                                           |
 | [`-Wl,-z,relro`](#-Wl,-z,relro)<br/>[`-Wl,-z,now`](#-Wl,-z,now)                                                 | Binutils 2.15.0                        | Mark relocation table entries resolved at load-time as read-only. `-Wl,-z,now` can impact startup performance.                                                                                                        |
@@ -877,6 +878,62 @@ AArch64 BTI and PAC are only usable on platforms that expose these architectural
 [^glibc-tunables]: GNU C Library team, [Tunables](https://www.gnu.org/software/libc/manual/html_node/Tunables.html), GNU C Library (glibc) manual, 2024-07-22.
 
 [^gcc-release-notes-14]: GCC team, [GCC 14 Release Series Changes, New Features, and Fixes](https://gcc.gnu.org/gcc-14/changes.html), 2024-08-10.
+
+### Zero call-used registers on function return to limit register data lifetime and ROP gadgets
+
+| Compiler Flag                                                                     | Supported since             | Description                                                                                                       |
+|:----------------------------------------------------------------------------------|:---------------------------:|:------------------------------------------------------------------------------------------------------------------|
+| <span id="-fzero-call-used-regs=used-gpr">`-fzero-call-used-regs=used-gpr`</span> | GCC 11.0.0<br/>Clang 16.0.0 | Zero call-used general-purpose registers that the function used, on return.                                       |
+| <span id="-fzero-call-used-regs=used">`-fzero-call-used-regs=used`</span>         | GCC 11.0.0<br/>Clang 16.0.0 | Zero all call-used registers that the function used, on return, including registers that are not general-purpose. |
+| <span id="-fzero-call-used-regs=all-gpr">`-fzero-call-used-regs=all-gpr`</span>   | GCC 11.0.0<br/>Clang 16.0.0 | Zero all call-used general-purpose registers on return, whether the function used them or not.                    |
+| <span id="-fzero-call-used-regs=all">`-fzero-call-used-regs=all`</span>           | GCC 11.0.0<br/>Clang 16.0.0 | Zero all call-used registers on return, whether the function used them or not.                                    |
+| <span id="-fzero-call-used-regs=skip">`-fzero-call-used-regs=skip`</span>         | GCC 11.0.0<br/>Clang 16.0.0 | Zero no call-used registers (the default).                                                                        |
+
+#### Synopsis
+
+Call-used registers (also called caller-saved or scratch registers) may still hold live data — pointers, secrets, or intermediate values — when a function returns to its caller. `-fzero-call-used-regs` makes the compiler zero a chosen subset of them in the function epilogue[^gcc-zero-call-used-regs].
+
+This serves two distinct purposes. It limits the lifetime of data held in registers, so that values are less likely to remain available to later information exposures or side channels. It also degrades the material available for return-oriented programming (ROP): code-reuse chains depend on gadgets that load attacker-chosen values into registers, and zeroing those registers removes many such gadgets, notably the compiler-generated *“write-what-where”* gadgets that automated ROP chain builders rely on in their first stage. Building the Linux kernel with `used-gpr` reduced the number of unique ROP gadgets in the resulting image by about 20%[^kernel-zero-call-used-regs]; an independent measurement of a kernel built this way reported a 36.5% reduction in unique ROP gadgets and observed that automatic ROP chain generation failed in its early stages for want of usable general-purpose register write gadgets[^Bjorklund21].
+
+This is a mitigation, not a barrier. The same measurement found that the number of JOP and SYS gadgets *increased* by about 13%, because the added epilogue code creates further candidates for misaligned-instruction gadgets, and that the zeroing can be circumvented using misaligned offsets that still yield usable gadgets[^Bjorklund21]. Register zeroing should be treated as one layer of defense in depth alongside the control-flow protections above, not as a replacement for them.
+
+The `choice` argument selects which call-used registers are zeroed. The three basic values are `skip` (zero none, the default), `used` (zero only the registers whose contents the function set or referenced), and `all` (zero every call-used register). Adding `-gpr` restricts the zeroing to general-purpose registers, and adding `-arg` restricts it to registers that can be used to pass arguments under the platform's calling convention. The modifiers may be used individually or together, in that order, giving the full set `skip`, `used`, `used-arg`, `used-gpr`, `used-gpr-arg`, `all`, `all-arg`, `all-gpr`, and `all-gpr-arg`[^gcc-zero-call-used-regs-attribute]. GCC 14 added a fourth basic value, `leafy`, which behaves like `used` in a leaf function and like `all` in a nonleaf function, together with its modified forms[^gcc-zero-call-used-regs-attribute].
+
+We recommend `-fzero-call-used-regs=used-gpr`. It is the value the Linux kernel builds with when `CONFIG_ZERO_CALL_USED_REGS` is enabled[^kernel-zero-call-used-regs], and it covers the general-purpose registers that ROP chains and register-based information exposures actually depend on, while zeroing the fewest registers needed to do so.
+
+#### Performance implications
+
+The cost is proportional to the number of registers zeroed on each function return, and so increases across `used-gpr`, `used`, `all-gpr`, and `all`; the `all` forms pay to zero registers the function never touched. For `used-gpr`, the Linux kernel documents a performance impact of less than 1% on most workloads[^kernel-zero-call-used-regs].
+
+Binary size also grows, and the growth is architecture-dependent: the kernel reports image growth of less than 1% on x86_64 and about 5% on arm64[^kernel-zero-call-used-regs]. Projects that are sensitive to binary size should measure the impact on their own target before enabling the option.
+
+#### When not to use?
+
+Do not use this option with versions of Clang older than 16.0.0. Clang implemented `-fzero-call-used-regs` in 15.0.0, but a code generation bug in that implementation could produce invalid code resulting in NULL pointer dereferences at run time[^clang-zero-call-used-regs-bug].
+
+Code that depends on the contents of call-used registers surviving a function return may be incompatible, for example hand-written assembler, functions using a non-standard calling convention, or interfaces that return values in call-used registers outside of the platform ABI. Support is also target-dependent: Clang implements the option for AArch64, RISC-V, and x86 only[^clang-zero-call-used-regs].
+
+#### Additional Considerations
+
+This option is not redundant with [`-fcf-protection=full`](#-fcf-protection=full), and on x86_64 the two are best used together, because they act on different stages of a code-reuse attack. Intel CET protects the control flow itself: the shadow stack detects corruption of a return address, and indirect branch tracking constrains where an indirect branch may land. Register zeroing does not check control flow at all; it removes the *data* that a code-reuse payload needs, shortening the lifetime of register contents and starving gadget chains of the register writes that make them useful. Their combination is complementary in a further respect: register zeroing slightly increases the population of JOP gadgets[^Bjorklund21], which is the class that indirect branch tracking constrains.
+
+The zeroing can be adjusted for an individual function with the `zero_call_used_regs` function attribute, which takes the same `choice` values[^gcc-zero-call-used-regs-attribute]. This is the supported way to exempt a function whose calling convention is incompatible with the option, rather than dropping the option for an entire build.
+
+Beyond the Linux kernel, OpenSSH enables `-fzero-call-used-regs=used` in its hardened build, but disables the option under Clang 17, which raises an internal compiler error on it[^openssh-zero-call-used-regs].
+
+[^gcc-zero-call-used-regs]: GCC team, [Using the GNU Compiler Collection (GCC): Optimize Options: `-fzero-call-used-regs`](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-fzero-call-used-regs), GCC Manual, Retrieved 2026-07-14.
+
+[^gcc-zero-call-used-regs-attribute]: GCC team, [Using the GNU Compiler Collection (GCC): Common Function Attributes: `zero_call_used_regs`](https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html), GCC Manual, Retrieved 2026-07-14. The option and the attribute accept the same values. The `leafy` values are documented from the GCC 14 manual onwards; the GCC 11 manual documents only the `skip`, `used`, and `all` families.
+
+[^clang-zero-call-used-regs]: LLVM team, [Clang command line argument reference: `-fzero-call-used-regs`](https://clang.llvm.org/docs/ClangCommandLineReference.html#cmdoption-clang-fzero-call-used-regs), Clang documentation, Retrieved 2026-07-14.
+
+[^clang-zero-call-used-regs-bug]: Clang added support for `-fzero-call-used-regs` in 15.0.0 (LLVM team, [Clang 15.0.0 Release Notes](https://releases.llvm.org/15.0.0/tools/clang/docs/ReleaseNotes.html), 2022-09-06), but that implementation could generate invalid code, resulting in NULL pointer dereferences (LLVM team, [clang-15: May produce invalid code when -O1 (or higher) is used with -fzero-call-used-regs=all](https://github.com/llvm/llvm-project/issues/57692), LLVM issue tracker, 2022-09-12). The Linux kernel consequently restricted `CONFIG_CC_HAS_ZERO_CALL_USED_REGS` to GCC or to Clang newer than 15.0.6, the fix being present in Clang 16.0.0 (Chancellor, Nathan, [security: Restrict CONFIG_ZERO_CALL_USED_REGS to gcc or clang > 15.0.6](https://git.kernel.org/linus/d6a9fb87e9d1), Linux kernel commit `d6a9fb87e9d1`, 2022-12-15). That restriction was removed only once the kernel's minimum supported Clang version rose above it (Chancellor, Nathan, [security/Kconfig.hardening: Remove tautological condition from CC_HAS_ZERO_CALL_USED_REGS](https://git.kernel.org/linus/813fe686e90b), Linux kernel commit `813fe686e90b`, 2026-05-27).
+
+[^kernel-zero-call-used-regs]: Cook, Kees, [hardening: Introduce CONFIG_ZERO_CALL_USED_REGS](https://git.kernel.org/linus/a82adfd5c7cb), Linux kernel commit `a82adfd5c7cb`, 2021-07-20. The kernel builds with `-fzero-call-used-regs=used-gpr` when `CONFIG_ZERO_CALL_USED_REGS` is enabled; the gadget count, performance, and image size figures cited here are those reported in the commit message and in the `ZERO_CALL_USED_REGS` help text in `security/Kconfig.hardening`.
+
+[^Bjorklund21]: Björklund, Jerker, [Gadget reduction using zero-call-user-regs](https://www.jerkeby.se/newsletter/posts/rop-reduction-zero-call-user-regs/), 2021-11-26.
+
+[^openssh-zero-call-used-regs]: OpenSSH team, [`configure.ac`](https://github.com/openssh/openssh-portable/blob/master/configure.ac), OpenSSH Portable, Retrieved 2026-07-14. See also LLVM team, [Clang-17 gets an internal error while building OpenSSH-9.5-P1 due to -fzero-call-used-regs](https://github.com/llvm/llvm-project/issues/69794), LLVM issue tracker, 2023-10-21.
 
 ### Restrict dlopen calls to shared objects
 
