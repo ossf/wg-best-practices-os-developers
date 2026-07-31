@@ -2,25 +2,41 @@
 # SPDX-License-Identifier: MIT
 """Non-compliant Code Example"""
 
-import threading
+class DbConnection:
+    """Class representing a house"""
+    def __init__(self):
+        self.connected = False
+
+    def connect(self):
+        """Sets the connection to True"""
+        self.connected = True
+
+    def disconnect(self):
+        """Sets the connection to False"""
+        self.connected = False
+
+    def read(self):
+        """Simulates an operation resulting in an error"""
+        if self.connected:
+            print("Reading from the database...")
+            raise RuntimeError("Database could not be read from!")
+
+def read_from_database(database):
+    """Simulates usage of a stateful resource"""
+    database.connect()
+    database.read()
+    database.disconnect()
 
 
-lock = threading.Lock()
+#####################
+# Exploiting above code example
+#####################
 
 
-def perform_critical_operation():
-    lock.acquire()
-    print("Lock acquired, performing critical operation...")
-    raise ValueError("Something went wrong!")
-    lock.release()  # This line is never reached due to the exception
-
-
+my_db = DbConnection()
 try:
-    perform_critical_operation()
-except ValueError as e:
-    print(f"Caught exception: {e}")
+    read_from_database(my_db)
+except RuntimeError as e:
+    print("Error while trying to read: ", e)
 
-
-# Next attempt to acquire the lock will block forever; as there is a deadlock!
-lock.acquire()
-print("This will not print because the lock was never released.")
+print("Is the connection open: ", my_db.connected)
