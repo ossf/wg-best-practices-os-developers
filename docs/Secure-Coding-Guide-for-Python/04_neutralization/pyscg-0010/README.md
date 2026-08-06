@@ -8,8 +8,8 @@ SQLs that allow running operating system commands as part of an SQL query are se
 
 Note that "Raw SQL is error prone, more labor intensive, and ugly." [Byrne 2021]
 
-Exploits of a Mom [XKCD 2007](https://xkcd.com/327/)
 ![Exploits of a mom](image01.webp "Exploits of a mom")
+\[XKCD 2007\] *"Exploits of a Mom" by Randall Munroe / [xkcd](https://xkcd.com/327/), used under [CC BY-NC 2.5](https://creativecommons.org/licenses/by-nc/2.5/).*
 
 Suppose a school has a webpage that allows parents to add the name of their child to a school trip themselves. The webpage is using an SQL back-end adding a new student `<NAME>` as follows:
 

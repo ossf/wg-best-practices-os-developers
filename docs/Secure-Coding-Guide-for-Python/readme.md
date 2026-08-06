@@ -422,3 +422,4 @@ This guide was jointly developed by the following group of awesome contributors:
 
 * [CC-BY 4.0](../../LICENSES/CC-BY-4.0.txt) for documentation
 * [MIT](../../LICENSES/MIT.txt) for code snippets
+* [CC-BY-NC-2.5](https://creativecommons.org/licenses/by-nc/2.5/legalcode.en) images from XKCD
