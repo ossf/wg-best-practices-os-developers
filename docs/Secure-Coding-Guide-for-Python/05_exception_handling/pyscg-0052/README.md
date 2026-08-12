@@ -1,17 +1,14 @@
 # pyscg-0052: Ensure Cleanup on Exceptions
 
-Make sure that your code fully and correctly cleans up its state whenever an exception occurs to avoid unexpected state or control flow.
+Ensure your code fully and correctly restores its state whenever an exception occurs to avoid lingering side effects or corrupted control flow.
 
-Often, when functions or loops become complicated, some level of resource cleanup is needed throughout execution.
-Exceptions can disturb the flow of the code and prevent the necessary cleanup from happening.
+As functions or loops increase in complexity, managing resource lifecycles becomes critical. Exceptions can interrupt normal execution flow before necessary cleanup operations are performed, leaving resources acquired, connections open, locks held, or other state changes unreverted.
 
-A consequence of this is that the code is left in a bad state.
+To mitigate this, ensure that cleanup or state-restoration logic executes before control leaves the relevant scope, regardless of whether the scope is exited normally, by an early return, or because of an exception.
 
-One of the ways to mitigate this is to make sure that cleanup happens or that you should exit the program. Use throwing exceptions sparsely.
+The preferred approach in Python is the `with` statement. It provides a structured way to manage setup and cleanup around a block of code. It is commonly used with files, network connections, and databases to ensure resources are properly released even if errors occur.
 
-Another way to mitigate this is to use the `with` statement. It simplifies resource management by automatically handling setup and cleanup tasks. It's commonly used with files, network connections and databases to ensure resources are properly released even if errors occur making your code cleaner.
-
-Not using the `with` statement requires to use `lock.aquire()` and `lock.release()` as demonstrated in the `example01.py` code.
+Operating without the `with` statement requires manual management, such as explicitly matching `lock.acquire()` and `lock.release()`, as demonstrated in the `example01.py` code.
 
 *[example01.py](example01.py):*
 
@@ -30,11 +27,13 @@ finally:
 
 ```
 
-It is best practice to use `with` statement in such cases as it will make sure the resource gets released even if an exception occurs in the execution. There are other resources that also require cleanup, most commonly data streams for files, database connections, etc.
+The `with` statement ensures that the context manager's cleanup protocol is invoked when control leaves the block, including when the block exits because of an exception. The context manager is responsible for implementing that cleanup correctly.
+
+When a context manager is not available, use `try...finally` to ensure cleanup is attempted even when the protected operation raises an exception. When a resource provides a context-manager interface, prefer `with` over manually managing its lifecycle.
 
 ## Non-Compliant Code Example
 
-The `noncompliant01.py` contains a example of a stateful resource. The `DbConnection` class imitates a data stream, simplifying it to the `connected` boolean value. It also provides the `connect` and `disconnect` methods for manipulating this value. The `read` method simulates an operation that results in an unexpected exception.
+The `noncompliant01.py` script provides an example of a stateful resource. The `DbConnection` class imitates a data stream, simplifying it to the `connected` boolean attribute. It provides the `connect()` and `disconnect()` methods to manipulate this value, while the `read` method simulates an operation that results in an unexpected exception.
 
 *[noncompliant01.py](noncompliant01.py):*
 
@@ -44,7 +43,7 @@ The `noncompliant01.py` contains a example of a stateful resource. The `DbConnec
 """Non-compliant Code Example"""
 
 class DbConnection:
-    """Class representing a house"""
+    """Class representing a database connection"""
     def __init__(self):
         self.connected = False
 
@@ -85,11 +84,11 @@ print("Is the connection open: ", my_db.connected)
 
 ```
 
-Because the `read_from_database` method manages the connection manually, it gets interrupted by the `RuntimeError` and the `connected` value is never set back to `False`.
+Because the `read_from_database` function manages the connection manually, the unexpected `RuntimeError` aborts execution before `database.disconnect()` can run. As a result, the `connected` attribute remains `True` after the exception, leaving the connection in an invalid state.
 
 ## Compliant Solution
 
-The `compliant01.py` code example introduces the `with` statement to the `read_from_database` method and two new methods inside `DbConnection`: `__enter__` and `__exit__`. These methods define the behavior of the **context manager** object, which is responsible for managing the context of the code within the `with` statement. The `__enter__` method defines what operations should happen when entering the `with` block, while `__exit__` defines the operations that should be performed while exiting it.
+The `compliant01.py` code example solves this by introducing the `with` statement to the `read_from_database` function and implementing the **context manager** protocol through the `__enter__` and `__exit__` special methods inside `DbConnection`. The `__enter__` method handles operations required when opening or entering the block, while `__exit__`  method is invoked when the `with` block is exited, allowing the context manager to perform cleanup.
 
 *[compliant01.py](compliant01.py):*
 
@@ -101,7 +100,7 @@ The `compliant01.py` code example introduces the `with` statement to the `read_f
 """Compliant Code Example"""
 
 class DbConnection:
-    """Class representing a house"""
+    """Class representing a database connection"""
     def __init__(self):
         self.connected = False
 
@@ -148,11 +147,11 @@ print("Is the connection open: ", my_db.connected)
 
 ```
 
-Now, the connection is closed even in case of an exception because the `__exit__` is called regardless of exceptions, similarly to the code in a `final` block. Note that the `__enter__` has to be executed without an error for the `__exit__` method to be called [[Python docs 2026 - The with statement](https://docs.python.org/3/reference/compound_stmts.html#with)].
+The connection is now safely closed even if an exception occurs because `__exit__` is invoked regardless of how the block terminates, similarly to the code in a `finally` block. Note that `__enter__` has to be executed without an error for the `__exit__` method to be called [[Python docs 2026 - The with statement](https://docs.python.org/3/reference/compound_stmts.html#with)].
 
 ## Compliant Code Example - `@contextmanager` decorator
 
-An alternative solution is to use the `@contextmanager` decorator from the `contextlib` library. It can be used to define the behaviour for the `with` statement without needing additional methods, or even classes. The `compliant02.py` code example shows an alternative solution by decorating the `connect` method.
+An alternative solution is the `@contextmanager` decorator from the `contextlib` standard library module. This allows you to define context manager behavior using a generator function instead of writing a dedicated class with magic methods. The `compliant02.py` code example demonstrates this approach by decorating the `connect` method.
 
 *[compliant02.py](compliant02.py):*
 
@@ -164,7 +163,7 @@ An alternative solution is to use the `@contextmanager` decorator from the `cont
 from contextlib import contextmanager
 
 class DbConnection:
-    """Class representing a house"""
+    """Class representing a database connection"""
     def __init__(self):
         self.connected = False
 
@@ -209,7 +208,7 @@ print("Is the connection open: ", my_db.connected)
 
 ```
 
-The method annotated with this decorator must be a generator that yields exactly one value. When the value is yielded, the code within the `with` block is executed. After that, the generator method is resumed, allowing for necessary cleanup operations. It is advised to use the `try...finally` statement to ensure exceptions won't interrupt the execution of the generator method [[Python docs 2026 - contextlib](https://docs.python.org/3/library/contextlib.html)].
+A function decorated with `@contextmanager` must be a generator that yields exactly once. Code before the `yield` performs setup, while code after the `yield` performs cleanup. Cleanup should normally be placed in a `finally` block so that it executes even when the with body raises an exception. [[Python docs 2026 - contextlib](https://docs.python.org/3/library/contextlib.html)].
 
 The `with` statement and the `@contextmanager` decorator have been specified in [[PEP-343](https://peps.python.org/pep-0343/)].
 

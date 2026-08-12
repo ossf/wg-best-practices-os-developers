@@ -3,7 +3,7 @@
 """Compliant Code Example"""
 
 class DbConnection:
-    """Class representing a house"""
+    """Class representing a database connection"""
     def __init__(self):
         self.connected = False
 
