@@ -34,7 +34,7 @@ It is best practice to use `with` statement in such cases as it will make sure t
 
 ## Non-Compliant Code Example
 
-The `noncompliant01.py` contains a example of a stateful resource. The `DbConnection` class imitates a data stream, simplyfying it to the `connected` boolean value. It also provides the `connect` and `disconnect` methods for manipulating this value. The `read` method simulates an operation that results in an unexpected exception.
+The `noncompliant01.py` contains a example of a stateful resource. The `DbConnection` class imitates a data stream, simplifying it to the `connected` boolean value. It also provides the `connect` and `disconnect` methods for manipulating this value. The `read` method simulates an operation that results in an unexpected exception.
 
 *[noncompliant01.py](noncompliant01.py):*
 
