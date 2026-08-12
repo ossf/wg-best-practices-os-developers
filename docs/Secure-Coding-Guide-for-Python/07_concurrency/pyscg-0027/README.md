@@ -183,17 +183,20 @@ class Number():
     def add(self):
         """Simulating hard work"""
         for _ in range(self.repeats):
-            logging.debug("Number.add: id=%i int=%s size=%s", id(self.value), self.value, sys.getsizeof(self.value))
-            self.lock.acquire()
-            self.value += self.read_amount()
-            self.lock.release()
+            logging.debug(
+                "Number.add: id=%i int=%s size=%s",
+                id(self.value),
+                self.value,
+                sys.getsizeof(self.value),
+                )
+            with self.lock:
+                self.value += self.read_amount()
 
     def remove(self):
         """Simulating hard work"""
         for _ in range(self.repeats):
-            self.lock.acquire()
-            self.value -= self.read_amount()
-            self.lock.release()
+            with self.lock:
+                self.value -= self.read_amount()
 
     def read_amount(self):
         """ Simulating reading amount from an external source, i.e. a file, a database, etc. """
@@ -205,7 +208,12 @@ if __name__ == "__main__":
     # exploiting above code example
     #####################
     number = Number()
-    logging.info("id=%i int=%s size=%s", id(number.value), number.value, sys.getsizeof(number.value))
+    logging.info(
+        "id=%i int=%s size=%s",
+        id(number.value),
+        number.value,
+        sys.getsizeof(number.value)
+        )
     add = Thread(target=number.add)
     substract = Thread(target=number.remove)
     add.start()
@@ -215,7 +223,12 @@ if __name__ == "__main__":
     add.join()
     substract.join()
 
-    logging.info("id=%i int=%s size=%s", id(number.value), number.value, sys.getsizeof(number.value))
+    logging.info(
+        "id=%i int=%s size=%s",
+        id(number.value),
+        number.value,
+        sys.getsizeof(number.value)
+        )
 
 ```
 
@@ -226,6 +239,8 @@ INFO:root:id=2799840487696 int=0 size=24
 INFO:root:Waiting for threads to finish...
 INFO:root:id=2799840487696 int=0 size=24
 ```
+
+As per [pyscg-0052: Ensure Cleanup on Exceptions](../../05_exception_handling/pyscg-0052/README.md), it is recommended to use the lock within a `with` block to ensure it gets released even if an exception occurs.
 
 ## Method Chaining
 
@@ -343,21 +358,20 @@ LOCK = threading.Lock()
 def thread_function(animal: "Animal", animal_name: str, animal_sound: str):
     """Function that changes animal's characteristics using method chaining"""
     for _ in range(3):
-        LOCK.acquire()
-        logging.info(
-            "Thread: starting - %s goes %s",
-            animal.name,
-            animal.sound,
-        )
-        # First time, name and sound will be blank because
-        # the object isn't initialized yet.
-        animal.set_name(animal_name).set_sound(animal_sound)
-        logging.info(
-            "Thread: finishing - %s goes %s",
-            animal.name,
-            animal.sound,
-        )
-        LOCK.release()
+        with LOCK:
+            logging.info(
+                "Thread: starting - %s goes %s",
+                animal.name,
+                animal.sound,
+            )
+            # First time, name and sound will be blank because
+            # the object isn't initialized yet.
+            animal.set_name(animal_name).set_sound(animal_sound)
+            logging.info(
+                "Thread: finishing - %s goes %s",
+                animal.name,
+                animal.sound,
+            )
         # Simulate a longer operation on non-shared resources
         for i in range(10, 1000):
             _ = (secrets.randbelow(i) + 1) / i

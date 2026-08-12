@@ -6,7 +6,7 @@ As functions or loops increase in complexity, managing resource lifecycles becom
 
 To mitigate this, ensure that cleanup or state-restoration logic executes before control leaves the relevant scope, regardless of whether the scope is exited normally, by an early return, or because of an exception.
 
-The preferred approach in Python is the `with` statement. It provides a structured way to manage setup and cleanup around a block of code. It is commonly used with files, network connections, and databases to ensure resources are properly released even if errors occur.
+The preferred approach in Python is the `with` statement. It provides a structured way to manage setup and cleanup around a block of code and is commonly used with files, network connections, and databases to ensure resources are properly released even if errors occur.
 
 Operating without the `with` statement requires manual management, such as explicitly matching `lock.acquire()` and `lock.release()`, as demonstrated in the `example01.py` code.
 

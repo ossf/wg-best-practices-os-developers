@@ -13,21 +13,20 @@ LOCK = threading.Lock()
 def thread_function(animal: "Animal", animal_name: str, animal_sound: str):
     """Function that changes animal's characteristics using method chaining"""
     for _ in range(3):
-        LOCK.acquire()
-        logging.info(
-            "Thread: starting - %s goes %s",
-            animal.name,
-            animal.sound,
-        )
-        # First time, name and sound will be blank because
-        # the object isn't initialized yet.
-        animal.set_name(animal_name).set_sound(animal_sound)
-        logging.info(
-            "Thread: finishing - %s goes %s",
-            animal.name,
-            animal.sound,
-        )
-        LOCK.release()
+        with LOCK:
+            logging.info(
+                "Thread: starting - %s goes %s",
+                animal.name,
+                animal.sound,
+            )
+            # First time, name and sound will be blank because
+            # the object isn't initialized yet.
+            animal.set_name(animal_name).set_sound(animal_sound)
+            logging.info(
+                "Thread: finishing - %s goes %s",
+                animal.name,
+                animal.sound,
+            )
         # Simulate a longer operation on non-shared resources
         for i in range(10, 1000):
             _ = (secrets.randbelow(i) + 1) / i
