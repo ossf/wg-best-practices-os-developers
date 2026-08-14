@@ -2,15 +2,17 @@
 # SPDX-License-Identifier: MIT
 """Non-compliant Code Example"""
 
-import urllib.request
-
 PLUGIN_URL = "https://downloads.example.com/plugin.py"
 
 
-def load_plugin(url: str) -> dict:
+def get_plugin_source() -> bytes:
+    """Return the bytes served by PLUGIN_URL."""
+    return b"print('plugin loaded')\n"
+
+
+def load_plugin() -> dict:
     """Download a plugin and run it."""
-    with urllib.request.urlopen(url) as response:  # noqa: S310
-        source = response.read()
+    source = get_plugin_source()
     namespace: dict = {}
     exec(source, namespace)  # noqa: S102
     return namespace
@@ -19,9 +21,12 @@ def load_plugin(url: str) -> dict:
 #####################
 # Trying to exploit above code example
 #####################
-# A mirror, a cache, or anyone able to alter the response body serves this
-# instead. TLS authenticates the host that answered, not the bytes it sent.
-ATTACKER_SOURCE = b"import os\nos.system('id')\n"
-namespace: dict = {}
-exec(ATTACKER_SOURCE, namespace)  # noqa: S102
-print("attacker code ran with the privileges of this process")
+# A mirror, a cache, or anyone able to alter the response body serves these
+# bytes instead. TLS authenticates the host that answered, not what it sent.
+def tampered_source() -> bytes:
+    """Stand in for a response body the attacker replaced."""
+    return b"import os\nos.system('id')\n"
+
+
+get_plugin_source = tampered_source  # noqa: F811
+load_plugin()
