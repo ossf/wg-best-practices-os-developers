@@ -11,6 +11,41 @@ Two mistakes recur:
 
 The expected value must therefore come from somewhere the attacker does not control, such as a value pinned in source control or a signature that chains to a key established out of band.
 
+For packages installed from PyPI, that separate channel already exists. Under [PEP 740] an index can serve attestations about how a file was built, on a path derived from the file itself rather than from anything the uploader supplies:
+
+```bash
+curl https://pypi.org/integrity/sigstore/4.5.0/sigstore-4.5.0-py3-none-any.whl/provenance
+```
+
+The response names the publishing identity and the artifact it covers:
+
+```json
+{
+  "version": 1,
+  "attestation_bundles": [
+    {
+      "publisher": {
+        "kind": "GitHub",
+        "repository": "sigstore/sigstore-python",
+        "workflow": "release.yml"
+      },
+      "attestations": [{"version": 1, "envelope": {"statement": "...", "signature": "..."}}]
+    }
+  ]
+}
+```
+
+The `envelope.statement` is a base64 encoded [in-toto] statement of type
+`https://in-toto.io/Statement/v1`, whose subject carries the file name and its
+SHA-256 digest, and whose `predicateType` is
+`https://docs.pypi.org/attestations/publish/v1`. So the claim is not "this
+digest sits next to this file", it is "this file, with this digest, was built
+by this workflow in this repository", which is the property the rest of this
+rule is about. Verifying the signature on that envelope needs tooling outside
+the standard library and is beyond the scope of this rule, but reading the
+publisher and digest is enough to see what an independent source of truth
+looks like in practice.
+
 ## Non-Compliant Code Example
 
 The `noncompliant01.py` code example downloads a plugin and executes it without verification.
@@ -167,6 +202,10 @@ Trust on first use, where the first key seen is pinned and later keys are compar
         <td>Class: <a href="https://cwe.mitre.org/data/definitions/345.html">[CWE-345: Insufficient Verification of Data Authenticity]</a></td>
     </tr>
     <tr>
+        <td><a href="http://cwe.mitre.org/">MITRE CWE</a></td>
+        <td>Class: <a href="https://cwe.mitre.org/data/definitions/829.html">[CWE-829: Inclusion of Functionality from Untrusted Control Sphere]</a></td>
+    </tr>
+    <tr>
         <td><a href="https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java">[SEI CERT Oracle Coding Standard for Java]</a></td>
         <td><a href="https://wiki.sei.cmu.edu/confluence/display/java/SEC06-J.+Do+not+rely+on+the+default+automatic+signature+verification+provided+by+URLClassLoader+and+java.util.jar">[SEC06-J. Do not rely on the default automatic signature verification provided by URLClassLoader and java.util.jar]</a></td>
     </tr>
@@ -184,6 +223,10 @@ Trust on first use, where the first key seen is pinned and later keys are compar
         <td>PEP 740 - Index support for digital attestations [online]. Available from: <a href="https://peps.python.org/pep-0740/">https://peps.python.org/pep-0740/</a> [Accessed 4 August 2026]</td>
     </tr>
     <tr>
+        <td>[in-toto 2024]</td>
+        <td>in-toto Attestation Framework Specification [online]. Available from: <a href="https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md">https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md</a> [Accessed 19 August 2026]</td>
+    </tr>
+    <tr>
         <td>[Python 2026]</td>
         <td>hmac - Keyed-Hashing for Message Authentication [online]. Available from: <a href="https://docs.python.org/3/library/hmac.html#hmac.compare_digest">https://docs.python.org/3/library/hmac.html#hmac.compare_digest</a> [Accessed 4 August 2026]</td>
     </tr>
@@ -194,3 +237,4 @@ Trust on first use, where the first key seen is pinned and later keys are compar
 </table>
 
 [PEP 740]: https://peps.python.org/pep-0740/
+[in-toto]: https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md
