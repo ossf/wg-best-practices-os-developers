@@ -78,6 +78,92 @@ print(Decimal(0.10).quantize(Decimal("0.10"), rounding=ROUND_HALF_UP)) # prints 
 
 Initializing `Decimal` with an actual `float`, such as `0.10`, and without rounding creates an imprecise number `0.1000000000000000055511151231257827021181583404541015625` in `Python 3.9.2`.
 
+## Other Types of Rounding
+
+Natively, Python supports only numeric rounding (apart from the `boolean` type, which, as a subclass of `int`, inherits its rounding implementation from `int` [[python boolean 2026](https://docs.python.org/3/library/stdtypes.html?utm_source=chatgpt.com#boolean-type-bool)]). However, you can theoretically want to "round" non-numeric data types. Here are examples of what "non-numeric rounding" might mean depending on the context:
+
+* Collections and Array
+  * Keeping only first N elements
+  * Sampling
+* Time and Date
+  * Rounding timestamps to the nearest second/minute/hour
+  * Bucketing events into time period
+* Spatial Data
+  * Redusing GPS coordinate precision
+  * Rounding pixels when rendering graphics
+  * Geohashing
+* Color
+  * Reducing color bit depth (e.g, converting 24-bit RGB to 16-bit)
+  * Posterization
+  * Antialiasing
+* Frequency and Probability
+  * Rounding probabilities to ensure they sum to 1
+  * Frequency bucketing
+* Categorical Data
+  * Creating broader categories (e.g, creating categorizing employees by departments rather than job titles)
+* Precision and Significant Figures
+  * Scientific notation precision
+  * Order-of-magnitude approximation
+* Bitwise Rounding
+  * Bit truncation
+  * Floating-point bit manipulation (flush-to-zero modes)
+* String and Text
+  * Summary generation
+  * Ellipsis truncation
+  * Word wrapping
+
+One way of implementing rounding in your own class is overriding the `__round__` magic method. The use of the `round` keyword invokes the implementation of `__round__` for the specific object type [[python round( ) 2024]](https://docs.python.org/3/library/functions.html#round). Your implementation of rounding also *must* be clear in its intended usage.
+
+The following example presents the use of `__round__` to implement string truncation. The docstring explains the contract of the rounding operation, clarifying what output should be expected depending on the value of `ncharacters`:
+
+[*example03.py:*](example03.py)
+
+```py
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+""" Code Example """
+
+class TruncateableString:
+    """String wrapper that supports ellipsis truncation."""
+    def __init__(self, text : str):
+        self.text = text
+
+    def __round__(self, ncharacters : int=None):
+        """Truncates the string value to the given number of characters.
+            If ncharacters is not provided, or if it equal or higher than
+            the length of the text, he text won't be truncated.
+            Raises ValueError if ncharacters is not a positive value"""
+        if not ncharacters:
+            return self
+        if ncharacters <= 0:
+            raise ValueError(f"The minimal number of characters must be greater than 0. Instead provided {ncharacters}")
+        if ncharacters >= len(self.text):
+            return self
+        return TruncateableString(self.text[0:ncharacters] + '...')
+   
+    def __repr__(self):
+        return self.text
+
+my_text = TruncateableString("Particularly long text that you might want to truncate.")
+
+# No truncation as per the docstring
+print(round(my_text))
+print(round(my_text, 2000))
+# Raised exception
+try:
+    print(round(my_text, -10))
+except ValueError as e:
+    print(e)
+# Truncated example
+print(round(my_text, 22))
+
+```
+
+When rounding logic is more nuanced, avoid relying on the `round()` keyword and implement your own rounding methods instead. For example, when rounding timestamps, create a method that allows user to choose:
+
+* Which part of the timestamp they want to round (seconds/minutes/hours)
+* How it should be rounded (up, down half-up, half-down, etc.)
+
 ## Automated Detection
 
 |Tool|Version|Checker|Description|
