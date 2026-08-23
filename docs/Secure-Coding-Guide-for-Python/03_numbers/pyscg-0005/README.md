@@ -25,7 +25,7 @@ print(type(round(0.5)))  # prints <class 'int'>
 
 ```
 
-The build in `round()` does not allow to specify the type of rounding in use [[python round( ) 2024]](https://docs.python.org/3/library/functions.html#round). In Python 3 the `round()` function uses "bankers' rounding" (rounds to the nearest even number in case of ties). This is different to Python 2 which always rounds away from zero. Rounding provided by the `decimal` module allows a choice between 8 rounding modes [[python decimal 2024]](https://docs.python.org/3/library/decimal.html#rounding-modes). Rounding in mathematics and science is not discussed here as it requires a deeper knowledge of computer floating-point arithmetic's.
+The build in `round()` does not allow to specify the type of rounding in use [[python round() 2026]](https://docs.python.org/3/library/functions.html#round). In Python 3 the `round()` function uses "bankers' rounding" (rounds to the nearest even number in case of ties). This is different to Python 2 which always rounds away from zero. Rounding provided by the `decimal` module allows a choice between 8 rounding modes [[python decimal 2026]](https://docs.python.org/3/library/decimal.html#rounding-modes). Rounding in mathematics and science is not discussed here as it requires a deeper knowledge of computer floating-point arithmetic's.
 
 ## Non-Compliant Code Example (float to int)
 
@@ -112,7 +112,7 @@ Natively, Python supports only numeric rounding (apart from the `boolean` type, 
   * Ellipsis truncation
   * Word wrapping
 
-One way of implementing rounding in your own class is overriding the `__round__` magic method. The use of the `round` keyword invokes the implementation of `__round__` for the specific object type [[python round( ) 2024]](https://docs.python.org/3/library/functions.html#round). Your implementation of rounding also *must* be clear in its intended usage.
+One way of implementing rounding in your own class is overriding the `__round__` magic method. The use of the `round` keyword invokes the implementation of `__round__` for the specific object type [[python round() 2026]](https://docs.python.org/3/library/functions.html#round). Your implementation of rounding also *must* be clear in its intended usage.
 
 The following example presents the use of `__round__` to implement string truncation. The docstring explains the contract of the rounding operation, clarifying what output should be expected depending on the value of `ncharacters`:
 
@@ -184,7 +184,17 @@ When rounding logic is more nuanced, avoid relying on the `round()` keyword and 
 
 ## Biblography
 
-|||
-|:---|:---|
-|[python round( ) 2024](https://docs.python.org/3/library/functions.html#round)|python round( ), available from: [https://docs.python.org/3/library/functions.html#round](https://docs.python.org/3/library/functions.html#round), \[Last  accessed June 2024\]|
-|[python decimal 2024](https://docs.python.org/3/library/decimal.html#rounding-modes)|Python decimal module, available from: [https://docs.python.org/3/library/decimal.html#rounding-modes](https://docs.python.org/3/library/decimal.html#rounding-modes)|
+<table>
+    <tr>
+        <td>[python round() 2026]</td>
+        <td>Python Software Foundation. (2026). Python Built-in Functions - round() [online]. Available from: <a href="https://docs.python.org/3/library/functions.html#round">https://docs.python.org/3/library/functions.html#round</a>, [Last accessed August 2026]</td>
+    </tr>
+    <tr>
+        <td>[python decimal 2026]</td>
+        <td>Python Software Foundation. (2026). Python decimal - Decimal fixed-point and floating-point arithmetic, Rounding modes [online]. Available from: <a href="https://docs.python.org/3/library/decimal.html#rounding-modes">https://docs.python.org/3/library/decimal.html#rounding-modes</a>, [Last accessed August 2026]</td>
+    </tr>
+    <tr>
+        <td>[python boolean 2026]</td>
+        <td>Python Software Foundation. (2026). Python Boolean Type - bool [online]. Available from: <a href="https://docs.python.org/3/library/stdtypes.html?utm_source=chatgpt.com#boolean-type-bool">https://docs.python.org/3/library/stdtypes.html?utm_source=chatgpt.com#boolean-type-bool</a>, [Last accessed August 2026]</td>
+    </tr>
+</table>
