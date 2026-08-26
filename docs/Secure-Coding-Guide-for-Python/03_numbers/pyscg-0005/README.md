@@ -131,7 +131,7 @@ class TruncateableString:
     def __round__(self, ncharacters : int=None):
         """Truncates the string value to the given number of characters.
             If ncharacters is not provided, or if it equal or higher than
-            the length of the text, he text won't be truncated.
+            the length of the text, the text won't be truncated.
             Raises ValueError if ncharacters is not a positive value"""
         if not ncharacters:
             return self
