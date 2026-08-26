@@ -4,10 +4,10 @@
 
 class TruncateableString:
     """String wrapper that supports ellipsis truncation."""
-    def __init__(self, text : str):
+    def __init__(self, text: str):
         self.text = text
 
-    def __round__(self, ncharacters : int=None):
+    def __round__(self, ncharacters: int=None):
         """Truncates the string value to the given number of characters.
             If ncharacters is not provided, or if it equal or higher than
             the length of the text, the text won't be truncated.
