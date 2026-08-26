@@ -2,13 +2,21 @@
 # SPDX-License-Identifier: MIT
 """Compliant Code Example"""
 
+from contextlib import contextmanager
+
 class DbConnection:
     """Class representing a database connection"""
     def __init__(self):
         self.connected = False
 
-    def _connect(self):
+    @contextmanager
+    def connect(self):
+        """Manages the connection"""
         self.connected = True
+        try:
+            yield self
+        finally:
+            self._disconnect()
 
     def _disconnect(self):
         self.connected = False
@@ -19,18 +27,11 @@ class DbConnection:
             print("Reading from the database...")
             raise RuntimeError("Database could not be read from!")
 
-    def __enter__(self):
-        """Perform operations when accessing the resource"""
-        self._connect()
-
-    def __exit__(self, exception_type, exception_value, traceback):
-        """Perform clean-up after the resource is no longer needed"""
-        self._disconnect()
 
 
 def read_from_database(database):
     """Simulates usage of a stateful resource"""
-    with database:
+    with database.connect():
         database.read()
 
 
