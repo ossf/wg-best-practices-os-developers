@@ -195,6 +195,6 @@ When rounding logic is more nuanced, avoid relying on the `round()` keyword and 
     </tr>
     <tr>
         <td>[python boolean 2026]</td>
-        <td>Python Software Foundation. (2026). Python Boolean Type - bool [online]. Available from: <a href="https://docs.python.org/3/library/stdtypes.html?utm_source=chatgpt.com#boolean-type-bool">https://docs.python.org/3/library/stdtypes.html?utm_source=chatgpt.com#boolean-type-bool</a>, [Last accessed August 2026]</td>
+        <td>Python Software Foundation. (2026). Python Boolean Type - bool [online]. Available from: <a href="https://docs.python.org/3/library/stdtypes.html">https://docs.python.org/3/library/stdtypes.html</a>, [Last accessed August 2026]</td>
     </tr>
 </table>
