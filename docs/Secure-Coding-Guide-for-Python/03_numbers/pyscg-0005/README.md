@@ -95,7 +95,7 @@ Natively, Python supports only numeric rounding (apart from the `boolean` type, 
 * Color
   * Reducing color bit depth (e.g, converting 24-bit RGB to 16-bit)
   * Posterization
-  * Antialiasing
+  * Anti-aliasing
 * Frequency and Probability
   * Rounding probabilities to ensure they sum to 1
   * Frequency bucketing
