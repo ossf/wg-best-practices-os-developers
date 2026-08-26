@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-""" Compliant Code Example """
+""" Example Code: HMAC integrity protection with pickle """
 import hashlib
 import hmac
 import platform
@@ -32,7 +32,7 @@ class Preserver(object):
                 _jar (bytes): pickled jar as string
         """
         _jar = pickle.dumps(_message)
-        _digest = hmac.new(self._key, _jar, hashlib.sha256).hexdigest()
+        _digest = hmac.HMAC(self._key, _jar, hashlib.sha256).hexdigest()
         return _digest, _jar
 
     def uncan(self, _expected_digest, _jar) -> Message:
@@ -43,8 +43,8 @@ class Preserver(object):
             Returns:
                 (Message): Message object
         """
-        _digest = hmac.new(self._key, _jar, hashlib.sha256).hexdigest()
-        if _expected_digest != _digest:
+        _digest = hmac.HMAC(self._key, _jar, hashlib.sha256).hexdigest()
+        if not hmac.compare_digest(_expected_digest, _digest):
             raise ValueError("Integrity of jar compromised")
         return pickle.loads(_jar)
 
