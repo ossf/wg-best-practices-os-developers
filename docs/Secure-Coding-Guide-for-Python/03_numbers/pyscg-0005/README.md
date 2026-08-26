@@ -100,7 +100,7 @@ Natively, Python supports only numeric rounding (apart from the `boolean` type, 
   * Rounding probabilities to ensure they sum to 1
   * Frequency bucketing
 * Categorical Data
-  * Creating broader categories (e.g, creating categorizing employees by departments rather than job titles)
+  * Creating broader categories (e.g, categorizing employees by departments rather than job titles)
 * Precision and Significant Figures
   * Scientific notation precision
   * Order-of-magnitude approximation
