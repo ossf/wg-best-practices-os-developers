@@ -25,7 +25,7 @@ print(type(round(0.5)))  # prints <class 'int'>
 
 ```
 
-The build in `round()` does not allow to specify the type of rounding in use [[python round() 2026]](https://docs.python.org/3/library/functions.html#round). In Python 3 the `round()` function uses "bankers' rounding" (rounds to the nearest even number in case of ties). This is different to Python 2 which always rounds away from zero. Rounding provided by the `decimal` module allows a choice between 8 rounding modes [[python decimal 2026]](https://docs.python.org/3/library/decimal.html#rounding-modes). Rounding in mathematics and science is not discussed here as it requires a deeper knowledge of computer floating-point arithmetic's.
+The built-in `round()` does not allow to specify the type of rounding in use [[python round() 2026]](https://docs.python.org/3/library/functions.html#round). In Python 3 the `round()` function uses "bankers' rounding" (rounds to the nearest even number in case of ties). This is different to Python 2 which always rounds away from zero. Rounding provided by the `decimal` module allows a choice between 8 rounding modes [[python decimal 2026]](https://docs.python.org/3/library/decimal.html#rounding-modes). Rounding in mathematics and science is not discussed here as it requires a deeper knowledge of computer floating-point arithmetic. By contrast, int() does not round at all, but rather, it truncates the fractional part, always rounding toward zero.
 
 ## Non-Compliant Code Example (float to int)
 
