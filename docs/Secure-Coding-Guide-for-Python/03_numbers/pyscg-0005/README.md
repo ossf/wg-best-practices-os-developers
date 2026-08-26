@@ -182,7 +182,7 @@ When rounding logic is more nuanced, avoid relying on the `round()` keyword and 
 |[ISO/IEC TR 24772:2019](https://www.iso.org/standard/71091.html)|Programming languages — Guidance to avoiding vulnerabilities in programming languages, available from [https://www.iso.org/standard/71091.html](https://www.iso.org/standard/71091.html)|
 |[SEI CERT Coding Standard for Java](https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java)|[NUM12-J. Ensure conversions of numeric types to narrower types do not result in lost or misinterpreted data](https://wiki.sei.cmu.edu/confluence/display/java/NUM12-J.+Ensure+conversions+of+numeric+types+to+narrower+types+do+not+result+in+lost+or+misinterpreted+data)|
 
-## Biblography
+## Bibliography
 
 <table>
     <tr>
