@@ -89,7 +89,7 @@ Natively, Python supports only numeric rounding (apart from the `boolean` type, 
   * Rounding timestamps to the nearest second/minute/hour
   * Bucketing events into time period
 * Spatial Data
-  * Redusing GPS coordinate precision
+  * Reducing GPS coordinate precision
   * Rounding pixels when rendering graphics
   * Geohashing
 * Color
