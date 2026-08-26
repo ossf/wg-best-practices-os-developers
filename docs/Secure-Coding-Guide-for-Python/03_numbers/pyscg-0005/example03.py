@@ -11,15 +11,16 @@ class TruncateableString:
         """Truncates the string value to the given number of characters.
             If ncharacters is not provided, or if it is equal or higher than
             the length of the text, the text won't be truncated.
-            Raises ValueError if ncharacters is not a positive value"""
+            Raises ValueError if ncharacters is not a positive value."""
         if not ncharacters:
             return self
         if ncharacters <= 0:
-            raise ValueError(f"The minimal number of characters must be greater than 0. Instead provided {ncharacters}")
+            raise ValueError("The minimal number of characters must be greater than 0. "
+                             f"Instead provided {ncharacters}")
         if ncharacters >= len(self.text):
             return self
         return TruncateableString(self.text[0:ncharacters] + '...')
-   
+
     def __repr__(self):
         return self.text
 

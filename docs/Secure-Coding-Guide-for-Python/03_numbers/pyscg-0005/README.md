@@ -80,7 +80,7 @@ Initializing `Decimal` with an actual `float`, such as `0.10`, and without round
 
 ## Other Types of Rounding
 
-Natively, Python supports only numeric rounding (apart from the `boolean` type, which, as a subclass of `int`, inherits its rounding implementation from `int` [[python boolean 2026](https://docs.python.org/3/library/stdtypes.html?utm_source=chatgpt.com#boolean-type-bool)]). However, you can theoretically want to "round" non-numeric data types. Here are examples of what "non-numeric rounding" might mean depending on the context:
+Natively, Python supports only numeric rounding (apart from the `boolean` type, which, as a subclass of `int`, inherits its rounding implementation from `int` [[python boolean 2026](https://docs.python.org/3/library/stdtypes.html?utm_source=chatgpt.com#boolean-type-bool)]). However, you might theoretically want to "round" non-numeric data types. Here are examples of what "non-numeric rounding" could mean depending on the context:
 
 * Collections and Array
   * Keeping only first N elements
@@ -112,7 +112,7 @@ Natively, Python supports only numeric rounding (apart from the `boolean` type, 
   * Ellipsis truncation
   * Word wrapping
 
-One way of implementing rounding in your own class is overriding the `__round__` magic method. The use of the `round` keyword invokes the implementation of `__round__` for the specific object type [[python round() 2026]](https://docs.python.org/3/library/functions.html#round). Your implementation of rounding also *must* be clear in its intended usage.
+One way to implement rounding in your own class is overriding the `__round__` magic method. The use of the `round` keyword invokes the implementation of `__round__` for the specific object type [[python round() 2026]](https://docs.python.org/3/library/functions.html#round). Your implementation of rounding also *must* be clear in its intended usage.
 
 The following example presents the use of `__round__` to implement string truncation. The docstring explains the contract of the rounding operation, clarifying what output should be expected depending on the value of `ncharacters`:
 
@@ -125,22 +125,23 @@ The following example presents the use of `__round__` to implement string trunca
 
 class TruncateableString:
     """String wrapper that supports ellipsis truncation."""
-    def __init__(self, text : str):
+    def __init__(self, text: str):
         self.text = text
 
-    def __round__(self, ncharacters : int=None):
+    def __round__(self, ncharacters: int=None):
         """Truncates the string value to the given number of characters.
             If ncharacters is not provided, or if it is equal or higher than
             the length of the text, the text won't be truncated.
-            Raises ValueError if ncharacters is not a positive value"""
+            Raises ValueError if ncharacters is not a positive value."""
         if not ncharacters:
             return self
         if ncharacters <= 0:
-            raise ValueError(f"The minimal number of characters must be greater than 0. Instead provided {ncharacters}")
+            raise ValueError("The minimal number of characters must be greater than 0. "
+                             f"Instead provided {ncharacters}.")
         if ncharacters >= len(self.text):
             return self
         return TruncateableString(self.text[0:ncharacters] + '...')
-   
+
     def __repr__(self):
         return self.text
 
@@ -159,10 +160,10 @@ print(round(my_text, 22))
 
 ```
 
-When rounding logic is more nuanced, avoid relying on the `round()` keyword and implement your own rounding methods instead. For example, when rounding timestamps, create a method that allows user to choose:
+When rounding logic is more nuanced, avoid relying on the `round()` keyword and implement your own rounding methods instead. For example, when rounding timestamps, create a method that allows the user to choose:
 
 * Which part of the timestamp they want to round (seconds/minutes/hours)
-* How it should be rounded (up, down half-up, half-down, etc.)
+* How that part should be rounded (up, down, half-up, half-down, etc.)
 
 ## Automated Detection
 
