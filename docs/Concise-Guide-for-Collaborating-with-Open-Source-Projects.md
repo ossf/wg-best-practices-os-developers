@@ -23,7 +23,7 @@ Open Source projects are collaborative communities that each have their own way 
 More importantly, projects do not bear responsibility for performing any specific tasks that an individual or organization may want, including providing cyber security compliance information.
 
 When engaging with open source projects, don't expect having any CRA-related conversations _by default_.
-Project maintainers don’t have to do anything at all because of the CRA, if they're maintaining an open source project without commercial monetization or placing products on the EU market. Which applies to _almost all_ open source projects. The CRA does not impose obligations on individual open source developers or volunteer maintainers merely for publishing or maintaining code. However, maintainers _may voluntarily choose_ to implement widely accepted security best practices that align with modern secure development expectations and may assist downstream users who integrate your software into regulated products.
+Project maintainers don’t have to do anything at all because of the CRA, if they're maintaining an open source project without commercial monetization or placing products on the EU market. Which applies to _almost all_ open source projects. The CRA does not impose obligations on individual open source developers or volunteer maintainers merely for publishing or maintaining code. However, maintainers _may voluntarily choose_ to implement widely accepted security best practices that align with modern secure development expectations and may assist downstream users who integrate your software into regulated products. Check [CRA Readiness Guide for Maintainers and Developers](https://policy.openssf.org/CRA/maintainers.html) developed by OpenSSF.
 
 ## Scope and Purpose of this guide
 
@@ -135,7 +135,7 @@ More information is available
 * [Security Hygiene Guide for Project Maintainers](https://contribute.cncf.io/projects/best-practices/security/security-hygiene/), guide, CNCF
 * [Governance](https://contribute.cncf.io/projects/best-practices/governance/), guide, CNCF
 * [HowTo: Make a Contributing Guide](https://contribute.cncf.io/projects/best-practices/templates/contributing/), guide, CNCF
-
+* [OpenSSF CRA Materials](https://policy.openssf.org/CRA/)
 ## List of additional content to cover in this guide
 
 These are ideas + a make-shift backlog
