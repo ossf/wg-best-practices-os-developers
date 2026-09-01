@@ -136,6 +136,7 @@ More information is available
 * [Governance](https://contribute.cncf.io/projects/best-practices/governance/), guide, CNCF
 * [HowTo: Make a Contributing Guide](https://contribute.cncf.io/projects/best-practices/templates/contributing/), guide, CNCF
 * [OpenSSF CRA Materials](https://policy.openssf.org/CRA/)
+
 ## List of additional content to cover in this guide
 
 These are ideas + a make-shift backlog
