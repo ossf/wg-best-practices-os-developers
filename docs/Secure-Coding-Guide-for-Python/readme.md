@@ -377,6 +377,12 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
+<td><a href="08_coding_standards/pyscg-0053/README.md">pyscg-0053: Ensure Functions Are Current and Not Deprecated</a></td>
+<td></td>
+<td><a href="https://cwe.mitre.org/data/definitions/477.html">CWE-477</a></td>
+</tr>
+
+<tr>
 <th>09 Cryptography</th>
 <th>Prominent CVE</th>
 <th>MITRE</th>
