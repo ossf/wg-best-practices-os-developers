@@ -55,6 +55,60 @@ The following recommendations are structured along the lifecycle of a typical en
 * **Wrapping up after the contribution landed:** If the contribution is of limited scope and there is no intention for a longer-term engagement with the project, clearly wrap up once the contribution has landed. Recognize the support of the maintainers and close remaining open issues such as bug reports or feature requests.
 * **End long-term participation gracefully by communicating early and wrapping up:**  In case of ending a longer-term engagement, for instance due to a change in internal priorities, inform the maintainers as soon as possible rather than simply abandoning open pull requests or discussions ("ghosting"). Make an effort to either finalize outstanding work or clearly document the state of your contribution, ensuring you do not leave the community with the burden of deciphering or maintaining unfinished code.
 
+## Scenarios - When and Why to contribute
+
+This section describes selected scenarios of security-related contributions which may be triggered by CRA-obligations of manufacturers. Note that the scenarios listed here do not represent an exhaustive list: there are many more reasons for users of open source software to contribute, such as building competence and driving the evolution and adoption of a technology.
+
+### Updating dependencies
+
+Open source projects typically release vulnerability fixes promptly. However, modern software is composed of many components arranged in deep dependency trees, and a fix in a lower-level component can take considerable time to propagate upward. Users of a higher-level component therefore have a direct interest in helping intermediate projects update (or "bump") their dependencies soon after a new release becomes available.
+
+Subject to each project's established workflows, users can support maintainers in updating outdated dependencies in the following ways:
+
+* **For projects without automated dependency management** (e.g., Dependabot or Renovate), users can test a candidate version of a dependency, confirm that it does not introduce regressions, and, where regressions do occur, propose a fix. This offloads a substantial share of the validation effort, allowing maintainers to concentrate on cross-checking the results and on other, potentially more complex, development work such as functional improvements.
+
+* **For projects that use automated dependency management**, users can strengthen the project's test coverage. The effectiveness of automated tools depends on a robust suite of unit, functional, and integration tests. Improving that test suite is therefore valuable contribution towards enabling faster release cycles with confidence in the quality of the software.
+
+### Extending the test coverage
+
+A robust test suite is not only a prerequisite for the effective use of automated dependency management tools, but also a general means of maintaining software quality, including a project's security posture. Adequate test coverage helps prevent regressions and reduces the risk of inadvertently introducing vulnerabilities.
+
+Writing valuable test cases typically does not require the same level of deep familiarity with a project's internals as is required for implementing new features. Contributing additional tests is therefore a valuable and accessible way for security-minded users to support an open source project.
+
+### Fixing vulnerabilities (CVEs and 0-days)
+
+Contributing a fix for a vulnerability is one of the most direct security-focused contributions a commercial user can make. The appropriate process depends on whether the vulnerability has already been publicly disclosed or is still unknown outside a small group.
+
+#### Publicly disclosed vulnerabilities (CVEs)
+
+For vulnerabilities that have already been recorded publicly — for instance, in a CVE or a GitHub Security Advisory — confidentiality is no longer a concern, and remediation can be discussed openly through the project's regular channels, such as issues and pull requests. Developing a fix typically requires deeper familiarity with the project's code than writing test cases, so contributors should be prepared to invest engineering time and to iterate with maintainers on the proposed patch. Where feasible, a contribution should also include a regression test that demonstrates the vulnerability is no longer exploitable.
+
+#### Previously undisclosed vulnerabilities ("0-days")
+
+For vulnerabilities that are not yet publicly known ("0-days"), confidentiality is essential: premature disclosure exposes downstream users to attack before a fix is available. Contributors should observe the following practices:
+
+* **Follow the project's security policy.** Consult the project's security policy — typically published in a `SECURITY.md` file — to determine the correct reporting channel. Most projects rely on GitHub's Private Vulnerability Reporting (PVR) feature or provide a dedicated security contact address for this purpose.
+* **Do not disclose the vulnerability through public channels.** Under no circumstances should a new vulnerability finding be reported through a public issue, pull request, discussion thread, chat channel, or social media post before a coordinated disclosure has taken place.
+* **Coordinate disclosure and remediation timelines.** Once maintainers have acknowledged the report, agree on a reasonable timeline for developing the fix, releasing it, and publishing an advisory. Respect any embargo period the project defines and avoid unilateral disclosure.
+
+In addition to reporting directly to maintainers, findings may also be submitted to industry initiatives dedicated to coordinated vulnerability disclosure for open source software, such as [Akrites](https://akrites.org/). Akrites acts as trusted intermediary between reporters and maintainers: it receives vulnerability reports affecting open source projects and processes them through a structured remediation and disclosure workflow. Akrites' objective is to shield maintainers from duplicated or poorly coordinated reports and to support them in jointly developing and releasing fixes.
+
+### Tools and methods for hardening the supply chain
+
+Contributors can help maintainers strengthen a project's security posture by proposing the adoption of supply chain security tooling in the project's development workflow and CI pipeline. In recent years, the OpenSSF and the wider open source community have produced a broad ecosystem of such tools, each addressing a distinct aspect of software supply chain security. A non-exhaustive set of examples includes:
+
+* **[OpenSSF Scorecard](https://scorecard.dev/):** assesses a project's development workflow against a set of established security checks, such as branch protection, dependency pinning, and signed releases.
+* **[SLSA](https://slsa.dev/) attestations:** capture verifiable provenance information for released artifacts, allowing downstream users to confirm how and from what source an artifact was built.
+* **[Sigstore](https://www.sigstore.dev/):** provides keyless signing of release artifacts and container images, together with a public transparency log for independent verification.
+
+Every additional tool, however, introduces complexity into the development workflow and imposes an ongoing cost on maintainers, who must understand its purpose, integrate it, and act on its output. A well-intentioned but unsolicited proposal can therefore create more work for maintainers than it saves.
+
+Contributors proposing the adoption of new tooling should observe the following practices:
+
+* **Seek maintainer agreement before integrating.** Open a discussion or issue first, explain the security benefit the tool provides, and confirm that the maintainers are open to adopting it. Integration work should begin only once alignment has been reached.
+* **Avoid "drive-by" tooling contributions.** A new tool should not be introduced as a one-time contribution that the contributor does not intend to support. Automation should be the outcome of a conversation, not a surprise pull request.
+* **Take responsibility for the tool's output.** Commit to helping maintainers act on the findings the tool surfaces — for example, by triaging alerts, tuning configurations to reduce noise, and contributing fixes for the issues identified.
+
 ## Further Recommendations
 
 This section described further recommendations complementing the best practices outlined above.
@@ -136,24 +190,6 @@ More information is available
 * [Governance](https://contribute.cncf.io/projects/best-practices/governance/), guide, CNCF
 * [HowTo: Make a Contributing Guide](https://contribute.cncf.io/projects/best-practices/templates/contributing/), guide, CNCF
 * [OpenSSF CRA Materials](https://policy.openssf.org/CRA/)
-
-## List of additional content to cover in this guide
-
-These are ideas + a make-shift backlog
-
-### Scenarios
-
-* bumping versions of dependencies
-  * manual effort
-  * add automation (e.g., dependabot)
-  * support reviewing and testing version bumps
-  * unless CI is robust, it might be major load to test any change
-* unresolved CVEs
-* implementing test cases
-  * security-focused test cases
-* adding additional tools
-  * causes additional overhead of dealing with the output
-  * @balteravishay: yes, but: Avoid "Drive-by" Tooling by not adding any CI tools, linters, or bots without maintainer buy-in. Proposing automation should be a conversation, not a surprise PR.
 
 ## Contributors
 
