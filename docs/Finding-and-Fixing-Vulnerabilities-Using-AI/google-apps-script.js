@@ -34,6 +34,9 @@ function linkifyCitations() { // Add hyperlinks from citations per bibliography
         if (idMatch && urlMatch) {
           const id = idMatch[1];
           const url = urlMatch[1].replace(/[.,;)]+$/, ''); // Clean trailing punctuation
+          if (citationMap[id] !== undefined) {
+            DocumentApp.getUi().alert(`Duplicate citation ID "${id}"\nOld URL: ${citationMap[id]}\nNew URL: ${url}`);
+          }
           citationMap[id] = url;
 
           // Also make the URL text in the bibliography entry itself
