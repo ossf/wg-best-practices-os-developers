@@ -19,7 +19,7 @@ rm -fr sections/
 # Use chunk-template so filenames won't change when sections are added/moved
 
 pandoc -t chunkedhtml --split-level=2 --toc -o sections \
-  --chunk-template="%i.html" \
+  --template=template.html --chunk-template="%i.html" \
   --css="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" \
   Finding.md
 
