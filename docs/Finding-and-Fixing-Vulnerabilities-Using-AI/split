@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Clean up old versions
+rm -fr sections/
+
+# Split into many markdown files with navigation
+python3 mdsplit.py \
+  --max-level 2 --table-of-contents \
+  --navigation --output sections \
+  Finding.md
+
+# Convert markdown to HTML
+find sections/ -name '*.md' -print0 | while IFS= read -r -d '' f; do
+  HTML_FILENAME="${f%.md}.html"
+  pandoc "$f" | \
+    sed -e 's/\(href="\.\/[^"]*\)\.md"/\1.html"/g' > "${HTML_FILENAME}"
+done
+
+echo 'DO NOT EDIT, this is generated' > sections/00_DO_NOT_EDIT
