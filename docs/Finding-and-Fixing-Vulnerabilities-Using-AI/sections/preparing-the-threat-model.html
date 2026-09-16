@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Preparing the threat model</title>
+  <style>
+    div.sitenav {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1em 0;
+      padding: 0.5em 0;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+    }
+    span.navlink { flex: 1; }
+    span.nav-prev { text-align: left; }
+    span.nav-up { text-align: center; }
+    span.nav-next { text-align: right; }
+    span.navlink-label { display: inline-block; }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" />
+</head>
+<body>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+      <span class="navlink-label">← Previous:</span> <a href="preparing-ai.html" accesskey="p" rel="previous">Preparing AI</a>
+    </span>
+    <span class="navlink nav-up">
+      <span class="navlink-label">Up:</span> <a href="prepare-to-find-and-fix-vulnerabilities.html" accesskey="u" rel="up">Prepare to find and fix vulnerabilities</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top"></a>
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="preparing-sandbox.html" accesskey="n" rel="next">Preparing sandbox</a> →
+    </span>
+  </div>
+</nav>
+
+
+
+<h2 data-number="5.2" id="preparing-the-threat-model">Preparing the
+threat model</h2>
+<p>Neither humans nor AI can determine if something is a vulnerability
+if there’s no clear definition of a vulnerability. ““AI (and external
+contributors) are more successful if the project shares how they desire
+the software to be used, acceptable scenarios to be deployed into, and
+what problems the project is aware of that could go wrong” [<a
+href="https://openssf.org/resources/securing-open-source-in-the-age-of-ai-a-practical-guide/">Aniszczyk2026</a>].</p>
+<p>A common way to answer this question is to develop a “threat model”.
+Adam Shostack suggests the four core questions a threat model should
+answer: what are we working on, what can go wrong, what are we going to
+do about it, and did we do a good job [Shostack2014]. If you’re not
+familiar with threat modeling, there are many sources for learning more.
+Here we’ll focus on AI-specific issues.</p>
+<p>Threat models are <em>important</em> when using AI:</p>
+<ul>
+<li>One report reported that an AI model “performed best on systems with
+well-documented threat models, system design docs, requirements, and
+constraints. When the threat model was well-defined, the model’s
+findings were exploitable 90 percent of the time.” In addition, “The
+most common cause of false positives is that the model lacks a good
+understanding of [the] trust boundaries.” [<a
+href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].<br />
+</li>
+<li>A use of Mythos Preview reported that it was valuable but it “needs
+precise prompts, explicit threat models, and validation infrastructure
+to turn strong reasoning into reliable security outcomes” [<a
+href="https://xbow.com/blog/mythos-offensive-security-xbow-evaluation">Ziegler2026</a>].<br />
+</li>
+<li>If the AI is not given enough information on the specific context
+and structure of your system’s environment, its recommendations may fail
+to align with requirements including regulatory requirements
+[Khloosi].</li>
+</ul>
+<p>If you don’t already have a threat model for your system, the good
+news is that an AI can <em>help</em> you create one. The bad news is
+that you need to interact with the AI, then review and refine its
+results, not simply take the AI-generated threat models as truth. [<a
+href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]
+suggests that when creating a threat model with AI, “bootstrap from the
+code, docs, and vulnerability history. Feed the model what you would
+hand a new security engineer on day one: architecture docs, wikis, entry
+points, git history, and past vulnerabilities. This helps overcome the
+challenge of inferring implicit knowledge, trade-offs, and design
+decisions from code alone. Then, ask the model to create a threat model
+that includes the system context, assets, entry points, and trust
+boundaries. Finally, have the model cluster past bugs and list the
+relevant vulnerability classes. Make sure the threat model documents
+what vulnerabilities you do and don’t care about, and why.”</p>
+<p>There are various tools that use AI to help you create a threat
+model. These include:</p>
+<ul>
+<li>OpenSSF Alpha-Omea’s “Threat Model Generator”, a set of agent skills
+, available at: &lt;<a
+href="https://github.com/alpha-omega-security/threat-model/">https://github.com/alpha-omega-security/threat-model/</a>&gt;<br />
+</li>
+<li>Matt Adams’s “StrideGPT” at &lt;<a
+href="https://stridegpt.streamlit.app">https://stridegpt.streamlit.app</a>&gt;</li>
+</ul>
+<p>When creating or updating a threat model for a world with AI,
+consider the following:</p>
+<ol type="1">
+<li>Design for prevention and containment. If an attacker takes over one
+system, try to put in place prevention mechanisms to limit lateral
+movement [Crowdstrike2026-FiveSteps]<br />
+</li>
+<li>Strongly limit privileges<br />
+</li>
+<li>Strongly control identity of all entities (human and non-human).
+Consider using continuous identification
+[Crowdstrike2026-FiveSteps]<br />
+</li>
+<li>Use layered defenses, so attackers must surmount multiple mechanisms
+to gain top privileges [<a
+href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>]<br />
+</li>
+<li>Look at past vulnerabilities to look for patterns that could prevent
+success by whole categories of attacks [<a
+href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>].<br />
+</li>
+<li>Specifically identify what is trusted (admins, specific config
+files, and so on). “These assumptions help separate non-exploitable bugs
+from actual exploits.” [<a
+href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]<br />
+</li>
+<li>Include the threat model in the code (e.g., as THREAT_MODEL.md) [<a
+href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].<br />
+</li>
+<li>Implement resiliency and rapid recovery
+[Crowdstrike2026-FiveSteps]</li>
+</ol>
+<p>Some people refer to the need for “system context” and/or “trust
+boundaries”. For our purposes, this is part of the threat model. For an
+AI to find vulnerabilities, it needs to know what a vulnerability is,
+including the system context and trust boundaries, and all of that is
+wrapped into the threat model.</p>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+      <span class="navlink-label">← Previous:</span> <a href="preparing-ai.html" accesskey="p" rel="previous">Preparing AI</a>
+    </span>
+    <span class="navlink nav-up">
+      <span class="navlink-label">Up:</span> <a href="prepare-to-find-and-fix-vulnerabilities.html" accesskey="u" rel="up">Prepare to find and fix vulnerabilities</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top"></a>
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="preparing-sandbox.html" accesskey="n" rel="next">Preparing sandbox</a> →
+    </span>
+  </div>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>De-duplicate</title>
+  <style>
+    div.sitenav {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1em 0;
+      padding: 0.5em 0;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+    }
+    span.navlink { flex: 1; }
+    span.nav-prev { text-align: left; }
+    span.nav-up { text-align: center; }
+    span.nav-next { text-align: right; }
+    span.navlink-label { display: inline-block; }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" />
+</head>
+<body>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+      <span class="navlink-label">← Previous:</span> <a href="identify-findings.html" accesskey="p" rel="previous">Identify findings</a>
+    </span>
+    <span class="navlink nav-up">
+      <span class="navlink-label">Up:</span> <a href="core-tasks-for-finding-and-fixing-vulnerabilities.html" accesskey="u" rel="up">Core tasks for finding and fixing vulnerabilities</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top"></a>
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="validate-findings.html" accesskey="n" rel="next">Validate findings</a> →
+    </span>
+  </div>
+</nav>
+
+
+
+<h2 data-number="6.2" id="de-duplicate">De-duplicate</h2>
+<p>“De-duplication” is the process of eliminating duplicate reports,
+eliminating unnecessary duplication of effort.</p>
+<p>In practice you need to repeatedly de-duplicate as you learn
+information. Projects may de-duplicate before validation (to eliminate
+obvious duplicates that don’t need duplicate validation), and
+de-duplicate again after validation has gained more information.</p>
+<p>Some writers consider de-duplication part of triage (e.g., [<a
+href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]),
+and others treat them separately. No matter how you define the terms,
+both are needed.</p>
+<p>[<a
+href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]
+recommends the following for de-duplication:</p>
+<ul>
+<li>Consider the root cause. “Scanners often flag one bug at multiple
+call sites or report multiple symptoms of a single root cause. Here’s
+one practical approach: First, use a cheap deterministic pass: same
+file, same category, vulnerability line numbers within ten lines of each
+other. Then, have a model apply qualitative rules to what
+remains:”<br />
+</li>
+<li>“Treat as duplicate: the same root cause worded differently; the
+same vulnerability reported at multiple call sites; a missing global
+protection (like an auth check) reported per endpoint; or a cause and
+its consequence flagged in the same path.”<br />
+</li>
+<li>“Treat as distinct: different vulnerability classes in the same
+file; different variables reaching different sinks; two independent bugs
+inside one helper; the same missing check on two endpoints, but each
+requires its own fix.”</li>
+</ul>
+<p>If it’s not <em>clear</em> that a finding is a duplicate, pass it
+along to be validated separately. Once more information is acquired it
+may be easier to determine if it’s a duplicate.</p>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+      <span class="navlink-label">← Previous:</span> <a href="identify-findings.html" accesskey="p" rel="previous">Identify findings</a>
+    </span>
+    <span class="navlink nav-up">
+      <span class="navlink-label">Up:</span> <a href="core-tasks-for-finding-and-fixing-vulnerabilities.html" accesskey="u" rel="up">Core tasks for finding and fixing vulnerabilities</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top"></a>
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="validate-findings.html" accesskey="n" rel="next">Validate findings</a> →
+    </span>
+  </div>
+</nav>
+
+</body>
+</html>

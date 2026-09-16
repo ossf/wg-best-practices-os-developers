@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Split file "Finding.md" into good-looking navigatible HTML
+
+set -e
+
+# 1. Clean up Finding.md in place (fixes Google Docs export artifacts
+#    that trip up markdownlint; see clean-finding.awk). Idempotent,
+#    and separate from the splitting step below so it can be run or
+#    moved on its own if needed.
+awk -f clean-finding.awk Finding.md > Finding.md.new
+mv Finding.md.new Finding.md
+
+# 2. Split the now-clean Finding.md into chunked HTML.
+
+# Clean up old versions
+rm -fr sections/
+
+# Use pandoc chunk-template so filenames are stable over time.
+pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout \
+  Finding.md \
+  -t chunkedhtml --split-level=2 --toc -o sections \
+  --template=template.html --chunk-template="%i.html" \
+  --css="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" \
+
+echo 'DO NOT EDIT, this is generated' > sections/00_DO_NOT_EDIT
