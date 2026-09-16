@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>AI more effective if guided by process</title>
+  <style>
+    div.sitenav {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1em 0;
+      padding: 0.5em 0;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+    }
+    span.navlink { flex: 1; }
+    span.nav-prev { text-align: left; }
+    span.nav-up { text-align: center; }
+    span.nav-next { text-align: right; }
+    span.navlink-label { display: inline-block; }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" />
+</head>
+<body>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+      <span class="navlink-label">← Previous:</span> <a href="do-simple-things-first.html" accesskey="p" rel="previous">Do simple things first</a>
+    </span>
+    <span class="navlink nav-up">
+      <span class="navlink-label">Up:</span> <a href="decide-on-approaches.html" accesskey="u" rel="up">Decide on Approaches</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top"></a>
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="processes-for-using-ai-to-find-and-fix-vulnerabilities.html" accesskey="n" rel="next">Processes for using AI to find and fix vulnerabilities</a> →
+    </span>
+  </div>
+</nav>
+
+
+
+<h2 data-number="4.4" id="ai-more-effective-if-guided-by-process">AI
+more effective if guided by process</h2>
+<p>You <em>can</em> find and fix some vulnerabilities with simple
+prompts, as noted above. However, if your goal is thoroughness, most
+report that guiding an AI makes the AI more effective at finding and
+fixing vulnerabilities.</p>
+<p>For example, [<a
+href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]
+states that “simply asking a generic coding agent to “find bugs” in a
+large repository results in model drift, context window compaction, and
+high false-positive rates… The highest-performing defensive systems
+combine raw AI reasoning with rigid engineering frameworks (harnesses)
+that handle file selection, environment setup, and tool execution.”</p>
+<p>Similarly, [<a
+href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>]
+noted that, “you can start with very simple prompting…” but
+<em>also</em> noted that, “through iteration we’ve built out a lot of
+orchestration and tooling to optimize and scale the pipeline.” [<a
+href="https://red.anthropic.com/2026/mythos-preview/">Carlini2026</a>]
+found that asking “each agent to focus on a different file in the
+project” was more effective, since this “reduces the likelihood that we
+will find the same bug hundreds of times”. Instead of processing
+literally every file for each software project, they first asked Claude
+to rank how likely each file in the project is to have interesting bugs
+and prioritized the files that were most likely.</p>
+<p>Derek ZImmer [Zimmer2026] believes that one reason for this is that
+it’s easy for an AI to “run things out-of-order”. AI may try to
+anticipate the next step, and what it guesses may be wrong. Having an AI
+agent do a specific task, using previous data created independently,
+enables it to focus its attention and effort specifically on that
+task.</p>
+<p>[<a
+href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>]
+reported 4 lessons, each pointing to the value of a harness to manage
+the overall execution:</p>
+<ul>
+<li><em>Narrow scope produces better findings</em>. Telling the model
+“Find vulnerabilities in this repository” makes it wander. Telling it
+“Look for command injection in this specific function, with this trust
+boundary above it, here’s the architecture document and here’s prior
+coverage of this area” makes it do something much closer to what a
+researcher would actually do.<br />
+</li>
+<li><em>Adversarial review reduces noise</em>. Adding a second agent
+between the initial finding and the queue - one with a different prompt,
+a different model, and no ability to generate its own findings - catches
+a lot of the noise that the first agent would miss if it just checked
+its own work. It turns out that putting two agents in deliberate
+disagreement is way more effective than just telling one agent to be
+careful.<br />
+</li>
+<li><em>Splitting the chain across agents produces better
+reasoning</em>. Asking “Is this code buggy?” and “Can an attacker
+actually reach this bug from outside the system?” are two different
+questions, and the model is better at each one when you ask them
+separately, because each question is narrower than the combined
+version.<br />
+</li>
+<li><em>Parallel narrow tasks beat one exhaustive agent</em>. Coverage
+improves when many agents work on tightly scoped questions and we
+deduplicate the results afterward, rather than asking one agent to be
+exhaustive.”</li>
+</ul>
+<p>At the time of writing, exactly <em>how</em> to best guide AI is
+under evaluation. Different groups use different approaches, and it’s
+likely that different approaches are better suited for different
+vulnerabilities. We’ll further discuss approaches later, but as an
+example, here’s the approach described by [<a
+href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>]:</p>
+<ul>
+<li><em>Recon</em>: An agent reads the repository from the top down,
+fans out to subagents responsible for each subsystem, and produces an
+architecture document covering build commands, trust boundaries, entry
+points, and likely attack surface. It also generates the initial queue
+of tasks for the next stage. Gives every downstream agent shared
+context. Cuts the wander problem.<br />
+</li>
+<li><em>Hunt</em>: Each task is one attack class paired with a scope
+hint. Hunters (the agents that actually look for bugs) run concurrently,
+typically around fifty at once, each fanning out to a handful of
+exploration subagents. Each hunter has access to tools that compile and
+run proof-of-concept code in a per-task scratch directory. This is where
+most of the work happens. Many narrow tasks in parallel, not one
+exhaustive agent.<br />
+</li>
+<li><em>Validate</em>: An independent agent re-reads the code and tries
+to disprove the original finding. It uses a different prompt and has no
+ability to emit new findings of its own. Catches a meaningful fraction
+of the noise the hunter wouldn’t catch when reviewing its own
+work.<br />
+</li>
+<li><em>Gapfill</em>: Hunters flag areas they touched but didn’t cover
+thoroughly. Those areas get re-queued for another pass. Counteracts the
+model’s tendency to drift toward attack classes it has already had
+success with.<br />
+</li>
+<li><em>Dedupe</em>: Findings that share the same root cause collapse
+into a single record. Variant analysis is a feature, not a way to
+inflate the queue with duplicates.<br />
+</li>
+<li><em>Trace</em>: For each confirmed finding in a shared library, a
+tracer agent fans out (one instance per consumer repository), uses a
+cross-repo symbol index, and decides whether attacker-controlled input
+actually reaches the bug from outside the system. Turns “there is a
+flaw” into “there is a reachable vulnerability.” This is the stage that
+matters most.<br />
+</li>
+<li><em>Feedback</em>: Reachable traces become new hunt tasks in the
+consumer repositories where the bug is actually exposed. Closes the
+loop. The pipeline gets better as it runs.<br />
+</li>
+<li><em>Report</em>: An agent writes a structured report against a
+predefined schema, fixes any validation errors against that schema
+itself, and submits the report to an ingest API. Output is queryable
+data, not free-form prose.</li>
+</ul>
+<p>As we’ll further discuss later, a key task is validation. Something
+may look like a vulnerability but be unexploitable. The best way to
+validate a vulnerability is to generate an exploit that demonstrates
+that a finding really is a vulnerability. A working exploit demonstrates
+that existing defenses wouldn’t prevent the attack [<a
+href="https://red.anthropic.com/2026/mythos-preview/">Carlini2026</a>].
+This also explains why hardening is so important; if a project hardens
+their software against attack, they can systematically prevent many
+problems from becoming vulnerabilities. The Linux kernel, for example,
+has various defense in depth measures that prevented exploitation of
+many potential problems found by even advanced AI models [<a
+href="https://red.anthropic.com/2026/mythos-preview/">Carlini2026</a>].</p>
+<p>In 2026 AI became <em>far</em> more effective at finding
+vulnerabilities. This was due to a combination of <em>both</em> better
+AI models <em>and</em> better techniques for harnessing these models [<a
+href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>]
+. Using either one is better than using none, but most report it’s best
+to combine them both.</p>
+<p>There are risks that overprescribing an approach to an AI may
+overconstrain it, and cause it to ignore problems it would have
+otherwise found. It’s also possible that future improved AI models will
+be so good that aiding them with processes won’t help them. However,
+since most report that aiding AI models does help, we’ll discuss doing
+that combination in this course.</p>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+      <span class="navlink-label">← Previous:</span> <a href="do-simple-things-first.html" accesskey="p" rel="previous">Do simple things first</a>
+    </span>
+    <span class="navlink nav-up">
+      <span class="navlink-label">Up:</span> <a href="decide-on-approaches.html" accesskey="u" rel="up">Decide on Approaches</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top"></a>
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="processes-for-using-ai-to-find-and-fix-vulnerabilities.html" accesskey="n" rel="next">Processes for using AI to find and fix vulnerabilities</a> →
+    </span>
+  </div>
+</nav>
+
+</body>
+</html>

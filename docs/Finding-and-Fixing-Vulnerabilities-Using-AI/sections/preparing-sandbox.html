@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Preparing sandbox</title>
+  <style>
+    div.sitenav {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1em 0;
+      padding: 0.5em 0;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+    }
+    span.navlink { flex: 1; }
+    span.nav-prev { text-align: left; }
+    span.nav-up { text-align: center; }
+    span.nav-next { text-align: right; }
+    span.navlink-label { display: inline-block; }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" />
+</head>
+<body>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+      <span class="navlink-label">← Previous:</span> <a href="preparing-the-threat-model.html" accesskey="p" rel="previous">Preparing the threat model</a>
+    </span>
+    <span class="navlink nav-up">
+      <span class="navlink-label">Up:</span> <a href="prepare-to-find-and-fix-vulnerabilities.html" accesskey="u" rel="up">Prepare to find and fix vulnerabilities</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top"></a>
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="preparing-the-code-and-documentation.html" accesskey="n" rel="next">Preparing the code and documentation</a> →
+    </span>
+  </div>
+</nav>
+
+
+
+<h2 data-number="5.3" id="preparing-sandbox">Preparing sandbox</h2>
+<p>A key task when using an AI agent, <em>especially</em> when using AI
+to find and fix vulnerabilities, is place the agents within a “sandbox”
+environment to isolate it from other systems. “Without it, the agent may
+overshoot the target and do something unexpected.” [<a
+href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]
+You need to take steps to protect:</p>
+<ul>
+<li><em>Infrastructure running the AI agents</em>. These include the
+underlying operating systems<br />
+</li>
+<li><em>Systems external to the AI agents</em>. These may include an
+organization’s internal systems as well as systems run by other people
+and organizations.</li>
+</ul>
+<p>The problem isn’t usually “evil” AI. The problem is that AIs are
+highly goal-driven. AI systems often interpret human commands in
+surprising ways, and may attempt to break out of their sandbox (and
+succeed) if they believe that’s the best way to proceed [<a
+href="https://openai.com/index/hugging-face-model-evaluation-security-incident/">OpenAI2026-07</a>].</p>
+<p>Sandboxes for AI systems can be implemented by virtual machines (VMs)
+including microVMs, containers, and by applications designed to
+constrain AI systems such as nono &lt;<a
+href="https://github.com/nolabs-ai/nono">https://github.com/nolabs-ai/nono</a>&gt;.
+In addition, many AI harnesses and agent interaction systems (such as
+Goose and Claude Code) include a sandbox of some kind.</p>
+<p>You need to match the AI sandbox isolation to your threat model.
+Containers by themselves are relatively weak, but are often fine for the
+discovery agent simply reading code. However, if you’re doing something
+more active than reading and summarizing code, you’ll want stronger
+protections in place. That’s <em>especially</em> true if you’re having
+an AI system validate a vulnerability finding by having it attempt to
+develop proof of vulnerability (PoV). A PoV involves creating and
+demonstrating working attacks against a system, and is a powerful way to
+validate potential vulnerability findings. However, you don’t want the
+AI to attack either your production systems or others’ systems that the
+AI thinks might have useful information. Typically you’ll want to
+isolate them with at least a VM, and even VMs with large attack surfaces
+can sometimes be broken in to; microVMs with small attack surfaces
+designed for security are expected to be even stronger against attack
+[<a
+href="https://blog.trailofbits.com/2026/08/26/vms-wont-contain-cyber-capable-agents/">Dinaburg2026</a>].</p>
+<p>The need to sandbox is <strong><em>not</em></strong>
+hypothetical:</p>
+<ul>
+<li>In 2026 Hugging Face was attacked by an advanced AI model [<a
+href="https://huggingface.co/blog/security-incident-july-2026">HuggingFace2026</a>]
+which was eventually determined to be an accidental attack by an OpenAI
+model [<a
+href="https://www.cbsnews.com/news/hugging-face-hack-openai-rogue-model/">Walsh2026</a>].<br />
+</li>
+<li>Anthropic found that its AI models “hacked into the systems of three
+organisations on their own, during a private security experiment.” [<a
+href="https://www.bbc.com/news/articles/cz7dl7w8y7po">Chia2026</a>]<br />
+</li>
+<li>Meta’s AI attacked another company during its testing [<a
+href="https://www.reuters.com/technology/metas-ai-model-hacked-another-company-during-testing-information-reports-2026-08-05/">Pardesi2026-08-05</a>]<br />
+</li>
+<li>Moonshot’s AI model, ‌Kimi K3, escaped a cybersecurity testing
+environment developed by the UK AI Safety Institute [<a
+href="https://www.reuters.com/legal/litigation/chinese-startup-moonshots-ai-model-breaks-out-testing-environment-researchers-2026-08-07/">Reuters2026-08-07</a>]</li>
+</ul>
+<p>When you need a stronger sandbox, such as when creating attacks,
+“place [AIs] in a microVM (like Firecracker) or a full VM with egress
+locked down so nothing can reach your production systems.” Do not have
+(~/.aws, ~/.ssh, .env) available to the agent [<a
+href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].
+Put everything in a subdirectory of the VM, not a home directory, so if
+something leaks to a home directory it’s less likely to be visible to
+the AI system. Considering layering on other isolation mechanisms as
+well to reduce the likelihood of escape.</p>
+<p>While an AI <em>can</em> determine many things by itself by having it
+directly review code, AI is <em>far</em> more effective if it’s given
+tools that it may find useful [<a
+href="https://arxiv.org/abs/2404.05427">Zhang2024</a>]. This can include
+code search, fuzzers, static analyzers, and many other tools. For
+maximum effectiveness AI agents need to be able to create code, compile
+code, run tests, and detonate a proof of vulnerability. They need a test
+bed that is representative of the real system [<a
+href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].
+In short, just like humans, AIs can do more if they have access to
+useful tools. This means these tools need to be available from
+<em>within</em> the sandbox.</p>
+<p>When building your sandbox, “pin as much as you can so every run uses
+the same code in the same environment: image tags, commit SHAs,
+dependencies, and build commands. Cache a local copy so the build
+requires no network, and aim for the container to be durable so multiple
+testing loops can just load it” [<a
+href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].</p>
+<p>Typically installing these tools requires network access. So, “give
+the sandbox network access only while you’re setting it up. Pull the
+dependencies, build, install tools, deploy the target, and run the
+existing tests to confirm everything works. Then, snapshot the
+environment and remove its [general] network access. During scanning,
+allow traffic only to the model API, routed through a local proxy. Load
+the snapshot at the start of each run so every scan begins from the same
+clean slate” [<a
+href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].</p>
+<p>You may decide that you don’t <em>want</em> to create a proof of
+vulnerability (PoV) / proof of concept (PoC). They are an especially
+good technique for validation, but they aren’t always necessary. In that
+case, you may not need as strong a sandbox, but you may also need much
+more time for validation [<a
+href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].</p>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+      <span class="navlink-label">← Previous:</span> <a href="preparing-the-threat-model.html" accesskey="p" rel="previous">Preparing the threat model</a>
+    </span>
+    <span class="navlink nav-up">
+      <span class="navlink-label">Up:</span> <a href="prepare-to-find-and-fix-vulnerabilities.html" accesskey="u" rel="up">Prepare to find and fix vulnerabilities</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top"></a>
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="preparing-the-code-and-documentation.html" accesskey="n" rel="next">Preparing the code and documentation</a> →
+    </span>
+  </div>
+</nav>
+
+</body>
+</html>

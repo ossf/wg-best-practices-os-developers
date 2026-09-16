@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Preparing the code and documentation</title>
+  <style>
+    div.sitenav {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1em 0;
+      padding: 0.5em 0;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+    }
+    span.navlink { flex: 1; }
+    span.nav-prev { text-align: left; }
+    span.nav-up { text-align: center; }
+    span.nav-next { text-align: right; }
+    span.navlink-label { display: inline-block; }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" />
+</head>
+<body>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+      <span class="navlink-label">← Previous:</span> <a href="preparing-sandbox.html" accesskey="p" rel="previous">Preparing sandbox</a>
+    </span>
+    <span class="navlink nav-up">
+      <span class="navlink-label">Up:</span> <a href="prepare-to-find-and-fix-vulnerabilities.html" accesskey="u" rel="up">Prepare to find and fix vulnerabilities</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top"></a>
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="preparing-cicd.html" accesskey="n" rel="next">Preparing CI/CD</a> →
+    </span>
+  </div>
+</nav>
+
+
+
+<h2 data-number="5.4"
+id="preparing-the-code-and-documentation">Preparing the code and
+documentation</h2>
+<p>Like any computer system, an AI’s effectiveness depends on its input.
+This means that if you prepare the software (its code and documentation)
+to be easier to analyze, the results are likely to be much better. This
+means that an AI system can better analyze a system that has type
+declaration, inline comments, documentation, relevant specifications,
+and so on. This especially includes “bigger picture” information that
+explains <em>why</em> something was done.</p>
+<p>Dan Stenberg reports that AI tools can reason across protocols,
+specs, and third-party libraries in “almost magical ways”. AI tools can
+identify failures to comply with a spec, as well as inconsistencies
+between comments and implementations [<a
+href="https://thenewstack.io/curls-daniel-stenberg-ai-is-ddosing-open-source-and-fixing-its-bugs/">Vaughan-Nichols</a>].
+Language models’ ability to use context, e.g., comments, can be powerful
+[<a
+href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>].<br />
+Where practical, provide links to key data or extractions of relevant
+data. Relevant extractions are often better [Wheeler2026].</p>
+<p>At the least, include an “AGENTS.md” file. Its format and
+recommendations are provided by the Linux Foundation’s Agentic AI
+Foundation at &lt;<a
+href="https://agents.md/">https://agents.md/</a>&gt;. Unfortunately,
+Claude Code only looks at its single-use “CLAUDE.md” file. If you use
+Claude Code, you can work around this problem creating a “CLAUDE.md”
+file that contains only “<span class="citation"
+data-cites="AGENTS.md">@AGENTS.md</span>” and putting everything else in
+AGENTS.md.</p>
+<p>[<a
+href="https://www.0xkato.xyz/Get-ready-for-an-audit/">0xkato2024</a>]
+recommends making your code well documented, suggesting the
+following:</p>
+<ul>
+<li>“Are your code comments up to date?<br />
+</li>
+<li>Are there any third-party dependencies that the code relies
+on?<br />
+</li>
+<li>Is there a system architecture overview?<br />
+</li>
+<li>Have you mapped out the data flow and transaction lifecycle?<br />
+</li>
+<li>Are off-chain and on-chain components clearly documented?<br />
+</li>
+<li>Are access control mechanisms clearly outlined?<br />
+</li>
+<li>Have you done a risk assessment and threat model?<br />
+</li>
+<li>Do you have a list of all known issues with explanations?”</li>
+</ul>
+<p>Finally, “if (like most) you lack some documentation, AI can help you
+write it, but again, review the results. If you’re using AI to create
+documentation, work bottom-up, so that the AI can maximally build on
+other documentation.” [Wheeler2026] This does mean that “professionals
+who have always written meticulous documentation, are now reaping new
+benefits from that always valuable practice” [<a
+href="https://blog.plover.com/tech/gpt/documentation-wins.html">Dominus2026-03-05</a>].</p>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+      <span class="navlink-label">← Previous:</span> <a href="preparing-sandbox.html" accesskey="p" rel="previous">Preparing sandbox</a>
+    </span>
+    <span class="navlink nav-up">
+      <span class="navlink-label">Up:</span> <a href="prepare-to-find-and-fix-vulnerabilities.html" accesskey="u" rel="up">Prepare to find and fix vulnerabilities</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top"></a>
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="preparing-cicd.html" accesskey="n" rel="next">Preparing CI/CD</a> →
+    </span>
+  </div>
+</nav>
+
+</body>
+</html>

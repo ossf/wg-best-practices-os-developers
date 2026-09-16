@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Preparing AI</title>
+  <style>
+    div.sitenav {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1em 0;
+      padding: 0.5em 0;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+    }
+    span.navlink { flex: 1; }
+    span.nav-prev { text-align: left; }
+    span.nav-up { text-align: center; }
+    span.nav-next { text-align: right; }
+    span.navlink-label { display: inline-block; }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" />
+</head>
+<body>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+      <span class="navlink-label">← Previous:</span> <a href="prepare-to-find-and-fix-vulnerabilities.html" accesskey="p" rel="previous">Prepare to find and fix vulnerabilities</a>
+    </span>
+    <span class="navlink nav-up">
+      <span class="navlink-label">Up:</span> <a href="prepare-to-find-and-fix-vulnerabilities.html" accesskey="u" rel="up">Prepare to find and fix vulnerabilities</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top"></a>
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="preparing-the-threat-model.html" accesskey="n" rel="next">Preparing the threat model</a> →
+    </span>
+  </div>
+</nav>
+
+
+
+<h2 data-number="5.1" id="preparing-ai">Preparing AI</h2>
+<p>We list “preparing AI” because you’ll probably want to use AI to help
+do the other preparation steps. This means selecting the AI tools,
+including possibly their models, harnesses, and so on. There’s no
+requirement that you choose a <em>single</em> system to do this. In
+fact, different systems have different strengths and costs. What’s more,
+there’s no general guarantee that an AI system will find all
+vulnerabilities, so using multiple systems over the long term has its
+advantages.</p>
+<p>Different AI systems have differences in expense as measured by money
+and time. For example, older models and smaller models (including SLMs)
+are often less capable but can also be less expensive. In
+<em>practice</em>, it may be helpful to choose less-expensive and faster
+AI systems <em>first</em> to implement finding and fixing
+vulnerabilities, focusing on vulnerabilities that are simpler to find
+and simpler to fix. Taking this approach means that vulnerabilities that
+are easily found, fixed, verified, and deployed are quickly found by
+less-expensive models. Once those vulnerabilities are addressed,
+more-capable AI systems can be focused on the vulnerabilities that are
+best addressed by them.</p>
+<p>In many AI systems output tokens cost significantly more than input
+tokens. Taking steps to eliminate <em>unnecessary</em> output can reduce
+costs as well as time. You can sometimes do this by asking for concise
+results, using strict formatting requirements like JSON schemas or
+bullet points, or defining a hard ceiling in API calls. However, the
+challenge is to avoid <em>unnecessary</em> output; you’ll need enough
+output to have results and verify the work.</p>
+<p>As noted earlier, a key decision is whether or not to use an
+<em>external</em> (remote) system, because that means the external
+system will receive the data to be processed. As [<a
+href="https://arxiv.org/abs/2512.18261v2">Kholoosi</a>] notes, “due to
+internal policies, LLMs hosted on [external servers sometimes] cannot be
+used”.</p>
+<p>You will generally want to ensure that you can record memories of
+preferences, system information, and so on. For example, when using a
+remote system, get an account. AI gets better over time if it can record
+preferences over time.</p>
+<p>We’ll need to control the AI, including putting it in a sandbox.
+However, how to do that well can depend on the system being examined, so
+we’ll discuss that in more detail once we discuss the system being
+examined.</p>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+      <span class="navlink-label">← Previous:</span> <a href="prepare-to-find-and-fix-vulnerabilities.html" accesskey="p" rel="previous">Prepare to find and fix vulnerabilities</a>
+    </span>
+    <span class="navlink nav-up">
+      <span class="navlink-label">Up:</span> <a href="prepare-to-find-and-fix-vulnerabilities.html" accesskey="u" rel="up">Prepare to find and fix vulnerabilities</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top"></a>
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="preparing-the-threat-model.html" accesskey="n" rel="next">Preparing the threat model</a> →
+    </span>
+  </div>
+</nav>
+
+</body>
+</html>
