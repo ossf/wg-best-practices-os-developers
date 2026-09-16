@@ -3,20 +3,24 @@
 # awk -f clean-finding.awk Finding.md > Finding.md.new &&
 #   mv Finding.md.new Finding.md
 
-# Wrap bare http(s) URLs in <...>, unless already preceded by "(" or
-# "<" (i.e. already part of markdown link/autolink syntax) -- POSIX
-# ERE has no lookbehind, so that one check has to be manual; the rest
-# is just match()/substr() jumping straight from one URL to the next.
+# Wrap bare http(s) URLs in <...>, unless already preceded by "(", "<"
+# or "[" (already part of markdown link/autolink syntax: a link
+# target, an autolink, or link text that's the URL itself, as in
+# "[https://x](https://x)"; this last form is the most common one in
+# this doc). POSIX ERE has no lookbehind, so that one check has to be
+# manual; the rest is just match()/substr() jumping straight from one
+# URL to the next. "[" and "]" also end a URL, so we don't run past
+# the "]" of "[https://x]" into the "(https://x)" that follows it.
 function wrap_urls(s,    out, i, prev, url) {
     out = ""; i = 1
     while (match(substr(s, i), /https?:\/\//)) {
         out = out substr(s, i, RSTART - 1)
         i += RSTART - 1
         prev = (i > 1) ? substr(s, i - 1, 1) : ""
-        match(substr(s, i), /^[^ \t<>()]+/)
+        match(substr(s, i), /^[^ \t<>()\[\]]+/)
         url = substr(s, i, RLENGTH)
         i += RLENGTH
-        out = out (prev == "(" || prev == "<" ? url : "<" url ">")
+        out = out (prev == "(" || prev == "<" || prev == "[" ? url : "<" url ">")
     }
     return out substr(s, i)
 }
