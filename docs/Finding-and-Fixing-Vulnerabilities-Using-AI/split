@@ -4,16 +4,23 @@
 rm -fr sections/
 
 # Split into many markdown files with navigation
-python3 mdsplit.py \
-  --max-level 2 --table-of-contents \
-  --navigation --output sections \
-  Finding.md
+# python3 mdsplit.py \
+#   --max-level 2 --table-of-contents \
+#   --navigation --output sections \
+#   Finding.md
 
 # Convert markdown to HTML
-find sections/ -name '*.md' -print0 | while IFS= read -r -d '' f; do
-  HTML_FILENAME="${f%.md}.html"
-  pandoc "$f" | \
-    sed -e 's/\(href="\.\/[^"]*\)\.md"/\1.html"/g' > "${HTML_FILENAME}"
-done
+# find sections/ -name '*.md' -print0 | while IFS= read -r -d '' f; do
+#   HTML_FILENAME="${f%.md}.html"
+#   pandoc "$f" | \
+#     sed -e 's/\(href="\.\/[^"]*\)\.md"/\1.html"/g' > "${HTML_FILENAME}"
+# done
+
+# Use chunk-template so filenames won't change when sections are added/moved
+
+pandoc -t chunkedhtml --split-level=2 --toc -o sections \
+  --chunk-template="%i.html" \
+  --css="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" \
+  Finding.md
 
 echo 'DO NOT EDIT, this is generated' > sections/00_DO_NOT_EDIT
