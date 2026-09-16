@@ -6,9 +6,22 @@
 rm -fr sections/
 # Use perl; MacOS sed can't handle long lines, and we need to do some
 # mild cleanups of Google docs generated markdown first.
+#
+# Google Docs export puts its own flat table of contents (one
+# "[Text](#anchor)" link per line, no list markup) that renders poorly,
+# so we strip that and use our own generated DOC.
+# We also clean up data:image.
+#
 # Use pandoc chunk-template so filenames are stable over time.
 
-perl -pe 's/\s*\{#[^}]*\}//g; s/<(data:image\/[^>]+)>/$1/g' Finding.md | \
+perl -ne '
+    if (/^\[[^\]]+\]\(#(?:\\.|[^)])+\)\s*$/) { $in_toc = 1; next }
+    undef $in_toc if $in_toc && !/^\s*$/;
+    next if $in_toc;
+    s/\s*\{#[^}]*\}//g;
+    s/<(data:image\/[^>]+)>/$1/g;
+    print;
+' Finding.md | \
   pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout \
   -t chunkedhtml --split-level=2 --toc -o sections \
   --template=template.html --chunk-template="%i.html" \
