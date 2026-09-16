@@ -9,15 +9,16 @@
 # "[https://x](https://x)"; this last form is the most common one in
 # this doc). POSIX ERE has no lookbehind, so that one check has to be
 # manual; the rest is just match()/substr() jumping straight from one
-# URL to the next. "[" and "]" also end a URL, so we don't run past
-# the "]" of "[https://x]" into the "(https://x)" that follows it.
+# URL to the next.
 function wrap_urls(s,    out, i, prev, url) {
     out = ""; i = 1
     while (match(substr(s, i), /https?:\/\//)) {
         out = out substr(s, i, RSTART - 1)
         i += RSTART - 1
         prev = (i > 1) ? substr(s, i - 1, 1) : ""
-        match(substr(s, i), /^[^ \t<>()\[\]]+/)
+        # The "]" right after "[^" is a literal "]", not the closing
+        # bracket. This is the only portable way to negate-and-include "]"
+        match(substr(s, i), /^[^] \t<>()[]+/)
         url = substr(s, i, RLENGTH)
         i += RLENGTH
         out = out (prev == "(" || prev == "<" || prev == "[" ? url : "<" url ">")
@@ -26,6 +27,14 @@ function wrap_urls(s,    out, i, prev, url) {
 }
 
 BEGIN { looking_for_toc = 1 }
+
+# Drop any MD025-disable comment already in the file (idempotency: a
+# fresh copy goes back right after the title below). The directive
+# comment must be exactly "markdownlint-disable-file MD025" with
+# nothing else on the line, or markdownlint silently ignores it, so
+# the explanation is a separate plain comment line.
+/^<!-- markdownlint-disable-file MD025 -->$/ { next }
+/^<!-- Each chapter below is intentionally its own H1; see split\. -->$/ { next }
 
 # Count H1 headings; stop looking for the TOC after the 2nd one (the
 # title, then the first real chapter).
@@ -72,4 +81,14 @@ match($0, /^[ \t]*(-|\*|\+|[0-9]+[.)])[ \t][ \t]+/) {
 # MD047: buffer blank lines and only emit them once we know more
 # content follows, so trailing blank lines at EOF are dropped.
 /^[ \t]*$/ { blanks++; next }
-{ while (blanks > 0) { print ""; blanks-- }; print }
+{
+    while (blanks > 0) { print ""; blanks-- }
+    print
+    # Each chapter here is intentionally its own H1 (`split` chunks
+    # pages on both H1 and H2), so tell markdownlint not to flag that
+    # right after the title, the first H1 seen.
+    if ($0 ~ /^#[^#]/ && h1_seen == 1) {
+        print "<!-- markdownlint-disable-file MD025 -->"
+        print "<!-- Each chapter below is intentionally its own H1; see split. -->"
+    }
+}
