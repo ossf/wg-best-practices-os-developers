@@ -1,14 +1,12 @@
 # Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers (LFD126)
 
-<!-- markdownlint-disable-file MD025 -->
-<!-- Each chapter below is its own H1 by design: split chunks pages on
-     both H1 and H2 headings, so this isn't a stray extra title. -->
-
 David A. Wheeler
 
 This is a guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using artificial intelligence (AI). We intend to create a course using this guide (by  adding quizzes and a final exam). This guide/course is a joint effort between the OpenSSF Best Practices working group (WG) and the OpenSSF AI/ML WG.
 
 # Introduction
+
+Welcome to “Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers”. This is both a guidance document and eventually will be an online course (LFD126).
 
 ## Scope of this material
 
@@ -951,10 +949,6 @@ AI is changing things, including security. This doesn’t mean it’s time to pa
 AI can be used to help find and fix vulnerabilities. What’s more, over time AI can help software developers make software with so few vulnerabilities that they will be incredibly difficult to subvert. Software developers, and those who work with them, have an opportunity to make the world a much more secure place.
 
 Let’s get started.
-
-# TODO
-
-??? NOTE: Need to include examples throughout.
 
 # Acknowledgements
 
