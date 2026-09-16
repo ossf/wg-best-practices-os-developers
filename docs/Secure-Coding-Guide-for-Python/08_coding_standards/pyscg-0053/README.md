@@ -2,15 +2,16 @@
 
 Ensure that the functions, classes, and modules you use are up to date and not deprecated or obsolete in the Python standard library.
 
-Python libraries and frameworks evolve over time and their maintainers phase out features through a defined lifecycle [[PSF Devguide 2026](https://devguide.python.org/versions/)]. A feature is first marked *deprecated* and continues to work while emitting a `DeprecationWarning`, then in a later release it becomes *obsolete* and is removed. Depending on deprecated features is a maintainability and stability risk:
+Use `DeprecationWarning` and static code analysis tools to avoid outdated functions, classes, and modules blocking security fixes. `DeprecationWarning` messages are hidden unless enabled. A developer can run the interpreter with `-W error::DeprecationWarning` to promote them to errors so they surface during development and testing [[docs.python.org warnings 2026](https://docs.python.org/3/library/warnings.html)]. The same promotion can be done in code with `warnings.simplefilter("error", DeprecationWarning)`, but the filter must be installed before the deprecated feature is used, which is impossible for a warning raised at import time. The interpreter flag is preferred because it applies uniformly and matches how CI runs.
 
-* Code that runs today can stop importing or executing on a newer interpreter once the feature is removed.
-* A `DeprecationWarning` is silent by default, so the problem is easy to miss until an upgrade breaks the code.
-* The replacement API often has clearer or safer behaviour that the deprecated one no longer receives fixes for.
+Python libraries and frameworks evolve over time and their maintainers phase out features through a defined lifecycle [[PSF Devguide 2026](https://devguide.python.org/versions/)]. A feature is first marked *deprecated* and continues to work while emitting a `DeprecationWarning`, then in a later release it becomes *obsolete* and is removed. Depending on deprecated features is a maintainability, stability, and security risk:
+
+* Code that runs today can stop importing or executing on a newer interpreter once the feature is removed, which can strand it on an older interpreter that no longer receives security patches.
+* A `DeprecationWarning` is silent by default, so the latent defect it warns about can stay hidden until an upgrade breaks the code or the flaw is exploited.
+* The replacement API often has clearer or safer behaviour, and only the replacement continues to receive bug and security fixes.
+* A security patch is often only released for current versions, so code pinned to an old interpreter or a removed feature can be left unable to take the fix.
 
 See also [pyscg-0023: Secure Deserialization](../../04_neutralization/pyscg-0023/README.md) for a deprecated function that is also unsafe.
-
-`DeprecationWarning` messages are hidden unless enabled. A developer can run the interpreter with `-W error::DeprecationWarning` to turn them into errors so they surface during development and testing [[docs.python.org warnings 2026](https://docs.python.org/3/library/warnings.html)].
 
 ## Non-Compliant Code Example (Removed Import Location)
 
