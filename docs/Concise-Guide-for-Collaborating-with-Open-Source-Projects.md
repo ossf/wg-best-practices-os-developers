@@ -91,6 +91,8 @@ For vulnerabilities that are not yet publicly known ("0-days"), confidentiality 
 * **Do not disclose the vulnerability through public channels.** Under no circumstances should a new vulnerability finding be reported through a public issue, pull request, discussion thread, chat channel, or social media post before a coordinated disclosure has taken place.
 * **Coordinate disclosure and remediation timelines.** Once maintainers have acknowledged the report, agree on a reasonable timeline for developing the fix, releasing it, and publishing an advisory. Respect any embargo period the project defines and avoid unilateral disclosure.
 
+The [OpenSSF Vulnerability Disclosures Working Group](https://github.com/ossf/wg-vulnerability-disclosures) has published extensive [material](https://oss-vulnerability-guide.openssf.org/) on this topic, including guides targeting [open source projects](https://oss-vulnerability-guide.openssf.org/maintainer-guide.html) as well as [finders of vulnerabilities](https://oss-vulnerability-guide.openssf.org/finder-guide.html).
+
 In addition to reporting directly to maintainers, findings may also be submitted to industry initiatives dedicated to coordinated vulnerability disclosure for open source software, such as [Akrites](https://akrites.org/). Akrites acts as trusted intermediary between reporters and maintainers: it receives vulnerability reports affecting open source projects and processes them through a structured remediation and disclosure workflow. Akrites' objective is to shield maintainers from duplicated or poorly coordinated reports and to support them in jointly developing and releasing fixes.
 
 ### Tools and methods for hardening the supply chain
@@ -183,13 +185,15 @@ When a contribution is rejected, contributors should consider the following appr
 
 More information is available
 
-* [Participating in Open Source Communities](https://todogroup.org/resources/guides/participating-in-open-source-communities/), guide, TODO Group
-* [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/), guide, GitHub
-* [Start Contributing to Open Source](https://contribute.cncf.io/contributors/getting-started/), guide, CNCF
-* [Security Hygiene Guide for Project Maintainers](https://contribute.cncf.io/projects/best-practices/security/security-hygiene/), guide, CNCF
 * [Governance](https://contribute.cncf.io/projects/best-practices/governance/), guide, CNCF
+* [Guidance for Security Researchers to Coordinate Vulnerability Disclosures with Open Source Software Projects](https://oss-vulnerability-guide.openssf.org/finder-guide.html), guide, OpenSSF Vulnerability Disclosures WG
+* [Guide to implementing a coordinated vulnerability disclosure process for open source projects](https://oss-vulnerability-guide.openssf.org/maintainer-guide.html), guide, OpenSSF Vulnerability Disclosures WG
+* [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/), guide, GitHub
 * [HowTo: Make a Contributing Guide](https://contribute.cncf.io/projects/best-practices/templates/contributing/), guide, CNCF
+* [Participating in Open Source Communities](https://todogroup.org/resources/guides/participating-in-open-source-communities/), guide, TODO Group
 * [OpenSSF CRA Materials](https://policy.openssf.org/CRA/)
+* [Security Hygiene Guide for Project Maintainers](https://contribute.cncf.io/projects/best-practices/security/security-hygiene/), guide, CNCF
+* [Start Contributing to Open Source](https://contribute.cncf.io/contributors/getting-started/), guide, CNCF
 
 ## Contributors
 
