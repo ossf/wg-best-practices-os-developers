@@ -10,7 +10,7 @@ The resulting files will be in `sections/`.
 Quiz questions for the eventual course go in the same document, using
 this exact template:
 
-```
+```text
 QUIZ
 
 **Q1.** <question text>
