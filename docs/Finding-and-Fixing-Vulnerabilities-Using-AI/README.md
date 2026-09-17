@@ -3,7 +3,11 @@
 Edit [Finding.md](./Finding.md). When you're ready, generate the
 subsections by running `split` in this directory.
 
-The resulting files will be in `sections/`.
+The resulting files will be in `sections/`. `split` deletes and
+regenerates that whole directory, so new chunk files show up as
+untracked, not modified. Commit with `git add -A sections/` (not `-u`
+or `git commit -a`), or a new file can end up linked from the TOC but
+never actually committed, producing a broken link on the live site.
 
 ## Quiz content
 
