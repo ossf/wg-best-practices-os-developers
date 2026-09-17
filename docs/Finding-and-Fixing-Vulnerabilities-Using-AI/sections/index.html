@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <link rel="icon" href="/assets/logo.svg" />
+  <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
+  <title>Finding and Fixing Vulnerabilities Using AI – Finding</title>
+  <style>
+    div.sitenav {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1em 0;
+      padding: 0.5em 0;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+    }
+    span.navlink { flex: 1; }
+    span.nav-prev { text-align: left; }
+    span.nav-up { text-align: center; }
+    span.nav-next { text-align: right; }
+    span.navlink-label { display: inline-block; }
+    .quiz { display: none; }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" />
+</head>
+<body>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+    </span>
+    <span class="navlink nav-up">
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="finding-and-fixing-software-vulnerabilities-using-ai-a-guide-for-developers-lfd126---draft.html" accesskey="n" rel="next">Finding and Fixing Software Vulnerabilities Using AI: A Guide for
+Developers (LFD126) - DRAFT</a> →
+    </span>
+  </div>
+</nav>
+
+</header>
+
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a
+href="finding-and-fixing-software-vulnerabilities-using-ai-a-guide-for-developers-lfd126---draft.html#finding-and-fixing-software-vulnerabilities-using-ai-a-guide-for-developers-lfd126---draft"
+id="toc-finding-and-fixing-software-vulnerabilities-using-ai-a-guide-for-developers-lfd126---draft">Finding
+and Fixing Software Vulnerabilities Using AI: A Guide for Developers
+(LFD126) - DRAFT</a></li>
+<li><a href="introduction.html#introduction"
+id="toc-introduction">Introduction</a>
+<ul>
+<li><a href="scope-of-this-material.html#scope-of-this-material"
+id="toc-scope-of-this-material">Scope of this material</a></li>
+<li><a href="course-learning-outcomes.html#course-learning-outcomes"
+id="toc-course-learning-outcomes">Course Learning Outcomes</a></li>
+<li><a href="no-endorsement-intended.html#no-endorsement-intended"
+id="toc-no-endorsement-intended">No endorsement intended</a></li>
+<li><a href="why-this-is-important.html#why-this-is-important"
+id="toc-why-this-is-important">Why this is important</a>
+<ul>
+<li><a
+href="why-this-is-important.html#ai-is-accelerating-vulnerability-finding"
+id="toc-ai-is-accelerating-vulnerability-finding">AI is accelerating
+vulnerability-finding</a></li>
+<li><a href="why-this-is-important.html#attack-speed-is-accelerating"
+id="toc-attack-speed-is-accelerating">Attack speed is
+accelerating</a></li>
+<li><a
+href="why-this-is-important.html#manual-closed-approaches-are-failing"
+id="toc-manual-closed-approaches-are-failing">Manual closed approaches
+are failing</a></li>
+</ul></li>
+<li><a href="what-hasnt-changed.html#what-hasnt-changed"
+id="toc-what-hasnt-changed">What hasn’t changed</a></li>
+<li><a
+href="good-news-long-term-potential-for-eliminating-nearly-all-vulnerabilities.html#good-news-long-term-potential-for-eliminating-nearly-all-vulnerabilities"
+id="toc-good-news-long-term-potential-for-eliminating-nearly-all-vulnerabilities">Good
+news: Long-term potential for eliminating nearly all
+vulnerabilities</a></li>
+<li><a href="overview.html#overview" id="toc-overview">Overview</a></li>
+</ul></li>
+<li><a href="ai-concepts.html#ai-concepts" id="toc-ai-concepts">AI
+concepts</a>
+<ul>
+<li><a href="basic-terminology.html#basic-terminology"
+id="toc-basic-terminology">Basic terminology</a></li>
+<li><a href="strengths-and-weaknesses.html#strengths-and-weaknesses"
+id="toc-strengths-and-weaknesses">Strengths and weaknesses</a></li>
+<li><a href="models.html#models" id="toc-models">Models</a>
+<ul>
+<li><a href="models.html#external-vs.-local-models"
+id="toc-external-vs.-local-models">External vs. local models</a></li>
+<li><a href="models.html#licenses" id="toc-licenses">Licenses</a></li>
+<li><a href="models.html#specialized-models"
+id="toc-specialized-models">Specialized models</a></li>
+<li><a href="models.html#ai-guardrails-intentional-limitations"
+id="toc-ai-guardrails-intentional-limitations">AI guardrails &amp;
+intentional limitations</a></li>
+</ul></li>
+<li><a
+href="cyber-reasoning-system-crs-history.html#cyber-reasoning-system-crs-history"
+id="toc-cyber-reasoning-system-crs-history">Cyber Reasoning System (CRS)
+History</a></li>
+<li><a
+href="ai-organizations-projects-and-services.html#ai-organizations-projects-and-services"
+id="toc-ai-organizations-projects-and-services">AI organizations,
+projects, and services</a></li>
+</ul></li>
+<li><a href="decide-on-approaches.html#decide-on-approaches"
+id="toc-decide-on-approaches">Decide on Approaches</a>
+<ul>
+<li><a href="do-not-ignore-ai.html#do-not-ignore-ai"
+id="toc-do-not-ignore-ai">Do not ignore AI</a></li>
+<li><a
+href="do-not-wait-for-access-to-best-ai-models.html#do-not-wait-for-access-to-best-ai-models"
+id="toc-do-not-wait-for-access-to-best-ai-models">Do not wait for access
+to best AI models</a></li>
+<li><a href="do-simple-things-first.html#do-simple-things-first"
+id="toc-do-simple-things-first">Do simple things first</a></li>
+<li><a
+href="ai-more-effective-if-guided-by-process.html#ai-more-effective-if-guided-by-process"
+id="toc-ai-more-effective-if-guided-by-process">AI more effective if
+guided by process</a></li>
+<li><a
+href="processes-for-using-ai-to-find-and-fix-vulnerabilities.html#processes-for-using-ai-to-find-and-fix-vulnerabilities"
+id="toc-processes-for-using-ai-to-find-and-fix-vulnerabilities">Processes
+for using AI to find and fix vulnerabilities</a>
+<ul>
+<li><a
+href="processes-for-using-ai-to-find-and-fix-vulnerabilities.html#challenges-of-finding-and-evaluating-tools"
+id="toc-challenges-of-finding-and-evaluating-tools">Challenges of
+finding and evaluating tools</a></li>
+<li><a
+href="processes-for-using-ai-to-find-and-fix-vulnerabilities.html#sample-services-and-tools"
+id="toc-sample-services-and-tools">Sample services and tools</a></li>
+<li><a
+href="processes-for-using-ai-to-find-and-fix-vulnerabilities.html#scrutineer"
+id="toc-scrutineer">Scrutineer</a></li>
+<li><a
+href="processes-for-using-ai-to-find-and-fix-vulnerabilities.html#oss-crs"
+id="toc-oss-crs">OSS-CRS</a></li>
+</ul></li>
+<li><a
+href="do-multiple-times-due-to-non-determinism-and-long-tail.html#do-multiple-times-due-to-non-determinism-and-long-tail"
+id="toc-do-multiple-times-due-to-non-determinism-and-long-tail">Do
+multiple times due to non-determinism and long tail</a></li>
+</ul></li>
+<li><a
+href="prepare-to-find-and-fix-vulnerabilities.html#prepare-to-find-and-fix-vulnerabilities"
+id="toc-prepare-to-find-and-fix-vulnerabilities">Prepare to find and fix
+vulnerabilities</a>
+<ul>
+<li><a href="preparing-ai.html#preparing-ai"
+id="toc-preparing-ai">Preparing AI</a></li>
+<li><a href="preparing-the-threat-model.html#preparing-the-threat-model"
+id="toc-preparing-the-threat-model">Preparing the threat model</a></li>
+<li><a href="preparing-sandbox.html#preparing-sandbox"
+id="toc-preparing-sandbox">Preparing sandbox</a></li>
+<li><a
+href="preparing-the-code-and-documentation.html#preparing-the-code-and-documentation"
+id="toc-preparing-the-code-and-documentation">Preparing the code and
+documentation</a></li>
+<li><a href="preparing-cicd.html#preparing-cicd"
+id="toc-preparing-cicd">Preparing CI/CD</a></li>
+<li><a
+href="preparing-dependency-updates.html#preparing-dependency-updates"
+id="toc-preparing-dependency-updates">Preparing dependency
+updates</a></li>
+</ul></li>
+<li><a
+href="core-tasks-for-finding-and-fixing-vulnerabilities.html#core-tasks-for-finding-and-fixing-vulnerabilities"
+id="toc-core-tasks-for-finding-and-fixing-vulnerabilities">Core tasks
+for finding and fixing vulnerabilities</a>
+<ul>
+<li><a href="identify-findings.html#identify-findings"
+id="toc-identify-findings">Identify findings</a>
+<ul>
+<li><a
+href="identify-findings.html#separate-identifying-findings-from-validation"
+id="toc-separate-identifying-findings-from-validation">Separate
+identifying findings from validation</a></li>
+<li><a href="identify-findings.html#helping-to-identify-findings"
+id="toc-helping-to-identify-findings">Helping to identify
+findings</a></li>
+<li><a href="identify-findings.html#findings-process"
+id="toc-findings-process">Findings process</a></li>
+<li><a
+href="identify-findings.html#handling-external-findingsvulnerabilities"
+id="toc-handling-external-findingsvulnerabilities">Handling external
+findings/vulnerabilities</a></li>
+</ul></li>
+<li><a href="de-duplicate.html#de-duplicate"
+id="toc-de-duplicate">De-duplicate</a></li>
+<li><a href="validate-findings.html#validate-findings"
+id="toc-validate-findings">Validate findings</a>
+<ul>
+<li><a href="validate-findings.html#defining-what-a-vulnerability-is"
+id="toc-defining-what-a-vulnerability-is">Defining what a vulnerability
+is</a></li>
+<li><a href="validate-findings.html#defining-the-proof-required"
+id="toc-defining-the-proof-required">Defining the proof
+required</a></li>
+<li><a href="validate-findings.html#tips-for-validation"
+id="toc-tips-for-validation">Tips for validation</a></li>
+</ul></li>
+<li><a href="triage.html#triage" id="toc-triage">Triage</a></li>
+<li><a href="fix-vulnerabilities.html#fix-vulnerabilities"
+id="toc-fix-vulnerabilities">Fix vulnerabilities</a>
+<ul>
+<li><a
+href="fix-vulnerabilities.html#fixing-is-often-necessary-for-sending-reports-to-external-organizations"
+id="toc-fixing-is-often-necessary-for-sending-reports-to-external-organizations">Fixing
+is often necessary for sending reports to external
+organizations</a></li>
+<li><a href="fix-vulnerabilities.html#assigning-the-fix"
+id="toc-assigning-the-fix">Assigning the fix</a></li>
+<li><a
+href="fix-vulnerabilities.html#creating-tests-and-confirming-the-root-problem"
+id="toc-creating-tests-and-confirming-the-root-problem">Creating tests
+and confirming the root problem</a></li>
+<li><a href="fix-vulnerabilities.html#how-to-create-the-fix"
+id="toc-how-to-create-the-fix">How to create the fix</a></li>
+<li><a
+href="fix-vulnerabilities.html#warning-ai-is-not-good-at-fixing-complex-vulnerabilities"
+id="toc-warning-ai-is-not-good-at-fixing-complex-vulnerabilities">Warning:
+AI is not good at fixing complex vulnerabilities</a></li>
+<li><a
+href="fix-vulnerabilities.html#only-provide-correct-information-especially-if-fully-automated"
+id="toc-only-provide-correct-information-especially-if-fully-automated">Only
+provide correct information, especially if fully automated</a></li>
+<li><a href="fix-vulnerabilities.html#approaching-fixes"
+id="toc-approaching-fixes">Approaching fixes</a></li>
+<li><a href="fix-vulnerabilities.html#verifying-the-fix"
+id="toc-verifying-the-fix">Verifying the fix</a></li>
+</ul></li>
+<li><a href="report-vulnerability.html#report-vulnerability"
+id="toc-report-vulnerability">Report vulnerability</a>
+<ul>
+<li><a
+href="report-vulnerability.html#eu-cyber-resilience-act-cra-reporting"
+id="toc-eu-cyber-resilience-act-cra-reporting">EU Cyber Resilience Act
+(CRA) reporting</a></li>
+</ul></li>
+<li><a href="release-deploy.html#release-deploy"
+id="toc-release-deploy">Release &amp; deploy</a></li>
+<li><a href="repeated-application.html#repeated-application"
+id="toc-repeated-application">Repeated application</a></li>
+</ul></li>
+<li><a
+href="preventing-vulnerabilities-longer-term.html#preventing-vulnerabilities-longer-term"
+id="toc-preventing-vulnerabilities-longer-term">Preventing
+vulnerabilities longer term</a>
+<ul>
+<li><a href="limit-vibe-coding.html#limit-vibe-coding"
+id="toc-limit-vibe-coding">Limit vibe coding</a></li>
+<li><a
+href="evaluate-mergepull-requests.html#evaluate-mergepull-requests"
+id="toc-evaluate-mergepull-requests">Evaluate merge/pull
+requests</a></li>
+<li><a
+href="apply-secure-by-design-and-secure-by-default.html#apply-secure-by-design-and-secure-by-default"
+id="toc-apply-secure-by-design-and-secure-by-default">Apply secure by
+design and secure by default</a></li>
+<li><a href="harden.html#harden" id="toc-harden">Harden</a>
+<ul>
+<li><a href="harden.html#applying-hardening"
+id="toc-applying-hardening">Applying hardening</a></li>
+<li><a href="harden.html#harden-to-counter-chaining"
+id="toc-harden-to-counter-chaining">Harden to counter chaining</a></li>
+<li><a
+href="harden.html#disable-hardening-and-evaluate-hardening-during-evaluation"
+id="toc-disable-hardening-and-evaluate-hardening-during-evaluation">Disable
+hardening and evaluate hardening during evaluation</a></li>
+<li><a
+href="harden.html#harden-the-deployed-environment-and-infrastructure"
+id="toc-harden-the-deployed-environment-and-infrastructure">Harden the
+deployed environment and infrastructure</a></li>
+</ul></li>
+</ul></li>
+<li><a href="call-to-action.html#call-to-action"
+id="toc-call-to-action">Call to action</a></li>
+<li><a href="acknowledgements.html#acknowledgements"
+id="toc-acknowledgements">Acknowledgements</a></li>
+<li><a href="bibliography.html#bibliography"
+id="toc-bibliography">Bibliography</a></li>
+</ul>
+</nav>
+
+
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+    </span>
+    <span class="navlink nav-up">
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="finding-and-fixing-software-vulnerabilities-using-ai-a-guide-for-developers-lfd126---draft.html" accesskey="n" rel="next">Finding and Fixing Software Vulnerabilities Using AI: A Guide for
+Developers (LFD126) - DRAFT</a> →
+    </span>
+  </div>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <link rel="icon" href="/assets/logo.svg" />
+  <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
+  <title>Finding and Fixing Vulnerabilities Using AI – Scope of this
+material</title>
+  <style>
+    div.sitenav {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1em 0;
+      padding: 0.5em 0;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+    }
+    span.navlink { flex: 1; }
+    span.nav-prev { text-align: left; }
+    span.nav-up { text-align: center; }
+    span.nav-next { text-align: right; }
+    span.navlink-label { display: inline-block; }
+    .quiz { display: none; }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" />
+</head>
+<body>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+      <span class="navlink-label">← Previous:</span> <a href="introduction.html" accesskey="p" rel="previous">Introduction</a>
+    </span>
+    <span class="navlink nav-up">
+      <span class="navlink-label">Up:</span> <a href="introduction.html" accesskey="u" rel="up">Introduction</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top"></a>
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="course-learning-outcomes.html" accesskey="n" rel="next">Course Learning Outcomes</a> →
+    </span>
+  </div>
+</nav>
+
+
+
+<h2 data-number="2.1" id="scope-of-this-material">Scope of this
+material</h2>
+<p>This is a guide/course on finding and fixing vulnerabilities in
+software using artificial intelligence (AI)/machine learning (ML). It is
+intended for:</p>
+<ul>
+<li><em>software developers</em>, to help them find and fix
+vulnerabilities in software (especially software they’re responsible
+for), and for<br />
+</li>
+<li><em>security researchers</em>, who are trying to help those software
+developers.</li>
+</ul>
+<p>It includes the process of finding, validating, and generating fixes,
+as well as related tasks that make this process more effective. These
+processes apply when examining the entire project, or when examining a
+particular set of proposed changes. We expect this material to apply to
+any software regardless of its license, but we do include a few notes
+specifically on open source software (OSS).</p>
+<p>We don’t focus on any <em>specific</em> system to do this. There are
+many systems that can help with this, there are more all the time, using
+multiple systems can be helpful, and the industry is rapidly changing.
+We instead focus on general principles that we believe are more timeless
+and will help you regardless of the systems you use to find and fix
+vulnerabilities. Once you understand the general issues, you’ll be more
+effective when using any particular system.</p>
+<p>For a more general introduction on AI/ML, software development, and
+security, see our course<br />
+<em>Secure AI/ML-Driven Software Development (LFEL1012)</em> at <a
+href="https://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/">https://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/</a>.</p>
+<p>Please note that this course does NOT focus on the following
+topics:</p>
+<ol type="1">
+<li>Building AI models &amp; AI systems.<br />
+</li>
+<li>Building/fixing software or systems that include AI. This course is
+still applicable, but we don’t discuss anything special related to that
+situation.<br />
+</li>
+<li>How to write secure software in general. Please take our LFD121
+course to learn that.<br />
+</li>
+<li>Evaluating malicious or possibly-malicious software. We’re presuming
+that software developers are investigating their own software or
+software they want to contribute to that isn’t intended to be malicious.
+The focus here is on <em>unintentional</em> vulnerabilities.</li>
+</ol>
+<p>This material is a joint effort between the OpenSSF Best Practices
+working group (WG) and the OpenSSF AI/ML WG. Its lead author is David A.
+Wheeler. Reviewers include Laura Guazzelli.</p>
+
+<nav class="sitenav-container">
+  <div class="sitenav">
+    <span class="navlink nav-prev">
+      <span class="navlink-label">← Previous:</span> <a href="introduction.html" accesskey="p" rel="previous">Introduction</a>
+    </span>
+    <span class="navlink nav-up">
+      <span class="navlink-label">Up:</span> <a href="introduction.html" accesskey="u" rel="up">Introduction</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top"></a>
+    </span>
+    <span class="navlink nav-next">
+      <span class="navlink-label">Next:</span> <a href="course-learning-outcomes.html" accesskey="n" rel="next">Course Learning Outcomes</a> →
+    </span>
+  </div>
+</nav>
+
+</body>
+</html>
