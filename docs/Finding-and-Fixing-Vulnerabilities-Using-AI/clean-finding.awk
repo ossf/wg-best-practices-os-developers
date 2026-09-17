@@ -1,7 +1,10 @@
 #!/usr/bin/awk -f
-# POSIX awk to clean input Markdown file, writes to stdout. Usage:
+# Clean input Markdown file, writes to stdout. Usage:
 # awk -f clean-finding.awk Finding.md > Finding.md.new &&
 #   mv Finding.md.new Finding.md
+#
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 
 # Wrap bare http(s) URLs in <...>, unless already preceded by "(", "<"
 # or "[" (already part of markdown link/autolink syntax: a link
