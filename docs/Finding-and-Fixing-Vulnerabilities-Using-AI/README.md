@@ -23,16 +23,14 @@ this exact template:
 
 ```text
 QUIZ
-
-**Q1.** <question text>
+Q1. <question text>
 
 A) <option>
 B) <option>
 C) <option>
 D) <option>
 
-**Answer:** B
-
+Answer: B
 ENDQUIZ
 ```
 
