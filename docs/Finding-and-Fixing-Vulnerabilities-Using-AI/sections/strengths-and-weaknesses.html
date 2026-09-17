@@ -25,6 +25,7 @@ weaknesses</title>
     span.nav-up { text-align: center; }
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
+    .quiz { display: none; }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -94,7 +95,16 @@ difficult for an LLM to generate code without vulnerabilities.<br />
 <li><em>Injection vulnerability</em>. LLMs have no built-in fundamental
 way to distinguish between different types of input. A command from a
 user, a malicious command embedded in a web page, or a misleading source
-code comment are all simply inputs.</li>
+code comment are all simply inputs.This is especially important when an
+AI agent analyzes a software repository or external documentation.
+Source comments, documentation, issue text, generated files, dependency
+metadata, and other repository content may be attacker-controlled or
+simply incorrect. Treat such content as data to analyze, not as
+authority to redefine the agent’s task, grant additional permissions,
+expose credentials, or enable additional tools or network access.
+Instructions obtained from untrusted content should not be allowed to
+silently cross an authorization boundary [<a
+href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/">OWASP-LLM01</a>].</li>
 </ul>
 
 <nav class="sitenav-container">

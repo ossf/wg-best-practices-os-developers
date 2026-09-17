@@ -25,6 +25,7 @@ findings</title>
     span.nav-up { text-align: center; }
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
+    .quiz { display: none; }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -72,7 +73,7 @@ examined by AI and/or if the AI model is especially good at program
 analysis.</p>
 <p><em>However</em>, this trivial approach often doesn’t provide
 meaningful coverage of real codebases of significant size, nor does it
-necessary identify valuable findings. AI can be very effective at
+necessarily identify valuable findings. AI can be very effective at
 finding vulnerabilities [<a
 href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>].
 However, if you want to do a <em>good</em> job at finding and fixing
@@ -252,6 +253,14 @@ Ask for a proof of concept (PoC) if it can provide it, but be clear that
 a PoC is not <em>required</em> and findings should be reported even if
 it cannot create a PoC. A PoC can simplify later validation if it can be
 created, but we don’t want to pre-filter findings too early.</p>
+<p>Where practical, include provenance needed to reproduce and interpret
+the result. This can include the source revision examined, relevant
+environment and configuration, the analysis or verifier invocation that
+produced the evidence, and the threat-model assumptions used when
+evaluating the finding. Provenance makes it easier to reproduce a
+result, determine whether it still applies after the software changes,
+and distinguish observed evidence from an AI-generated explanation [<a
+href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html">SARIF2.1</a>].</p>
 <h3 data-number="6.1.3" id="findings-process">Findings process</h3>
 <p>This process may sound overwhelming, but it’s not. Computers are good
 at creating lists and then having agents select and work on items in
@@ -279,11 +288,19 @@ they related to mathematically undecidable problems in computer science
 The best way to see how quickly the number of findings are diminishing
 is to keep re-run finding efforts until the process increasingly comes
 up empty-handed.</p>
+<p>Also, distinguish a successful analysis that produced no findings
+from an analysis that did not successfully complete. A timeout, model or
+tool failure, environment failure, insufficient permission, policy
+denial, or similar interruption is not evidence that no vulnerabilities
+were found. Automated workflows should record these outcomes separately
+so that an incomplete analysis cannot silently become a “no findings”
+result [<a
+href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html">SARIF2.1</a>].</p>
 <h3 data-number="6.1.4"
 id="handling-external-findingsvulnerabilities">Handling external
 findings/vulnerabilities</h3>
-<p>External organizations may report up upi what they claim are
-vulnerabilities. These reports may or may not be true, so they are
+<p>External people and organizations may report what they <em>claim</em>
+are vulnerabilities. These reports may or may not be true, so they are
 essentially findings.</p>
 <p>Make it clear that you expect reporters to have a human review of an
 AI-proposed vulnerability report. Encourage reporters to work together

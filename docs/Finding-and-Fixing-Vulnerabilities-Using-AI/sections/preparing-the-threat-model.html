@@ -25,6 +25,7 @@ threat model</title>
     span.nav-up { text-align: center; }
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
+    .quiz { display: none; }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -65,17 +66,18 @@ threat model</title>
 <h2 data-number="5.2" id="preparing-the-threat-model">Preparing the
 threat model</h2>
 <p>Neither humans nor AI can determine if something is a vulnerability
-if there’s no clear definition of a vulnerability. ““AI (and external
+if there’s no clear definition of a vulnerability. “AI (and external
 contributors) are more successful if the project shares how they desire
 the software to be used, acceptable scenarios to be deployed into, and
 what problems the project is aware of that could go wrong” [<a
 href="https://openssf.org/resources/securing-open-source-in-the-age-of-ai-a-practical-guide/">Aniszczyk2026</a>].</p>
-<p>A common way to answer this question is to develop a “threat model”.
-Adam Shostack suggests the four core questions a threat model should
-answer: what are we working on, what can go wrong, what are we going to
-do about it, and did we do a good job [Shostack2014]. If you’re not
-familiar with threat modeling, there are many sources for learning more.
-Here we’ll focus on AI-specific issues.</p>
+<p>A common way to answer this question is to develop a “threat model”
+of the system being analyzed. Adam Shostack suggests the four core
+questions a threat model should answer: what are we working on, what can
+go wrong, what are we going to do about it, and did we do a good job
+[Shostack2014]. If you’re not familiar with threat modeling, there are
+many sources for learning more. Here we’ll focus on AI-specific
+issues.</p>
 <p>Threat models are <em>important</em> when using AI:</p>
 <ul>
 <li>One report reported that an AI model “performed best on systems with
@@ -114,8 +116,8 @@ what vulnerabilities you do and don’t care about, and why.”</p>
 <p>There are various tools that use AI to help you create a threat
 model. These include:</p>
 <ul>
-<li>OpenSSF Alpha-Omea’s “Threat Model Generator”, a set of agent skills
-, available at: &lt;<a
+<li>OpenSSF Alpha-Omega’s “Threat Model Generator”, a set of agent
+skills , available at: &lt;<a
 href="https://github.com/alpha-omega-security/threat-model/">https://github.com/alpha-omega-security/threat-model/</a>&gt;<br />
 </li>
 <li>Matt Adams’s “StrideGPT” at &lt;<a
@@ -130,7 +132,7 @@ movement [Crowdstrike2026-FiveSteps]<br />
 </li>
 <li>Strongly limit privileges<br />
 </li>
-<li>Strongly control identity of all entities (human and non-human).
+<li>Strongly control the identity of all entities (human and non-human).
 Consider using continuous identification
 [Crowdstrike2026-FiveSteps]<br />
 </li>
@@ -143,7 +145,7 @@ success by whole categories of attacks [<a
 href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>].<br />
 </li>
 <li>Specifically identify what is trusted (admins, specific config
-files, and so on). “These assumptions help separate non-exploitable bugs
+files, and so on).“These assumptions help separate non-exploitable bugs
 from actual exploits.” [<a
 href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]<br />
 </li>

@@ -25,6 +25,7 @@ sandbox</title>
     span.nav-up { text-align: center; }
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
+    .quiz { display: none; }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -88,21 +89,27 @@ constrain AI systems such as nono &lt;<a
 href="https://github.com/nolabs-ai/nono">https://github.com/nolabs-ai/nono</a>&gt;.
 In addition, many AI harnesses and agent interaction systems (such as
 Goose and Claude Code) include a sandbox of some kind.</p>
-<p>You need to match the AI sandbox isolation to your threat model.
-Containers by themselves are relatively weak, but are often fine for the
-discovery agent simply reading code. However, if you’re doing something
-more active than reading and summarizing code, you’ll want stronger
-protections in place. That’s <em>especially</em> true if you’re having
-an AI system validate a vulnerability finding by having it attempt to
-develop proof of vulnerability (PoV). A PoV involves creating and
-demonstrating working attacks against a system, and is a powerful way to
-validate potential vulnerability findings. However, you don’t want the
-AI to attack either your production systems or others’ systems that the
-AI thinks might have useful information. Typically you’ll want to
-isolate them with at least a VM, and even VMs with large attack surfaces
-can sometimes be broken in to; microVMs with small attack surfaces
-designed for security are expected to be even stronger against attack
-[<a
+<p>You need to match the AI sandbox isolation to your analysis threat
+model. <strong>A useful rule is to match isolation to capability.
+Reading source code, modifying or building it, executing programs,
+fuzzing inputs, and developing or running a PoV represent increasing
+capabilities, and generally require increasingly strong controls. Put
+simply: a robot reading a book may only need a quiet room; a robot using
+power tools needs a much safer room.</strong></p>
+<p>Containers by themselves are relatively weak, but are often fine for
+the discovery agent simply reading code. However, if you’re doing
+something more active than reading and summarizing code, you’ll probably
+want stronger protections in place. That’s <em>especially</em> true if
+you’re having an AI system validate a vulnerability finding by having it
+attempt to develop proof of vulnerability (PoV). A PoV involves creating
+and demonstrating working attacks against a system, and is a powerful
+way to validate potential vulnerability findings. However, you don’t
+want the AI to attack either your production systems or others’ systems
+that the AI thinks might have useful information. Typically you’ll want
+to isolate them with at least a VM, and even VMs with large attack
+surfaces can sometimes be broken into; microVMs with small attack
+surfaces designed for security are expected to be even stronger against
+attack [<a
 href="https://blog.trailofbits.com/2026/08/26/vms-wont-contain-cyber-capable-agents/">Dinaburg2026</a>].</p>
 <p>The need to sandbox is <strong><em>not</em></strong>
 hypothetical:</p>
@@ -145,6 +152,15 @@ href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].
 In short, just like humans, AIs can do more if they have access to
 useful tools. This means these tools need to be available from
 <em>within</em> the sandbox.</p>
+<p>Capabilities should also have explicit execution bounds. Depending on
+the task, consider limits on wall-clock time, parallelism, CPU and
+memory use, queued or repeated actions, tool invocations, network
+requests, and model or monetary budget. Record when a limit terminates
+an analysis so that resource exhaustion or a timeout is not confused
+with successful completion. These controls reduce accidental runaway
+execution, make costs more predictable, and make runs easier to
+interpret and reproduce [<a
+href="https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption">OWASP-LLM10</a>].</p>
 <p>When building your sandbox, “pin as much as you can so every run uses
 the same code in the same environment: image tags, commit SHAs,
 dependencies, and build commands. Cache a local copy so the build
@@ -166,6 +182,14 @@ good technique for validation, but they aren’t always necessary. In that
 case, you may not need as strong a sandbox, but you may also need much
 more time for validation [<a
 href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].</p>
+<p>Where practical, treat AI agents as distinct software principals
+rather than allowing them to inherit a human user’s full authority. Give
+agents identifiable credentials and only the tools, resources, and
+permissions needed for their assigned role. Discovery, validation,
+patching, and reporting agents may require different authorities;
+separating them also improves attribution and auditability
+[NIST-AgentIdentity2026] [<a
+href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">OWASP-Agentic2026</a>].</p>
 
 <nav class="sitenav-container">
   <div class="sitenav">

@@ -25,6 +25,7 @@ code and documentation</title>
     span.nav-up { text-align: center; }
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
+    .quiz { display: none; }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -113,6 +114,15 @@ on?<br />
 </li>
 <li>Do you have a list of all known issues with explanations?”</li>
 </ul>
+<p>When analyzing a system, examine security properties across
+transitions (including state transitions) as well as steady-state data
+flows. Vulnerabilities can appear during transitions such as
+authentication and re-authentication, token refresh and expiration,
+logout and revocation, account or role changes, retries, recovery flows,
+and concurrent operations. Ask the AI to identify the security
+invariants that should remain true across these transitions and then
+look for paths where those invariants can be violated [<a
+href="https://owasp.org/www-project-application-security-verification-standard/">OWASP-ASVS5</a>].</p>
 <p>Finally, “if (like most) you lack some documentation, AI can help you
 write it, but again, review the results. If you’re using AI to create
 documentation, work bottom-up, so that the AI can maximally build on

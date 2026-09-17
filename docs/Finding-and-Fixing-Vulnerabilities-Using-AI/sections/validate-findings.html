@@ -25,6 +25,7 @@ findings</title>
     span.nav-up { text-align: center; }
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
+    .quiz { display: none; }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -160,7 +161,16 @@ href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">R
 href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]
 recommends the following for verification:</p>
 <ul>
-<li>“The verifier agent should be independent from the discovery agent.
+<li>The verifier agent should be independent from the discovery agent. A
+useful way to frame this is that validation involves <strong>independent
+reproduction rather than self-review</strong>. Asking the discovery
+agent to reconsider its own conclusion can preserve the same context,
+assumptions, and reasoning errors. The verifier should instead
+independently attempt to disprove the finding and produce reproducible
+evidence for its conclusion [<a
+href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]
+[<a
+href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>].
 Run the verifier in a fresh container without a shared filesystem or
 conversation history. If the verifier is exposed to the discovery
 agent’s reasoning, it may simply agree instead of testing the claim.
