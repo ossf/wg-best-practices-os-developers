@@ -1,6 +1,8 @@
 #!/bin/bash
-
 # Split file "Finding.md" into good-looking navigatible HTML
+
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
 
 set -e
 
