@@ -56,13 +56,13 @@ in_toc {
 # Drop pandoc/kramdown heading-id attributes like "{#some-id}".
 { gsub(/[ \t]*\{#[^}]*\}/, "") }
 
-# Turn the fixed "QUIZ" ... "**Answer:** ..." ... "ENDQUIZ" quiz
+# Turn the fixed "QUIZ" ... "Answer: ..." ... "ENDQUIZ" quiz
 # template into native, click-to-expand disclosure widgets: no JS, and
 # closed by default on their own. Hidden entirely for now via the
 # "quiz" CSS class in template.html; delete that one rule later to
 # reveal them.
 /^[ \t]*QUIZ[ \t]*$/ { $0 = "<details class=\"quiz\"><summary>Quiz</summary>" }
-/^\*\*Answer:\*\*/ { $0 = "<details><summary>Show answer</summary>" $0 "</details>" }
+/^\**Answer:\** / { $0 = "<details><summary>Show answer</summary>" $0 "</details>" }
 /^[ \t]*ENDQUIZ[ \t]*$/ { $0 = "</details>" }
 
 # Unwrap angle-bracket-wrapped data:image URIs: keep everything the
