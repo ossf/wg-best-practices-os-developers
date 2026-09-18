@@ -35,6 +35,7 @@ pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout \
   -M lang=en \
   -M title-prefix="Finding and Fixing Vulnerabilities Using AI" \
   -M description="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." \
+  -M title="Table of Contents" \
 
 mv chunks-tmp/* .
 rmdir chunks-tmp
