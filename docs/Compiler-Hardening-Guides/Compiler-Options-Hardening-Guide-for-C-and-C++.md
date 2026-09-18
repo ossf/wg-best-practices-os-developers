@@ -387,9 +387,15 @@ Enabling `-Wtrampolines` warns of programming constructs which are not compatibl
 
 ### Warn about implicit fallthrough in switch statements
 
-| Compiler Flag                                                     | Supported since          | Description                            |
-|:------------------------------------------------------------------|:------------------------:|:-------------------------------------- |
-| <span id="-Wimplicit-fallthrough">`-Wimplicit-fallthrough`</span> | GCC 7.0.0<br>Clang 4.0.0 | Warn when a switch case falls through. |
+| Compiler Flag                                                       | Supported since | Description                                                                                                                                             |
+|:--------------------------------------------------------------------|:---------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <span id="-Wimplicit-fallthrough">`-Wimplicit-fallthrough`</span>   | Clang 4.0.0     | Warn when a switch case falls through. The `[[fallthrough]]`, `[[gnu::fallthrough]]`, or `[[clang::fallthrough]]` attributes disable the warning.       |
+| <span id="-Wimplicit-fallthrough">`-Wimplicit-fallthrough=5`</span> | GCC 7.0.0       | Warn when a switch case falls through. Only `[[fallthrough]]` or `[[gnu::fallthrough]]` attributes disable the warning.                                 |
+| <span id="-Wimplicit-fallthrough">`-Wimplicit-fallthrough=4`</span> | GCC 7.0.0       | Warn when a switch case falls through. Comments mentioning "fallthrough" disable the warning.                                                           |
+| <span id="-Wimplicit-fallthrough">`-Wimplicit-fallthrough=3`</span> | GCC 7.0.0       | Warn when a switch case falls through. Comments mentioning "fallthrough" or "intentional" disable the warning. Same as `-Wimplicit-fallthrough` in GCC. |
+| <span id="-Wimplicit-fallthrough">`-Wimplicit-fallthrough=2`</span> | GCC 7.0.0       | Warn when a switch case falls through. Comments mentions "falls through" or "fallthrough" disable the warning.                                          |
+| <span id="-Wimplicit-fallthrough">`-Wimplicit-fallthrough=1`</span> | GCC 7.0.0       | Warn when a switch case falls through. Any comment in the fallthrough case disables the warning.                                                        |
+| <span id="-Wimplicit-fallthrough">`-Wimplicit-fallthrough=0`</span> | GCC 7.0.0       | Do not warn when a switch case falls through.                                                                                                           |
 
 <!-- Here "a fallthrough" is a noun, "to fall through" is the verb. -->
 
@@ -418,6 +424,44 @@ The C17 standard[^C2017] does not provide a mechanism to mark intentional fallth
 
 The `__fallthrough__` attribute is supported since GCC 7.0.0[^gcc-release-notes-7] and Clang 4.0.0[^clang-fallthrough]. Feature testing via `__has_attribute` is supported since GCC 5.0.0[^gcc-release-notes-5] and Clang 2.9.
 
+In Clang, `-Wimplicit-fallthrough` requires the fallthrough site to be marked with one of the appropriate attributes to disable the warning. In GCC, `-Wimplicit-fallthrough=5` provides the equivalent behavior. Due to this divergent behavior we recommend using the respective form of the option in GCC and Clang which enforces the use of appropriate attributes. In projects that may be built with both GCC and Clang, use the `-Wimplicit-fallthrough` variant, which is more permissive in GCC, or test for whether `-Wimplicit-fallthrough=5` is supported by the compiler and fall back to `-Wimplicit-fallthrough` if it is not. And example test is given for GNU Make below:
+
+<!-- markdownlint-disable MD010 -->
+~~~make
+# -----------------------------------------------------------------------------
+# GNU Make probe
+# -----------------------------------------------------------------------------
+# $(call probe,<compiler>,<source-ext>,<flag>,<extra-probe-flags>)
+#   -> expands to <flag> if the compiler accepts it, to nothing otherwise.
+#
+# The -Werror in <extra-probe-flags> is NOT optional.  Clang reports an
+# unrecognised -W option as a *warning* (-Wunknown-warning-option), so a probe
+# without -Werror reports success for -Wimplicit-fallthrough=5 on Clang and the
+# flag then silently does nothing for the whole build.
+
+probe = $(shell tmp=`mktemp -d 2>/dev/null || echo /tmp/ftprobe.$$$$`; mkdir -p "$$tmp"; \
+	printf 'int main(void){return 0;}\n' > "$$tmp/p.$(2)"; \
+	if $(1) $(4) $(3) -c "$$tmp/p.$(2)" -o "$$tmp/p.o" >/dev/null 2>&1; then \
+		printf '%s' '$(3)'; \
+	fi; \
+	rm -rf "$$tmp")
+
+WERROR_PROBE := -Werror
+
+# Step 1: prefer -Wimplicit-fallthrough=5 (GCC: attribute annotations only).
+FT_CFLAGS := $(call probe,$(CC),c,-Wimplicit-fallthrough=5,$(WERROR_PROBE))
+ifeq ($(FT_CFLAGS),)
+# Step 2: fall back to bare -Wimplicit-fallthrough (Clang: same semantics).
+FT_CFLAGS := $(call probe,$(CC),c,-Wimplicit-fallthrough,$(WERROR_PROBE))
+endif
+
+FT_CXXFLAGS := $(call probe,$(CXX),cpp,-Wimplicit-fallthrough=5,$(WERROR_PROBE))
+ifeq ($(FT_CXXFLAGS),)
+FT_CXXFLAGS := $(call probe,$(CXX),cpp,-Wimplicit-fallthrough,$(WERROR_PROBE))
+endif
+~~~
+<!-- markdownlint-disable MD010 -->
+
 [^Polacek17]: Polacek, Marek, ["-Wimplicit-fallthrough in GCC 7"](https://developers.redhat.com/blog/2017/03/10/wimplicit-fallthrough-in-gcc-7), Red Hat Developer, 2017-03-10
 
 [^Corbet19]: Corbet, Jonathan.  ["An end to implicit fall-throughs in the kernel"](https://lwn.net/Articles/794944/), LWN, 2019-08-01.
@@ -433,8 +477,6 @@ The `__fallthrough__` attribute is supported since GCC 7.0.0[^gcc-release-notes-
 [^gcc-release-notes-7]: GCC team, [GCC 7 Release Series Changes, New Features, and Fixes](https://gcc.gnu.org/gcc-7/changes.html), 2019-11-14.
 
 [^clang-fallthrough]: LLVM team, [Attributes in Clang: fallthrough, clang::fallthrough](https://releases.llvm.org/4.0.0/tools/clang/docs/AttributeReference.html#fallthrough-clang-fallthrough), Clang Documentation, 2017-03-13.
-
----
 
 ### Enable warnings for possibly misleading Unicode bidirectional control characters
 
