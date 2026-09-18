@@ -1,6 +1,6 @@
 # Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers (LFD126) \- DRAFT
 <!-- markdownlint-disable-file MD025 -->
-<!-- Each chapter below is intentionally its own H1; see split. -->
+<!-- Each chapter below is intentionally its own H1; see gen-html. -->
 
 David A. Wheeler
 
