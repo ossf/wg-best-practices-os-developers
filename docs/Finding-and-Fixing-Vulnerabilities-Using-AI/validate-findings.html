@@ -6,6 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
+  <meta name="author" content="David A. Wheeler" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Validate
 findings</title>
@@ -54,7 +55,7 @@ findings</title>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="core-tasks-for-finding-and-fixing-vulnerabilities.html" accesskey="u" rel="up">Core tasks for finding and fixing vulnerabilities</a>
-      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">Table of Contents</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
       <span class="navlink-label">Next:</span> <a href="triage.html" accesskey="n" rel="next">Triage</a> →
@@ -64,7 +65,7 @@ findings</title>
 
 
 
-<h2 data-number="6.3" id="validate-findings">Validate findings</h2>
+<h2 data-number="5.3" id="validate-findings">Validate findings</h2>
 <p>A vulnerability is a defect that can be exploited by an attacker and
 violates some security requirement. A finding is only a
 <em>potential</em> vulnerability. Not all findings from AIs (or humans)
@@ -75,7 +76,7 @@ independently determine if a finding is a vulnerability, a defect but
 not a vulnerability, or not a defect. Even when a finding isn’t a
 defect, it might suggest improvements for the future, but here we’ll
 focus on validating if a finding is a vulnerability.</p>
-<h3 data-number="6.3.1" id="defining-what-a-vulnerability-is">Defining
+<h3 data-number="5.3.1" id="defining-what-a-vulnerability-is">Defining
 what a vulnerability is</h3>
 <p>A <em>key</em> for validating findings is to have a threat model
 and/or security requirements (otherwise there’s no way to tell if
@@ -98,7 +99,7 @@ like sandboxing and ASLR] [<a
 href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>].
 Of course, vulnerabilities that can penetrate existing countermeasures
 should be prioritized.</p>
-<h3 data-number="6.3.2" id="defining-the-proof-required">Defining the
+<h3 data-number="5.3.2" id="defining-the-proof-required">Defining the
 proof required</h3>
 <p>Projects must determine the level of proof required for a finding to
 be considered a vulnerability:</p>
@@ -148,7 +149,7 @@ mixed than its discovery results… It rejected false positives better
 than many predecessors, but sometimes lost true positives when evidence
 did not formally satisfy its criteria or when the intended rule was
 broader than the written one.”</p>
-<h3 data-number="6.3.3" id="tips-for-validation">Tips for
+<h3 data-number="5.3.3" id="tips-for-validation">Tips for
 validation</h3>
 <p>There’s no magic to validation. Validating claims has long been a
 part of software development. In the case of validating AI findings,
@@ -209,7 +210,7 @@ and the PoC is the validation.””</li>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="core-tasks-for-finding-and-fixing-vulnerabilities.html" accesskey="u" rel="up">Core tasks for finding and fixing vulnerabilities</a>
-      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">Table of Contents</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
       <span class="navlink-label">Next:</span> <a href="triage.html" accesskey="n" rel="next">Triage</a> →

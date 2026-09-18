@@ -6,6 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
+  <meta name="author" content="David A. Wheeler" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Identify
 findings</title>
@@ -54,7 +55,7 @@ findings</title>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="core-tasks-for-finding-and-fixing-vulnerabilities.html" accesskey="u" rel="up">Core tasks for finding and fixing vulnerabilities</a>
-      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">Table of Contents</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
       <span class="navlink-label">Next:</span> <a href="de-duplicate.html" accesskey="n" rel="next">De-duplicate</a> →
@@ -64,7 +65,7 @@ findings</title>
 
 
 
-<h2 data-number="6.1" id="identify-findings">Identify findings</h2>
+<h2 data-number="5.1" id="identify-findings">Identify findings</h2>
 <p>Simply pointing a generic AI coding agent at an arbitrary software
 repository and asking it to discover vulnerabilities can work, in the
 sense that it may find a vulnerability [<a
@@ -98,7 +99,7 @@ href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>].</l
 questions and we deduplicate the results afterward, rather than asking
 one agent to be exhaustive.” [<a
 href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>]</p>
-<h3 data-number="6.1.1"
+<h3 data-number="5.1.1"
 id="separate-identifying-findings-from-validation">Separate identifying
 findings from validation</h3>
 <p>One excellent way to improve results is to separate
@@ -128,7 +129,7 @@ verification step would have confirmed.”</li>
 </ul>
 <p>So we’ll first focus on identifying findings, and we’ll later discuss
 validating findings.</p>
-<h3 data-number="6.1.2" id="helping-to-identify-findings">Helping to
+<h3 data-number="5.1.2" id="helping-to-identify-findings">Helping to
 identify findings</h3>
 <p>There are many ways to help identify findings when using AI:</p>
 <ol type="1">
@@ -262,7 +263,7 @@ evaluating the finding. Provenance makes it easier to reproduce a
 result, determine whether it still applies after the software changes,
 and distinguish observed evidence from an AI-generated explanation [<a
 href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html">SARIF2.1</a>].</p>
-<h3 data-number="6.1.3" id="findings-process">Findings process</h3>
+<h3 data-number="5.1.3" id="findings-process">Findings process</h3>
 <p>This process may sound overwhelming, but it’s not. Computers are good
 at creating lists and then having agents select and work on items in
 parallel depending on your resources. Indeed, [<a
@@ -297,7 +298,7 @@ were found. Automated workflows should record these outcomes separately
 so that an incomplete analysis cannot silently become a “no findings”
 result [<a
 href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html">SARIF2.1</a>].</p>
-<h3 data-number="6.1.4"
+<h3 data-number="5.1.4"
 id="handling-external-findingsvulnerabilities">Handling external
 findings/vulnerabilities</h3>
 <p>External people and organizations may report what they <em>claim</em>
@@ -321,7 +322,7 @@ let’s discuss validating findings.</p>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="core-tasks-for-finding-and-fixing-vulnerabilities.html" accesskey="u" rel="up">Core tasks for finding and fixing vulnerabilities</a>
-      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">Table of Contents</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
       <span class="navlink-label">Next:</span> <a href="de-duplicate.html" accesskey="n" rel="next">De-duplicate</a> →

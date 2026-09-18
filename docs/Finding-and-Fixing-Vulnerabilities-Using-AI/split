@@ -5,6 +5,7 @@
 # SPDX-License-Identifier: MIT
 
 set -e
+set -o pipefail
 
 # 1. Clean up Finding.md in place (fixes Google Docs export artifacts
 #    that trip up markdownlint; see clean-finding.awk). Idempotent,
@@ -27,15 +28,23 @@ rm -f *.html
 # a directory), so it can't write straight into ".". Build into a
 # scratch directory instead, then move the chunks up into place.
 rm -fr chunks-tmp
+#
+# extract-title.awk feeds pandoc via stdin instead of a filename
+# argument: it turns the leading title/byline/abstract block into
+# YAML front matter (so it lands on index.html next to the table of
+# contents, instead of becoming its own separate page), but only in
+# what's piped to pandoc here. It never touches the committed
+# Finding.md, since that's regenerated wholesale from Google Docs and
+# any direct edit to it would just be lost on the next export.
+awk -f extract-title.awk Finding.md | \
 pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout \
-  Finding.md \
+  - \
   -t chunkedhtml --split-level=2 --toc -o chunks-tmp \
   --template=TEMPLATE.htm --chunk-template="%i.html" \
   --css="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" \
   -M lang=en \
   -M title-prefix="Finding and Fixing Vulnerabilities Using AI" \
   -M description="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." \
-  -M title="Table of Contents" \
 
 mv chunks-tmp/* .
 rmdir chunks-tmp

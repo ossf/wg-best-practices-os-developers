@@ -6,6 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
+  <meta name="author" content="David A. Wheeler" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Fix
 vulnerabilities</title>
@@ -54,7 +55,7 @@ vulnerabilities</title>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="core-tasks-for-finding-and-fixing-vulnerabilities.html" accesskey="u" rel="up">Core tasks for finding and fixing vulnerabilities</a>
-      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">Table of Contents</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
       <span class="navlink-label">Next:</span> <a href="report-vulnerability.html" accesskey="n" rel="next">Report vulnerability</a> →
@@ -64,7 +65,7 @@ vulnerabilities</title>
 
 
 
-<h2 data-number="6.5" id="fix-vulnerabilities">Fix vulnerabilities</h2>
+<h2 data-number="5.5" id="fix-vulnerabilities">Fix vulnerabilities</h2>
 <p>Finding vulnerabilities is useless for a defender unless those
 vulnerabilities are <em>fixed</em>. If fixing vulnerabilities is not
 handled efficiently this can become completely overwhelming. For
@@ -81,7 +82,7 @@ massive amount of functionality and must directly interact with
 potentially-malicious websites. Still, this experience demonstrates that
 AI can find many vulnerabilities <em>not</em> reported to projects by
 other approaches.</p>
-<h3 data-number="6.5.1"
+<h3 data-number="5.5.1"
 id="fixing-is-often-necessary-for-sending-reports-to-external-organizations">Fixing
 is often necessary for sending reports to external organizations</h3>
 <p>Historically, if a finder was examining external software, they would
@@ -100,7 +101,7 @@ scanning, supply-chain tooling, correctness fixes, and features
 maintainers had been meaning to get to.” In short, providing proposed
 fixing is far more likely to be helpful as compared to showing up with
 only a complaint.</p>
-<h3 data-number="6.5.2" id="assigning-the-fix">Assigning the fix</h3>
+<h3 data-number="5.5.2" id="assigning-the-fix">Assigning the fix</h3>
 <p>In a larger project, the first step for handling a tsunami of reports
 is automatic assigning. If a system can automatically route the issue to
 the correct component and human owner this can be a huge help [<a
@@ -108,7 +109,7 @@ href="https://blog.google/security/chrome-stronger-with-every-update/">Chrome202
 This doesn’t need to be complex; an AI system can often estimate this.
 If the assignment is in error, or the human is overwhelmed, have a
 process for transferring it.</p>
-<h3 data-number="6.5.3"
+<h3 data-number="5.5.3"
 id="creating-tests-and-confirming-the-root-problem">Creating tests and
 confirming the root problem</h3>
 <p>Before creating a fix, “write a new test that fails with the existing
@@ -129,7 +130,7 @@ injection vulnerability tends to have more SQL injection
 vulnerabilities. Update the threat model with the validated findings and
 patches to close the loop.” [<a
 href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]</p>
-<h3 data-number="6.5.4" id="how-to-create-the-fix">How to create the
+<h3 data-number="5.5.4" id="how-to-create-the-fix">How to create the
 fix</h3>
 <p>Now you’re ready to create a fix. You might choose to use AI to help
 develop a candidate fix, but you do <em>not</em> need to use the same AI
@@ -138,7 +139,7 @@ vulnerability that is expensive, slow, or has restricted access. It
 might be better to use a different AI system to create the fixes, since
 it might not have the same issues, it can use the detailed information
 provided earlier, and it might be better at that task.</p>
-<h3 data-number="6.5.5"
+<h3 data-number="5.5.5"
 id="warning-ai-is-not-good-at-fixing-complex-vulnerabilities">Warning:
 AI is not good at fixing complex vulnerabilities</h3>
 <p>However, we must address a serious problem: as of 2026, even the best
@@ -187,7 +188,7 @@ become. That said, this limitation is unlikely to disappear instantly,
 and not everyone can use the best available systems, so it’s important
 to be aware that AI systems may struggle with more complex
 vulnerabilities.</p>
-<h3 data-number="6.5.6"
+<h3 data-number="5.5.6"
 id="only-provide-correct-information-especially-if-fully-automated">Only
 provide correct information, especially if fully automated</h3>
 <p>The phrase “garbage in, garbage out” applies to AI systems, and is
@@ -209,7 +210,7 @@ actually be to omit lower-confidence information that could cause a
 ‘correctness collapse’ if it<br />
 turns out to be wrong.” [<a
 href="https://1password.com/files/resources/frontier-models-vulnerability-patches-flawed.pdf">Mierczuk2026</a>]</p>
-<h3 data-number="6.5.7" id="approaching-fixes">Approaching fixes</h3>
+<h3 data-number="5.5.7" id="approaching-fixes">Approaching fixes</h3>
 <p>As much as possible, be clear in the prompt to create a fix. Use
 something like this prompt: “Identify the root causes of this
 vulnerability. Identify approaches for fixing the root causes of the
@@ -238,7 +239,7 @@ mimics a typical code review process to ensure that code is functional
 and compliant with [our] style guidelines [and] other local code
 conventions.” [<a
 href="https://blog.google/security/chrome-stronger-with-every-update/">Chrome2026</a>]</p>
-<h3 data-number="6.5.8" id="verifying-the-fix">Verifying the fix</h3>
+<h3 data-number="5.5.8" id="verifying-the-fix">Verifying the fix</h3>
 <p>After generating candidate fixes, have AI and then humans review
 them.</p>
 <p>Even very good AI writes vulnerable code. In particular, an AI can be
@@ -335,7 +336,7 @@ triage, report, and design and deploy patches for them.”</p>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="core-tasks-for-finding-and-fixing-vulnerabilities.html" accesskey="u" rel="up">Core tasks for finding and fixing vulnerabilities</a>
-      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">Table of Contents</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
       <span class="navlink-label">Next:</span> <a href="report-vulnerability.html" accesskey="n" rel="next">Report vulnerability</a> →

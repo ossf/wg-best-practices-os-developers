@@ -6,6 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
+  <meta name="author" content="David A. Wheeler" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Harden</title>
   <style>
@@ -53,7 +54,7 @@
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="preventing-vulnerabilities-longer-term.html" accesskey="u" rel="up">Preventing vulnerabilities longer term</a>
-      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">Table of Contents</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
       <span class="navlink-label">Next:</span> <a href="call-to-action.html" accesskey="n" rel="next">Call to action</a> →
@@ -63,7 +64,7 @@
 
 
 
-<h2 data-number="7.4" id="harden">Harden</h2>
+<h2 data-number="6.4" id="harden">Harden</h2>
 <p>A key aspect of secure-by-design is <em>software hardening</em>, that
 is, continuously modifying the software to be <em>systematically</em>
 difficult to break into because a defect is unlikely to be exploitable.
@@ -75,7 +76,7 @@ as practical.</p>
 into. The goal is to make it difficult for an attacker to
 <em>exploit</em> a defect, preventing defects from becoming
 vulnerabilities.</p>
-<h3 data-number="7.4.1" id="applying-hardening">Applying hardening</h3>
+<h3 data-number="6.4.1" id="applying-hardening">Applying hardening</h3>
 <p>Some hardening measures are well-known industry-wide. For example,
 some languages are “memory-unsafe”, primarily C and C++. A memory-unsafe
 language does not, by default, protect against common memory errors such
@@ -127,7 +128,7 @@ business interruption become core defensive requirements. In a frontier
 AI threat model, resiliency is no longer a differentiator layered on top
 of prevention. It is part of prevention.”
 [Crowdstrike2026-FiveSteps]</p>
-<h3 data-number="7.4.2" id="harden-to-counter-chaining">Harden to
+<h3 data-number="6.4.2" id="harden-to-counter-chaining">Harden to
 counter chaining</h3>
 <p>There are different kinds of hardening:</p>
 <ol type="1">
@@ -180,7 +181,7 @@ spray [exploitation]” [<a
 href="https://red.anthropic.com/2026/mythos-preview/">Carlini2026</a>].</p>
 <p>Hardening still matters, but you need to use <em>reliable</em>
 hardening mechanisms.</p>
-<h3 data-number="7.4.3"
+<h3 data-number="6.4.3"
 id="disable-hardening-and-evaluate-hardening-during-evaluation">Disable
 hardening and evaluate hardening during evaluation</h3>
 <p>Where sensible, try to <em>disable</em> hardening mechanisms of a
@@ -214,7 +215,7 @@ href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Gr
 <p>By evaluating the system <em>without</em> its hardening mechanisms,
 and separately evaluating the hardening mechanisms <em>themselves</em>,
 the result is much stronger <em>defense-in-depth</em>.</p>
-<h3 data-number="7.4.4"
+<h3 data-number="6.4.4"
 id="harden-the-deployed-environment-and-infrastructure">Harden the
 deployed environment and infrastructure</h3>
 <p>Organizations need to focus on security basics and harden their
@@ -297,7 +298,7 @@ in your context.</p>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="preventing-vulnerabilities-longer-term.html" accesskey="u" rel="up">Preventing vulnerabilities longer term</a>
-      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">Table of Contents</a>
+      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
       <span class="navlink-label">Next:</span> <a href="call-to-action.html" accesskey="n" rel="next">Call to action</a> →
