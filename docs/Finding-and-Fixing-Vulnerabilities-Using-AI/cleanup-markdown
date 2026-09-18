@@ -1,0 +1,13 @@
+#!/bin/bash
+# Clean up Finding.md in place: fixes Google Docs export artifacts
+# that trip up markdownlint (see clean-finding.awk). Idempotent. Run
+# this right after downloading/exporting Finding.md from Google Docs,
+# before committing it.
+
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+
+set -e
+
+awk -f clean-finding.awk Finding.md > Finding.md.new
+mv Finding.md.new Finding.md

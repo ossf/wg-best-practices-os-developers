@@ -1,4 +1,4 @@
-# Static site metadata for `split`'s pandoc invocation. Unlike
+# Static site metadata for `gen-html`'s pandoc invocation. Unlike
 # extract-title.awk's subtitle/author/abstract (pulled from
 # Finding.md's own content, since that's regenerated from Google
 # Docs), none of this is sourced from the document: it's fixed

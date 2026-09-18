@@ -37,14 +37,14 @@ BEGIN { looking_for_toc = 1 }
 # nothing else on the line, or markdownlint silently ignores it, so
 # the explanation is a separate plain comment line.
 /^<!-- markdownlint-disable-file MD025 -->$/ { next }
-/^<!-- Each chapter below is intentionally its own H1; see split\. -->$/ { next }
+/^<!-- Each chapter below is intentionally its own H1; see gen-html\. -->$/ { next }
 
 # Count H1 headings; stop looking for the TOC after the 2nd one (the
 # title, then the first real chapter).
 /^#[^#]/ { if (++h1_seen >= 2) looking_for_toc = 0 }
 
-# Drop Google Docs' flat "[Text](#anchor)" table of contents; `split`
-# generates a real one via pandoc's --toc instead.
+# Drop Google Docs' flat "[Text](#anchor)" table of contents;
+# `gen-html` generates a real one via pandoc's --toc instead.
 looking_for_toc && /^\[[^]]+\]\(#(\\.|[^)])+\)[ \t]*$/ { in_toc = 1; next }
 
 # Drop blank lines in TOC
@@ -96,11 +96,11 @@ match($0, /^[ \t]*(-|\*|\+|[0-9]+[.)])[ \t][ \t]+/) {
 {
     while (blanks > 0) { print ""; blanks-- }
     print
-    # Each chapter here is intentionally its own H1 (`split` chunks
+    # Each chapter here is intentionally its own H1 (`gen-html` chunks
     # pages on both H1 and H2), so tell markdownlint not to flag that
     # right after the title, the first H1 seen.
     if ($0 ~ /^#[^#]/ && h1_seen == 1) {
         print "<!-- markdownlint-disable-file MD025 -->"
-        print "<!-- Each chapter below is intentionally its own H1; see split. -->"
+        print "<!-- Each chapter below is intentionally its own H1; see gen-html. -->"
     }
 }

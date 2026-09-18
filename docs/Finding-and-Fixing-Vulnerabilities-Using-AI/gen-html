@@ -1,5 +1,10 @@
 #!/bin/bash
-# Split file "Finding.md" into good-looking navigatible HTML
+# Generate this website's HTML pages from the current Finding.md.
+# Finding.md should already be clean (run cleanup-markdown first if
+# you just downloaded it from Google Docs; a committed Finding.md
+# already is). Long-term, this is meant to run only when the website
+# itself is built/deployed, so the generated HTML need not be
+# committed to the repo at all.
 
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
@@ -7,15 +12,8 @@
 set -e
 set -o pipefail
 
-# 1. Clean up Finding.md in place (fixes Google Docs export artifacts
-#    that trip up markdownlint; see clean-finding.awk). Idempotent,
-#    and separate from the splitting step below so it can be run or
-#    moved on its own if needed.
-awk -f clean-finding.awk Finding.md > Finding.md.new
-mv Finding.md.new Finding.md
-
-# 2. Split the now-clean Finding.md into chunked HTML, right in this
-#    directory (no sections/ subdirectory), so URLs stay flat.
+# Generate the chunked HTML, right in this directory (no sections/
+# subdirectory), so URLs stay flat.
 
 # Clean up old chunks. Safe because only generated chunks use ".html"
 # here: source/config files in this directory are .md/.awk/.js/.htm,
@@ -33,9 +31,7 @@ rm -fr chunks-tmp
 # argument: it turns the leading title/byline/abstract block into
 # YAML front matter (so it lands on index.html next to the table of
 # contents, instead of becoming its own separate page), but only in
-# what's piped to pandoc here. It never touches the committed
-# Finding.md, since that's regenerated wholesale from Google Docs and
-# any direct edit to it would just be lost on the next export.
+# what's piped to pandoc here; it never touches Finding.md itself.
 awk -f extract-title.awk Finding.md | \
 pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout \
   - \
@@ -43,9 +39,26 @@ pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout \
   --template=TEMPLATE.htm --chunk-template="%i.html" \
   --css="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" \
   --metadata-file=metadata.yaml \
+  --wrap=none \
 
 mv chunks-tmp/* .
 rmdir chunks-tmp
+
+# index.html's own title is "TOC": metadata.yaml sets it that way so
+# every OTHER page's Up/Previous/Top links back to it stay short (see
+# metadata.yaml for why). But index.html itself should show the real
+# title, not "TOC": patch it here, in both the <title> tag and the
+# on-page heading. --wrap=none above keeps every tag on one line, so
+# this is a plain single-line substitution: no need to reassemble
+# text pandoc wrapped across several lines.
+subtitle=$(grep -o '<p class="subtitle">.*</p>' index.html | sed -e 's/<p class="subtitle">//' -e 's/<\/p>//')
+awk -v subtitle="$subtitle" '
+/<h1 class="title">TOC<\/h1>/ { next }
+{ sub(/TOC<\/title>/, subtitle "</title>") }
+/<p class="subtitle">/ { sub(/<p class="subtitle">.*<\/p>/, "<h1 class=\"title\">" subtitle "</h1>") }
+{ print }
+' index.html > index.html.new
+mv index.html.new index.html
 
 echo
 echo 'Commit with "git add -A -- '"'"'*.html'"'"' (not -u or'

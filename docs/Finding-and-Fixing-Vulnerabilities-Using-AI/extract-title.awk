@@ -1,10 +1,11 @@
 #!/usr/bin/awk -f
 # Transient transform for pandoc's benefit only: never written back to
-# Finding.md. Reads the already-cleaned Finding.md (see
-# clean-finding.awk, which runs first): title H1, any HTML comments
-# (like the markdownlint/split ones clean-finding.awk inserts there),
-# a byline paragraph, and an abstract paragraph, before the second H1.
-# Pulls that leading block into pandoc YAML metadata
+# Finding.md. Called by gen-html; assumes cleanup-markdown has already
+# been run on Finding.md (a committed Finding.md already has), which
+# guarantees the leading shape this script expects: title H1, any
+# HTML comments (like the markdownlint/gen-html ones cleanup-markdown
+# inserts there), a byline paragraph, and an abstract paragraph,
+# before the second H1. Pulls that leading block into pandoc YAML metadata
 # (subtitle/author/abstract; see metadata.yaml for the rest, like
 # "title") instead of a heading, so it lands on index.html's title
 # block (alongside the table of contents) instead of becoming its own
