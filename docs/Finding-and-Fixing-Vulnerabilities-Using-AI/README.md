@@ -7,14 +7,19 @@ the final version.
 
 When you're ready (by completing the update of Finding.md), generate the
 subsections by running `split` in this directory.
-This cleans up the `Finding.md` file and generates new files
-in directory `sections/`.
+This cleans up the `Finding.md` file and generates new `*.html` chunk
+files directly in this directory (no `sections/` subdirectory), so
+their URLs stay flat.
 
-Note that `split` deletes and
-regenerates that whole `sections/` directory, so new chunk files show up as
-untracked, not modified. Commit with `git add -A sections/` (not `-u`
-or `git commit -a`), or a new file can end up linked from the TOC but
-never actually committed, producing a broken link on the live site.
+Note that `split` deletes and regenerates all `*.html` files in this
+directory (that's safe: nothing else here uses that extension; the
+template is named `TEMPLATE.htm`), so new chunk files show up as
+untracked, not modified. Commit with `git add -A -- '*.html'
+00_DO_NOT_EDIT` (not `-u` or `git commit -a`), or a new file can end
+up linked from the TOC but never actually committed, producing a
+broken link on the live site. Scoping the pathspec this way also
+keeps that commit from sweeping up unrelated untracked files that
+happen to be sitting in this same directory.
 
 ## Quiz content
 

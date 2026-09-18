@@ -1,10 +1,10 @@
-# Adding a CI staleness check for `sections/`
+# Adding a CI staleness check for the generated `*.html` files
 
-`sections/` is generated from `Finding.md` by running `split`. Nothing
-enforces that someone actually reran `split` before committing, so
-`sections/` can drift out of sync with `Finding.md`. Here's how to add
-a CI check that catches that, without changing how the site is built
-or published.
+The `*.html` files in this directory are generated from `Finding.md`
+by running `split`. Nothing enforces that someone actually reran
+`split` before committing, so those files can drift out of sync with
+`Finding.md`. Here's how to add a CI check that catches that, without
+changing how the site is built or published.
 
 This is the simple approach: it checks that committed output matches
 `split`'s output, but `split` still only runs on a contributor's
@@ -24,9 +24,10 @@ website build.
      `sudo apt-get install -y pandoc` or `r-lib/actions/setup-pandoc`).
    - Runs `./split` from
      `docs/Finding-and-Fixing-Vulnerabilities-Using-AI/`.
-   - Runs `git diff --exit-code -- sections/` in that directory. A
-     nonzero exit means `sections/` doesn't match what `split`
-     produces from the committed `Finding.md`, so fail the job.
+   - Runs `git diff --exit-code -- '*.html'` in that directory. A
+     nonzero exit means the committed `*.html` files don't match what
+     `split` produces from the committed `Finding.md`, so fail the
+     job.
 
 2. Scope the trigger path so this job doesn't run (and doesn't
    need pandoc) on unrelated PRs.
@@ -39,7 +40,7 @@ website build.
 
 GitHub Pages here builds `docs/` as a classic Jekyll site (no
 Actions-based deploy workflow); it never runs `split` itself. This
-check only verifies, in CI, that the `sections/*.html` files already
+check only verifies, in CI, that the generated `*.html` files already
 committed to git are what `split` would currently produce. It adds a
 gate on PRs; it doesn't change what gets built or deployed.
 
@@ -56,14 +57,15 @@ build and deploy Pages via a GitHub Actions workflow that runs
    - Installs `pandoc` and Ruby/Bundler.
    - Runs `split` in
      `docs/Finding-and-Fixing-Vulnerabilities-Using-AI/` to
-     (re)generate `sections/`.
+     (re)generate its `*.html` files.
    - Runs `actions/jekyll-build-pages` (or `bundle exec jekyll
-     build`) on `docs/` to build the full site, now including the
-     freshly generated `sections/`.
+     build`) on `docs/` to build the full site, now including those
+     freshly generated files.
    - Uses `actions/upload-pages-artifact` and
      `actions/deploy-pages` to publish the result.
-3. Remove `sections/` from git (add it to `.gitignore`) since it's
-   now generated at deploy time instead of committed.
+3. Remove the generated `*.html` files from git (add them to
+   `.gitignore`) since they're now generated at deploy time instead
+   of committed.
 
 This is worth doing if `Finding.md` changes often enough that the
 staleness check above becomes annoying, or if you want other

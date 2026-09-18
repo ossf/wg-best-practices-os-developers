@@ -13,25 +13,36 @@ set -e
 awk -f clean-finding.awk Finding.md > Finding.md.new
 mv Finding.md.new Finding.md
 
-# 2. Split the now-clean Finding.md into chunked HTML.
+# 2. Split the now-clean Finding.md into chunked HTML, right in this
+#    directory (no sections/ subdirectory), so URLs stay flat.
 
-# Clean up old versions
-rm -fr sections/
+# Clean up old chunks. Safe because only generated chunks use ".html"
+# here: source/config files in this directory are .md/.awk/.js/.htm,
+# or extensionless.
+rm -f *.html
 
-# Use pandoc chunk-template so filenames are stable over time.
-# Template is named "TEMPLATE.htm" so editors will syntax highlight
-# yet rm *.html won't delete it.
+# pandoc's chunkedhtml writer insists on creating its output
+# directory itself (it errors out if the directory already exists,
+# and treats a dot-prefixed name as a zip-archive target instead of
+# a directory), so it can't write straight into ".". Build into a
+# scratch directory instead, then move the chunks up into place.
+rm -fr chunks-tmp
 pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout \
   Finding.md \
-  -t chunkedhtml --split-level=2 --toc -o sections \
+  -t chunkedhtml --split-level=2 --toc -o chunks-tmp \
   --template=TEMPLATE.htm --chunk-template="%i.html" \
   --css="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" \
   -M lang=en \
   -M title-prefix="Finding and Fixing Vulnerabilities Using AI" \
   -M description="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." \
 
-echo 'DO NOT EDIT, this is generated' > sections/00_DO_NOT_EDIT
+mv chunks-tmp/* .
+rmdir chunks-tmp
+
+echo 'DO NOT EDIT: the *.html files in this directory are generated' > 00_DO_NOT_EDIT
 
 echo
-echo 'Commit with "git add -A sections/" (not -u or "git commit -a"),'
-echo 'so new chunk files get committed along with modified ones.'
+echo 'Commit with "git add -A -- '"'"'*.html'"'"' 00_DO_NOT_EDIT" (not -u or'
+echo '"git commit -a"), or a new file can end up linked from the TOC but'
+echo 'never actually committed. That pathspec also avoids sweeping up'
+echo 'unrelated untracked files sitting in this same directory.'
