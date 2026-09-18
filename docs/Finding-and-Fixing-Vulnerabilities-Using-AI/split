@@ -42,9 +42,7 @@ pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout \
   -t chunkedhtml --split-level=2 --toc -o chunks-tmp \
   --template=TEMPLATE.htm --chunk-template="%i.html" \
   --css="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" \
-  -M lang=en \
-  -M title-prefix="Finding and Fixing Vulnerabilities Using AI" \
-  -M description="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." \
+  --metadata-file=metadata.yaml \
 
 mv chunks-tmp/* .
 rmdir chunks-tmp

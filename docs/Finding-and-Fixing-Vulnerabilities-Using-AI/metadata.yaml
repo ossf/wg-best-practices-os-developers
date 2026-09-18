@@ -1,0 +1,20 @@
+# Static site metadata for `split`'s pandoc invocation. Unlike
+# extract-title.awk's subtitle/author/abstract (pulled from
+# Finding.md's own content, since that's regenerated from Google
+# Docs), none of this is sourced from the document: it's fixed
+# configuration, so it lives here instead of as inline -M flags.
+#
+# "title" is hardcoded to "TOC" rather than the real document title:
+# pandoc reuses a chunked document's title as the link text on every
+# OTHER page's Up/Previous/Top links back to index.html, and there's
+# no way to give it a separate, shorter link-text value (pandoc's own
+# default chunkedhtml template has this same limit). The real title
+# still shows front and center on index.html itself, as the subtitle
+# extract-title.awk supplies, right under this "TOC" heading.
+#
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+lang: en
+title: TOC
+title-prefix: "Finding and Fixing Vulnerabilities Using AI"
+description: "A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI."
