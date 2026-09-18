@@ -22,7 +22,7 @@ rm -fr sections/
 pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout \
   Finding.md \
   -t chunkedhtml --split-level=2 --toc -o sections \
-  --template=template.html --chunk-template="%i.html" \
+  --template=TEMPLATE.html --chunk-template="%i.html" \
   --css="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" \
   -M lang=en \
   -M title-prefix="Finding and Fixing Vulnerabilities Using AI" \
