@@ -1,9 +1,13 @@
 # README for Finding and Fixing Vulnerabilities Using AI
 
+## How to update the content
+
 Update [Finding.md](./Finding.md).
 Currently, this is done by updating the corresponding Google document
 and running save as markdown. Eventually we expect the markdown will be
 the final version.
+
+## How to regenerate pages
 
 When you're ready (by completing the update of Finding.md), generate the
 subsections by running `split` in this directory.
@@ -20,6 +24,11 @@ up linked from the TOC but never actually committed, producing a
 broken link on the live site. Scoping the pathspec this way also
 keeps that commit from sweeping up unrelated untracked files that
 happen to be sitting in this same directory.
+
+## How to view the results
+
+To see the results, view
+<https://best.openssf.org/Finding-and-Fixing-Vulnerabilities-Using-AI/>
 
 ## Quiz content
 
