@@ -18,8 +18,8 @@ their URLs stay flat.
 Note that `split` deletes and regenerates all `*.html` files in this
 directory (that's safe: nothing else here uses that extension; the
 template is named `TEMPLATE.htm`), so new chunk files show up as
-untracked, not modified. Commit with `git add -A -- '*.html'
-00_DO_NOT_EDIT` (not `-u` or `git commit -a`), or a new file can end
+untracked, not modified. Commit with `git add -A -- '*.html'`
+(not `-u` or `git commit -a`), or a new file can end
 up linked from the TOC but never actually committed, producing a
 broken link on the live site. Scoping the pathspec this way also
 keeps that commit from sweeping up unrelated untracked files that
