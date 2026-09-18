@@ -36,7 +36,7 @@ ENDQUIZ
 
 `split` turns this into a native, click-to-expand HTML widget (no
 JavaScript) via `clean-finding.awk`, currently hidden entirely by the
-`.quiz { display: none; }` rule in `TEMPLATE.html`. To reveal quizzes,
+`.quiz { display: none; }` rule in `TEMPLATE.htm`. To reveal quizzes,
 delete (or no-op) that one CSS rule; nothing else needs to change,
 since the widget is already closed by default on its own.
 

@@ -59,7 +59,7 @@ in_toc {
 # Turn the fixed "QUIZ" ... "Answer: ..." ... "ENDQUIZ" quiz
 # template into native, click-to-expand disclosure widgets: no JS, and
 # closed by default on their own. Hidden entirely for now via the
-# "quiz" CSS class in TEMPLATE.html; delete that one rule later to
+# "quiz" CSS class in TEMPLATE.htm; delete that one rule later to
 # reveal them.
 /^[ \t]*QUIZ[ \t]*$/ { $0 = "<details class=\"quiz\"><summary>Quiz</summary>" }
 /^\**Answer:\** / { $0 = "<details><summary>Show answer</summary>" $0 "</details>" }
