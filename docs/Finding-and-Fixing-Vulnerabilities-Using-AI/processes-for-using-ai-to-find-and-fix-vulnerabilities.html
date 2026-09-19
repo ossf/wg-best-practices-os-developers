@@ -43,7 +43,7 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" />
+  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 
@@ -64,7 +64,7 @@
 
 
 
-<h2 data-number="3.5" id="processes-for-using-ai-to-find-and-fix-vulnerabilities">Processes for using AI to find and fix vulnerabilities</h2>
+<h2 data-number="3.5" id="processes-for-using-ai-to-find-and-fix-vulnerabilities"><span class="header-section-number">3.5</span> Processes for using AI to find and fix vulnerabilities</h2>
 <p>More powerful AI models <em>can</em> find and fix some vulnerabilities without any additional help or any specialized processes for the task. However, adding specialized processes is known to make less-powerful AI models (including less-expensive ones) be far more effective. We can’t be certain of the future, but many expect that adding specialized processes will continue to also assist more powerful AI models [Zimmer2026].</p>
 <p>These added processes for finding and fixing vulnerabilities can be human-guided, automation-guided, or a mix:</p>
 <ul>
@@ -119,10 +119,10 @@
 <li>Pull Request (PR)/Merge Request (MR) Scans, like Branch Scans but findings are reported in the PR/MR which concern the branch (similar to how many humans perform review) [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>]</li>
 </ul>
 <p>Cycode noted that independent research from AISLE has already shown that even small open-source models (including a 3.6-billion-parameter model with the right scaffolding) can find many of the same flagship vulnerabilities Mythos showcased. “Vulnerability discovery is commoditizing. The bottleneck is no longer finding bugs. It is deciding which ones to fix first, fast enough to matter.” [<a href="https://cycode.com/blog/claude-mythos-security-readiness/">Cycode2026</a>]</p>
-<h3 data-number="3.5.1" id="challenges-of-finding-and-evaluating-tools">Challenges of finding and evaluating tools</h3>
+<h3 data-number="3.5.1" id="challenges-of-finding-and-evaluating-tools"><span class="header-section-number">3.5.1</span> Challenges of finding and evaluating tools</h3>
 <p>Interestingly, it can be a challenge to <em>find</em> the tools and services for finding vulnerabilities with AI. There are so many blog posts, papers, and products that have <em>something</em> to do with AI and vulnerabilities that it can be difficult to find actual products, services, or systems to find vulnerabilities in software [<a href="https://opensourcesecurity.io/2025/2025-10-ai-joshua-rogers/">Bressers2025</a>] [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>].</p>
 <p>We provide a few examples of tools and services in this material, to help you as a starting point. However, they are <em>not</em> complete, they are simply a starting point.</p>
-<h3 data-number="3.5.2" id="sample-services-and-tools">Sample services and tools</h3>
+<h3 data-number="3.5.2" id="sample-services-and-tools"><span class="header-section-number">3.5.2</span> Sample services and tools</h3>
 <p>You can use any existing AI system that can work with code to do this. You might consider using <a href="https://goose-docs.ai/">Goose</a> to interact with your AI models. However, let’s focus on tools and services specifically for finding and fixing vulnerabilities using AI.</p>
 <p>Many organizations with more traditional tools have added modern AI to their products. By “traditional tools” we include Static Application Security Testing (SAST) tools, Dynamic Application Security Testing (DAST) and/or fuzzing tools, and Software Composition Analysis (SCA) tools. Examples of such organizations include Black Duck, Checkmarx, OpenText (Fortify), Snyk, SonarQube, Sonatype, and VeraCode.</p>
 <p>Commercial closed-source services that were created to focus on using AI to find and fix vulnerabilities, at the time of this writing, include <a href="https://almanax.ai/">Almanax</a>, <a href="https://corgea.com/">Corgea</a>, <a href="https://cycode.com">Cycode</a>, and <a href="https://zeropath.com">ZeroPath</a>.</p>
@@ -141,7 +141,7 @@
 <li>Visa Vulnerability Agentic Harness &lt;<a href="https://github.com/visa/visa-vulnerability-agentic-harness">https://github.com/visa/visa-vulnerability-agentic-harness</a>&gt;</li>
 </ol>
 <p>With that in mind, let’s focus on OpenSSF Alpha-Omega’s Scrutineer and OpenSSF OSS-CRS.</p>
-<h3 data-number="3.5.3" id="scrutineer">Scrutineer</h3>
+<h3 data-number="3.5.3" id="scrutineer"><span class="header-section-number">3.5.3</span> Scrutineer</h3>
 <p>Scrutineer is a tool developed by OpenSSF’s Alpha-Omega. It’s a “local tool for scanning open source repositories for security vulnerabilities and managing the disclosure process. You add a repo by URL, scrutineer runs a pipeline of agent skills against it inside a container, and presents the results in a web UI where you can triage findings, identify maintainers, and track disclosures. The agent CLI is pluggable…”</p>
 <p>Scrutineer is intended to be relatively easy to start. Some aspects of it are especially important:</p>
 <ul>
@@ -150,7 +150,7 @@
 <li>It’s primarily a set of skills (documents with some supporting programs).</li>
 </ul>
 <p>For more information, see [<a href="https://nesbitt.io/2026/06/25/scrutineer.html">Nesbitt2026-06</a>] or its website at &lt;<a href="https://github.com/alpha-omega-security/scrutineer">https://github.com/alpha-omega-security/scrutineer</a>&gt;.</p>
-<h3 data-number="3.5.4" id="oss-crs">OSS-CRS</h3>
+<h3 data-number="3.5.4" id="oss-crs"><span class="header-section-number">3.5.4</span> OSS-CRS</h3>
 <p>OpenSSF’s OSS-CRS provides a sophisticated set of capabilities to deeply find and fix vulnerabilities using a variety of techniques. OSS-CRS is actually a <em>framework</em> for running many <em>different</em> CRSs and combining their techniques. It includes infrastructure that CRSs can share and budget-aware resource management. OSS-CRS is especially helpful when you want to spend significant effort to find and fix vulnerabilities, to squeeze out as many as practical.</p>
 <p>It’s easier to understand OSS-CRS by understanding its history. DARPA’s AI Cyber Challenge (AIxCC) “showed that cyber reasoning systems (CRSs) can go beyond vulnerability discovery to autonomously confirm and patch bugs [yet those systems were] largely unusable outside their original teams, each bound to the competition cloud infrastructure that no longer exists” [Chin2026] [Chin2026-slides].</p>
 <p>The solution was OSS-CRS, which created a framework for running CRSs and combining the results of multiple CRSs. With OSS-CRS, users can decide:</p>

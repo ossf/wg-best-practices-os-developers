@@ -43,7 +43,7 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" />
+  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 
@@ -64,9 +64,9 @@
 
 
 
-<h2 data-number="2.3" id="models">Models</h2>
+<h2 data-number="2.3" id="models"><span class="header-section-number">2.3</span> Models</h2>
 <p>Modern AI systems’ capabilities depend on the models they use, so let’s focus on models.</p>
-<h3 data-number="2.3.1" id="external-vs.-local-models">External vs. local models</h3>
+<h3 data-number="2.3.1" id="external-vs.-local-models"><span class="header-section-number">2.3.1</span> External vs. local models</h3>
 <p>All AI systems that use AI models receive data for processing and reply with results. There are two main locations where this AI data processing occurs:</p>
 <ul>
 <li><em>External service</em>: The processing occurs as a service external to the user and to the user’s organization.<br />
@@ -77,7 +77,7 @@
 <p>Before using any external service, evaluate that external organization, and put in place whatever contractual agreements are needed. In particular, ensure that sensitive data is not sent to them <em>or</em> ensure that their practices are appropriate for your circumstances. Many organizations use external services, and this is often a practical path.</p>
 <p>Other AI models can be used locally or as part of an organization’s own service. These models are often less capable, but they don’t require a user to send their private data to an external service, and they can be less expensive as well.</p>
 <p>Exactly what you can and can’t do with the model depends, in large part, on its license. That includes the ability to run a model locally at all. So, we must briefly discuss licenses.</p>
-<h3 data-number="2.3.2" id="licenses">Licenses</h3>
+<h3 data-number="2.3.2" id="licenses"><span class="header-section-number">2.3.2</span> Licenses</h3>
 <p>There are different ways to license a model. The word “license” means “permission”; a license determines how you can (and can’t) use whatever is licensed. In particular, AI models are much easier to run on local or organizational systems if their licenses are more open.</p>
 <p>The Generative AI Commons at the LF AI &amp; Data Foundation has designed and developed the Model Openness Framework (MOF). This is “a comprehensive system for evaluating and classifying the completeness and openness of machine learning models” and is available at &lt;<a href="https://isitopen.ai/">https://isitopen.ai/</a>&gt;. Models are released under various licenses including the Apache 2.0 license and OpenMDW &lt;<a href="https://openmdw.ai/">https://openmdw.ai/</a>&gt;. Terms you’re especially likely to see, when discussing types of licenses are:</p>
 <ul>
@@ -92,10 +92,10 @@
 <p>Some licenses are close to an open weight model, yet have some extra restrictions on use.</p>
 <p>NVIDIA argues that “open models and open harnesses are essential because they democratize defensive capabilities, increase transparency for defenders, enable cyber defense while protecting data, and complement frontier closed models with customizable, localized controls… it will be crucial to recognize open models, harnesses and security tooling as defensive assets, not liabilities, in AI and cybersecurity policy. Blanket restrictions on open frontier AI systems would weaken defensive capacity and risk concentrating power, dependence and vulnerability in a few closed providers.” [<a href="https://blogs.nvidia.com/blog/open-secure-ai-alliance/">NVIDIA2026</a>]</p>
 <p>Comparing the specific capabilities of specific models, including models with differing license terms, is out of our scope and constantly changes anyway. However, [<a href="https://www.npr.org/2026/04/11/nx-s1-5778508/anthropic-project-glasswing-ai-cybersecurity-mythos-preview">NPR2026</a>] reports that “The most advanced open-weight models are less than a year behind the most advanced closed-weight models.” Finding and fixing vulnerabilities can be done with <em>both</em> closed <em>and</em> open models.</p>
-<h3 data-number="2.3.3" id="specialized-models">Specialized models</h3>
+<h3 data-number="2.3.3" id="specialized-models"><span class="header-section-number">2.3.3</span> Specialized models</h3>
 <p><em>All</em> models are better at some tasks than others. Models designed to be good at some tasks (e.g., by giving them extra data in that area or optimizing them for it) tend to be better at those tasks. In addition, some models are designed to <em>only</em> do primarily some specific tasks; this focus means they tend to be smaller and faster, in exchange for being only good primarily at those tasks.</p>
 <p>For example, Cisco’s <em>Antares</em> is a family of security small language models (SLMs) specifically built to identify known vulnerabilities in an existing codebase. An SLM is simply the application of LLM to a much smaller number of parameters. Cisco reports that these models “outperform many powerful closed- and open-weight models in this critical security task at a fraction of the cost. And they’re compact enough to run locally” [<a href="https://blogs.cisco.com/ai/introducing-antares-the-most-efficient-open-weight-ai-models-for-vulnerability-localization">Karbasi2026</a>].</p>
-<h3 data-number="2.3.4" id="ai-guardrails-intentional-limitations">AI guardrails &amp; intentional limitations</h3>
+<h3 data-number="2.3.4" id="ai-guardrails-intentional-limitations"><span class="header-section-number">2.3.4</span> AI guardrails &amp; intentional limitations</h3>
 <p>Many models and the larger systems for invoking them, especially many closed models, implement safety guardrails and other limitations intended to compel the AI system to not help with “dangerous” activities, including cybersecurity uses. Their <em>intent</em> is to restrict the use of that system to perform dangerous activities such as creating attacks.</p>
 <p>Unfortunately, some such systems <em>can</em> be useless for defense. Hugging Face discovered in 2026 that it was under a powerful AI-driven attack, and when it tried to analyze its logs, it “first used frontier models behind commercial APIs. This did not work: the analysis required submitting large volumes of real attack commands, exploit payloads, and C2 artifacts, and these requests were blocked by the providers’ safety guardrails, which cannot distinguish an incident responder from an attacker. We ran the forensic analysis instead on zai-org/GLM-5.2, an open-weight model, on our own infrastructure. This had a second benefit: no attacker data, and none of the credentials it referenced, left our environment” [<a href="https://huggingface.co/blog/security-incident-july-2026">HuggingFace2026</a>].</p>
 <p>In general, the best way to validate that a defect is a vulnerability is to create an attack and see if it succeeds. This is exactly what attackers do, however, and AI systems often cannot tell the difference.</p>

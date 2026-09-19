@@ -43,7 +43,7 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" />
+  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 
@@ -64,7 +64,7 @@
 
 
 
-<h2 data-number="4.5" id="preparing-cicd">Preparing CI/CD</h2>
+<h2 data-number="4.5" id="preparing-cicd"><span class="header-section-number">4.5</span> Preparing CI/CD</h2>
 <p>An AI system generally works best “when it’s able to check its own work with another tool. We refer to this class of tool as a “task verifier”: a trusted method of confirming whether an AI agent’s output actually achieves its goal. Task verifiers give the agent real-time feedback… allowing it to iterate deeply until it succeeds” [<a href="https://www.anthropic.com/news/mozilla-firefox-security">Anthropic2026-03</a>].</p>
 <p>Because task verifiers are trusted to accept or reject an agent’s work, they become part of the trusted computing base for the workflow. A broken test, incomplete harness, compromised build environment, or verifier that checks the wrong property can confidently approve an incorrect result. Where practical, keep verifiers deterministic, make explicit what property each verifier actually proves, and periodically test them using known-good and known-bad cases.</p>
 <p>Thankfully, any software that needs to work correctly should <em>already</em> have mechanisms that support such checking. Any such software should have a CI/CD pipeline to build, test, and deliver changed results:</p>

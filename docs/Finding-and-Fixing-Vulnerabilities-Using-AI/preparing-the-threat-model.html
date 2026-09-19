@@ -43,7 +43,7 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" />
+  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 
@@ -64,7 +64,7 @@
 
 
 
-<h2 data-number="4.2" id="preparing-the-threat-model">Preparing the threat model</h2>
+<h2 data-number="4.2" id="preparing-the-threat-model"><span class="header-section-number">4.2</span> Preparing the threat model</h2>
 <p>Neither humans nor AI can determine if something is a vulnerability if there’s no clear definition of a vulnerability. “AI (and external contributors) are more successful if the project shares how they desire the software to be used, acceptable scenarios to be deployed into, and what problems the project is aware of that could go wrong” [<a href="https://openssf.org/resources/securing-open-source-in-the-age-of-ai-a-practical-guide/">Aniszczyk2026</a>].</p>
 <p>A common way to answer this question is to develop a “threat model” of the system being analyzed. Adam Shostack suggests the four core questions a threat model should answer: what are we working on, what can go wrong, what are we going to do about it, and did we do a good job [Shostack2014]. If you’re not familiar with threat modeling, there are many sources for learning more. Here we’ll focus on AI-specific issues.</p>
 <p>Threat models are <em>important</em> when using AI:</p>

@@ -43,7 +43,7 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" />
+  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 
@@ -64,7 +64,7 @@
 
 
 
-<h2 data-number="5.1" id="identify-findings">Identify findings</h2>
+<h2 data-number="5.1" id="identify-findings"><span class="header-section-number">5.1</span> Identify findings</h2>
 <p>Simply pointing a generic AI coding agent at an arbitrary software repository and asking it to discover vulnerabilities can work, in the sense that it may find a vulnerability [<a href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>]. That’s <em>especially</em> true if the software hasn’t been previously examined by AI and/or if the AI model is especially good at program analysis.</p>
 <p><em>However</em>, this trivial approach often doesn’t provide meaningful coverage of real codebases of significant size, nor does it necessarily identify valuable findings. AI can be very effective at finding vulnerabilities [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>]. However, if you want to do a <em>good</em> job at finding and fixing vulnerabilities using AI, you generally want to have some kind of harness around the AI to help it focus. Some of the reasons for this need, especially for less-capable models, are:</p>
 <ul>
@@ -73,7 +73,7 @@
 <li>Throughput: Instead of running a single agent hard, it’s better to fan them out in parallel. Otherwise, it takes a long time to produce results, and it won’t adequately examine each potential issue in enough depth [<a href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>].</li>
 </ul>
 <p>In short, coverage is better when “many agents work on tightly scoped questions and we deduplicate the results afterward, rather than asking one agent to be exhaustive.” [<a href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>]</p>
-<h3 data-number="5.1.1" id="separate-identifying-findings-from-validation">Separate identifying findings from validation</h3>
+<h3 data-number="5.1.1" id="separate-identifying-findings-from-validation"><span class="header-section-number">5.1.1</span> Separate identifying findings from validation</h3>
 <p>One excellent way to improve results is to separate <em>identifying</em> findings from <em>validating</em> findings. A “finding” is simply a construct that <em>might</em> be a vulnerability, but is not necessarily a vulnerability because it’s not clear if it’s exploitable.</p>
 <p>Splitting up identifying findings from validating them makes finding vulnerabilities more likely:</p>
 <ul>
@@ -82,7 +82,7 @@
 <li>As [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>] reports, “In other words, discovery should find as many vulnerabilities as possible—even unlikely ones—and verification should exclude findings that are not actually exploitable. When an agent tries to do both in the same step, it can self censor and exclude exploitable true positives. We learned this the hard way, where asking discovery agents to also verify findings led to them filtering out true positives that a separate verification step would have confirmed.”</li>
 </ul>
 <p>So we’ll first focus on identifying findings, and we’ll later discuss validating findings.</p>
-<h3 data-number="5.1.2" id="helping-to-identify-findings">Helping to identify findings</h3>
+<h3 data-number="5.1.2" id="helping-to-identify-findings"><span class="header-section-number">5.1.2</span> Helping to identify findings</h3>
 <p>There are many ways to help identify findings when using AI:</p>
 <ol type="1">
 <li><em>In general, give the AI tools</em>. That includes tools to search and read the code, security tools, and so on. Consider asking the AI what tools it might need and make them available [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]. Provide the AI basic tools (e.g., scripting languages like Python) so it can write its own tools to aid in finding (just like a human might do).<br />
@@ -116,12 +116,12 @@
 <p>At the time of this writing, it’s not clear what level of prescription is appropriate. [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>] claims that with frontier models, more prescriptive prompts (such as long checklists) make discovery worse, as they “tend to reduce the model’s creativity and generate fewer novel bugs”. Others don’t report the same. No matter what, all agree that providing data on what counts as a threat model and providing tools is vital.</p>
 <p>When asking for findings, include a definition of what output format and content you want. Ask for a structured report with predefined fields, and order them so the model’s reasoning builds on each field. Example fields include rationale, finding, impact, severity, etc. [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]. Ask for very detailed information about each finding including a detailed description, filenames, line#s, the specific triggering input and configuration, relevant URLs, and anything else that would help an AI or human validate it later [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>]. Ask for a proof of concept (PoC) if it can provide it, but be clear that a PoC is not <em>required</em> and findings should be reported even if it cannot create a PoC. A PoC can simplify later validation if it can be created, but we don’t want to pre-filter findings too early.</p>
 <p>Where practical, include provenance needed to reproduce and interpret the result. This can include the source revision examined, relevant environment and configuration, the analysis or verifier invocation that produced the evidence, and the threat-model assumptions used when evaluating the finding. Provenance makes it easier to reproduce a result, determine whether it still applies after the software changes, and distinguish observed evidence from an AI-generated explanation [<a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html">SARIF2.1</a>].</p>
-<h3 data-number="5.1.3" id="findings-process">Findings process</h3>
+<h3 data-number="5.1.3" id="findings-process"><span class="header-section-number">5.1.3</span> Findings process</h3>
 <p>This process may sound overwhelming, but it’s not. Computers are good at creating lists and then having agents select and work on items in parallel depending on your resources. Indeed, [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>] reports that “discovery is now straightforward to parallelize, and the bottleneck has shifted to verification, triage, and patching.”</p>
 <p>Remember, <em>not</em> all findings are actual vulnerabilities, and that’s okay. Unfortunately, finding counts can sometimes mislead others. As [<a href="https://www.flyingpenguin.com/mythos-grading-mythos-got-patches-yet/">Ottenheimer2026-05-26</a>] “Glasswing is NOT confidently reporting tens of thousands of real bugs…, like any tool, they are reporting tens of thousands of findings, of which a confident count of real bugs is much smaller.” That doesn’t mean AI is useless, far from it. It’s just that findings need to be validated after they’re found.</p>
 <p>Don’t assume that all findings were found when AI completes some run. Modern AI systems are generally non-deterministic [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>]. Re-running may produce some more findings even if all of a previous run’s findings were examined. In addition, finding potential vulnerabilities (and validating them later) can be a challenge, since they related to mathematically undecidable problems in computer science [Rohlf2025]. If done well, this should be a case of diminishing returns. The best way to see how quickly the number of findings are diminishing is to keep re-run finding efforts until the process increasingly comes up empty-handed.</p>
 <p>Also, distinguish a successful analysis that produced no findings from an analysis that did not successfully complete. A timeout, model or tool failure, environment failure, insufficient permission, policy denial, or similar interruption is not evidence that no vulnerabilities were found. Automated workflows should record these outcomes separately so that an incomplete analysis cannot silently become a “no findings” result [<a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html">SARIF2.1</a>].</p>
-<h3 data-number="5.1.4" id="handling-external-findingsvulnerabilities">Handling external findings/vulnerabilities</h3>
+<h3 data-number="5.1.4" id="handling-external-findingsvulnerabilities"><span class="header-section-number">5.1.4</span> Handling external findings/vulnerabilities</h3>
 <p>External people and organizations may report what they <em>claim</em> are vulnerabilities. These reports may or may not be true, so they are essentially findings.</p>
 <p>Make it clear that you expect reporters to have a human review of an AI-proposed vulnerability report. Encourage reporters to work together to de-duplicate reports before they get to you (e.g., through Akrites).</p>
 <p>Perhaps most importantly, <em>require</em> evidence that a report is a vulnerability. Require a sample input demonstrating it’s a vulnerability. If the code is available to the reporter, ask them to report specific filenames and line numbers. It’s best to demand that they validate their findings and propose a fix. So with that in mind, let’s discuss validating findings.</p>
