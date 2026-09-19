@@ -32,12 +32,16 @@ rm -fr chunks-tmp
 # YAML front matter (so it lands on index.html next to the table of
 # contents, instead of becoming its own separate page), but only in
 # what's piped to pandoc here; it never touches Finding.md itself.
+#
+# simple.min.css is vendored (not loaded from a CDN at page-load
+# time): see README.md for why, its source/version, and how to check
+# for and apply updates.
 awk -f extract-title.awk Finding.md | \
 pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout \
   - \
   -t chunkedhtml --split-level=2 --toc -o chunks-tmp \
   --template=TEMPLATE.htm --chunk-template="%i.html" \
-  --css="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" \
+  --css="simple.min.css" \
   --metadata-file=metadata.yaml \
   --wrap=none \
   --number-sections \

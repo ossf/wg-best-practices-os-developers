@@ -73,6 +73,55 @@ a heading, since `gen-html` chunks pages at both H1 and H2 headings,
 and a quiz straddling that boundary would end up broken across two
 pages.
 
+## Vendored CSS
+
+The site's styling (`simple.min.css`) is vendored into this
+directory instead of loaded from a CDN at page-load time. Loading it
+from a CDN means if it goes down, pages lose styling, if it's compromised,
+visitor browsers get that. Vendoring removes that runtime
+dependency entirely: the exact bytes are committed here and never
+change unless someone here changes them. I use a relative reference
+so we can move directories and so users can use a local copy easily.
+
+* **Source**: <https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css>
+  (the [Simple.css](https://github.com/kevquirk/simple.css) project),
+  version 2.2.1.
+* **License**: MIT. The exact license text for this version is in
+  `simple.min.css.LICENSE`, vendored alongside it (fetched from the
+  `v2.2.1` tag) so both stay independently verifiable against
+  upstream.
+* **Do not hand-edit `simple.min.css`**: it's kept byte-identical to
+  the upstream file so it can be verified with a plain `diff`/hash
+  comparison against a fresh download, with no ambiguity about what's
+  vendor code versus a local change.
+
+### Checking for and applying updates
+
+1. Check for a newer release: <https://github.com/kevquirk/simple.css/releases>
+   or `npm view simpledotcss versions`.
+2. Skim the changelog/diff between the vendored version and the
+   candidate before updating (this is unaudited third-party CSS
+   running in every visitor's browser).
+3. Download the new version's minified CSS and LICENSE, e.g. for
+   version `X.Y.Z`:
+
+   ```shell
+   curl -fsSL "https://cdn.jsdelivr.net/npm/simpledotcss@X.Y.Z/simple.min.css" \
+     -o simple.min.css
+   curl -fsSL "https://raw.githubusercontent.com/kevquirk/simple.css/vX.Y.Z/LICENSE" \
+     -o simple.min.css.LICENSE
+   ```
+
+4. Update the version and any changed terms in this section.
+5. Run `gen-html` and check a few pages in a browser (the `.quiz`
+   CSS rule and other class names this site depends on could
+   theoretically change or disappear upstream).
+6. Commit `simple.min.css`, `simple.min.css.LICENSE`, this README,
+   and the regenerated `*.html` files together.
+
 ## LICENSE
 
-The content is CC-BY-4.0.
+Our content is CC-BY-4.0, code is MIT.
+
+Third-party vendored assets (currently just `simple.min.css`) keep their
+own license; see "Vendored CSS" above.
