@@ -64,7 +64,7 @@
 
 
 
-<h2 data-number="3.4" id="ai-more-effective-if-guided-by-process">AI more effective if guided by process</h2>
+<h2 data-number="3.4" id="ai-more-effective-if-guided-by-process"><span class="header-section-number">3.4</span> AI more effective if guided by process</h2>
 <p>You <em>can</em> find and fix some vulnerabilities with simple prompts, as noted above. However, if your goal is thoroughness, most report that guiding an AI makes the AI more effective at finding and fixing vulnerabilities.</p>
 <p>For example, [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>] states that “simply asking a generic coding agent to “find bugs” in a large repository results in model drift, context window compaction, and high false-positive rates… The highest-performing defensive systems combine raw AI reasoning with rigid engineering frameworks (harnesses) that handle file selection, environment setup, and tool execution.”</p>
 <p>Similarly, [<a href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>] noted that, “you can start with very simple prompting…” but <em>also</em> noted that, “through iteration we’ve built out a lot of orchestration and tooling to optimize and scale the pipeline.” [<a href="https://red.anthropic.com/2026/mythos-preview/">Carlini2026</a>] found that asking “each agent to focus on a different file in the project” was more effective, since this “reduces the likelihood that we will find the same bug hundreds of times”. Instead of processing literally every file for each software project, they first asked Claude to rank how likely each file in the project is to have interesting bugs and prioritized the files that were most likely.</p>

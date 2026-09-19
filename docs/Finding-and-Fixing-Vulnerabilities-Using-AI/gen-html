@@ -40,6 +40,7 @@ pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout \
   --css="https://cdn.jsdelivr.net/npm/simpledotcss@2.2.1/simple.min.css" \
   --metadata-file=metadata.yaml \
   --wrap=none \
+  --number-sections \
 
 mv chunks-tmp/* .
 rmdir chunks-tmp
