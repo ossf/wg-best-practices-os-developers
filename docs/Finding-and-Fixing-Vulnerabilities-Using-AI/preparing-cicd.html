@@ -65,16 +65,17 @@
 
 
 <h2 data-number="4.5" id="preparing-cicd"><span class="header-section-number">4.5</span> Preparing CI/CD</h2>
+<p>Before trying to use an AI system, ensure that you have a good Continuous Integration / Continuous Delivery or Deployment (CI/CD) system that can rigorously check its work.</p>
 <p>An AI system generally works best “when it’s able to check its own work with another tool. We refer to this class of tool as a “task verifier”: a trusted method of confirming whether an AI agent’s output actually achieves its goal. Task verifiers give the agent real-time feedback… allowing it to iterate deeply until it succeeds” [<a href="https://www.anthropic.com/news/mozilla-firefox-security">Anthropic2026-03</a>].</p>
-<p>Because task verifiers are trusted to accept or reject an agent’s work, they become part of the trusted computing base for the workflow. A broken test, incomplete harness, compromised build environment, or verifier that checks the wrong property can confidently approve an incorrect result. Where practical, keep verifiers deterministic, make explicit what property each verifier actually proves, and periodically test them using known-good and known-bad cases.</p>
+<p>Because task verifiers are trusted to accept or reject an agent’s work, in a sense they become part of the trusted computing base for the workflow. A broken test, incomplete harness, compromised build environment, or verifier that checks the wrong property can confidently approve an incorrect result. Where practical, keep verifiers deterministic, make explicit what property each verifier actually proves, and periodically test them using known-good and known-bad cases.</p>
 <p>Thankfully, any software that needs to work correctly should <em>already</em> have mechanisms that support such checking. Any such software should have a CI/CD pipeline to build, test, and deliver changed results:</p>
 <ul>
 <li>Continuous Integration (CI) means that code is frequently merged and verified before acceptance.<br />
 </li>
 <li>“CD” can mean either Continuous Delivery (where the verified results are automatically prepared for deployment) or Continuous Deployment (where the verified results are automatically released to live environments).</li>
 </ul>
-<p>A CI/CD process was always important, but it’s even <em>more</em> important with AI. A process that depends on people remembering to test, or a manual testing process, is not ready for the large number of vulnerabilities and fixes needed for today’s systems.</p>
-<p>The CI process needs to be good quality to reduce the likelihood of breaking functionality or inserting vulnerabilities. For example:</p>
+<p>Having a good CI/CD process was <em>always</em> important, but it’s even <em>more</em> important with AI. A process that depends on people remembering to test, or a manual testing process, is not ready for the large number of vulnerabilities and fixes needed for today’s systems.</p>
+<p>The CI/CD process needs to be good quality to reduce the likelihood of breaking functionality or inserting vulnerabilities. For example:</p>
 <ul>
 <li>Ensure that you have a good <em>automated</em> test suite
 <ul>
@@ -93,12 +94,54 @@
 </li>
 <li>Take steps to minimize false positives, and especially work to counter <em>repeat</em> false positives (e.g., embed in the source code disabling false positives where appropriate)</li>
 </ul>
-<p><em>Speed matters</em> in the CI, CD, and deployment processes. It doesn’t matter if a vulnerability is known; what matters is deploying the fix before an attacker exploits it:</p>
+<p><em>Speed matters</em> in these processes. It doesn’t matter if a vulnerability is known; what matters is deploying the fix before an attacker exploits it:</p>
 <ul>
-<li><em>Make testing/CI time acceptable</em>. “If regression testing takes a day, you cannot get to a two-hour SLA without skipping it, and the bugs you ship when you skip regression testing tend to be worse than the bugs you were trying to patch.” [<a href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>] Thankfully, most of these tasks are <em>easily</em> parallelizable. Break them down and run them in parallel to reduce the wall clock time. You should be thinking about total minutes, at worst an hour, not a day or longer. Otherwise testing/CI becomes the bottleneck.<br />
+<li><em>Make CI time acceptable (including testing)</em>. “If regression testing takes a day, you cannot get to a two-hour SLA without skipping it, and the bugs you ship when you skip regression testing tend to be worse than the bugs you were trying to patch.” [<a href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>] Thankfully, most of these tasks are <em>easily</em> parallelizable. Break them down and run them in parallel to reduce the wall clock time. You should be thinking about total minutes, at worst an hour, not a day or longer for most projects. Obviously such short timeframes can be a challenge for operational technology (OT) or software that controls physical devices, but the principle still applies. If CI takes too long, CI becomes the bottleneck.<br />
 </li>
-<li><em>Speed deployment</em>. “Defenders need a continuous operating pipeline that moves from signal to context to action with minimal delay.” [Crowdstrike2026-FiveSteps]</li>
+<li><em>Speed deployment</em>. “Defenders need a continuous operating pipeline that moves from signal to context to action with minimal delay.” [<a href="https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/">CrowdStrike2026-FiveSteps</a>]</li>
 </ul>
+<details class="quiz">
+<summary>
+Quiz
+</summary>
+<p>Q1. What is a “task verifier” as defined in the material?</p>
+<ol type="A">
+<li>A human who manually re-reads every line of AI-generated code<br />
+</li>
+<li>A tool that checks only for open source license violations<br />
+</li>
+<li>A separate AI model used solely to write documentation<br />
+</li>
+<li>A trusted method for confirming whether an agent’s output achieves its goal</li>
+</ol>
+<details>
+<summary>
+Show answer
+</summary>
+Answer: D
+</details>
+</details>
+<details class="quiz">
+<summary>
+Quiz
+</summary>
+<p>Q1. Why does the material say a broken test or compromised build environment is especially a problem in AI-driven workflows?</p>
+<ol type="A">
+<li>It has little effect, since the AI double-checks its own work<br />
+</li>
+<li>A broken task verifier may repeatedly approve bad results<br />
+</li>
+<li>It affects only performance and never has any effect on correctness<br />
+</li>
+<li>CI/CD pipelines have nothing to do with AI-assisted vulnerability work</li>
+</ol>
+<details>
+<summary>
+Show answer
+</summary>
+Answer: B
+</details>
+</details>
 
 <nav class="sitenav-container">
   <div class="sitenav">

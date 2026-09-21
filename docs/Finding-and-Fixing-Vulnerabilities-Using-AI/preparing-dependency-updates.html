@@ -65,11 +65,33 @@
 
 
 <h2 data-number="4.6" id="preparing-dependency-updates"><span class="header-section-number">4.6</span> Preparing dependency updates</h2>
-<p>In nearly all cases modern software is mostly reused software from somewhere else. These components that are depended on are called “dependencies”. Sooner or later vulnerabilities are likely to be discovered in dependencies, especially if they’re undergoing initial security analysis by AI. It’s a waste of effort to work hard to find vulnerabilities that you could have easily resolved through an easily-available update.</p>
+<p>It’s vitally important to be prepared to update any external software your software depends on.</p>
+<p>In nearly all cases modern software is mostly reused software from somewhere else. These components that are depended on are called “dependencies”. Sooner or later vulnerabilities are likely to be discovered in dependencies, especially if they’re undergoing initial security analysis by AI. It’s a waste of time and effort to work hard to find vulnerabilities that you could have easily resolved through an easily-available update.</p>
 <p>It’s vital to set up <em>easily-applied</em> automated reporting of dependency vulnerabilities. Many tools and services can identify updates, prioritize security updates, and make it easy to accept those changes. For example, many tools can create a merge request/pull request that automatically runs the CI/CD pipeline, enabling you to easily accept them if they pass. You can even set up some updates to be entirely automatic. Consider using an AI to help you install and configure these tools; this isn’t hard, and since it’s rote work an AI can often make this easy.</p>
 <p>Sometimes you can determine that a vulnerability in a dependency is not exploitable in your system. However, this is often difficult; most modern software is so dynamic that it’s difficult to be <em>confident</em> that some vulnerability <em>cannot</em> be exploited by an attacker. It’s often safer and more efficient to simply update your system when a vulnerability is found in a dependency; then the vulnerability is fixed <em>and</em> the project is better-prepared if another vulnerability is found in that dependency.</p>
 <p>You may choose to do a security evaluation for only the “first party” software you developed. You may also choose to evaluate your project’s dependencies. If you do the latter, the results will be more thorough, and the rest of this material will apply to them as well.</p>
-<p>Given all that, let’s focus on the core tasks for finding and fixing vulnerabilities.</p>
+<p>Given all that, let’s transition in the following material and focus on the core tasks for finding and fixing vulnerabilities in the software we’re directly responsible for.</p>
+<details class="quiz">
+<summary>
+Quiz
+</summary>
+<p>Q1. What does the material recommend when a dependency has an update released that fixes a vulnerability?</p>
+<ol type="A">
+<li>It’s often more efficient to update it than prove it’s unexploitable<br />
+</li>
+<li>Ignore it, since dependencies fall outside the project’s attack surface<br />
+</li>
+<li>Rewrite the entire dependency yourself, from scratch, since it’s untrustworthy<br />
+</li>
+<li>Wait for the dependency’s next major, possibly breaking release</li>
+</ol>
+<details>
+<summary>
+Show answer
+</summary>
+Answer: A
+</details>
+</details>
 
 <nav class="sitenav-container">
   <div class="sitenav">

@@ -50,7 +50,7 @@
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="processes-for-using-ai-to-find-and-fix-vulnerabilities.html" accesskey="p" rel="previous">Processes for using AI to find and fix vulnerabilities</a>
+      <span class="navlink-label">← Previous:</span> <a href="examples-of-relevant-tools-and-services.html" accesskey="p" rel="previous">Examples of relevant tools and services</a>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="decide-on-approaches.html" accesskey="u" rel="up">Decide on Approaches</a>
@@ -64,16 +64,37 @@
 
 
 
-<h2 data-number="3.6" id="do-multiple-times-due-to-non-determinism-and-long-tail"><span class="header-section-number">3.6</span> Do multiple times due to non-determinism and long tail</h2>
-<p>Most modern AI systems are <em>not</em> deterministic. Even if you provide them the same inputs, they won’t necessarily produce the same outputs.</p>
-<p>As a result, “the first run on a codebase typically has the highest number of findings. Subsequent runs tend to have fewer—though often more complex—vulnerabilities, as the simpler ones were patched in prior runs. However, don’t expect the nth run to have zero new findings. Models are stochastic, and a large codebase can have a long tail of vulnerabilities that continue to trickle in even when the code is unchanged.” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]</p>
-<p>As a result, once you’ve gone through a process of finding and fixing vulnerabilities, you’ll need to repeat the process several times until it reliably fails to report useful results with multiple approaches and systems.</p>
+<h2 data-number="3.7" id="do-multiple-times-due-to-non-determinism-and-long-tail"><span class="header-section-number">3.7</span> Do multiple times due to non-determinism and long tail</h2>
+<p>Most modern AI systems are <em>not</em> deterministic. Even if you provide them the same inputs, they won’t necessarily produce the same outputs. That means you need to apply AI multiple times to find and fix vulnerabilities, especially on its first application to a project.</p>
+<p>Yan reports that, “the first run on a codebase typically has the highest number of findings. Subsequent runs tend to have fewer—though often more complex—vulnerabilities, as the simpler ones were patched in prior runs. However, don’t expect the nth run to have zero new findings. Models are stochastic, and a large codebase can have a long tail of vulnerabilities that continue to trickle in even when the code is unchanged.” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]</p>
+<p>As a result, once you’ve gone through a process of finding and fixing vulnerabilities for the first time for a project, you’ll need to repeat the process several times until it reliably fails to report useful results with multiple approaches and systems.</p>
 <p>One question is whether or not you should provide past findings as context, so that it is more likely to look at different areas. Research on this is limited. For now, we suggest that you <em>do</em> provide past results on <em>some</em> runs, so that on those runs it doesn’t need to re-discover past results. There is a risk that incorrect past results may lead the AI astray, so we expect it’s better to provide that data in only some cases. We hope future research will make this clearer.</p>
+<details class="quiz">
+<summary>
+Quiz
+</summary>
+<p>Q1. Why does the material recommend repeating the vulnerability-finding process multiple times on an unchanged codebase?</p>
+<ol type="A">
+<li>A single run will always find every vulnerability that’s present<br />
+</li>
+<li>A single run of an AI system may miss something a later run finds<br />
+</li>
+<li>Repetition is needed only when you’re using closed-source models<br />
+</li>
+<li>Running the process twice guarantees zero false positives</li>
+</ol>
+<details>
+<summary>
+Show answer
+</summary>
+Answer: B
+</details>
+</details>
 
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="processes-for-using-ai-to-find-and-fix-vulnerabilities.html" accesskey="p" rel="previous">Processes for using AI to find and fix vulnerabilities</a>
+      <span class="navlink-label">← Previous:</span> <a href="examples-of-relevant-tools-and-services.html" accesskey="p" rel="previous">Examples of relevant tools and services</a>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="decide-on-approaches.html" accesskey="u" rel="up">Decide on Approaches</a>

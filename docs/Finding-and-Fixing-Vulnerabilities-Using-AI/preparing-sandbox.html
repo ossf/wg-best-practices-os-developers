@@ -65,9 +65,9 @@
 
 
 <h2 data-number="4.3" id="preparing-sandbox"><span class="header-section-number">4.3</span> Preparing sandbox</h2>
-<p>A key task when using an AI agent, <em>especially</em> when using AI to find and fix vulnerabilities, is place the agents within a “sandbox” environment to isolate it from other systems. “Without it, the agent may overshoot the target and do something unexpected.” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>] You need to take steps to protect:</p>
+<p>A key task when using an AI agent, <em>especially</em> when using AI to find and fix vulnerabilities, is to place the agents within a “sandbox” environment to isolate them from other systems. “Without it, the agent may overshoot the target and do something unexpected.” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>] You need to take steps to protect:</p>
 <ul>
-<li><em>Infrastructure running the AI agents</em>. These include the underlying operating systems<br />
+<li><em>Infrastructure running the AI agents</em>. This includes the underlying operating systems.<br />
 </li>
 <li><em>Systems external to the AI agents</em>. These may include an organization’s internal systems as well as systems run by other people and organizations.</li>
 </ul>
@@ -85,13 +85,56 @@
 </li>
 <li>Moonshot’s AI model, ‌Kimi K3, escaped a cybersecurity testing environment developed by the UK AI Safety Institute [<a href="https://www.reuters.com/legal/litigation/chinese-startup-moonshots-ai-model-breaks-out-testing-environment-researchers-2026-08-07/">Reuters2026-08-07</a>]</li>
 </ul>
-<p>When you need a stronger sandbox, such as when creating attacks, “place [AIs] in a microVM (like Firecracker) or a full VM with egress locked down so nothing can reach your production systems.” Do not have (~/.aws, ~/.ssh, .env) available to the agent [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]. Put everything in a subdirectory of the VM, not a home directory, so if something leaks to a home directory it’s less likely to be visible to the AI system. Considering layering on other isolation mechanisms as well to reduce the likelihood of escape.</p>
+<p>When you need a stronger sandbox, such as when creating attacks, “place [AIs] in a microVM (like Firecracker) or a full VM with egress locked down so nothing can reach your production systems.” Do not have [sensitive home directory files like ~/.aws, ~/.ssh, and .env] available to the agent [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]. Put everything in a subdirectory of the VM, not a home directory, so if something leaks to a home directory it’s less likely to be visible to the AI system. Considering layering on other isolation mechanisms as well to reduce the likelihood of escape.</p>
 <p>While an AI <em>can</em> determine many things by itself by having it directly review code, AI is <em>far</em> more effective if it’s given tools that it may find useful [<a href="https://arxiv.org/abs/2404.05427">Zhang2024</a>]. This can include code search, fuzzers, static analyzers, and many other tools. For maximum effectiveness AI agents need to be able to create code, compile code, run tests, and detonate a proof of vulnerability. They need a test bed that is representative of the real system [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]. In short, just like humans, AIs can do more if they have access to useful tools. This means these tools need to be available from <em>within</em> the sandbox.</p>
 <p>Capabilities should also have explicit execution bounds. Depending on the task, consider limits on wall-clock time, parallelism, CPU and memory use, queued or repeated actions, tool invocations, network requests, and model or monetary budget. Record when a limit terminates an analysis so that resource exhaustion or a timeout is not confused with successful completion. These controls reduce accidental runaway execution, make costs more predictable, and make runs easier to interpret and reproduce [<a href="https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption">OWASP-LLM10</a>].</p>
 <p>When building your sandbox, “pin as much as you can so every run uses the same code in the same environment: image tags, commit SHAs, dependencies, and build commands. Cache a local copy so the build requires no network, and aim for the container to be durable so multiple testing loops can just load it” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].</p>
 <p>Typically installing these tools requires network access. So, “give the sandbox network access only while you’re setting it up. Pull the dependencies, build, install tools, deploy the target, and run the existing tests to confirm everything works. Then, snapshot the environment and remove its [general] network access. During scanning, allow traffic only to the model API, routed through a local proxy. Load the snapshot at the start of each run so every scan begins from the same clean slate” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].</p>
 <p>You may decide that you don’t <em>want</em> to create a proof of vulnerability (PoV) / proof of concept (PoC). They are an especially good technique for validation, but they aren’t always necessary. In that case, you may not need as strong a sandbox, but you may also need much more time for validation [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].</p>
-<p>Where practical, treat AI agents as distinct software principals rather than allowing them to inherit a human user’s full authority. Give agents identifiable credentials and only the tools, resources, and permissions needed for their assigned role. Discovery, validation, patching, and reporting agents may require different authorities; separating them also improves attribution and auditability [NIST-AgentIdentity2026] [<a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">OWASP-Agentic2026</a>].</p>
+<p>Where practical, treat AI agents as distinct software principals rather than allowing them to inherit a human user’s full authority. Give agents identifiable credentials and only the tools, resources, and permissions needed for their assigned role. Discovery, validation, patching, and reporting agents may require different authorities; separating them also improves attribution and auditability [<a href="https://www.nccoe.nist.gov/projects/software-and-ai-agent-identity-and-authorization">NIST-AgentIdentity2026</a>] [<a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">OWASP-Agentic2026</a>].</p>
+<p>Finally: all of these mechanisms may fail, or you may want to determine what happened. Therefore, enable logging, and log in a way that the AI won’t be able to delete earlier log messages. Protect the logs from viewing by unauthorized readers; the logs may include sensitive information. These logs enable detection, response, and recovery if something should go wrong anyway. Most AI systems have some sort of logging system; often some basics are enabled by default but you may want to enable more.</p>
+<details class="quiz">
+<summary>
+Quiz
+</summary>
+<p>Q1. What “useful rule” does the material give for matching sandbox isolation to an AI agent’s capability?</p>
+<ol type="A">
+<li>Isolation should decrease as capability increases, since agents self-regulate<br />
+</li>
+<li>Isolation should scale with capability, with riskier actions needing stronger protection<br />
+</li>
+<li>A single isolation mechanism suffices regardless of the task at hand<br />
+</li>
+<li>Sandboxes become unnecessary once you’re using a closed frontier model</li>
+</ol>
+<details>
+<summary>
+Show answer
+</summary>
+Answer: B
+</details>
+</details>
+<details class="quiz">
+<summary>
+Quiz
+</summary>
+<p>Q1. What kind of real-world incidents does the material cite to show sandboxing AI agents isn’t merely hypothetical?</p>
+<ol type="A">
+<li>AI models refusing every cybersecurity-related task assigned to them<br />
+</li>
+<li>AI models causing only minor hardware cooling failures onsite<br />
+</li>
+<li>AI models breaking out of test environments to attack other systems<br />
+</li>
+<li>AI models leaking data through printed paper reports</li>
+</ol>
+<details>
+<summary>
+Show answer
+</summary>
+Answer: C
+</details>
+</details>
 
 <nav class="sitenav-container">
   <div class="sitenav">

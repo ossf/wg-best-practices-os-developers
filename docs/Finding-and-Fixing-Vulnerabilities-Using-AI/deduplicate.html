@@ -8,7 +8,7 @@
   <link rel="icon" href="/assets/logo.svg" />
   <meta name="author" content="David A. Wheeler" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
-  <title>Finding and Fixing Vulnerabilities Using AI – De-duplicate</title>
+  <title>Finding and Fixing Vulnerabilities Using AI – Deduplicate</title>
   <style>
     div.sitenav {
       display: flex;
@@ -50,7 +50,7 @@
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="identify-findings.html" accesskey="p" rel="previous">Identify findings</a>
+      <span class="navlink-label">← Previous:</span> <a href="handling-external-findingsvulnerabilities.html" accesskey="p" rel="previous">Handling external findings/vulnerabilities</a>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="core-tasks-for-finding-and-fixing-vulnerabilities.html" accesskey="u" rel="up">Core tasks for finding and fixing vulnerabilities</a>
@@ -64,11 +64,11 @@
 
 
 
-<h2 data-number="5.2" id="de-duplicate"><span class="header-section-number">5.2</span> De-duplicate</h2>
-<p>“De-duplication” is the process of eliminating duplicate reports, eliminating unnecessary duplication of effort.</p>
-<p>In practice you need to repeatedly de-duplicate as you learn information. Projects may de-duplicate before validation (to eliminate obvious duplicates that don’t need duplicate validation), and de-duplicate again after validation has gained more information.</p>
-<p>Some writers consider de-duplication part of triage (e.g., [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]), and others treat them separately. No matter how you define the terms, both are needed.</p>
-<p>[<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>] recommends the following for de-duplication:</p>
+<h2 data-number="5.3" id="deduplicate"><span class="header-section-number">5.3</span> Deduplicate</h2>
+<p>“Deduplication” is the process of eliminating duplicate reports, eliminating unnecessary duplication of effort. External reports and internal analysis may repeatedly identify the same problem. Apply deduplication to counteract this problem.</p>
+<p>In practice you need to repeatedly deduplicate as you learn information. Projects may deduplicate before validation (to eliminate obvious duplicates that don’t need duplicate validation), and deduplicate again after validation has gained more information.</p>
+<p>Some writers consider deduplication part of triage (e.g., [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]), and others treat them separately. No matter how you define the terms, all are needed.</p>
+<p>[<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>] recommends the following for deduplication:</p>
 <ul>
 <li>Consider the root cause. “Scanners often flag one bug at multiple call sites or report multiple symptoms of a single root cause. Here’s one practical approach: First, use a cheap deterministic pass: same file, same category, vulnerability line numbers within ten lines of each other. Then, have a model apply qualitative rules to what remains:”<br />
 </li>
@@ -77,11 +77,32 @@
 <li>“Treat as distinct: different vulnerability classes in the same file; different variables reaching different sinks; two independent bugs inside one helper; the same missing check on two endpoints, but each requires its own fix.”</li>
 </ul>
 <p>If it’s not <em>clear</em> that a finding is a duplicate, pass it along to be validated separately. Once more information is acquired it may be easier to determine if it’s a duplicate.</p>
+<details class="quiz">
+<summary>
+Quiz
+</summary>
+<p>Q1. According to the guidance in this section, which of the following should most likely be treated as distinct findings rather than duplicates?</p>
+<ol type="A">
+<li>The same vulnerability reported at multiple call sites that all trace back to one root cause.<br />
+</li>
+<li>A missing global protection, such as an authentication check, reported separately for each affected endpoint.<br />
+</li>
+<li>A root-cause defect and one of its direct consequences flagged together along the same code path.<br />
+</li>
+<li>The same missing check reported on two different endpoints, where each endpoint requires its own separate fix.</li>
+</ol>
+<details>
+<summary>
+Show answer
+</summary>
+Answer: D
+</details>
+</details>
 
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="identify-findings.html" accesskey="p" rel="previous">Identify findings</a>
+      <span class="navlink-label">← Previous:</span> <a href="handling-external-findingsvulnerabilities.html" accesskey="p" rel="previous">Handling external findings/vulnerabilities</a>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="core-tasks-for-finding-and-fixing-vulnerabilities.html" accesskey="u" rel="up">Core tasks for finding and fixing vulnerabilities</a>
