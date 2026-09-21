@@ -24,20 +24,32 @@ and save it in this directory as `Finding.zip`.
 When `Finding.zip` exists, `cleanup-markdown`:
 
 * Replaces `images/` with the zip's `images/` (the full-quality files).
+* Renames each image from its alt text (see below).
 * Deletes the `[imageN]: data:...` lines.
 * Rewrites each image reference to
-  `![alt text](images/FILE.png){width=W height=H}`, using the size the
+  `![alt text](images/NAME.png){width=W height=H}`, using the size the
   document gives the image (the pixel size would display too large).
 
 Google numbers the images differently in the markdown (`[image2]`)
 and in the zip (`images/image4.png`), so `cleanup-markdown` matches
 them by alt text, taken from the `<img>` tags in the zip's HTML.
-Every image needs alt text that's unique and the same in both places.
-If an image has none, or no image in the zip has the same alt text,
-`cleanup-markdown` reports the error and leaves `Finding.md` unchanged.
+It also names each file from its alt text: the first 6 words, ignoring
+a few filler words such as "a" and "the", lowercased and joined by
+"-". For example, "A robot tries to warn a human about a fire, ..."
+becomes `images/robot-tries-warn-human-about-fire.png`.
+The name depends only on the alt text, so it's the same on every run,
+and it's the same whatever numbers Google gives the images.
+Editing the start of an image's alt text renames its file (`git`
+shows it as a rename).
+
+Every image needs alt text that's the same in both places, and the
+first words must be distinct: if an image has none, no image in the
+zip has the same alt text, or two images would get the same name,
+`cleanup-markdown` reports the error and leaves `Finding.md` and
+`images/` unchanged.
 Running it again with a newer `Finding.zip` follows any renumbering.
 Without `Finding.zip`, images are left alone.
-Commit `images/` along with `Finding.md`.
+Commit `images/` along with `Finding.md`, but not `Finding.zip`.
 
 ## How to regenerate pages
 
