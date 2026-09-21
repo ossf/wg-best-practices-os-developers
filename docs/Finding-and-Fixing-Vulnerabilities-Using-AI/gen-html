@@ -46,6 +46,11 @@ pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout \
   --wrap=none \
   --number-sections \
 
+# pandoc also copies the images Finding.md refers to (images/, from
+# Finding.zip via cleanup-markdown) into its output. That copy is
+# byte-identical to the committed ./images, which stays put, so drop it.
+rm -fr chunks-tmp/images
+
 mv chunks-tmp/* .
 rmdir chunks-tmp
 
@@ -66,7 +71,7 @@ awk -v subtitle="$subtitle" '
 mv index.html.new index.html
 
 echo
-echo 'Commit with "git add -A -- '"'"'*.html'"'"' (not -u or'
-echo '"git commit -a"), or a new file can end up linked from the TOC but'
-echo 'never actually committed. That pathspec also avoids sweeping up'
+echo 'Commit with "git add -A -- *.html images/'
+echo '"or a new file can end up linked from the document but'
+echo 'never actually committed. The pathspec avoids sweeping up'
 echo 'unrelated untracked files sitting in this same directory.'

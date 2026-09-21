@@ -14,6 +14,31 @@ markdownlint (see `clean-finding.awk`) and rewrites `Finding.md` in
 place. It's idempotent, so running it again later (or on an
 already-clean `Finding.md`) is a no-op.
 
+### Images
+
+Google's markdown export embeds each image as a lossy, base64-encoded
+`[imageN]: data:image/png;base64,...` line at the end of `Finding.md`.
+Those copies have degraded quality, are huge, and look like secrets to
+scanners. So also download the document as "Web Page (.html, zipped)",
+and save it in this directory as `Finding.zip`.
+When `Finding.zip` exists, `cleanup-markdown`:
+
+* Replaces `images/` with the zip's `images/` (the full-quality files).
+* Deletes the `[imageN]: data:...` lines.
+* Rewrites each image reference to
+  `![alt text](images/FILE.png){width=W height=H}`, using the size the
+  document gives the image (the pixel size would display too large).
+
+Google numbers the images differently in the markdown (`[image2]`)
+and in the zip (`images/image4.png`), so `cleanup-markdown` matches
+them by alt text, taken from the `<img>` tags in the zip's HTML.
+Every image needs alt text that's unique and the same in both places.
+If an image has none, or no image in the zip has the same alt text,
+`cleanup-markdown` reports the error and leaves `Finding.md` unchanged.
+Running it again with a newer `Finding.zip` follows any renumbering.
+Without `Finding.zip`, images are left alone.
+Commit `images/` along with `Finding.md`.
+
 ## How to regenerate pages
 
 When you're ready (`Finding.md` updated and cleaned), generate the
