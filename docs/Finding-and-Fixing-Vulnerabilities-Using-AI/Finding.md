@@ -384,7 +384,7 @@ Attackers *prefer* developers who unwisely refuse to use AI to help find and fix
 
 You *need* to use AI to help find and help fix vulnerabilities if it’s important that the software be secure. Do not bring a knife to a gunfight.
 
-![A robot tries to warn a human about a fire, but the human is ignoring the robot](images/image1.png){width=624 height=340}
+![A robot tries to warn a human about a fire, but the human is ignoring the robot](images/robot-tries-warn-human-about-fire.png){width=624 height=340}
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. What’s a risk if a project bans all AI-assisted vulnerability reports?
@@ -512,7 +512,7 @@ In 2026 AI became *far* more effective at finding vulnerabilities. This was due 
 
 There are risks that overprescribing an approach to an AI may overconstrain it, and cause it to ignore problems it would have otherwise found. It’s also possible that future improved AI models will be so good that aiding them with processes won’t help them. However, since most report that aiding AI models does help, we’ll discuss doing that combination in this course.
 
-![A robot is working down a checklist, with the first few items checked off.](images/image4.png){width=624 height=340}
+![A robot is working down a checklist, with the first few items checked off.](images/robot-working-down-checklist-first-few.png){width=624 height=340}
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. Per the material, what can happen when you simply ask a generic coding agent to "find bugs" in a large repository by reading all of its code?
@@ -955,7 +955,7 @@ In short, coverage is better when “many agents work on tightly scoped question
 
 ### Separate identifying findings from validation
 
-![A robot and human are working together to analyze a disk representing software, before their results go to deduplication and verification.](images/image5.png){width=624 height=340}
+![A robot and human are working together to analyze a disk representing software, before their results go to deduplication and verification.](images/robot-human-working-together-analyze-disk.png){width=624 height=340}
 
 One excellent way to improve results is to separate *identifying* findings from *validating* findings. A “finding” is simply a construct that *might* be a vulnerability, but is not necessarily a vulnerability because it’s not clear if it’s exploitable.
 
@@ -1071,7 +1071,7 @@ A vulnerability is a defect that can be exploited by an attacker and violates so
 
 Even when a finding isn’t a defect, it might suggest improvements for the future. However, here we’ll focus on validating if a finding is a vulnerability.
 
-![Human and AI working together to validate findings of potential vulnerabilities, rejecting some and accepting others.](images/image6.png){width=624 height=340}
+![Human and AI working together to validate findings of potential vulnerabilities, rejecting some and accepting others.](images/human-ai-working-together-validate-findings.png){width=624 height=340}
 
 ### Defining what a vulnerability is
 
@@ -1151,7 +1151,7 @@ Once vulnerabilities are found, those vulnerabilities need to be *fixed*.
 
 Finding vulnerabilities is useless for a defender unless those vulnerabilities are fixed. If fixing vulnerabilities is not handled efficiently this can become completely overwhelming. For example, here is the number of bug fixes in the Chrome browser, showing a huge rise in 2026 (compared to 2024-2025) caused by AI-discovered vulnerability reports:
 
-![Number of Chrome bug fixes by milestone, with a dramatic increase in fixes in 2026 due to AI vulnerability reports.](images/image3.png){width=517 height=291}  
+![Number of Chrome bug fixes by milestone, with a dramatic increase in fixes in 2026 due to AI vulnerability reports.](images/number-chrome-bug-fixes-by-milestone.png){width=517 height=291}  
 Chrome bug fixes by milestone dramatically grew in 2026 due to AI \[[Chrome2026](https://blog.google/security/chrome-stronger-with-every-update/)\]
 
 In many ways a web browser is a worst case, since a web browser has a massive amount of functionality and must directly interact with potentially-malicious websites. Still, this experience demonstrates that AI can find many vulnerabilities *not* reported to projects by other approaches.
@@ -1188,7 +1188,7 @@ Now you’re ready to create a fix. You might choose to use AI to help develop a
 
 Unfortunately, as of 2026, even the ***best*** AI systems are ***very bad*** at fixing ***complex*** vulnerabilities. Thus, it’s important to determine what kind of vulnerability you’re addressing and handle it appropriately.
 
-![A robot has tightened a pipe and shows a thumbs-up to a horrified human who can see all the other pipes bursting.](images/image2.png){width=624 height=340}
+![A robot has tightened a pipe and shows a thumbs-up to a horrified human who can see all the other pipes bursting.](images/robot-tightened-pipe-shows-thumbs-up.png){width=624 height=340}
 
 A study by 1password found that when the fix “had to touch multiple files, functions, or code paths, and introduce non-trivial changes” an AI would succeed only *26.0%* of the time at generating a fix that fully resolved the vulnerability without materially changing application behavior. AI systems did not resolve the vulnerability, added a new vulnerability, or both, an average 53.9% of the time. \[[Hoodlet2026](https://1password.com/blog/why-ai-generated-patches-still-require-human-review)\], \[[Mierczuk2026](https://1password.com/files/resources/frontier-models-vulnerability-patches-flawed.pdf)\]
 
