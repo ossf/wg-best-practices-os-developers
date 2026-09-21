@@ -3,11 +3,49 @@
 # that trip up markdownlint (see clean-finding.awk). Idempotent. Run
 # this right after downloading/exporting Finding.md from Google Docs,
 # before committing it.
+#
+# If Finding.zip (Google Docs' "Web Page (.html, zipped)" download,
+# saved here) exists, this also replaces images/ with the zip's
+# images/ and points Finding.md's images at those files, sized as in
+# the Google document. Google's markdown export embeds lossy copies of
+# the images as base64 "[imageN]: data:..." lines; those get dropped.
+# Without Finding.zip, images are left as they are.
 
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 
 set -e
+set -o pipefail
 
-awk -f clean-finding.awk Finding.md > Finding.md.new
+zip=Finding.zip
+work=",cleanup-tmp.$$"
+trap 'rm -rf "$work" Finding.md.new' EXIT
+mkdir "$work"
+
+awk_opts=()
+if [ -f "$zip" ]; then
+  # Extract into a scratch directory first, so a bad zip doesn't
+  # leave images/ half replaced. Replacing (not merging) images/ keeps
+  # old images from lingering when Google renumbers them.
+  unzip -q "$zip" 'images/*' -d "$work"
+  # The <img> tags in the zip's HTML give each image's alt text (the
+  # only key that's the same in Finding.md), file name, and size.
+  unzip -p "$zip" '*.html' | { grep -o '<img[^>]*>' || true; } > "$work/imgtags"
+  awk_opts=(-v "imgtags=$work/imgtags")
+fi
+
+awk "${awk_opts[@]}" -f clean-finding.awk Finding.md > Finding.md.new
+
+if [ -f "$zip" ]; then
+  # Every image Finding.md now uses must exist in the new images/.
+  grep -o '(images/[^)]*)' Finding.md.new | tr -d '()' | while read -r f; do
+    if [ ! -f "$work/$f" ]; then
+      echo "cleanup-markdown: $f is in Finding.md but not in $zip" >&2
+      exit 1
+    fi
+  done
+  rm -rf images
+  mv "$work/images" images
+fi
+
 mv Finding.md.new Finding.md

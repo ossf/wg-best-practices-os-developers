@@ -65,14 +65,35 @@
 
 
 <h2 data-number="6.3" id="apply-secure-by-design-and-secure-by-default"><span class="header-section-number">6.3</span> Apply secure by design and secure by default</h2>
-<p><em>Only</em> trying to find and fix software vulnerabilities one-at-a-time will not succeed in the long term. It’s <em>necessary</em>, but future changes might re-introduce similar vulnerabilities.</p>
+<p><em>Only</em> trying to find and fix software vulnerabilities one-at-a-time will not succeed in the long term. It’s <em>necessary</em>, but future changes might re-introduce similar vulnerabilities. Instead, apply the general principles of secure-by-design and secure-by-default.</p>
 <p>As always, if a system is to be secure in the real world, it must be:</p>
 <ul>
-<li>Secure-by-design: Design the software to be secure in the first place. For example, limit its attack surface, and apply defense in depth [<a href="https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf">FiveEyes2026</a>]<br />
+<li>Secure-by-design: Design the software to be secure in the first place. For example, limit its attack surface, and apply defense in depth [<a href="https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf">FiveEyes2026</a>]. Ensure that any security checks on run on systems that are trustworthy.<br />
 </li>
-<li>Secure-by-default: Release the software so that it’s secure in the default install. A “hardening guide” indicates insecure software; those steps should have been applied before its release</li>
+<li>Secure-by-default: Release the software so that it’s secure in the default install. A “hardening guide” indicates insecure software; those steps should have been applied before its release. If necessary, provide a “loosening guide” that explains how to disable security mechanisms for special cases, including the risks of doing so. Most users install the unchanged default; the default security <em>is</em> the security of most installations.</li>
 </ul>
 <p>Secure-by-design and secure-by default “must become standard practice – not an aspiration”. Systems must be designed to be resilient and <em>not</em> depend on a single solution or technology, but must instead apply defense in depth [<a href="https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf">FiveEyes2026</a>].</p>
+<details class="quiz">
+<summary>
+Quiz
+</summary>
+<p>Q1. What does “secure-by-default” mean, per the material?</p>
+<ol type="A">
+<li>Security features exist but must be manually enabled after reading a guide<br />
+</li>
+<li>The software is secure in its default installation, without extra hardening steps<br />
+</li>
+<li>The software’s entire source code is kept fully confidential<br />
+</li>
+<li>The software updates itself automatically, without any user consent</li>
+</ol>
+<details>
+<summary>
+Show answer
+</summary>
+Answer: B
+</details>
+</details>
 
 <nav class="sitenav-container">
   <div class="sitenav">

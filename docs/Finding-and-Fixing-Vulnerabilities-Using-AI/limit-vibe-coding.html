@@ -65,8 +65,32 @@
 
 
 <h2 data-number="6.1" id="limit-vibe-coding"><span class="header-section-number">6.1</span> Limit vibe coding</h2>
-<p>Modern AI has become far better at generating code. However, AI often generates insecure code. That has led to an explosion of <em>vulnerable</em> code being released. “Researchers at Georgia Tech’s Vibe Security Radar tracked CVEs directly attributable to AI coding tools and found that March 2026 alone produced more than all of 2025 combined.” [<a href="https://redmonk.com/kholterhoff/2026/05/05/ai-slop-vulnerability-treadmill/">Holderhoff2026</a>]</p>
-<p>Where security matters, you need to have AI look for vulnerabilities and then have human review as well of AI-generated code. You can use AI to generate code. The problem happens if you trust that it’s infallible.</p>
+<p>The process of using AI to generate code and <em>not</em> reviewing the results is called <em>vibe coding</em>. If the results are important for security, don’t do that. Review code if its failures may cause serious problems.</p>
+<p>Modern AI has become far better at generating code. However, AI often generates insecure code. If the code is less important, and doesn’t process untrusted input, vibe coding may be fine. However, if its failures may cause serious problems, don’t accept AI-generated code without review.</p>
+<p>The increased use of vibe coding in security-relevant code has led to an explosion of <em>vulnerable</em> code being released. “Researchers at Georgia Tech’s Vibe Security Radar tracked CVEs directly attributable to AI coding tools and found that March 2026 alone produced more than all of 2025 combined.” [<a href="https://redmonk.com/kholterhoff/2026/05/05/ai-slop-vulnerability-treadmill/">Holderhoff2026</a>]</p>
+<p>Where security matters, you need to have AI look for vulnerabilities and then have human review of AI-generated code. You <em>can</em> use AI to generate code! Generating code with AI, especially in code that doesn’t process untrusted inputs and doesn’t need good performance, can save time. The problem happens if you unwisely believe that AI-generated code never has a defect or a vulnerability.</p>
+<p>Someday this review may no longer be necessary. We can’t predict how good AI will get over time, or at what rate. However, at the time of this writing, review is necessary if failures can cause serious problems.</p>
+<details class="quiz">
+<summary>
+Quiz
+</summary>
+<p>Q1. What does the material warn about unreviewed AI-generated code (“vibe coding”)?</p>
+<ol type="A">
+<li>It’s inherently more secure than any human-written code<br />
+</li>
+<li>It can’t be reviewed by any automated tool at all<br />
+</li>
+<li>It often introduces vulnerabilities, so it needs scanning plus human review<br />
+</li>
+<li>Most major open source projects have banned all AI-generated results in all cases</li>
+</ol>
+<details>
+<summary>
+Show answer
+</summary>
+Answer: C
+</details>
+</details>
 
 <nav class="sitenav-container">
   <div class="sitenav">

@@ -64,16 +64,38 @@
 
 
 
-<h2 data-number="5.4" id="triage"><span class="header-section-number">5.4</span> Triage</h2>
-<p>Triage is the process of prioritizing reports once they’ve been validated. Ideally all vulnerabilities would be immediately fixed, but if that’s not practical, they must be prioritized so the most important vulnerabilities are addressed first.</p>
-<p>This is fundamentally a risk decision. Risks by definition are based on their:</p>
+<h2 data-number="5.5" id="triage"><span class="header-section-number">5.5</span> Triage</h2>
+<p>Most Projects must perform <em>triage</em>, that is, they must perform the process of prioritizing reports.</p>
+<p>Ideally all vulnerabilities would be immediately fixed, but when there are many things to do that’s often impractical. When handling everything immediately is impractical, findings must be prioritized so the most important vulnerabilities are addressed first. Ideally this is done after validation, though if the validation process is overwhelmed, you may need to do some triage before validation.</p>
+<p>Triage is fundamentally a risk decision. Risks by definition are based on their:</p>
 <ol type="1">
-<li>Likelihood. In particular, consider the preconditions necessary for the vulnerability to be exploitable and what is required for an attacker to exploit it [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]. A vulnerability that can be remotely exploited by an unauthenticated attacker would typically have a higher likelihood than one that requires a local authenticated user.<br />
+<li><em>Likelihood</em>. In particular, consider the preconditions necessary for the vulnerability to be exploitable and what is required for an attacker to exploit it [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]. A vulnerability that can be remotely exploited by an unauthenticated attacker would typically have a higher likelihood than one that requires a local authenticated user.<br />
 </li>
-<li>Impact. A remote code execution (RCE) is typically considered <em>extremely</em> serious since an attacker can then make the system do many things. In contrast, a vulnerability that only reveals public information would be low risk.</li>
+<li><em>Impact</em>. A remote code execution (RCE) is typically considered <em>extremely</em> serious since an attacker can then make the system do many things. In contrast, a vulnerability that only reveals public information would be low risk.</li>
 </ol>
-<p>Most systems have <em>some</em> sort of “severity rating” classification system to help you identify the vulnerabilities most needing to be addressed [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>]. Unfortunately, many report that AI systems aren’t very good at estimating severity of a vulnerability (both too high and too low), so if you use an AI to estimate in a way that matters, have a human review them.</p>
-<p>Modern AI systems have become increasingly good at chaining many defects <em>together</em> into vulnerabilities. Something that <em>appears</em> to be unexploitable may, when chained with other defects, turn into a serious vulnerability. Thus, it’s reasonable to triage the “most dangerous vulnerabilities” at first, but do <em>not</em> ignore other defects that <em>appear</em> to be unexploitable. Fix the other defects, as resources permit, so they don’t become part of a chain leading to an exploit.</p>
+<p>Most systems have <em>some</em> sort of “severity rating” classification system to help you identify the vulnerabilities most needing to be addressed [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>]. Unfortunately, many report that AI systems aren’t very good at estimating severity of a vulnerability (AI systems often report both too high and too low), so if you use an AI to estimate in a way that matters, have a human review them.</p>
+<p>Modern AI systems have become increasingly good at chaining many defects <em>together</em> into vulnerabilities. Something that <em>appears</em> to be unexploitable may, when chained with other defects, be part of a serious vulnerability. Thus, it’s reasonable to triage the “most dangerous vulnerabilities” at first, but do <em>not</em> ignore other defects that <em>appear</em> to be unexploitable. Fix the other defects, as resources permit, so they don’t become part of a chain leading to an exploit.</p>
+<details class="quiz">
+<summary>
+Quiz
+</summary>
+<p>Q1. We warned that AI systems tend to be especially unreliable when estimating one particular aspect of a vulnerability report. What is it, and what do we recommend as a result?</p>
+<ol type="A">
+<li>The exact file and line number of the defect; the guide recommends always re-running static analysis tools to confirm locations.<br />
+</li>
+<li>Severity ratings; since AI often rates severity too high or too low, and can sometimes chain defects together, a human should review any severity estimate that matters.<br />
+</li>
+<li>Whether a finding is a duplicate; the guide recommends discarding any finding that AI can’t confidently de-duplicate.<br />
+</li>
+<li>The programming language used in the vulnerable component; the guide recommends manually re-identifying the language before triage.</li>
+</ol>
+<details>
+<summary>
+Show answer
+</summary>
+Answer: B
+</details>
+</details>
 
 <nav class="sitenav-container">
   <div class="sitenav">
