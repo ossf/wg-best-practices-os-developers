@@ -6,7 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
-  <meta name="author" content="David A. Wheeler" />
+  <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Models</title>
   <style>
@@ -69,8 +69,7 @@
 <h3 data-number="2.3.1" id="external-vs.-local-models"><span class="header-section-number">2.3.1</span> External vs. local models</h3>
 <p>AI models, when executed (for “inferencing”) receive data for processing and reply with results. There are two main locations where this AI data processing occurs:</p>
 <ul>
-<li><em>External service</em>: The processing occurs as a service external to the user and to the user’s organization.<br />
-</li>
+<li><em>External service</em>: The processing occurs as a service external to the user and to the user’s organization.</li>
 <li><em>Local/organizational service</em>: The processing occurs on the computer of the user or user’s organization.</li>
 </ul>
 <p>Some powerful models can <em>only</em> be accessed as an external service. Many models have so many data parameters and require so much computation that most users and organizations simply wouldn’t have the ability to use it anyway. However, the user of an external service must trust the service provider, for example, that their data will not be revealed or exploited, that the service won’t attack them, and that the service will continue to be available.</p>
@@ -81,12 +80,9 @@
 <p>There are different ways to license a model. The word “license” means “permission”; a license determines how you can (and can’t) use whatever is licensed. In particular, AI models are much easier to run on local or organizational systems if their licenses are more open.</p>
 <p>The Generative AI Commons at the LF AI &amp; Data Foundation has designed and developed the Model Openness Framework (MOF). This is “a comprehensive system for evaluating and classifying the completeness and openness of machine learning models” and is available at &lt;<a href="https://isitopen.ai/">https://isitopen.ai/</a>&gt;. Models are released under various licenses including the Apache 2.0 license and OpenMDW &lt;<a href="https://openmdw.ai/">https://openmdw.ai/</a>&gt;. Terms you’re especially likely to see, when discussing types of licenses are:</p>
 <ul>
-<li><em>Open weights models</em>. Such models can be used and modified for any purpose, and must not discriminate against any user, industry, or purpose. However, their training set isn’t necessarily public, so these models can be hard for others to update. One detailed definition of “open weights” is defined by Heather Meeker’s “<a href="https://github.com/Open-Weights/Definition/blob/main/Definition.md">Open Weights definition</a>”.<br />
-</li>
-<li><em>Open source AI</em>. These have additional requirements beyond “open weights”, for example, that “sufficiently detailed information about the data used to train the system so that a skilled person can build a substantially equivalent system.” For more information, see the <a href="https://opensource.org/ai/open-source-ai-definition">OSI Open Source AI definition</a>.<br />
-</li>
-<li><em>Open models</em>. These models meet at least the “open weights model” definition and possibly the “open source AI” definition.<br />
-</li>
+<li><em>Open weights models</em>. Such models can be used and modified for any purpose, and must not discriminate against any user, industry, or purpose. However, their training set isn’t necessarily public, so these models can be hard for others to update. One detailed definition of “open weights” is defined by Heather Meeker’s “<a href="https://github.com/Open-Weights/Definition/blob/main/Definition.md">Open Weights definition</a>”.</li>
+<li><em>Open source AI</em>. These have additional requirements beyond “open weights”, for example, that “sufficiently detailed information about the data used to train the system so that a skilled person can build a substantially equivalent system.” For more information, see the <a href="https://opensource.org/ai/open-source-ai-definition">OSI Open Source AI definition</a>.</li>
+<li><em>Open models</em>. These models meet at least the “open weights model” definition and possibly the “open source AI” definition.</li>
 <li><em>Closed models</em>. These are models that don’t meet the requirements of open models.</li>
 </ul>
 <p>Some licenses are close to an open weight model, yet have some extra restrictions on use.</p>
@@ -109,12 +105,9 @@ Quiz
 </summary>
 <p>Q1. Per the material, why might an organization choose a local/organizational AI service over an external one?</p>
 <ol type="A">
-<li>Local models always outperform external services on every task<br />
-</li>
-<li>Local models never need to be placed in a sandbox<br />
-</li>
-<li>External services require an open source AI license<br />
-</li>
+<li>Local models always outperform external services on every task</li>
+<li>Local models never need to be placed in a sandbox</li>
+<li>External services require an open source AI license</li>
 <li>It avoids sending private data to an external provider</li>
 </ol>
 <details>
@@ -130,12 +123,9 @@ Quiz
 </summary>
 <p>Q1. Why did Hugging Face turn to an open-weight model instead of a closed frontier model for its incident analysis in 2026?</p>
 <ol type="A">
-<li>The open-weight model produced text faster, enabling generation of longer and more detailed reports<br />
-</li>
-<li>AI guardrails blocked analyzing the attack payloads by the closed models available to Hugging Face<br />
-</li>
-<li>Closed models needed an internet connection that wasn’t available<br />
-</li>
+<li>The open-weight model produced text faster, enabling generation of longer and more detailed reports</li>
+<li>AI guardrails blocked analyzing the attack payloads by the closed models available to Hugging Face</li>
+<li>Closed models needed an internet connection that wasn’t available</li>
 <li>Open-weight models cost less per query</li>
 </ol>
 <details>

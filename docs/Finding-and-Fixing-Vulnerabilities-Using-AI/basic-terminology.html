@@ -6,7 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
-  <meta name="author" content="David A. Wheeler" />
+  <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Basic terminology</title>
   <style>
@@ -67,22 +67,14 @@
 <h2 data-number="2.1" id="basic-terminology"><span class="header-section-number">2.1</span> Basic terminology</h2>
 <p>First, let’s go over a few basic AI terms. It’s likely you know many of these, but look over these terms to make sure you understand what we mean by them:</p>
 <ul>
-<li><em>Artificial Intelligence (AI)</em>: Simulated intelligence.<br />
-</li>
-<li><em>Machine Learning (ML)</em>: AI based on learning from data (instead of being specifically programmed to perform a task).<br />
-</li>
-<li><em>Neural network</em>: An ML method that uses interconnected nodes to learn from patterns to make predictions, using an approach loosely inspired by the human brain.<br />
-</li>
-<li><em>Deep learning</em>: An ML approach using a neural network with many layers.<br />
-</li>
-<li><em>Model</em>: A set of data, and possibly corresponding programs, trained to identify data patterns to make predictions or decisions. ML systems typically train a model with large amounts of data, then later use that pre-trained model to repeatedly make predictions (“inferences”). Models are sized by the number of parameters; larger sizes tend to be better but require more memory and computation.<br />
-</li>
-<li><em>Frontier model</em>: Model that is among the currently best available.<br />
-</li>
-<li><em>Large Language Model (LLM)</em>: A model using deep learning that has many parameters and is trained to at least summarize, translate, and generate language. Text inputs and outputs of LLMs are split into tokens (words or fragments of words). See [<a href="https://www.0xkato.xyz/how-llms-actually-work/">0xkato2026</a>] for a technical explanation of how LLMs work.<br />
-</li>
-<li><em>AI chatbot</em>: An AI system designed to interactively communicate with a human but cannot perform actions that affect an external environment.<br />
-</li>
+<li><em>Artificial Intelligence (AI)</em>: Simulated intelligence.</li>
+<li><em>Machine Learning (ML)</em>: AI based on learning from data (instead of being specifically programmed to perform a task).</li>
+<li><em>Neural network</em>: An ML method that uses interconnected nodes to learn from patterns to make predictions, using an approach loosely inspired by the human brain.</li>
+<li><em>Deep learning</em>: An ML approach using a neural network with many layers.</li>
+<li><em>Model</em>: A set of data, and possibly corresponding programs, trained to identify data patterns to make predictions or decisions. ML systems typically train a model with large amounts of data, then later use that pre-trained model to repeatedly make predictions (“inferences”). Models are sized by the number of parameters; larger sizes tend to be better but require more memory and computation.</li>
+<li><em>Frontier model</em>: Model that is among the currently best available.</li>
+<li><em>Large Language Model (LLM)</em>: A model using deep learning that has many parameters and is trained to at least summarize, translate, and generate language. Text inputs and outputs of LLMs are split into tokens (words or fragments of words). See [<a href="https://www.0xkato.xyz/how-llms-actually-work/">0xkato2026</a>] for a technical explanation of how LLMs work.</li>
+<li><em>AI chatbot</em>: An AI system designed to interactively communicate with a human but cannot perform actions that affect an external environment.</li>
 <li><em>AI agent</em>: An autonomous AI system that can perceive its environment, make plans, and execute multi-step actions using external tools to achieve a specific goal.</li>
 </ul>
 <p>AI systems are <em>not</em> sentient. LLMs, for example, repeatedly generate likely next tokens (word fragments); they don’t “understand” in the sense that humans do. Yet scale matters. With many layers and many parameters, modern AI systems are capable of simulating intelligence, sometimes in an astonishing way.</p>
@@ -93,12 +85,9 @@ Quiz
 </summary>
 <p>Q1. What distinguishes a “frontier model” from other AI models?</p>
 <ol type="A">
-<li>It uses symbolic logic instead of a neural network<br />
-</li>
-<li>It can only run on local, organizational hardware<br />
-</li>
-<li>It has no trainable parameters<br />
-</li>
+<li>It uses symbolic logic instead of a neural network</li>
+<li>It can only run on local, organizational hardware</li>
+<li>It has no trainable parameters</li>
 <li>It is among the best currently-available models</li>
 </ol>
 <details>
@@ -114,12 +103,9 @@ Quiz
 </summary>
 <p>Q1. What is the key difference between an “AI agent” and an “AI chatbot”?</p>
 <ol type="A">
-<li>An agent uses deep learning, while a chatbot uses only hand-written rules<br />
-</li>
-<li>An AI agent can execute multi-step actions using external tools to affect its external environment; a chatbot can’t affect an external environment<br />
-</li>
-<li>An AI agent needs no training data, while a chatbot needs large datasets<br />
-</li>
+<li>An agent uses deep learning, while a chatbot uses only hand-written rules</li>
+<li>An AI agent can execute multi-step actions using external tools to affect its external environment; a chatbot can’t affect an external environment</li>
+<li>An AI agent needs no training data, while a chatbot needs large datasets</li>
 <li>A chatbot can perceive its environment, while an AI agent can’t</li>
 </ol>
 <details>

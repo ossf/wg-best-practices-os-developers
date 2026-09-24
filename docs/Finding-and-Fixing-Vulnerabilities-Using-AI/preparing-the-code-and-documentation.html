@@ -6,7 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
-  <meta name="author" content="David A. Wheeler" />
+  <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Preparing the code and documentation</title>
   <style>
@@ -68,23 +68,16 @@
 <p>Like any computer system, an AI’s effectiveness depends on its input. This means that if you prepare the software (its code and documentation) to be easier to analyze by an AI, the results are likely to be much better.</p>
 <p>Therefore, improve the code and its documentation wherever it currently lacks important relevant information. This means adding information where appropriate such as type declarations, inline comments, documentation, relevant specifications, and so on. This especially includes “bigger picture” information that explains <em>why</em> something was done. Where practical, provide links to key data or extractions of relevant data. Relevant extractions are often better [<a href="https://openssf.org/blog/2026/01/05/ai-software-development-security-tips-and-the-future-part-2/">Wheeler2026</a>].</p>
 <p>Dan Stenberg, leader of the curl project, reports that AI tools can reason across protocols, specs, and third-party libraries in “almost magical ways”. AI tools can identify failures to comply with a spec, as well as inconsistencies between comments and implementations [<a href="https://thenewstack.io/curls-daniel-stenberg-ai-is-ddosing-open-source-and-fixing-its-bugs/">Vaughan-Nichols</a>]. Language models’ ability to use context, e.g., comments, can be powerful [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>].</p>
-<p>At the least, include an “AGENTS.md” file. Its format and recommendations are provided by the Linux Foundation’s Agentic AI Foundation at &lt;<a href="https://agents.md/">https://agents.md/</a>&gt;. Historically Claude Code only looked at <a href="http://CLAUDE.md">CLAUDE.md</a>, but as of 2026-09-18 (version 2.1.277) it now natively looks for and reads AGENTS.md.</p>
+<p>At the least, include an “AGENTS.md” file. Its format and recommendations are provided by the Linux Foundation’s Agentic AI Foundation at &lt;<a href="https://agents.md/">https://agents.md/</a>&gt;. Some AI agent systems supported it when its specification was originally crafted, such as OpenAI Codex and Google Gemini. Historically Claude Code only looked at <a href="http://CLAUDE.md">CLAUDE.md</a>, but as of 2026-09-18 (version 2.1.277) it now looks for and reads <a href="http://AGENTS.md">AGENTS.md</a>. If you’re using an agentic system and it doesn’t support <a href="http://AGENTS.md">AGENTS.md</a>, but it supports a different filename, use that filename to say “See @<a href="http://AGENTS.md">AGENTS.md</a>” and use <a href="http://AGENTS.md">AGENTS.md</a> so instructions that apply to an AI agent can be in one portable place.</p>
 <p>[<a href="https://www.0xkato.xyz/Get-ready-for-an-audit/">0xkato2024</a>] recommends making your code well documented, suggesting the following:</p>
 <ul>
-<li>“Are your code comments up to date?<br />
-</li>
-<li>Are there any third-party dependencies that the code relies on?<br />
-</li>
-<li>Is there a system architecture overview?<br />
-</li>
-<li>Have you mapped out the data flow and transaction lifecycle?<br />
-</li>
-<li>Are off-chain and on-chain components clearly documented?<br />
-</li>
-<li>Are access control mechanisms clearly outlined?<br />
-</li>
-<li>Have you done a risk assessment and threat model?<br />
-</li>
+<li>“Are your code comments up to date?</li>
+<li>Are there any third-party dependencies that the code relies on?</li>
+<li>Is there a system architecture overview?</li>
+<li>Have you mapped out the data flow and transaction lifecycle?</li>
+<li>Are off-chain and on-chain components clearly documented?</li>
+<li>Are access control mechanisms clearly outlined?</li>
+<li>Have you done a risk assessment and threat model?</li>
 <li>Do you have a list of all known issues with explanations?”</li>
 </ul>
 <p>When analyzing a system, examine security properties across transitions (including state transitions) as well as steady-state data flows. Vulnerabilities can appear during transitions such as authentication and re-authentication, token refresh and expiration, logout and revocation, account or role changes, retries, recovery flows, and concurrent operations. Ask the AI to identify the security invariants that should remain true across these transitions and then look for paths where those invariants can be violated [<a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP-ASVS5</a>].</p>
@@ -95,12 +88,9 @@ Quiz
 </summary>
 <p>Q1. What does the material recommend as at least a minimum step for preparing documentation for AI analysis?</p>
 <ol type="A">
-<li>Include an “AGENTS.md” file that describes the project for agents<br />
-</li>
-<li>Remove all existing code comments to reduce noise<br />
-</li>
-<li>Convert all project documentation into video format<br />
-</li>
+<li>Include an “AGENTS.md” file that describes the project for agents</li>
+<li>Remove all existing code comments to reduce noise</li>
+<li>Convert all project documentation into video format</li>
 <li>Store all documentation only as compiled binary output</li>
 </ol>
 <details>

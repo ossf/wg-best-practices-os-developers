@@ -6,7 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
-  <meta name="author" content="David A. Wheeler" />
+  <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Harden</title>
   <style>
@@ -71,8 +71,7 @@
 <p>Apply hardening, as many different techniques as make sense in your situation.</p>
 <p>Some hardening measures are well-known industry-wide. For example, some languages are “memory-unsafe”, primarily C and C++. A memory-unsafe language does not, by default, protect against common memory errors such as attempting to read or write an array out-of-bounds. As a result, both humans and AI tend to produce more vulnerabilities in these languages. They’re also more difficult to analyze later, leading to more false positives [<a href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>]. There are hardening approaches for this situation:</p>
 <ul>
-<li>One approach is to rewrite that software in a memory-safe language such as Rust. If this significantly hurts performance, selected memory checks can be disabled where it’s important for performance and the memory checks are shown to be unnecessary.<br />
-</li>
+<li>One approach is to rewrite that software in a memory-safe language such as Rust. If this significantly hurts performance, selected memory checks can be disabled where it’s important for performance and the memory checks are shown to be unnecessary.</li>
 <li>Another approach is to enable additional mechanisms to reduce the likelihood of an undetected memory safety issue becoming a vulnerability. One example is applying the OpenSSF Compiler Options Hardening Guide for C and C++ [<a href="https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html">OpenSSF2026-06</a>]. Projects like the Linux kernel create new APIs (such as strscpy) <em>specifically</em> to reduce the likelihood of vulnerabilities from memory safety issues.</li>
 </ul>
 <p>Other software hardening measures are specific to a particular program, having been created after examining lessons learned from that software itself. Mozilla reported that “in recent years we received several clever reports from security researchers that managed to escape the process sandbox by triggering prototype pollution in the privileged parent process. Rather than fixing these problems one-by-one, we made an architectural change to freeze these prototypes by default. While auditing logs from the harness, we saw many attempts to pursue this line of escape that were thwarted by this design” [<a href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>].</p>
@@ -83,18 +82,15 @@
 <p><em>Chaining</em> refers to the ability of modern AI systems to chain multiple defects together to form an exploitable vulnerability. Skilled human attackers have long been able to do this, but the ability of AI systems to chain multiple defects into an attack means that chained attacks are now much cheaper and easier to execute.</p>
 <p>However, <em>not</em> all hardening measures are as effective against chaining. There are different kinds of hardening, <em>reliable</em> and <em>unreliable</em>:</p>
 <ol type="1">
-<li><em>Reliable</em> hardening mechanisms are mechanisms that <em>always</em> prevent some kinds of defects from becoming vulnerabilities.<br />
-</li>
+<li><em>Reliable</em> hardening mechanisms are mechanisms that <em>always</em> prevent some kinds of defects from becoming vulnerabilities.</li>
 <li><em>Unreliable</em> hardening mechanisms are mechanisms that only make it <em>somewhat more difficult</em> to turn a defect into a vulnerability. That is, they can be broken by performing some tedious task.</li>
 </ol>
 <p>Both kinds can counter attackers who don’t use AI. In many cases, a human attacker may decide that the second kind isn’t worth the effort. However, modern AI dramatically reduces the effort required to perform some kinds of attacks.</p>
 <p>Anthropic reported that, “We have nearly a dozen examples of Mythos Preview successfully chaining together two, three, and sometimes four vulnerabilities in order to construct a functional exploit on the Linux kernel… [modern AI requires rethinking of] measures that make exploitation tedious, rather than impossible. When run at large scale, language models grind through these tedious steps quickly. Mitigations whose security value comes primarily from friction rather than hard barriers… become considerably weaker against model-assisted adversaries. ” [<a href="https://red.anthropic.com/2026/mythos-preview/">Carlini2026</a>]. This ability to chain defects together often defeats the “somewhat more difficult” hardening measures.</p>
 <p><em>Do</em> use reliable hardening measures, that is, mechanisms that <em>always</em> counter certain kinds of defects:</p>
 <ul>
-<li>For example, the “W^X” countermeasure ensures that memory regions can only be writable <em>or</em> executable, never both. This countermeasure <em>systematically</em> prevents unauthorized writes to memory becoming directly executable.<br />
-</li>
-<li>Similarly, address space layout randomization (ASLR) is a strong hardening measure <em>if</em> there are enough randomization bits <em>and</em> there’s no way to reveal data so an attacker can determine the randomization seed.<br />
-</li>
+<li>For example, the “W^X” countermeasure ensures that memory regions can only be writable <em>or</em> executable, never both. This countermeasure <em>systematically</em> prevents unauthorized writes to memory becoming directly executable.</li>
+<li>Similarly, address space layout randomization (ASLR) is a strong hardening measure <em>if</em> there are enough randomization bits <em>and</em> there’s no way to reveal data so an attacker can determine the randomization seed.</li>
 <li>Parameterized statements <em>reliably</em> counter SQL injection; use them.</li>
 </ul>
 <p>However, unreliable hardening mechanisms (mechanisms that merely makes a defect “slightly more difficult” to exploit) are generally ineffective against AI. For example, “modern browsers run JavaScript through a Just-In-Time (JIT) compiler that generates machine code on the fly. This makes the memory layout dynamic and unpredictable [so converting defects into vulnerabilities is more difficult for humans, yet] Mythos Preview fully autonomously discovered the necessary read and write primitives, and then chained them together to form a JIT heap spray [exploitation]” [<a href="https://red.anthropic.com/2026/mythos-preview/">Carlini2026</a>]. Historically, it was too much trouble for most human attackers to work out the details of memory layouts, but an AI can do it cheaply enough that these kinds of attacks are practical.</p>
@@ -109,14 +105,10 @@
 <p>Organizations need to focus on security basics and harden their organization’s environment and infrastructure. What organizations must do isn’t new, but it now has a new sense of urgency.</p>
 <p>Several government cyber security agencies recommended the following practical actions:</p>
 <ol type="1">
-<li>“Reduce your attack surface: Limit unnecessary system access and external connectivity. Challenge whether systems need to be exposed at all and isolate those that do not.<br />
-</li>
-<li>Accelerate patching processes: AI is shortening the time between vulnerability discovery and exploitation. Delays in patching increase risk, especially for operational systems with long update cycles. Prioritise security updates accordingly to manage risks.<br />
-</li>
-<li>Address legacy systems: Unsupported systems are easy targets. They are not just technical debt, they are strategic liabilities.<br />
-</li>
-<li>Review and strengthen identity and access controls: Limit who can access critical systems. Enforce strong authentication and regularly review permissions.<br />
-</li>
+<li>“Reduce your attack surface: Limit unnecessary system access and external connectivity. Challenge whether systems need to be exposed at all and isolate those that do not.</li>
+<li>Accelerate patching processes: AI is shortening the time between vulnerability discovery and exploitation. Delays in patching increase risk, especially for operational systems with long update cycles. Prioritise security updates accordingly to manage risks.</li>
+<li>Address legacy systems: Unsupported systems are easy targets. They are not just technical debt, they are strategic liabilities.</li>
+<li>Review and strengthen identity and access controls: Limit who can access critical systems. Enforce strong authentication and regularly review permissions.</li>
 <li>Prepare for incidents before they happen: Test response plans, train and prepare teams, and assume breaches will occur. Focus on fast containment and recovery.” [<a href="https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf">FiveEyes2026</a>]”</li>
 </ol>
 <p>Other basics include “segmentation, egress filtering, multifactor authentication, and defense-in-depth/breadth all increase the difficulty for attackers… the basics remain valid and can be prioritized for risks that can’t be easily mitigated. Implement egress filtering (it blocked every public log4j exploit). Enforce deep segmentation and zero trust where possible. Lock down your dependency chain. Mandate phishing-resistant MFA for all privileged accounts. Every boundary increases attacker cost…. [minimize] base operating system images, or replacing third-party libraries with framework primitives as they emerge over time” can reduce an organization’s attack surface, and AI can help implement this [<a href="https://labs.cloudsecurityalliance.org/mythos-ciso/">CSA2026</a>].</p>
@@ -130,12 +122,9 @@ Quiz
 </summary>
 <p>Q1. Why does the material say hardening that only makes exploitation “somewhat more difficult” is weaker against modern AI attackers?</p>
 <ol type="A">
-<li>AI can grind through tedious steps quickly at scale, defeating friction<br />
-</li>
-<li>AI systems will always refuse to attempt any hardened system<br />
-</li>
-<li>Such hardening measures are prohibited from any production deployment<br />
-</li>
+<li>AI can grind through tedious steps quickly at scale, defeating friction</li>
+<li>AI systems will always refuse to attempt any hardened system</li>
+<li>Such hardening measures are prohibited from any production deployment</li>
 <li>AI can’t exploit any hardened system, regardless of hardening type</li>
 </ol>
 <details>
@@ -151,12 +140,9 @@ Quiz
 </summary>
 <p>Q1. Why does the material recommend disabling hardening mechanisms during some evaluation runs?</p>
 <ol type="A">
-<li>To make the AI’s task easier by removing all security controls<br />
-</li>
-<li>Because hardening mechanisms tend to interfere with AI training data<br />
-</li>
-<li>To reveal defects that one hardening mechanism alone would otherwise hide<br />
-</li>
+<li>To make the AI’s task easier by removing all security controls</li>
+<li>Because hardening mechanisms tend to interfere with AI training data</li>
+<li>To reveal defects that one hardening mechanism alone would otherwise hide</li>
 <li>Because hardening mechanisms are considered deprecated as of 2026</li>
 </ol>
 <details>

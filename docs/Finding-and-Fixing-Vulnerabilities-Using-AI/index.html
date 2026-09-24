@@ -6,7 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
-  <meta name="author" content="David A. Wheeler" />
+  <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers (LFD126) - DRAFT</title>
   <style>
@@ -61,7 +61,7 @@
 
 <header id="title-block-header">
 <h1 class="title">Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers (LFD126) - DRAFT</h1>
-<p class="author">David A. Wheeler</p>
+<p class="author">David A. Wheeler and OpenSSF Contributors</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 <p>This is a guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using artificial intelligence (AI). We intend to create a course using this guide. This guide/course is a joint effort between the OpenSSF Best Practices working group (WG) and the OpenSSF AI/ML WG.</p>
@@ -105,22 +105,30 @@
 <li><a href="do-not-ignore-ai.html#do-not-ignore-ai" id="toc-do-not-ignore-ai"><span class="toc-section-number">3.1</span> Do not ignore AI</a></li>
 <li><a href="do-not-wait-for-access-to-the-best-ai-models.html#do-not-wait-for-access-to-the-best-ai-models" id="toc-do-not-wait-for-access-to-the-best-ai-models"><span class="toc-section-number">3.2</span> Do not wait for access to the best AI models</a></li>
 <li><a href="do-simple-things-first.html#do-simple-things-first" id="toc-do-simple-things-first"><span class="toc-section-number">3.3</span> Do simple things first</a></li>
-<li><a href="why-ai-tends-to-be-more-effective-if-guided-by-processes.html#why-ai-tends-to-be-more-effective-if-guided-by-processes" id="toc-why-ai-tends-to-be-more-effective-if-guided-by-processes"><span class="toc-section-number">3.4</span> Why AI tends to be more effective if guided by processes</a></li>
-<li><a href="how-to-apply-processes-for-using-ai-to-find-and-fix-vulnerabilities.html#how-to-apply-processes-for-using-ai-to-find-and-fix-vulnerabilities" id="toc-how-to-apply-processes-for-using-ai-to-find-and-fix-vulnerabilities"><span class="toc-section-number">3.5</span> How to apply processes for using AI to find and fix vulnerabilities</a></li>
-<li><a href="examples-of-relevant-tools-and-services.html#examples-of-relevant-tools-and-services" id="toc-examples-of-relevant-tools-and-services"><span class="toc-section-number">3.6</span> Examples of relevant tools and services</a>
+<li><a href="do-not-presume-ai-can-correctly-fix-all-vulnerabilities.html#do-not-presume-ai-can-correctly-fix-all-vulnerabilities" id="toc-do-not-presume-ai-can-correctly-fix-all-vulnerabilities"><span class="toc-section-number">3.4</span> Do not presume AI can correctly fix all vulnerabilities</a></li>
+<li><a href="why-ai-tends-to-be-more-effective-if-guided-by-processes.html#why-ai-tends-to-be-more-effective-if-guided-by-processes" id="toc-why-ai-tends-to-be-more-effective-if-guided-by-processes"><span class="toc-section-number">3.5</span> Why AI tends to be more effective if guided by processes</a></li>
+<li><a href="how-to-apply-processes-for-using-ai-to-find-and-fix-vulnerabilities.html#how-to-apply-processes-for-using-ai-to-find-and-fix-vulnerabilities" id="toc-how-to-apply-processes-for-using-ai-to-find-and-fix-vulnerabilities"><span class="toc-section-number">3.6</span> How to apply processes for using AI to find and fix vulnerabilities</a></li>
+<li><a href="examples-of-relevant-tools-and-services.html#examples-of-relevant-tools-and-services" id="toc-examples-of-relevant-tools-and-services"><span class="toc-section-number">3.7</span> Examples of relevant tools and services</a>
 <ul>
-<li><a href="examples-of-relevant-tools-and-services.html#challenges-of-finding-and-evaluating-tools" id="toc-challenges-of-finding-and-evaluating-tools"><span class="toc-section-number">3.6.1</span> Challenges of finding and evaluating tools</a></li>
-<li><a href="examples-of-relevant-tools-and-services.html#sample-services-and-tools" id="toc-sample-services-and-tools"><span class="toc-section-number">3.6.2</span> Sample services and tools</a></li>
-<li><a href="examples-of-relevant-tools-and-services.html#scrutineer" id="toc-scrutineer"><span class="toc-section-number">3.6.3</span> Scrutineer</a></li>
-<li><a href="examples-of-relevant-tools-and-services.html#oss-crs" id="toc-oss-crs"><span class="toc-section-number">3.6.4</span> OSS-CRS</a></li>
+<li><a href="examples-of-relevant-tools-and-services.html#challenges-of-finding-and-evaluating-tools" id="toc-challenges-of-finding-and-evaluating-tools"><span class="toc-section-number">3.7.1</span> Challenges of finding and evaluating tools</a></li>
+<li><a href="examples-of-relevant-tools-and-services.html#sample-services-and-tools" id="toc-sample-services-and-tools"><span class="toc-section-number">3.7.2</span> Sample services and tools</a></li>
+<li><a href="examples-of-relevant-tools-and-services.html#scrutineer" id="toc-scrutineer"><span class="toc-section-number">3.7.3</span> Scrutineer</a></li>
+<li><a href="examples-of-relevant-tools-and-services.html#oss-crs" id="toc-oss-crs"><span class="toc-section-number">3.7.4</span> OSS-CRS</a></li>
 </ul></li>
-<li><a href="do-multiple-times-due-to-non-determinism-and-long-tail.html#do-multiple-times-due-to-non-determinism-and-long-tail" id="toc-do-multiple-times-due-to-non-determinism-and-long-tail"><span class="toc-section-number">3.7</span> Do multiple times due to non-determinism and long tail</a></li>
+<li><a href="do-multiple-times-due-to-non-determinism-and-long-tail.html#do-multiple-times-due-to-non-determinism-and-long-tail" id="toc-do-multiple-times-due-to-non-determinism-and-long-tail"><span class="toc-section-number">3.8</span> Do multiple times due to non-determinism and long tail</a></li>
 </ul></li>
 <li><a href="prepare-to-find-and-fix-vulnerabilities.html#prepare-to-find-and-fix-vulnerabilities" id="toc-prepare-to-find-and-fix-vulnerabilities"><span class="toc-section-number">4</span> Prepare to find and fix vulnerabilities</a>
 <ul>
 <li><a href="preparing-ai.html#preparing-ai" id="toc-preparing-ai"><span class="toc-section-number">4.1</span> Preparing AI</a></li>
 <li><a href="preparing-the-threat-model.html#preparing-the-threat-model" id="toc-preparing-the-threat-model"><span class="toc-section-number">4.2</span> Preparing the threat model</a></li>
-<li><a href="preparing-sandbox.html#preparing-sandbox" id="toc-preparing-sandbox"><span class="toc-section-number">4.3</span> Preparing sandbox</a></li>
+<li><a href="preparing-sandbox.html#preparing-sandbox" id="toc-preparing-sandbox"><span class="toc-section-number">4.3</span> Preparing sandbox</a>
+<ul>
+<li><a href="preparing-sandbox.html#need-for-sandboxes" id="toc-need-for-sandboxes"><span class="toc-section-number">4.3.1</span> Need for sandboxes</a></li>
+<li><a href="preparing-sandbox.html#value-of-sandboxes" id="toc-value-of-sandboxes"><span class="toc-section-number">4.3.2</span> Value of sandboxes</a></li>
+<li><a href="preparing-sandbox.html#implementing-sandboxes" id="toc-implementing-sandboxes"><span class="toc-section-number">4.3.3</span> Implementing sandboxes</a></li>
+<li><a href="preparing-sandbox.html#establish-human-gate-and-kill-switch" id="toc-establish-human-gate-and-kill-switch"><span class="toc-section-number">4.3.4</span> Establish human gate and kill switch</a></li>
+<li><a href="preparing-sandbox.html#logging" id="toc-logging"><span class="toc-section-number">4.3.5</span> Logging</a></li>
+</ul></li>
 <li><a href="preparing-the-code-and-documentation.html#preparing-the-code-and-documentation" id="toc-preparing-the-code-and-documentation"><span class="toc-section-number">4.4</span> Preparing the code and documentation</a></li>
 <li><a href="preparing-cicd.html#preparing-cicd" id="toc-preparing-cicd"><span class="toc-section-number">4.5</span> Preparing CI/CD</a></li>
 <li><a href="preparing-dependency-updates.html#preparing-dependency-updates" id="toc-preparing-dependency-updates"><span class="toc-section-number">4.6</span> Preparing dependency updates</a></li>
@@ -144,14 +152,13 @@
 <li><a href="triage.html#triage" id="toc-triage"><span class="toc-section-number">5.5</span> Triage</a></li>
 <li><a href="fix-vulnerabilities.html#fix-vulnerabilities" id="toc-fix-vulnerabilities"><span class="toc-section-number">5.6</span> Fix vulnerabilities</a>
 <ul>
-<li><a href="fix-vulnerabilities.html#fixing-is-often-necessary-for-sending-reports-to-external-organizations" id="toc-fixing-is-often-necessary-for-sending-reports-to-external-organizations"><span class="toc-section-number">5.6.1</span> Fixing is often necessary for sending reports to external organizations</a></li>
+<li><a href="fix-vulnerabilities.html#fixing-may-be-necessary-for-sending-reports-to-external-organizations" id="toc-fixing-may-be-necessary-for-sending-reports-to-external-organizations"><span class="toc-section-number">5.6.1</span> Fixing may be necessary for sending reports to external organizations</a></li>
 <li><a href="fix-vulnerabilities.html#assigning-the-fix" id="toc-assigning-the-fix"><span class="toc-section-number">5.6.2</span> Assigning the fix</a></li>
 <li><a href="fix-vulnerabilities.html#creating-tests-and-confirming-the-root-problem" id="toc-creating-tests-and-confirming-the-root-problem"><span class="toc-section-number">5.6.3</span> Creating tests and confirming the root problem</a></li>
 <li><a href="fix-vulnerabilities.html#how-to-create-the-fix" id="toc-how-to-create-the-fix"><span class="toc-section-number">5.6.4</span> How to create the fix</a></li>
-<li><a href="fix-vulnerabilities.html#warning-ai-is-not-good-at-fixing-complex-vulnerabilities" id="toc-warning-ai-is-not-good-at-fixing-complex-vulnerabilities"><span class="toc-section-number">5.6.5</span> Warning: AI is not good at fixing complex vulnerabilities</a></li>
-<li><a href="fix-vulnerabilities.html#only-provide-correct-information-especially-if-fully-automated" id="toc-only-provide-correct-information-especially-if-fully-automated"><span class="toc-section-number">5.6.6</span> Only provide correct information, especially if fully automated</a></li>
-<li><a href="fix-vulnerabilities.html#approaching-fixes" id="toc-approaching-fixes"><span class="toc-section-number">5.6.7</span> Approaching fixes</a></li>
-<li><a href="fix-vulnerabilities.html#verifying-the-fix" id="toc-verifying-the-fix"><span class="toc-section-number">5.6.8</span> Verifying the fix</a></li>
+<li><a href="fix-vulnerabilities.html#only-provide-correct-information-especially-if-fully-automated" id="toc-only-provide-correct-information-especially-if-fully-automated"><span class="toc-section-number">5.6.5</span> Only provide correct information, especially if fully automated</a></li>
+<li><a href="fix-vulnerabilities.html#approaching-fixes" id="toc-approaching-fixes"><span class="toc-section-number">5.6.6</span> Approaching fixes</a></li>
+<li><a href="fix-vulnerabilities.html#verifying-the-fix" id="toc-verifying-the-fix"><span class="toc-section-number">5.6.7</span> Verifying the fix</a></li>
 </ul></li>
 <li><a href="report-vulnerability.html#report-vulnerability" id="toc-report-vulnerability"><span class="toc-section-number">5.7</span> Report vulnerability</a>
 <ul>
@@ -175,7 +182,8 @@
 </ul></li>
 <li><a href="call-to-action.html#call-to-action" id="toc-call-to-action"><span class="toc-section-number">7</span> Call to action</a></li>
 <li><a href="acknowledgements.html#acknowledgements" id="toc-acknowledgements"><span class="toc-section-number">8</span> Acknowledgements</a></li>
-<li><a href="bibliography.html#bibliography" id="toc-bibliography"><span class="toc-section-number">9</span> Bibliography</a></li>
+<li><a href="todo.html#todo" id="toc-todo"><span class="toc-section-number">9</span> TODO</a></li>
+<li><a href="bibliography.html#bibliography" id="toc-bibliography"><span class="toc-section-number">10</span> Bibliography</a></li>
 </ul>
 </nav>
 

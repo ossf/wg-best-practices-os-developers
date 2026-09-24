@@ -6,7 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
-  <meta name="author" content="David A. Wheeler" />
+  <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Fix vulnerabilities</title>
   <style>
@@ -67,12 +67,11 @@
 <h2 data-number="5.6" id="fix-vulnerabilities"><span class="header-section-number">5.6</span> Fix vulnerabilities</h2>
 <p>Once vulnerabilities are found, those vulnerabilities need to be <em>fixed</em>.</p>
 <p>Finding vulnerabilities is useless for a defender unless those vulnerabilities are fixed. If fixing vulnerabilities is not handled efficiently this can become completely overwhelming. For example, here is the number of bug fixes in the Chrome browser, showing a huge rise in 2026 (compared to 2024-2025) caused by AI-discovered vulnerability reports:</p>
-<p><img src="images/number-chrome-bug-fixes-by-milestone.png" width="517" height="291" alt="Number of Chrome bug fixes by milestone, with a dramatic increase in fixes in 2026 due to AI vulnerability reports." /><br />
-Chrome bug fixes by milestone dramatically grew in 2026 due to AI [<a href="https://blog.google/security/chrome-stronger-with-every-update/">Chrome2026</a>]</p>
+<p><img src="images/number-chrome-bug-fixes-by-milestone.png" width="517" height="291" alt="Number of Chrome bug fixes by milestone, with a dramatic increase in fixes in 2026 due to AI vulnerability reports." /> Chrome bug fixes by milestone dramatically grew in 2026 due to AI [<a href="https://blog.google/security/chrome-stronger-with-every-update/">Chrome2026</a>]</p>
 <p>In many ways a web browser is a worst case, since a web browser has a massive amount of functionality and must directly interact with potentially-malicious websites. Still, this experience demonstrates that AI can find many vulnerabilities <em>not</em> reported to projects by other approaches.</p>
-<h3 data-number="5.6.1" id="fixing-is-often-necessary-for-sending-reports-to-external-organizations"><span class="header-section-number">5.6.1</span> Fixing is often necessary for sending reports to external organizations</h3>
+<h3 data-number="5.6.1" id="fixing-may-be-necessary-for-sending-reports-to-external-organizations"><span class="header-section-number">5.6.1</span> Fixing may be necessary for sending reports to external organizations</h3>
 <p>If you are sending reports to an external organization, particularly an open source software project, you may be <em>required</em> to propose a fix.</p>
-<p>Historically, if a finder was examining external software, they would often simply report a vulnerability to that external project, and let the project fix it. However, in the new world of AI, simply reporting a vulnerability is often not very helpful; many projects are inundated. If an AI was used to find a potential vulnerability, many recipients will expect both a proof of vulnerability (showing it’s a vulnerability), a specific proposed fix that would fix it, and ideally related fixes to improve the testing, broader corrections, and so on.</p>
+<p>Historically, if a finder was examining external software, they would often simply report a vulnerability to that external project, and let the project fix it. However, in the new world of AI, simply reporting a vulnerability is often not very helpful; many projects are inundated. If an AI was used to find a potential vulnerability, many recipients will expect both a proof of vulnerability (showing it’s a vulnerability), and a specific proposed fix that would fix it.</p>
 <p>As reported in [<a href="https://blog.trailofbits.com/2026/06/22/introducing-patch-the-planet/">TrailofBits2026-06</a>], “Anyone can file an issue, flex, and walk away. We showed up with the patches… [and go] beyond just fixing bugs: we’re adding new tests and fuzzing harnesses, CI security scanning, supply-chain tooling, correctness fixes, and features maintainers had been meaning to get to.” In short, providing proposed fixing is far more likely to be helpful as compared to showing up with only a complaint.</p>
 <h3 data-number="5.6.2" id="assigning-the-fix"><span class="header-section-number">5.6.2</span> Assigning the fix</h3>
 <p>A fix will only be developed if someone is assigned, tacitly or explicitly, to do so.</p>
@@ -84,47 +83,31 @@ Chrome bug fixes by milestone dramatically grew in 2026 due to AI [<a href="http
 <p>In addition, examine the system to find the <em>root cause</em>. “Models may narrowly address findings at a specific call site instead of the root cause. Simply prompting the model to identify and fix the root cause can be effective. Then, have the model look for variants at two levels: (1) same pattern, where there are other call sites or copies of the same buggy code elsewhere, and (2) same class, where a codebase with one SQL injection vulnerability tends to have more SQL injection vulnerabilities. Update the threat model with the validated findings and patches to close the loop.” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]</p>
 <h3 data-number="5.6.4" id="how-to-create-the-fix"><span class="header-section-number">5.6.4</span> How to create the fix</h3>
 <p>Now you’re ready to create a fix. You might choose to use AI to help develop a candidate fix, but you do <em>not</em> need to use the same AI that found the vulnerability. Many use a model for finding a vulnerability that is expensive, slow, or has restricted access. It might be better to use a different AI system to create the fixes, since it might not have the same issues, it can use the detailed information provided earlier, and it might be better at that task.</p>
-<h3 data-number="5.6.5" id="warning-ai-is-not-good-at-fixing-complex-vulnerabilities"><span class="header-section-number">5.6.5</span> Warning: AI is not good at fixing complex vulnerabilities</h3>
-<p>Unfortunately, as of 2026, even the <strong><em>best</em></strong> AI systems are <strong><em>very bad</em></strong> at fixing <strong><em>complex</em></strong> vulnerabilities. Thus, it’s important to determine what kind of vulnerability you’re addressing and handle it appropriately.</p>
-<figure>
-<img src="images/robot-tightened-pipe-shows-thumbs-up.png" width="624" height="340" alt="A robot has tightened a pipe and shows a thumbs-up to a horrified human who can see all the other pipes bursting." />
-<figcaption aria-hidden="true">A robot has tightened a pipe and shows a thumbs-up to a horrified human who can see all the other pipes bursting.</figcaption>
-</figure>
-<p>A study by 1password found that when the fix “had to touch multiple files, functions, or code paths, and introduce non-trivial changes” an AI would succeed only <em>26.0%</em> of the time at generating a fix that fully resolved the vulnerability without materially changing application behavior. AI systems did not resolve the vulnerability, added a new vulnerability, or both, an average 53.9% of the time. [<a href="https://1password.com/blog/why-ai-generated-patches-still-require-human-review">Hoodlet2026</a>], [<a href="https://1password.com/files/resources/frontier-models-vulnerability-patches-flawed.pdf">Mierczuk2026</a>]</p>
-<p>In fact, with <em>complex</em> vulnerabilities, as of 2026 using an AI to fix may be a bad use of resources. One report found that so few fixes worked correctly that “human auditors of LLM-generated patches are likely to spend the majority of their time reviewing and ultimately rejecting an avalanche of unnecessary code… the level of understanding one must build to confidently evaluate the full correctness of a vulnerability patch is often at least what would have been sufficient for a human programmer to produce a single, known-good patch in the first place.” [<a href="https://1password.com/files/resources/frontier-models-vulnerability-patches-flawed.pdf">Mierczuk2026</a>]</p>
-<p>This may seem surprising, but it shouldn’t be. AI systems can generate lots of code, especially simple code that’s similar to what’s been done many times before. This has misled some people into thinking that AI can generate any code at all. However, in many ways AI systems act like junior developers. AI can generate a lot of “straightforward” code, and that’s great because a lot of code <em>is</em> straightforward. However, AI is not good at applying specific local context, especially in complex situations. AI also has a propensity to generate insecure code in general (after all, it was trained on lots of insecure code). Fixing complex vulnerabilities while not creating new vulnerabilities, often vulnerabilities created by previous AI use, is exactly where AI systems are especially weak.</p>
-<p>Of course, AI <em>can</em> be helpful in generating many fixes. Many vulnerabilities are relatively easy to fix, where the fix is localized to a specific line or set of adjacent lines. AI is often good at developing fixes for simple-to-fix vulnerabilities, once it’s told what needs fixing. Although it usually doesn’t happen, a frontier AI system <em>can</em> sometimes fix a complex vulnerability. Perhaps most importantly, this information only applies to AI models as of 2026. We do not know how much better the AI models and underlying tools will become. That said, this limitation is unlikely to disappear instantly, and not everyone can use the best available systems. As a result, it’s important to be aware that AI systems may struggle with more complex vulnerabilities, and plan accordingly.</p>
-<h3 data-number="5.6.6" id="only-provide-correct-information-especially-if-fully-automated"><span class="header-section-number">5.6.6</span> Only provide correct information, especially if fully automated</h3>
+<h3 data-number="5.6.5" id="only-provide-correct-information-especially-if-fully-automated"><span class="header-section-number">5.6.5</span> Only provide correct information, especially if fully automated</h3>
 <p>Only provide verified <em>correct</em> information to the AI, <em>especially</em> if the AI process is fully automated.</p>
 <p>The phrase “garbage in, garbage out” applies to AI systems, and is <em>especially</em> true if you are trying to use AI to create fixes for vulnerabilities. Be careful to <em>only</em> provide correct detail. Do <em>not</em> include data that might be incorrect in such prompting.</p>
-<p>One study found that, “giving incorrect guidance to the model in its initial prompt [to create a vulnerability fix] resulted in a roughly 50 percentage point reduction in fix correctness rates [while] giving more correct details to the model increased correctness by only 15 percentage<br />
-points compared to no specific guidance at all. As such, in cases where one cannot be highly<br />
-confident in the accuracy of bug details or fix guidance passed to an LLM for patch generation<br />
-(e.g., when that data is sourced directly from other automated tooling), the safer bet may<br />
-actually be to omit lower-confidence information that could cause a ‘correctness collapse’ if it<br />
-turns out to be wrong.” [<a href="https://1password.com/files/resources/frontier-models-vulnerability-patches-flawed.pdf">Mierczuk2026</a>]</p>
-<h3 data-number="5.6.7" id="approaching-fixes"><span class="header-section-number">5.6.7</span> Approaching fixes</h3>
-<p>When working an AI to develop a vulnerability fix, there are some general guidelines that will increase the likelihood of success.</p>
+<p>One study found that, “giving incorrect guidance to the model in its initial prompt [to create a vulnerability fix] resulted in a roughly 50 percentage point reduction in fix correctness rates [while] giving more correct details to the model increased correctness by only 15 percentage points compared to no specific guidance at all. As such, in cases where one cannot be highly confident in the accuracy of bug details or fix guidance passed to an LLM for patch generation (e.g., when that data is sourced directly from other automated tooling), the safer bet may actually be to omit lower-confidence information that could cause a ‘correctness collapse’ if it turns out to be wrong.” [<a href="https://1password.com/files/resources/frontier-models-vulnerability-patches-flawed.pdf">Mierczuk2026</a>]</p>
+<h3 data-number="5.6.6" id="approaching-fixes"><span class="header-section-number">5.6.6</span> Approaching fixes</h3>
+<p>When working with an AI to develop a vulnerability fix, there are some general guidelines that will increase the likelihood of success.</p>
 <p>As much as possible, be clear in the prompt to create a fix. Here are some general prompt statements you may find helpful: “Identify the root causes of this vulnerability. Identify approaches for fixing the root causes of the vulnerability, not just this specific example, so it is no longer a vulnerability. Discuss options for fixing it, along with pros and cons. Remember that the goal is to ensure an attacker cannot exploit the vulnerability along any path, not simply some paths. When generating the code, reuse existing code, minimize the amount of new code, and where practical work within the existing system. Ensure the resulting change is easy to review. Ensure that existing functionality is maintained where practical and that you do not insert any new vulnerabilities. Update corresponding documentation. Use tools to obtain and validate information. The result must pass all CI/CD tests.”</p>
 <p>Provide a harness when using an AI to fix defects that allows it to interrogate, validate, and raise disagreements about the information stated to them in their initial task prompts.” [<a href="https://1password.com/files/resources/frontier-models-vulnerability-patches-flawed.pdf">Mierczuk2026</a>] AI is much less likely to succeed if it has wrong information, and less likely to succeed if it’s missing key information, so it’s important to give it tools to increase its likelihood of success.</p>
+<p>Another study found that the most common failure when creating fixes was that the AI often guarded the <em>symptom</em> with incomplete local checks. AI systems often fail to localize the vulnerability that causes malformed functionality, or silence the crash by deleting the offending operation or the entire functionality. In some cases the AI will add broader conditions that reject invalid input that also reject benign inputs, causing functionality break [<a href="https://arxiv.org/abs/2609.04075">Shen2026-09</a>].</p>
+<p>In short, it’s vital to work with the AI to strive to find the true underlying cause and fix <em>that</em> while not breaking functionality.</p>
 <p>The Chrome team’s process is instructive: “we run a fixing agent that returns multiple candidate fixes. A critic agent then evaluates which would be the best fit, producing other relevant artifacts for developers to evaluate the fix. The fixing and critic agents work in a loop that mimics a typical code review process to ensure that code is functional and compliant with [our] style guidelines [and] other local code conventions.” [<a href="https://blog.google/security/chrome-stronger-with-every-update/">Chrome2026</a>]</p>
-<h3 data-number="5.6.8" id="verifying-the-fix"><span class="header-section-number">5.6.8</span> Verifying the fix</h3>
+<h3 data-number="5.6.7" id="verifying-the-fix"><span class="header-section-number">5.6.7</span> Verifying the fix</h3>
 <p>After generating candidate fixes, have AI and then humans review them.</p>
 <p>Even very good AI writes vulnerable code. In particular, an AI can be good at finding vulnerabilities yet still write code with lots of vulnerabilities. This might be surprising, but remember, AI is trained on a large amount of insecure software. It’s more difficult to get an AI to do something that is <em>contrary</em> to its training data set. [<a href="https://labs.cloudsecurityalliance.org/mythos-ciso/">CSA2026</a>] [Zimmer2026]. Modern AI is fundamentally probabilistic, so it can be difficult to predict exactly what it will generate for a given request [<a href="https://arxiv.org/abs/2512.18261v2">Kholoosi</a>].</p>
 <p>So the first step is to have an AI review the proposed vulnerability fix. “Have a new discovery agent probe the patch as an attacker to confirm the patch is comprehensive.” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]</p>
 <p>What can be especially helpful is to have AI write tests for the fixes. [<a href="https://blog.google/security/chrome-stronger-with-every-update/">Chrome2026</a>] reports that they use test-writing agents to “help write tests for fixes. These agents can ensure that tests work across supported platforms and configurations before a developer reviews the fix, saving up to weeks of developer time.”</p>
 <p>While AI review is a good first pass for proposed vulnerability fixes, they still require expert human review. As [<a href="https://1password.com/blog/why-ai-generated-patches-still-require-human-review">Hoodlet2026</a>] notes in August 2026:</p>
 <ul>
-<li>“The average success rate for generating a patch that fully resolved the vulnerability (without materially changing application behavior) was just 26.0%. Patches that successfully resolved the vulnerability, but altered the application’s behavior in the process, occurred 20.1% of the time. Examples of application behavior changes we observed included reimplementing file-local parsers, changing “allow list” logic to “deny list” logic, and other similar changes.<br />
-</li>
-<li>Conversely, LLM-generated patches did not resolve the vulnerability, added a new vulnerability, or both, an average 53.9% of the time.”<br />
-</li>
+<li>“The average success rate for generating a patch that fully resolved the vulnerability (without materially changing application behavior) was just 26.0%. Patches that successfully resolved the vulnerability, but altered the application’s behavior in the process, occurred 20.1% of the time. Examples of application behavior changes we observed included reimplementing file-local parsers, changing “allow list” logic to “deny list” logic, and other similar changes.</li>
+<li>Conversely, LLM-generated patches did not resolve the vulnerability, added a new vulnerability, or both, an average 53.9% of the time.”</li>
 <li>They call these incorrect changes that cause incorrect behavior, fail to fix the vulnerability, or add new vulnerabilities “Fix-Like Artifacts with Embedded Defects” (FLAWED).</li>
 </ul>
 <p>Some problems with initial AI proposed fixes are especially common:</p>
 <ul>
-<li><em>AI often fixes merely the specific instance, instead of looking for root causes and fixing the problem systematically</em>. “Patches focused too much on immediate consequences of issues, and generally failed to put the whole application and codepath into perspective, and “understand” the real source of the problem, and where an engineer with a clue would actually solve the problem rather than mitigate it. Indeed, they often lacked a comprehensive understanding of the entire system architecture, which led to the creation of small, isolated patches that only address immediate problems without considering broader implications.” [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>]<br />
-</li>
+<li><em>AI often fixes merely the specific instance, instead of looking for root causes and fixing the problem systematically</em>. “Patches focused too much on immediate consequences of issues, and generally failed to put the whole application and codepath into perspective, and “understand” the real source of the problem, and where an engineer with a clue would actually solve the problem rather than mitigate it. Indeed, they often lacked a comprehensive understanding of the entire system architecture, which led to the creation of small, isolated patches that only address immediate problems without considering broader implications.” [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>]</li>
 <li><em>AI often fails to customize the fix and reuse existing constructs</em>. “For fixes, one of the most common issues was that the fix was not customized to the developer’s codebase, for example, creating a function to sanitize user inputs when the developer wants to reuse their existing sanitization library; this often prevented the users from directly applying the fix, requiring an overhaul to produce a fix with their intended approach.” [<a href="https://arxiv.org/abs/2412.14306v3">Steenhook2025</a>] In short, for an AI system it’s “easier” to write lots of duplicate code, but this typically creates a maintenance nightmare.</li>
 </ul>
 <p>Even if an AI’s initial fix is wrong, that doesn’t make its proposed fix useless. One reporter said that he found AI fixes “found them most useful for simply understanding what the problem actually was in the code – sometimes I didn’t understand the issue from the description, but the suggested fix revealed to me what was wrong, and what would (could?) fix it.” [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>] Sometimes the proposed fixes shouldn’t be the final fix, but they can still provide guidance to help developers find a correct solution.</p>
@@ -134,35 +117,11 @@ turns out to be wrong.” [<a href="https://1password.com/files/resources/fronti
 <summary>
 Quiz
 </summary>
-<p>Q1. According to a 1Password study cited in the guide, roughly what percentage of the time did an AI-generated patch for a <em>complex</em> vulnerability (one touching multiple files, functions, or code paths) fully resolve the vulnerability without materially changing application behavior?</p>
-<ol type="A">
-<li>About 54%<br />
-</li>
-<li>About 90%<br />
-</li>
-<li>About 75%<br />
-</li>
-<li>About 26%</li>
-</ol>
-<details>
-<summary>
-Show answer
-</summary>
-Answer: D
-</details>
-</details>
-<details class="quiz">
-<summary>
-Quiz
-</summary>
 <p>Q1. The guide recommends a test-driven approach before writing a fix. What should you do first?</p>
 <ol type="A">
-<li>Write a new test that fails against the existing (buggy) code, then implement the fix and confirm the test now passes without breaking anything else.<br />
-</li>
-<li>Ask the AI to generate three candidate fixes immediately, then write tests afterward to see which candidate passes the most tests.<br />
-</li>
-<li>Disable the project’s existing test suite temporarily so the fix can be validated in isolation from unrelated failures.<br />
-</li>
+<li>Write a new test that fails against the existing (buggy) code, then implement the fix and confirm the test now passes without breaking anything else.</li>
+<li>Ask the AI to generate three candidate fixes immediately, then write tests afterward to see which candidate passes the most tests.</li>
+<li>Disable the project’s existing test suite temporarily so the fix can be validated in isolation from unrelated failures.</li>
 <li>Have a human developer manually reproduce the vulnerability in production before any test code is written.</li>
 </ol>
 <details>

@@ -223,14 +223,17 @@ match($0, /^[ \t]*(-|\*|\+|[0-9]+[.)])[ \t][ \t]+/) {
 # MD034: wrap bare URLs.
 { $0 = wrap_urls($0) }
 
-# MD009: normalize trailing whitespace to this doc's "  " (two spaces)
-# hard-break convention; blank lines just lose theirs.
-/[^ \t]/ { sub(/[ \t]+$/, "  ") }
-!/[^ \t]/ { sub(/[ \t]+$/, "") }
+# MD009: drop trailing whitespace. Google Docs' export leaves it on
+# many lines, nearly always where a hard line break is pointless: ends
+# of list items (including the quiz's "A)" choices, where pandoc
+# turned it into stray <br />s), before blank lines, and on QUIZ/ENDQUIZ
+# markers. If you need a line break inside a paragraph (a Shift+Enter
+# in the Google Doc), use a new paragraph (Enter) instead.
+{ sub(/[ \t]+$/, "") }
 
 # MD047: buffer blank lines and only emit them once we know more
 # content follows, so trailing blank lines at EOF are dropped.
-/^[ \t]*$/ { blanks++; next }
+/^$/ { blanks++; next }
 {
     while (blanks > 0) { print ""; blanks-- }
     print

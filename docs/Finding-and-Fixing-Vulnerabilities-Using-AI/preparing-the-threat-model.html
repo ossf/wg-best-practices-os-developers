@@ -6,7 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
-  <meta name="author" content="David A. Wheeler" />
+  <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Preparing the threat model</title>
   <style>
@@ -69,58 +69,42 @@
 <p>Adam Shostack suggests the four core questions a threat model should answer: what are we working on, what can go wrong, what are we going to do about it, and did we do a good job [Shostack2014]. If you’re not familiar with threat modeling, there are many sources for learning more. Here we’ll focus on AI-specific issues.</p>
 <p>When using AI to help develop a system there are at least <em>two</em> threat models that apply:</p>
 <ol type="1">
-<li>The <em>development/build/test/release</em> environments, <em>including</em> any AI systems and CI/CD pipeline. An AI system may choose to do many activities you do <em>not</em> want it to do, and your development environment must prevent the worst events. Typically this involves preventing the AI from attacking developers’ systems, exfiltrating data (including credentials and private keys), unauthorized modification, and/or attacking external systems. Typically these are addressed by <a href="preparing-sandbox.html#preparing-sandbox">sandboxing</a>, a topic we’ll discuss soon.<br />
-</li>
+<li>The <em>development/build/test/release</em> environments, <em>including</em> any AI systems and CI/CD pipeline. An AI system may choose to do many activities you do <em>not</em> want it to do, and your development environment must prevent the worst events. Typically this involves preventing the AI from attacking developers’ systems, exfiltrating data (including credentials and private keys), unauthorized modification, and/or attacking external systems. Typically these are addressed by <a href="preparing-sandbox.html#preparing-sandbox">sandboxing</a>, a topic we’ll discuss soon.</li>
 <li>The <em>deployed</em> environment. This threat model focuses on security while the system is in use. For the rest of this section, we’ll focus on the deployed environment.</li>
 </ol>
 <p>Unsurprisingly, “AI (and external contributors) are more successful if the project shares how they desire the software to be used, acceptable scenarios to be deployed into, and what problems the project is aware of that could go wrong” [<a href="https://openssf.org/resources/securing-open-source-in-the-age-of-ai-a-practical-guide/">Aniszczyk2026</a>].</p>
 <p>Having a threat model for a system’s deployed environment is <em>important</em> when using AI:</p>
 <ul>
-<li>One report reported that an AI model “performed best on systems with well-documented threat models, system design docs, requirements, and constraints. When the threat model was well-defined, the model’s findings were exploitable 90 percent of the time.” In addition, “The most common cause of false positives is that the model lacks a good understanding of [the] trust boundaries.” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].<br />
-</li>
-<li>A use of Mythos Preview reported that it was valuable but it “needs precise prompts, explicit threat models, and validation infrastructure to turn strong reasoning into reliable security outcomes” [<a href="https://xbow.com/blog/mythos-offensive-security-xbow-evaluation">Ziegler2026</a>].<br />
-</li>
+<li>One report reported that an AI model “performed best on systems with well-documented threat models, system design docs, requirements, and constraints. When the threat model was well-defined, the model’s findings were exploitable 90 percent of the time.” In addition, “The most common cause of false positives is that the model lacks a good understanding of [the] trust boundaries.” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].</li>
+<li>A use of Mythos Preview reported that it was valuable but it “needs precise prompts, explicit threat models, and validation infrastructure to turn strong reasoning into reliable security outcomes” [<a href="https://xbow.com/blog/mythos-offensive-security-xbow-evaluation">Ziegler2026</a>].</li>
 <li>If the AI is not given enough information on the specific context and structure of your system’s environment, its recommendations may fail to align with requirements including regulatory requirements [Khloosi].</li>
 </ul>
-<p>If you don’t already have a threat model for your deployed system, the good news is that an AI can <em>help</em> you create one. The bad news is that you need to interact with the AI, then review and refine its results, not simply take the AI-generated threat models as truth. [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>] suggests that when creating a threat model with AI, “bootstrap from the code, docs, and vulnerability history. Feed the model what you would hand a new security engineer on day one: architecture docs, wikis, entry points, git history, and past vulnerabilities. This helps overcome the challenge of inferring implicit knowledge, trade-offs, and design decisions from code alone. Then, ask the model to create a threat model that includes the system context, assets, entry points, and trust boundaries. Finally, have the model cluster past bugs and list the relevant vulnerability classes. Make sure the threat model documents what vulnerabilities you do and don’t care about, and why.”<br />
-There are various tools that use AI to help you create a threat model for a system’s deployed environment. These include:</p>
+<p>If you don’t already have a threat model for your deployed system, the good news is that an AI can <em>help</em> you create one. The bad news is that you need to interact with the AI, then review and refine its results, not simply take the AI-generated threat models as truth. [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>] suggests that when creating a threat model with AI, “bootstrap from the code, docs, and vulnerability history. Feed the model what you would hand a new security engineer on day one: architecture docs, wikis, entry points, git history, and past vulnerabilities. This helps overcome the challenge of inferring implicit knowledge, trade-offs, and design decisions from code alone. Then, ask the model to create a threat model that includes the system context, assets, entry points, and trust boundaries. Finally, have the model cluster past bugs and list the relevant vulnerability classes. Make sure the threat model documents what vulnerabilities you do and don’t care about, and why.” There are various tools that use AI to help you create a threat model for a system’s deployed environment. These include:</p>
 <ul>
-<li>OpenSSF Alpha-Omega’s “Threat Model Generator”, a set of agent skills, is available at: &lt;<a href="https://github.com/alpha-omega-security/threat-model/">https://github.com/alpha-omega-security/threat-model/</a>&gt;<br />
-</li>
+<li>OpenSSF Alpha-Omega’s “Threat Model Generator”, a set of agent skills, is available at: &lt;<a href="https://github.com/alpha-omega-security/threat-model/">https://github.com/alpha-omega-security/threat-model/</a>&gt;</li>
 <li>Matt Adams’s “StrideGPT” at &lt;<a href="https://stridegpt.streamlit.app">https://stridegpt.streamlit.app</a>&gt;</li>
 </ul>
 <p>When creating or updating a threat model for a world with AI, consider the following:</p>
 <ol type="1">
-<li>Design for prevention and containment. If an attacker takes over one system, try to put in place prevention mechanisms to limit lateral movement [<a href="https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/">CrowdStrike2026-FiveSteps</a>]<br />
-</li>
-<li>Strongly limit privileges<br />
-</li>
-<li>Strongly control the identity of all entities (human and non-human). Consider using continuous identification [<a href="https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/">CrowdStrike2026-FiveSteps</a>]<br />
-</li>
-<li>Use layered defenses, so attackers must surmount multiple mechanisms to gain top privileges [<a href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>]<br />
-</li>
-<li>Look at past vulnerabilities to look for patterns that could prevent success by whole categories of attacks [<a href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>].<br />
-</li>
-<li>Specifically identify what is trusted (admins, specific config files, and so on).“These assumptions help separate non-exploitable bugs from actual exploits.” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]<br />
-</li>
-<li>Include the threat model in the code (e.g., as THREAT_MODEL.md) [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].<br />
-</li>
+<li>Design for prevention and containment. If an attacker takes over one system, try to put in place prevention mechanisms to limit lateral movement [<a href="https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/">CrowdStrike2026-FiveSteps</a>]</li>
+<li>Strongly limit privileges</li>
+<li>Strongly control the identity of all entities (human and non-human). Consider using continuous identification [<a href="https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/">CrowdStrike2026-FiveSteps</a>]</li>
+<li>Use layered defenses, so attackers must surmount multiple mechanisms to gain top privileges [<a href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>]</li>
+<li>Look at past vulnerabilities to look for patterns that could prevent success by whole categories of attacks [<a href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>].</li>
+<li>Specifically identify what is trusted (admins, specific config files, and so on).“These assumptions help separate non-exploitable bugs from actual exploits.” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]</li>
+<li>Include the threat model in the code (e.g., as THREAT_MODEL.md) [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>].</li>
 <li>Implement resiliency and rapid recovery [<a href="https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/">CrowdStrike2026-FiveSteps</a>]</li>
 </ol>
-Some people refer to the need for “system context” and/or “trust boundaries”. For our purposes, this is part of the threat model. For an AI to find vulnerabilities, it needs to know what a vulnerability is, including the system context and trust boundaries, and all of that is wrapped into the threat model.<br />
-
+Some people refer to the need for “system context” and/or “trust boundaries”. For our purposes, this is part of the threat model. For an AI to find vulnerabilities, it needs to know what a vulnerability is, including the system context and trust boundaries, and all of that is wrapped into the threat model.
 <details class="quiz">
 <summary>
 Quiz
 </summary>
 <p>Q1. Per the report the material cites, what happened when an AI model analyzed a system with a well-defined threat model?</p>
 <ol type="A">
-<li>Its findings were confirmed as exploitable 90% of the time<br />
-</li>
-<li>It stopped producing any new findings at all<br />
-</li>
-<li>It required twice the compute budget to run<br />
-</li>
+<li>Its findings were confirmed as exploitable 90% of the time</li>
+<li>It stopped producing any new findings at all</li>
+<li>It required twice the compute budget to run</li>
 <li>It refused to continue the analysis any further</li>
 </ol>
 <details>
@@ -136,12 +120,9 @@ Quiz
 </summary>
 <p>Q1. What does the material identify as the most common cause of AI-reported false positives?</p>
 <ol type="A">
-<li>The model’s training data being outdated for the target<br />
-</li>
-<li>Insufficient memory available on the machine during analysis<br />
-</li>
-<li>Using an open-weight model instead of a closed one<br />
-</li>
+<li>The model’s training data being outdated for the target</li>
+<li>Insufficient memory available on the machine during analysis</li>
+<li>Using an open-weight model instead of a closed one</li>
 <li>The model’s lack of a good understanding of the system trust boundaries</li>
 </ol>
 <details>

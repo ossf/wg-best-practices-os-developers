@@ -6,7 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
-  <meta name="author" content="David A. Wheeler" />
+  <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Why this is important</title>
   <style>
@@ -73,23 +73,19 @@
 <ul>
 <li><em>The cost, expertise, and effort to find vulnerabilities has collapsed</em>.
 <ul>
-<li>“With the latest frontier AI models, the cost, effort, and level of expertise required to find and exploit software vulnerabilities have all dropped dramatically. Over the past year, AI models have become increasingly effective at reading and reasoning about code—in particular, they show a striking ability to spot vulnerabilities and work out ways to exploit them.” [<a href="https://www.anthropic.com/glasswing">Anthropic2026-04g</a>]<br />
-</li>
+<li>“With the latest frontier AI models, the cost, effort, and level of expertise required to find and exploit software vulnerabilities have all dropped dramatically. Over the past year, AI models have become increasingly effective at reading and reasoning about code—in particular, they show a striking ability to spot vulnerabilities and work out ways to exploit them.” [<a href="https://www.anthropic.com/glasswing">Anthropic2026-04g</a>]</li>
 </ul></li>
 <li><em>Far more vulnerabilities are being found with AI</em>. Agentic AI can find <em>far</em> more vulnerabilities (exploitable defects) than non-AI systems. AI is able to use other tools and integrate that information to discover problems.
 <ul>
-<li>One paper “found that [AI was] crucial to the success of [finding vulnerabilities; without AI traditional fuzzers] were unable to discover a single bug within a four-hour time limit in any of 20 trials. …. [this] highlights the importance of integrating LLM-assisted tooling into automated security workflows.” [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]<br />
-</li>
+<li>One paper “found that [AI was] crucial to the success of [finding vulnerabilities; without AI traditional fuzzers] were unable to discover a single bug within a four-hour time limit in any of 20 trials. …. [this] highlights the importance of integrating LLM-assisted tooling into automated security workflows.” [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]</li>
 </ul></li>
 <li><em>AI can rapidly turn vulnerabilities into exploits, often by chaining multiple defects together</em>. AI’s ability to rapidly turn a vulnerability into an exploit accelerates the need for repair. In particular, AI can often combine multiple minor-seeming defects into a chain that is devastating.
 <ul>
-<li>“Over the past year, AI models have become increasingly effective at reading and reasoning about code—in particular, they show a striking ability to spot vulnerabilities and work out ways to exploit them. Claude Mythos Preview demonstrates a leap in these cyber skills—the vulnerabilities it has spotted have in some cases survived decades of human review and millions of automated security tests, and the exploits it develops are increasingly sophisticated… frontier AI models are now becoming competitive with the best humans at finding and exploiting vulnerabilities.”” [<a href="https://www.anthropic.com/glasswing">Anthropic2026-04g</a>]<br />
-</li>
+<li>“Over the past year, AI models have become increasingly effective at reading and reasoning about code—in particular, they show a striking ability to spot vulnerabilities and work out ways to exploit them. Claude Mythos Preview demonstrates a leap in these cyber skills—the vulnerabilities it has spotted have in some cases survived decades of human review and millions of automated security tests, and the exploits it develops are increasingly sophisticated… frontier AI models are now becoming competitive with the best humans at finding and exploiting vulnerabilities.”” [<a href="https://www.anthropic.com/glasswing">Anthropic2026-04g</a>]</li>
 </ul></li>
 <li><em>The speed of finding and exploiting vulnerabilities has dramatically accelerated</em>.
 <ul>
-<li>“AI is making it possible to detect severe security vulnerabilities at highly accelerated speeds.” [<a href="https://www.anthropic.com/news/mozilla-firefox-security">Anthropic2026-03</a>]<br />
-</li>
+<li>“AI is making it possible to detect severe security vulnerabilities at highly accelerated speeds.” [<a href="https://www.anthropic.com/news/mozilla-firefox-security">Anthropic2026-03</a>]</li>
 </ul></li>
 <li><em>Far more attackers are now able to create sophisticated attacks</em>.
 <ul>
@@ -101,17 +97,13 @@
 <ul>
 <li><em>Attackers are becoming faster and more dangerous</em>.
 <ul>
-<li>[<a href="https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf">FiveEyes2026</a>] says that “Adversaries are already using AI to move faster and more effectively. Defenders must do the same.”<br />
-</li>
-<li>CrowdStrike similarly says “AI systems are beginning to assist with tasks that materially improve offensive velocity [and will be used by] adversaries.” [<a href="https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/">CrowdStrike2026-FiveSteps</a>]<br />
-</li>
-<li>“The window between a vulnerability being publicly disclosed and weaponized has dramatically collapsed to hours or minutes, as AI can instantly reverse-engineer patches to create exploit blueprints.” [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]<br />
-</li>
+<li>[<a href="https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf">FiveEyes2026</a>] says that “Adversaries are already using AI to move faster and more effectively. Defenders must do the same.”</li>
+<li>CrowdStrike similarly says “AI systems are beginning to assist with tasks that materially improve offensive velocity [and will be used by] adversaries.” [<a href="https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/">CrowdStrike2026-FiveSteps</a>]</li>
+<li>“The window between a vulnerability being publicly disclosed and weaponized has dramatically collapsed to hours or minutes, as AI can instantly reverse-engineer patches to create exploit blueprints.” [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]</li>
 </ul></li>
 <li><em>Attackers are now, on average, exploiting vulnerabilities before a patch is released</em>.
 <ul>
-<li>“Mandiant’s M-Trends 2026 report measures the mean time between a vulnerability becoming publicly known and the first observed exploitation in the wild. In 2018, that interval was 63 days. By 2023 it had collapsed to 5 days. In 2025, it inverted. Attackers are now exploiting vulnerabilities an average of 7 days before patches are released.” [<a href="https://cycode.com/blog/claude-mythos-security-readiness/">Cycode2026</a>]<br />
-</li>
+<li>“Mandiant’s M-Trends 2026 report measures the mean time between a vulnerability becoming publicly known and the first observed exploitation in the wild. In 2018, that interval was 63 days. By 2023 it had collapsed to 5 days. In 2025, it inverted. Attackers are now exploiting vulnerabilities an average of 7 days before patches are released.” [<a href="https://cycode.com/blog/claude-mythos-security-readiness/">Cycode2026</a>]</li>
 <li>Similarly, ZeroDayClock says that in “2018, the median time from a vulnerability being disclosed to the first observed exploit was 771 days. Organizations had over two years to patch. By 2023 that window was 6 days. By 2024 it was 4 hours. In 2025, the majority of exploited vulnerabilities were weaponized before they were even publicly disclosed. The data fits an exponential decay curve. This is not a trend that stabilizes. It is a collapse.” [<a href="https://zerodayclock.com/">ZeroDayClock</a>]</li>
 </ul></li>
 </ul>
@@ -120,20 +112,16 @@
 <ul>
 <li><em>Traditional slow security measures are ineffective now.</em>
 <ul>
-<li>“As AI speeds up both discovery and exploitation, organizations need to move from periodic assessment to continuous, intelligence-driven exposure management so they can determine what really matters, prioritize real risk, and quickly coordinate remediation. They must also prepare for a surge in vulnerability discovery and patch activity that many organizations are not operationally prepared to absorb… As vulnerabilities are discovered and exploited on shorter timelines, traditional security approaches built on periodic assessments, severity scores, and human-paced response are becoming less effective. Defenders need a new model centered on exploitability, continuous validation of exposure, stronger prevention, cross-domain visibility, decisive response, and governed use of AI.” [<a href="https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/">CrowdStrike2026-FiveSteps</a>]<br />
-</li>
-<li>“Here is the systemic problem. When a software vendor releases a security patch, AI can now reverse-engineer that patch, identify the vulnerability it fixes, and generate a working weaponized exploit in minutes. Attacks can begin propagating across the world within hours. But organizations need an average of 20 days to test and deploy that same patch. The act of fixing a vulnerability now accelerates its exploitation. The defense creates the offense. And the offense arrives weeks before the defense can finish deploying.” [<a href="https://zerodayclock.com/">ZeroDayClock</a>]<br />
-</li>
+<li>“As AI speeds up both discovery and exploitation, organizations need to move from periodic assessment to continuous, intelligence-driven exposure management so they can determine what really matters, prioritize real risk, and quickly coordinate remediation. They must also prepare for a surge in vulnerability discovery and patch activity that many organizations are not operationally prepared to absorb… As vulnerabilities are discovered and exploited on shorter timelines, traditional security approaches built on periodic assessments, severity scores, and human-paced response are becoming less effective. Defenders need a new model centered on exploitability, continuous validation of exposure, stronger prevention, cross-domain visibility, decisive response, and governed use of AI.” [<a href="https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/">CrowdStrike2026-FiveSteps</a>]</li>
+<li>“Here is the systemic problem. When a software vendor releases a security patch, AI can now reverse-engineer that patch, identify the vulnerability it fixes, and generate a working weaponized exploit in minutes. Attacks can begin propagating across the world within hours. But organizations need an average of 20 days to test and deploy that same patch. The act of fixing a vulnerability now accelerates its exploitation. The defense creates the offense. And the offense arrives weeks before the defense can finish deploying.” [<a href="https://zerodayclock.com/">ZeroDayClock</a>]</li>
 </ul></li>
 <li><em>Deployment delays become real-world harm</em>.
 <ul>
-<li>“A large fraction of real-world harm comes from N-days: vulnerabilities that have been publicly disclosed and patched, but which remain exploitable on the many systems that haven’t yet applied the fix. In some ways N-days are the more dangerous case: the vulnerability is known to exist, the patch itself is a roadmap to the bug, and the only thing standing between disclosure and mass exploitation is the time it takes an attacker to turn that patch into a working exploit.” [<a href="https://red.anthropic.com/2026/mythos-preview/">Carlini2026</a>]<br />
-</li>
+<li>“A large fraction of real-world harm comes from N-days: vulnerabilities that have been publicly disclosed and patched, but which remain exploitable on the many systems that haven’t yet applied the fix. In some ways N-days are the more dangerous case: the vulnerability is known to exist, the patch itself is a roadmap to the bug, and the only thing standing between disclosure and mass exploitation is the time it takes an attacker to turn that patch into a working exploit.” [<a href="https://red.anthropic.com/2026/mythos-preview/">Carlini2026</a>]</li>
 </ul></li>
 <li><em>Hiding source code doesn’t help</em>.
 <ul>
-<li>“We have also found the model to be extremely capable of reverse engineering: taking a closed-source, stripped binary and reconstructing (plausible) source code for what it does. From there, we provide Mythos Preview both the reconstructed source code and the original binary, and say, ‘Please find vulnerabilities in this closed-source project. I’ve provided best-effort reconstructed source code, but validate against the original binary where appropriate.’ We then run this agent multiple times across the repository, exactly as before.” [<a href="https://red.anthropic.com/2026/mythos-preview/">Carlini2026</a>]<br />
-</li>
+<li>“We have also found the model to be extremely capable of reverse engineering: taking a closed-source, stripped binary and reconstructing (plausible) source code for what it does. From there, we provide Mythos Preview both the reconstructed source code and the original binary, and say, ‘Please find vulnerabilities in this closed-source project. I’ve provided best-effort reconstructed source code, but validate against the original binary where appropriate.’ We then run this agent multiple times across the repository, exactly as before.” [<a href="https://red.anthropic.com/2026/mythos-preview/">Carlini2026</a>]</li>
 </ul></li>
 <li><em>Failure to use AI to defend may in some cases be considered negligence</em>.
 <ul>
