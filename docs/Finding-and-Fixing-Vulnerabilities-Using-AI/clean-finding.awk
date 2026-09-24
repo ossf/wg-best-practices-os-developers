@@ -4,9 +4,11 @@
 #   mv Finding.md.new Finding.md
 # Normally run via cleanup-markdown, which also handles images: pass
 # -v imgtags=FILE (the <img> tags from Finding.zip's HTML, one per
-# line) to point images at images/ instead of embedded data URIs.
+# line) to point images at images/ instead of embedded data URIs, and
+# -v renames=FILE to get the "old<TAB>new" file names to give them
+# (new names come from the alt text).
 # Exits nonzero (and cleanup-markdown keeps the old file) if an image
-# has no match.
+# has no match or two images would get the same name.
 #
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
@@ -61,25 +63,65 @@ function css_px(style, prop,    v) {
     return int(v + 0.5)
 }
 
+# File name (without directory or extension) for an image, made from
+# the first SLUG_WORDS words of its alt text: lowercase, letters and
+# digits only, joined by "-", skipping a few filler words. The name
+# depends only on the alt text, so it's the same on every run.
+function slug(alt,    s, n, i, out, cnt, words) {
+    s = tolower(alt)
+    gsub(/[^a-z0-9]+/, " ", s)
+    n = split(s, words, " ")
+    out = ""; cnt = 0
+    for (i = 1; i <= n && cnt < SLUG_WORDS; i++) {
+        if (words[i] in filler) continue
+        out = out (cnt ? "-" : "") words[i]
+        cnt++
+    }
+    return out
+}
+
+# Report an error in the images and stop.
+function image_error(msg) {
+    print "clean-finding.awk: " msg > "/dev/stderr"
+    failed = 1; exit 1
+}
+
 # Load the alt-text -> image map from the <img> tags, one per line, in
 # the file named by the "imgtags" variable (see cleanup-markdown, which
 # extracts them from the HTML in Finding.zip). Google's export numbers
 # the images differently in the markdown ("[image2]") and in the zip
-# ("images/image4.png"), so the alt text is the only reliable key.
-function load_imgtags(    tag, alt) {
+# ("images/image4.png"), so the alt text is the only reliable key. It
+# also names the files (see slug()): each image is to be renamed from
+# its name in the zip to images/SLUG.EXT, and "old<TAB>new" for each
+# goes to the file named by the "renames" variable, for cleanup-markdown.
+function load_imgtags(    tag, alt, src, name, ext) {
     while ((getline tag < imgtags) > 0) {
         alt = norm_alt(attr(tag, "alt"))
-        if (alt == "" || attr(tag, "src") == "") continue
-        img_src[alt] = attr(tag, "src")
+        src = attr(tag, "src")
+        if (alt == "" || src == "") continue
+        if (alt in zip_src) {
+            # The same image used twice is fine; two images can't share alt text.
+            if (zip_src[alt] == src) continue
+            image_error("two images have the same alt text, so the map is ambiguous; make them distinct: " alt)
+        }
+        name = slug(alt)
+        if (name == "")
+            image_error("alt text has no letters or digits to name the image: " alt)
+        ext = match(src, /\.[A-Za-z0-9]+$/) ? substr(src, RSTART) : ".png"
+        if (("images/" name ext) in name_owner)
+            image_error("alt texts \"" name_owner["images/" name ext] "\" and \"" alt "\" give the same file name (images/" name ext "); make their first words differ")
+        name_owner["images/" name ext] = alt
+        zip_src[alt] = src
+        img_src[alt] = "images/" name ext
         img_w[alt] = css_px(attr(tag, "style"), "width")
         img_h[alt] = css_px(attr(tag, "style"), "height")
+        if (renames != "") print src "\t" img_src[alt] > renames
         have_imgs = 1
     }
     close(imgtags)
-    if (!have_imgs) {
-        print "clean-finding.awk: no usable <img> tags in " imgtags > "/dev/stderr"
-        failed = 1; exit 1
-    }
+    if (renames != "") close(renames)
+    if (!have_imgs)
+        image_error("no usable <img> tags in " imgtags)
 }
 
 # Rewrite each image reference in s to
@@ -112,6 +154,10 @@ function fix_images(s,    out, m, alt, key, ref) {
 
 BEGIN {
     looking_for_toc = 1
+    # Image file names: this many words of the alt text, minus filler.
+    SLUG_WORDS = 6
+    split("a an the to of is are and but with has in", filler_list, " ")
+    for (i in filler_list) filler[filler_list[i]] = 1
     if (imgtags != "") load_imgtags()
 }
 

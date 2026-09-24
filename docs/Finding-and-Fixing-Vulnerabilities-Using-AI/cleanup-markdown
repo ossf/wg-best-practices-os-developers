@@ -31,21 +31,32 @@ if [ -f "$zip" ]; then
   # The <img> tags in the zip's HTML give each image's alt text (the
   # only key that's the same in Finding.md), file name, and size.
   unzip -p "$zip" '*.html' | { grep -o '<img[^>]*>' || true; } > "$work/imgtags"
-  awk_opts=(-v "imgtags=$work/imgtags")
+  awk_opts=(-v "imgtags=$work/imgtags" -v "renames=$work/renames")
 fi
 
 awk "${awk_opts[@]}" -f clean-finding.awk Finding.md > Finding.md.new
 
 if [ -f "$zip" ]; then
+  # Give each image the name clean-finding.awk made from its alt text
+  # (Google's imageN.png names are neither meaningful nor stable).
+  # Move into a fresh directory, so that a new name that happens to
+  # equal another image's old name can't clobber it.
+  mkdir "$work/renamed"
+  while IFS=$'\t' read -r old new; do
+    mv "$work/$old" "$work/renamed/${new#images/}"
+  done < "$work/renames"
+  # Anything in the zip the HTML doesn't mention keeps its name.
+  mv -n "$work"/images/* "$work/renamed/" 2>/dev/null || true
+
   # Every image Finding.md now uses must exist in the new images/.
   grep -o '(images/[^)]*)' Finding.md.new | tr -d '()' | while read -r f; do
-    if [ ! -f "$work/$f" ]; then
+    if [ ! -f "$work/renamed/${f#images/}" ]; then
       echo "cleanup-markdown: $f is in Finding.md but not in $zip" >&2
       exit 1
     fi
   done
   rm -rf images
-  mv "$work/images" images
+  mv "$work/renamed" images
 fi
 
 mv Finding.md.new Finding.md
