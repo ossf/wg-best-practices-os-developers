@@ -186,6 +186,14 @@ in_toc {
 # Drop pandoc/kramdown heading-id attributes like "{#some-id}".
 { gsub(/[ \t]*\{#[^}]*\}/, "") }
 
+# MD009: drop trailing whitespace. Google Docs' export leaves it on
+# many lines, nearly always where a hard line break is pointless: ends
+# of list items (including the quiz's "A)" choices, where pandoc
+# turned it into stray <br />s), before blank lines, and on QUIZ/ENDQUIZ
+# markers. If you need a line break inside a paragraph (a Shift+Enter
+# in the Google Doc), use a new paragraph (Enter) instead.
+{ sub(/[ \t]+$/, "") }
+
 # Turn the fixed "QUIZ" ... "Answer: ..." ... "ENDQUIZ" quiz
 # template into native, click-to-expand disclosure widgets: no JS, and
 # closed by default on their own. Hidden entirely for now via the
@@ -222,14 +230,6 @@ match($0, /^[ \t]*(-|\*|\+|[0-9]+[.)])[ \t][ \t]+/) {
 
 # MD034: wrap bare URLs.
 { $0 = wrap_urls($0) }
-
-# MD009: drop trailing whitespace. Google Docs' export leaves it on
-# many lines, nearly always where a hard line break is pointless: ends
-# of list items (including the quiz's "A)" choices, where pandoc
-# turned it into stray <br />s), before blank lines, and on QUIZ/ENDQUIZ
-# markers. If you need a line break inside a paragraph (a Shift+Enter
-# in the Google Doc), use a new paragraph (Enter) instead.
-{ sub(/[ \t]+$/, "") }
 
 # MD047: buffer blank lines and only emit them once we know more
 # content follows, so trailing blank lines at EOF are dropped.

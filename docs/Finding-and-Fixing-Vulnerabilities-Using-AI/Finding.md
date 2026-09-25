@@ -172,7 +172,7 @@ B) It can only run on local, organizational hardware
 C) It has no trainable parameters
 D) It is among the best currently-available models
 
-<details><summary>Show answer</summary>Answer: D  </details>
+<details><summary>Show answer</summary>Answer: D</details>
 </details>
 <details class="quiz"><summary>Quiz</summary>
 Q1. What is the key difference between an “AI agent” and an “AI chatbot”?
@@ -182,7 +182,7 @@ B) An AI agent can execute multi-step actions using external tools to affect its
 C) An AI agent needs no training data, while a chatbot needs large datasets
 D) A chatbot can perceive its environment, while an AI agent can't
 
-<details><summary>Show answer</summary>Answer: B  </details>
+<details><summary>Show answer</summary>Answer: B</details>
 </details>
 
 ## Strengths and weaknesses
@@ -203,7 +203,7 @@ B) It requires more memory than any traditional static analysis tool, causing cr
 C) It can't guarantee a program is free of some vulnerability just because it found none
 D) It can only process one source file per session
 
-<details><summary>Show answer</summary>Answer: C  </details>
+<details><summary>Show answer</summary>Answer: C</details>
 </details>
 
 <details class="quiz"><summary>Quiz</summary>
@@ -214,7 +214,7 @@ B) It prevents the LLM from ever being trained on security-related data
 C) It means the LLM can analyze only one programming language per session, since it must load each language’s definitions into its context window
 D) It forces the LLM to run exclusively on local infrastructure
 
-<details><summary>Show answer</summary>Answer: A  </details>
+<details><summary>Show answer</summary>Answer: A</details>
 </details>
 
 ## Models
@@ -283,7 +283,7 @@ B) Local models never need to be placed in a sandbox
 C) External services require an open source AI license
 D) It avoids sending private data to an external provider
 
-<details><summary>Show answer</summary>Answer: D  </details>
+<details><summary>Show answer</summary>Answer: D</details>
 </details>
 
 <details class="quiz"><summary>Quiz</summary>
@@ -294,7 +294,7 @@ B) AI guardrails blocked analyzing the attack payloads by the closed models avai
 C) Closed models needed an internet connection that wasn't available
 D) Open-weight models cost less per query
 
-<details><summary>Show answer</summary>Answer: B  </details>
+<details><summary>Show answer</summary>Answer: B</details>
 </details>
 
 ## Cyber Reasoning System (CRS) History
@@ -315,7 +315,7 @@ B) A system that analyzes vulnerabilities already patched by humans to determine
 C) A system that determines analyzes a sequence of logical statements to determine if the stated assertions correctly lead to the claimed conclusions
 D) A system limited to analyzing closed-source binaries only
 
-<details><summary>Show answer</summary>Answer: A  </details>
+<details><summary>Show answer</summary>Answer: A</details>
 </details>
 <details class="quiz"><summary>Quiz</summary>
 Q1. What milestone does the material cite regarding AIxCC?
@@ -325,7 +325,7 @@ B) AIxCC was cancelled in 2025 due to lack of results
 C) AIxCC awarded its grand prize in 2025 after successfully demonstrating autonomous vulnerability-finding-and-fixing systems
 D) AIxCC led to a worldwide ban on the use of open-weight models for vulnerability detection due to concerns some attackers might use AI
 
-<details><summary>Show answer</summary>Answer: C  </details>
+<details><summary>Show answer</summary>Answer: C</details>
 </details>
 
 ## AI organizations, projects, and services
@@ -348,7 +348,7 @@ B) A closed-source frontier language model built by Anthropic
 C) An OWASP-maintained framework for generating software threat models
 D) An open source AI agent maintained by the Linux Foundation
 
-<details><summary>Show answer</summary>Answer: D  </details>
+<details><summary>Show answer</summary>Answer: D</details>
 </details>
 
 <details class="quiz"><summary>Quiz</summary>
@@ -359,7 +359,7 @@ B) The OWASP GenAI Security Project
 C) The DARPA AI Cyber Challenge program
 D) The Model Openness Framework Foundation
 
-<details><summary>Show answer</summary>Answer: A  </details>
+<details><summary>Show answer</summary>Answer: A</details>
 </details>
 
 # Decide on Approaches
@@ -394,7 +394,7 @@ B) It reduces the software's overall quality and safety by rejecting valid repor
 C) It automatically violates the terms of the project's open source license
 D) It disqualifies the project from ever receiving CVE identifiers
 
-<details><summary>Show answer</summary>Answer: B  </details>
+<details><summary>Show answer</summary>Answer: B</details>
 </details>
 
 ## Do not wait for access to the best AI models
@@ -422,7 +422,7 @@ B) Only proceed once you obtain special government-approved model access
 C) Get started now using reasonably-good, widely-available models rather than waiting
 D) Focus first on building your own custom model from scratch, to maximize success
 
-<details><summary>Show answer</summary>Answer: C  </details>
+<details><summary>Show answer</summary>Answer: C</details>
 </details>
 <details class="quiz"><summary>Quiz</summary>
 Q1. What does the material say about non-frontier, open-weight models?
@@ -432,7 +432,7 @@ B) They're prohibited from being used in vulnerability research entirely
 C) They require far more compute than frontier models to run
 D) They can often find vulnerabilities at an accessible, affordable cost
 
-<details><summary>Show answer</summary>Answer: D  </details>
+<details><summary>Show answer</summary>Answer: D</details>
 </details>
 
 ## Do simple things first
@@ -466,7 +466,7 @@ B) A multi-page technical specification detailing every function in the target
 C) A requirement that the AI use ten specifically named tools
 D) A demand for a complete, fully unreviewed exploit chain
 
-<details><summary>Show answer</summary>Answer: A  </details>
+<details><summary>Show answer</summary>Answer: A</details>
 </details>
 
 ## Do not presume AI can correctly fix all vulnerabilities
@@ -544,7 +544,7 @@ B) It can cause model drift, context compaction, and high false-positive rates
 C) It automatically escalates its own tool permissions and access
 D) It produces final results requiring no further human review
 
-<details><summary>Show answer</summary>Answer: B  </details>
+<details><summary>Show answer</summary>Answer: B</details>
 </details>
 <details class="quiz"><summary>Quiz</summary>
 Q1. What lesson did Cloudflare researchers report about narrowing an AI's task scope?
@@ -554,7 +554,7 @@ B) Scope has no measurable effect on the quality of findings at all
 C) Only one agent should ever run at a time, to avoid duplicates
 D) Narrow scope for each AI run, such as one function with a trust boundary, produces the best findings
 
-<details><summary>Show answer</summary>Answer: D  </details>
+<details><summary>Show answer</summary>Answer: D</details>
 </details>
 
 ## How to apply processes for using AI to find and fix vulnerabilities
@@ -661,7 +661,7 @@ B) It runs a single CRS repeatedly to avoid any conflicting results
 C) It removes the need for any human review of proposed patches
 D) It requires proprietary compute infrastructure available only to DARPA
 
-<details><summary>Show answer</summary>Answer: A  </details>
+<details><summary>Show answer</summary>Answer: A</details>
 </details>
 
 ## Do multiple times due to non-determinism and long tail
@@ -682,7 +682,7 @@ B) A single run of an AI system may miss something a later run finds
 C) Repetition is needed only when you're using closed-source models
 D) Running the process twice guarantees zero false positives
 
-<details><summary>Show answer</summary>Answer: B  </details>
+<details><summary>Show answer</summary>Answer: B</details>
 </details>
 
 # Prepare to find and fix vulnerabilities
@@ -717,7 +717,7 @@ B) They eliminate the need for any sandbox environment entirely
 C) They automatically outperform frontier models on every possible task
 D) They quickly resolve simple bugs, freeing costlier systems for harder ones
 
-<details><summary>Show answer</summary>Answer: D  </details>
+<details><summary>Show answer</summary>Answer: D</details>
 </details>
 <details class="quiz"><summary>Quiz</summary>
 Q1. How does the material say an AI's persistent memory should be treated?
@@ -727,7 +727,7 @@ B) As something that should never be enabled under any circumstances
 C) As another input that may be stale or shaped by untrusted data
 D) As a full, reliable substitute for the entire CI/CD pipeline
 
-<details><summary>Show answer</summary>Answer: C  </details>
+<details><summary>Show answer</summary>Answer: C</details>
 </details>
 
 ## Preparing the threat model
@@ -775,7 +775,7 @@ B) It stopped producing any new findings at all
 C) It required twice the compute budget to run
 D) It refused to continue the analysis any further
 
-<details><summary>Show answer</summary>Answer: A  </details>
+<details><summary>Show answer</summary>Answer: A</details>
 </details>
 <details class="quiz"><summary>Quiz</summary>
 Q1. What does the material identify as the most common cause of AI-reported false positives?
@@ -785,7 +785,7 @@ B) Insufficient memory available on the machine during analysis
 C) Using an open-weight model instead of a closed one
 D) The model's lack of a good understanding of the system trust boundaries
 
-<details><summary>Show answer</summary>Answer: D  </details>
+<details><summary>Show answer</summary>Answer: D</details>
 </details>
 
 ## Preparing sandbox
@@ -876,7 +876,7 @@ B) Isolation should scale with capability, with riskier actions needing stronger
 C) A single isolation mechanism suffices regardless of the task at hand
 D) Sandboxes become unnecessary once you're using a closed frontier model
 
-<details><summary>Show answer</summary>Answer: B  </details>
+<details><summary>Show answer</summary>Answer: B</details>
 </details>
 <details class="quiz"><summary>Quiz</summary>
 Q1. What kind of real-world incidents does the material cite to show sandboxing AI agents isn't merely hypothetical?
@@ -886,7 +886,7 @@ B) AI models causing only minor hardware cooling failures onsite
 C) AI models breaking out of test environments to attack other systems
 D) AI models leaking data through printed paper reports
 
-<details><summary>Show answer</summary>Answer: C  </details>
+<details><summary>Show answer</summary>Answer: C</details>
 </details>
 
 ## Preparing the code and documentation
@@ -922,7 +922,7 @@ B) Remove all existing code comments to reduce noise
 C) Convert all project documentation into video format
 D) Store all documentation only as compiled binary output
 
-<details><summary>Show answer</summary>Answer: A  </details>
+<details><summary>Show answer</summary>Answer: A</details>
 </details>
 
 ## Preparing CI/CD
@@ -964,7 +964,7 @@ B) A tool that checks only for open source license violations
 C) A separate AI model used solely to write documentation
 D) A trusted method for confirming whether an agent's output achieves its goal
 
-<details><summary>Show answer</summary>Answer: D  </details>
+<details><summary>Show answer</summary>Answer: D</details>
 </details>
 <details class="quiz"><summary>Quiz</summary>
 Q1. Why does the material say a broken test or compromised build environment is especially a problem in AI-driven workflows?
@@ -974,7 +974,7 @@ B) A broken task verifier may repeatedly approve bad results
 C) It affects only performance and never has any effect on correctness
 D) CI/CD pipelines have nothing to do with AI-assisted vulnerability work
 
-<details><summary>Show answer</summary>Answer: B  </details>
+<details><summary>Show answer</summary>Answer: B</details>
 </details>
 
 ## Preparing dependency updates
@@ -999,7 +999,7 @@ B) Ignore it, since dependencies fall outside the project's attack surface
 C) Rewrite the entire dependency yourself, from scratch, since it’s untrustworthy
 D) Wait for the dependency's next major, possibly breaking release
 
-<details><summary>Show answer</summary>Answer: A  </details>
+<details><summary>Show answer</summary>Answer: A</details>
 </details>
 
 # Core tasks for finding and fixing vulnerabilities
@@ -1078,7 +1078,7 @@ B) Because this avoids stopping analysis too soon, since a combined agent may fi
 C) Because separating the two tasks makes it easier to fan agents out in parallel for throughput, which is the main reason results improve.
 D) Because AI guardrails block an agent from producing a working proof of concept, so a second, unrestricted agent must always be applied to verify it separately from finding.
 
-<details><summary>Show answer</summary>Answer: B  </details>
+<details><summary>Show answer</summary>Answer: B</details>
 </details>
 <details class="quiz"><summary>Quiz</summary>
 Q1. The guide recommends using different "top" vulnerability lists depending on what kind of system you're examining. Which list does it recommend for a general system that's neither a web application nor an agentic application, such as an IoT device?
@@ -1088,7 +1088,7 @@ B) OWASP Top 10 for Agentic Applications
 C) CWE Top 25
 D) NIST SP 800-53 control catalog
 
-<details><summary>Show answer</summary>Answer: C  </details>
+<details><summary>Show answer</summary>Answer: C</details>
 </details>
 
 ## Handling external findings/vulnerabilities
@@ -1128,7 +1128,7 @@ B) A missing global protection, such as an authentication check, reported separa
 C) A root-cause defect and one of its direct consequences flagged together along the same code path.
 D) The same missing check reported on two different endpoints, where each endpoint requires its own separate fix.
 
-<details><summary>Show answer</summary>Answer: D  </details>
+<details><summary>Show answer</summary>Answer: D</details>
 </details>
 
 ## Validate findings
@@ -1182,7 +1182,7 @@ B) Because Firefox's threat model assumes that all sandboxes will eventually be 
 C) Because the CRA legally requires vendors to report every defect regardless of whether it's exploitable, so classification is a compliance formality.
 D) Because AI systems can't reliably detect which countermeasures are active, so Firefox treats every defect as maximally severe to be safe.
 
-<details><summary>Show answer</summary>Answer: A  </details>
+<details><summary>Show answer</summary>Answer: A</details>
 </details>
 
 ## Triage
@@ -1208,7 +1208,7 @@ B) Severity ratings; since AI often rates severity too high or too low, and can 
 C) Whether a finding is a duplicate; the guide recommends discarding any finding that AI can't confidently de-duplicate.
 D) The programming language used in the vulnerable component; the guide recommends manually re-identifying the language before triage.
 
-<details><summary>Show answer</summary>Answer: B  </details>
+<details><summary>Show answer</summary>Answer: B</details>
 </details>
 
 ## Fix vulnerabilities
@@ -1312,7 +1312,7 @@ B) Ask the AI to generate three candidate fixes immediately, then write tests af
 C) Disable the project's existing test suite temporarily so the fix can be validated in isolation from unrelated failures.
 D) Have a human developer manually reproduce the vulnerability in production before any test code is written.
 
-<details><summary>Show answer</summary>Answer: A  </details>
+<details><summary>Show answer</summary>Answer: A</details>
 </details>
 
 ## Report vulnerability
@@ -1360,7 +1360,7 @@ B) Because AI often defaults to the most permissive assumption when writing a re
 C) Because maintainers are contractually obligated to respond within 24 hours only if a summary of the deployment model appears in the first paragraph.
 D) Because static analysis tools can't process a report that doesn't specify the deployment model in a structured header field.
 
-<details><summary>Show answer</summary>Answer: B  </details>
+<details><summary>Show answer</summary>Answer: B</details>
 </details>
 
 <details class="quiz"><summary>Quiz</summary>
@@ -1371,7 +1371,7 @@ B) ChromeOS patched the kernel directly so that mounting a block device would no
 C) ChromeOS simply accepted the risk and shipped without any additional protection, relying on user warnings instead.
 D) ChromeOS used a different mechanism (based on FUSE) to mount untrusted media because the kernel did not support that property.
 
-<details><summary>Show answer</summary>Answer: D  </details>
+<details><summary>Show answer</summary>Answer: D</details>
 </details>
 
 ## Release & deploy
@@ -1390,7 +1390,7 @@ B) Only fall behind if they're using memory-unsafe languages like C or C++.
 C) Be unable to keep up, so establishing automated processes to help test and accept updates is necessary.
 D) Only fall behind on EU Cyber Resilience Act reporting deadlines, not on ordinary patch adoption.
 
-<details><summary>Show answer</summary>Answer: C  </details>
+<details><summary>Show answer</summary>Answer: C</details>
 </details>
 
 ## Repeated application
@@ -1413,7 +1413,7 @@ B) Because most vulnerabilities only become detectable after the software has be
 C) Because licensing terms for most AI coding tools require a minimum number of scans per billing period.
 D) Because a single scan can’t legally be used as evidence of due diligence under the EU Cyber Resilience Act.
 
-<details><summary>Show answer</summary>Answer: A  </details>
+<details><summary>Show answer</summary>Answer: A</details>
 </details>
 
 # Preventing vulnerabilities longer term
@@ -1442,7 +1442,7 @@ B) It can't be reviewed by any automated tool at all
 C) It often introduces vulnerabilities, so it needs scanning plus human review
 D) Most major open source projects have banned all AI-generated results in all cases
 
-<details><summary>Show answer</summary>Answer: C  </details>
+<details><summary>Show answer</summary>Answer: C</details>
 </details>
 
 ## Evaluate merge/pull requests
@@ -1474,7 +1474,7 @@ B) The software is secure in its default installation, without extra hardening s
 C) The software's entire source code is kept fully confidential
 D) The software updates itself automatically, without any user consent
 
-<details><summary>Show answer</summary>Answer: B  </details>
+<details><summary>Show answer</summary>Answer: B</details>
 </details>
 
 ## Harden
@@ -1565,7 +1565,7 @@ B) AI systems will always refuse to attempt any hardened system
 C) Such hardening measures are prohibited from any production deployment
 D) AI can't exploit any hardened system, regardless of hardening type
 
-<details><summary>Show answer</summary>Answer: A  </details>
+<details><summary>Show answer</summary>Answer: A</details>
 </details>
 <details class="quiz"><summary>Quiz</summary>
 Q1. Why does the material recommend disabling hardening mechanisms during some evaluation runs?
@@ -1575,7 +1575,7 @@ B) Because hardening mechanisms tend to interfere with AI training data
 C) To reveal defects that one hardening mechanism alone would otherwise hide
 D) Because hardening mechanisms are considered deprecated as of 2026
 
-<details><summary>Show answer</summary>Answer: C  </details>
+<details><summary>Show answer</summary>Answer: C</details>
 </details>
 
 # Call to action
