@@ -119,7 +119,7 @@ The two worker threads have been initialized only once using the initializer met
 
 Table listing a possible execution order:
 
-|Task|Workder Thread|Executed Method|User|
+|Task|Worker Thread|Executed Method|User|
 |:---|:---|:---|:---|
 |1|0|`work_as_admin()`|ADMIN|
 |2|1|`work_as_admin()`|GUEST|

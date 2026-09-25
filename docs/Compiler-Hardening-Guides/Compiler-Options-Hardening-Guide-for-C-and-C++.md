@@ -1220,7 +1220,7 @@ The overhead added by `-ftrivial-auto-var-init` scales with the size and frequen
 
 #### When not to use?
 
-Automatic initialization can interfere with dynamic analysis tools such as Valgrind[^valgrind], Dr. Memory[^drmemory], and Clang's Memory Sanitizer[^msan], since it is expressly setting a value that was not set by the source code. This can mask issues with uninitialized variables that could otherwise be detected and fixed, making it less suitable for debugging and software testing. Consequently, we discourage the use of `-ftrivial-auto-var-init` for instrumented test code intended to be used for dynamic analysis of unitialized variables issues.
+Automatic initialization can interfere with dynamic analysis tools such as Valgrind[^valgrind], Dr. Memory[^drmemory], and Clang's Memory Sanitizer[^msan], since it is expressly setting a value that was not set by the source code. This can mask issues with uninitialized variables that could otherwise be detected and fixed, making it less suitable for debugging and software testing. Consequently, we discourage the use of `-ftrivial-auto-var-init` for instrumented test code intended to be used for dynamic analysis of uninitialized variables issues.
 
 In specific cases, the `pattern` variant of this option can make uninitialized memory easier to spot when debugging because the patterns used are less likely to be used as real values[^arm-ftrivial-auto-var-init]. For example, the pointer values are chosen to be invalid for many systems.
 
@@ -1296,7 +1296,7 @@ warning: '-fstack-protector-strong' is not enabled by '-fhardened' because it wa
 warning: '_FORTIFY_SOURCE' is not enabled by '-fhardened' because optimizations are turned off [-Whardened]
 ~~~
 
-These warnings can be controlled explcitily via the `-Whardened` option.
+These warnings can be controlled explicitly via the `-Whardened` option.
 
 [^gcc-fhardened]: GCC team, [Program Instrumentation Options: `-fhardened`](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html#index-fhardened), GCC Manual, 2024-05-07.
 

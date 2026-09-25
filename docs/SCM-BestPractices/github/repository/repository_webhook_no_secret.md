@@ -23,5 +23,5 @@ unstable or insecure state in other systems.
 2. Go to the repository settings page
 3. Select "Webhooks"
 4. Press on the insecure webhook
-5. Confiure a secret
+5. Configure a secret
 6. Click "Update webhook"
