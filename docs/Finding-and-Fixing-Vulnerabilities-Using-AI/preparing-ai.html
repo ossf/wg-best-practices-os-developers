@@ -57,7 +57,7 @@
       <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
-      <span class="navlink-label">Next:</span> <a href="preparing-the-threat-model.html" accesskey="n" rel="next">Preparing the threat model</a> →
+      <span class="navlink-label">Next:</span> <a href="preparing-threat-models.html" accesskey="n" rel="next">Preparing threat models</a> →
     </span>
   </div>
 </nav>
@@ -66,17 +66,18 @@
 
 <h2 data-number="4.1" id="preparing-ai"><span class="header-section-number">4.1</span> Preparing AI</h2>
 <p>A key step is “preparing AI”, that is, preparing the AI system itself. We list this first, because you’ll probably want to use AI to help you perform the other preparation steps. Preparing AI means selecting the AI tools, including possibly their models, harnesses, and so on. There’s no requirement that you choose a <em>single</em> system to do this. In fact, different systems have different strengths and costs. What’s more, there’s no general guarantee that an AI system will find all vulnerabilities, so using multiple systems over the long term has its advantages.</p>
-<p>Different AI systems have differences in expense as measured by money and time. For example, older models and smaller models (including SLMs) are often less capable but can also be less expensive. In <em>practice</em>, it may be helpful to choose less-expensive and faster AI systems <em>first</em> to implement finding and fixing vulnerabilities, focusing on vulnerabilities that are simpler to find and simpler to fix. Taking this approach means that vulnerabilities that are easily found, fixed, verified, and deployed are quickly found by less-expensive models. Once those vulnerabilities are addressed, more-capable AI systems can be focused on the vulnerabilities that are best addressed by them.</p>
-<p>In many AI systems output tokens cost significantly more than input tokens. Taking steps to eliminate <em>unnecessary</em> output can reduce costs as well as time. You can sometimes do this by asking for concise results, using strict formatting requirements like JSON schemas or bullet points, or defining a hard ceiling in API calls. However, the challenge is to avoid <em>unnecessary</em> output; you’ll need enough output to have results and verify the work.</p>
-<p>As noted earlier, a key decision is whether or not to use an <em>external</em> (remote) system, because that means the external system will receive the data to be processed. As [<a href="https://arxiv.org/abs/2512.18261v2">Kholoosi</a>] notes, “due to internal policies, LLMs hosted on [external servers sometimes] cannot be used”.</p>
-<p>You will generally want to ensure that you can record memories of preferences, system information, and so on. When using a remote system, get an account. AI gets better over time if it can record preferences over time.</p>
+<p>Different AI systems vary in cost as measured in both money and time. For example, older models and smaller models (including SLMs) are often less capable but can also be less expensive. In <em>practice</em>, it may be helpful to choose less expensive and faster AI systems <em>first</em> to implement vulnerability finding and fixing, focusing on vulnerabilities that are simpler to find and fix. Taking this approach means that vulnerabilities that are easily found, fixed, verified, and deployed are quickly identified by less expensive models. Once those vulnerabilities are addressed, more capable AI systems can focus on the vulnerabilities best addressed by them.</p>
+<p>That said, don’t use especially weak models or models that are a poor match. You may want to set their analysis levels to high or relatively high levels. Many of these tasks are challenging for AI (and for humans).</p>
+<p>In many AI systems, output tokens cost significantly more than input tokens. Taking steps to eliminate <em>unnecessary</em> output can reduce costs and time. You can sometimes do this by asking for concise results, using strict formatting requirements such as JSON schemas or bullet points, or by defining a hard ceiling on API calls. However, the challenge is to avoid <em>unnecessary</em> output; you’ll need enough output to have results and verify the work.</p>
+<p>As noted earlier, a key decision is whether to use an <em>external</em> (remote) system, since that means the external system will receive the data for processing. As [<a href="https://arxiv.org/abs/2512.18261v2">Kholoosi</a>] notes, “due to internal policies, LLMs hosted on [external servers sometimes] cannot be used”.</p>
+<p>You will generally want to ensure that you can record memories of preferences, system information, and so on. When using a remote system, get an account. AI gets better over time as it learns from recorded preferences.</p>
 <p>Persistent AI memory should be treated as another input, not as authoritative truth. Stored information may become stale, preserve an incorrect earlier conclusion, contain sensitive information, or be influenced by untrusted inputs. When memory affects a security decision, prefer current source code, configuration, threat-model information, and reproducible evidence over remembered conclusions, and retain provenance for stored information where practical [<a href="https://genai.owasp.org/2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/">OWASP-ASI06</a>].</p>
-<p>We’ll need to control the AI, including putting it in a sandbox. However, how to do that well can depend on the system being examined, so we’ll discuss that in more detail once we discuss the system being examined.</p>
+<p>We’ll need to control the AI, including putting it in a sandbox. However, how to do that well depends on the system under review, so we’ll discuss it in more detail once we examine the system.</p>
 <details class="quiz">
 <summary>
 Quiz
 </summary>
-<p>Q1. Why might it help to use less-expensive, faster AI systems first, per the material?</p>
+<p>Q1. Why might it help to use less expensive, faster AI systems first, according to the material?</p>
 <ol type="A">
 <li>They eliminate the value of using more-expensive AI systems</li>
 <li>They eliminate the need for any sandbox environment entirely</li>
@@ -119,7 +120,7 @@ Answer: C
       <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
-      <span class="navlink-label">Next:</span> <a href="preparing-the-threat-model.html" accesskey="n" rel="next">Preparing the threat model</a> →
+      <span class="navlink-label">Next:</span> <a href="preparing-threat-models.html" accesskey="n" rel="next">Preparing threat models</a> →
     </span>
   </div>
 </nav>
