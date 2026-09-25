@@ -6,7 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
-  <meta name="author" content="David A. Wheeler" />
+  <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Do not wait for access to the best AI models</title>
   <style>
@@ -67,21 +67,15 @@
 <h2 data-number="3.2" id="do-not-wait-for-access-to-the-best-ai-models"><span class="header-section-number">3.2</span> Do not wait for access to the best AI models</h2>
 <p>Do <strong>not</strong> wait until you get access to the most advanced restricted-access AI models that exist. Instead:</p>
 <ol type="1">
-<li><em>Get started now</em>. Projects typically find many vulnerabilities when they use any reasonably-good widely-available AI systems unless they’ve <em>already</em> been using them [<a href="https://red.anthropic.com/2026/mythos-preview/">Carlini2026</a>] [<a href="https://labs.cloudsecurityalliance.org/mythos-ciso/">CSA2026</a>] [<a href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>] [<a href="https://daniel.haxx.se/blog/2026/05/11/mythos-finds-a-curl-vulnerability/">Stenberg2026-05a</a>]. AI systems now “find lots of new problems no one detected before.” [Stenberg2026-05b]<br />
-</li>
+<li><em>Get started now</em>. Projects typically find many vulnerabilities when they use any reasonably-good widely-available AI systems unless they’ve <em>already</em> been using them [<a href="https://red.anthropic.com/2026/mythos-preview/">Carlini2026</a>] [<a href="https://labs.cloudsecurityalliance.org/mythos-ciso/">CSA2026</a>] [<a href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>] [<a href="https://daniel.haxx.se/blog/2026/05/11/mythos-finds-a-curl-vulnerability/">Stenberg2026-05a</a>]. AI systems now “find lots of new problems no one detected before.” [<a href="https://www.linkedin.com/posts/danielstenberg_curl-curl-share-7463481423543414786-sJew/">Stenberg2026-05b</a>]</li>
 <li><em>Apply less-costly simple models that can find many vulnerabilities at an accessible cost</em>.
 <ol type="1">
-<li>“Frontier models… are the acceleration, not the starting gun. Each patch also becomes an exploit blueprint, as AI accelerates patch-diffing and reverse engineering of fixes” [<a href="https://labs.cloudsecurityalliance.org/mythos-ciso/">CSA2026</a>].<br />
-</li>
-<li>“Focusing on Mythos is a distraction - there are plenty of good models, and people who can figure out how to get those models and tools to find things.” [Stenberg2026-05b]<br />
-</li>
-<li>If you use an external organization’s services, they will often have more-expensive sophisticated models, and less-expensive less-complex models. Many open weights models are available as well.<br />
-</li>
-<li>Don’t wait for difficult-to-access and often expensive tools for problems that could have been found and fixed more easily. By all means, use (at least eventually) advanced tools if you have access to them, but <em>do not wait for them</em>.<br />
-</li>
+<li>“Frontier models… are the acceleration, not the starting gun. Each patch also becomes an exploit blueprint, as AI accelerates patch-diffing and reverse engineering of fixes” [<a href="https://labs.cloudsecurityalliance.org/mythos-ciso/">CSA2026</a>].</li>
+<li>“Focusing on Mythos is a distraction - there are plenty of good models, and people who can figure out how to get those models and tools to find things.” [<a href="https://www.linkedin.com/posts/danielstenberg_curl-curl-share-7463481423543414786-sJew/">Stenberg2026-05b</a>]</li>
+<li>If you use an external organization’s services, they will often have more-expensive sophisticated models, and less-expensive less-complex models. Many open weights models are available as well.</li>
+<li>Don’t wait for difficult-to-access and often expensive tools for problems that could have been found and fixed more easily. By all means, use (at least eventually) advanced tools if you have access to them, but <em>do not wait for them</em>.</li>
 </ol></li>
-<li><em>Act quickly</em>. “Success comes from getting the basics right, acting quickly, and integrating cyber security into core business strategy” and not from “having the most tools” [<a href="https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf">FiveEyes2026</a>].<br />
-</li>
+<li><em>Act quickly</em>. “Success comes from getting the basics right, acting quickly, and integrating cyber security into core business strategy” and not from “having the most tools” [<a href="https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf">FiveEyes2026</a>].</li>
 <li><em>Learn by doing</em>. It takes time to learn and adopt these tools. Practice is the only way to get better. “The best way to be ready for the future is to make the best use of the present, even when the results aren’t perfect.” [<a href="https://red.anthropic.com/2026/mythos-preview/">Carlini2026</a>]</li>
 </ol>
 <p>Different AI models and harnesses have different strengths and weaknesses. In practice, you’ll often want to eventually use multiple ones. The most advanced frontier model “needs to be mounted in the right harness and equipped with the right tools to reach its full potential. And even then, it should just be one of the arrows in your quiver – depending on the task, it may be more sensible to let another model try several times than to let Mythos Preview try once… XBOW maintains a cadre of models, rather than restricting itself to a single one.” [<a href="https://xbow.com/blog/mythos-offensive-security-xbow-evaluation">Ziegler2026</a>]</p>
@@ -92,12 +86,9 @@ Quiz
 </summary>
 <p>Q1. What does the material recommend about waiting for access to the most advanced, restricted-access AI models?</p>
 <ol type="A">
-<li>Wait for frontier-model access, since lesser models can’t find real bugs<br />
-</li>
-<li>Only proceed once you obtain special government-approved model access<br />
-</li>
-<li>Get started now using reasonably-good, widely-available models rather than waiting<br />
-</li>
+<li>Wait for frontier-model access, since lesser models can’t find real bugs</li>
+<li>Only proceed once you obtain special government-approved model access</li>
+<li>Get started now using reasonably-good, widely-available models rather than waiting</li>
 <li>Focus first on building your own custom model from scratch, to maximize success</li>
 </ol>
 <details>
@@ -113,12 +104,9 @@ Quiz
 </summary>
 <p>Q1. What does the material say about non-frontier, open-weight models?</p>
 <ol type="A">
-<li>They can’t find real vulnerabilities without extensive human guidance<br />
-</li>
-<li>They’re prohibited from being used in vulnerability research entirely<br />
-</li>
-<li>They require far more compute than frontier models to run<br />
-</li>
+<li>They can’t find real vulnerabilities without extensive human guidance</li>
+<li>They’re prohibited from being used in vulnerability research entirely</li>
+<li>They require far more compute than frontier models to run</li>
 <li>They can often find vulnerabilities at an accessible, affordable cost</li>
 </ol>
 <details>

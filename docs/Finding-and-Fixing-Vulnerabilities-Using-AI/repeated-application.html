@@ -6,7 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
-  <meta name="author" content="David A. Wheeler" />
+  <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Repeated application</title>
   <style>
@@ -69,18 +69,16 @@
 <p>Most AI systems are non-deterministic; re-running the same AI system with the same inputs can discover new vulnerabilities, especially in the first few iterations. In addition, AI systems will continue to improve, and new capabilities may find new problems.</p>
 <p>So you need to repeatedly apply AI systems, especially improved systems, to find vulnerabilities previously missed by other passes. As vulnerabilities are found, search for similar patterns elsewhere, and ensure you really <em>did</em> fix the problem systematically.</p>
 <p>The good news is that improved hardening and fixing vulnerabilities will eventually eliminate all “easy vulnerabilities” and make the system increasingly difficult to attack. Software is finite, and so are defects. Take heart: as it gets harder for software developers to find vulnerabilities, it also gets harder for attackers.</p>
+<p>In practice software changes over time. Each proposed change (pull request or merge request) should also be analyzed by an AI system to attempt to discover vulnerabilities in the proposed change <em>before</em> it is accepted.</p>
 <details class="quiz">
 <summary>
 Quiz
 </summary>
 <p>Q1. Why does the guide recommend repeatedly re-running AI systems against the same codebase to look for vulnerabilities, rather than treating one pass as sufficient?</p>
 <ol type="A">
-<li>Because AI systems are generally non-deterministic and continue to improve, so later runs (or improved models) can surface vulnerabilities that earlier runs missed.<br />
-</li>
-<li>Because most vulnerabilities only become detectable after the software has been in production for at least one full release cycle.<br />
-</li>
-<li>Because licensing terms for most AI coding tools require a minimum number of scans per billing period.<br />
-</li>
+<li>Because AI systems are generally non-deterministic and continue to improve, so later runs (or improved models) can surface vulnerabilities that earlier runs missed.</li>
+<li>Because most vulnerabilities only become detectable after the software has been in production for at least one full release cycle.</li>
+<li>Because licensing terms for most AI coding tools require a minimum number of scans per billing period.</li>
 <li>Because a single scan can’t legally be used as evidence of due diligence under the EU Cyber Resilience Act.</li>
 </ol>
 <details>

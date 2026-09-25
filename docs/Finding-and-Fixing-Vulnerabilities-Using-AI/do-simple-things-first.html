@@ -6,7 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
-  <meta name="author" content="David A. Wheeler" />
+  <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Do simple things first</title>
   <style>
@@ -57,7 +57,7 @@
       <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
-      <span class="navlink-label">Next:</span> <a href="why-ai-tends-to-be-more-effective-if-guided-by-processes.html" accesskey="n" rel="next">Why AI tends to be more effective if guided by processes</a> →
+      <span class="navlink-label">Next:</span> <a href="do-not-presume-ai-can-correctly-fix-all-vulnerabilities.html" accesskey="n" rel="next">Do not presume AI can correctly fix all vulnerabilities</a> →
     </span>
   </div>
 </nav>
@@ -73,12 +73,9 @@
 <p>Such simple prompts can be extended in several obvious ways. For example, many emphasize focusing on improving input validation (since if malicious inputs can’t <em>enter</em> the program they’re much less likely to do harm) and common past problems. Another is to clearly note that the AI may use existing various tools to help in the analysis, including pointers to tools the AI might find useful.</p>
 <p>Part of the reason that AI systems can do so much better now is that they’ve become far more adept at making longer-range plans and using tools. [<a href="https://red.anthropic.com/2026/zero-days/">Carlini2026-02</a>] describes it this way:</p>
 <ul>
-<li>“Opus 4.6 found high-severity vulnerabilities, some that had gone undetected for decades…<br />
-</li>
-<li>We put Claude inside a “virtual machine” (literally, a simulated computer) with access to the latest versions of open source projects. We gave it standard utilities (e.g., the standard coreutils or Python) and vulnerability analysis tools (e.g., debuggers or fuzzers), but we didn’t provide any special instructions on how to use these tools, nor did we provide a custom harness that would have given it specialized knowledge about how to better find vulnerabilities.<br />
-</li>
-<li>This means we were directly testing Claude’s “out-of-the-box” capabilities, relying solely on the fact that modern large language models are generally-capable agents that can already reason about how to best make use of the tools available.<br />
-</li>
+<li>“Opus 4.6 found high-severity vulnerabilities, some that had gone undetected for decades…</li>
+<li>We put Claude inside a “virtual machine” (literally, a simulated computer) with access to the latest versions of open source projects. We gave it standard utilities (e.g., the standard coreutils or Python) and vulnerability analysis tools (e.g., debuggers or fuzzers), but we didn’t provide any special instructions on how to use these tools, nor did we provide a custom harness that would have given it specialized knowledge about how to better find vulnerabilities.</li>
+<li>This means we were directly testing Claude’s “out-of-the-box” capabilities, relying solely on the fact that modern large language models are generally-capable agents that can already reason about how to best make use of the tools available.</li>
 <li>… We validated every bug extensively before reporting it. … We then had Claude critique, de-duplicate, and re-prioritize the crashes that remain.”</li>
 </ul>
 <p>Similarly, [<a href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>] noted that, “you can start with very simple prompting, then observe and iterate… the essence of the inner loop remains the same: there is a bug in this part of the code, please find it and build a testcase”.</p>
@@ -88,12 +85,9 @@ Quiz
 </summary>
 <p>Q1. What was the essence of the simple and successful capture-the-flag (CTF) sample prompt by Carlini?</p>
 <ol type="A">
-<li>A brief instruction to find a vulnerability, plus a location hint<br />
-</li>
-<li>A multi-page technical specification detailing every function in the target<br />
-</li>
-<li>A requirement that the AI use ten specifically named tools<br />
-</li>
+<li>A brief instruction to find a vulnerability, plus a location hint</li>
+<li>A multi-page technical specification detailing every function in the target</li>
+<li>A requirement that the AI use ten specifically named tools</li>
 <li>A demand for a complete, fully unreviewed exploit chain</li>
 </ol>
 <details>
@@ -114,7 +108,7 @@ Answer: A
       <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
-      <span class="navlink-label">Next:</span> <a href="why-ai-tends-to-be-more-effective-if-guided-by-processes.html" accesskey="n" rel="next">Why AI tends to be more effective if guided by processes</a> →
+      <span class="navlink-label">Next:</span> <a href="do-not-presume-ai-can-correctly-fix-all-vulnerabilities.html" accesskey="n" rel="next">Do not presume AI can correctly fix all vulnerabilities</a> →
     </span>
   </div>
 </nav>

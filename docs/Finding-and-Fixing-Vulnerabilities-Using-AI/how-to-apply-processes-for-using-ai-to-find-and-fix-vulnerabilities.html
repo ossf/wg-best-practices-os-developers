@@ -6,7 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
-  <meta name="author" content="David A. Wheeler" />
+  <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – How to apply processes for using AI to find and fix vulnerabilities</title>
   <style>
@@ -64,14 +64,12 @@
 
 
 
-<h2 data-number="3.5" id="how-to-apply-processes-for-using-ai-to-find-and-fix-vulnerabilities"><span class="header-section-number">3.5</span> How to apply processes for using AI to find and fix vulnerabilities</h2>
+<h2 data-number="3.6" id="how-to-apply-processes-for-using-ai-to-find-and-fix-vulnerabilities"><span class="header-section-number">3.6</span> How to apply processes for using AI to find and fix vulnerabilities</h2>
 <p>So while AI systems <em>can</em>, with a good model, sometimes find and fix some vulnerabilities, we usually want to be more thorough. How can we apply those processes, though?</p>
 <p>These added processes for finding and fixing vulnerabilities can be human-guided, automation-guided, or a mix:</p>
 <ul>
-<li><em>Human-guided processes</em>. These can be as simple as carefully walking an AI through a step-by-step process. For example, a human could demand that the AI focus on reporting all potential vulnerabilities as findings, completely separating validation of findings as a separate step. Doing this can reduce the risk of an AI model discounting a finding that <em>was</em> exploitable because the AI was doing both steps at once.<br />
-</li>
-<li><em>Fully-automation-guided systems.</em> Such systems for this purpose are sometimes called “Cyber Reasoning Systems” (CRSs). As noted earlier, “A cyber reasoning system (CRS) is a software system that can both detect and repair software vulnerabilities autonomously in a given system under test (SUT).” [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]<br />
-</li>
+<li><em>Human-guided processes</em>. These can be as simple as carefully walking an AI through a step-by-step process. For example, a human could demand that the AI focus on reporting all potential vulnerabilities as findings, completely separating validation of findings as a separate step. Doing this can reduce the risk of an AI model discounting a finding that <em>was</em> exploitable because the AI was doing both steps at once.</li>
+<li><em>Fully-automation-guided systems.</em> Such systems for this purpose are sometimes called “Cyber Reasoning Systems” (CRSs). As noted earlier, “A cyber reasoning system (CRS) is a software system that can both detect and repair software vulnerabilities autonomously in a given system under test (SUT).” [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]</li>
 <li><em>Mixed systems</em>. Systems may be partly automated but have mechanisms for humans to provide information and guidance as they go.</li>
 </ul>
 <p>Unsurprisingly, many different organizations and projects have developed processes to improve finding and fixing vulnerabilities using AI. As noted by Cycode, “AI-driven vulnerability discovery is no longer a single-vendor story. It is an industry capability, and it has arrived faster than most security programs are prepared for.” [<a href="https://cycode.com/blog/claude-mythos-security-readiness/">Cycode2026</a>]</p>
@@ -79,28 +77,21 @@
 <ul>
 <li>[Wolf2026] emphasizes that AI can be most effective when it’s combined with existing analysis techniques. This paper describes the following components of a typical CRS:
 <ul>
-<li>Static analysis, harness generation (for dynamic analysis), input generation, crash analysis, patch generation, patch selection, and orchestration.<br />
-</li>
+<li>Static analysis, harness generation (for dynamic analysis), input generation, crash analysis, patch generation, patch selection, and orchestration.</li>
 </ul></li>
 <li>Microsoft’s MDASH system uses a set of specialized AI agents working through a specialized staged pipeline, instead of a single really good model running in an agent framework. [Bishop2026]. Their harness orchestrates more than 100 specialized AI agents across an ensemble. It’s essentially a “structured pipeline that takes a code base and emits validated, proven findings” through these stages:
 <ul>
-<li>Prepare stage: Ingests the source target, builds language-aware indices, and then draws the attack surface and threat models by analyzing the past commits.<br />
-</li>
-<li>Scan stage: Runs specialized auditor agents over candidate code paths, emitting candidate findings with hypotheses and evidence.<br />
-</li>
-<li>Validate stage: Runs a second cohort of agents—debaters—that argue for and against each finding’s reachability and exploitability.<br />
-</li>
-<li>Dedupe stage: Collapses semantically equivalent findings (for example, patch-based grouping).<br />
-</li>
+<li>Prepare stage: Ingests the source target, builds language-aware indices, and then draws the attack surface and threat models by analyzing the past commits.</li>
+<li>Scan stage: Runs specialized auditor agents over candidate code paths, emitting candidate findings with hypotheses and evidence.</li>
+<li>Validate stage: Runs a second cohort of agents—debaters—that argue for and against each finding’s reachability and exploitability.</li>
+<li>Dedupe stage: Collapses semantically equivalent findings (for example, patch-based grouping).</li>
 <li>Prove stage: Constructs and executes triggering inputs where the bug class admits it. The prove stage validates the pre-condition dynamically and formulates the bug-triggering inputs to prove existence of vulnerability (for example, ASan in C/C++).” [Kim2026]</li>
 </ul></li>
 </ul>
 <p>Most of these systems can be used with three types of scanning actions:</p>
 <ul>
-<li>Full Scans, where the full codebase is scanned all at once,<br />
-</li>
-<li>Branch Scans, where a new branch (or each new branch) is scanned<br />
-</li>
+<li>Full Scans, where the full codebase is scanned all at once,</li>
+<li>Branch Scans, where a new branch (or each new branch) is scanned</li>
 <li>Pull Request (PR)/Merge Request (MR) Scans, like Branch Scans but findings are reported in the PR/MR which concern the branch (similar to how many humans perform review) [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>]</li>
 </ul>
 <p>Cycode noted that independent research from AISLE has already shown that even small open-source models (including a 3.6-billion-parameter model with the right scaffolding) can find many of the same flagship vulnerabilities Mythos showcased. “Vulnerability discovery is commoditizing. The bottleneck is no longer finding bugs. It is deciding which ones to fix first, fast enough to matter.” [<a href="https://cycode.com/blog/claude-mythos-security-readiness/">Cycode2026</a>]</p>

@@ -6,7 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
-  <meta name="author" content="David A. Wheeler" />
+  <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Strengths and weaknesses</title>
   <style>
@@ -67,14 +67,10 @@
 <h2 data-number="2.2" id="strengths-and-weaknesses"><span class="header-section-number">2.2</span> Strengths and weaknesses</h2>
 <p>Current AI builds on LLMs (or technology like them), so they inherit the strengths and weaknesses of them. Here are some of the key weaknesses of this technology that impact finding and fixing software vulnerabilities:</p>
 <ul>
-<li><em>Limited context windows</em>. LLMs are typically trained on a vast amount of data, but for effective use they need whatever data they should focus on as input. LLMs can only take a finite amount of this input the “context window”), more input increases the work needed, and LLMs reliably focus on information at the beginning and end of its context window [<a href="https://www.0xkato.xyz/how-llms-actually-work/">0xkato2026</a>].<br />
-</li>
-<li><em>Unsoundness of analysis</em>. By itself, an LLM is unsound in its analysis. This is a technical term that means that, by itself, it cannot <em>guarantee</em> a program is free of some particular vulnerabilities if it doesn’t find any vulnerabilities [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]. An LLM may be able to run some other tool that can guarantee something, but that would be a property of the other tool.<br />
-</li>
-<li><em>Incorrect results</em>. LLMs are statistical models; they sometimes give false answers. E.g., they may claim something is a vulnerability when it is not [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>].<br />
-</li>
-<li><em>Training and evaluation data</em>. Any ML-based approach depends on the data used to train them [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]. For example, many programs have vulnerabilities, making it more difficult for an LLM to generate code without vulnerabilities.<br />
-</li>
+<li><em>Limited context windows</em>. LLMs are typically trained on a vast amount of data, but for effective use they need whatever data they should focus on as input. LLMs can only take a finite amount of this input the “context window”), more input increases the work needed, and LLMs reliably focus on information at the beginning and end of its context window [<a href="https://www.0xkato.xyz/how-llms-actually-work/">0xkato2026</a>].</li>
+<li><em>Unsoundness of analysis</em>. By itself, an LLM is unsound in its analysis. This is a technical term that means that, by itself, it cannot <em>guarantee</em> a program is free of some particular vulnerabilities if it doesn’t find any vulnerabilities [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]. An LLM may be able to run some other tool that can guarantee something, but that would be a property of the other tool.</li>
+<li><em>Incorrect results</em>. LLMs are statistical models; they sometimes give false answers. E.g., they may claim something is a vulnerability when it is not [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>].</li>
+<li><em>Training and evaluation data</em>. Any ML-based approach depends on the data used to train them [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]. For example, many programs have vulnerabilities, making it more difficult for an LLM to generate code without vulnerabilities.</li>
 <li><em>Injection vulnerability</em>. LLMs have no built-in fundamental way to distinguish between different types of input. A command from a user, a malicious command embedded in a web page, or a misleading source code comment are all simply inputs. This is especially important when an AI agent analyzes a software repository or external documentation. Source comments, documentation, issue text, generated files, dependency metadata, and other repository content may be attacker-controlled or simply incorrect. Treat such content as data to analyze, not as authority to redefine the agent’s task, grant additional permissions, expose credentials, or enable additional tools or network access. Instructions obtained from untrusted content should not be allowed to silently cross an authorization boundary [<a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/">OWASP-LLM01</a>].</li>
 </ul>
 <details class="quiz">
@@ -83,12 +79,9 @@ Quiz
 </summary>
 <p>Q1. Why does the material describe an LLM as “unsound”?</p>
 <ol type="A">
-<li>It always produces code that fails to compile<br />
-</li>
-<li>It requires more memory than any traditional static analysis tool, causing crashes if there’s insufficient memory<br />
-</li>
-<li>It can’t guarantee a program is free of some vulnerability just because it found none<br />
-</li>
+<li>It always produces code that fails to compile</li>
+<li>It requires more memory than any traditional static analysis tool, causing crashes if there’s insufficient memory</li>
+<li>It can’t guarantee a program is free of some vulnerability just because it found none</li>
 <li>It can only process one source file per session</li>
 </ol>
 <details>
@@ -104,12 +97,9 @@ Quiz
 </summary>
 <p>Q1. Why does an LLM’s limited context window matter when analyzing a large codebase?</p>
 <ol type="A">
-<li>It restricts how much input the LLM can effectively focus on, with attention favoring the beginning and end of that input<br />
-</li>
-<li>It prevents the LLM from ever being trained on security-related data<br />
-</li>
-<li>It means the LLM can analyze only one programming language per session, since it must load each language’s definitions into its context window<br />
-</li>
+<li>It restricts how much input the LLM can effectively focus on, with attention favoring the beginning and end of that input</li>
+<li>It prevents the LLM from ever being trained on security-related data</li>
+<li>It means the LLM can analyze only one programming language per session, since it must load each language’s definitions into its context window</li>
 <li>It forces the LLM to run exclusively on local infrastructure</li>
 </ol>
 <details>

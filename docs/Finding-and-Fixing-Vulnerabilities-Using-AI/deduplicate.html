@@ -6,7 +6,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="icon" href="/assets/logo.svg" />
-  <meta name="author" content="David A. Wheeler" />
+  <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Deduplicate</title>
   <style>
@@ -70,10 +70,8 @@
 <p>Some writers consider deduplication part of triage (e.g., [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]), and others treat them separately. No matter how you define the terms, all are needed.</p>
 <p>[<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>] recommends the following for deduplication:</p>
 <ul>
-<li>Consider the root cause. “Scanners often flag one bug at multiple call sites or report multiple symptoms of a single root cause. Here’s one practical approach: First, use a cheap deterministic pass: same file, same category, vulnerability line numbers within ten lines of each other. Then, have a model apply qualitative rules to what remains:”<br />
-</li>
-<li>“Treat as duplicate: the same root cause worded differently; the same vulnerability reported at multiple call sites; a missing global protection (like an auth check) reported per endpoint; or a cause and its consequence flagged in the same path.”<br />
-</li>
+<li>Consider the root cause. “Scanners often flag one bug at multiple call sites or report multiple symptoms of a single root cause. Here’s one practical approach: First, use a cheap deterministic pass: same file, same category, vulnerability line numbers within ten lines of each other. Then, have a model apply qualitative rules to what remains:”</li>
+<li>“Treat as duplicate: the same root cause worded differently; the same vulnerability reported at multiple call sites; a missing global protection (like an auth check) reported per endpoint; or a cause and its consequence flagged in the same path.”</li>
 <li>“Treat as distinct: different vulnerability classes in the same file; different variables reaching different sinks; two independent bugs inside one helper; the same missing check on two endpoints, but each requires its own fix.”</li>
 </ul>
 <p>If it’s not <em>clear</em> that a finding is a duplicate, pass it along to be validated separately. Once more information is acquired it may be easier to determine if it’s a duplicate.</p>
@@ -83,12 +81,9 @@ Quiz
 </summary>
 <p>Q1. According to the guidance in this section, which of the following should most likely be treated as distinct findings rather than duplicates?</p>
 <ol type="A">
-<li>The same vulnerability reported at multiple call sites that all trace back to one root cause.<br />
-</li>
-<li>A missing global protection, such as an authentication check, reported separately for each affected endpoint.<br />
-</li>
-<li>A root-cause defect and one of its direct consequences flagged together along the same code path.<br />
-</li>
+<li>The same vulnerability reported at multiple call sites that all trace back to one root cause.</li>
+<li>A missing global protection, such as an authentication check, reported separately for each affected endpoint.</li>
+<li>A root-cause defect and one of its direct consequences flagged together along the same code path.</li>
 <li>The same missing check reported on two different endpoints, where each endpoint requires its own separate fix.</li>
 </ol>
 <details>
