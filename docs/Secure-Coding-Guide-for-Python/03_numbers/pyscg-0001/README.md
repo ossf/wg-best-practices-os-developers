@@ -52,7 +52,7 @@ _[compliant01.py](compliant01.py):
 ```py
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-""" Non-compliant Code Example """
+""" Compliant Code Example """
 BALANCE = 300
 ITEM_COST = 33
 ITEM_COUNT = 5

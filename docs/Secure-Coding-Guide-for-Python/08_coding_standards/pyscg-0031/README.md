@@ -87,7 +87,7 @@ print(f'Unmodified list: {userlist2}')
 # Create new list
 activeusers = []
 for user in userlist2:
-    if user.startswith('B'):
+    if not user.startswith('B'):
         activeusers.append(user)
 print(f'New list: {activeusers}')
 ```
