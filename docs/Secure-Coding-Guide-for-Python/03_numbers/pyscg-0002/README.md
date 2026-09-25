@@ -213,7 +213,7 @@ The `compliant02.py` example is protecting the lower level c-lib from an `Overfl
 
 ## Non-Compliant Code Example -- Using math.exp
 
-The `noncompliant03.py` code example results in a `OverflowError: math range error`. This is due to `math.exp` being a `C` implementation behind the scenes for better performance. So while it returns a `Python float` it does Fixed-Width nubers internally for the calculation in `mathmodule.c` [[cpython 2024]](https://github.com/python/cpython/blob/main/Modules/mathmodule.c).
+The `noncompliant03.py` code example results in a `OverflowError: math range error`. This is due to `math.exp` being a `C` implementation behind the scenes for better performance. So while it returns a `Python float` it does Fixed-Width numbers internally for the calculation in `mathmodule.c` [[cpython 2024]](https://github.com/python/cpython/blob/main/Modules/mathmodule.c).
 
 *[noncompliant03.py](noncompliant03.py):*
 

@@ -54,13 +54,13 @@ if __name__ == "__main__":
         sys.getsizeof(number.value)
         )
     add = Thread(target=number.add)
-    substract = Thread(target=number.remove)
+    subtract = Thread(target=number.remove)
     add.start()
-    substract.start()
+    subtract.start()
 
     logging.info('Waiting for threads to finish...')
     add.join()
-    substract.join()
+    subtract.join()
 
     logging.info(
         "id=%i int=%s size=%s",
