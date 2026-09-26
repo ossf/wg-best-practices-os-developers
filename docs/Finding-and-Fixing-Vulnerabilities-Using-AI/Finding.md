@@ -175,6 +175,7 @@ D) It is among the best currently-available models
 
 <details><summary>Show answer</summary>Answer: D</details>
 </details>
+
 <details class="quiz"><summary>Quiz</summary>
 Q1. What is the key difference between an “AI agent” and an “AI chatbot”?
 
@@ -318,6 +319,7 @@ D) A system limited to analyzing closed-source binaries only
 
 <details><summary>Show answer</summary>Answer: A</details>
 </details>
+
 <details class="quiz"><summary>Quiz</summary>
 Q1. What milestone does the material cite regarding AIxCC?
 
@@ -425,6 +427,7 @@ D) Focus first on building your own custom model from scratch, to maximize succe
 
 <details><summary>Show answer</summary>Answer: C</details>
 </details>
+
 <details class="quiz"><summary>Quiz</summary>
 Q1. What does the material say about non-frontier, open-weight models?
 
@@ -444,7 +447,7 @@ AI systems, as of 2026, can figure out plausible approaches on their own, even w
 
 For example, \[[Carlini2026-youtube](https://www.youtube.com/watch?v=1sd26pWhfmg&t=316s)\] demonstrated this as a successful prompt:
 
-\> You are playing in a capture-the-flag (CTF). Find a vulnerability. hint: Look at /src/baz.c Write the most serious one to /out/report.txt
+> You are playing in a capture-the-flag (CTF). Find a vulnerability. hint: Look at /src/baz.c Write the most serious one to /out/report.txt
 
 \[[Carlini2026](https://red.anthropic.com/2026/mythos-preview/)\] summarizes this as a paragraph that essentially amounts to **“**Please find a security vulnerability in this program**”** and let the AI experiment. He notes that in a typical attempt, the AI (Claude) will read the code to hypothesize vulnerabilities that might exist, run the actual project to confirm or reject its suspicions (and repeat as necessary, adding debug logic or using debuggers as it sees fit), and finally output either that no bug exists, or the bug(s) it found.
 
@@ -547,6 +550,7 @@ D) It produces final results requiring no further human review
 
 <details><summary>Show answer</summary>Answer: B</details>
 </details>
+
 <details class="quiz"><summary>Quiz</summary>
 Q1. What lesson did Cloudflare researchers report about narrowing an AI's task scope?
 
@@ -692,7 +696,7 @@ D) Running the process twice guarantees zero false positives
 
 AI is far more effective at finding and fixing vulnerabilities if you prepare for its use. \[[Aniszczyk2026](https://openssf.org/resources/securing-open-source-in-the-age-of-ai-a-practical-guide/)\] expresses this: “The single most important thing to understand about working with AI tools… is helping the robot help you by providing the proper context to execute tasks… just like people, giving the robot access to specific, focused data makes it better and less prone to error.”
 
-In this chapter we’ll focus on the key preparatory tasks that make using AI to find and fix vulnerabilities far more effective. This means preparing the [AI](#preparing-ai), the [threat models](#preparing-threat-models), the [sandbox](#preparing-sandbox), [AI logging](#prepare-ai-logging), [code & documentation](#preparing-the-code-and-documentation), [CI/CD](#preparing-ci/cd), and [dependency updates](#preparing-dependency-updates).
+In this chapter we’ll focus on the key preparatory tasks that make using AI to find and fix vulnerabilities far more effective. This means preparing the [AI](#preparing-ai), the [threat models](#preparing-threat-models), the [sandbox](#preparing-sandbox), [AI logging](#prepare-ai-logging), [code & documentation](#preparing-the-code-and-documentation), [CI/CD](#preparing-cicd), and [dependency updates](#preparing-dependency-updates).
 
 ![Robots preparing to work by exercising and gathering information](images/robots-preparing-work-by-exercising-gathering.png){width=493 height=268}
 
@@ -724,6 +728,7 @@ D) They quickly resolve simple bugs, freeing costlier systems for harder ones
 
 <details><summary>Show answer</summary>Answer: D</details>
 </details>
+
 <details class="quiz"><summary>Quiz</summary>
 Q1. How does the material say an AI's persistent memory should be treated?
 
@@ -772,6 +777,7 @@ When creating or updating a threat model for a world with AI, consider the follo
 8. Implement resiliency and rapid recovery \[[CrowdStrike2026-FiveSteps](https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/)\]
 
 Some people refer to the need for “system context” and/or “trust boundaries”. For our purposes, this is part of the threat model. For an AI to find vulnerabilities, it needs to know what a vulnerability is, including the system context and trust boundaries. All of that is wrapped into the threat model.
+
 <details class="quiz"><summary>Quiz</summary>
 Q1. Per the report the material cites, what happened when an AI model analyzed a system with a well-defined threat model?
 
@@ -782,6 +788,7 @@ D) It refused to continue the analysis any further
 
 <details><summary>Show answer</summary>Answer: A</details>
 </details>
+
 <details class="quiz"><summary>Quiz</summary>
 Q1. What does the material identify as the most common cause of AI-reported false positives?
 
@@ -875,6 +882,7 @@ D) Sandboxes become unnecessary once you're using a closed frontier model
 
 <details><summary>Show answer</summary>Answer: B</details>
 </details>
+
 <details class="quiz"><summary>Quiz</summary>
 Q1. What kind of real-world incidents does the material cite to show sandboxing AI agents isn't merely hypothetical?
 
@@ -973,6 +981,7 @@ D) A trusted method for confirming whether an agent's output achieves its goal
 
 <details><summary>Show answer</summary>Answer: D</details>
 </details>
+
 <details class="quiz"><summary>Quiz</summary>
 Q1. Why does the material say that a broken test or a compromised build environment is especially problematic in AI-driven workflows?
 
@@ -1087,6 +1096,7 @@ D) Because AI guardrails block an agent from producing a working proof of concep
 
 <details><summary>Show answer</summary>Answer: B</details>
 </details>
+
 <details class="quiz"><summary>Quiz</summary>
 Q1. The guide recommends using different "top" vulnerability lists depending on what kind of system you're examining. Which list does it recommend for a general system that's neither a web application nor an agentic application, such as an IoT device?
 
@@ -1578,6 +1588,7 @@ D) AI can't exploit any hardened system, regardless of hardening type
 
 <details><summary>Show answer</summary>Answer: A</details>
 </details>
+
 <details class="quiz"><summary>Quiz</summary>
 Q1. Why does the material recommend disabling hardening mechanisms during some evaluation runs?
 

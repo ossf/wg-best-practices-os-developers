@@ -14,6 +14,16 @@ markdownlint (see `clean-finding.awk`) and rewrites `Finding.md` in
 place. It's idempotent, so running it again later (or on an
 already-clean `Finding.md`) is a no-op.
 
+A few conventions in the Google document matter because of this:
+
+* To make a block quote, start the paragraph with ">".
+* Don't use Shift+Enter for a line break inside a paragraph; `cleanup-markdown`
+  removes trailing whitespace, which is how the export represents those
+  breaks. Use Enter for a new paragraph instead.
+* In-document links are rewritten to use GitHub's heading IDs, which
+  markdownlint checks. Pandoc (used by `gen-html`) computes different IDs
+  for headings containing "." or " & ", so don't link to such headings.
+
 ### Images
 
 Google's markdown export embeds each image as a lossy, base64-encoded
