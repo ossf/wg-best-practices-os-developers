@@ -67,7 +67,7 @@
 <h2 data-number="1.4" id="why-this-is-important"><span class="header-section-number">1.4</span> Why this is important</h2>
 <p>This course is critically important for today’s software developers and security researchers. AI has become incredibly good at finding vulnerabilities, for both attackers <em>and</em> defenders. This is requiring defenders to <em>rapidly</em> find and fix vulnerabilities using AI. If they don’t, their resulting systems will be repeatedly taken over by attackers who are <em>already</em> using AI.</p>
 <p>CloudStrike found that even back in 2025, “AI-enabled adversaries increased attacks by 89% year-over-year” [<a href="https://go.crowdstrike.com/2026-global-threat-report.html">CloudStrike2026-Global</a>]. That’s accelerating now.</p>
-<p>There are many reasons this topic is important. Here we summarize them, with quotes and citations showing that this is <em>real</em>. In short, AI has sped up vulnerability-finding, attacks are using that speed up to accelerate their attacks, and traditional manual closed processes are failing to keep up.</p>
+<p>There are many reasons this topic is important. Here we summarize them, with quotes and citations showing that this is <em>real</em>. In short, AI has sped up vulnerability-finding, attacks are using that increased speed to accelerate their attacks, and traditional manual closed processes are failing to keep up.</p>
 <h3 data-number="1.4.1" id="ai-is-accelerating-vulnerability-finding"><span class="header-section-number">1.4.1</span> AI is accelerating vulnerability-finding</h3>
 <p>AI has greatly sped up vulnerability finding in software:</p>
 <ul>
@@ -75,19 +75,19 @@
 <ul>
 <li>“With the latest frontier AI models, the cost, effort, and level of expertise required to find and exploit software vulnerabilities have all dropped dramatically. Over the past year, AI models have become increasingly effective at reading and reasoning about code—in particular, they show a striking ability to spot vulnerabilities and work out ways to exploit them.” [<a href="https://www.anthropic.com/glasswing">Anthropic2026-04g</a>]</li>
 </ul></li>
-<li><em>Far more vulnerabilities are being found with AI</em>. Agentic AI can find <em>far</em> more vulnerabilities (exploitable defects) than non-AI systems. AI is able to use other tools and integrate that information to discover problems.
+<li><em>Far more vulnerabilities are being found with AI</em>. Agentic AI can find <em>far</em> more vulnerabilities (exploitable defects) than non-AI systems. AI can use other tools and integrate that information to discover problems.
 <ul>
 <li>One paper “found that [AI was] crucial to the success of [finding vulnerabilities; without AI traditional fuzzers] were unable to discover a single bug within a four-hour time limit in any of 20 trials. …. [this] highlights the importance of integrating LLM-assisted tooling into automated security workflows.” [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]</li>
 </ul></li>
-<li><em>AI can rapidly turn vulnerabilities into exploits, often by chaining multiple defects together</em>. AI’s ability to rapidly turn a vulnerability into an exploit accelerates the need for repair. In particular, AI can often combine multiple minor-seeming defects into a chain that is devastating.
+<li><em>AI can rapidly turn vulnerabilities into exploits, often by chaining multiple defects together</em>. AI’s ability to rapidly turn a vulnerability into an exploit accelerates the need for repair. In particular, AI can often combine multiple minor-seeming defects into a devastating chain.
 <ul>
-<li>“Over the past year, AI models have become increasingly effective at reading and reasoning about code—in particular, they show a striking ability to spot vulnerabilities and work out ways to exploit them. Claude Mythos Preview demonstrates a leap in these cyber skills—the vulnerabilities it has spotted have in some cases survived decades of human review and millions of automated security tests, and the exploits it develops are increasingly sophisticated… frontier AI models are now becoming competitive with the best humans at finding and exploiting vulnerabilities.”” [<a href="https://www.anthropic.com/glasswing">Anthropic2026-04g</a>]</li>
+<li>“Over the past year, AI models have become increasingly effective at reading and reasoning about code—in particular, they show a striking ability to spot vulnerabilities and work out ways to exploit them. Claude Mythos Preview demonstrates a leap in these cyber skills—the vulnerabilities it has spotted have in some cases survived decades of human review and millions of automated security tests, and the exploits it develops are increasingly sophisticated… frontier AI models are now becoming competitive with the best humans at finding and exploiting vulnerabilities.” [<a href="https://www.anthropic.com/glasswing">Anthropic2026-04g</a>]</li>
 </ul></li>
-<li><em>The speed of finding and exploiting vulnerabilities has dramatically accelerated</em>.
+<li><em>The speed at which vulnerabilities are found and exploited has dramatically accelerated</em>.
 <ul>
 <li>“AI is making it possible to detect severe security vulnerabilities at highly accelerated speeds.” [<a href="https://www.anthropic.com/news/mozilla-firefox-security">Anthropic2026-03</a>]</li>
 </ul></li>
-<li><em>Far more attackers are now able to create sophisticated attacks</em>.
+<li><em>Far more attackers can now create sophisticated attacks</em>.
 <ul>
 <li>“Advanced frontier models (like Claude Mythos Preview) and optimized open-weight models have democratized the ability to find complex vulnerabilities and construct exploit chains, exposing non-traditional targets to high-level threats.” [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]</li>
 </ul></li>
@@ -104,7 +104,7 @@
 <li><em>Attackers are now, on average, exploiting vulnerabilities before a patch is released</em>.
 <ul>
 <li>“Mandiant’s M-Trends 2026 report measures the mean time between a vulnerability becoming publicly known and the first observed exploitation in the wild. In 2018, that interval was 63 days. By 2023 it had collapsed to 5 days. In 2025, it inverted. Attackers are now exploiting vulnerabilities an average of 7 days before patches are released.” [<a href="https://cycode.com/blog/claude-mythos-security-readiness/">Cycode2026</a>]</li>
-<li>Similarly, ZeroDayClock says that in “2018, the median time from a vulnerability being disclosed to the first observed exploit was 771 days. Organizations had over two years to patch. By 2023 that window was 6 days. By 2024 it was 4 hours. In 2025, the majority of exploited vulnerabilities were weaponized before they were even publicly disclosed. The data fits an exponential decay curve. This is not a trend that stabilizes. It is a collapse.” [<a href="https://zerodayclock.com/">ZeroDayClock</a>]</li>
+<li>Similarly, ZeroDayClock says that in “2018, the median time from a vulnerability being disclosed to the first observed exploit was 771 days. Organizations had over two years to patch. By 2023, that window was 6 days. By 2024, it was 4 hours. In 2025, the majority of exploited vulnerabilities were weaponized before they were even publicly disclosed. The data fits an exponential decay curve. This is not a trend that stabilizes. It is a collapse.” [<a href="https://zerodayclock.com/">ZeroDayClock</a>]</li>
 </ul></li>
 </ul>
 <h3 data-number="1.4.3" id="manual-closed-approaches-are-failing"><span class="header-section-number">1.4.3</span> Manual closed approaches are failing</h3>

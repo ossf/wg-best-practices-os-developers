@@ -50,7 +50,7 @@
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="preparing-sandbox.html" accesskey="p" rel="previous">Preparing sandbox</a>
+      <span class="navlink-label">← Previous:</span> <a href="prepare-ai-logging.html" accesskey="p" rel="previous">Prepare AI logging</a>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="prepare-to-find-and-fix-vulnerabilities.html" accesskey="u" rel="up">Prepare to find and fix vulnerabilities</a>
@@ -64,11 +64,11 @@
 
 
 
-<h2 data-number="4.4" id="preparing-the-code-and-documentation"><span class="header-section-number">4.4</span> Preparing the code and documentation</h2>
-<p>Like any computer system, an AI’s effectiveness depends on its input. This means that if you prepare the software (its code and documentation) to be easier to analyze by an AI, the results are likely to be much better.</p>
-<p>Therefore, improve the code and its documentation wherever it currently lacks important relevant information. This means adding information where appropriate such as type declarations, inline comments, documentation, relevant specifications, and so on. This especially includes “bigger picture” information that explains <em>why</em> something was done. Where practical, provide links to key data or extractions of relevant data. Relevant extractions are often better [<a href="https://openssf.org/blog/2026/01/05/ai-software-development-security-tips-and-the-future-part-2/">Wheeler2026</a>].</p>
+<h2 data-number="4.5" id="preparing-the-code-and-documentation"><span class="header-section-number">4.5</span> Preparing the code and documentation</h2>
+<p>Like any computer system, an AI’s effectiveness depends on its input. This means that if you prepare the software (its code and documentation) to be easier for an AI to analyze, the results are likely to be much better.</p>
+<p>Therefore, improve the code and its documentation wherever they currently lack important, relevant information. This means adding information where appropriate, such as type declarations, inline comments, documentation, and relevant specifications. This especially includes “bigger picture” information that explains <em>why</em> something was done. Where practical, provide links to key data or extractions of relevant data. Relevant extractions are often better [<a href="https://openssf.org/blog/2026/01/05/ai-software-development-security-tips-and-the-future-part-2/">Wheeler2026</a>].</p>
 <p>Dan Stenberg, leader of the curl project, reports that AI tools can reason across protocols, specs, and third-party libraries in “almost magical ways”. AI tools can identify failures to comply with a spec, as well as inconsistencies between comments and implementations [<a href="https://thenewstack.io/curls-daniel-stenberg-ai-is-ddosing-open-source-and-fixing-its-bugs/">Vaughan-Nichols</a>]. Language models’ ability to use context, e.g., comments, can be powerful [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>].</p>
-<p>At the least, include an “AGENTS.md” file. Its format and recommendations are provided by the Linux Foundation’s Agentic AI Foundation at &lt;<a href="https://agents.md/">https://agents.md/</a>&gt;. Some AI agent systems supported it when its specification was originally crafted, such as OpenAI Codex and Google Gemini. Historically Claude Code only looked at <a href="http://CLAUDE.md">CLAUDE.md</a>, but as of 2026-09-18 (version 2.1.277) it now looks for and reads <a href="http://AGENTS.md">AGENTS.md</a>. If you’re using an agentic system and it doesn’t support <a href="http://AGENTS.md">AGENTS.md</a>, but it supports a different filename, use that filename to say “See @<a href="http://AGENTS.md">AGENTS.md</a>” and use <a href="http://AGENTS.md">AGENTS.md</a> so instructions that apply to an AI agent can be in one portable place.</p>
+<p>At the least, include an “AGENTS.md” file. Its format and recommendations are provided by the Linux Foundation’s Agentic AI Foundation at &lt;<a href="https://agents.md/">https://agents.md/</a>&gt;. Some AI agent systems supported it when its specification was originally crafted, such as OpenAI Codex and Google Gemini. Historically, Claude Code only looked at CLAUDE.md, but as of 2026-09-18 (version 2.1.277) it now looks for and reads AGENTS.md. If you’re using an agentic system and it doesn’t support AGENTS.md, but it supports a different filename, use that filename to say “See <span class="citation" data-cites="AGENTS.md">@AGENTS.md</span>” and use AGENTS.md so instructions that apply to an AI agent can be in one portable place.</p>
 <p>[<a href="https://www.0xkato.xyz/Get-ready-for-an-audit/">0xkato2024</a>] recommends making your code well documented, suggesting the following:</p>
 <ul>
 <li>“Are your code comments up to date?</li>
@@ -80,8 +80,8 @@
 <li>Have you done a risk assessment and threat model?</li>
 <li>Do you have a list of all known issues with explanations?”</li>
 </ul>
-<p>When analyzing a system, examine security properties across transitions (including state transitions) as well as steady-state data flows. Vulnerabilities can appear during transitions such as authentication and re-authentication, token refresh and expiration, logout and revocation, account or role changes, retries, recovery flows, and concurrent operations. Ask the AI to identify the security invariants that should remain true across these transitions and then look for paths where those invariants can be violated [<a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP-ASVS5</a>].</p>
-<p>Finally, “if (like most) you lack some documentation, AI can help you write it, but again, review the results. If you’re using AI to create documentation [including documentation inline with the code], work bottom-up, so that the AI can maximally build on other documentation.” [<a href="https://openssf.org/blog/2026/01/05/ai-software-development-security-tips-and-the-future-part-2/">Wheeler2026</a>] This does mean that “professionals who have always written meticulous documentation, are now reaping new benefits from that always valuable practice” [<a href="https://blog.plover.com/tech/gpt/documentation-wins.html">Dominus2026-03-05</a>].</p>
+<p>When analyzing a system, examine security properties across transitions (including state transitions) and steady-state data flows. Vulnerabilities can appear during transitions such as authentication and re-authentication, token refresh and expiration, logout and revocation, account or role changes, retries, recovery flows, and concurrent operations. Ask the AI to identify the security invariants that should remain true across these transitions and then look for paths where those invariants can be violated [<a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP-ASVS5</a>].</p>
+<p>Finally, “if (like most) you lack some documentation, AI can help you write it, but again, review the results. If you’re using AI to create documentation [including documentation inline with the code], work bottom-up, so that the AI can maximally build on other documentation.” [<a href="https://openssf.org/blog/2026/01/05/ai-software-development-security-tips-and-the-future-part-2/">Wheeler2026</a>] This does mean that “professionals who have always written meticulous documentation are now reaping new benefits from that always valuable practice” [<a href="https://blog.plover.com/tech/gpt/documentation-wins.html">Dominus2026-03-05</a>].</p>
 <details class="quiz">
 <summary>
 Quiz
@@ -104,7 +104,7 @@ Answer: A
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="preparing-sandbox.html" accesskey="p" rel="previous">Preparing sandbox</a>
+      <span class="navlink-label">← Previous:</span> <a href="prepare-ai-logging.html" accesskey="p" rel="previous">Prepare AI logging</a>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="prepare-to-find-and-fix-vulnerabilities.html" accesskey="u" rel="up">Prepare to find and fix vulnerabilities</a>

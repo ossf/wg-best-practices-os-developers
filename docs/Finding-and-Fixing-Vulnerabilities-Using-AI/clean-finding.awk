@@ -36,6 +36,28 @@ function wrap_urls(s,    out, i, prev, url) {
     return out substr(s, i)
 }
 
+# Rewrite each in-document link target "](#target)" in s to the heading
+# ID that GitHub's algorithm computes, which markdownlint (MD051) checks:
+# lowercase, and drop everything but letters, digits, "-", and "_".
+# Google's export keeps other punctuation, e.g., "#preparing-ci/cd" for
+# the heading "Preparing CI/CD", whose ID is "preparing-cicd". This drops
+# all non-ASCII bytes, which is right for punctuation like "’" but would
+# be wrong for a heading with non-ASCII letters (there are none).
+# Pandoc (used by gen-html) computes the same IDs, except for headings
+# with "." or " & " (e.g., GitHub makes "Release & deploy" into
+# "release--deploy", pandoc "release-deploy"), so a link to one of those
+# passes markdownlint but breaks in the HTML.
+function fix_fragments(s,    out, t) {
+    out = ""
+    while (match(s, /\]\(#[^)]*\)/)) {
+        t = tolower(substr(s, RSTART + 3, RLENGTH - 4))
+        gsub(/[^a-z0-9_-]/, "", t)
+        out = out substr(s, 1, RSTART - 1) "](#" t ")"
+        s = substr(s, RSTART + RLENGTH)
+    }
+    return out s
+}
+
 # Value of attribute "name" in an HTML tag ("" if absent).
 function attr(tag, name,    re, v) {
     re = "[ \t]" name "=\"[^\"]*\""
@@ -194,6 +216,11 @@ in_toc {
 # in the Google Doc), use a new paragraph (Enter) instead.
 { sub(/[ \t]+$/, "") }
 
+# Block quotes: Google's export escapes a paragraph's leading ">" as
+# "\>", so it shows as a literal ">". A paragraph you start with ">" in
+# the Google Doc is meant as a block quote, so unescape it.
+{ sub(/^\\>/, ">") }
+
 # Turn the fixed "QUIZ" ... "Answer: ..." ... "ENDQUIZ" quiz
 # template into native, click-to-expand disclosure widgets: no JS, and
 # closed by default on their own. Hidden entirely for now via the
@@ -202,6 +229,12 @@ in_toc {
 /^[ \t]*QUIZ[ \t]*$/ { $0 = "<details class=\"quiz\"><summary>Quiz</summary>" }
 /^\**Answer:\** / { $0 = "<details><summary>Show answer</summary>" $0 "</details>" }
 /^[ \t]*ENDQUIZ[ \t]*$/ { $0 = "</details>" }
+
+# Put a blank line before each quiz. Without one, pandoc treats the
+# paragraph before the quiz as part of the HTML block, so it loses its
+# <p> (and paragraph styling). "blanks" counts the blank lines seen
+# since the last line printed (see MD047 below).
+/^<details class="quiz">/ && !blanks { blanks = 1 }
 
 # Images: when cleanup-markdown found Finding.zip (imgtags is set),
 # point each image at its file under images/ and drop Google's
@@ -230,6 +263,9 @@ match($0, /^[ \t]*(-|\*|\+|[0-9]+[.)])[ \t][ \t]+/) {
 
 # MD034: wrap bare URLs.
 { $0 = wrap_urls($0) }
+
+# MD051: in-document links must use GitHub's heading IDs.
+{ $0 = fix_fragments($0) }
 
 # MD047: buffer blank lines and only emit them once we know more
 # content follows, so trailing blank lines at EOF are dropped.

@@ -68,24 +68,24 @@
 <p>So while AI systems <em>can</em>, with a good model, sometimes find and fix some vulnerabilities, we usually want to be more thorough. How can we apply those processes, though?</p>
 <p>These added processes for finding and fixing vulnerabilities can be human-guided, automation-guided, or a mix:</p>
 <ul>
-<li><em>Human-guided processes</em>. These can be as simple as carefully walking an AI through a step-by-step process. For example, a human could demand that the AI focus on reporting all potential vulnerabilities as findings, completely separating validation of findings as a separate step. Doing this can reduce the risk of an AI model discounting a finding that <em>was</em> exploitable because the AI was doing both steps at once.</li>
+<li><em>Human-guided processes</em>. These can be as simple as carefully walking an AI through a step-by-step process. For example, a human could demand that the AI report all potential vulnerabilities as findings, completely separating the validation of those findings into a separate step. Doing this can reduce the risk of an AI model discounting a finding that <em>was</em> exploitable because the AI was doing both steps at once.</li>
 <li><em>Fully-automation-guided systems.</em> Such systems for this purpose are sometimes called “Cyber Reasoning Systems” (CRSs). As noted earlier, “A cyber reasoning system (CRS) is a software system that can both detect and repair software vulnerabilities autonomously in a given system under test (SUT).” [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]</li>
 <li><em>Mixed systems</em>. Systems may be partly automated but have mechanisms for humans to provide information and guidance as they go.</li>
 </ul>
 <p>Unsurprisingly, many different organizations and projects have developed processes to improve finding and fixing vulnerabilities using AI. As noted by Cycode, “AI-driven vulnerability discovery is no longer a single-vendor story. It is an industry capability, and it has arrived faster than most security programs are prepared for.” [<a href="https://cycode.com/blog/claude-mythos-security-readiness/">Cycode2026</a>]</p>
 <p>Here are a few examples of processes people have used (beyond the list from [<a href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>] and [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>] we showed earlier):</p>
 <ul>
-<li>[Wolf2026] emphasizes that AI can be most effective when it’s combined with existing analysis techniques. This paper describes the following components of a typical CRS:
+<li>[Wolf2026] emphasizes that AI is most effective when combined with existing analytical techniques. This paper describes the following components of a typical CRS:
 <ul>
 <li>Static analysis, harness generation (for dynamic analysis), input generation, crash analysis, patch generation, patch selection, and orchestration.</li>
 </ul></li>
-<li>Microsoft’s MDASH system uses a set of specialized AI agents working through a specialized staged pipeline, instead of a single really good model running in an agent framework. [Bishop2026]. Their harness orchestrates more than 100 specialized AI agents across an ensemble. It’s essentially a “structured pipeline that takes a code base and emits validated, proven findings” through these stages:
+<li>Microsoft’s MDASH system uses a set of specialized AI agents working through a staged pipeline, rather than a single, highly capable model running in an agent framework. [Bishop2026]. Their harness orchestrates more than 100 specialized AI agents across an ensemble. It’s essentially a “structured pipeline that takes a codebase and emits validated, proven findings” through these stages:
 <ul>
-<li>Prepare stage: Ingests the source target, builds language-aware indices, and then draws the attack surface and threat models by analyzing the past commits.</li>
+<li>Prepare stage: Ingests the source and target, builds language-aware indices, and then derives the attack surface and threat models by analyzing past commits.</li>
 <li>Scan stage: Runs specialized auditor agents over candidate code paths, emitting candidate findings with hypotheses and evidence.</li>
 <li>Validate stage: Runs a second cohort of agents—debaters—that argue for and against each finding’s reachability and exploitability.</li>
 <li>Dedupe stage: Collapses semantically equivalent findings (for example, patch-based grouping).</li>
-<li>Prove stage: Constructs and executes triggering inputs where the bug class admits it. The prove stage validates the pre-condition dynamically and formulates the bug-triggering inputs to prove existence of vulnerability (for example, ASan in C/C++).” [Kim2026]</li>
+<li>Prove stage: Constructs and executes triggering inputs that the bug class admits. The prove stage validates the pre-condition dynamically and formulates the bug-triggering inputs to prove [the existence of a] vulnerability (for example, ASan in C/C++).” [Kim2026]</li>
 </ul></li>
 </ul>
 <p>Most of these systems can be used with three types of scanning actions:</p>
