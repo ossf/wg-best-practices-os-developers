@@ -8,7 +8,7 @@
   <link rel="icon" href="/assets/logo.svg" />
   <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
-  <title>Finding and Fixing Vulnerabilities Using AI – Do multiple times due to non-determinism and long tail</title>
+  <title>Finding and Fixing Vulnerabilities Using AI – Run AI multiple times</title>
   <style>
     div.sitenav {
       display: flex;
@@ -53,7 +53,7 @@
       <span class="navlink-label">← Previous:</span> <a href="examples-of-relevant-tools-and-services.html" accesskey="p" rel="previous">Examples of relevant tools and services</a>
     </span>
     <span class="navlink nav-up">
-      <span class="navlink-label">Up:</span> <a href="decide-on-approaches.html" accesskey="u" rel="up">Decide on Approaches</a>
+      <span class="navlink-label">Up:</span> <a href="decide-on-approaches.html" accesskey="u" rel="up">Decide on approaches</a>
       <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
@@ -64,7 +64,7 @@
 
 
 
-<h2 data-number="3.8" id="do-multiple-times-due-to-non-determinism-and-long-tail"><span class="header-section-number">3.8</span> Do multiple times due to non-determinism and long tail</h2>
+<h2 data-number="3.8" id="run-ai-multiple-times"><span class="header-section-number">3.8</span> Run AI multiple times</h2>
 <p>Most modern AI systems are <em>not</em> deterministic. Even if you provide them the same inputs, they won’t necessarily produce the same outputs. That means you need to apply AI multiple times to find and fix vulnerabilities, especially on its first application to a project.</p>
 <p>Yan reports that “the first run on a codebase typically has the highest number of findings. Subsequent runs tend to have fewer—though often more complex—vulnerabilities, as the simpler ones were patched in prior runs. However, don’t expect the nth run to have zero new findings. Models are stochastic, and a large codebase can have a long tail of vulnerabilities that continue to trickle in even when the code is unchanged.” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]</p>
 <p>As a result, once you’ve gone through the process of finding and fixing vulnerabilities for a project for the first time, you’ll need to repeat it several times until it reliably fails to produce useful results across multiple approaches and systems.</p>
@@ -98,7 +98,7 @@ Answer: B
       <span class="navlink-label">← Previous:</span> <a href="examples-of-relevant-tools-and-services.html" accesskey="p" rel="previous">Examples of relevant tools and services</a>
     </span>
     <span class="navlink nav-up">
-      <span class="navlink-label">Up:</span> <a href="decide-on-approaches.html" accesskey="u" rel="up">Decide on Approaches</a>
+      <span class="navlink-label">Up:</span> <a href="decide-on-approaches.html" accesskey="u" rel="up">Decide on approaches</a>
       <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">

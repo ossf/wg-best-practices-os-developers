@@ -53,7 +53,7 @@
       <span class="navlink-label">← Previous:</span> <a href="why-ai-tends-to-be-more-effective-if-guided-by-processes.html" accesskey="p" rel="previous">Why AI tends to be more effective if guided by processes</a>
     </span>
     <span class="navlink nav-up">
-      <span class="navlink-label">Up:</span> <a href="decide-on-approaches.html" accesskey="u" rel="up">Decide on Approaches</a>
+      <span class="navlink-label">Up:</span> <a href="decide-on-approaches.html" accesskey="u" rel="up">Decide on approaches</a>
       <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
@@ -69,32 +69,31 @@
 <p>These added processes for finding and fixing vulnerabilities can be human-guided, automation-guided, or a mix:</p>
 <ul>
 <li><em>Human-guided processes</em>. These can be as simple as carefully walking an AI through a step-by-step process. For example, a human could demand that the AI report all potential vulnerabilities as findings, completely separating the validation of those findings into a separate step. Doing this can reduce the risk of an AI model discounting a finding that <em>was</em> exploitable because the AI was doing both steps at once.</li>
-<li><em>Fully-automation-guided systems.</em> Such systems for this purpose are sometimes called “Cyber Reasoning Systems” (CRSs). As noted earlier, “A cyber reasoning system (CRS) is a software system that can both detect and repair software vulnerabilities autonomously in a given system under test (SUT).” [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>]</li>
+<li><em>Fully-automation-guided systems.</em> Fully automated systems are the cyber reasoning systems (CRSs) we discussed earlier, discussed in materials such as [<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>].</li>
 <li><em>Mixed systems</em>. Systems may be partly automated but have mechanisms for humans to provide information and guidance as they go.</li>
 </ul>
 <p>Unsurprisingly, many different organizations and projects have developed processes to improve finding and fixing vulnerabilities using AI. As noted by Cycode, “AI-driven vulnerability discovery is no longer a single-vendor story. It is an industry capability, and it has arrived faster than most security programs are prepared for.” [<a href="https://cycode.com/blog/claude-mythos-security-readiness/">Cycode2026</a>]</p>
 <p>Here are a few examples of processes people have used (beyond the list from [<a href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>] and [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>] we showed earlier):</p>
 <ul>
-<li>[Wolf2026] emphasizes that AI is most effective when combined with existing analytical techniques. This paper describes the following components of a typical CRS:
+<li>[<a href="https://cacm.acm.org/research/large-language-models-in-software-security-analysis/">Wolff2026</a>] emphasizes that AI is most effective when combined with existing analytical techniques. This paper describes the following components of a typical CRS:
 <ul>
 <li>Static analysis, harness generation (for dynamic analysis), input generation, crash analysis, patch generation, patch selection, and orchestration.</li>
 </ul></li>
-<li>Microsoft’s MDASH system uses a set of specialized AI agents working through a staged pipeline, rather than a single, highly capable model running in an agent framework. [Bishop2026]. Their harness orchestrates more than 100 specialized AI agents across an ensemble. It’s essentially a “structured pipeline that takes a codebase and emits validated, proven findings” through these stages:
+<li>Microsoft’s MDASH system uses a set of specialized AI agents working through a staged pipeline, rather than a single, highly capable model running in an agent framework [<a href="https://www.geekwire.com/2026/microsofts-multi-agent-ai-system-tops-anthropics-mythos-on-cybersecurity-benchmark/">Bishop2026</a>]. Their harness orchestrates more than 100 specialized AI agents across an ensemble. It’s essentially a “structured pipeline that takes a codebase and emits validated, proven findings” through these stages:
 <ul>
 <li>Prepare stage: Ingests the source and target, builds language-aware indices, and then derives the attack surface and threat models by analyzing past commits.</li>
 <li>Scan stage: Runs specialized auditor agents over candidate code paths, emitting candidate findings with hypotheses and evidence.</li>
 <li>Validate stage: Runs a second cohort of agents—debaters—that argue for and against each finding’s reachability and exploitability.</li>
 <li>Dedupe stage: Collapses semantically equivalent findings (for example, patch-based grouping).</li>
-<li>Prove stage: Constructs and executes triggering inputs that the bug class admits. The prove stage validates the pre-condition dynamically and formulates the bug-triggering inputs to prove [the existence of a] vulnerability (for example, ASan in C/C++).” [Kim2026]</li>
+<li>Prove stage: Constructs and executes triggering inputs that the bug class admits. The prove stage validates the pre-condition dynamically and formulates the bug-triggering inputs to prove [the existence of a] vulnerability (for example, ASan in C/C++). [<a href="https://www.microsoft.com/en-us/security/blog/2026/05/12/defense-at-ai-speed-microsofts-new-multi-model-agentic-security-system-tops-leading-industry-benchmark/">Kim2026</a>]</li>
 </ul></li>
 </ul>
 <p>Most of these systems can be used with three types of scanning actions:</p>
 <ul>
-<li>Full Scans, where the full codebase is scanned all at once,</li>
-<li>Branch Scans, where a new branch (or each new branch) is scanned</li>
-<li>Pull Request (PR)/Merge Request (MR) Scans, like Branch Scans but findings are reported in the PR/MR which concern the branch (similar to how many humans perform review) [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>]</li>
+<li>Full scans, where the full codebase is scanned all at once,</li>
+<li>Branch scans, where a new branch (or each new branch) is scanned</li>
+<li>Pull Request (PR)/Merge Request (MR) scans, like branch scans but findings are reported in the PR/MR which concern the branch (similar to how many humans perform review) [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>]</li>
 </ul>
-<p>Cycode noted that independent research from AISLE has already shown that even small open-source models (including a 3.6-billion-parameter model with the right scaffolding) can find many of the same flagship vulnerabilities Mythos showcased. “Vulnerability discovery is commoditizing. The bottleneck is no longer finding bugs. It is deciding which ones to fix first, fast enough to matter.” [<a href="https://cycode.com/blog/claude-mythos-security-readiness/">Cycode2026</a>]</p>
 
 <nav class="sitenav-container">
   <div class="sitenav">
@@ -102,7 +101,7 @@
       <span class="navlink-label">← Previous:</span> <a href="why-ai-tends-to-be-more-effective-if-guided-by-processes.html" accesskey="p" rel="previous">Why AI tends to be more effective if guided by processes</a>
     </span>
     <span class="navlink nav-up">
-      <span class="navlink-label">Up:</span> <a href="decide-on-approaches.html" accesskey="u" rel="up">Decide on Approaches</a>
+      <span class="navlink-label">Up:</span> <a href="decide-on-approaches.html" accesskey="u" rel="up">Decide on approaches</a>
       <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
