@@ -8,7 +8,7 @@
   <link rel="icon" href="/assets/logo.svg" />
   <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
-  <title>Finding and Fixing Vulnerabilities Using AI – Basic terminology</title>
+  <title>Finding and Fixing Vulnerabilities Using AI – Basic AI terminology</title>
   <style>
     div.sitenav {
       display: flex;
@@ -64,7 +64,7 @@
 
 
 
-<h2 data-number="2.1" id="basic-terminology"><span class="header-section-number">2.1</span> Basic terminology</h2>
+<h2 data-number="2.1" id="basic-ai-terminology"><span class="header-section-number">2.1</span> Basic AI terminology</h2>
 <p>First, let’s go over a few basic AI terms. It’s likely you know many of these, but look over these terms to make sure you understand what we mean by them:</p>
 <ul>
 <li><em>Artificial Intelligence (AI)</em>: Simulated intelligence.</li>
@@ -74,8 +74,10 @@
 <li><em>Model</em>: A set of data and possibly corresponding programs, trained to identify data patterns to make predictions or decisions. ML systems typically train a model with large amounts of data, then later use that pre-trained model to repeatedly make predictions (“inferences”). Models are sized by the number of parameters; larger sizes tend to be better but require more memory and computation.</li>
 <li><em>Frontier model</em>: A model that is among the currently best available.</li>
 <li><em>Large Language Model (LLM)</em>: A deep learning model with many parameters trained to summarize, translate, and generate language. Text inputs and outputs of LLMs are split into tokens (word fragments). See [<a href="https://www.0xkato.xyz/how-llms-actually-work/">0xkato2026</a>] for a technical explanation of how LLMs work.</li>
-<li><em>AI chatbot</em>: An AI system designed to interact with a human but cannot perform actions that affect the external environment.</li>
+<li><em>AI chatbot</em>: An AI system that’s designed to interact with a human but cannot perform actions that affect the external environment.</li>
 <li><em>AI agent</em>: An autonomous AI system that can perceive its environment, plan, and execute multi-step actions that affect its environment using external tools to achieve a specific goal.</li>
+<li><em>Agent harness</em>: The program that runs an AI model as an agent, giving it tools and instructions, and running it in a control loop (to perceive, reason, act, and observe). Examples include Claude Code, Goose, and Pi. An agent harness can split work across multiple agents. Don’t confuse this with a fuzzing harness (a small program that feeds generated inputs to the code being tested) or a test harness.</li>
+<li><em>Agent skill</em>: A document (sometimes with supporting resources like programs) that tells an agent how to perform a specific task. Many agent systems load a skill only when it’s relevant to the current task.</li>
 </ul>
 <p>AI systems are <em>not</em> sentient. LLMs, for example, repeatedly generate likely next tokens (word fragments); they don’t “understand” in the sense that humans do. Yet scale matters. With many layers and parameters, modern AI systems can simulate intelligence, sometimes astonishingly.</p>
 <p>There’s also strong evidence that AI models have improved. One way to measure AI models is the “50%-task-completion time horizon” defined as the “time humans typically take to complete tasks that AI models can complete with a 50% success rate” [<a href="https://arxiv.org/abs/2503.14499">Kwa2025</a>]. As of 2025, “this metric has been consistently exponentially increasing over the past 6 years, with a doubling time of around 7 months” [<a href="https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/">Kwa2025-blog</a>].</p>

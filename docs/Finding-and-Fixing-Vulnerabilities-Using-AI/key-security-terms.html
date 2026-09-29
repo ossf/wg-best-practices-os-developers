@@ -8,7 +8,7 @@
   <link rel="icon" href="/assets/logo.svg" />
   <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
-  <title>Finding and Fixing Vulnerabilities Using AI – Course learning outcomes</title>
+  <title>Finding and Fixing Vulnerabilities Using AI – Key security terms</title>
   <style>
     div.sitenav {
       display: flex;
@@ -50,47 +50,42 @@
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="scope-of-this-material.html" accesskey="p" rel="previous">Scope of this material</a>
+      <span class="navlink-label">← Previous:</span> <a href="good-news-long-term-potential-for-eliminating-nearly-all-vulnerabilities.html" accesskey="p" rel="previous">Good news: Long-term potential for eliminating nearly all vulnerabilities</a>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="introduction.html" accesskey="u" rel="up">Introduction</a>
       <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
-      <span class="navlink-label">Next:</span> <a href="no-endorsement-intended.html" accesskey="n" rel="next">No endorsement intended</a> →
+      <span class="navlink-label">Next:</span> <a href="overview.html" accesskey="n" rel="next">Overview</a> →
     </span>
   </div>
 </nav>
 
 
 
-<h2 data-number="1.2" id="course-learning-outcomes"><span class="header-section-number">1.2</span> Course learning outcomes</h2>
-<p>When you complete this course, you will be able to:</p>
-<ol type="1">
-<li>Prepare to find and fix vulnerabilities. This includes how to prepare the AI and its sandbox, as well as how to prepare the software threat model, code/documentation, and CI/CD processes to make this more effective.</li>
-<li>Find &amp; fix vulnerabilities using AI. This includes:
-<ol type="1">
-<li>Knowing the value of separating the process of identifying findings from the process of validating them.</li>
-<li>How to identify findings (potential vulnerabilities), including mechanisms for increasing the likelihood of finding potential vulnerabilities such as using past vulnerability reports.</li>
-<li>How to deduplicate, validate, and triage findings.</li>
-<li>How to fix vulnerabilities, including the importance of ensuring that a defect is fully fixed.</li>
-<li>Knowing important aspects of reporting, releasing, and deploying the fixes.</li>
-<li>Understanding the need for repeatedly looking for vulnerabilities when using AI, given the non-deterministic nature of modern AI, where a single application may miss important issues.</li>
-</ol></li>
-<li>Prevent longer-term problems. This includes evaluating merge/pull requests, the need for secure-by-design and secure-by-default, and the importance of larger-scale hardening.</li>
-</ol>
+<h2 data-number="1.7" id="key-security-terms"><span class="header-section-number">1.7</span> Key security terms</h2>
+<p>Here are a few security terms we use throughout this material:</p>
+<ul>
+<li>Attacker (or adversary): Someone who attacks a system without authorization to try to make a system violate its security requirements, e.g., to steal or change data, or to take control of the system.</li>
+<li>Vulnerability: A defect that an attacker can exploit to violate some security requirement.</li>
+<li>Finding: A report that something might be a vulnerability. A finding isn’t a confirmed vulnerability until it’s validated.</li>
+<li>Exploit: To use a vulnerability to violate a security requirement; also, the input or program that does so.</li>
+<li>Proof of vulnerability (PoV): A specific input (plus any configuration it needs) that an attacker could supply to make the system fail its security requirements. A PoV is a specific demonstrated exploit. Many sources call this a proof of concept (PoC).</li>
+<li>Chaining: Combining multiple defects, each of which may seem harmless, into a working attack.</li>
+</ul>
 
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="scope-of-this-material.html" accesskey="p" rel="previous">Scope of this material</a>
+      <span class="navlink-label">← Previous:</span> <a href="good-news-long-term-potential-for-eliminating-nearly-all-vulnerabilities.html" accesskey="p" rel="previous">Good news: Long-term potential for eliminating nearly all vulnerabilities</a>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="introduction.html" accesskey="u" rel="up">Introduction</a>
       <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
-      <span class="navlink-label">Next:</span> <a href="no-endorsement-intended.html" accesskey="n" rel="next">No endorsement intended</a> →
+      <span class="navlink-label">Next:</span> <a href="overview.html" accesskey="n" rel="next">Overview</a> →
     </span>
   </div>
 </nav>

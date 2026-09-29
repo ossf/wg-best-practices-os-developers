@@ -8,7 +8,7 @@
   <link rel="icon" href="/assets/logo.svg" />
   <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
-  <title>Finding and Fixing Vulnerabilities Using AI – Prepare AI logging</title>
+  <title>Finding and Fixing Vulnerabilities Using AI – Preparing AI logging</title>
   <style>
     div.sitenav {
       display: flex;
@@ -50,7 +50,7 @@
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="preparing-sandbox.html" accesskey="p" rel="previous">Preparing sandbox</a>
+      <span class="navlink-label">← Previous:</span> <a href="preparing-the-sandbox.html" accesskey="p" rel="previous">Preparing the sandbox</a>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="prepare-to-find-and-fix-vulnerabilities.html" accesskey="u" rel="up">Prepare to find and fix vulnerabilities</a>
@@ -64,16 +64,16 @@
 
 
 
-<h2 data-number="4.4" id="prepare-ai-logging"><span class="header-section-number">4.4</span> Prepare AI logging</h2>
+<h2 data-number="4.4" id="preparing-ai-logging"><span class="header-section-number">4.4</span> Preparing AI logging</h2>
 <p>Mechanisms may fail, or you may want to later determine what did or did not happen. Therefore, enable logging of AI system activity, and log it in a way that the AI can’t delete or modify earlier log messages. These logs should record what the user requested and what the AI-enabled system did and replied. These logs enable detection, response, and recovery if something should go wrong.</p>
 <p>Individuals will often choose to have their harness or sandboxing system store logs in a directory that the AI itself cannot normally read or write. Organizations may want to have those logs sent to a separate system (like all other logs) so that even subversion or destruction of the original system cannot erase the log entries. Protect the logs from unauthorized viewing; they may contain sensitive information.</p>
-<p>Most AI systems have some form of logging. For example, by default Claude records transcripts in ~/.claude/ for 30 days. By default, the nono tool logs sandbox-relevant runtime operations, tool calls, mediated decisions, and capability or path access denials into a local, cryptographically verifiable session audit trail. That said, you may want to enable more logging or change what it does.</p>
-<p>Examine your logging configuration and adjust it <em>early</em>, before using the system seriously. You can change the logging configuration, but you can’t change the logging configuration of the past. If you might want to review some data later, make sure it’s recorded.</p>
+<p>Most AI systems have some form of logging. For example, by default Claude Code records transcripts in ~/.claude/ for 30 days. By default, the nono tool logs sandbox-relevant runtime operations, tool calls, mediated decisions, and capability or path access denials into a local, cryptographically verifiable session audit trail. That said, you may want to enable more logging or change what it does.</p>
+<p>Examine your logging configuration and adjust it <em>early</em>, before using the system seriously. You can change the logging configuration, but you can’t retroactively change the logging configuration for past events. If you might want to review some data later, make sure it’s recorded.</p>
 
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="preparing-sandbox.html" accesskey="p" rel="previous">Preparing sandbox</a>
+      <span class="navlink-label">← Previous:</span> <a href="preparing-the-sandbox.html" accesskey="p" rel="previous">Preparing the sandbox</a>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="prepare-to-find-and-fix-vulnerabilities.html" accesskey="u" rel="up">Prepare to find and fix vulnerabilities</a>
