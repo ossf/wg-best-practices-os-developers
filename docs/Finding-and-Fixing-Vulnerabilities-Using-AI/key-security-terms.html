@@ -71,7 +71,7 @@
 <li>Vulnerability: A defect that an attacker can exploit to violate some security requirement.</li>
 <li>Finding: A report that something might be a vulnerability. A finding isn’t a confirmed vulnerability until it’s validated.</li>
 <li>Exploit: To use a vulnerability to violate a security requirement; also, the input or program that does so.</li>
-<li>Proof of vulnerability (PoV): A specific input (plus any configuration it needs) that an attacker could supply to make the system fail its security requirements. A PoV is a specific demonstrated exploit. Many sources call this a proof of concept (PoC).</li>
+<li>Proof of concept (PoC) / proof of vulnerability (PoV): A concrete, reproducible demonstration that a vulnerability exists. Its core is a specific input (plus any configuration it needs) that makes the system fail its security requirements. It’s often packaged as “a script, a crashing input, or a failing test” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>], usually with a way to check the result. A PoC doesn’t need to be a complete, weaponized exploit. The term PoV is common in work related to DARPA’s AIxCC [<a href="https://arxiv.org/abs/2602.07666">Zhang2026</a>], though some sources use that term for somewhat different ideas.</li>
 <li>Chaining: Combining multiple defects, each of which may seem harmless, into a working attack.</li>
 </ul>
 

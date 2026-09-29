@@ -92,6 +92,7 @@
 <li><em>Make CI time acceptable (including testing)</em>. “If regression testing takes a day, you cannot get to a two-hour SLA without skipping it, and the bugs you ship when you skip regression testing tend to be worse than the bugs you were trying to patch.” [<a href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>] Thankfully, most of these tasks are <em>easily</em> parallelizable. Break them down and run them in parallel to reduce wall-clock time to acceptable times. You should be thinking about total minutes, at worst an hour, not a day or longer for most projects. Obviously, such short times can be challenging for operational technology (OT) or software that controls physical devices, but the principle of reducing CI time still applies. If CI takes too long, CI becomes the bottleneck.</li>
 <li><em>Speed deployment</em>. “Defenders need a continuous operating pipeline that moves from signal to context to action with minimal delay.” [<a href="https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/">CrowdStrike2026-FiveSteps</a>]</li>
 </ul>
+<p>If your CI/CD process may receive information from untrusted users, you need to protect against that. That <em>definitely</em> includes the case where an AI agent is reviewing proposals as part of CI/CD. We’ll discuss that later in the section <a href="evaluate-mergepull-requests.html#evaluate-mergepull-requests">evaluate merge/pull requests</a>.</p>
 <details class="quiz">
 <summary>
 Quiz
