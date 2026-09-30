@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 class Number():
     """
     Multithreading incompatible class missing locks.
-    Issue only occures with more than 1 million repetitions.
+    Issue only occurs with more than 1 million repetitions.
     """
     value = 0
     repeats = 1000000
@@ -39,12 +39,12 @@ if __name__ == "__main__":
     number = Number()
     logging.info("id=%i int=%s size=%s", id(number.value), number.value, sys.getsizeof(number.value))
     add = Thread(target=number.add)
-    substract = Thread(target=number.remove)
+    subtract = Thread(target=number.remove)
     add.start()
-    substract.start()
+    subtract.start()
 
     logging.info('Waiting for threads to finish...')
     add.join()
-    substract.join()
+    subtract.join()
 
     logging.info("id=%i int=%s size=%s", id(number.value), number.value, sys.getsizeof(number.value))

@@ -114,7 +114,7 @@ The pyscg main [readme.md](readme.md) is expected to contain:
 * Section such as "01 Introduction"
 * Rules in that section such as "pyscg-0040"
 * Rule related base or class level CWE
-* Rule relted single representitive CVE with CVSS and EPSS rating
+* Rule related single representative CVE with CVSS and EPSS rating
 * Automated detection
 * Automated correction
 

@@ -2,21 +2,47 @@
 # SPDX-License-Identifier: MIT
 """Compliant Code Example"""
 
-import threading
+class DbConnection:
+    """Class representing a database connection"""
+    def __init__(self):
+        self.connected = False
 
-lock = threading.Lock()
+    def _connect(self):
+        self.connected = True
+
+    def _disconnect(self):
+        self.connected = False
+
+    def read(self):
+        """Simulates an operation resulting in an error"""
+        if self.connected:
+            print("Reading from the database...")
+            raise RuntimeError("Database could not be read from!")
+
+    def __enter__(self):
+        """Perform operations when accessing the resource"""
+        self._connect()
+
+    def __exit__(self, exception_type, exception_value, traceback):
+        """Perform clean-up after the resource is no longer needed"""
+        self._disconnect()
 
 
-def perform_critical_operation():
-    with lock:
-        # the lock has been acquired using the 'with' statement and will be released when the block exits; even if an exception occurs
-        print("Lock acquired, performing critical operation...")
-        raise ValueError("Something went wrong!")
-        # This line will not be reached because of the exception above
-    print("Lock released.")
+def read_from_database(database):
+    """Simulates usage of a stateful resource"""
+    with database:
+        database.read()
 
 
+#####################
+# Exploiting above code example
+#####################
+
+
+my_db = DbConnection()
 try:
-    perform_critical_operation()
-except ValueError as e:
-    print(f"Caught exception: {e}")
+    read_from_database(my_db)
+except RuntimeError as e:
+    print("Error while trying to read: ", e)
+
+print("Is the connection open: ", my_db.connected)

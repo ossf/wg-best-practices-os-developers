@@ -8,7 +8,7 @@ In multithreaded programming, use synchronization mechanisms, such as locks, to 
 
 ## Eval Breaking Operations
 
-An update to Python 3.10 has introduced the change that prevents such issues from occurring under specific condition. The [[GH-18334 (2021)](https://github.com/python/cpython/pull/18334)] change has made it so that the GIL is released and re-aquired only after specific operations as opposed to a certain number of any of them. These operations, called "eval breaking", can be found in the `Python/ceval.c` file and call `CHECK_EVAL_BREAKER()` to check if the interpreter should process pending events, such as releasing GIL to switch threads. They don't include inplace operations, such as `INPLACE_ADD` (called when using the `+=` operator) but they do include `CALL_METHOD`. The `dis` library provides a disassembler for analyzing bytecode operations in specific functions [[Python docs 2025 - dis](https://docs.python.org/3/library/dis.html)].
+An update to Python 3.10 has introduced the change that prevents such issues from occurring under specific condition. The [[GH-18334 (2021)](https://github.com/python/cpython/pull/18334)] change has made it so that the GIL is released and re-acquired only after specific operations as opposed to a certain number of any of them. These operations, called "eval breaking", can be found in the `Python/ceval.c` file and call `CHECK_EVAL_BREAKER()` to check if the interpreter should process pending events, such as releasing GIL to switch threads. They don't include inplace operations, such as `INPLACE_ADD` (called when using the `+=` operator) but they do include `CALL_METHOD`. The `dis` library provides a disassembler for analyzing bytecode operations in specific functions [[Python docs 2025 - dis](https://docs.python.org/3/library/dis.html)].
 
 The `example01.py` code example demonstrates the issue. Its output will differ depending on the version of Python. Before Python 3.10, both `direct_add` and `method_calling_add` were at risk of race conditions. After Python 3.10 changed how eval breaking operations are handled [[GH-18334 (2021)](https://github.com/python/cpython/pull/18334)], `direct_add` should not require additional locks while `method_calling_add` might give unpredictable results without them:
 
@@ -102,7 +102,7 @@ logging.basicConfig(level=logging.INFO)
 class Number():
     """
     Multithreading incompatible class missing locks.
-    Issue only occures with more than 1 million repetitions.
+    Issue only occurs with more than 1 million repetitions.
     """
     value = 0
     repeats = 1000000
@@ -130,13 +130,13 @@ if __name__ == "__main__":
     number = Number()
     logging.info("id=%i int=%s size=%s", id(number.value), number.value, sys.getsizeof(number.value))
     add = Thread(target=number.add)
-    substract = Thread(target=number.remove)
+    subtract = Thread(target=number.remove)
     add.start()
-    substract.start()
+    subtract.start()
 
     logging.info('Waiting for threads to finish...')
     add.join()
-    substract.join()
+    subtract.join()
 
     logging.info("id=%i int=%s size=%s", id(number.value), number.value, sys.getsizeof(number.value))
 
@@ -183,17 +183,20 @@ class Number():
     def add(self):
         """Simulating hard work"""
         for _ in range(self.repeats):
-            logging.debug("Number.add: id=%i int=%s size=%s", id(self.value), self.value, sys.getsizeof(self.value))
-            self.lock.acquire()
-            self.value += self.read_amount()
-            self.lock.release()
+            logging.debug(
+                "Number.add: id=%i int=%s size=%s",
+                id(self.value),
+                self.value,
+                sys.getsizeof(self.value),
+                )
+            with self.lock:
+                self.value += self.read_amount()
 
     def remove(self):
         """Simulating hard work"""
         for _ in range(self.repeats):
-            self.lock.acquire()
-            self.value -= self.read_amount()
-            self.lock.release()
+            with self.lock:
+                self.value -= self.read_amount()
 
     def read_amount(self):
         """ Simulating reading amount from an external source, i.e. a file, a database, etc. """
@@ -205,17 +208,27 @@ if __name__ == "__main__":
     # exploiting above code example
     #####################
     number = Number()
-    logging.info("id=%i int=%s size=%s", id(number.value), number.value, sys.getsizeof(number.value))
+    logging.info(
+        "id=%i int=%s size=%s",
+        id(number.value),
+        number.value,
+        sys.getsizeof(number.value)
+        )
     add = Thread(target=number.add)
-    substract = Thread(target=number.remove)
+    subtract = Thread(target=number.remove)
     add.start()
-    substract.start()
+    subtract.start()
 
     logging.info('Waiting for threads to finish...')
     add.join()
-    substract.join()
+    subtract.join()
 
-    logging.info("id=%i int=%s size=%s", id(number.value), number.value, sys.getsizeof(number.value))
+    logging.info(
+        "id=%i int=%s size=%s",
+        id(number.value),
+        number.value,
+        sys.getsizeof(number.value)
+        )
 
 ```
 
@@ -226,6 +239,8 @@ INFO:root:id=2799840487696 int=0 size=24
 INFO:root:Waiting for threads to finish...
 INFO:root:id=2799840487696 int=0 size=24
 ```
+
+As per [pyscg-0052: Ensure Cleanup on Exceptions](../../05_exception_handling/pyscg-0052/README.md), it is recommended to use the lock within a `with` block to ensure it gets released even if an exception occurs.
 
 ## Method Chaining
 
@@ -343,21 +358,20 @@ LOCK = threading.Lock()
 def thread_function(animal: "Animal", animal_name: str, animal_sound: str):
     """Function that changes animal's characteristics using method chaining"""
     for _ in range(3):
-        LOCK.acquire()
-        logging.info(
-            "Thread: starting - %s goes %s",
-            animal.name,
-            animal.sound,
-        )
-        # First time, name and sound will be blank because
-        # the object isn't initialized yet.
-        animal.set_name(animal_name).set_sound(animal_sound)
-        logging.info(
-            "Thread: finishing - %s goes %s",
-            animal.name,
-            animal.sound,
-        )
-        LOCK.release()
+        with LOCK:
+            logging.info(
+                "Thread: starting - %s goes %s",
+                animal.name,
+                animal.sound,
+            )
+            # First time, name and sound will be blank because
+            # the object isn't initialized yet.
+            animal.set_name(animal_name).set_sound(animal_sound)
+            logging.info(
+                "Thread: finishing - %s goes %s",
+                animal.name,
+                animal.sound,
+            )
         # Simulate a longer operation on non-shared resources
         for i in range(10, 1000):
             _ = (secrets.randbelow(i) + 1) / i
@@ -454,7 +468,7 @@ if __name__ == "__main__":
     </tr>
     <tr>
         <td>[GH-18334 (2021)]</td>
-        <td>GitHub CPython bpo-29988: Only check evalbreaker after calls and on backwards egdes. #18334 [online]. Available from: <a href="https://github.com/python/cpython/pull/18334">https://github.com/python/cpython/pull/18334</a>,  [Accessed 18 September 2025]</td>
+        <td>GitHub CPython bpo-29988: Only check evalbreaker after calls and on backwards edges. #18334 [online]. Available from: <a href="https://github.com/python/cpython/pull/18334">https://github.com/python/cpython/pull/18334</a>,  [Accessed 18 September 2025]</td>
     </tr>
     <tr>
         <td>[Bloch 2017]</td>

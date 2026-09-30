@@ -22,17 +22,20 @@ class Number():
     def add(self):
         """Simulating hard work"""
         for _ in range(self.repeats):
-            logging.debug("Number.add: id=%i int=%s size=%s", id(self.value), self.value, sys.getsizeof(self.value))
-            self.lock.acquire()
-            self.value += self.read_amount()
-            self.lock.release()
+            logging.debug(
+                "Number.add: id=%i int=%s size=%s",
+                id(self.value),
+                self.value,
+                sys.getsizeof(self.value),
+                )
+            with self.lock:
+                self.value += self.read_amount()
 
     def remove(self):
         """Simulating hard work"""
         for _ in range(self.repeats):
-            self.lock.acquire()
-            self.value -= self.read_amount()
-            self.lock.release()
+            with self.lock:
+                self.value -= self.read_amount()
 
     def read_amount(self):
         """ Simulating reading amount from an external source, i.e. a file, a database, etc. """
@@ -44,14 +47,24 @@ if __name__ == "__main__":
     # exploiting above code example
     #####################
     number = Number()
-    logging.info("id=%i int=%s size=%s", id(number.value), number.value, sys.getsizeof(number.value))
+    logging.info(
+        "id=%i int=%s size=%s",
+        id(number.value),
+        number.value,
+        sys.getsizeof(number.value)
+        )
     add = Thread(target=number.add)
-    substract = Thread(target=number.remove)
+    subtract = Thread(target=number.remove)
     add.start()
-    substract.start()
+    subtract.start()
 
     logging.info('Waiting for threads to finish...')
     add.join()
-    substract.join()
+    subtract.join()
 
-    logging.info("id=%i int=%s size=%s", id(number.value), number.value, sys.getsizeof(number.value))
+    logging.info(
+        "id=%i int=%s size=%s",
+        id(number.value),
+        number.value,
+        sys.getsizeof(number.value)
+        )

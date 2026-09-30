@@ -496,7 +496,7 @@ For existing code where `counted_by` nor `sized_by` cannot be used without re-or
 
 ~~~c
 struct Buffer {
-  /* Refering to `count` requires late parsing */
+  /* Referring to `count` requires late parsing */
   char* buffer [[clang::counted_by(count)]];
   /* Swapping `buffer` and `count` to avoid late parsing would break ABI */
   size_t count;
