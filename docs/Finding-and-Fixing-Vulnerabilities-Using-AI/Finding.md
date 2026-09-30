@@ -4,7 +4,7 @@
 
 David A. Wheeler and OpenSSF Contributors
 
-This is a guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using artificial intelligence (AI). We intend to create a course using this guide. This guide/course is a joint effort between the OpenSSF Best Practices working group (WG) and the OpenSSF AI/ML WG.
+This is a guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using artificial intelligence (AI). We intend to create a course using this guide. This material is a joint effort between the OpenSSF Best Practices working group (WG) and the OpenSSF AI/ML WG.
 
 # Introduction
 
@@ -12,7 +12,7 @@ Welcome to “Finding and Fixing Software Vulnerabilities Using AI: A Guide for 
 
 ## Scope of this material
 
-This is a guide/course on finding and fixing vulnerabilities in software using artificial intelligence (AI)/machine learning (ML). It is intended for:
+This is material on finding and fixing vulnerabilities in software using artificial intelligence (AI)/machine learning (ML). It is intended for:
 
 * *software developers*, to help them find and fix vulnerabilities in software (especially software they’re responsible for), and for
 * *security researchers*, who are trying to help those software developers.
@@ -23,18 +23,18 @@ We don’t focus on any one *specific* system to do this. Many systems can help 
 
 For a more general introduction on applying AI/ML to software development and security, see our course *Secure AI/ML-Driven Software Development (LFEL1012)* at [https://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/](https://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/).
 
-Please note that this course does NOT focus on the following topics:
+Please note that this material does NOT focus on the following topics:
 
 1. Building AI models & AI systems.
-2. Building/fixing software or systems that include AI. This course is still applicable, but we don’t discuss anything special related to that situation.
+2. Building/fixing software or systems that include AI. This material is still applicable, but we don’t discuss anything special related to that situation.
 3. How to write secure software in general. Please take our LFD121 course to learn that.
 4. Evaluating malicious or possibly-malicious software. We’re presuming that software developers are investigating their own software or software they want to contribute to, and that it isn’t intended to be malicious. The focus here is on *unintentional* vulnerabilities.
 
 This material is a joint effort between the OpenSSF Best Practices working group (WG) and the OpenSSF AI/ML WG. Its lead author is David A. Wheeler. Reviewers include Laura Guazzelli.
 
-## Course learning outcomes
+## Learning outcomes
 
-When you complete this course, you will be able to:
+When you complete this material, you will be able to:
 
 1. Prepare to find and fix vulnerabilities. This includes how to prepare the AI and its sandbox, as well as how to prepare the software threat model, code/documentation, and CI/CD processes to make this more effective.
 2. Find & fix vulnerabilities using AI. This includes:
@@ -48,13 +48,13 @@ When you complete this course, you will be able to:
 
 ## No endorsement intended
 
-This course will mention many AI models, systems, tools, and services. However, no specific endorsement is intended. Specific technologies may have changed by the time you read this, since the industry is undergoing rapid change.
+This material mentions many AI models, systems, tools, and services. However, no specific endorsement is intended. Specific technologies may have changed by the time you read this, since the industry is undergoing rapid change.
 
 Our focus is on general principles that are less likely to change. The specific models, services, and statistics we cite reflect what was known when this material was last reviewed; expect them to change, while the practices should generally remain valid.
 
 ## Why this is important
 
-This course is critically important for today’s software developers and security researchers. AI has become incredibly good at finding vulnerabilities, for both attackers *and* defenders. This is requiring defenders to *rapidly* find and fix vulnerabilities using AI. If they don’t, their resulting systems will be repeatedly taken over by attackers who are *already* using AI. CrowdStrike found that even back in 2025, “AI-enabled adversaries increased attacks by 89% year-over-year” \[[CrowdStrike2026-Global](https://go.crowdstrike.com/2026-global-threat-report.html)\]. That’s accelerating now.
+This material is critically important for today’s software developers and security researchers. AI has become incredibly good at finding vulnerabilities, for both attackers *and* defenders. This is requiring defenders to *rapidly* find and fix vulnerabilities using AI. If they don’t, their resulting systems will be repeatedly taken over by attackers who are *already* using AI. CrowdStrike found that even back in 2025, “AI-enabled adversaries increased attacks by 89% year-over-year” \[[CrowdStrike2026-Global](https://go.crowdstrike.com/2026-global-threat-report.html)\]. That’s accelerating now.
 
 There are many reasons this topic is important. Here we summarize them, with quotes and citations showing that this is *real*. In short, AI has sped up vulnerability-finding, attackers are using that increased speed to accelerate their attacks, and traditional manual closed processes are failing to keep up. Yet there is still a role for humans, *if* the humans understand how to apply AI to it
 
@@ -208,7 +208,7 @@ D) A chatbot can perceive its environment, while an AI agent can't
 
 ## Strengths and weaknesses
 
-Most current AI systems build on LLMs or similar technologies, so they inherit the strengths and weaknesses of those technologies. Their strengths are what make this course possible: they can read and reason about large amounts of code quickly, use tools, and work tirelessly and in parallel. As a result, they can find many vulnerabilities humans and other tools have missed.
+Most current AI systems build on LLMs or similar technologies, so they inherit the strengths and weaknesses of those technologies. Their strengths are what make this material possible: they can read and reason about large amounts of code quickly, use tools, and work tirelessly and in parallel. As a result, they can find many vulnerabilities humans and other tools have missed.
 
 However, they also have key weaknesses that impact finding and fixing software vulnerabilities:
 
@@ -580,7 +580,7 @@ Of course, once findings (potential vulnerabilities) are found, and then validat
 
 🎬See the video “[Types of CRS](https://drive.google.com/file/d/1WDzVSKiICy-yGtEwuWLKfreXYkp2BkAt/view?usp=sharing)” for an illustration of how vulnerability reports generated by one system can flow into another system designed to fix them.
 
-There is a risk that overprescribing an approach to an AI may overconstrain it, causing it to ignore problems it would otherwise find. It’s also possible that future AI models will be so good that aiding them with processes won’t help. However, since many analysts report that aiding AI models does help, we’ll discuss doing that combination in this course.
+There is a risk that overprescribing an approach to an AI may overconstrain it, causing it to ignore problems it would otherwise find. It’s also possible that future AI models will be so good that aiding them with processes won’t help. However, since many analysts report that aiding AI models does help, we’ll discuss doing that combination in this material.
 
 ![A robot is working down a checklist, with the first few items checked off.](images/robot-working-down-checklist-first-few.png){width=435 height=237}
 
@@ -676,7 +676,7 @@ Open source tools that focus on using AI to find and/or fix vulnerabilities, at 
 7. Knostic OpenAnt. This analyzes code units reachable from external entry points, then tries to exploit candidate vulnerabilities in sandboxed containers, keeping only what survives. Knostic also offers free scans for open source projects \<[https://github.com/knostic/OpenAnt](https://github.com/knostic/OpenAnt)\> \[[Korda2026](https://arxiv.org/abs/2606.19149)\]
 8. OpenAI Codex Security CLI and TypeScript SDK. The client is open source (Apache-2.0), but it uses OpenAI’s Codex Security service, so you need an OpenAI account or API key \<[https://github.com/openai/codex-security](https://github.com/openai/codex-security)\>
 
-Let’s look more closely at two of these, OpenSSF Alpha-Omega’s Scrutineer and OpenSSF OSS-CRS. They illustrate two ends of a range: a relatively simple set of skills, and a framework for running many CRSs at once. They’re open source software projects of the OpenSSF, which produces this course.
+Let’s look more closely at two of these, OpenSSF Alpha-Omega’s Scrutineer and OpenSSF OSS-CRS. They illustrate two ends of a range: a relatively simple set of skills, and a framework for running many CRSs at once. They’re open source software projects of the OpenSSF, which produces this material.
 
 ### Scrutineer
 
