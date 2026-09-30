@@ -1340,10 +1340,9 @@ D) The programming language used in the vulnerable component; this material reco
 
 Once vulnerabilities are found, those vulnerabilities need to be *fixed*.
 
-Finding vulnerabilities is useless for a defender unless those vulnerabilities are fixed. If vulnerabilities are not fixed efficiently, it can become completely overwhelming. For example, here is the number of bug fixes in the Chrome browser, showing a huge rise in 2026 (compared to 2024-2025) caused by AI-discovered vulnerability reports:
+Finding vulnerabilities is useless for a defender unless those vulnerabilities are fixed. If vulnerabilities are not fixed efficiently, it can become completely overwhelming. For example, here is the number of bug fixes in the Chrome browser, showing a huge rise in 2026 (compared to 2024-2025) caused by AI-discovered defect reports \[[Chrome2026](https://blog.google/security/chrome-stronger-with-every-update/)\]:
 
-![Number of Chrome bug fixes by milestone, with a dramatic increase in fixes in 2026 due to AI vulnerability reports.](images/number-chrome-bug-fixes-by-milestone.png){width=517 height=291}
-Chrome bug fixes by milestone dramatically grew in 2026 due to AI \[[Chrome2026](https://blog.google/security/chrome-stronger-with-every-update/)\]
+![Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports](images/chrome-bug-fixes-by-milestone-showing.png){width=517 height=291}
 
 Firefox had a similar experience. Mozilla reported, “We fixed a total of 423 security bugs in releases in April. In addition to the 271 bugs announced two weeks ago, there were 41 externally reported bugs, with the remaining 111 discovered internally” \[[Grinstead2026-05](https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/)\].
 
