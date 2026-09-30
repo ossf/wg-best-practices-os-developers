@@ -1,6 +1,6 @@
 # pyscg-0003: Use Arithmetic Over Bitwise Operations
 
-Avoid mixing bitwise shifts with arithmetic operations. Use clear mathematical expressions instead to maintain predictable behavior, readability, and compatibility.
+Avoid mixing bitwise shifts with arithmetic operations, instead, use clear mathematical expressions instead to maintain predictable behavior, readability, and compatibility.
 
 Ensure to know what bit-wise shift operators do in case you can not avoid them as recommended in NUM01-J. Do not perform bitwise and arithmetic operations on the same data [[SEI CERT JAVA 2024](https://wiki.sei.cmu.edu/confluence/display/java/NUM01-J.+Do+not+perform+bitwise+and+arithmetic+operations+on+the+same+data)] and use math instead.
 
@@ -26,7 +26,7 @@ Bitwise operations are fine when data is actually a bit collection: flags/masks,
 
 ## Non-compliant Code Example (Left Shift)
 
-Multiplication by `4` can be achieved by a `2x` left shift. The `noncompliant01.py` code demonstrates an attempt to calculate `8 * 4 + 10` in one line.
+Multiplication by `4` can be archived by a `2x` left shift. The `noncompliant01.py` code demonstrates an attempt to calculate `8 * 4 + 10` in one line.
 
 *[noncompliant01.py](noncompliant01.py):*
 
@@ -56,9 +56,9 @@ print(8 * 4 + 10)
 
 It is recommended by *[pyscg-0002: Guard Fixed-Width Numbers Against Overflow](../pyscg-0002/README.md)* to also check for under or overflow.
 
-## Non-compliant Code Example (Right Shift)
+## Non-compliant Code Example (Bitfield Flags)
 
-The `noncompliant02.py` code example is using an arithmetic right shift `>>=` operator in an attempt to optimize performance for dividing `x` by `4` without floating point.
+Flags are commonly packed into a single integer and combined with bitwise OR (for example `re.IGNORECASE | re.MULTILINE` or `os.O_RDWR | os.O_CREAT`). The `noncompliant02.py` code treats such a bitfield as a number and uses arithmetic `+=` to set a flag.
 
 *[noncompliant02.py](noncompliant02.py):*
 
@@ -67,17 +67,24 @@ The `noncompliant02.py` code example is using an arithmetic right shift `>>=` op
 # SPDX-License-Identifier: MIT
 """ Non-compliant Code Example """
 
-foo: int
-foo = -50
-foo >>= 2
-print(foo)
+FLAG_READ = 0b0001
+FLAG_WRITE = 0b0010
+FLAG_EXECUTE = 0b0100
+
+perms = FLAG_READ | FLAG_EXECUTE
+perms += FLAG_WRITE  # arithmetic on a bitfield
+perms += FLAG_WRITE  # setting WRITE again carries into the next bit
+
+print(f"perms = {perms:04b}")
+print(f"has WRITE?   {bool(perms & FLAG_WRITE)}")
+print(f"has EXECUTE? {bool(perms & FLAG_EXECUTE)}")
 ```
 
-This prints `-13` instead of the expected `-12`. Python's right shift on negative values is arithmetic (sign-extending) and truncates toward negative infinity, not toward zero as integer division would in many other languages.
+Adding `FLAG_WRITE` the first time happens to work, but adding it a second time carries into the neighbouring bit, changing `0111` to `1001`. Both `WRITE` and `EXECUTE` now read as unset and an undefined bit is set instead, silently corrupting a later permission check.
 
-## Compliant Solution (Right Shift)
+## Compliant Solution (Bitfield Flags)
 
-The right shift is replaced by division in `compliant02.py`.
+The `compliant02.py` code uses bitwise OR `|=` to set the flag. Unlike addition, OR is idempotent, so setting an already-set flag is harmless.
 
 *[compliant02.py](compliant02.py):*
 
@@ -86,11 +93,20 @@ The right shift is replaced by division in `compliant02.py`.
 # SPDX-License-Identifier: MIT
 """ Compliant Code Example """
 
-foo: int = -50
-bar: float = foo / 4
-print(bar)
+FLAG_READ = 0b0001
+FLAG_WRITE = 0b0010
+FLAG_EXECUTE = 0b0100
 
+perms = FLAG_READ | FLAG_EXECUTE
+perms |= FLAG_WRITE  # bitwise OR sets the bit
+perms |= FLAG_WRITE  # idempotent: setting it again is harmless
+
+print(f"perms = {perms:04b}")
+print(f"has WRITE?   {bool(perms & FLAG_WRITE)}")
+print(f"has EXECUTE? {bool(perms & FLAG_EXECUTE)}")
 ```
+
+For flag sets, prefer [`enum.IntFlag`](https://docs.python.org/3/library/enum.html#enum.IntFlag), which models bit flags as first-class members and prevents accidental arithmetic on them.
 
 ## Automated Detection
 
