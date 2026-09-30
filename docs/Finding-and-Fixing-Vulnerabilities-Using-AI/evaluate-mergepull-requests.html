@@ -78,12 +78,38 @@
 <p>In the 2025 “s1ngularity” attack, compromised versions of the Nx build package ran any installed Claude, Gemini, or Amazon Q command-line agent on a developer’s system with its permission checks disabled (e.g., --dangerously-skip-permissions) and used it to search the developer’s system for secrets. StepSecurity called this “the first known case where attackers have turned developer AI assistants into tools for supply chain exploitation” [<a href="https://www.stepsecurity.io/blog/supply-chain-security-alert-popular-nx-build-system-package-compromised-with-data-stealing-malware">Kurmi2025</a>]. As we noted earlier, it’s important to run agents inside a sandbox.</p>
 <p>If you run an AI agent on untrusted proposed changes:</p>
 <ol type="1">
-<li>Don’t give that agent secrets or write-capable tokens. By default, GitHub Actions doesn’t expose secrets to pull requests from forks, but some workflows grant that access anyway, e.g., by using the pull_request_target trigger [<a href="https://oddguan.com/blog/comment-and-control-prompt-injection-credential-theft-claude-code-gemini-cli-github-copilot/">Guan2026</a>]. Don’t do that for AI agents.</li>
-<li>Give a review agent the fewest tools practical [<a href="https://www.aikido.dev/blog/promptpwnd-github-actions-ai-agents">Daelman2025</a>]. A reviewer of a proposed change usually needs to read code and produce a report; it rarely needs a shell, network access, or permission to push, merge, or edit issues. An agent used to <em>find</em> vulnerabilities may need more capabilities, but reviewing a proposed change from an untrusted proposer is different.</li>
-<li>Where an agent needs credentials, use short-lived, narrowly scoped ones.</li>
-<li>Treat the agent’s output as untrusted data. Don’t let it automatically trigger privileged actions; put a human gate in front of them (see “Establish a human gate and kill switch”).</li>
-<li>Separate analysis from action. A low-privilege agent can analyze and report, while a different, trusted process (or a human) decides what to do with that report.</li>
+<li><em>Don’t give that agent secrets or write-capable tokens</em>. By default, GitHub Actions doesn’t expose secrets to pull requests from forks, but some workflows grant that access anyway, e.g., by using the pull_request_target trigger [<a href="https://oddguan.com/blog/comment-and-control-prompt-injection-credential-theft-claude-code-gemini-cli-github-copilot/">Guan2026</a>]. Don’t do that for AI agents.</li>
+<li><em>Give a review agent the fewest tools practical</em> [<a href="https://www.aikido.dev/blog/promptpwnd-github-actions-ai-agents">Daelman2025</a>]. A reviewer of a proposed change usually needs to read code and produce a report; it rarely needs a shell, network access, or permission to push, merge, or edit issues. An agent used to <em>find</em> vulnerabilities may need more capabilities, but reviewing a proposed change from an untrusted proposer is different.</li>
+<li><em>Where an agent needs credentials, use short-lived, narrowly scoped ones</em>.</li>
+<li><em>Treat the agent’s output as untrusted data</em>. Don’t let it automatically trigger privileged actions; put a human gate in front of them (see “Establish a human gate and kill switch”).</li>
+<li><em>Separate analysis from action</em>. A low-privilege agent can analyze and report, while a <em>different</em>, trusted process (or a human) should decide what to do with that report.</li>
 </ol>
+<figure>
+<img src="images/robot-sandbox-passing-approved-set-pages.png" width="414" height="225" alt="A robot is in a sandbox and is passing an approved set of pages to a man outside the sandbox" />
+<figcaption aria-hidden="true">A robot is in a sandbox and is passing an approved set of pages to a man outside the sandbox</figcaption>
+</figure>
+<details class="quiz">
+<summary>
+Quiz
+</summary>
+<details class="quiz">
+<summary>
+Quiz
+</summary>
+<p>Q1. Why is it risky to run an AI review agent that has repository secrets on pull requests from untrusted contributors?</p>
+<ol type="A">
+<li>Text an attacker puts in the pull request can instruct the agent to leak secrets or take other actions</li>
+<li>Review agents usually approve changes from new contributors without examining the proposed code closely</li>
+<li>Secrets given to the agent become part of the model’s training data and can appear in later responses</li>
+<li>Untrusted changes force the agent to use a far larger context window, which sharply raises its costs</li>
+</ol>
+<details>
+<summary>
+Show answer
+</summary>
+Answer: A
+</details>
+</details>
 
 <nav class="sitenav-container">
   <div class="sitenav">

@@ -72,9 +72,9 @@
 <li><em>External service</em>: Processing occurs as a service external to the user and the user’s organization.</li>
 <li><em>Local/organizational service</em>: Processing occurs on the user’s computer or the user’s organization’s computer.</li>
 </ul>
-<p>Some powerful models can <em>only</em> be accessed as an external service. Many models have so many parameters and require so much computation that most users and organizations couldn’t run them on their own systems. However, the user of an external service must trust the service provider, for example, that their data will not be disclosed or exploited, that the service won’t attack them, and that the service will remain available.</p>
+<p>Some powerful models can <em>only</em> be accessed as an external service. Many models have so many parameters and require so much computation that most users and organizations couldn’t run them on their own systems, even if they wanted to. However, if you use an external service, you must trust both the service provider and the wider ecosystem around it. You need to be satisfied that your data won’t be disclosed or exploited, that the service won’t attack you, and that the service will remain available. That last point can fail even when the provider isn’t at fault: in June 2026, a US government directive briefly forced Anthropic to “abruptly disable Fable 5 and Mythos 5 for all our customers” [<a href="https://www.anthropic.com/news/fable-mythos-access">Anthropic2026-06-12-Export-Control</a>]. The US Department of Commerce lifted those controls at the end of that same month, but access to Mythos 5 was initially restored only for some US organizations [<a href="https://www.cnbc.com/2026/06/30/anthropic-says-trump-admin-has-lifted-export-controls-on-claude-fable-5-and-mythos-5.html">Capoot2026</a>].</p>
 <p>Many organizations use external services. Before using any external service, evaluate the external organization and put in place any necessary contractual agreements. In particular, ensure that sensitive data is not sent to them <em>or</em> ensure that their practices for handling that data are appropriate for your circumstances.</p>
-<p>Other AI models can be used locally or as part of an organization’s own service. These models are often less capable, but they don’t require users to send their private data to an external service and can be less expensive.</p>
+<p>Other AI models can be used locally or as part of an organization’s own service. These models are often less capable, but if run locally, they don’t require users to send their private data to an external service and can be less expensive.</p>
 <p>Exactly what you can and can’t do with the model depends largely on its license. That includes the ability to run a model locally at all. So, let’s briefly discuss licenses.</p>
 <h3 data-number="2.3.2" id="licenses"><span class="header-section-number">2.3.2</span> Licenses</h3>
 <p>There are different ways to license a model. The word “license” means “permission”; a license determines how you can (and can’t) use whatever is licensed. In particular, AI models are much easier to run on local or organizational systems if their licenses are more open.</p>
@@ -86,7 +86,7 @@
 <li><em>Closed models</em>. These models don’t meet the requirements for open models.</li>
 </ul>
 <p>Some licenses are close to an open weights license yet have some extra restrictions on use.</p>
-<p>NVIDIA argues that “open models and open harnesses are essential because they democratize defensive capabilities, increase transparency for defenders, enable cyber defense while protecting data, and complement frontier closed models with customizable, localized controls… it will be crucial to recognize open models, harnesses and security tooling as defensive assets, not liabilities, in AI and cybersecurity policy. Blanket restrictions on open frontier AI systems would weaken defensive capacity and risk concentrating power, dependence and vulnerability in a few closed providers.” [<a href="https://blogs.nvidia.com/blog/open-secure-ai-alliance/">NVIDIA2026</a>]</p>
+<p>NVIDIA argues that “open models and open harnesses are essential because they democratize defensive capabilities, increase transparency for defenders, enable cyber defense while protecting data, and complement frontier closed models with customizable, localized controls…” [<a href="https://blogs.nvidia.com/blog/open-secure-ai-alliance/">NVIDIA2026</a>]</p>
 <p>Comparing the capabilities of specific models, including those with differing license terms, is outside our scope and constantly changes anyway. However, [<a href="https://www.npr.org/2026/04/11/nx-s1-5778508/anthropic-project-glasswing-ai-cybersecurity-mythos-preview">NPR2026</a>] reports that “The most advanced open-weight models are less than a year behind the most advanced closed-weight models.”</p>
 <p>Finding and fixing vulnerabilities can be done with <em>both</em> closed <em>and</em> open models.</p>
 <h3 data-number="2.3.3" id="specialized-models"><span class="header-section-number">2.3.3</span> Specialized models</h3>
@@ -121,18 +121,18 @@ Answer: D
 <summary>
 Quiz
 </summary>
-<p>Q1. Why did Hugging Face switch to an open-weight model rather than a closed frontier model for its incident analysis in 2026?</p>
+<p>Q1. Why might a defender need an open-weight or less-restricted AI model when analyzing a real attack?</p>
 <ol type="A">
-<li>The open-weight model produced text faster, enabling generation of longer and more detailed reports</li>
-<li>AI guardrails blocked analysis of the attack payloads by the closed models available to Hugging Face</li>
-<li>Closed models needed an internet connection that wasn’t available</li>
-<li>Open-weight models cost less per query</li>
+<li>Closed models refuse any request that mentions security, so they can’t be used for defense</li>
+<li>Open-weight models never need a sandbox, since they run on the defender’s own computer systems</li>
+<li>Providers’ safety guardrails may block requests that contain real attack commands and payloads</li>
+<li>Open-weight models are always more capable than closed frontier models at analyzing security logs</li>
 </ol>
 <details>
 <summary>
 Show answer
 </summary>
-Answer: B
+Answer: C
 </details>
 </details>
 
