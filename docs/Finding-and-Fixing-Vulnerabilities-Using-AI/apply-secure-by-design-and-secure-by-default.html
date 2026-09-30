@@ -68,8 +68,17 @@
 <p><em>Only</em> trying to find and fix software vulnerabilities one at a time will not succeed in the long term. It’s <em>necessary</em>, but future changes might re-introduce other vulnerabilities. So, also apply the general principles of secure-by-design and secure-by-default.</p>
 <p>As always, if a system is to be secure in the real world, it must be:</p>
 <ul>
-<li>Secure-by-design: Design the software to be secure from the outset. For example, limit its attack surface and apply defense-in-depth [<a href="https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf">FiveEyes2026</a>]. Ensure that security checks run where attackers can’t bypass them (e.g., on the server, not only in the client, if an attacker can control a client).</li>
-<li>Secure-by-default: Release the software so that it’s secure by default during installation. A “hardening guide” that users must apply after installation indicates insecure defaults; those steps should have been applied before release. If necessary, provide a “loosening guide” explaining how to disable security mechanisms in special cases, including the risks involved. Most users install the unchanged default; the default security <em>is</em> the security of most installations.</li>
+<li>Secure-by-design: Design the software to be secure from the outset.
+<ul>
+<li>For example, limit its attack surface and apply defense-in-depth [<a href="https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf">FiveEyes2026</a>].</li>
+<li>Ensure that security checks run where attackers can’t bypass them (e.g., on the server, not only in the client, if an attacker can control a client). See OWASP ASVS 5.0 requirements V2.2.2 and V8.3.1 for their discussion on input validation and authorization [<a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP-ASVS5</a>].</li>
+</ul></li>
+<li>Secure-by-default: Release the software so that it’s secure by default during installation.
+<ul>
+<li>Most users install the unchanged default, so the default security <em>is</em> the security of most installations.</li>
+<li>A “hardening guide” that users must apply after installation indicates insecure defaults; those steps should have been applied before release.</li>
+<li>If necessary, provide a “loosening guide” explaining how to disable security mechanisms in special cases, including the risks involved.</li>
+</ul></li>
 </ul>
 <p>Secure-by-design and secure-by-default “must become standard practice – not an aspiration” [<a href="https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf">FiveEyes2026</a>].</p>
 <details class="quiz">

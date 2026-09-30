@@ -48,7 +48,9 @@ When you complete this course, you will be able to:
 
 ## No endorsement intended
 
-This course will mention many AI models, systems, tools, and services. However, no specific endorsement is intended. Specific technologies may have changed by the time you read this, since the industry is undergoing rapid change. Our focus is on general principles that are less likely to change.
+This course will mention many AI models, systems, tools, and services. However, no specific endorsement is intended. Specific technologies may have changed by the time you read this, since the industry is undergoing rapid change.
+
+Our focus is on general principles that are less likely to change. The specific models, services, and statistics we cite reflect what was known when this material was last reviewed; expect them to change, while the practices should generally remain valid.
 
 ## Why this is important
 
@@ -81,19 +83,19 @@ Since the speed of finding vulnerabilities has increased, and cost of finding vu
   * “The window between a vulnerability being publicly disclosed and weaponized has dramatically collapsed to hours or minutes, as AI can instantly reverse-engineer patches to create exploit blueprints.” \[[Wolff2026](https://cacm.acm.org/research/large-language-models-in-software-security-analysis/)\]
 * *Attackers are now, on average, exploiting vulnerabilities before a patch is released*.
   * “Mandiant’s M-Trends 2026 report measures the mean time between a vulnerability becoming publicly known and the first observed exploitation in the wild. In 2018, that interval was 63 days. By 2023 it had collapsed to 5 days. In 2025, it inverted. Attackers are now exploiting vulnerabilities an average of 7 days before patches are released.” \[[Cycode2026](https://cycode.com/blog/claude-mythos-security-readiness/)\]
-  * Similarly, ZeroDayClock says that in “2018, the median time from a vulnerability being disclosed to the first observed exploit was 771 days. Organizations had over two years to patch. By 2023, that window was 6 days. By 2024, it was 4 hours. In 2025, the majority of exploited vulnerabilities were weaponized before they were even publicly disclosed. The data fits an exponential decay curve. This is not a trend that stabilizes. It is a collapse.” \[[ZeroDayClock](https://zerodayclock.com/)\]
+  * Similarly, ZeroDayClock says that in “2018, the median time from a vulnerability being disclosed to the first observed exploit was 771 days. Organizations had over two years to patch. By 2023, that window was 6 days. By 2024, it was 4 hours. In 2025, the majority of exploited vulnerabilities were weaponized before they were even publicly disclosed.” \[[ZeroDayClock](https://zerodayclock.com/)\]
 
 ### Manual closed approaches are failing
 
 Traditional approaches relied on manual analysis, took months to respond, and sometimes depended on hiding source code, presuming no one else could find these vulnerabilities quickly. They always had challenges, but here’s why they’re failing now:
 
 * *Traditional slow security measures are becoming ineffective.*
-  * “As AI speeds up both discovery and exploitation, organizations need to move from periodic assessment to continuous, intelligence-driven exposure management so they can determine what really matters, prioritize real risk, and quickly coordinate remediation. They must also prepare for a surge in vulnerability discovery and patch activity that many organizations are not operationally prepared to absorb… As vulnerabilities are discovered and exploited on shorter timelines, traditional security approaches built on periodic assessments, severity scores, and human-paced response are becoming less effective. Defenders need a new model centered on exploitability, continuous validation of exposure, stronger prevention, cross-domain visibility, decisive response, and governed use of AI.” \[[CrowdStrike2026-FiveSteps](https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/)\]
-  * “Here is the systemic problem. When a software vendor releases a security patch, AI can now reverse-engineer that patch, identify the vulnerability it fixes, and generate a working weaponized exploit in minutes. Attacks can begin propagating across the world within hours. But organizations need an average of 20 days to test and deploy that same patch. The act of fixing a vulnerability now accelerates its exploitation. The defense creates the offense. And the offense arrives weeks before the defense can finish deploying.” \[[ZeroDayClock](https://zerodayclock.com/)\]
+  * “As AI speeds up both discovery and exploitation, organizations need to move from periodic assessment to continuous, intelligence-driven exposure management… They must also prepare for a surge in vulnerability discovery and patch activity that many organizations are not operationally prepared to absorb… As vulnerabilities are discovered and exploited on shorter timelines, traditional security approaches built on periodic assessments, severity scores, and human-paced response are becoming less effective.” \[[CrowdStrike2026-FiveSteps](https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/)\]
+  * “When a software vendor releases a security patch, AI can now reverse-engineer that patch, identify the vulnerability it fixes, and generate a working weaponized exploit in minutes. Attacks can begin propagating across the world within hours. But organizations need an average of 20 days to test and deploy that same patch.” \[[ZeroDayClock](https://zerodayclock.com/)\]
 * *Deployment delays become real-world harm*.
-  * “A large fraction of real-world harm comes from N-days: vulnerabilities that have been publicly disclosed and patched, but which remain exploitable on the many systems that haven't yet applied the fix. In some ways N-days are the more dangerous case: the vulnerability is known to exist, the patch itself is a roadmap to the bug, and the only thing standing between disclosure and mass exploitation is the time it takes an attacker to turn that patch into a working exploit.” \[[Carlini2026](https://red.anthropic.com/2026/mythos-preview/)\]
+  * “A large fraction of real-world harm comes from N-days: vulnerabilities that have been publicly disclosed and patched, but which remain exploitable on the many systems that haven't yet applied the fix. … the patch itself is a roadmap to the bug, and the only thing standing between disclosure and mass exploitation is the time it takes an attacker to turn that patch into a working exploit.” \[[Carlini2026](https://red.anthropic.com/2026/mythos-preview/)\]
 * *Hiding source code doesn’t help*.
-  * “We have also found the model to be extremely capable of reverse engineering: taking a closed-source, stripped binary and reconstructing (plausible) source code for what it does. From there, we provide Mythos Preview both the reconstructed source code and the original binary, and say, ‘Please find vulnerabilities in this closed-source project. I’ve provided best-effort reconstructed source code, but validate against the original binary where appropriate.’ We then run this agent multiple times across the repository, exactly as before.” \[[Carlini2026](https://red.anthropic.com/2026/mythos-preview/)\]
+  * “We have also found the model to be extremely capable of reverse engineering: taking a closed-source, stripped binary and reconstructing (plausible) source code for what it does. From there, we provide Mythos Preview both the reconstructed source code and the original binary \[and it succeeds\] …” \[[Carlini2026](https://red.anthropic.com/2026/mythos-preview/)\]
 * *Failure to use AI to defend may in some cases be considered negligence*.
   * “When AI can find significantly more vulnerabilities at accessible cost, the standard of what constitutes reasonable defensive effort shifts. Boards will face questions about whether they used available AI tools for defensive scanning, and whether not doing so constitutes negligence. This is a governance risk with direct financial exposure.” \[[CSA2026](https://labs.cloudsecurityalliance.org/mythos-ciso/)\]
 
@@ -110,6 +112,8 @@ Despite these large increases in the speed of finding and exploiting vulnerabili
 “AI does not change the fundamentals of… security. Least privilege, minimal attack surfaces, coordinated vulnerability disclosure, and proactive security engineering still win. What AI changes is the velocity of attacks, of reports, of fixes, and of the expectations placed on maintainers and security engineers alike. The communities and projects that learn to work with these tools intentionally will be better positioned than those that ignore them or are overwhelmed by them.” \[[Aniszczyk2026](https://openssf.org/resources/securing-open-source-in-the-age-of-ai-a-practical-guide/)\]
 
 In short, the “normal” security tasks are *still* important with AI \[[Oshungboye](https://dev.to/coderabbitai/how-to-use-ai-to-identify-and-fix-security-vulnerabilities-in-your-codebase-4na2)\]. AI generally isn’t finding entirely new *kinds* of vulnerabilities in software \[[Holley2026](https://blog.mozilla.org/en/privacy-security/ai-security-zero-day-vulnerabilities/)\]; it is finding the same old kinds of vulnerabilities caused by sloppy practices and failure to apply best practices. By applying already-known best practices, and using AI defensively to speed up their implementation, it’s possible to address the problem of AI-amplified attacks. The following material details how to adopt those principles using AI.
+
+![Woman directs robot to build a wall while applying security principles](images/woman-directs-robot-build-wall-while.png){width=394 height=215}
 
 ## Good news: Long-term potential for eliminating nearly all vulnerabilities
 
@@ -247,11 +251,11 @@ AI models, when executed (for “inferencing”), receive data for processing an
 * *External service*: Processing occurs as a service external to the user and the user’s organization.
 * *Local/organizational service*: Processing occurs on the user's computer or the user’s organization's computer.
 
-Some powerful models can *only* be accessed as an external service. Many models have so many parameters and require so much computation that most users and organizations couldn’t run them on their own systems. However, the user of an external service must trust the service provider, for example, that their data will not be disclosed or exploited, that the service won’t attack them, and that the service will remain available.
+Some powerful models can *only* be accessed as an external service. Many models have so many parameters and require so much computation that most users and organizations couldn’t run them on their own systems, even if they wanted to. However, if you use an external service, you must trust both the service provider and the wider ecosystem around it. You need to be satisfied that your data won’t be disclosed or exploited, that the service won’t attack you, and that the service will remain available. That last point can fail even when the provider isn’t at fault: in June 2026, a US government directive briefly forced Anthropic to “abruptly disable Fable 5 and Mythos 5 for all our customers” \[[Anthropic2026-06-12-Export-Control](https://www.anthropic.com/news/fable-mythos-access)\]. The US Department of Commerce lifted those controls at the end of that same month, but access to Mythos 5 was initially restored only for some US organizations \[[Capoot2026](https://www.cnbc.com/2026/06/30/anthropic-says-trump-admin-has-lifted-export-controls-on-claude-fable-5-and-mythos-5.html)\].
 
 Many organizations use external services. Before using any external service, evaluate the external organization and put in place any necessary contractual agreements. In particular, ensure that sensitive data is not sent to them *or* ensure that their practices for handling that data are appropriate for your circumstances.
 
-Other AI models can be used locally or as part of an organization’s own service. These models are often less capable, but they don’t require users to send their private data to an external service and can be less expensive.
+Other AI models can be used locally or as part of an organization’s own service. These models are often less capable, but if run locally, they don’t require users to send their private data to an external service and can be less expensive.
 
 Exactly what you can and can’t do with the model depends largely on its license. That includes the ability to run a model locally at all. So, let’s briefly discuss licenses.
 
@@ -268,7 +272,7 @@ The Generative AI Commons at the LF AI & Data Foundation has designed and develo
 
 Some licenses are close to an open weights license yet have some extra restrictions on use.
 
-NVIDIA argues that “open models and open harnesses are essential because they democratize defensive capabilities, increase transparency for defenders, enable cyber defense while protecting data, and complement frontier closed models with customizable, localized controls… it will be crucial to recognize open models, harnesses and security tooling as defensive assets, not liabilities, in AI and cybersecurity policy. Blanket restrictions on open frontier AI systems would weaken defensive capacity and risk concentrating power, dependence and vulnerability in a few closed providers.” \[[NVIDIA2026](https://blogs.nvidia.com/blog/open-secure-ai-alliance/)\]
+NVIDIA argues that “open models and open harnesses are essential because they democratize defensive capabilities, increase transparency for defenders, enable cyber defense while protecting data, and complement frontier closed models with customizable, localized controls…” \[[NVIDIA2026](https://blogs.nvidia.com/blog/open-secure-ai-alliance/)\]
 
 Comparing the capabilities of specific models, including those with differing license terms, is outside our scope and constantly changes anyway. However, \[[NPR2026](https://www.npr.org/2026/04/11/nx-s1-5778508/anthropic-project-glasswing-ai-cybersecurity-mythos-preview)\] reports that “The most advanced open-weight models are less than a year behind the most advanced closed-weight models.”
 
@@ -306,14 +310,14 @@ D) It avoids sending private data to an external provider
 </details>
 
 <details class="quiz"><summary>Quiz</summary>
-Q1. Why did Hugging Face switch to an open-weight model rather than a closed frontier model for its incident analysis in 2026?
+Q1. Why might a defender need an open-weight or less-restricted AI model when analyzing a real attack?
 
-A) The open-weight model produced text faster, enabling generation of longer and more detailed reports
-B) AI guardrails blocked analysis of the attack payloads by the closed models available to Hugging Face
-C) Closed models needed an internet connection that wasn't available
-D) Open-weight models cost less per query
+A) Closed models refuse any request that mentions security, so they can’t be used for defense
+B) Open-weight models never need a sandbox, since they run on the defender’s own computer systems
+C) Providers’ safety guardrails may block requests that contain real attack commands and payloads
+D) Open-weight models are always more capable than closed frontier models at analyzing security logs
 
-<details><summary>Show answer</summary>Answer: B</details>
+<details><summary>Show answer</summary>Answer: C</details>
 </details>
 
 ## Cyber Reasoning System (CRS) history
@@ -363,14 +367,14 @@ The OWASP “GenAI Security Project” at \<[https://genai.owasp.org/](https://g
 The OpenSSF AI/ML Security Working Group has a variety of projects, including work on signing AI models. It is also a co-sponsor of this material. For more information, see \<[https://openssf.org/groups/ai-ml-security/](https://openssf.org/groups/ai-ml-security/)\>.
 
 <details class="quiz"><summary>Quiz</summary>
-Q1. What is Goose, per the material?
+Q1. What is an “agent harness”, per the material?
 
-A) A proprietary vulnerability scanner sold by Microsoft
-B) A closed-source frontier language model built by Anthropic
-C) An OWASP-maintained framework for generating software threat models
-D) An open source AI agent maintained by the Linux Foundation
+A) The program that runs an AI model as an agent, giving it tools and instructions in a control loop
+B) A small program that feeds generated inputs to the code being tested, looking for crashes or hangs
+C) A training dataset of past agent actions, used to teach a model how to use tools and plan work
+D) A sandbox that cuts an AI agent off from the network, so it cannot attack any external systems
 
-<details><summary>Show answer</summary>Answer: D</details>
+<details><summary>Show answer</summary>Answer: A</details>
 </details>
 
 <details class="quiz"><summary>Quiz</summary>
@@ -387,7 +391,6 @@ D) The Model Openness Framework Foundation
 # Decide on approaches
 
 There are many ways to use AI to find and fix vulnerabilities, so the first step is to decide on the overall approach. In this chapter we’ll cover some principles: [don’t ignore AI](#do-not-ignore-ai), [don’t wait for the best models](#do-not-wait-for-access-to-the-best-ai-models), [do simple things first](#do-simple-things-first), and [don’t presume AI can fix everything](#do-not-presume-ai-can-correctly-fix-all-vulnerabilities). We’ll then cover [why](#why-ai-tends-to-be-more-effective-if-guided-by-processes) and [how](#how-to-apply-processes-for-using-ai-to-find-and-fix-vulnerabilities) to guide AI with processes, some [example tools and services](#sample-services-and-tools), and why you’ll need to [run AI more than once](#run-ai-multiple-times).
-There are many ways to use AI to find and fix vulnerabilities, so the first step is to decide on the overall approach. In this chapter we’ll cover some principles: [don’t ignore AI](#do-not-ignore-ai), [don’t wait for the best models](#do-not-wait-for-access-to-the-best-ai-models), [do simple things first](#do-simple-things-first), and [don’t presume AI can fix everything](#do-not-presume-ai-can-correctly-fix-all-vulnerabilities). We’ll then cover [why](#why-ai-tends-to-be-more-effective-if-guided-by-processes) and [how](#how-to-apply-processes-for-using-ai-to-find-and-fix-vulnerabilities) to guide AI with processes, some [example tools and services](#sample-services-and-tools), and why you’ll need to [run AI more than once](#run-ai-multiple-times).
 
 ## Do not ignore AI
 
@@ -397,7 +400,7 @@ However, if the goal of the project is to help people solve a real-world problem
 
 In addition, defenders who ignore AI are at a fundamental speed disadvantage. “Defenders… that do not adopt AI coding agents cannot match the speed or scale of AI-augmented threats, regardless of their technical skill.” \[[CSA2026](https://labs.cloudsecurityalliance.org/mythos-ciso/)\] “Not using AI code analyzers in your project means that you leave adversaries and attackers time and opportunity to find and exploit the flaws you don’t find.” \[[Stenberg2026-05a](https://daniel.haxx.se/blog/2026/05/11/mythos-finds-a-curl-vulnerability/)\]
 
-The CSA recommends that organizations *require* AI agent adoption by their employees: “Formalize AI agent usage (mostly in the form of coding agents) as part of all security functions, with mandatory security controls and oversight in place. While defensive AI technology has not yet caught up, these agents empower staff to be effective in the new threat landscape, allowing acceleration beyond ‘human speed.’ Optional adoption programs have not been shown to overcome cultural barriers, while adoption is a limiting factor….” \[[CSA2026](https://labs.cloudsecurityalliance.org/mythos-ciso/)\]
+The CSA recommends that organizations *require* AI agent adoption by their employees: “Formalize AI agent usage (mostly in the form of coding agents) as part of all security functions, with mandatory security controls and oversight in place. … Optional adoption programs have not been shown to overcome cultural barriers, while adoption is a limiting factor….” \[[CSA2026](https://labs.cloudsecurityalliance.org/mythos-ciso/)\]
 
 Note that this doesn’t mean that all or any code must be AI-generated. AI-generated code can in some cases be terrible for security. However, that’s different from trying to entirely ignore AI.
 
@@ -407,7 +410,7 @@ Attackers *prefer* developers who ignore vulnerability reports or who fail to fi
 
 You *need* to use AI to help find vulnerabilities, and then fix those vulnerabilities, if the software must be secure. Do not bring a knife to a gunfight.
 
-![A robot tries to warn a human about a fire, but the human is ignoring the robot](images/robot-tries-warn-human-about-fire.png){width=537 height=292}
+![A robot tries to warn a human about a fire, but the human is ignoring the robot](images/robot-tries-warn-human-about-fire.png){width=457 height=249}
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. What’s a risk if a project bans all AI-assisted vulnerability reports?
@@ -486,6 +489,8 @@ Similarly, \[[Grinstead2026-05](https://hacks.mozilla.org/2026/05/behind-the-sce
 
 Start by focusing on your most important projects, then address the next in turn.
 
+![A woman gives a robot AI a simple checklist to start, with more sophisticated plans to come](images/woman-gives-robot-ai-simple-checklist.png){width=374 height=204}
+
 <details class="quiz"><summary>Quiz</summary>
 Q1. What was the essence of Carlini's simple and successful capture-the-flag (CTF) sample prompt?
 
@@ -518,6 +523,17 @@ It may seem surprising that AI systems can struggle to produce an accurate fix. 
 Of course, AI *can* help generate many fixes. Many vulnerabilities are relatively easy to fix, where the fix is localized to a specific line or set of adjacent lines. AI can be *especially* good at fixing these once it’s told what needs fixing. AI *can* sometimes successfully fix more complex vulnerabilities, too. Perhaps most importantly, this information only applies to AI models as of 2026\. We do not know how much better the AI models and underlying tools will become. That said, this limitation is unlikely to disappear instantly, and not everyone can use the best available systems.
 
 As a result, it’s important to be aware that AI systems don’t always generate complete fixes. They may fix a special case but not the full vulnerability; they may introduce new vulnerabilities; and their fixes may interfere with correct operation. There’s some evidence that they especially struggle with more complex vulnerabilities. Plan accordingly.
+
+<details class="quiz"><summary>Quiz</summary>
+Q1. What does the material conclude about AI-generated fixes for vulnerabilities, especially complex ones?
+
+A) Frontier models now fix practically all vulnerabilities correctly
+B) AI fixes are unreliable only in memory-unsafe languages, so fixes in other languages can be trusted
+C) AI fixes are often incomplete, add new vulnerabilities, or break features, so they need careful review
+D) AI fixes almost never work, so it’s better never to ask an AI to propose fixes for vulnerabilities
+
+<details><summary>Show answer</summary>Answer: C</details>
+</details>
 
 ## Why AI tends to be more effective if guided by processes
 
@@ -560,9 +576,13 @@ As we’ll further discuss later, a key task is validation. Something may look l
 
 In 2026, AI became *far* more effective at finding vulnerabilities. This was due to a combination of improved AI models *and* improved techniques for harnessing them \[[Grinstead2026-05](https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/)\]. Using either one is better than using none, but many analysts report that it’s best to combine them.
 
+Of course, once findings (potential vulnerabilities) are found, and then validated *as* vulnerabilities, they need to be fixed.
+
+🎬See the video “[Types of CRS](https://drive.google.com/file/d/1WDzVSKiICy-yGtEwuWLKfreXYkp2BkAt/view?usp=sharing)” for an illustration of how vulnerability reports generated by one system can flow into another system designed to fix them.
+
 There is a risk that overprescribing an approach to an AI may overconstrain it, causing it to ignore problems it would otherwise find. It’s also possible that future AI models will be so good that aiding them with processes won’t help. However, since many analysts report that aiding AI models does help, we’ll discuss doing that combination in this course.
 
-![A robot is working down a checklist, with the first few items checked off.](images/robot-working-down-checklist-first-few.png){width=461 height=251}
+![A robot is working down a checklist, with the first few items checked off.](images/robot-working-down-checklist-first-few.png){width=435 height=237}
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. Per the material, what can happen when you simply ask a generic coding agent to "find bugs" in a large repository by reading all of its code?
@@ -625,9 +645,9 @@ First, we must acknowledge a problem: it can be challenging to *find* the tools 
 
 It’s also hard to evaluate them. Many published results come from the tool’s own developers, use different codebases and definitions of success, and report findings rather than validated vulnerabilities.
 
-Be skeptical of benchmark numbers, especially for tools that classify isolated functions as vulnerable or not. Many such benchmarks have inaccurate labels: when researchers manually checked samples of functions labeled “vulnerable” in popular automatically labeled datasets, only 25% to 60% were labeled correctly \[[Ding2025](https://arxiv.org/abs/2403.18624)\]. Other researchers found that “in almost all cases this decision cannot be made without further context”, because whether a function is vulnerable often depends on how it’s called \[[Risse2025](https://arxiv.org/abs/2408.12986)\].
+Be skeptical of benchmark numbers, especially for tools that classify isolated functions as vulnerable or not. Many such benchmarks have inaccurate labels: when researchers manually checked samples of functions labeled “vulnerable” in popular automatically labeled datasets, only 25% to 60% were labeled correctly \[[Ding2025](https://arxiv.org/abs/2403.18624)\]. Other researchers found that “in almost all cases this decision cannot be made without further context”, because whether a function is vulnerable often depends on how it’s called \[[Risse2025](https://arxiv.org/abs/2408.12986)\]. Another study argues that beliefs that LLMs are unreliable at vulnerability detection are “artifacts of context-deprived evaluations” \[[Li2025](https://arxiv.org/abs/2504.13474v1)\].
 
-Whole-project analysis has its own problems. A 2026 study of LLM-based and traditional tools on 24 active open source projects found that “many tools exhibit high false discovery rates on real-world projects/modules”, mostly due to “Truncated interprocedural context and incorrect program-point classification”. \[[Li2026](https://arxiv.org/abs/2601.19239)\].
+Whole-project analysis has its own problems. A 2026 study of LLM-based and traditional tools on 24 active open source projects found that “many tools exhibit high false discovery rates on real-world projects/modules”, mostly due to “Truncated interprocedural context and incorrect program-point classification” \[[Li2026](https://arxiv.org/abs/2601.19239)\].
 
 Where you can, try a tool on code you know well (including known past vulnerabilities) and compare the validated results.
 
@@ -685,7 +705,6 @@ The solution was OSS-CRS, which provides a framework for running CRSs and combin
 * Which vulnerability to fix (for patching CRSs) \[[Chin2026-slides](https://github.com/ossf/oss-crs/blob/main/docs/slides/svcc-2026.pptx)\]
 
 OSS-CRS is more effective if the project being analyzed has a harness using the OSS-Fuzz format. Many build systems are used to build software (such as Make, CMake, Autoconf, Bazel, and Meson). This can make it challenging to create tools to correctly analyze them. “OSS-CRS mitigates this by building targets through OSS-Fuzz’s official build flows, inheriting the build environment that each project’s maintainers already support” \[[Chin2026](https://arxiv.org/abs/2603.08566)\]. If a project doesn’t have an OSS-Fuzz harness, consider using AI to help build one. Ensuring OSS-CRS can build and fuzz a program often improves OSS-CRS results.
-
 An especially powerful ability of OSS-CRS is its “ensemble” feature. The ensemble feature combines “patches from multiple CRS approaches and \[uses\] a selection process to pick the one most likely to be correct. The research showed this approach consistently matches or outperforms the best single component in improving semantic correctness, which is hard to eliminate at the single-agent level.” Even so, it’s important to have humans review the proposed changes before implementation \[[Diecks2026](https://openssf.org/blog/2026/04/02/from-aixcc-to-openssf-welcoming-oss-crs-to-advance-ai-driven-open-source-security/)\].
 
 OSS-CRS is already capable. “Using OSS-CRS, Team Atlanta discovered twenty-five vulnerabilities across sixteen projects spanning a broad range of software including PHP, U-Boot, memcached, and Apache Ignite 3” \[[Diecks2026](https://openssf.org/blog/2026/04/02/from-aixcc-to-openssf-welcoming-oss-crs-to-advance-ai-driven-open-source-security/)\].
@@ -715,7 +734,7 @@ As a result, once you’ve gone through the process of finding and fixing vulner
 
 One question is whether you should provide past findings as context, so it is more likely to consider different areas. For now, we suggest that you provide past results for *some* runs so that, on those runs, it doesn’t need to rediscover them. There is a risk that incorrect past results may lead the AI astray, so we expect it’s better to provide that data in only some cases. We hope future research will make this clearer.
 
-![A robot in a glowing circuit forest sits next to jars labeled "Run 1", "Run 2", and "Run 3" with caught glowing bugs, illustrating how repeatedly running AI can catch additional obvious vulnerabilities.](images/robot-glowing-circuit-forest-sits-next.png){width=500 height=272}
+![A robot in a glowing circuit forest sits next to jars labeled "Run 1", "Run 2", and "Run 3" with caught glowing bugs, illustrating how repeatedly running AI can catch additional obvious vulnerabilities.](images/robot-glowing-circuit-forest-sits-next.png){width=483 height=262}
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. Why does the material recommend repeating the vulnerability-finding process multiple times on an unchanged codebase?
@@ -816,14 +835,14 @@ When creating or updating a threat model for a world with AI, consider the follo
 8. Implement resiliency and rapid recovery \[[CrowdStrike2026-FiveSteps](https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/)\]
 
 <details class="quiz"><summary>Quiz</summary>
-Q1. Per the report the material cites, what happened when an AI model analyzed a system with a well-defined threat model?
+Q1. Per the report the material cites, what happened when an AI model analyzed systems with well-defined threat models?
 
-A) Its findings were confirmed as exploitable 90% of the time
-B) It stopped producing any new findings at all
-C) It required twice the compute budget to run
-D) It refused to continue the analysis any further
+A) It found fewer vulnerabilities overall, since the threat model told it to skip most of the code
+B) Its findings were much more often real, exploitable vulnerabilities instead of false positives
+C) It no longer needed a sandbox, since the threat model limited what actions the agent would try
+D) It stopped producing false positives entirely, so human review of its findings was unnecessary
 
-<details><summary>Show answer</summary>Answer: A</details>
+<details><summary>Show answer</summary>Answer: B</details>
 </details>
 
 <details class="quiz"><summary>Quiz</summary>
@@ -1087,9 +1106,7 @@ One excellent way to improve results is to separate *identifying* findings from 
 Separating identifying findings from validating them makes finding vulnerabilities more likely:
 
 * As \[[Bourzikas2026](https://blog.cloudflare.com/cyber-frontier-models/)\] notes, “asking ‘Is this code buggy?’ and ‘Can an attacker actually reach this bug from outside the system?’ are two different questions, and the model is better at each one when you ask them separately, because each question is narrower than the combined version.”
-* As \[[Yan2026](https://claude.com/blog/using-llms-to-secure-source-code)\] reports, “discovery should find as many vulnerabilities as possible—even unlikely ones—and verification should exclude findings that are not actually exploitable. When an agent tries to do both in the same step, it can self-censor and exclude exploitable true positives. We learned this the hard way, where asking discovery agents to also verify findings led to them filtering out true positives that a separate verification step would have confirmed.”
-
-So we’ll first focus on identifying findings, and we’ll later discuss validating findings.
+* As \[[Yan2026](https://claude.com/blog/using-llms-to-secure-source-code)\] reports, “discovery should find as many vulnerabilities as possible—even unlikely ones—and verification should exclude findings that are not actually exploitable. When an agent tries to do both in the same step, it can self-censor and exclude exploitable true positives.”
 
 ### Helping to identify findings
 
@@ -1105,11 +1122,11 @@ It’s best to help the AI identify findings. There are many ways to help identi
 4. *To find security vulnerabilities, include a search for language-specific issues, insecure coding practices, and improper handling of parameters, variables, and data flows*. For each programming language used in the project, apply checks for language- and framework-specific vulnerabilities. Trace parameters and variables, and their usage throughout the code, to detect unsafe patterns, misuse, or inconsistencies \[[Rogers2025](https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters)\].
 5. *Have the model examine and cluster past bugs or at least past vulnerabilities*. For vulnerabilities (as determined by your threat model), have it list the relevant vulnerability classes. Then have the AI system determine (for every fix) if the fix was complete and if it applied everywhere else. Look for similar problems. \[[Yan2026](https://claude.com/blog/using-llms-to-secure-source-code)\] reported that one team did this and found three exploitable issues in an hour, saying “‘What have people exploited in the past’ is sometimes a much easier cheat-code towards success than ‘find me vulnerabilities in this codebase.’”
 6. *Use “top” lists of the most likely kinds of vulnerabilities*. At *least* look specifically for common vulnerabilities. “Most software security issues discovered each year are simply variants or instances of previously discovered patterns, rather than entirely new classes of vulnerabilities” \[[Rohlf2025](https://cset.georgetown.edu/article/ai-and-the-software-vulnerability-lifecycle/)\]. So if the system you’re analyzing is…
-   1. a web application, use the OWASP Top 10 vulnerabilities (for web applications) [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)
-   2. agentic, use the OWASP Top 10 for Agentic Applications for 2026 [https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/)
-   3. anything else (including Internet of Things (IoT)), use the CWE Top 25 [https://cwe.mitre.org/top25/](https://cwe.mitre.org/top25/)
+   1. a web application, use the OWASP Top 10 vulnerabilities (for web applications) \<[https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)\>. For more thorough coverage, also give the AI the relevant chapters of the OWASP Application Security Verification Standard (ASVS) as a checklist of security requirements to verify \[[OWASP-ASVS5](https://owasp.org/www-project-application-security-verification-standard/)\].
+   2. agentic, use the OWASP Top 10 for Agentic Applications for 2026 \<[https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/)\>
+   3. anything else (including Internet of Things (IoT)), use the CWE Top 25 \<[https://cwe.mitre.org/top25/](https://cwe.mitre.org/top25/)\>
 7. *Look for cases where a component assumes another component is doing something, but there’s no test verifying it*. “Many vulnerabilities are being found ‘in the seams’ between programs, e.g., a library might not filter headers, even if its spec requires header filtering, but all of the library users might expect the library to filter headers.” \[Zimmer2026\]
-8. *Examine a system’s security properties across transitions (including state transitions) and steady-state data flows*. Vulnerabilities can appear during transitions such as authentication and re-authentication, token refresh and expiration, logout and revocation, account or role changes, retries, and recovery flows. Concurrent operations can sometimes interfere with each other. Ask the AI to identify the security invariants that should remain true across transitions and then look for paths where those invariants can be violated \[[OWASP-ASVS5](https://owasp.org/www-project-application-security-verification-standard/)\].
+8. *Examine a system’s security properties across transitions (including state transitions) and steady-state data flows*. Vulnerabilities can appear during transitions such as authentication and re-authentication, token refresh and expiration, logout and revocation, account or role changes, retries, and recovery flows. Concurrent operations can sometimes interfere with each other. Ask the AI to identify the security invariants that should remain true across transitions and then look for paths where those invariants can be violated \[[OWASP-ASVS5-V7](https://github.com/OWASP/ASVS/blob/master/5.0/en/0x16-V7-Session-Management.md)\]
 9. *Include important non-security bugs, focusing on critical issues that are likely to cause application crashes, severe malfunctions, or significant instability*. Minor or cosmetic issues are less risky, but important “non-security” defects can often be exploited as vulnerabilities. \[[Rogers2025](https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters)\] claims that “the greatest success I had with policies was a really simple policy of ‘find all bugs, even if they’re not vulnerabilities’”. Consider as bugs cases where the claimed intent (in some documentation including comments) disagrees with the actual code as written. These can be important to fix, and while the system may initially *believe* they aren’t security-related, they may turn out to be vulnerabilities.
 10. *Consider disabling some hardening mechanisms used in production when finding (and later validating)*. This way, the hardening mechanisms are truly an additional defense-in-depth measure. The result is that the full system, including its hardening mechanisms, is much harder for an adversary to attack successfully. \[[Grinstead2026-05](https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/)\] We discuss this further in “[Disable hardening and evaluate hardening during evaluation](#evaluate-with-hardening-disabled-and-evaluate-the-hardening)”.
 11. *Include information on configuration, dependencies, deployment choices, and how components are combined*. “Many exploitable issues do \[not\] appear as obvious defects in application source code” but instead emerge from these kinds of problems \[[Ziegler2026](https://xbow.com/blog/mythos-offensive-security-xbow-evaluation)\].
@@ -1177,6 +1194,17 @@ Several prominent programs changed their policies in 2026 because of AI-generate
 
 The lesson for your project: publish a clear vulnerability reporting policy (e.g., in SECURITY.md) that says what evidence you require (such as a reproducing input), that reporters must validate reports before sending them, and that you welcome AI-assisted reports that meet those requirements. If you offer rewards, watch whether they attract low-effort submissions. For guidance on setting up a coordinated vulnerability disclosure program, see \[[CISA2026-CVD](https://www.cisa.gov/resources-tools/resources/establishing-coordinated-vulnerability-disclosure-program-work-security-researchers)\].
 
+<details class="quiz"><summary>Quiz</summary>
+Q1. Per the material, what should a project’s vulnerability reporting policy say about AI-assisted reports?
+
+A) Reject every report that used AI at any point, since such reports are almost always false positives
+B) Accept AI-generated reports as-is, since modern models rarely report vulnerabilities that aren’t real
+C) Offer larger bug bounty rewards for AI-assisted reports, since bigger rewards attract better-validated reports
+D) Require a reproducing input and prior validation by the human reporter, and welcome reports that meet that bar
+
+<details><summary>Show answer</summary>Answer: D</details>
+</details>
+
 ## Deduplicate
 
 “Deduplication” is the process of eliminating duplicate reports. External reports and internal analysis may repeatedly identify the same problem. Apply deduplication to prevent duplication of effort.
@@ -1187,9 +1215,10 @@ Some writers consider deduplication part of triage (e.g., \[[Yan2026](https://cl
 
 \[[Yan2026](https://claude.com/blog/using-llms-to-secure-source-code)\] recommends the following for deduplication:
 
-* Consider the root cause. “Scanners often flag one bug at multiple call sites or report multiple symptoms of a single root cause. Here’s one practical approach: First, use a cheap deterministic pass: same file, same category, vulnerability line numbers within ten lines of each other. Then, have a model apply qualitative rules to what remains.”
-* “Treat as duplicate: the same root cause worded differently; the same vulnerability reported at multiple call sites; a missing global protection (like an auth check) reported per endpoint; or a cause and its consequence flagged in the same path.”
-* “Treat as distinct: different vulnerability classes in the same file; different variables reaching different sinks; two independent bugs inside one helper; the same missing check on two endpoints, but each requires its own fix.”
+* Consider the root cause. “Scanners often flag one bug at multiple call sites or report multiple symptoms of a single root cause. Here’s one practical approach: First, use a cheap deterministic pass: same file, same category, vulnerability line numbers within ten lines of each other. Then, have a model apply qualitative rules to what remains”
+* “Treat as duplicate: the same root cause worded differently; the same vulnerability reported at multiple call sites; a missing global protection (like an auth check) reported per endpoint; or a cause and its consequence flagged in the same path”
+* “Treat as distinct: different vulnerability classes in the same file; different variables reaching different sinks; two independent bugs inside one helper; the same missing check on two endpoints, but each requires its own fix”
+* If you have a PoC and a candidate patch for each finding, “check if the patch for one finding also disarms the PoCs of others”. If it does, it’s likely that those findings share a root cause
 
 If it’s not *clear* that a finding is a duplicate, pass it along to be validated separately. Once more information is acquired, it may be easier to determine if it’s a duplicate.
 
@@ -1284,7 +1313,15 @@ Triage is fundamentally a risk decision. Risks, by definition, are important bas
 
 Most systems have *some* sort of “severity rating” classification system to help you identify the vulnerabilities most needing to be addressed \[[Rogers2025](https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters)\]. Unfortunately, many report that AI systems aren’t very good at estimating the severity of a vulnerability (they often report both too high and too low), so if you use an AI to estimate in a way that matters, have a human review the estimates.
 
+You can make AI severity estimates more reliable by giving the AI your threat model and having it answer specific questions building on that before it assigns a severity.
+
+* \[[Yan2026](https://claude.com/blog/using-llms-to-secure-source-code)\] suggests asking about *reachability* (can an attacker reach this code from a real entry point?), *attacker control* (does untrusted input reach it intact?), *preconditions* (does it need non-default settings or a narrow timing window?), *authentication* (can an unauthenticated attacker trigger it?), *read versus write* access, and *blast radius* (who is affected?).
+* They suggest that “zero preconditions with unauthenticated remote access is critical or high severity. One or two preconditions, or an authenticated path, is medium. Three or more, or local-only, is low. Adjust the thresholds to your system.”
+* That report argues that “going through the evidence first keeps the model from anchoring on the bug class (‘SQL injection, so critical’) and then inflating the severity to match.”
+
 Modern AI systems have become increasingly good at chaining many defects *together* into vulnerabilities. Something that *appears* unexploitable may, when combined with other defects, constitute a serious vulnerability. Thus, it’s reasonable to triage the “most dangerous vulnerabilities” first, but do *not* ignore other defects that *appear* unexploitable. Fix the other defects, as resources permit, so they don’t become part of a chain leading to an exploit.
+
+Don’t assume an AI-found vulnerability will stay unknown for long. When many people use similar AI tools on the same code, they often find the same bugs around the same time. The Linux kernel security team reports that bugs found with AI assistance “systematically surface simultaneously across multiple researchers, often on the same day” \[[Linux-SecurityBugs](https://docs.kernel.org/process/security-bugs.html)\].
 
 ![A robot and woman categorize bugs into red (dangerous) and green (not dangerous); the woman overrides the robot's categorization](images/robot-woman-categorize-bugs-into-red.png){width=480 height=261}
 
@@ -1387,7 +1424,7 @@ While AI review is a good first pass for proposed vulnerability fixes, they stil
 
 Some problems with initial AI-proposed fixes are especially common:
 
-* *AI often fixes only the specific instance, rather than identifying root causes and fixing the problem systematically*. “Patches focused too much on immediate consequences of issues, and generally failed to put the whole application and codepath into perspective, and ‘understand’ the real source of the problem, and where an engineer with a clue would actually solve the problem rather than mitigate it. Indeed, they often lacked a comprehensive understanding of the entire system architecture, which led to the creation of small, isolated patches that only address immediate problems without considering broader implications.” \[[Rogers2025](https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters)\]
+* *AI often fixes only the specific instance, rather than identifying root causes and fixing the problem systematically*. “Patches focused too much on immediate consequences of issues, and generally failed to put the whole application and codepath into perspective, and ‘understand’ the real source of the problem, and where an engineer with a clue would actually solve the problem rather than mitigate it.” \[[Rogers2025](https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters)\]
 * *AI often fails to customize the fix and reuse existing constructs*. “For fixes, one of the most common issues was that the fix was not customized to the developer’s codebase, for example, creating a function to sanitize user inputs when the developer wants to reuse their existing sanitization library; this often prevented the users from directly applying the fix, requiring an overhaul to produce a fix with their intended approach.” \[[Steenhoek2025](https://arxiv.org/abs/2412.14306v3)\] In short, for an AI system it’s “easier” to write lots of duplicate code, but this typically creates a maintenance nightmare.
 * *AI sometimes adds dependencies that don’t exist, or aren’t the ones you think*
   * Attackers can register these hallucinated names and wait for someone to install them (“slopsquatting”). If a proposed fix adds or changes a dependency, confirm that it’s the real, intended package and that you actually need it.
@@ -1401,6 +1438,18 @@ Even if an AI’s initial fix is wrong, that doesn’t make its proposed fix use
 Be *sure* to apply all of your usual verification processes. That includes your peer review gates, CI/CD pipelines, and branch protection rules. “Leveraging organizational safeguards such as peer-review gates and branch protection rules can help mitigate potential individual complacency regarding AI-generated security suggestions” \[[Kholoosi2025](https://arxiv.org/abs/2512.18261v2)\].
 
 Technology can help. However, as noted in \[[Anthropic2026-05](https://www.anthropic.com/research/glasswing-initial-update)\], now “the bottleneck in fixing bugs like these is the human capacity to triage, report, and design and deploy patches for them.”
+
+### Turn findings into durable checks
+
+AI analysis is non-deterministic; don’t depend on rerunning it to catch the same problem again. Instead, turn what you learned into deterministic checks that run on every change, as part of the change.
+
+At the least, modify the test suite to [add the regression test you created earlier](#creating-tests-and-confirming-the-root-problem) to verify the problem. You may also want to add:
+
+1. A static analysis rule that detects the vulnerable pattern (e.g., a Semgrep rule or CodeQL query).
+2. A fuzz harness for the code involved, if it’s the kind of code fuzzing handles well (e.g., parsers).
+3. A hardening or API change that makes the whole class of vulnerability impossible or unlikely (see the upcoming section on [hardening](#harden)).
+
+AI can often help implement all of these. The general principle is that if something is important, enforce it with deterministic mechanisms *instead* of relying on an AI to notice it every time.
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. This material recommends a test-driven approach before writing a fix. What should you do first?
@@ -1423,11 +1472,17 @@ If the vulnerability is in an *externally maintained* component, report it to th
 
 Here’s how to make those reports useful.
 
-First, there’s worry about AI slop. “AI-assisted bug reports have a mixed track record, and skepticism is earned. Too many submissions have meant false positives and an extra burden for open source projects.” \[[Grinstead2026-03](https://blog.mozilla.org/en/firefox/hardening-firefox-anthropic-red-team/)\] The best AI systems have improved, and some perform human review before sending reports, but many projects still receive a lot of useless AI slop. Provide *value*. Include the specific reproducing inputs that *demonstrate* that a report is a vulnerability (as discussed earlier), test cases that enable easy verification and regression testing, and a proposed fix. Have a human review it all before submitting it. These measures, especially a way to reliably reproduce the vulnerability with plausible inputs, help provide confidence that the report is not merely “AI slop” or a false positive.
+First, take steps to prevent reporting AI slop. “AI-assisted bug reports have a mixed track record, and skepticism is earned. Too many submissions have meant false positives and an extra burden for open source projects.” \[[Grinstead2026-03](https://blog.mozilla.org/en/firefox/hardening-firefox-anthropic-red-team/)\] The best AI systems have improved, and some perform human review before sending reports, but many projects still receive a lot of useless AI slop.
+
+Early in the process, read that project’s threat model and their guidance on submitting vulnerability reports (e.g., SECURITY.md). If you’re using AI to help, also have the AI read the project’s threat model and reporting guidance before drafting a report. The Linux kernel project specifically recommends telling the AI to do this \[[Linux-SecurityBugs](https://docs.kernel.org/process/security-bugs.html)\].
+
+Provide *value*. Include the specific reproducing inputs that *demonstrate* that a report is a vulnerability (as discussed earlier), test cases that enable easy verification and regression testing, and a proposed fix. Have a human review it all before submitting it. These measures, especially a way to reliably reproduce the vulnerability with plausible inputs, help provide confidence that the report is not merely “AI slop” or a false positive.
 
 This is an example of the human gate we discussed earlier: treat high-impact or externally visible actions as explicit approval boundaries. An AI agent may be allowed to autonomously analyze software and prepare proposed actions. At the same time, operations such as submitting vulnerability reports, publishing information, merging changes, deploying fixes, modifying production systems, or accessing especially sensitive resources may require separate authorization. Where approval is required, enforce it in the tool or workflow rather than relying only on an instruction in the AI prompt \[[OWASP-LLM06](https://genai.owasp.org/llmrisk/llm062025-excessive-agency)\].
 
 When making a report on a component, briefly and clearly state the deployment model and security threat being assumed. Supply this *early* in the report. Often, when AI writes the report, neither the code nor the documentation tells it which deployments are supported. Many AIs will make the most permissive assumption, even a patently absurd one, and that assumption will make any finding look especially severe. Once you’ve clearly stated the deployment model and security threat, you or the AI can then attempt to assign a severity. A maintainer who disagrees with the claimed deployment model or security threat can correct that line rather than reject the report without explanation.
+
+Before you report, *check* that the *problem still exists* in the project’s current code. The Linux kernel security team says that “A significant part of reports are for bugs that have already been fixed”. They ask reporters to verify them on recent versions and to identify the affected version with “A stable identifier such as a commit ID or an exact version”, not something like “latest”. It also asks reporters to “stick to verifiable facts” (not to enumerate “speculative implications”) \[[Linux-SecurityBugs](https://docs.kernel.org/process/security-bugs.html)\].
 
 A significant challenge can occur if the component’s maintainers expressly *do not* support the reporter’s threat model. In that case, the reporter can try to:
 
@@ -1445,7 +1500,7 @@ Often a project will not directly accept a proposed fix \[Zimmer2026\]. Proposed
 
 One source of debate is how large the vulnerability report should be. Many maintainers don’t want to receive massive tomes; they want something they can read quickly. Yet if the report lacks detail, it’s not helpful. One solution is to put the report's essence into a single paragraph (6 sentences or fewer) and lead with it. The receiver can then read that and decide if it’s worth reading further. When reporting to a project, *find out* what format the project wants and comply with it. In general, *respect the maintainers' limited time* \[[Larson2026](https://sethmlarson.dev/respecting-maintainer-time-should-be-in-security-policies)\].
 
-Many open source software projects are receiving an *overwhelming* number of duplicate reports. Often, many different people will use the same AI system to look for vulnerabilities in the same software, resulting in many duplicate reports to a given project. Linus Torvalds said, “if you found a bug using AI tools, the chances are somebody else found it too” and added, “If you actually want to add value, read the documentation, create a patch too, and add some real value on \*top\* of what the AI did” \[[Zorz2026](https://www.helpnetsecurity.com/2026/05/18/problems-with-ai-assisted-vulnerability-research/)\].
+Many open source software projects are receiving an *overwhelming* number of duplicate reports \[[PSF2026](https://pyfound.blogspot.com/2026/06/everything-security-at-pycon-us-2026.html)\]. Often, many different people will use the same AI system to look for vulnerabilities in the same software, resulting in many duplicate reports to a given project. Linus Torvalds said, “if you found a bug using AI tools, the chances are somebody else found it too” and added, “If you actually want to add value, read the documentation, create a patch too, and add some real value on \*top\* of what the AI did” \[[Zorz2026](https://www.helpnetsecurity.com/2026/05/18/problems-with-ai-assisted-vulnerability-research/)\].
 
 The Linux Foundation has established a project called Akrites \<[https://akrites.org/](https://akrites.org/)\> to help organizations deduplicate findings *before* they are submitted to open source software projects, as well as validate, prepare remediations, and synchronize disclosure. If your organization finds vulnerabilities in widely used open source software, see the Akrites site for more information.
 
@@ -1508,6 +1563,8 @@ Faster patching alone does *not* solve this problem. As the Xiao study notes, �
 
 When you release a fix, tell your users, so they know to update. Publish a security advisory that says what the vulnerability is, which versions are affected, which version fixes it, and what users should do. Where appropriate, get a CVE identifier for it, so tools that check for known vulnerabilities can alert your users.
 
+Writing the advisories can become a bottleneck when many fixes arrive quickly. Consider using AI to draft release notes, advisories, and CVE descriptions from the fixes, with human review and repair before publication. The Chrome team is “working on automating the generation of release notes and CVE descriptions from security bug fixes to eliminate manual bottlenecks and shorten the window between vulnerability discovery and public disclosure” \[[Chrome2026](https://blog.google/security/chrome-stronger-with-every-update/)\].
+
 People, projects, and organizations should ensure that they can rapidly *accept* updates, too. Establish processes to automatically test updates, and then propose or implement them. Organizations that try to do this solely with manual processes will often be unable to keep up. Humans still need to be in control, but the humans need to be supported by automated processes that help them become aware of problems and provide analyses so they can make good decisions.
 
 <details class="quiz"><summary>Quiz</summary>
@@ -1531,7 +1588,9 @@ So you need to repeatedly apply AI systems, especially improved ones, to find vu
 
 The good news is that improved hardening and fixing vulnerabilities will eventually eliminate all “easy vulnerabilities” and make the system increasingly difficult to attack. Software is finite, and so are defects. Take heart: as it gets harder for software developers to find vulnerabilities, it also gets harder for attackers to find them.
 
-In practice, software changes over time. An AI system should also analyze each proposed change (pull request or merge request) to identify vulnerabilities *before* it is accepted.
+In practice, software changes over time. Deterministic checks, including those [created from earlier findings](#turn-findings-into-durable-checks), should run on every change. An AI system should also analyze each proposed change (pull request or merge request) toidentify vulnerabilities *before* a change is accepted.
+
+![A robot and human repeatedly wash a car to clean out a car, the pass count is 5 and the car is sparkling with dirty bugs draining away](images/robot-human-repeatedly-wash-car-clean.png){width=459 height=250}
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. Why does this material recommend repeatedly rerunning AI systems against the same codebase to look for vulnerabilities, rather than treating a single pass as sufficient?
@@ -1596,11 +1655,26 @@ In the 2025 “s1ngularity” attack, compromised versions of the Nx build packa
 
 If you run an AI agent on untrusted proposed changes:
 
-1. Don’t give that agent secrets or write-capable tokens. By default, GitHub Actions doesn’t expose secrets to pull requests from forks, but some workflows grant that access anyway, e.g., by using the pull\_request\_target trigger \[[Guan2026](https://oddguan.com/blog/comment-and-control-prompt-injection-credential-theft-claude-code-gemini-cli-github-copilot/)\]. Don’t do that for AI agents.
-2. Give a review agent the fewest tools practical \[[Daelman2025](https://www.aikido.dev/blog/promptpwnd-github-actions-ai-agents)\]. A reviewer of a proposed change usually needs to read code and produce a report; it rarely needs a shell, network access, or permission to push, merge, or edit issues. An agent used to *find* vulnerabilities may need more capabilities, but reviewing a proposed change from an untrusted proposer is different.
-3. Where an agent needs credentials, use short-lived, narrowly scoped ones.
-4. Treat the agent’s output as untrusted data. Don’t let it automatically trigger privileged actions; put a human gate in front of them (see “Establish a human gate and kill switch”).
-5. Separate analysis from action. A low-privilege agent can analyze and report, while a different, trusted process (or a human) decides what to do with that report.
+1. *Don’t give that agent secrets or write-capable tokens*. By default, GitHub Actions doesn’t expose secrets to pull requests from forks, but some workflows grant that access anyway, e.g., by using the pull\_request\_target trigger \[[Guan2026](https://oddguan.com/blog/comment-and-control-prompt-injection-credential-theft-claude-code-gemini-cli-github-copilot/)\]. Don’t do that for AI agents.
+2. *Give a review agent the fewest tools practical* \[[Daelman2025](https://www.aikido.dev/blog/promptpwnd-github-actions-ai-agents)\]. A reviewer of a proposed change usually needs to read code and produce a report; it rarely needs a shell, network access, or permission to push, merge, or edit issues. An agent used to *find* vulnerabilities may need more capabilities, but reviewing a proposed change from an untrusted proposer is different.
+3. *Where an agent needs credentials, use short-lived, narrowly scoped ones*.
+4. *Treat the agent’s output as untrusted data*. Don’t let it automatically trigger privileged actions; put a human gate in front of them (see “Establish a human gate and kill switch”).
+5. *Separate analysis from action*. A low-privilege agent can analyze and report, while a *different*, trusted process (or a human) should decide what to do with that report.
+
+![A robot is in a sandbox and is passing an approved set of pages to a man outside the sandbox](images/robot-sandbox-passing-approved-set-pages.png){width=414 height=225}
+
+<details class="quiz"><summary>Quiz</summary>
+
+<details class="quiz"><summary>Quiz</summary>
+Q1. Why is it risky to run an AI review agent that has repository secrets on pull requests from untrusted contributors?
+
+A) Text an attacker puts in the pull request can instruct the agent to leak secrets or take other actions
+B) Review agents usually approve changes from new contributors without examining the proposed code closely
+C) Secrets given to the agent become part of the model’s training data and can appear in later responses
+D) Untrusted changes force the agent to use a far larger context window, which sharply raises its costs
+
+<details><summary>Show answer</summary>Answer: A</details>
+</details>
 
 ## Apply secure by design and secure by default
 
@@ -1608,8 +1682,13 @@ If you run an AI agent on untrusted proposed changes:
 
 As always, if a system is to be secure in the real world, it must be:
 
-* Secure-by-design: Design the software to be secure from the outset. For example, limit its attack surface and apply defense-in-depth \[[FiveEyes2026](https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf)\]. Ensure that security checks run where attackers can’t bypass them (e.g., on the server, not only in the client, if an attacker can control a client).
-* Secure-by-default: Release the software so that it’s secure by default during installation. A “hardening guide” that users must apply after installation indicates insecure defaults; those steps should have been applied before release. If necessary, provide a “loosening guide” explaining how to disable security mechanisms in special cases, including the risks involved. Most users install the unchanged default; the default security *is* the security of most installations.
+* Secure-by-design: Design the software to be secure from the outset.
+  * For example, limit its attack surface and apply defense-in-depth \[[FiveEyes2026](https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf)\].
+  * Ensure that security checks run where attackers can’t bypass them (e.g., on the server, not only in the client, if an attacker can control a client). See OWASP ASVS 5.0 requirements V2.2.2 and V8.3.1 for their discussion on input validation and authorization \[[OWASP-ASVS5](https://owasp.org/www-project-application-security-verification-standard/)\].
+* Secure-by-default: Release the software so that it’s secure by default during installation.
+  * Most users install the unchanged default, so the default security *is* the security of most installations.
+  * A “hardening guide” that users must apply after installation indicates insecure defaults; those steps should have been applied before release.
+  * If necessary, provide a “loosening guide” explaining how to disable security mechanisms in special cases, including the risks involved.
 
 Secure-by-design and secure-by-default “must become standard practice – not an aspiration” \[[FiveEyes2026](https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf)\].
 
@@ -1698,7 +1777,7 @@ Several government cybersecurity agencies recommended the following practical ac
 Similarly, the UK NCSC recommends that organizations “put in place a policy to ‘update by default’ where you always apply software updates as soon as possible, and ideally automatically”. Where organizations can’t update everything, “they should prioritise applying updates to their external attack surfaces” \[[Whitehouse2026](https://www.ncsc.gov.uk/blogs/prepare-for-vulnerability-patch-wave)\]. It’s true that “update by default” is a risk; the update may break functionality, or an attacker may subvert an update or the update process. However, the risk from *failing* to update is usually far greater.
 
 The CSA notes that the basics still matter: “segmentation, egress filtering, multifactor authentication, and defense-in-depth/breadth all increase the difficulty for attackers… the basics remain valid and can be prioritized for risks that can’t be easily mitigated. Implement egress filtering (it blocked every public Log4j exploit). Enforce deep segmentation and zero trust where possible. Lock down your dependency chain. Mandate phishing-resistant MFA for all privileged accounts. Every boundary increases attacker cost” \[[CSA2026](https://labs.cloudsecurityalliance.org/mythos-ciso/)\]. It adds that “\[minimizing\] base operating system images, or replacing third-party libraries with framework primitives as they emerge over time” can reduce an organization’s attack surface, and that AI can help do this \[[CSA2026](https://labs.cloudsecurityalliance.org/mythos-ciso/)\].
-Many recommendations focus on identity. CrowdStrike reports, “identity sits at the center of this problem. Many successful attacks do not end with the initial exploit. They become dangerous when they allow an adversary to assume a trusted identity, obtain credentials, or abuse excessive privileges. That means prevention is no longer just about patching. It requires a commitment to continuous identity, transforming the security posture of all identities (human, non-human, and AI) from a point-in-time decision into a real-time control system. It includes enforcing zero standing privileges, continuously verifying access, limiting credential exposure, and connecting identity posture to endpoint and workload context in Real-time.” \[[CrowdStrike2026-FiveSteps](https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/)\]
+Many recommendations focus on identity. CrowdStrike reports, “identity sits at the center of this problem. Many successful attacks do not end with the initial exploit. They become dangerous when they allow an adversary to assume a trusted identity, obtain credentials, or abuse excessive privileges. … \[Prevention\] includes enforcing zero standing privileges, continuously verifying access, limiting credential exposure, and connecting identity posture to endpoint and workload context in Real-time.” \[[CrowdStrike2026-FiveSteps](https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/)\]
 
 Attackers may still manage to slip in. Logging/internal telemetry, offline backups, and having a Continuity of Operations Plan (COOP) are as vital as ever.
 
@@ -1762,7 +1841,7 @@ We wish to thank all contributors and reviewers, including Georg Kunz, Laura Gua
 * \[Anthropic2026-04g\] Anthropic, 2026-04, “Project Glasswing: Securing critical software for the AI era”, [https://www.anthropic.com/glasswing](https://www.anthropic.com/glasswing)
 * \[Anthropic2026-03\] Anthropic, 2026-03-06, “Partnering with Mozilla to improve Firefox’s security”, [https://www.anthropic.com/news/mozilla-firefox-security](https://www.anthropic.com/news/mozilla-firefox-security)
 * \[Anthropic2026-04s\] Anthropic, 2026-04-07 (actually 2026-04-08), “System Card: Claude Mythos Preview”, [https://www-cdn.anthropic.com/08ab9158070959f88f296514c21b7facce6f52bc.pdf](https://www-cdn.anthropic.com/08ab9158070959f88f296514c21b7facce6f52bc.pdf)
-* \[Anthropic2026-06-15-Export-Control\] Anthropic, 2026-06-15, Statement on the US government directive to suspend access to Fable 5 and Mythos 5, [https://www.anthropic.com/news/fable-mythos-access](https://www.anthropic.com/news/fable-mythos-access)
+* \[Anthropic2026-06-12-Export-Control\] Anthropic, 2026-06-12, Statement on the US government directive to suspend access to Fable 5 and Mythos 5, [https://www.anthropic.com/news/fable-mythos-access](https://www.anthropic.com/news/fable-mythos-access)
 * \[Anthropic2026-05\] Anthropic, “Project Glasswing: An initial update”, 2026-05-22, [https://www.anthropic.com/research/glasswing-initial-update](https://www.anthropic.com/research/glasswing-initial-update)
 * \[Anthropic-07-27\] Anthropic, 2026-07-27, Our position on open-weights models, [https://www.anthropic.com/news/position-open-weights-models](https://www.anthropic.com/news/position-open-weights-models)
 * \[Anthropic2026-08-21\] Anthropic, 2026-08-21, Bringing the cybersecurity capabilities of Claude Mythos 5 to more defenders, [https://claude.com/blog/bringing-claude-mythos-5-to-more-defenders](https://claude.com/blog/bringing-claude-mythos-5-to-more-defenders)
@@ -1772,6 +1851,7 @@ We wish to thank all contributors and reviewers, including Georg Kunz, Laura Gua
 * \[Bressers2025\] Bressers, Josh, and Joshua Rogers, 2025-10-13, “Actually finding vulnerabilities using AI with Joshua Rogers”, Open Source Security Podcast, [https://opensourcesecurity.io/2025/2025-10-ai-joshua-rogers/](https://opensourcesecurity.io/2025/2025-10-ai-joshua-rogers/)
 * \[Brown2026\] Jarom Brown, 2026-05-15, “Raising the bar: Quality, shared responsibility, and the future of GitHub’s bug bounty program”, The GitHub Blog, [https://github.blog/security/raising-the-bar-quality-shared-responsibility-and-the-future-of-githubs-bug-bounty-program/](https://github.blog/security/raising-the-bar-quality-shared-responsibility-and-the-future-of-githubs-bug-bounty-program/)
 * \[Buttell2026\] Amy Buttell, 2026-04-04, AI Code Risks Escalate: The use of AI coding tools continues to accelerate even as trust declines and risks proliferate, [https://cacm.acm.org/news/ai-code-risks-escalate/](https://cacm.acm.org/news/ai-code-risks-escalate/)
+* \[Capoot2026\] Ashley Capoot, 2026-06-30, “Anthropic says Trump admin has lifted export controls on Claude Fable 5 and Mythos 5”, CNBC, [https://www.cnbc.com/2026/06/30/anthropic-says-trump-admin-has-lifted-export-controls-on-claude-fable-5-and-mythos-5.html](https://www.cnbc.com/2026/06/30/anthropic-says-trump-admin-has-lifted-export-controls-on-claude-fable-5-and-mythos-5.html)
 * \[Carlini2026\] Nicholas Carlini, Newton Cheng, Keane Lucas, Michael Moore, Milad Nasr, Vinay Prabhushankar, Winnie Xiao, et al., 2026-04-07, “Assessing Claude Mythos Preview’s cybersecurity capabilities”, [https://red.anthropic.com/2026/mythos-preview/](https://red.anthropic.com/2026/mythos-preview/)
 * \[Carlini2026-youtube\] Nicholas Carlini, 2026, “Black-hat LLMs”, \[un\]prompted 2026” [https://www.youtube.com/watch?v=1sd26pWhfmg\&t=316s](https://www.youtube.com/watch?v=1sd26pWhfmg&t=316s)
 * \[Carlini2026-02\] Carlini et al., 2026-02-05, “Evaluating and mitigating the growing risk of LLM-discovered 0-days”, [https://red.anthropic.com/2026/zero-days/](https://red.anthropic.com/2026/zero-days/)
@@ -1826,6 +1906,7 @@ We wish to thank all contributors and reviewers, including Georg Kunz, Laura Gua
 * \[Licklider1960\] J. C. R. “Lick” Licklider, 1960-03, Man-Computer Symbiosis, IRE Transactions on Human Factors in Electronics, volume HFE-1, pages 4-11, [https://groups.csail.mit.edu/medg/people/psz/Licklider.html](https://groups.csail.mit.edu/medg/people/psz/Licklider.html)
 * \[Li2025\] Yue Li, Xiao Li, Hao Wu, Minghui Xu, Yue Zhang, Xiuzhen Cheng, Fengyuan Xu, Sheng Zhong, 2025-04-18, Everything You Wanted to Know About LLM-based Vulnerability Detection But Were Afraid to Ask, [https://arxiv.org/abs/2504.13474v1](https://arxiv.org/abs/2504.13474v1)
 * \[Linux-AI\] Linux kernel developers, “AI Coding Assistants”, The Linux Kernel documentation, [https://docs.kernel.org/process/coding-assistants.html](https://docs.kernel.org/process/coding-assistants.html)
+* \[Linux-SecurityBugs\] Linux kernel developers, “Security bugs”, The Linux Kernel documentation, [https://docs.kernel.org/process/security-bugs.html](https://docs.kernel.org/process/security-bugs.html)
 * \[LowLevel2026\] Low Level, 2026, “Mythos has been unleashed (we have results)” \[video\], [https://www.youtube.com/watch?v=IS4OgH74gY4](https://www.youtube.com/watch?v=IS4OgH74gY4)
 * \[Microsoft2026-07\] Microsoft, 2026-07-24, Open Weights and American AI Leadership, [https://www.microsoft.com/en-us/corporate-responsibility/topics/open-weight/](https://www.microsoft.com/en-us/corporate-responsibility/topics/open-weight/)
 * \[Mierczuk2026\] Axel Mierczuk, Spencer Michaels, and Keith Hoodlet, 2026, Frontier Models’ Vulnerability Patches are Often F.L.A.W.E.D.: Fix-Like Artifacts With Embedded Defects: Common failure modes of LLM-generated security patches, [https://1password.com/files/resources/frontier-models-vulnerability-patches-flawed.pdf](https://1password.com/files/resources/frontier-models-vulnerability-patches-flawed.pdf)
