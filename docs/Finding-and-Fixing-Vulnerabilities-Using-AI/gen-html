@@ -15,10 +15,11 @@ set -o pipefail
 # Generate the chunked HTML, right in this directory (no sections/
 # subdirectory), so URLs stay flat.
 
-# Clean up old chunks. Safe because only generated chunks use ".html"
-# here: source/config files in this directory are .md/.awk/.js/.htm,
-# or extensionless.
-rm -f *.html
+# Clean up old chunks. Generated chunks are named from heading IDs, so
+# they start with a lowercase letter or digit; this glob skips other
+# .html files, such as ","-prefixed scratch files. Source/config files
+# in this directory are .md/.awk/.js/.htm, or extensionless.
+rm -f [a-z0-9]*.html
 
 # pandoc's chunkedhtml writer insists on creating its output
 # directory itself (it errors out if the directory already exists,
@@ -83,8 +84,18 @@ awk -v subtitle="$subtitle" '
 ' index.html > index.html.new
 mv index.html.new index.html
 
+# On a chapter (H1) page, pandoc's "Up" link goes to index.html, the
+# same place as the "TOC" link next to it, so drop it there. The
+# template puts each Up link on a line of its own.
+for f in *.html; do
+  awk '!(/rel="up"/ && /href="index\.html"/)' "$f" > "$f.new"
+  mv "$f.new" "$f"
+done
+
 echo
-echo 'Commit with "git add -A -- *.html images/'
-echo '"or a new file can end up linked from the document but'
-echo 'never actually committed. The pathspec avoids sweeping up'
-echo 'unrelated untracked files sitting in this same directory.'
+echo "Commit with \"git add -A -- '[a-z0-9]*.html' images/\""
+echo 'or a new file can end up linked from the document but'
+echo 'never actually committed. The quotes let git (not the shell)'
+echo 'match the pattern, so it also stages deleted pages. The'
+echo 'pattern avoids sweeping up unrelated untracked files, such as'
+echo ',-prefixed scratch files.'
