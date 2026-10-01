@@ -75,10 +75,12 @@ the website itself is built/deployed, so that the generated HTML doesn't
 need to be committed to the repo at all. For now, it still is, so run
 it and commit the result whenever `Finding.md` changes.
 
-Note that `gen-html` deletes and regenerates all `*.html` files in
-this directory (that's safe: nothing else here uses that extension;
-the template is named `TEMPLATE.htm`), so new chunk files show up as
-untracked, not modified. Commit with `git add -A -- '*.html'`
+Note that `gen-html` deletes and regenerates all the `[a-z0-9]*.html`
+files in this directory (generated pages are named from heading IDs,
+which start that way; the template is named `TEMPLATE.htm`, and
+`,`-prefixed scratch files are left alone), so new chunk files show up
+as untracked, not modified. Commit with
+`git add -A -- '[a-z0-9]*.html' images/`
 (not `-u` or `git commit -a`), or a new file can end
 up linked from the TOC but never actually committed, producing a
 broken link on the live site. Scoping the pathspec this way also
