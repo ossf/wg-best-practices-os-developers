@@ -83,6 +83,14 @@ awk -v subtitle="$subtitle" '
 ' index.html > index.html.new
 mv index.html.new index.html
 
+# On a chapter (H1) page, pandoc's "Up" link goes to index.html, the
+# same place as the "TOC" link next to it, so drop it there. The
+# template puts each Up link on a line of its own.
+for f in *.html; do
+  awk '!(/rel="up"/ && /href="index\.html"/)' "$f" > "$f.new"
+  mv "$f.new" "$f"
+done
+
 echo
 echo 'Commit with "git add -A -- *.html images/'
 echo '"or a new file can end up linked from the document but'

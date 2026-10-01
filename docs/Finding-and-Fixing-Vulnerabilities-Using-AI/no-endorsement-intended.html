@@ -33,9 +33,37 @@
       border-top: 1px solid #ccc;
       border-bottom: 1px solid #ccc;
     }
+    /* Top bar (masthead). The logo's dark text needs a light
+       background in dark mode. On narrow screens, drop the guide's
+       name so the bar stays one line. */
+    .masthead {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1rem 0;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid #ccc;
+    }
+    .masthead .brand { flex: none; line-height: 0; }
+    .masthead .brand img { display: block; height: 1.75rem; width: auto; border-radius: 4px; }
+    @media (prefers-color-scheme: dark) {
+      .masthead .brand img { background: #fff; padding: 2px 4px; }
+    }
+    .masthead .guide-name {
+      flex: 1;
+      min-width: 0;
+      text-wrap: balance;  /* If it needs two lines, make them even. */
+      color: var(--text);
+      text-decoration: none;
+    }
+    .masthead .quicknav { display: flex; gap: 1rem; margin-left: auto; white-space: nowrap; }
+    @media (max-width: 600px) {
+      .masthead .guide-name { display: none; }
+    }
+    body > footer p { margin: 0.5rem 0; }
     span.navlink { flex: 1; }
     span.nav-prev { text-align: left; }
-    span.nav-up { text-align: center; }
+    span.nav-up, span.nav-top { text-align: center; }
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
@@ -109,20 +137,19 @@
 </head>
 <body>
 
-<nav class="sitenav-container">
-  <div class="sitenav">
-    <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="learning-outcomes.html" accesskey="p" rel="previous">Learning outcomes</a>
-    </span>
-    <span class="navlink nav-up">
-      <span class="navlink-label">Up:</span> <a href="introduction.html" accesskey="u" rel="up">Introduction</a>
-      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
-    </span>
-    <span class="navlink nav-next">
-      <span class="navlink-label">Next:</span> <a href="why-this-is-important.html" accesskey="n" rel="next">Why this is important</a> →
-    </span>
-  </div>
-</nav>
+<!-- Top bar: the OpenSSF logo and this guide's name (a masthead), with
+     short navigation links whose full page titles show on hover. The
+     bottom navigation bar shows the full titles. -->
+<div class="masthead">
+  <a class="brand" href="https://openssf.org"><img src="../assets/logo.svg" alt="OpenSSF" /></a>
+  <a class="guide-name" href="index.html">Finding and Fixing Vulnerabilities Using AI</a>
+  <nav class="quicknav" aria-label="Page navigation">
+    <a href="learning-outcomes.html" accesskey="p" rel="previous" title="Learning outcomes">← Previous</a>
+    <a href="introduction.html" accesskey="u" rel="up" title="Introduction">Up</a>
+    <a href="index.html" accesskey="t" rel="top" title="Table of contents">TOC</a>
+    <a href="why-this-is-important.html" accesskey="n" rel="next" title="Why this is important">Next →</a>
+  </nav>
+</div>
 
 
 
@@ -133,17 +160,24 @@
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="learning-outcomes.html" accesskey="p" rel="previous">Learning outcomes</a>
+      <span class="navlink-label">← Previous:</span> <a href="learning-outcomes.html" rel="previous">Learning outcomes</a>
     </span>
     <span class="navlink nav-up">
-      <span class="navlink-label">Up:</span> <a href="introduction.html" accesskey="u" rel="up">Introduction</a>
-      <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
+      <span class="navlink-label">Up:</span> <a href="introduction.html" rel="up">Introduction</a>
+    </span>
+    <span class="navlink nav-top">
+      <span class="navlink-label">Top:</span> <a href="index.html" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
-      <span class="navlink-label">Next:</span> <a href="why-this-is-important.html" accesskey="n" rel="next">Why this is important</a> →
+      <span class="navlink-label">Next:</span> <a href="why-this-is-important.html" rel="next">Why this is important</a> →
     </span>
   </div>
 </nav>
+
+<!-- Change the "propose improvements" link when we stop using Google Docs. -->
+<footer>
+  <p>For website terms of use, trademark policy, and other project policies please see <a href="https://lfprojects.org">https://lfprojects.org</a>. This site is <a href="https://github.com/ossf/wg-best-practices-os-developers/tree/main/docs/Finding-and-Fixing-Vulnerabilities-Using-AI">open source</a>. <a href="https://docs.google.com/document/d/1fji3SlBDDpdGfh46Hs3r7kCv30RYzgSXrLu8eVDoLrM/edit">You may propose improvements</a>.</p>
+</footer>
 
 </body>
 </html>
