@@ -24,7 +24,8 @@
 # URL to the next.
 function wrap_urls(s,    out, i, prev, url) {
     out = ""; i = 1
-    while (match(substr(s, i), /https?:\/\//)) {
+    # Google's export sometimes escapes the colon ("https\://").
+    while (match(substr(s, i), /https?\\?:\/\//)) {
         out = out substr(s, i, RSTART - 1)
         i += RSTART - 1
         prev = (i > 1) ? substr(s, i - 1, 1) : ""
@@ -33,7 +34,10 @@ function wrap_urls(s,    out, i, prev, url) {
         match(substr(s, i), /^[^] \t<>()[]+/)
         url = substr(s, i, RLENGTH)
         i += RLENGTH
-        out = out (prev == "(" || prev == "<" || prev == "[" ? url : "<" url ">")
+        if (prev == "(" || prev == "<" || prev == "[") { out = out url; continue }
+        # Autolinks don't process backslash escapes, so drop that one.
+        sub(/\\:/, ":", url)
+        out = out "<" url ">"
     }
     return out substr(s, i)
 }
