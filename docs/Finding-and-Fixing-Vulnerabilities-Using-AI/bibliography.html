@@ -28,6 +28,55 @@
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
     figure { text-align: center; }
+    /* Overview diagram (see wrap-overview.awk): a box per top-level
+       list item, with arrows between them; stacked on narrow screens.
+       The "/ ''" gives the arrows empty alt text for screen readers. */
+    .overview > ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.2rem;
+    }
+    .overview > ul > li {
+      position: relative;
+      margin: 0;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--standard-border-radius);
+      background: var(--accent-bg);
+    }
+    .overview > ul > li:not(:last-child)::after {
+      content: "→";
+      content: "→" / "";
+      position: absolute;
+      right: -1.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: var(--text-light);
+    }
+    .overview > ul > li > a:first-child {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .overview ul ul { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
+    .overview ul ul li { margin: 0.25rem 0; }
+    .overview a[href$="#repeated-application"]::before { content: "↻ "; content: "↻ " / ""; }
+    @media (max-width: 720px) {
+      .overview > ul { grid-template-columns: 1fr; }
+      .overview > ul > li:not(:last-child)::after {
+        content: "↓";
+        content: "↓" / "";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -2rem;
+        transform: translateX(-50%);
+      }
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -201,7 +250,7 @@
 <li>[Xiong2026] Yunpeng Xiong and Ting Zhang, 2026-01-30 (revised 2026-07-23), “Sifting the Noise: A Comparative Study of LLM Agents in Vulnerability False Positive Filtering”, 35th ACM SIGSOFT International Symposium on Software Testing and Analysis (ISSTA 2026), <a href="https://arxiv.org/abs/2601.22952">https://arxiv.org/abs/2601.22952</a></li>
 <li>[Veracode] Veracode, “What is AI Code Remediation?” <a href="https://www.veracode.com/security/what-is-ai-code-remediation/">https://www.veracode.com/security/what-is-ai-code-remediation/</a></li>
 <li>[Yan2026] Written by Eugene Yan and Henna Dattani, et al., 2026-05-27, “Using LLMs to secure source code”, Claude (Anthropic) Blog, <a href="https://claude.com/blog/using-llms-to-secure-source-code">https://claude.com/blog/using-llms-to-secure-source-code</a></li>
-<li>[ZeroDayClock] Zero Day Clock (website). <a href="https://zerodayclock.com/">https://zerodayclock.com/</a> especially <a href="https://zerodayclock.com/collapse" class="uri">https://zerodayclock.com/collapse</a></li>
+<li>[ZeroDayClock] Zero Day Clock (website). <a href="https://zerodayclock.com/">https://zerodayclock.com/</a> especially https://zerodayclock.com/collapse</li>
 <li>[Zhang2024] Yuntong Zhang, Haifeng Ruan, Zhiyu Fan, Abhik Roychoudhury, 2024, AutoCodeRover: Autonomous Program Improvement, <a href="https://arxiv.org/abs/2404.05427">https://arxiv.org/abs/2404.05427</a></li>
 <li>[Zhang2026] Cen Zhang, Younggi Park, Fabian Fleischer, Yu-Fu Fu, Jiho Kim, Dongkwan Kim, Youngjoon Kim, Qingxiao Xu, Andrew Chin, Ze Sheng, Hanqing Zhao, Michael Pelican, David J. Musliner, Jeff Huang, Jon Silliman, Mikel Mcdaniel, Jefferson Casavant, Isaac Goldthwaite, Nicholas Vidovich, Matthew Lehman, Taesoo Kim, 2026-05-29, “SoK: DARPA’s AI Cyber Challenge (AIxCC): Competition Design, Architectures, and Lessons Learned”, <a href="https://arxiv.org/abs/2602.07666">https://arxiv.org/abs/2602.07666</a></li>
 <li>[Ziegler2026] Ziegler, Albert, 2026-05-12, “Mythos for Offensive Security: XBOW’s Evaluation” <a href="https://xbow.com/blog/mythos-offensive-security-xbow-evaluation">https://xbow.com/blog/mythos-offensive-security-xbow-evaluation</a></li>

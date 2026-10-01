@@ -28,6 +28,55 @@
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
     figure { text-align: center; }
+    /* Overview diagram (see wrap-overview.awk): a box per top-level
+       list item, with arrows between them; stacked on narrow screens.
+       The "/ ''" gives the arrows empty alt text for screen readers. */
+    .overview > ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.2rem;
+    }
+    .overview > ul > li {
+      position: relative;
+      margin: 0;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--standard-border-radius);
+      background: var(--accent-bg);
+    }
+    .overview > ul > li:not(:last-child)::after {
+      content: "→";
+      content: "→" / "";
+      position: absolute;
+      right: -1.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: var(--text-light);
+    }
+    .overview > ul > li > a:first-child {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .overview ul ul { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
+    .overview ul ul li { margin: 0.25rem 0; }
+    .overview a[href$="#repeated-application"]::before { content: "↻ "; content: "↻ " / ""; }
+    @media (max-width: 720px) {
+      .overview > ul { grid-template-columns: 1fr; }
+      .overview > ul > li:not(:last-child)::after {
+        content: "↓";
+        content: "↓" / "";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -2rem;
+        transform: translateX(-50%);
+      }
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -51,7 +100,7 @@
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="release-deploy.html" accesskey="p" rel="previous">Release &amp; deploy</a>
+      <span class="navlink-label">← Previous:</span> <a href="release-and-deploy.html" accesskey="p" rel="previous">Release and deploy</a>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="core-tasks-for-finding-and-fixing-vulnerabilities.html" accesskey="u" rel="up">Core tasks for finding and fixing vulnerabilities</a>
@@ -65,12 +114,12 @@
 
 
 
-<h2 data-number="5.9" id="repeated-application"><span class="header-section-number">5.9</span> Repeated application</h2>
+<h2 data-number="5.10" id="repeated-application"><span class="header-section-number">5.10</span> Repeated application</h2>
 <p>As we noted earlier, in most cases you should repeatedly apply AI systems to find and fix vulnerabilities.</p>
 <p>Most AI systems are non-deterministic; re-running the same AI system with the same inputs can discover new vulnerabilities, especially in the first few iterations. In addition, AI systems will continue to improve, and new capabilities may find new problems.</p>
 <p>So you need to repeatedly apply AI systems, especially improved ones, to find vulnerabilities that were previously missed by other passes. As vulnerabilities are found, search for similar patterns elsewhere, and ensure you really <em>did</em> fix the problem systematically.</p>
 <p>The good news is that improved hardening and fixing vulnerabilities will eventually eliminate all “easy vulnerabilities” and make the system increasingly difficult to attack. Software is finite, and so are defects. Take heart: as it gets harder for software developers to find vulnerabilities, it also gets harder for attackers to find them.</p>
-<p>In practice, software changes over time. Deterministic checks, including those <a href="fix-vulnerabilities.html#turn-findings-into-durable-checks">created from earlier findings</a>, should run on every change. An AI system should also analyze each proposed change (pull request or merge request) toidentify vulnerabilities <em>before</em> a change is accepted.</p>
+<p>In practice, software changes over time. Deterministic checks, including those <a href="verify-fixes.html#turn-findings-into-durable-checks">created from earlier findings</a>, should run on every change. An AI system should also analyze each proposed change (pull request or merge request) toidentify vulnerabilities <em>before</em> a change is accepted.</p>
 <figure>
 <img src="images/robot-human-repeatedly-wash-car-clean.png" width="459" height="250" alt="A robot and human repeatedly wash a car to clean out a car, the pass count is 5 and the car is sparkling with dirty bugs draining away" />
 <figcaption aria-hidden="true">A robot and human repeatedly wash a car to clean out a car, the pass count is 5 and the car is sparkling with dirty bugs draining away</figcaption>
@@ -97,7 +146,7 @@ Answer: A
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="release-deploy.html" accesskey="p" rel="previous">Release &amp; deploy</a>
+      <span class="navlink-label">← Previous:</span> <a href="release-and-deploy.html" accesskey="p" rel="previous">Release and deploy</a>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="core-tasks-for-finding-and-fixing-vulnerabilities.html" accesskey="u" rel="up">Core tasks for finding and fixing vulnerabilities</a>

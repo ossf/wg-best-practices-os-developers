@@ -8,8 +8,11 @@
 # saved here) exists, this also replaces images/ with the zip's
 # images/ and points Finding.md's images at those files, sized as in
 # the Google document. Google's markdown export embeds lossy copies of
-# the images as base64 "[imageN]: data:..." lines; those get dropped.
-# Without Finding.zip, images are left as they are.
+# the images as base64 "[imageN]: data:..." lines; those get dropped,
+# except for images that aren't in the zip (because they have no alt
+# text, or Google's HTML export left them out): for those, the
+# embedded copy is used, with a warning on stderr so you can fix the
+# Google document. Without Finding.zip, images are left as they are.
 
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
@@ -31,7 +34,9 @@ if [ -f "$zip" ]; then
   # The <img> tags in the zip's HTML give each image's alt text (the
   # only key that's the same in Finding.md), file name, and size.
   unzip -p "$zip" '*.html' | { grep -o '<img[^>]*>' || true; } > "$work/imgtags"
-  awk_opts=(-v "imgtags=$work/imgtags" -v "renames=$work/renames")
+  mkdir "$work/embedded"
+  awk_opts=(-v "imgtags=$work/imgtags" -v "renames=$work/renames"
+            -v "embedded=$work/embedded" -v "keeps=$work/keeps" -v "zipname=$zip")
 fi
 
 awk "${awk_opts[@]}" -f clean-finding.awk Finding.md > Finding.md.new
@@ -47,6 +52,20 @@ if [ -f "$zip" ]; then
   done < "$work/renames"
   # Anything in the zip the HTML doesn't mention keeps its name.
   mv -n "$work"/images/* "$work/renamed/" 2>/dev/null || true
+
+  # Images that aren't in the zip (clean-finding.awk warned about each
+  # one): decode the copies embedded in Finding.md, and keep the
+  # existing images/ files that earlier runs made that way.
+  for f in "$work"/embedded/*.b64; do
+    [ -e "$f" ] || continue
+    b="${f##*/}"
+    base64 -d < "$f" > "$work/renamed/${b%.b64}"
+  done
+  if [ -f "$work/keeps" ]; then
+    while read -r f; do
+      if [ -f "$f" ]; then cp "$f" "$work/renamed/${f#images/}"; fi
+    done < "$work/keeps"
+  fi
 
   # Every image Finding.md now uses must exist in the new images/.
   grep -o '(images/[^)]*)' Finding.md.new | tr -d '()' | while read -r f; do

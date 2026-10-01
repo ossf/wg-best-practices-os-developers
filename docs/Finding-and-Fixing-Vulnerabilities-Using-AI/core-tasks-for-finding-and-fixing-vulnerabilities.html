@@ -28,6 +28,55 @@
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
     figure { text-align: center; }
+    /* Overview diagram (see wrap-overview.awk): a box per top-level
+       list item, with arrows between them; stacked on narrow screens.
+       The "/ ''" gives the arrows empty alt text for screen readers. */
+    .overview > ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.2rem;
+    }
+    .overview > ul > li {
+      position: relative;
+      margin: 0;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--standard-border-radius);
+      background: var(--accent-bg);
+    }
+    .overview > ul > li:not(:last-child)::after {
+      content: "→";
+      content: "→" / "";
+      position: absolute;
+      right: -1.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: var(--text-light);
+    }
+    .overview > ul > li > a:first-child {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .overview ul ul { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
+    .overview ul ul li { margin: 0.25rem 0; }
+    .overview a[href$="#repeated-application"]::before { content: "↻ "; content: "↻ " / ""; }
+    @media (max-width: 720px) {
+      .overview > ul { grid-template-columns: 1fr; }
+      .overview > ul > li:not(:last-child)::after {
+        content: "↓";
+        content: "↓" / "";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -2rem;
+        transform: translateX(-50%);
+      }
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -67,7 +116,7 @@
 
 <h1 data-number="5" id="core-tasks-for-finding-and-fixing-vulnerabilities"><span class="header-section-number">5</span> Core tasks for finding and fixing vulnerabilities</h1>
 <p>Now that we’ve <a href="prepare-to-find-and-fix-vulnerabilities.html#prepare-to-find-and-fix-vulnerabilities">prepared to find and fix vulnerabilities</a>, we can begin the main task.</p>
-<p>The core tasks are: <a href="identify-findings.html#identify-findings">identify findings</a> (including handling findings reported by others), <a href="deduplicate.html#deduplicate">deduplicate them</a>, <a href="validate-findings.html#validate-findings">validate them</a>, <a href="triage.html#triage">triage them</a>, <a href="fix-vulnerabilities.html#fix-vulnerabilities">fix the vulnerabilities</a>, <a href="report-vulnerabilities.html#report-vulnerabilities">report vulnerabilities in others’ components</a>, and <a href="#release--deploy">release and deploy the fixes</a>. In practice these overlap and loop; for example, you’ll deduplicate again after validation, and you’ll <a href="repeated-application.html#repeated-application">repeat the whole process</a>.</p>
+<p>The core tasks are: <a href="identify-findings.html#identify-findings">identify findings</a> (including handling findings reported by others), <a href="deduplicate.html#deduplicate">deduplicate them</a>, <a href="validate-findings.html#validate-findings">validate them</a>, <a href="triage.html#triage">triage them</a>, <a href="fix-vulnerabilities.html#fix-vulnerabilities">fix the vulnerabilities</a>, <a href="verify-fixes.html#verify-fixes">verify the fixes</a>, <a href="report-vulnerabilities.html#report-vulnerabilities">report vulnerabilities in others’ components</a>, and <a href="release-and-deploy.html#release-and-deploy">release and deploy the fixes</a>. In practice these overlap and loop; for example, you’ll deduplicate again after validation, and you’ll <a href="repeated-application.html#repeated-application">repeat the whole process</a>.</p>
 
 <nav class="sitenav-container">
   <div class="sitenav">

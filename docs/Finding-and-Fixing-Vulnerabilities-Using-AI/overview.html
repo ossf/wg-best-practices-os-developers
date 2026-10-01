@@ -28,6 +28,55 @@
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
     figure { text-align: center; }
+    /* Overview diagram (see wrap-overview.awk): a box per top-level
+       list item, with arrows between them; stacked on narrow screens.
+       The "/ ''" gives the arrows empty alt text for screen readers. */
+    .overview > ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.2rem;
+    }
+    .overview > ul > li {
+      position: relative;
+      margin: 0;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--standard-border-radius);
+      background: var(--accent-bg);
+    }
+    .overview > ul > li:not(:last-child)::after {
+      content: "→";
+      content: "→" / "";
+      position: absolute;
+      right: -1.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: var(--text-light);
+    }
+    .overview > ul > li > a:first-child {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .overview ul ul { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
+    .overview ul ul li { margin: 0.25rem 0; }
+    .overview a[href$="#repeated-application"]::before { content: "↻ "; content: "↻ " / ""; }
+    @media (max-width: 720px) {
+      .overview > ul { grid-template-columns: 1fr; }
+      .overview > ul > li:not(:last-child)::after {
+        content: "↓";
+        content: "↓" / "";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -2rem;
+        transform: translateX(-50%);
+      }
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -67,31 +116,40 @@
 
 <h2 data-number="1.8" id="overview"><span class="header-section-number">1.8</span> Overview</h2>
 <p>Here is an overview of this material. We’ll first cover AI concepts. This will be followed by a guide for selecting approaches for finding and fixing vulnerabilities using AI. After that, we’ll discuss how to:</p>
+<div class="overview">
 <ul>
-<li>Prepare
+<li><a href="prepare-to-find-and-fix-vulnerabilities.html#prepare-to-find-and-fix-vulnerabilities">Prepare</a>
 <ul>
-<li>Specifically, how to prepare AI, threat models, sandbox, AI logging, code and documentation, CI/CD, and dependency updates</li>
+<li><a href="preparing-ai.html#preparing-ai">Preparing AI</a></li>
+<li><a href="preparing-threat-models.html#preparing-threat-models">Preparing threat models</a></li>
+<li><a href="preparing-the-sandbox.html#preparing-the-sandbox">Preparing the sandbox</a></li>
+<li><a href="preparing-ai-logging.html#preparing-ai-logging">Preparing AI logging</a></li>
+<li><a href="preparing-the-code-and-documentation.html#preparing-the-code-and-documentation">Preparing the code and documentation</a></li>
+<li><a href="preparing-cicd.html#preparing-cicd">Preparing CI/CD</a></li>
+<li><a href="preparing-dependency-updates.html#preparing-dependency-updates">Preparing dependency updates</a></li>
 </ul></li>
-<li>Find &amp; fix vulnerabilities
+<li>Fi<a href="core-tasks-for-finding-and-fixing-vulnerabilities.html#core-tasks-for-finding-and-fixing-vulnerabilities">nding and fixing vulnerabilities</a>
 <ul>
-<li>Identify findings</li>
-<li>Handle external findings/vulnerabilities</li>
-<li>Deduplicate</li>
-<li>Validate findings</li>
-<li>Triage</li>
-<li>Fix vulnerabilities</li>
-<li>Report vulnerabilities</li>
-<li>Release &amp; deploy</li>
-<li>Repeated application</li>
+<li><a href="identify-findings.html#identify-findings">Identify findings</a></li>
+<li><a href="handle-external-findings.html#handle-external-findings">Handle external findings</a></li>
+<li><a href="deduplicate.html#deduplicate">Deduplicate</a></li>
+<li><a href="validate-findings.html#validate-findings">Validate findings</a></li>
+<li><a href="triage.html#triage">Triage</a></li>
+<li><a href="fix-vulnerabilities.html#fix-vulnerabilities">Fix vulnerabilities</a></li>
+<li><a href="verify-fixes.html#verify-fixes">Verify fixes</a></li>
+<li><a href="report-vulnerabilities.html#report-vulnerabilities">Report vulnerabilities</a></li>
+<li><a href="release-and-deploy.html#release-and-deploy">Release and deploy</a></li>
+<li><a href="repeated-application.html#repeated-application">Repeated application</a></li>
 </ul></li>
-<li>Prevent
+<li><a href="preventing-vulnerabilities-longer-term.html#preventing-vulnerabilities-longer-term">Prevent</a>
 <ul>
-<li>Limit vibe coding</li>
-<li>Evaluate merge/pull requests</li>
-<li>Apply secure by design and secure by default</li>
-<li>Harden</li>
+<li><a href="limit-vibe-coding.html#limit-vibe-coding">Limit vibe coding</a></li>
+<li><a href="evaluate-mergepull-requests.html#evaluate-mergepull-requests">Evaluate merge/pull requests</a></li>
+<li><a href="apply-secure-by-design-and-secure-by-default.html#apply-secure-by-design-and-secure-by-default">Apply secure by design and secure by default</a></li>
+<li><a href="harden.html#harden">Harden</a></li>
 </ul></li>
 </ul>
+</div>
 
 <nav class="sitenav-container">
   <div class="sitenav">

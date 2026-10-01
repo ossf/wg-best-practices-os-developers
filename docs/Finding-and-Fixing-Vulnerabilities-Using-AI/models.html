@@ -28,6 +28,55 @@
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
     figure { text-align: center; }
+    /* Overview diagram (see wrap-overview.awk): a box per top-level
+       list item, with arrows between them; stacked on narrow screens.
+       The "/ ''" gives the arrows empty alt text for screen readers. */
+    .overview > ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.2rem;
+    }
+    .overview > ul > li {
+      position: relative;
+      margin: 0;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--standard-border-radius);
+      background: var(--accent-bg);
+    }
+    .overview > ul > li:not(:last-child)::after {
+      content: "→";
+      content: "→" / "";
+      position: absolute;
+      right: -1.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: var(--text-light);
+    }
+    .overview > ul > li > a:first-child {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .overview ul ul { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
+    .overview ul ul li { margin: 0.25rem 0; }
+    .overview a[href$="#repeated-application"]::before { content: "↻ "; content: "↻ " / ""; }
+    @media (max-width: 720px) {
+      .overview > ul { grid-template-columns: 1fr; }
+      .overview > ul > li:not(:last-child)::after {
+        content: "↓";
+        content: "↓" / "";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -2rem;
+        transform: translateX(-50%);
+      }
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -67,7 +116,7 @@
 
 <h2 data-number="2.3" id="models"><span class="header-section-number">2.3</span> Models</h2>
 <p>Modern AI systems’ capabilities depend on the models they use. Since this is vital, let’s briefly focus on models to better understand the tools we’re using.</p>
-<h3 data-number="2.3.1" id="external-vs.-local-models"><span class="header-section-number">2.3.1</span> External vs. local models</h3>
+<h3 data-number="2.3.1" id="external-versus-local-models"><span class="header-section-number">2.3.1</span> External versus local models</h3>
 <p>AI models, when executed (for “inferencing”), receive data for processing and reply with results. There are two main locations where this AI data processing occurs:</p>
 <ul>
 <li><em>External service</em>: Processing occurs as a service external to the user and the user’s organization.</li>
@@ -94,7 +143,7 @@
 <p>Some models are specialized. You may want to choose them for some tasks, but only do that where it’s sensible to do that.</p>
 <p><em>All</em> models are better at some tasks than others. Models designed to be good at some tasks tend to be better at those tasks. In addition, some models are designed to <em>perform only</em> specific tasks; this focus means they tend to be smaller and faster, in exchange for being good only at those tasks. There are many ways to make a model good at a particular task, e.g., by giving it additional data in that domain or optimizing it for that task during training.</p>
 <p>For example, Cisco’s <em>Antares</em> is a family of small language models (SLMs) specifically built to identify known vulnerabilities in an existing codebase. An SLM is simply the application of LLM approaches to a much smaller number of parameters. Cisco reports that these models “outperform many powerful closed- and open-weight models in this critical security task at a fraction of the cost. And they’re compact enough to run locally” [<a href="https://blogs.cisco.com/ai/introducing-antares-the-most-efficient-open-weight-ai-models-for-vulnerability-localization">Karbasi2026</a>].</p>
-<h3 data-number="2.3.4" id="ai-guardrails-intentional-limitations"><span class="header-section-number">2.3.4</span> AI guardrails &amp; intentional limitations</h3>
+<h3 data-number="2.3.4" id="ai-guardrails-and-intentional-limitations"><span class="header-section-number">2.3.4</span> AI guardrails and intentional limitations</h3>
 <p>Many models and the larger systems for invoking them, especially many closed models, implement built-in safety guardrails and other limitations intended to prevent the AI system from assisting in “dangerous” activities, including cybersecurity uses like creating attacks, even if the human user requests it.</p>
 <p>Unfortunately, such systems can be less useful for defense. Hugging Face discovered in 2026 that it was under a powerful AI-driven attack, and when it tried to analyze its logs, it “first used frontier models behind commercial APIs. This did not work: the analysis required submitting large volumes of real attack commands, exploit payloads, and C2 artifacts, and these requests were blocked by the providers’ safety guardrails, which cannot distinguish an incident responder from an attacker. We ran the forensic analysis instead on zai-org/GLM-5.2, an open-weight model, on our own infrastructure. This had a second benefit: no attacker data, and none of the credentials it referenced, left our environment” [<a href="https://huggingface.co/blog/security-incident-july-2026">HuggingFace2026</a>].</p>
 <p>The best way to validate that a defect is a vulnerability is to create an attack and see if it succeeds. However, this is exactly what attackers do, and AI systems often cannot tell the difference. As a result, AI guardrails can sometimes impede defense. Some external providers that implement guardrails can also offer access to models <em>without</em> them, making them more useful for defensive cybersecurity and other tasks. This typically requires special agreements regarding permitted uses and the limitations on who will be granted this access.</p>

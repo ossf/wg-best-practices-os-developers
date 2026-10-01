@@ -28,6 +28,55 @@
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
     figure { text-align: center; }
+    /* Overview diagram (see wrap-overview.awk): a box per top-level
+       list item, with arrows between them; stacked on narrow screens.
+       The "/ ''" gives the arrows empty alt text for screen readers. */
+    .overview > ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.2rem;
+    }
+    .overview > ul > li {
+      position: relative;
+      margin: 0;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--standard-border-radius);
+      background: var(--accent-bg);
+    }
+    .overview > ul > li:not(:last-child)::after {
+      content: "→";
+      content: "→" / "";
+      position: absolute;
+      right: -1.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: var(--text-light);
+    }
+    .overview > ul > li > a:first-child {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .overview ul ul { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
+    .overview ul ul li { margin: 0.25rem 0; }
+    .overview a[href$="#repeated-application"]::before { content: "↻ "; content: "↻ " / ""; }
+    @media (max-width: 720px) {
+      .overview > ul { grid-template-columns: 1fr; }
+      .overview > ul > li:not(:last-child)::after {
+        content: "↓";
+        content: "↓" / "";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -2rem;
+        transform: translateX(-50%);
+      }
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -104,9 +153,21 @@
 </ul>
 <p>For more information, see [<a href="https://nesbitt.io/2026/06/25/scrutineer.html">Nesbitt2026-06</a>] or its website at &lt;<a href="https://github.com/alpha-omega-security/scrutineer">https://github.com/alpha-omega-security/scrutineer</a>&gt;.</p>
 <h3 data-number="3.7.4" id="oss-crs"><span class="header-section-number">3.7.4</span> OSS-CRS</h3>
-<p>OpenSSF’s OSS-CRS provides a sophisticated set of capabilities to deeply find and fix vulnerabilities using a variety of techniques. OSS-CRS is a <em>framework</em> for running many <em>different</em> CRSs and combining their techniques. It includes infrastructure that CRSs can share and budget-aware resource management. OSS-CRS is especially helpful when you want to spend significant effort finding and fixing vulnerabilities, to squeeze out as many as is practical.</p>
-<p>It’s easier to understand OSS-CRS by understanding its history. DARPA’s AI Cyber Challenge (AIxCC) “showed that cyber reasoning systems (CRSs) can go beyond vulnerability discovery to autonomously confirm and patch bugs [yet those systems were] largely unusable outside their original teams, each bound to the competition cloud infrastructure that no longer exists” [<a href="https://arxiv.org/abs/2603.08566">Chin2026</a>] [<a href="https://github.com/ossf/oss-crs/blob/main/docs/slides/svcc-2026.pptx">Chin2026-slides</a>].</p>
-<p>The solution was OSS-CRS, which provides a framework for running CRSs and combining their results. With OSS-CRS, users can decide:</p>
+<p>OpenSSF’s <a href="https://openssf.org/projects/oss-crs/">OSS-CRS</a> provides a sophisticated set of capabilities to deeply find and fix vulnerabilities using a variety of techniques. OSS-CRS is a <em>framework</em> for running many <em>different</em> CRSs and combining their techniques. It includes infrastructure that CRSs can share and budget-aware resource management. OSS-CRS is especially helpful when you want to spend significant effort finding and fixing vulnerabilities, to squeeze out as many as is practical.</p>
+<h4 data-number="3.7.4.1" id="oss-crs-introduction"><span class="header-section-number">3.7.4.1</span> OSS-CRS introduction</h4>
+<p>It’s easier to understand OSS-CRS by understanding its history. DARPA’s AI Cyber Challenge (AIxCC) of 2023-2025 “showed that cyber reasoning systems (CRSs) can go beyond vulnerability discovery to autonomously confirm and patch bugs”. As a research competition it was a success, and the competition results were released as open source software (OSS). However, those systems were “largely unusable outside their original teams, each bound to the competition cloud infrastructure that no longer exists” [<a href="https://arxiv.org/abs/2603.08566">Chin2026</a>] [<a href="https://github.com/ossf/oss-crs/blob/main/docs/slides/svcc-2026.pptx">Chin2026-slides</a>].</p>
+<p>The solution was OSS-CRS. OSS-CRS builds on the previous AIxCC work to provide a framework for running <em>multiple</em> CRSs and <em>combining</em> their results.</p>
+<p>An especially powerful ability of OSS-CRS is its “<em>ensemble</em>” feature. The ensemble feature combines “patches from multiple CRS approaches and [uses] a selection process to pick the one most likely to be correct. The research showed this approach consistently matches or outperforms the best single component in improving semantic correctness, which is hard to eliminate at the single-agent level.” Even so, it’s important to have humans review the proposed changes before implementation [<a href="https://openssf.org/blog/2026/04/02/from-aixcc-to-openssf-welcoming-oss-crs-to-advance-ai-driven-open-source-security/">Diecks2026</a>].</p>
+<p>OSS-CRS also defines a unified interface for CRS development. A CRS using this interface can run across different environments (both local and remote) without modification.</p>
+<h4 data-number="3.7.4.2" id="oss-crs-intended-use"><span class="header-section-number">3.7.4.2</span> OSS-CRS intended use</h4>
+<p>Here’s how OSS-CRS is intended to be used:</p>
+<ol type="1">
+<li><em>Multiple CRS techniques are run in parallel</em>. This often involves using fuzzing, static analysis, and LLM-based reasoning, probing the target for bugs, and eventually producing proposed patches.</li>
+<li><em>Ensemble selection picks the best patch</em>. Candidate patches from different CRS approaches are cross-validated.</li>
+<li><em>People review findings and proposed patches</em>.</li>
+<li><em>Verified patches reach the project</em>. Only findings that survive ensemble validation and human review should be submitted.</li>
+</ol>
+<p>With OSS-CRS, users can decide:</p>
 <ul>
 <li>Which CRSs to run</li>
 <li>How much compute resources/time to give to each CRS</li>
@@ -115,9 +176,70 @@
 <li>What project (and harness) to run the CRSs against</li>
 <li>Which vulnerability to fix (for patching CRSs) [<a href="https://github.com/ossf/oss-crs/blob/main/docs/slides/svcc-2026.pptx">Chin2026-slides</a>]</li>
 </ul>
-<p>OSS-CRS is more effective if the project being analyzed has a harness using the OSS-Fuzz format. Many build systems are used to build software (such as Make, CMake, Autoconf, Bazel, and Meson). This can make it challenging to create tools to correctly analyze them. “OSS-CRS mitigates this by building targets through OSS-Fuzz’s official build flows, inheriting the build environment that each project’s maintainers already support” [<a href="https://arxiv.org/abs/2603.08566">Chin2026</a>]. If a project doesn’t have an OSS-Fuzz harness, consider using AI to help build one. Ensuring OSS-CRS can build and fuzz a program often improves OSS-CRS results. An especially powerful ability of OSS-CRS is its “ensemble” feature. The ensemble feature combines “patches from multiple CRS approaches and [uses] a selection process to pick the one most likely to be correct. The research showed this approach consistently matches or outperforms the best single component in improving semantic correctness, which is hard to eliminate at the single-agent level.” Even so, it’s important to have humans review the proposed changes before implementation [<a href="https://openssf.org/blog/2026/04/02/from-aixcc-to-openssf-welcoming-oss-crs-to-advance-ai-driven-open-source-security/">Diecks2026</a>].</p>
+<h4 data-number="3.7.4.3" id="oss-crs-key-terms-and-concepts"><span class="header-section-number">3.7.4.3</span> OSS-CRS key terms and concepts</h4>
+<p>Here are a few OSS-CRS key terms and concepts:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Term</th>
+<th style="text-align: left;">What it is</th>
+<th style="text-align: left;">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Harness</td>
+<td style="text-align: left;">A code wrapper that feeds generated inputs into target functions</td>
+<td style="text-align: left;">Lets bug-finding engines safely execute code, measure coverage, and detect crashes</td>
+</tr>
+<tr>
+<td style="text-align: left;">(Fuzzing) Seed</td>
+<td style="text-align: left;">An initial, well-formed input payload provided at the start of a test run</td>
+<td style="text-align: left;">Gives fuzzers a starting baseline to reach deep code logic faster instead of generating random bytes from scratch</td>
+</tr>
+<tr>
+<td style="text-align: left;">Proof of Vulnerability (PoV)</td>
+<td style="text-align: left;">A specific input payload that reliably triggers a bug or sanitizer crash (note that definition is more specific than some)</td>
+<td style="text-align: left;">Proves a vulnerability exists and serves as a test case to verify that a proposed code patch fixes the bug</td>
+</tr>
+<tr>
+<td style="text-align: left;">Fuzzing/ Fuzzer</td>
+<td style="text-align: left;">The automated technique (and engine) that repeatedly feeds generated inputs into a harness to test execution paths and uncover unexpected crashes</td>
+<td style="text-align: left;">Key capabilities: automated input generation &amp; execution; harness-based path testing; uncovers unexpected crashes</td>
+</tr>
+<tr>
+<td style="text-align: left;">Triage</td>
+<td style="text-align: left;">The automated process of filtering, deduplicating, and evaluating raw crashes to confirm they are genuine security flaws rather than benign errors</td>
+<td style="text-align: left;">Key capabilities: crash filtering &amp; deduplication; evaluates raw crash logs; confirms genuine security flaws</td>
+</tr>
+<tr>
+<td style="text-align: left;">Patch</td>
+<td style="text-align: left;">A targeted source code modification produced by a CRS to eliminate a vulnerability while preserving all existing intended functionality</td>
+<td style="text-align: left;">Key capabilities: targeted source code modifications; vulnerability elimination; preserves intended functionality</td>
+</tr>
+</tbody>
+</table>
+<h4 data-number="3.7.4.4" id="using-oss-crs-effectively"><span class="header-section-number">3.7.4.4</span> Using OSS-CRS effectively</h4>
+<p>OSS-CRS is more effective if the project being analyzed has a harness using the OSS-Fuzz format. Many different build systems are used to build software (such as Make, CMake, Autoconf, Bazel, and Meson). This lack of commonality can make it challenging to create tools to correctly analyze them. “OSS-CRS mitigates this by building targets through OSS-Fuzz’s official build flows, inheriting the build environment that each project’s maintainers already support” [<a href="https://arxiv.org/abs/2603.08566">Chin2026</a>]. OSS-Fuzz can use one of several fuzzing engines to do its tasks, including libFuzzer, AFL++, and Honggfuzz. If a project doesn’t have an OSS-Fuzz harness, consider using AI to help build one. Ensuring OSS-CRS can build and fuzz a program often improves OSS-CRS results.</p>
+<p>You can choose to use the many CRSs already available and ported to run on top of OSS-CRS. You can also create your own CRS (see [<a href="https://github.com/Team-Atlanta/crs-bug-finding-template/">crs-bug-finding-template</a>] for more).</p>
 <p>OSS-CRS is already capable. “Using OSS-CRS, Team Atlanta discovered twenty-five vulnerabilities across sixteen projects spanning a broad range of software including PHP, U-Boot, memcached, and Apache Ignite 3” [<a href="https://openssf.org/blog/2026/04/02/from-aixcc-to-openssf-welcoming-oss-crs-to-advance-ai-driven-open-source-security/">Diecks2026</a>].</p>
-<p>You can choose to use the many CRSs already available and ported to run on top of OSS-CRS. You can also create your own CRS (see [<a href="https://github.com/Team-Atlanta/crs-bug-finding-template/">crs-bug-finding-template</a>] for more), but that’s outside our scope. While OSS-CRS can require more resources and startup time, its benefit is the ability to combine so many different CRSs to analyze and fix a project.</p>
+<h4 data-number="3.7.4.5" id="oss-crs-demos"><span class="header-section-number">3.7.4.5</span> OSS-CRS demos</h4>
+<p>Here is a set of short videos demonstrating finding bugs using OSS-CRS combined with LibFuzzer:</p>
+<ol type="1">
+<li>🎬 <a href="https://drive.google.com/file/d/1vv00WXeZusyi2lu-uT2dOiG6KkwMAt4C/view?usp=sharing">Set up OSS-CRS</a></li>
+<li>🎬 <a href="https://drive.google.com/file/d/1A9f-PONiA0nJifLkp5dNORxNNEITwCI-/view?usp=sharing">Set Variables for CRS Libfuzzer</a></li>
+<li>🎬 <a href="https://drive.google.com/file/d/1cwD0DAkMp_XV8J-AdLQZTI3gmRrhxiV-/view?usp=sharing">Prepare the CRS Libfuzzer</a></li>
+<li>🎬 <a href="https://drive.google.com/file/d/19TdoLfwjFEmpOcItrwGHkVyMPwhtFV7y/view?usp=sharing">Build a target for the Libfuzzer</a></li>
+<li>🎬 <a href="https://drive.google.com/file/d/1Yt630PBO1B78JCbiMVXBeu_Qq3FVF9N8/view?usp=sharing">Run the CRS Libfuzzer</a></li>
+<li>🎬 L<a href="https://drive.google.com/file/d/1ztRPyF443w35dzEePWuwjKq_Jz29VfPj/view?usp=sharing">ibfuzzer outputs: seeds and Proof of Vulnerabilities</a></li>
+</ol>
+<p>Here’s a video showing using OSS-CRS to create a proposed patch:</p>
+<p>🎬 <a href="https://drive.google.com/file/d/1kC4rsM3cnX7wf55_QqWl3k0EZbRvfbqA/view?usp=sharing">Running a patching CRS</a></p>
 <p>For more information on OSS-CRS, see: <a href="https://openssf.org/projects/oss-crs/">https://openssf.org/projects/oss-crs/</a></p>
 <details class="quiz">
 <summary>

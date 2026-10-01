@@ -28,6 +28,55 @@
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
     figure { text-align: center; }
+    /* Overview diagram (see wrap-overview.awk): a box per top-level
+       list item, with arrows between them; stacked on narrow screens.
+       The "/ ''" gives the arrows empty alt text for screen readers. */
+    .overview > ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.2rem;
+    }
+    .overview > ul > li {
+      position: relative;
+      margin: 0;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--standard-border-radius);
+      background: var(--accent-bg);
+    }
+    .overview > ul > li:not(:last-child)::after {
+      content: "→";
+      content: "→" / "";
+      position: absolute;
+      right: -1.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: var(--text-light);
+    }
+    .overview > ul > li > a:first-child {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .overview ul ul { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
+    .overview ul ul li { margin: 0.25rem 0; }
+    .overview a[href$="#repeated-application"]::before { content: "↻ "; content: "↻ " / ""; }
+    @media (max-width: 720px) {
+      .overview > ul { grid-template-columns: 1fr; }
+      .overview > ul > li:not(:last-child)::after {
+        content: "↓";
+        content: "↓" / "";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -2rem;
+        transform: translateX(-50%);
+      }
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -51,23 +100,23 @@
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="fix-vulnerabilities.html" accesskey="p" rel="previous">Fix vulnerabilities</a>
+      <span class="navlink-label">← Previous:</span> <a href="verify-fixes.html" accesskey="p" rel="previous">Verify fixes</a>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="core-tasks-for-finding-and-fixing-vulnerabilities.html" accesskey="u" rel="up">Core tasks for finding and fixing vulnerabilities</a>
       <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
-      <span class="navlink-label">Next:</span> <a href="release-deploy.html" accesskey="n" rel="next">Release &amp; deploy</a> →
+      <span class="navlink-label">Next:</span> <a href="release-and-deploy.html" accesskey="n" rel="next">Release and deploy</a> →
     </span>
   </div>
 </nav>
 
 
 
-<h2 data-number="5.7" id="report-vulnerabilities"><span class="header-section-number">5.7</span> Report vulnerabilities</h2>
+<h2 data-number="5.8" id="report-vulnerabilities"><span class="header-section-number">5.8</span> Report vulnerabilities</h2>
 <p>There are three kinds of vulnerability reporting we want to discuss: to the people who maintain a component, to authorities when a law requires it, and to your own users.</p>
-<h3 data-number="5.7.1" id="reporting-to-externally-maintained-projects"><span class="header-section-number">5.7.1</span> Reporting to externally maintained projects</h3>
+<h3 data-number="5.8.1" id="reporting-to-externally-maintained-projects"><span class="header-section-number">5.8.1</span> Reporting to externally maintained projects</h3>
 <p>If the vulnerability is in an <em>externally maintained</em> component, report it to the project that maintains that component. Use the vulnerability reporting process and rules defined by that project, in whatever form the project prefers. In many cases this involves working with others in a process called “coordinated vulnerability disclosure”.</p>
 <p>Here’s how to make those reports useful.</p>
 <p>First, take steps to prevent reporting AI slop. “AI-assisted bug reports have a mixed track record, and skepticism is earned. Too many submissions have meant false positives and an extra burden for open source projects.” [<a href="https://blog.mozilla.org/en/firefox/hardening-firefox-anthropic-red-team/">Grinstead2026-03</a>] The best AI systems have improved, and some perform human review before sending reports, but many projects still receive a lot of useless AI slop.</p>
@@ -125,27 +174,27 @@ Show answer
 Answer: D
 </details>
 </details>
-<h3 data-number="5.7.2" id="reporting-to-authorities"><span class="header-section-number">5.7.2</span> Reporting to authorities</h3>
+<h3 data-number="5.8.2" id="reporting-to-authorities"><span class="header-section-number">5.8.2</span> Reporting to authorities</h3>
 <p>So far we’ve discussed reporting vulnerabilities to the people who maintain a component. Some laws also require reporting to authorities. In particular, the European Union (EU) Cyber Resilience Act (CRA) includes a variety of requirements for manufacturers of products with digital elements distributed in the EU, as well as for open source software stewards. Let’s briefly note the CRA requirements, as an example of reporting to authorities that’s widely applicable.</p>
 <p>The CRA treats <em>actively exploited vulnerabilities</em> differently from other vulnerabilities found. If you learn that there is an <em>actively exploited vulnerability</em> in software you maintain, or a <em>severe incident</em>, the CRA imposes strict reporting requirements that apply to manufacturers since 2026-09-11. These include short time windows; an initial report must be made within 24 hours.</p>
 <p>The CRA does not require that software have no unknown vulnerabilities. After all, if the developers don’t know about a vulnerability, they can’t fix it. However, the CRA does impose several requirements on manufacturers of products with digital elements. For example, the CRA’s Annex I requires that such products “be designed, developed and produced in such a way that they ensure an appropriate level of cybersecurity based on the risks”, that they “be made available on the market without known exploitable vulnerabilities”, that they be “made available on the market with a secure by default configuration [in general]”, and that they “ensure that vulnerabilities can be addressed through security updates”.</p>
 <p>The CRA also imposes several requirements related to identifying vulnerabilities, for example, “identify and document vulnerabilities and components contained in products with digital elements…”, “address and remediate vulnerabilities without delay”, and “apply effective and regular tests and reviews of the security of the product with digital elements” [<a href="https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng#anx_I">CRA-AnnexI</a>].</p>
 <p>For more information, see our course “<a href="https://training.linuxfoundation.org/express-learning/understanding-the-eu-cyber-resilience-act-cra-lfel1001/">Understanding the EU Cyber Resilience Act (CRA) (LFEL1001)</a>”.</p>
-<h3 data-number="5.7.3" id="reporting-to-users"><span class="header-section-number">5.7.3</span> Reporting to users</h3>
+<h3 data-number="5.8.3" id="reporting-to-users"><span class="header-section-number">5.8.3</span> Reporting to users</h3>
 <p>Usually, don’t tell users about a vulnerability in software you maintain until a fix is available. Announcing it earlier mainly helps attackers, since users can’t yet protect themselves. That’s why coordinated vulnerability disclosure keeps a vulnerability private until a fix is ready.</p>
 <p>Sometimes you need to tell users before a fix is available, e.g., if the vulnerability is already public or being actively exploited. In that case, say which versions are affected, how users can reduce their risk until a fix is ready (e.g., a workaround or configuration change), and when you expect a fix, without details that would help attackers. For an actively exploited vulnerability, the CRA may require manufacturers to inform the users affected.</p>
 
 <nav class="sitenav-container">
   <div class="sitenav">
     <span class="navlink nav-prev">
-      <span class="navlink-label">← Previous:</span> <a href="fix-vulnerabilities.html" accesskey="p" rel="previous">Fix vulnerabilities</a>
+      <span class="navlink-label">← Previous:</span> <a href="verify-fixes.html" accesskey="p" rel="previous">Verify fixes</a>
     </span>
     <span class="navlink nav-up">
       <span class="navlink-label">Up:</span> <a href="core-tasks-for-finding-and-fixing-vulnerabilities.html" accesskey="u" rel="up">Core tasks for finding and fixing vulnerabilities</a>
       <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
-      <span class="navlink-label">Next:</span> <a href="release-deploy.html" accesskey="n" rel="next">Release &amp; deploy</a> →
+      <span class="navlink-label">Next:</span> <a href="release-and-deploy.html" accesskey="n" rel="next">Release and deploy</a> →
     </span>
   </div>
 </nav>
