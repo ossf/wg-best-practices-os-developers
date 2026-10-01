@@ -1,4 +1,4 @@
-# Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers (LFD126) \- DRAFT
+# Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers
 <!-- markdownlint-disable-file MD025 -->
 <!-- Each chapter below is intentionally its own H1; see gen-html. -->
 
@@ -8,7 +8,7 @@ This is a guide for software developers and vulnerability researchers on finding
 
 # Introduction
 
-Welcome to “Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers”. This is a guidance document and will eventually be an online course (LFD126).
+Welcome to “Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers”. This is a guidance document; we intend to eventually turn this material into an online course (LFD126).
 
 ## Scope of this material
 
