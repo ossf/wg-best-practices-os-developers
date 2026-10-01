@@ -36,8 +36,21 @@ rm -fr chunks-tmp
 # simple.min.css is vendored (not loaded from a CDN at page-load
 # time): see README.md for why, its source/version, and how to check
 # for and apply updates.
-awk -f extract-title.awk Finding.md | \
-pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout \
+#
+# wrap-overview.awk marks the overview list so TEMPLATE.htm's CSS can
+# draw it as a diagram, and add-image-titles.awk gives images their alt
+# text as a hover tooltip; they're also transient.
+#
+# gfm_auto_identifiers makes pandoc compute heading IDs (and so page
+# names) the way GitHub does, matching the in-document links that
+# clean-finding.awk writes (markdownlint checks those). Otherwise the
+# two differ for headings with "." or " & ", breaking links to them.
+#
+# -implicit_figures stops pandoc from turning each image that's alone
+# in a paragraph into a <figure> whose caption repeats its alt text.
+awk -f extract-title.awk Finding.md | awk -f wrap-overview.awk | \
+  awk -f add-image-titles.awk | \
+pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout+gfm_auto_identifiers-implicit_figures \
   - \
   -t chunkedhtml --split-level=2 --toc -o chunks-tmp \
   --template=TEMPLATE.htm --chunk-template="%i.html" \

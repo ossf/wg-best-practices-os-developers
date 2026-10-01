@@ -9,7 +9,19 @@
   <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Fix vulnerabilities</title>
+  <link rel="stylesheet" href="simple.min.css" />
+  <!-- This <style> comes after the stylesheets above so it overrides them. -->
   <style>
+    /* Smaller headings than simple.css's (h1-h4: 3rem, 2.6rem, 2rem,
+       and 1.44rem; less on narrow screens), each still larger than
+       the next level down, ending at the 1.15rem body text (h6, which
+       is still bold). */
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.45rem; }
+    h4 { font-size: 1.3rem; }
+    h5 { font-size: 1.2rem; }
+    h6 { font-size: 1.15rem; }
     div.sitenav {
       display: flex;
       flex-direction: row;
@@ -27,7 +39,57 @@
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
-    figure { text-align: center; }
+    /* Center images that are alone in their paragraph. */
+    p > img:only-child { display: block; margin-inline: auto; }
+    /* Overview diagram (see wrap-overview.awk): a box per top-level
+       list item, with arrows between them; stacked on narrow screens.
+       The "/ ''" gives the arrows empty alt text for screen readers. */
+    .overview > ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.2rem;
+    }
+    .overview > ul > li {
+      position: relative;
+      margin: 0;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--standard-border-radius);
+      background: var(--accent-bg);
+    }
+    .overview > ul > li:not(:last-child)::after {
+      content: "→";
+      content: "→" / "";
+      position: absolute;
+      right: -1.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: var(--text-light);
+    }
+    .overview > ul > li > a:first-child {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .overview ul ul { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
+    .overview ul ul li { margin: 0.25rem 0; }
+    .overview a[href$="#repeated-application"]::before { content: "↻ "; content: "↻ " / ""; }
+    @media (max-width: 720px) {
+      .overview > ul { grid-template-columns: 1fr; }
+      .overview > ul > li:not(:last-child)::after {
+        content: "↓";
+        content: "↓" / "";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -2rem;
+        transform: translateX(-50%);
+      }
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -44,7 +106,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 
@@ -58,7 +119,7 @@
       <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
-      <span class="navlink-label">Next:</span> <a href="report-vulnerabilities.html" accesskey="n" rel="next">Report vulnerabilities</a> →
+      <span class="navlink-label">Next:</span> <a href="verify-fixes.html" accesskey="n" rel="next">Verify fixes</a> →
     </span>
   </div>
 </nav>
@@ -68,10 +129,7 @@
 <h2 data-number="5.6" id="fix-vulnerabilities"><span class="header-section-number">5.6</span> Fix vulnerabilities</h2>
 <p>Once vulnerabilities are found, those vulnerabilities need to be <em>fixed</em>.</p>
 <p>Finding vulnerabilities is useless for a defender unless those vulnerabilities are fixed. If vulnerabilities are not fixed efficiently, it can become completely overwhelming. For example, here is the number of bug fixes in the Chrome browser, showing a huge rise in 2026 (compared to 2024-2025) caused by AI-discovered defect reports [<a href="https://blog.google/security/chrome-stronger-with-every-update/">Chrome2026</a>]:</p>
-<figure>
-<img src="images/chrome-bug-fixes-by-milestone-showing.png" width="517" height="291" alt="Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports" />
-<figcaption aria-hidden="true">Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports</figcaption>
-</figure>
+<p><img src="images/chrome-bug-fixes-by-milestone-showing.png" title="Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports" width="517" height="291" alt="Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports" /></p>
 <p>Firefox had a similar experience. Mozilla reported, “We fixed a total of 423 security bugs in releases in April. In addition to the 271 bugs announced two weeks ago, there were 41 externally reported bugs, with the remaining 111 discovered internally” [<a href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>].</p>
 <p>In many ways, a web browser is a worst case, since it has a massive amount of functionality and must directly interact with potentially malicious websites. Still, this experience demonstrates that AI can identify many vulnerabilities not found otherwise, and that you need to be ready to fix far more vulnerabilities than before.</p>
 <h3 data-number="5.6.1" id="fixing-may-be-necessary-for-sending-reports-to-external-organizations"><span class="header-section-number">5.6.1</span> Fixing may be necessary for sending reports to external organizations</h3>
@@ -105,37 +163,6 @@
 <li>A 2026 study of AI repair of infrastructure-as-code (Terraform), where validator errors were fed back to the model over up to five iterations, found that in 13.8% of scenarios a previously passing security check later failed. Only 3.3% were unambiguous, but the authors believe this is an under-count. Regressions were strongly associated with large rewrites, and compliance stopped improving after about three iterations: “Three iterations capture most of the compliance improvement while keeping regression risk manageable” [<a href="https://arxiv.org/abs/2608.13404">Agyekum2026</a>].</li>
 <li>Limit the number of iterations, prefer small changes, and bring in a human when the AI doesn’t converge quickly.</li>
 </ul>
-<h3 data-number="5.6.7" id="verifying-the-fix"><span class="header-section-number">5.6.7</span> Verifying the fix</h3>
-<p>After generating candidate fixes, have AI and then humans review them.</p>
-<p>Even very good AI writes vulnerable code. In particular, an AI can be good at finding vulnerabilities yet still write code with lots of vulnerabilities. This might be surprising, but remember, AI is trained on a large amount of insecure software. It’s more difficult to get an AI to do something <em>contrary</em> to its training dataset [<a href="https://labs.cloudsecurityalliance.org/mythos-ciso/">CSA2026</a>] [Zimmer2026]. Modern AI is fundamentally probabilistic, so it can be difficult to predict exactly what it will generate for a given request [<a href="https://arxiv.org/abs/2512.18261v2">Kholoosi2025</a>].</p>
-<p>So the first step is to have an AI review the proposed fix for the vulnerability. “Have a new discovery agent probe the patch as an attacker to confirm the patch is comprehensive” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]. What can be especially helpful is to have AI write tests for the fixes. For example, [<a href="https://blog.google/security/chrome-stronger-with-every-update/">Chrome2026</a>] reports that they use test-writing agents to “help write tests for fixes. These agents can ensure that tests work across supported platforms and configurations before a developer reviews the fix, saving up to weeks of developer time.”</p>
-<p>Run the validated PoC against the fixed version and confirm that it no longer succeeds. Then have a separate agent try variations of the PoC, since a fix that blocks only the exact PoC input isn’t a full fix.</p>
-<p>While AI review is a good first pass for proposed vulnerability fixes, they still require expert human review. As we noted earlier, <a href="do-not-presume-ai-can-correctly-fix-all-vulnerabilities.html#do-not-presume-ai-can-correctly-fix-all-vulnerabilities">AI-generated fixes often are incomplete, add vulnerabilities, or break functionality</a>.</p>
-<p>Some problems with initial AI-proposed fixes are especially common:</p>
-<ul>
-<li><em>AI often fixes only the specific instance, rather than identifying root causes and fixing the problem systematically</em>. “Patches focused too much on immediate consequences of issues, and generally failed to put the whole application and codepath into perspective, and ‘understand’ the real source of the problem, and where an engineer with a clue would actually solve the problem rather than mitigate it.” [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>]</li>
-<li><em>AI often fails to customize the fix and reuse existing constructs</em>. “For fixes, one of the most common issues was that the fix was not customized to the developer’s codebase, for example, creating a function to sanitize user inputs when the developer wants to reuse their existing sanitization library; this often prevented the users from directly applying the fix, requiring an overhaul to produce a fix with their intended approach.” [<a href="https://arxiv.org/abs/2412.14306v3">Steenhoek2025</a>] In short, for an AI system it’s “easier” to write lots of duplicate code, but this typically creates a maintenance nightmare.</li>
-<li><em>AI sometimes adds dependencies that don’t exist, or aren’t the ones you think</em>
-<ul>
-<li>Attackers can register these hallucinated names and wait for someone to install them (“slopsquatting”). If a proposed fix adds or changes a dependency, confirm that it’s the real, intended package and that you actually need it.</li>
-<li>In a 2025 study of 576,000 code samples from 16 LLMs available in 2024, “the average percentage of hallucinated packages is at least 5.2% for commercial models and 21.7% for open-source models” [<a href="https://www.usenix.org/conference/usenixsecurity25/presentation/spracklen">Spracklen2025</a>].</li>
-<li>A 2026 replication on five newer models found rates from 4.62% to 6.10%; the only open-weight model analyzed was DeepSeek V3.2, whose hallucination rate was 5.89%.So the open-weight model improved dramatically over the older average, while commercial closed rates stayed about the same. Its author called this “an order-of-magnitude compression of the inter-model spread observed by Spracklen, but not a retirement of the threat” [<a href="https://arxiv.org/abs/2605.17062">Churilov2026</a>].</li>
-<li>Another 2026 study found no hallucinated package names in the imports of 1,134 short pieces of Python code that six models (including two small local open-weight models) generated for everyday coding tasks with mainstream libraries. However, when prompts asked for niche or nonexistent libraries, every model wrote code importing packages that don’t exist, and the samples were too small to show that the rate is zero even for everyday tasks [<a href="https://arxiv.org/abs/2606.13918">Hillah2026</a>].</li>
-<li>We expect package hallucination to keep declining as models improve, but we don’t expect it to disappear.</li>
-</ul></li>
-</ul>
-<p>Even if an AI’s initial fix is wrong, that doesn’t make its proposed fix useless. One reporter found AI fixes “most useful for simply understanding what the problem actually was in the code – sometimes I didn’t understand the issue from the description, but the suggested fix revealed to me what was wrong, and what would (could?) fix it.” [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>] Sometimes the proposed fixes shouldn’t be the final fix, but they can still provide guidance to help developers find a correct solution.</p>
-<p>Be <em>sure</em> to apply all of your usual verification processes. That includes your peer review gates, CI/CD pipelines, and branch protection rules. “Leveraging organizational safeguards such as peer-review gates and branch protection rules can help mitigate potential individual complacency regarding AI-generated security suggestions” [<a href="https://arxiv.org/abs/2512.18261v2">Kholoosi2025</a>].</p>
-<p>Technology can help. However, as noted in [<a href="https://www.anthropic.com/research/glasswing-initial-update">Anthropic2026-05</a>], now “the bottleneck in fixing bugs like these is the human capacity to triage, report, and design and deploy patches for them.”</p>
-<h3 data-number="5.6.8" id="turn-findings-into-durable-checks"><span class="header-section-number">5.6.8</span> Turn findings into durable checks</h3>
-<p>AI analysis is non-deterministic; don’t depend on rerunning it to catch the same problem again. Instead, turn what you learned into deterministic checks that run on every change, as part of the change.</p>
-<p>At the least, modify the test suite to <a href="fix-vulnerabilities.html#creating-tests-and-confirming-the-root-problem">add the regression test you created earlier</a> to verify the problem. You may also want to add:</p>
-<ol type="1">
-<li>A static analysis rule that detects the vulnerable pattern (e.g., a Semgrep rule or CodeQL query).</li>
-<li>A fuzz harness for the code involved, if it’s the kind of code fuzzing handles well (e.g., parsers).</li>
-<li>A hardening or API change that makes the whole class of vulnerability impossible or unlikely (see the upcoming section on <a href="harden.html#harden">hardening</a>).</li>
-</ol>
-<p>AI can often help implement all of these. The general principle is that if something is important, enforce it with deterministic mechanisms <em>instead</em> of relying on an AI to notice it every time.</p>
 <details class="quiz">
 <summary>
 Quiz
@@ -165,7 +192,7 @@ Answer: A
       <span class="navlink-label">Top:</span> <a href="index.html" accesskey="t" rel="top">TOC</a>
     </span>
     <span class="navlink nav-next">
-      <span class="navlink-label">Next:</span> <a href="report-vulnerabilities.html" accesskey="n" rel="next">Report vulnerabilities</a> →
+      <span class="navlink-label">Next:</span> <a href="verify-fixes.html" accesskey="n" rel="next">Verify fixes</a> →
     </span>
   </div>
 </nav>

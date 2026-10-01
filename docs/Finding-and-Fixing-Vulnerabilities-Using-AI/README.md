@@ -21,8 +21,8 @@ A few conventions in the Google document matter because of this:
   removes trailing whitespace, which is how the export represents those
   breaks. Use Enter for a new paragraph instead.
 * In-document links are rewritten to use GitHub's heading IDs, which
-  markdownlint checks. Pandoc (used by `gen-html`) computes different IDs
-  for headings containing "." or " & ", so don't link to such headings.
+  markdownlint checks. `gen-html` has pandoc compute IDs the same way
+  (its `gfm_auto_identifiers` extension), so they work in the HTML too.
 
 ### Images
 
@@ -119,6 +119,20 @@ Keep each quiz block entirely within one subsection; don't let it span
 a heading, since `gen-html` chunks pages at both H1 and H2 headings,
 and a quiz straddling that boundary would end up broken across two
 pages.
+
+## Overview diagram
+
+To draw a list as a diagram in the HTML (a box for each top-level
+item, with arrows between them), put a paragraph that's exactly
+`OVERVIEW` (uppercase, nothing else) right before it, and one that's
+exactly `ENDOVERVIEW` right after it. The overview list uses this. In
+the Google Doc it's just a nested bulleted list, so edit it normally;
+make each item a link to its heading (Insert › Link › Headings).
+`gen-html` runs `wrap-overview.awk`, which turns the markers into
+`<div class="overview">` and `</div>` only in what it passes to pandoc
+(`Finding.md` itself isn't changed), and CSS in `TEMPLATE.htm` does
+the drawing. The CSS assumes three top-level items; change
+`grid-template-columns` there if that changes.
 
 ## Vendored CSS
 

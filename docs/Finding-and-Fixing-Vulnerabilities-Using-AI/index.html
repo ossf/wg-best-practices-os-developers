@@ -9,7 +9,19 @@
   <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers (LFD126) - DRAFT</title>
+  <link rel="stylesheet" href="simple.min.css" />
+  <!-- This <style> comes after the stylesheets above so it overrides them. -->
   <style>
+    /* Smaller headings than simple.css's (h1-h4: 3rem, 2.6rem, 2rem,
+       and 1.44rem; less on narrow screens), each still larger than
+       the next level down, ending at the 1.15rem body text (h6, which
+       is still bold). */
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.45rem; }
+    h4 { font-size: 1.3rem; }
+    h5 { font-size: 1.2rem; }
+    h6 { font-size: 1.15rem; }
     div.sitenav {
       display: flex;
       flex-direction: row;
@@ -27,7 +39,57 @@
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
-    figure { text-align: center; }
+    /* Center images that are alone in their paragraph. */
+    p > img:only-child { display: block; margin-inline: auto; }
+    /* Overview diagram (see wrap-overview.awk): a box per top-level
+       list item, with arrows between them; stacked on narrow screens.
+       The "/ ''" gives the arrows empty alt text for screen readers. */
+    .overview > ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.2rem;
+    }
+    .overview > ul > li {
+      position: relative;
+      margin: 0;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--standard-border-radius);
+      background: var(--accent-bg);
+    }
+    .overview > ul > li:not(:last-child)::after {
+      content: "→";
+      content: "→" / "";
+      position: absolute;
+      right: -1.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: var(--text-light);
+    }
+    .overview > ul > li > a:first-child {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .overview ul ul { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
+    .overview ul ul li { margin: 0.25rem 0; }
+    .overview a[href$="#repeated-application"]::before { content: "↻ "; content: "↻ " / ""; }
+    @media (max-width: 720px) {
+      .overview > ul { grid-template-columns: 1fr; }
+      .overview > ul > li:not(:last-child)::after {
+        content: "↓";
+        content: "↓" / "";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -2rem;
+        transform: translateX(-50%);
+      }
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -44,7 +106,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 
@@ -95,10 +156,10 @@
 <li><a href="strengths-and-weaknesses.html#strengths-and-weaknesses" id="toc-strengths-and-weaknesses"><span class="toc-section-number">2.2</span> Strengths and weaknesses</a></li>
 <li><a href="models.html#models" id="toc-models"><span class="toc-section-number">2.3</span> Models</a>
 <ul>
-<li><a href="models.html#external-vs.-local-models" id="toc-external-vs.-local-models"><span class="toc-section-number">2.3.1</span> External vs. local models</a></li>
+<li><a href="models.html#external-versus-local-models" id="toc-external-versus-local-models"><span class="toc-section-number">2.3.1</span> External versus local models</a></li>
 <li><a href="models.html#licenses" id="toc-licenses"><span class="toc-section-number">2.3.2</span> Licenses</a></li>
 <li><a href="models.html#specialized-models" id="toc-specialized-models"><span class="toc-section-number">2.3.3</span> Specialized models</a></li>
-<li><a href="models.html#ai-guardrails-intentional-limitations" id="toc-ai-guardrails-intentional-limitations"><span class="toc-section-number">2.3.4</span> AI guardrails &amp; intentional limitations</a></li>
+<li><a href="models.html#ai-guardrails-and-intentional-limitations" id="toc-ai-guardrails-and-intentional-limitations"><span class="toc-section-number">2.3.4</span> AI guardrails and intentional limitations</a></li>
 </ul></li>
 <li><a href="cyber-reasoning-system-crs-history.html#cyber-reasoning-system-crs-history" id="toc-cyber-reasoning-system-crs-history"><span class="toc-section-number">2.4</span> Cyber Reasoning System (CRS) history</a></li>
 <li><a href="ai-organizations-projects-and-services.html#ai-organizations-projects-and-services" id="toc-ai-organizations-projects-and-services"><span class="toc-section-number">2.5</span> AI organizations, projects, and services</a></li>
@@ -161,17 +222,22 @@
 <li><a href="fix-vulnerabilities.html#how-to-create-the-fix" id="toc-how-to-create-the-fix"><span class="toc-section-number">5.6.4</span> How to create the fix</a></li>
 <li><a href="fix-vulnerabilities.html#only-provide-correct-information-especially-if-fully-automated" id="toc-only-provide-correct-information-especially-if-fully-automated"><span class="toc-section-number">5.6.5</span> Only provide correct information, especially if fully automated</a></li>
 <li><a href="fix-vulnerabilities.html#approaching-fixes" id="toc-approaching-fixes"><span class="toc-section-number">5.6.6</span> Approaching fixes</a></li>
-<li><a href="fix-vulnerabilities.html#verifying-the-fix" id="toc-verifying-the-fix"><span class="toc-section-number">5.6.7</span> Verifying the fix</a></li>
-<li><a href="fix-vulnerabilities.html#turn-findings-into-durable-checks" id="toc-turn-findings-into-durable-checks"><span class="toc-section-number">5.6.8</span> Turn findings into durable checks</a></li>
 </ul></li>
-<li><a href="report-vulnerabilities.html#report-vulnerabilities" id="toc-report-vulnerabilities"><span class="toc-section-number">5.7</span> Report vulnerabilities</a>
+<li><a href="verify-fixes.html#verify-fixes" id="toc-verify-fixes"><span class="toc-section-number">5.7</span> Verify fixes</a>
 <ul>
-<li><a href="report-vulnerabilities.html#reporting-to-externally-maintained-projects" id="toc-reporting-to-externally-maintained-projects"><span class="toc-section-number">5.7.1</span> Reporting to externally maintained projects</a></li>
-<li><a href="report-vulnerabilities.html#reporting-to-authorities" id="toc-reporting-to-authorities"><span class="toc-section-number">5.7.2</span> Reporting to authorities</a></li>
-<li><a href="report-vulnerabilities.html#reporting-to-users" id="toc-reporting-to-users"><span class="toc-section-number">5.7.3</span> Reporting to users</a></li>
+<li><a href="verify-fixes.html#have-ai-review-the-fix-first" id="toc-have-ai-review-the-fix-first"><span class="toc-section-number">5.7.1</span> Have AI review the fix first</a></li>
+<li><a href="verify-fixes.html#have-humans-review-the-fix" id="toc-have-humans-review-the-fix"><span class="toc-section-number">5.7.2</span> Have humans review the fix</a></li>
+<li><a href="verify-fixes.html#apply-your-usual-verification-processes" id="toc-apply-your-usual-verification-processes"><span class="toc-section-number">5.7.3</span> Apply your usual verification processes</a></li>
+<li><a href="verify-fixes.html#turn-findings-into-durable-checks" id="toc-turn-findings-into-durable-checks"><span class="toc-section-number">5.7.4</span> Turn findings into durable checks</a></li>
 </ul></li>
-<li><a href="release-deploy.html#release-deploy" id="toc-release-deploy"><span class="toc-section-number">5.8</span> Release &amp; deploy</a></li>
-<li><a href="repeated-application.html#repeated-application" id="toc-repeated-application"><span class="toc-section-number">5.9</span> Repeated application</a></li>
+<li><a href="report-vulnerabilities.html#report-vulnerabilities" id="toc-report-vulnerabilities"><span class="toc-section-number">5.8</span> Report vulnerabilities</a>
+<ul>
+<li><a href="report-vulnerabilities.html#reporting-to-externally-maintained-projects" id="toc-reporting-to-externally-maintained-projects"><span class="toc-section-number">5.8.1</span> Reporting to externally maintained projects</a></li>
+<li><a href="report-vulnerabilities.html#reporting-to-authorities" id="toc-reporting-to-authorities"><span class="toc-section-number">5.8.2</span> Reporting to authorities</a></li>
+<li><a href="report-vulnerabilities.html#reporting-to-users" id="toc-reporting-to-users"><span class="toc-section-number">5.8.3</span> Reporting to users</a></li>
+</ul></li>
+<li><a href="release-and-deploy.html#release-and-deploy" id="toc-release-and-deploy"><span class="toc-section-number">5.9</span> Release and deploy</a></li>
+<li><a href="repeated-application.html#repeated-application" id="toc-repeated-application"><span class="toc-section-number">5.10</span> Repeated application</a></li>
 </ul></li>
 <li><a href="preventing-vulnerabilities-longer-term.html#preventing-vulnerabilities-longer-term" id="toc-preventing-vulnerabilities-longer-term"><span class="toc-section-number">6</span> Preventing vulnerabilities longer term</a>
 <ul>

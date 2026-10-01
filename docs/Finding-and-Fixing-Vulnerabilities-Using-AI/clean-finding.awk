@@ -6,9 +6,11 @@
 # -v imgtags=FILE (the <img> tags from Finding.zip's HTML, one per
 # line) to point images at images/ instead of embedded data URIs, and
 # -v renames=FILE to get the "old<TAB>new" file names to give them
-# (new names come from the alt text).
+# (new names come from the alt text), -v embedded=DIR for images
+# missing from the zip, and -v keeps=FILE for existing images/ files
+# to keep (see fallback_image()).
 # Exits nonzero (and cleanup-markdown keeps the old file) if an image
-# has no match or two images would get the same name.
+# can't be found anywhere or two images would get the same name.
 #
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
@@ -22,7 +24,8 @@
 # URL to the next.
 function wrap_urls(s,    out, i, prev, url) {
     out = ""; i = 1
-    while (match(substr(s, i), /https?:\/\//)) {
+    # Google's export sometimes escapes the colon ("https\://").
+    while (match(substr(s, i), /https?\\?:\/\//)) {
         out = out substr(s, i, RSTART - 1)
         i += RSTART - 1
         prev = (i > 1) ? substr(s, i - 1, 1) : ""
@@ -31,7 +34,10 @@ function wrap_urls(s,    out, i, prev, url) {
         match(substr(s, i), /^[^] \t<>()[]+/)
         url = substr(s, i, RLENGTH)
         i += RLENGTH
-        out = out (prev == "(" || prev == "<" || prev == "[" ? url : "<" url ">")
+        if (prev == "(" || prev == "<" || prev == "[") { out = out url; continue }
+        # Autolinks don't process backslash escapes, so drop that one.
+        sub(/\\:/, ":", url)
+        out = out "<" url ">"
     }
     return out substr(s, i)
 }
@@ -43,10 +49,8 @@ function wrap_urls(s,    out, i, prev, url) {
 # the heading "Preparing CI/CD", whose ID is "preparing-cicd". This drops
 # all non-ASCII bytes, which is right for punctuation like "’" but would
 # be wrong for a heading with non-ASCII letters (there are none).
-# Pandoc (used by gen-html) computes the same IDs, except for headings
-# with "." or " & " (e.g., GitHub makes "Release & deploy" into
-# "release--deploy", pandoc "release-deploy"), so a link to one of those
-# passes markdownlint but breaks in the HTML.
+# gen-html has pandoc compute IDs the same way (its gfm_auto_identifiers
+# extension), so these links work in the HTML too.
 function fix_fragments(s,    out, t) {
     out = ""
     while (match(s, /\]\(#[^)]*\)/)) {
@@ -146,6 +150,68 @@ function load_imgtags(    tag, alt, src, name, ext) {
         image_error("no usable <img> tags in " imgtags)
 }
 
+# Load the base64 image data Google's markdown export embeds in its
+# "[imageN]: <data:image/png;base64,...>" lines (at the end of the
+# file, after the references, hence reading it here first), for
+# fallback_image(). Sets md_data[id] and md_ext[id] ("id" as in
+# "image7").
+function load_embedded(    line, id, ext) {
+    while ((getline line < ARGV[1]) > 0) {
+        if (!match(line, /^\[image[0-9]+\]:[ \t]*<?data:image\/[a-z0-9.+-]+;base64,/)) continue
+        id = substr(line, 2); sub(/\].*$/, "", id)
+        ext = substr(line, 1, RLENGTH); sub(/^.*data:image\//, "", ext); sub(/;.*$/, "", ext)
+        if (ext == "jpeg") ext = "jpg"
+        else if (ext == "svg+xml") ext = "svg"
+        else if (ext !~ /^[a-z0-9]+$/) ext = "png"
+        md_ext[id] = "." ext
+        md_data[id] = substr(line, RLENGTH + 1)
+        sub(/>.*$/, "", md_data[id])  # also drops any "title" after it
+    }
+    close(ARGV[1])
+}
+
+# Replacement for image reference m (alt text "alt", normalized "key")
+# when it isn't in Finding.zip. That happens when the image has no alt
+# text (the only key we can match on), or when Google's HTML export
+# simply leaves an image out (it does). Rather than fail, complain on
+# stderr so you can fix it in the Google Doc, and use what we have:
+# for Google's raw "![alt][imageN]" form, the lossy copy embedded in
+# Finding.md, written base64-encoded into the "embedded" directory for
+# cleanup-markdown to decode; for an earlier run's
+# "![alt](images/FILE)" form, the existing file, listed in "keeps" for
+# cleanup-markdown to keep. Names are only ever made here from slug()
+# or digits, so they're safe as file names.
+function fallback_image(m, alt, key,    why, id, name, path, n) {
+    why = (key == "") ? "has no alt text" : "isn't in " zipname " (alt text: " key ")"
+    if (match(m, /\[image[0-9]+\]$/)) {
+        id = substr(m, RSTART + 1, RLENGTH - 2)
+        if (embedded == "" || !(id in md_data)) {
+            print "clean-finding.awk: line " NR ": image " why ", and there's no embedded copy of it" > "/dev/stderr"
+            failed = 1
+            return m
+        }
+        name = (key == "") ? "" : slug(key)
+        if (name == "") name = "no-alt-text-" substr(id, 6)
+        path = "images/" name md_ext[id]
+        for (n = 2; (path in name_owner) && name_owner[path] != key; n++)
+            path = "images/" name "-" n md_ext[id]
+        name_owner[path] = key
+        print md_data[id] > (embedded "/" substr(path, 8) ".b64")
+        close(embedded "/" substr(path, 8) ".b64")
+        print "clean-finding.awk: line " NR ": WARNING: image " why "; using its lossy copy embedded in Finding.md as " path ". Please fix this in the Google Doc." > "/dev/stderr"
+        return "![" alt "](" path ")"
+    }
+    path = m; sub(/^!\[[^]]*\]\(/, "", path); sub(/\).*$/, "", path)
+    if (keeps == "" || path !~ /^images\/[A-Za-z0-9][A-Za-z0-9._-]*$/) {
+        print "clean-finding.awk: line " NR ": image " why ", and can't keep " path > "/dev/stderr"
+        failed = 1
+        return m
+    }
+    print path > keeps
+    print "clean-finding.awk: line " NR ": WARNING: image " why "; keeping the existing " path ". Please fix this in the Google Doc." > "/dev/stderr"
+    return m
+}
+
 # Rewrite each image reference in s to
 # "![alt](images/FILE){width=W height=H}", using the map above, whether
 # it's the raw Google form "![alt][imageN]" or an earlier run's result
@@ -161,9 +227,7 @@ function fix_images(s,    out, m, alt, key, ref) {
         alt = substr(m, 3); sub(/\].*$/, "", alt)
         key = norm_alt(alt)
         if (!(key in img_src)) {
-            print "clean-finding.awk: line " NR ": no image in zip with alt text: " alt > "/dev/stderr"
-            failed = 1
-            out = out m
+            out = out fallback_image(m, alt, key)
             continue
         }
         ref = "![" alt "](" img_src[key] ")"
@@ -180,7 +244,8 @@ BEGIN {
     SLUG_WORDS = 6
     split("a an the to of is are and but with has in", filler_list, " ")
     for (i in filler_list) filler[filler_list[i]] = 1
-    if (imgtags != "") load_imgtags()
+    if (zipname == "") zipname = "Finding.zip"
+    if (imgtags != "") { load_imgtags(); load_embedded() }
 }
 
 # Drop any MD025-disable comment already in the file (idempotency: a

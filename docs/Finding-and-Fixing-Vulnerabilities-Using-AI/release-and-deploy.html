@@ -8,8 +8,20 @@
   <link rel="icon" href="/assets/logo.svg" />
   <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
-  <title>Finding and Fixing Vulnerabilities Using AI – Release &amp; deploy</title>
+  <title>Finding and Fixing Vulnerabilities Using AI – Release and deploy</title>
+  <link rel="stylesheet" href="simple.min.css" />
+  <!-- This <style> comes after the stylesheets above so it overrides them. -->
   <style>
+    /* Smaller headings than simple.css's (h1-h4: 3rem, 2.6rem, 2rem,
+       and 1.44rem; less on narrow screens), each still larger than
+       the next level down, ending at the 1.15rem body text (h6, which
+       is still bold). */
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.45rem; }
+    h4 { font-size: 1.3rem; }
+    h5 { font-size: 1.2rem; }
+    h6 { font-size: 1.15rem; }
     div.sitenav {
       display: flex;
       flex-direction: row;
@@ -27,7 +39,57 @@
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
-    figure { text-align: center; }
+    /* Center images that are alone in their paragraph. */
+    p > img:only-child { display: block; margin-inline: auto; }
+    /* Overview diagram (see wrap-overview.awk): a box per top-level
+       list item, with arrows between them; stacked on narrow screens.
+       The "/ ''" gives the arrows empty alt text for screen readers. */
+    .overview > ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.2rem;
+    }
+    .overview > ul > li {
+      position: relative;
+      margin: 0;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--standard-border-radius);
+      background: var(--accent-bg);
+    }
+    .overview > ul > li:not(:last-child)::after {
+      content: "→";
+      content: "→" / "";
+      position: absolute;
+      right: -1.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: var(--text-light);
+    }
+    .overview > ul > li > a:first-child {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .overview ul ul { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
+    .overview ul ul li { margin: 0.25rem 0; }
+    .overview a[href$="#repeated-application"]::before { content: "↻ "; content: "↻ " / ""; }
+    @media (max-width: 720px) {
+      .overview > ul { grid-template-columns: 1fr; }
+      .overview > ul > li:not(:last-child)::after {
+        content: "↓";
+        content: "↓" / "";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -2rem;
+        transform: translateX(-50%);
+      }
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -44,7 +106,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 
@@ -65,7 +126,7 @@
 
 
 
-<h2 data-number="5.8" id="release-deploy"><span class="header-section-number">5.8</span> Release &amp; deploy</h2>
+<h2 data-number="5.9" id="release-and-deploy"><span class="header-section-number">5.9</span> Release and deploy</h2>
 <p>Software that is only fixed on a developer’s workstation helps no one else. Fixed software must be <em>released</em> and <em>deployed</em>. This was always true, but now that AI is accelerating the vulnerability-finding process, it’s even <em>more</em> important.</p>
 <p>Anthropic notes that “software developers should… make security fixes available as quickly as possible… Developers should also help their users stay up-to-date with their software by making it as easy as possible to install updates; to the extent feasible, they should be more persistent with users who are still running software with known vulnerabilities” [<a href="https://www.anthropic.com/research/glasswing-initial-update">Anthropic2026-05</a>]. Work to streamline your release process. Ensure that updates are automatically checked for a valid digital signature and that the update process is not <em>itself</em> a vulnerability.</p>
 <p>A released fix is also a map to the vulnerability. Attackers can “patch diff”, that is, compare the fixed source or binary code with the previous version, find what changed, and work out the vulnerability the change fixes. While this was always true, AI has made this fast and cheap. In a June 2026 study, Claude Mythos Preview built 8 working code-execution exploits from 18 recent Firefox security patches, writing “its first working exploit in just under one hour”. From 21 Windows kernel vulnerabilities it produced 8 full privilege-escalation exploit chains. The authors warned that “A lone operator can now turn a month’s worth of patches into working exploits in a single afternoon—for a few thousand dollars and with no specialized expertise”. The authors concluded that “the typical patching playbook that software developers use today—with monthly release cadences, multi-week staged rollouts, and a lag between pre-release and stable channels—no longer holds”. [<a href="https://www.anthropic.com/research/n-days">Xiao2026</a>].</p>

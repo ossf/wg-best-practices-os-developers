@@ -21,7 +21,7 @@ It includes the process of finding, validating, and generating fixes, as well as
 
 We don’t focus on any one *specific* system to do this. Many systems can help with this, more are being released, using multiple systems can be helpful, and the industry is rapidly changing. We instead focus on general principles that we believe are more timeless and will help you regardless of the systems you use to find and fix vulnerabilities. Once you understand the general issues, you’ll be more effective when using any particular system.
 
-For a more general introduction on applying AI/ML to software development and security, see our course *Secure AI/ML-Driven Software Development (LFEL1012)* at [https://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/](https://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/).
+For a more general introduction on applying AI/ML to software development and security, see our course *Secure AI/ML-Driven Software Development (LFEL1012)* at [https\://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/](https://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/).
 
 Please note that this material does NOT focus on the following topics:
 
@@ -41,7 +41,7 @@ When you complete this material, you will be able to:
    1. Knowing the value of separating the process of identifying findings from the process of validating them.
    2. How to identify findings (potential vulnerabilities), including mechanisms for increasing the likelihood of finding potential vulnerabilities such as using past vulnerability reports.
    3. How to deduplicate, validate, and triage findings.
-   4. How to fix vulnerabilities, including the importance of ensuring that a defect is fully fixed.
+   4. How to fix vulnerabilities and verify the fixes, including the importance of ensuring that a defect is fully fixed.
    5. Knowing important aspects of reporting, releasing, and deploying the fixes.
    6. Understanding the need for repeatedly looking for vulnerabilities when using AI, given the non-deterministic nature of modern AI, where a single application may miss important issues.
 3. Prevent longer-term problems. This includes evaluating merge/pull requests, the need for secure-by-design and secure-by-default, and the importance of larger-scale hardening.
@@ -142,23 +142,34 @@ Here are a few security terms we use throughout this material:
 
 Here is an overview of this material. We’ll first cover AI concepts. This will be followed by a guide for selecting approaches for finding and fixing vulnerabilities using AI. After that, we’ll discuss how to:
 
-* Prepare
-  * Specifically, how to prepare AI, threat models, sandbox, AI logging, code and documentation, CI/CD, and dependency updates
-* Find & fix vulnerabilities
-  * Identify findings
-  * Handle external findings/vulnerabilities
-  * Deduplicate
-  * Validate findings
-  * Triage
-  * Fix vulnerabilities
-  * Report vulnerabilities
-  * Release & deploy
-  * Repeated application
-* Prevent
-  * Limit vibe coding
-  * Evaluate merge/pull requests
-  * Apply secure by design and secure by default
-  * Harden
+OVERVIEW
+
+* [Prepare](#prepare-to-find-and-fix-vulnerabilities)
+  * [Preparing AI](#preparing-ai)
+  * [Preparing threat models](#preparing-threat-models)
+  * [Preparing the sandbox](#preparing-the-sandbox)
+  * [Preparing AI logging](#preparing-ai-logging)
+  * [Preparing the code and documentation](#preparing-the-code-and-documentation)
+  * [Preparing CI/CD](#preparing-cicd)
+  * [Preparing dependency updates](#preparing-dependency-updates)
+* [Finding and fixing vulnerabilities](#core-tasks-for-finding-and-fixing-vulnerabilities)
+  * [Identify findings](#identify-findings)
+  * [Handle external findings](#handle-external-findings)
+  * [Deduplicate](#deduplicate)
+  * [Validate findings](#validate-findings)
+  * [Triage](#triage)
+  * [Fix vulnerabilities](#fix-vulnerabilities)
+  * [Verify fixes](#verify-fixes)
+  * [Report vulnerabilities](#report-vulnerabilities)
+  * [Release and deploy](#release-and-deploy)
+  * [Repeated application](#repeated-application)
+* [Prevent](#preventing-vulnerabilities-longer-term)
+  * [Limit vibe coding](#limit-vibe-coding)
+  * [Evaluate merge/pull requests](#evaluate-mergepull-requests)
+  * [Apply secure by design and secure by default](#apply-secure-by-design-and-secure-by-default)
+  * [Harden](#harden)
+
+ENDOVERVIEW
 
 # AI concepts
 
@@ -244,7 +255,7 @@ D) It forces the LLM to run exclusively on local infrastructure
 
 Modern AI systems’ capabilities depend on the models they use. Since this is vital, let’s briefly focus on models to better understand the tools we’re using.
 
-### External vs. local models
+### External versus local models
 
 AI models, when executed (for “inferencing”), receive data for processing and reply with results. There are two main locations where this AI data processing occurs:
 
@@ -263,7 +274,7 @@ Exactly what you can and can’t do with the model depends largely on its licens
 
 There are different ways to license a model. The word “license” means “permission”; a license determines how you can (and can’t) use whatever is licensed. In particular, AI models are much easier to run on local or organizational systems if their licenses are more open.
 
-The Generative AI Commons at the LF AI & Data Foundation has designed and developed the Model Openness Framework (MOF). This is “a comprehensive system for evaluating and classifying the completeness and openness of machine learning models” and is available at \<[https://isitopen.ai/](https://isitopen.ai/)\>. Models are released under various licenses, including the Apache 2.0 license and OpenMDW \<[https://openmdw.ai/](https://openmdw.ai/)\>. Terms you’re especially likely to see when discussing types of licenses are:
+The Generative AI Commons at the LF AI & Data Foundation has designed and developed the Model Openness Framework (MOF). This is “a comprehensive system for evaluating and classifying the completeness and openness of machine learning models” and is available at \<[https\://isitopen.ai/](https://isitopen.ai/)\>. Models are released under various licenses, including the Apache 2.0 license and OpenMDW \<[https\://openmdw.ai/](https://openmdw.ai/)\>. Terms you’re especially likely to see when discussing types of licenses are:
 
 * *Open weights models*. Such models can be used and modified for any purpose, and must not discriminate against any user, industry, or purpose. However, their training set isn’t necessarily public, making it hard for others to update these models. One detailed definition of “open weights” is Heather Meeker’s “[Open Weights definition](https://github.com/Open-Weights/Definition/blob/main/Definition.md)”.
 * *Open source AI*. These have additional requirements beyond “open weights”, for example, that it provide “sufficiently detailed information about the data used to train the system so that a skilled person can build a substantially equivalent system.” For more information, see the [OSI Open Source AI definition](https://opensource.org/ai/open-source-ai-definition).
@@ -286,7 +297,7 @@ Some models are specialized. You may want to choose them for some tasks, but onl
 
 For example, Cisco’s *Antares* is a family of small language models (SLMs) specifically built to identify known vulnerabilities in an existing codebase. An SLM is simply the application of LLM approaches to a much smaller number of parameters. Cisco reports that these models “outperform many powerful closed- and open-weight models in this critical security task at a fraction of the cost. And they’re compact enough to run locally” \[[Karbasi2026](https://blogs.cisco.com/ai/introducing-antares-the-most-efficient-open-weight-ai-models-for-vulnerability-localization)\].
 
-### AI guardrails & intentional limitations
+### AI guardrails and intentional limitations
 
 Many models and the larger systems for invoking them, especially many closed models, implement built-in safety guardrails and other limitations intended to prevent the AI system from assisting in “dangerous” activities, including cybersecurity uses like creating attacks, even if the human user requests it.
 
@@ -360,11 +371,11 @@ There is massive investment in AI, so it’s impossible to list all important or
 
 AI “frontier labs” drive foundational research by massively investing in designing and training the best AI models (called “frontier models”). There are many frontier and near-frontier labs. Key US players include Anthropic (Claude/Claude Code), OpenAI (GPT/ChatGPT), Google DeepMind (Gemini), and Meta AI (Llama). Microsoft partners with OpenAI, but it also conducts its own independent research and maintains strategic partnerships across the industry. Note that Microsoft Copilot isn't a single product but a name for many different Microsoft tools that use AI. Key Chinese players include Moonshot AI (Kimi), Alibaba (Qwen), DeepSeek (DeepSeek), and Zhipu AI aka Z.ai (GLM).
 
-Goose is a general-purpose AI agent that runs on your machine. It is open source software and maintained by the Linux Foundation’s Agentic AI Foundation (AAIF). When using Goose, you can select an “LLM provider” that can be local or remote, open source or closed source. For more information, see: \<[https://goose-docs.ai/](https://goose-docs.ai/)\>. Pi is another agent harness that supports many models. Pi focuses on being minimal and was created to develop code, though it can be used for other purposes \<[https://pi.dev/](https://pi.dev/)\>.
+Goose is a general-purpose AI agent that runs on your machine. It is open source software and maintained by the Linux Foundation’s Agentic AI Foundation (AAIF). When using Goose, you can select an “LLM provider” that can be local or remote, open source or closed source. For more information, see: \<[https\://goose-docs.ai/](https://goose-docs.ai/)\>. Pi is another agent harness that supports many models. Pi focuses on being minimal and was created to develop code, though it can be used for other purposes \<[https\://pi.dev/](https://pi.dev/)\>.
 
-The OWASP “GenAI Security Project” at \<[https://genai.owasp.org/](https://genai.owasp.org/)\> has a variety of materials available on AI and security. This includes its OWASP GenAI LLM Top 10, which identifies the “most critical security risks facing applications powered by large language models (LLMs)”.
+The OWASP “GenAI Security Project” at \<[https\://genai.owasp.org/](https://genai.owasp.org/)\> has a variety of materials available on AI and security. This includes its OWASP GenAI LLM Top 10, which identifies the “most critical security risks facing applications powered by large language models (LLMs)”.
 
-The OpenSSF AI/ML Security Working Group has a variety of projects, including work on signing AI models. It is also a co-sponsor of this material. For more information, see \<[https://openssf.org/groups/ai-ml-security/](https://openssf.org/groups/ai-ml-security/)\>.
+The OpenSSF AI/ML Security Working Group has a variety of projects, including work on signing AI models. It is also a co-sponsor of this material. For more information, see \<[https\://openssf.org/groups/ai-ml-security/](https://openssf.org/groups/ai-ml-security/)\>.
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. What is an “agent harness”, per the material?
@@ -667,14 +678,14 @@ Several frontier AI labs also offer specialized vulnerability-finding and fixing
 
 Open source tools that focus on using AI to find and/or fix vulnerabilities, at the time of this writing, include:
 
-1. Alibaba open-code-review \<[https://github.com/alibaba/open-code-review](https://github.com/alibaba/open-code-review)\> \[[Alibaba2026](https://github.com/alibaba/open-code-review)\]
-2. Nullpointer. This focuses on AI-powered pentesting \<[https://nullpointer.studio/](https://nullpointer.studio/)\>
-3. OpenSSF Alpha-Omega Scrutineer, a set of skills for finding and fixing vulnerabilities, then reporting them to the external project \<[https://github.com/alpha-omega-security/scrutineer](https://github.com/alpha-omega-security/scrutineer)\>
-4. OpenSSF OSS-CRS. This is a meta-tool for creating CRSs, and several CRSs build on it, based on extensive work for AIxCC \<[https://openssf.org/projects/oss-crs/](https://openssf.org/projects/oss-crs/)\>
-5. Sashiko. This is a patch review system specifically for the Linux kernel \<[https://sashiko.dev/](https://sashiko.dev/)\>
-6. Visa Vulnerability Agentic Harness \<[https://github.com/visa/visa-vulnerability-agentic-harness](https://github.com/visa/visa-vulnerability-agentic-harness)\>
-7. Knostic OpenAnt. This analyzes code units reachable from external entry points, then tries to exploit candidate vulnerabilities in sandboxed containers, keeping only what survives. Knostic also offers free scans for open source projects \<[https://github.com/knostic/OpenAnt](https://github.com/knostic/OpenAnt)\> \[[Korda2026](https://arxiv.org/abs/2606.19149)\]
-8. OpenAI Codex Security CLI and TypeScript SDK. The client is open source (Apache-2.0), but it uses OpenAI’s Codex Security service, so you need an OpenAI account or API key \<[https://github.com/openai/codex-security](https://github.com/openai/codex-security)\>
+1. Alibaba open-code-review \<[https\://github.com/alibaba/open-code-review](https://github.com/alibaba/open-code-review)\> \[[Alibaba2026](https://github.com/alibaba/open-code-review)\]
+2. Nullpointer. This focuses on AI-powered pentesting \<[https\://nullpointer.studio/](https://nullpointer.studio/)\>
+3. OpenSSF Alpha-Omega Scrutineer, a set of skills for finding and fixing vulnerabilities, then reporting them to the external project \<[https\://github.com/alpha-omega-security/scrutineer](https://github.com/alpha-omega-security/scrutineer)\>
+4. OpenSSF OSS-CRS. This is a meta-tool for creating CRSs, and several CRSs build on it, based on extensive work for AIxCC \<[https\://openssf.org/projects/oss-crs/](https://openssf.org/projects/oss-crs/)\>
+5. Sashiko. This is a patch review system specifically for the Linux kernel \<[https\://sashiko.dev/](https://sashiko.dev/)\>
+6. Visa Vulnerability Agentic Harness \<[https\://github.com/visa/visa-vulnerability-agentic-harness](https://github.com/visa/visa-vulnerability-agentic-harness)\>
+7. Knostic OpenAnt. This analyzes code units reachable from external entry points, then tries to exploit candidate vulnerabilities in sandboxed containers, keeping only what survives. Knostic also offers free scans for open source projects \<[https\://github.com/knostic/OpenAnt](https://github.com/knostic/OpenAnt)\> \[[Korda2026](https://arxiv.org/abs/2606.19149)\]
+8. OpenAI Codex Security CLI and TypeScript SDK. The client is open source (Apache-2.0), but it uses OpenAI’s Codex Security service, so you need an OpenAI account or API key \<[https\://github.com/openai/codex-security](https://github.com/openai/codex-security)\>
 
 Let’s look more closely at two of these, OpenSSF Alpha-Omega’s Scrutineer and OpenSSF OSS-CRS. They illustrate two ends of a range: a relatively simple set of skills, and a framework for running many CRSs at once. They’re open source software projects of the OpenSSF, which produces this material.
 
@@ -687,15 +698,32 @@ Scrutineer is intended to be relatively easy to start using. Some aspects of it 
 * It includes processes such as identifying how to report vulnerabilities to an external project. You can use it to review your own projects as well, but its focus is on examining other projects “as they are” and reporting to them.
 * It’s primarily a set of skills (documents with some supporting programs).
 
-For more information, see \[[Nesbitt2026-06](https://nesbitt.io/2026/06/25/scrutineer.html)\] or its website at \<[https://github.com/alpha-omega-security/scrutineer](https://github.com/alpha-omega-security/scrutineer)\>.
+For more information, see \[[Nesbitt2026-06](https://nesbitt.io/2026/06/25/scrutineer.html)\] or its website at \<[https\://github.com/alpha-omega-security/scrutineer](https://github.com/alpha-omega-security/scrutineer)\>.
 
 ### OSS-CRS
 
-OpenSSF’s OSS-CRS provides a sophisticated set of capabilities to deeply find and fix vulnerabilities using a variety of techniques. OSS-CRS is a *framework* for running many *different* CRSs and combining their techniques. It includes infrastructure that CRSs can share and budget-aware resource management. OSS-CRS is especially helpful when you want to spend significant effort finding and fixing vulnerabilities, to squeeze out as many as is practical.
+OpenSSF’s [OSS-CRS](https://openssf.org/projects/oss-crs/) provides a sophisticated set of capabilities to deeply find and fix vulnerabilities using a variety of techniques. OSS-CRS is a *framework* for running many *different* CRSs and combining their techniques. It includes infrastructure that CRSs can share and budget-aware resource management. OSS-CRS is especially helpful when you want to spend significant effort finding and fixing vulnerabilities, to squeeze out as many as is practical.
 
-It’s easier to understand OSS-CRS by understanding its history. DARPA's AI Cyber Challenge (AIxCC) “showed that cyber reasoning systems (CRSs) can go beyond vulnerability discovery to autonomously confirm and patch bugs \[yet those systems were\] largely unusable outside their original teams, each bound to the competition cloud infrastructure that no longer exists” \[[Chin2026](https://arxiv.org/abs/2603.08566)\] \[[Chin2026-slides](https://github.com/ossf/oss-crs/blob/main/docs/slides/svcc-2026.pptx)\].
+#### OSS-CRS introduction
 
-The solution was OSS-CRS, which provides a framework for running CRSs and combining their results. With OSS-CRS, users can decide:
+It’s easier to understand OSS-CRS by understanding its history. DARPA's AI Cyber Challenge (AIxCC) of 2023-2025 “showed that cyber reasoning systems (CRSs) can go beyond vulnerability discovery to autonomously confirm and patch bugs”.  As a research competition it was a success, and the competition results were released as open source software (OSS). However, those systems were “largely unusable outside their original teams, each bound to the competition cloud infrastructure that no longer exists” \[[Chin2026](https://arxiv.org/abs/2603.08566)\] \[[Chin2026-slides](https://github.com/ossf/oss-crs/blob/main/docs/slides/svcc-2026.pptx)\].
+
+The solution was OSS-CRS. OSS-CRS builds on the previous AIxCC work to provide a framework for running *multiple* CRSs and *combining* their results.
+
+An especially powerful ability of OSS-CRS is its “*ensemble*” feature. The ensemble feature combines “patches from multiple CRS approaches and \[uses\] a selection process to pick the one most likely to be correct. The research showed this approach consistently matches or outperforms the best single component in improving semantic correctness, which is hard to eliminate at the single-agent level.” Even so, it’s important to have humans review the proposed changes before implementation \[[Diecks2026](https://openssf.org/blog/2026/04/02/from-aixcc-to-openssf-welcoming-oss-crs-to-advance-ai-driven-open-source-security/)\].
+
+OSS-CRS also defines a unified interface for CRS development. A CRS using this interface can run across different environments (both local and remote) without modification.
+
+#### OSS-CRS intended use
+
+Here’s how OSS-CRS is intended to be used:
+
+1. *Multiple CRS techniques are run in parallel*. This often involves using fuzzing, static analysis, and LLM-based reasoning, probing the target for bugs, and eventually producing proposed patches.
+2. *Ensemble selection picks the best patch*. Candidate patches from different CRS approaches are cross-validated.
+3. *People review findings and proposed patches*.
+4. *Verified patches reach the project*. Only findings that survive ensemble validation and human review should be submitted.
+
+With OSS-CRS, users can decide:
 
 * Which CRSs to run
 * How much compute resources/time to give to each CRS
@@ -704,14 +732,43 @@ The solution was OSS-CRS, which provides a framework for running CRSs and combin
 * What project (and harness) to run the CRSs against
 * Which vulnerability to fix (for patching CRSs) \[[Chin2026-slides](https://github.com/ossf/oss-crs/blob/main/docs/slides/svcc-2026.pptx)\]
 
-OSS-CRS is more effective if the project being analyzed has a harness using the OSS-Fuzz format. Many build systems are used to build software (such as Make, CMake, Autoconf, Bazel, and Meson). This can make it challenging to create tools to correctly analyze them. “OSS-CRS mitigates this by building targets through OSS-Fuzz’s official build flows, inheriting the build environment that each project’s maintainers already support” \[[Chin2026](https://arxiv.org/abs/2603.08566)\]. If a project doesn’t have an OSS-Fuzz harness, consider using AI to help build one. Ensuring OSS-CRS can build and fuzz a program often improves OSS-CRS results.
-An especially powerful ability of OSS-CRS is its “ensemble” feature. The ensemble feature combines “patches from multiple CRS approaches and \[uses\] a selection process to pick the one most likely to be correct. The research showed this approach consistently matches or outperforms the best single component in improving semantic correctness, which is hard to eliminate at the single-agent level.” Even so, it’s important to have humans review the proposed changes before implementation \[[Diecks2026](https://openssf.org/blog/2026/04/02/from-aixcc-to-openssf-welcoming-oss-crs-to-advance-ai-driven-open-source-security/)\].
+#### OSS-CRS key terms and concepts
+
+Here are a few OSS-CRS key terms and concepts:
+
+| Term | What it is | Purpose |
+| :---- | :---- | :---- |
+| Harness | A code wrapper that feeds generated inputs into target functions | Lets bug-finding engines safely execute code, measure coverage, and detect crashes |
+| (Fuzzing) Seed | An initial, well-formed input payload provided at the start of a test run | Gives fuzzers a starting baseline to reach deep code logic faster instead of generating random bytes from scratch |
+| Proof of Vulnerability (PoV) | A specific input payload that reliably triggers a bug or sanitizer crash (note that definition is more specific than some) | Proves a vulnerability exists and serves as a test case to verify that a proposed code patch fixes the bug |
+| Fuzzing/ Fuzzer | The automated technique (and engine) that repeatedly feeds generated inputs into a harness to test execution paths and uncover unexpected crashes | Key capabilities: automated input generation & execution; harness-based path testing; uncovers unexpected crashes |
+| Triage | The automated process of filtering, deduplicating, and evaluating raw crashes to confirm they are genuine security flaws rather than benign errors | Key capabilities: crash filtering & deduplication; evaluates raw crash logs; confirms genuine security flaws |
+| Patch | A targeted source code modification produced by a CRS to eliminate a vulnerability while preserving all existing intended functionality | Key capabilities: targeted source code modifications; vulnerability elimination; preserves intended functionality |
+
+#### Using OSS-CRS effectively
+
+OSS-CRS is more effective if the project being analyzed has a harness using the OSS-Fuzz format. Many different build systems are used to build software (such as Make, CMake, Autoconf, Bazel, and Meson). This lack of commonality can make it challenging to create tools to correctly analyze them. “OSS-CRS mitigates this by building targets through OSS-Fuzz’s official build flows, inheriting the build environment that each project’s maintainers already support” \[[Chin2026](https://arxiv.org/abs/2603.08566)\]. OSS-Fuzz can use one of several fuzzing engines to do its tasks, including libFuzzer, AFL++, and Honggfuzz. If a project doesn’t have an OSS-Fuzz harness, consider using AI to help build one. Ensuring OSS-CRS can build and fuzz a program often improves OSS-CRS results.
+
+You can choose to use the many CRSs already available and ported to run on top of OSS-CRS. You can also create your own CRS (see \[[crs-bug-finding-template](https://github.com/Team-Atlanta/crs-bug-finding-template/)\] for more).
 
 OSS-CRS is already capable. “Using OSS-CRS, Team Atlanta discovered twenty-five vulnerabilities across sixteen projects spanning a broad range of software including PHP, U-Boot, memcached, and Apache Ignite 3” \[[Diecks2026](https://openssf.org/blog/2026/04/02/from-aixcc-to-openssf-welcoming-oss-crs-to-advance-ai-driven-open-source-security/)\].
 
-You can choose to use the many CRSs already available and ported to run on top of OSS-CRS. You can also create your own CRS (see \[[crs-bug-finding-template](https://github.com/Team-Atlanta/crs-bug-finding-template/)\] for more), but that’s outside our scope. While OSS-CRS can require more resources and startup time, its benefit is the ability to combine so many different CRSs to analyze and fix a project.
+#### OSS-CRS demos
 
-For more information on OSS-CRS, see: [https://openssf.org/projects/oss-crs/](https://openssf.org/projects/oss-crs/)
+Here is a set of short videos demonstrating finding bugs using OSS-CRS combined with LibFuzzer:
+
+1. 🎬 [Set up OSS-CRS](https://drive.google.com/file/d/1vv00WXeZusyi2lu-uT2dOiG6KkwMAt4C/view?usp=sharing)
+2. 🎬 [Set Variables for CRS Libfuzzer](https://drive.google.com/file/d/1A9f-PONiA0nJifLkp5dNORxNNEITwCI-/view?usp=sharing)
+3. 🎬 [Prepare the CRS Libfuzzer](https://drive.google.com/file/d/1cwD0DAkMp_XV8J-AdLQZTI3gmRrhxiV-/view?usp=sharing)
+4. 🎬 [Build a target for the Libfuzzer](https://drive.google.com/file/d/19TdoLfwjFEmpOcItrwGHkVyMPwhtFV7y/view?usp=sharing)
+5. 🎬 [Run the CRS Libfuzzer](https://drive.google.com/file/d/1Yt630PBO1B78JCbiMVXBeu_Qq3FVF9N8/view?usp=sharing)
+6. 🎬 L[ibfuzzer outputs: seeds and Proof of Vulnerabilities](https://drive.google.com/file/d/1ztRPyF443w35dzEePWuwjKq_Jz29VfPj/view?usp=sharing)
+
+Here’s a video showing using OSS-CRS to create a proposed patch:
+
+🎬 [Running a patching CRS](https://drive.google.com/file/d/1kC4rsM3cnX7wf55_QqWl3k0EZbRvfbqA/view?usp=sharing)
+
+For more information on OSS-CRS, see: [https\://openssf.org/projects/oss-crs/](https://openssf.org/projects/oss-crs/)
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. What does OSS-CRS's "ensemble" feature do, per the material?
@@ -820,8 +877,8 @@ If you don’t already have a threat model for your deployed system, the good ne
 
 Various tools use AI to help you create a threat model for a system’s deployed environment. These include:
 
-* OpenSSF Alpha-Omega’s “Threat Model Generator”, a set of agent skills, is available at: \<[https://github.com/alpha-omega-security/threat-model/](https://github.com/alpha-omega-security/threat-model/)\>
-* Matt Adams’s “StrideGPT” at \<[https://stridegpt.streamlit.app](https://stridegpt.streamlit.app)\>
+* OpenSSF Alpha-Omega’s “Threat Model Generator”, a set of agent skills, is available at: \<[https\://github.com/alpha-omega-security/threat-model/](https://github.com/alpha-omega-security/threat-model/)\>
+* Matt Adams’s “StrideGPT” at \<[https\://stridegpt.streamlit.app](https://stridegpt.streamlit.app)\>
 
 When creating or updating a threat model for a world with AI, consider the following:
 
@@ -892,7 +949,7 @@ You should be concerned about giving tools and data to an AI whose behavior is s
 
 ### Implementing sandboxes
 
-You can implement sandboxes for AI systems in many ways. Examples include using virtual machines (VMs, including microVMs), containers, and applications designed to constrain AI systems like nono \<[https://github.com/nolabs-ai/nono](https://github.com/nolabs-ai/nono)\>.
+You can implement sandboxes for AI systems in many ways. Examples include using virtual machines (VMs, including microVMs), containers, and applications designed to constrain AI systems like nono \<[https\://github.com/nolabs-ai/nono](https://github.com/nolabs-ai/nono)\>.
 
 You need to match the AI sandbox isolation to your analysis threat model. **A useful rule is to match isolation to capability**:
 
@@ -973,7 +1030,7 @@ Therefore, improve the code and its documentation wherever they currently lack i
 
 Daniel Stenberg, leader of the curl project, reports that AI tools can reason across protocols, specs, and third-party libraries in “almost magical ways”. AI tools can identify failures to comply with a spec, as well as inconsistencies between comments and implementations \[[Vaughan-Nichols2026-02](https://thenewstack.io/curls-daniel-stenberg-ai-is-ddosing-open-source-and-fixing-its-bugs/)\]. Language models’ ability to use context, e.g., comments, can be powerful \[[Wolff2026](https://cacm.acm.org/research/large-language-models-in-software-security-analysis/)\].
 
-At the least, include an “AGENTS.md” file. Its format and recommendations are provided by the Linux Foundation’s Agentic AI Foundation at \<[https://agents.md/](https://agents.md/)\>. Some AI agent systems supported it when its specification was originally crafted, such as OpenAI Codex and Google Gemini. Historically, Claude Code only looked at CLAUDE.md, but as of 2026-09-18 (version 2.1.277) it now looks for and reads AGENTS.md. If you’re using an agentic system and it doesn’t support AGENTS.md, but it supports a different filename, use that filename to say “See @AGENTS.md” and use AGENTS.md so instructions that apply to an AI agent can be in one portable place.
+At the least, include an “AGENTS.md” file. Its format and recommendations are provided by the Linux Foundation’s Agentic AI Foundation at \<[https\://agents.md/](https://agents.md/)\>. Some AI agent systems supported it when its specification was originally crafted, such as OpenAI Codex and Google Gemini. Historically, Claude Code only looked at CLAUDE.md, but as of 2026-09-18 (version 2.1.277) it now looks for and reads AGENTS.md. If you’re using an agentic system and it doesn’t support AGENTS.md, but it supports a different filename, use that filename to say “See @AGENTS.md” and use AGENTS.md so instructions that apply to an AI agent can be in one portable place.
 
 \[[0xkato2024](https://www.0xkato.xyz/Get-ready-for-an-audit/)\] recommends making your code well documented, suggesting the following:
 
@@ -1082,7 +1139,7 @@ D) Wait for the dependency's next major, possibly breaking release
 
 Now that we’ve [prepared to find and fix vulnerabilities](#prepare-to-find-and-fix-vulnerabilities), we can begin the main task.
 
-The core tasks are: [identify findings](#identify-findings) (including handling findings reported by others), [deduplicate them](#deduplicate), [validate them](#validate-findings), [triage them](#triage), [fix the vulnerabilities](#fix-vulnerabilities), [report vulnerabilities in others’ components](#report-vulnerabilities), and [release and deploy the fixes](#release--deploy). In practice these overlap and loop; for example, you’ll deduplicate again after validation, and you’ll [repeat the whole process](#repeated-application).
+The core tasks are: [identify findings](#identify-findings) (including handling findings reported by others), [deduplicate them](#deduplicate), [validate them](#validate-findings), [triage them](#triage), [fix the vulnerabilities](#fix-vulnerabilities), [verify the fixes](#verify-fixes), [report vulnerabilities in others’ components](#report-vulnerabilities), and [release and deploy the fixes](#release-and-deploy). In practice these overlap and loop; for example, you’ll deduplicate again after validation, and you’ll [repeat the whole process](#repeated-application).
 
 ## Identify findings
 
@@ -1122,9 +1179,9 @@ It’s best to help the AI identify findings. There are many ways to help identi
 4. *To find security vulnerabilities, include a search for language-specific issues, insecure coding practices, and improper handling of parameters, variables, and data flows*. For each programming language used in the project, apply checks for language- and framework-specific vulnerabilities. Trace parameters and variables, and their usage throughout the code, to detect unsafe patterns, misuse, or inconsistencies \[[Rogers2025](https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters)\].
 5. *Have the model examine and cluster past bugs or at least past vulnerabilities*. For vulnerabilities (as determined by your threat model), have it list the relevant vulnerability classes. Then have the AI system determine (for every fix) if the fix was complete and if it applied everywhere else. Look for similar problems. \[[Yan2026](https://claude.com/blog/using-llms-to-secure-source-code)\] reported that one team did this and found three exploitable issues in an hour, saying “‘What have people exploited in the past’ is sometimes a much easier cheat-code towards success than ‘find me vulnerabilities in this codebase.’”
 6. *Use “top” lists of the most likely kinds of vulnerabilities*. At *least* look specifically for common vulnerabilities. “Most software security issues discovered each year are simply variants or instances of previously discovered patterns, rather than entirely new classes of vulnerabilities” \[[Rohlf2025](https://cset.georgetown.edu/article/ai-and-the-software-vulnerability-lifecycle/)\]. So if the system you’re analyzing is…
-   1. a web application, use the OWASP Top 10 vulnerabilities (for web applications) \<[https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)\>. For more thorough coverage, also give the AI the relevant chapters of the OWASP Application Security Verification Standard (ASVS) as a checklist of security requirements to verify \[[OWASP-ASVS5](https://owasp.org/www-project-application-security-verification-standard/)\].
-   2. agentic, use the OWASP Top 10 for Agentic Applications for 2026 \<[https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/)\>
-   3. anything else (including Internet of Things (IoT)), use the CWE Top 25 \<[https://cwe.mitre.org/top25/](https://cwe.mitre.org/top25/)\>
+   1. a web application, use the OWASP Top 10 vulnerabilities (for web applications) \<[https\://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)\>. For more thorough coverage, also give the AI the relevant chapters of the OWASP Application Security Verification Standard (ASVS) as a checklist of security requirements to verify \[[OWASP-ASVS5](https://owasp.org/www-project-application-security-verification-standard/)\].
+   2. agentic, use the OWASP Top 10 for Agentic Applications for 2026 \<[https\://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/)\>
+   3. anything else (including Internet of Things (IoT)), use the CWE Top 25 \<[https\://cwe.mitre.org/top25/](https://cwe.mitre.org/top25/)\>
 7. *Look for cases where a component assumes another component is doing something, but there’s no test verifying it*. “Many vulnerabilities are being found ‘in the seams’ between programs, e.g., a library might not filter headers, even if its spec requires header filtering, but all of the library users might expect the library to filter headers.” \[Zimmer2026\]
 8. *Examine a system’s security properties across transitions (including state transitions) and steady-state data flows*. Vulnerabilities can appear during transitions such as authentication and re-authentication, token refresh and expiration, logout and revocation, account or role changes, retries, and recovery flows. Concurrent operations can sometimes interfere with each other. Ask the AI to identify the security invariants that should remain true across transitions and then look for paths where those invariants can be violated \[[OWASP-ASVS5-V7](https://github.com/OWASP/ASVS/blob/master/5.0/en/0x16-V7-Session-Management.md)\]
 9. *Include important non-security bugs, focusing on critical issues that are likely to cause application crashes, severe malfunctions, or significant instability*. Minor or cosmetic issues are less risky, but important “non-security” defects can often be exploited as vulnerabilities. \[[Rogers2025](https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters)\] claims that “the greatest success I had with policies was a really simple policy of ‘find all bugs, even if they’re not vulnerabilities’”. Consider as bugs cases where the claimed intent (in some documentation including comments) disagrees with the actual code as written. These can be important to fix, and while the system may initially *believe* they aren’t security-related, they may turn out to be vulnerabilities.
@@ -1409,19 +1466,34 @@ However, be wary of long, unreviewed loops where an AI repeatedly “improves”
 * A 2026 study of AI repair of infrastructure-as-code (Terraform), where validator errors were fed back to the model over up to five iterations, found that in 13.8% of scenarios a previously passing security check later failed. Only 3.3% were unambiguous, but the authors believe this is an under-count. Regressions were strongly associated with large rewrites, and compliance stopped improving after about three iterations: “Three iterations capture most of the compliance improvement while keeping regression risk manageable” \[[Agyekum2026](https://arxiv.org/abs/2608.13404)\].
 * Limit the number of iterations, prefer small changes, and bring in a human when the AI doesn’t converge quickly.
 
-### Verifying the fix
+<details class="quiz"><summary>Quiz</summary>
+Q1. This material recommends a test-driven approach before writing a fix. What should you do first?
 
-After generating candidate fixes, have AI and then humans review them.
+A) Write a new test that fails against the existing (buggy) code, then implement the fix and confirm the test now passes without breaking anything else.
+B) Ask the AI to generate three candidate fixes immediately, then write tests afterward to see which candidate passes the most tests.
+C) Disable the project's existing test suite temporarily so the fix can be validated in isolation from unrelated failures.
+D) Have a human developer manually reproduce the vulnerability in production before any test code is written.
 
-Even very good AI writes vulnerable code. In particular, an AI can be good at finding vulnerabilities yet still write code with lots of vulnerabilities. This might be surprising, but remember, AI is trained on a large amount of insecure software. It’s more difficult to get an AI to do something *contrary* to its training dataset \[[CSA2026](https://labs.cloudsecurityalliance.org/mythos-ciso/)\] \[Zimmer2026\]. Modern AI is fundamentally probabilistic, so it can be difficult to predict exactly what it will generate for a given request \[[Kholoosi2025](https://arxiv.org/abs/2512.18261v2)\].
+<details><summary>Show answer</summary>Answer: A</details>
+</details>
 
-So the first step is to have an AI review the proposed fix for the vulnerability. “Have a new discovery agent probe the patch as an attacker to confirm the patch is comprehensive” \[[Yan2026](https://claude.com/blog/using-llms-to-secure-source-code)\]. What can be especially helpful is to have AI write tests for the fixes. For example, \[[Chrome2026](https://blog.google/security/chrome-stronger-with-every-update/)\] reports that they use test-writing agents to “help write tests for fixes. These agents can ensure that tests work across supported platforms and configurations before a developer reviews the fix, saving up to weeks of developer time.”
+## Verify fixes
+
+After generating candidate fixes, have AI and then humans review them to verify them.
+
+This is useful for a fix by a human *or* by an AI. However, it’s especially important for AI-created code. Even very good AI writes vulnerable code. In particular, an AI can be good at finding vulnerabilities yet still write code with lots of vulnerabilities. This might be surprising, but remember, AI is trained on a large amount of insecure software. It’s more difficult to get an AI to do something *contrary* to its training dataset \[[CSA2026](https://labs.cloudsecurityalliance.org/mythos-ciso/)\] \[Zimmer2026\]. Modern AI is fundamentally probabilistic, so it can be difficult to predict exactly what it will generate for a given request \[[Kholoosi2025](https://arxiv.org/abs/2512.18261v2)\].
+
+### Have AI review the fix first
+
+The first step is to have an AI review the proposed fix for the vulnerability. “Have a new discovery agent probe the patch as an attacker to confirm the patch is comprehensive” \[[Yan2026](https://claude.com/blog/using-llms-to-secure-source-code)\]. What can be especially helpful is to have AI write tests for the fixes. For example, \[[Chrome2026](https://blog.google/security/chrome-stronger-with-every-update/)\] reports that they use test-writing agents to “help write tests for fixes. These agents can ensure that tests work across supported platforms and configurations before a developer reviews the fix, saving up to weeks of developer time.”
 
 Run the validated PoC against the fixed version and confirm that it no longer succeeds. Then have a separate agent try variations of the PoC, since a fix that blocks only the exact PoC input isn’t a full fix.
 
+### Have humans review the fix
+
 While AI review is a good first pass for proposed vulnerability fixes, they still require expert human review. As we noted earlier, [AI-generated fixes often are incomplete, add vulnerabilities, or break functionality](#do-not-presume-ai-can-correctly-fix-all-vulnerabilities).
 
-Some problems with initial AI-proposed fixes are especially common:
+Some problems with initial AI-proposed fixes are especially common, and humans should especially look out for them:
 
 * *AI often fixes only the specific instance, rather than identifying root causes and fixing the problem systematically*. “Patches focused too much on immediate consequences of issues, and generally failed to put the whole application and codepath into perspective, and ‘understand’ the real source of the problem, and where an engineer with a clue would actually solve the problem rather than mitigate it.” \[[Rogers2025](https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters)\]
 * *AI often fails to customize the fix and reuse existing constructs*. “For fixes, one of the most common issues was that the fix was not customized to the developer’s codebase, for example, creating a function to sanitize user inputs when the developer wants to reuse their existing sanitization library; this often prevented the users from directly applying the fix, requiring an overhaul to produce a fix with their intended approach.” \[[Steenhoek2025](https://arxiv.org/abs/2412.14306v3)\] In short, for an AI system it’s “easier” to write lots of duplicate code, but this typically creates a maintenance nightmare.
@@ -1433,6 +1505,8 @@ Some problems with initial AI-proposed fixes are especially common:
   * We expect package hallucination to keep declining as models improve, but we don't expect it to disappear.
 
 Even if an AI’s initial fix is wrong, that doesn’t make its proposed fix useless. One reporter found AI fixes “most useful for simply understanding what the problem actually was in the code – sometimes I didn’t understand the issue from the description, but the suggested fix revealed to me what was wrong, and what would (could?) fix it.” \[[Rogers2025](https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters)\] Sometimes the proposed fixes shouldn’t be the final fix, but they can still provide guidance to help developers find a correct solution.
+
+### Apply your usual verification processes
 
 Be *sure* to apply all of your usual verification processes. That includes your peer review gates, CI/CD pipelines, and branch protection rules. “Leveraging organizational safeguards such as peer-review gates and branch protection rules can help mitigate potential individual complacency regarding AI-generated security suggestions” \[[Kholoosi2025](https://arxiv.org/abs/2512.18261v2)\].
 
@@ -1450,15 +1524,14 @@ At the least, modify the test suite to [add the regression test you created earl
 
 AI can often help implement all of these. The general principle is that if something is important, enforce it with deterministic mechanisms *instead* of relying on an AI to notice it every time.
 
-<details class="quiz"><summary>Quiz</summary>
-Q1. This material recommends a test-driven approach before writing a fix. What should you do first?
+Q1. You’ve applied a proposed fix, and the validated proof of concept (PoC) no longer succeeds against the fixed code. What should you do next?
 
-A) Write a new test that fails against the existing (buggy) code, then implement the fix and confirm the test now passes without breaking anything else.
-B) Ask the AI to generate three candidate fixes immediately, then write tests afterward to see which candidate passes the most tests.
-C) Disable the project's existing test suite temporarily so the fix can be validated in isolation from unrelated failures.
-D) Have a human developer manually reproduce the vulnerability in production before any test code is written.
+A) Close the finding, since the PoC no longer succeeding shows the vulnerability is fixed.
+B) Rerun the AI that found the vulnerability, and treat a clean result as proof the fix is complete.
+C) Have a separate agent try variations of the PoC, since a fix might defeat only the exact PoC input rather than the underlying vulnerability.
+D) Remove the PoC from the test suite so it doesn’t reveal exploit details.
 
-<details><summary>Show answer</summary>Answer: A</details>
+<details><summary>Show answer</summary>Answer: C</details>
 </details>
 
 ## Report vulnerabilities
@@ -1501,7 +1574,7 @@ One source of debate is how large the vulnerability report should be. Many maint
 
 Many open source software projects are receiving an *overwhelming* number of duplicate reports \[[PSF2026](https://pyfound.blogspot.com/2026/06/everything-security-at-pycon-us-2026.html)\]. Often, many different people will use the same AI system to look for vulnerabilities in the same software, resulting in many duplicate reports to a given project. Linus Torvalds said, “if you found a bug using AI tools, the chances are somebody else found it too” and added, “If you actually want to add value, read the documentation, create a patch too, and add some real value on \*top\* of what the AI did” \[[Zorz2026](https://www.helpnetsecurity.com/2026/05/18/problems-with-ai-assisted-vulnerability-research/)\].
 
-The Linux Foundation has established a project called Akrites \<[https://akrites.org/](https://akrites.org/)\> to help organizations deduplicate findings *before* they are submitted to open source software projects, as well as validate, prepare remediations, and synchronize disclosure. If your organization finds vulnerabilities in widely used open source software, see the Akrites site for more information.
+The Linux Foundation has established a project called Akrites \<[https\://akrites.org/](https://akrites.org/)\> to help organizations deduplicate findings *before* they are submitted to open source software projects, as well as validate, prepare remediations, and synchronize disclosure. If your organization finds vulnerabilities in widely used open source software, see the Akrites site for more information.
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. Why does this material recommend stating the deployment model and security threat you're assuming *early* in a vulnerability report to an external project?
@@ -1543,7 +1616,7 @@ Usually, don’t tell users about a vulnerability in software you maintain until
 
 Sometimes you need to tell users before a fix is available, e.g., if the vulnerability is already public or being actively exploited. In that case, say which versions are affected, how users can reduce their risk until a fix is ready (e.g., a workaround or configuration change), and when you expect a fix, without details that would help attackers. For an actively exploited vulnerability, the CRA may require manufacturers to inform the users affected.
 
-## Release & deploy
+## Release and deploy
 
 Software that is only fixed on a developer’s workstation helps no one else. Fixed software must be *released* and *deployed*. This was always true, but now that AI is accelerating the vulnerability-finding process, it’s even *more* important.
 
@@ -1829,144 +1902,144 @@ We wish to thank all contributors and reviewers, including Georg Kunz, Laura Gua
 
 # Bibliography
 
-* \[0xkato2024\] 0xkato, 2024-12-01, Get ready for an audit, [https://www.0xkato.xyz/Get-ready-for-an-audit/](https://www.0xkato.xyz/Get-ready-for-an-audit/)
-* \[0xkato2026\] 0xkato, 2026-06-01, “How LLMs Actually Work”, [https://www.0xkato.xyz/how-llms-actually-work/](https://www.0xkato.xyz/how-llms-actually-work/)
-* \[Agarwal2026\] Abhinav Agarwal, 2026-04-21, “Refute-or-Promote: An Adversarial Stage-Gated Multi-Agent Review Methodology for High-Precision LLM-Assisted Defect Discovery”, [https://arxiv.org/abs/2604.19049](https://arxiv.org/abs/2604.19049)
-* \[Chen2026\] Bo Chen, 2026-08-10, “From Runnable to Verifiable: An Independent Reproducibility Study of LLM/Agent-Driven Vulnerability Validation Artifacts”, [https://arxiv.org/abs/2608.09567](https://arxiv.org/abs/2608.09567)
-* \[Agyekum2026\] Benjamin Agyekum and Fabio Santos, 2026-08-13, “Does Fixing Break Security? An Empirical Study of Security Degradation in Iterative LLM-Driven Infrastructure-as-Code Repair”, 20th International Symposium on Empirical Software Engineering and Measurement (ESEM 2026), [https://arxiv.org/abs/2608.13404](https://arxiv.org/abs/2608.13404)
-* \[Ahmad2026\] Ahmad Osman, 2026, Anthropic's War on Opensource AI, [https://x.com/TheAhmadOsman/status/2065307070044234186](https://x.com/TheAhmadOsman/status/2065307070044234186)
-* \[Alibaba2026\] Alibaba, open-code-review README, [https://github.com/alibaba/open-code-review](https://github.com/alibaba/open-code-review)
-* \[Aniszczyk2026\] Aniszczyk, Chris (CNCF), David A. Wheeler (OpenSSF), Christopher “CRob” Robinson (OpenSSF), 2026-05, “Securing Open Source in the Age of AI”, [https://openssf.org/resources/securing-open-source-in-the-age-of-ai-a-practical-guide/](https://openssf.org/resources/securing-open-source-in-the-age-of-ai-a-practical-guide/)
-* \[Anthropic2026-04g\] Anthropic, 2026-04, “Project Glasswing: Securing critical software for the AI era”, [https://www.anthropic.com/glasswing](https://www.anthropic.com/glasswing)
-* \[Anthropic2026-03\] Anthropic, 2026-03-06, “Partnering with Mozilla to improve Firefox’s security”, [https://www.anthropic.com/news/mozilla-firefox-security](https://www.anthropic.com/news/mozilla-firefox-security)
-* \[Anthropic2026-04s\] Anthropic, 2026-04-07 (actually 2026-04-08), “System Card: Claude Mythos Preview”, [https://www-cdn.anthropic.com/08ab9158070959f88f296514c21b7facce6f52bc.pdf](https://www-cdn.anthropic.com/08ab9158070959f88f296514c21b7facce6f52bc.pdf)
-* \[Anthropic2026-06-12-Export-Control\] Anthropic, 2026-06-12, Statement on the US government directive to suspend access to Fable 5 and Mythos 5, [https://www.anthropic.com/news/fable-mythos-access](https://www.anthropic.com/news/fable-mythos-access)
-* \[Anthropic2026-05\] Anthropic, “Project Glasswing: An initial update”, 2026-05-22, [https://www.anthropic.com/research/glasswing-initial-update](https://www.anthropic.com/research/glasswing-initial-update)
-* \[Anthropic-07-27\] Anthropic, 2026-07-27, Our position on open-weights models, [https://www.anthropic.com/news/position-open-weights-models](https://www.anthropic.com/news/position-open-weights-models)
-* \[Anthropic2026-08-21\] Anthropic, 2026-08-21, Bringing the cybersecurity capabilities of Claude Mythos 5 to more defenders, [https://claude.com/blog/bringing-claude-mythos-5-to-more-defenders](https://claude.com/blog/bringing-claude-mythos-5-to-more-defenders)
-* \[Berkeley\] Berkeley Vulnerability Initiative, [https://vuln.cs.berkeley.edu/](https://vuln.cs.berkeley.edu/)
-* \[Bishop2026\] Bishop, Todd, 2026-05-13, “Microsoft’s multi-agent AI system tops Anthropic’s Mythos on cybersecurity benchmark”, [https://www.geekwire.com/2026/microsofts-multi-agent-ai-system-tops-anthropics-mythos-on-cybersecurity-benchmark/](https://www.geekwire.com/2026/microsofts-multi-agent-ai-system-tops-anthropics-mythos-on-cybersecurity-benchmark/)
-* \[Bourzikas2026\] Bourzikas, Grant, 2026-05-18, “Project Glasswing: what Mythos showed us” [https://blog.cloudflare.com/cyber-frontier-models/](https://blog.cloudflare.com/cyber-frontier-models/)
-* \[Bressers2025\] Bressers, Josh, and Joshua Rogers, 2025-10-13, “Actually finding vulnerabilities using AI with Joshua Rogers”, Open Source Security Podcast, [https://opensourcesecurity.io/2025/2025-10-ai-joshua-rogers/](https://opensourcesecurity.io/2025/2025-10-ai-joshua-rogers/)
-* \[Brown2026\] Jarom Brown, 2026-05-15, “Raising the bar: Quality, shared responsibility, and the future of GitHub’s bug bounty program”, The GitHub Blog, [https://github.blog/security/raising-the-bar-quality-shared-responsibility-and-the-future-of-githubs-bug-bounty-program/](https://github.blog/security/raising-the-bar-quality-shared-responsibility-and-the-future-of-githubs-bug-bounty-program/)
-* \[Buttell2026\] Amy Buttell, 2026-04-04, AI Code Risks Escalate: The use of AI coding tools continues to accelerate even as trust declines and risks proliferate, [https://cacm.acm.org/news/ai-code-risks-escalate/](https://cacm.acm.org/news/ai-code-risks-escalate/)
-* \[Capoot2026\] Ashley Capoot, 2026-06-30, “Anthropic says Trump admin has lifted export controls on Claude Fable 5 and Mythos 5”, CNBC, [https://www.cnbc.com/2026/06/30/anthropic-says-trump-admin-has-lifted-export-controls-on-claude-fable-5-and-mythos-5.html](https://www.cnbc.com/2026/06/30/anthropic-says-trump-admin-has-lifted-export-controls-on-claude-fable-5-and-mythos-5.html)
-* \[Carlini2026\] Nicholas Carlini, Newton Cheng, Keane Lucas, Michael Moore, Milad Nasr, Vinay Prabhushankar, Winnie Xiao, et al., 2026-04-07, “Assessing Claude Mythos Preview’s cybersecurity capabilities”, [https://red.anthropic.com/2026/mythos-preview/](https://red.anthropic.com/2026/mythos-preview/)
-* \[Carlini2026-youtube\] Nicholas Carlini, 2026, “Black-hat LLMs”, \[un\]prompted 2026” [https://www.youtube.com/watch?v=1sd26pWhfmg\&t=316s](https://www.youtube.com/watch?v=1sd26pWhfmg&t=316s)
-* \[Carlini2026-02\] Carlini et al., 2026-02-05, “Evaluating and mitigating the growing risk of LLM-discovered 0-days”, [https://red.anthropic.com/2026/zero-days/](https://red.anthropic.com/2026/zero-days/)
-* \[Chin2026\] Andrew Chin, Dongkwan Kim, Yu-Fu Fu, Fabian Fleischer, Youngjoon Kim, HyungSeok Han, Cen Zhang, Brian Junekyu Lee, Hanqing Zhao, Taesoo Kim, 2026-03-25, “OSS-CRS: Liberating AIxCC Cyber Reasoning Systems for Real-World Open-Source Security”, [https://arxiv.org/abs/2603.08566](https://arxiv.org/abs/2603.08566)
-* \[Chin2026-slides\] Andrew Chin, Brian Lee, 2026, OSS-CRS Tutorial: Bug-Finding and Patching for the LLM Era (slides), Systems Software & Security Lab (Georgia Tech)  /  Team Atlanta, [https://github.com/ossf/oss-crs/blob/main/docs/slides/svcc-2026.pptx](https://github.com/ossf/oss-crs/blob/main/docs/slides/svcc-2026.pptx)
-* \[Chrome2026\] Chrome Security Team, 2026-07-30, Stronger with every update: How we’re making Chrome and the web safer in the AI Era, [https://blog.google/security/chrome-stronger-with-every-update/](https://blog.google/security/chrome-stronger-with-every-update/)
-* \[Catanzaro2026\] Michael Catanzaro, 2026-06-08, [https://blogs.gnome.org/mcatanzaro/2026/06/08/please-do-not-ban-ai-assisted-issue-reports/](https://blogs.gnome.org/mcatanzaro/2026/06/08/please-do-not-ban-ai-assisted-issue-reports/)
-* \[Chia2026\] Osmond Chia and Laura Cress, 2026-07-31, Anthropic's Claude AI escapes to hack into three organisations, BBC, [https://www.bbc.com/news/articles/cz7dl7w8y7po](https://www.bbc.com/news/articles/cz7dl7w8y7po)
-* \[Churilov2026\] Aleksandr Churilov, 2026-05-16 (revised 2026-08-09), "The Range Shrinks, the Threat Remains: Re-evaluating LLM Package Hallucinations on the 2026 Frontier-Model Cohort", [https://arxiv.org/abs/2605.17062](https://arxiv.org/abs/2605.17062)
-* \[CISA2026-CVD\] CISA, NSA, JPCERT/CC, NCSC-NL, and NCSC-UK, 2026-07-15, “Establishing a Coordinated Vulnerability Disclosure Program to Work With Security Researchers”, [https://www.cisa.gov/resources-tools/resources/establishing-coordinated-vulnerability-disclosure-program-work-security-researchers](https://www.cisa.gov/resources-tools/resources/establishing-coordinated-vulnerability-disclosure-program-work-security-researchers)
-* \[CloudFlare\] CloudFlare, “Can AI find vulnerabilities?”, [https://www.cloudflare.com/the-net/ai-vulnerabilities/](https://www.cloudflare.com/the-net/ai-vulnerabilities/)
-* \[CrowdStrike2026-Global\] CrowdStrike, 2026, “CrowdStrike 2026: Global Threat Report: Year of the Evasive Adversary”, [https://go.crowdstrike.com/2026-global-threat-report.html](https://go.crowdstrike.com/2026-global-threat-report.html)
-* \[Cooter2026\] Maxwell Cooter, 2026-04-03, “Internet Bug Bounty program hits pause on payouts”, InfoWorld, [https://www.infoworld.com/article/4154210/internet-bug-bounty-program-hits-pause-on-payouts.html](https://www.infoworld.com/article/4154210/internet-bug-bounty-program-hits-pause-on-payouts.html)
-* \[CrowdStrike2026-FiveSteps\] CrowdStrike. 2026\. Five Steps for Frontier AI Security Readiness. [https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/](https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/)
-* \[CRA-AnnexI\] Cyber Resilience Act (CRA), [https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng\#anx\_I](https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng#anx_I)
-* \[crs-bug-finding-template\] crs-bug-finding-template \[for OSS-CRS\], [https://github.com/Team-Atlanta/crs-bug-finding-template/](https://github.com/Team-Atlanta/crs-bug-finding-template/)
-* \[CSA2026\] CSA CISO Community, SANS, \[un\]prompted, OWASP Gen AI Security Project and the wider community (and many contributing authors), 2026, “The “AI Vulnerability Storm”: Building a “Mythos-ready” Security Program”, [https://labs.cloudsecurityalliance.org/mythos-ciso/](https://labs.cloudsecurityalliance.org/mythos-ciso/)
-* \[Cycode2026\] Cycode Team, 6 Steps to be Mythos Ready: How to Prepare for the AI Vulnerability Storm, 2026-05-20, [https://cycode.com/blog/claude-mythos-security-readiness/](https://cycode.com/blog/claude-mythos-security-readiness/)
-* \[Daelman2025\] Rein Daelman, 2025-12-04 (last updated 2026-03-17), “PromptPwnd: Prompt Injection Vulnerabilities in GitHub Actions Using AI Agents”, Aikido Security, [https://www.aikido.dev/blog/promptpwnd-github-actions-ai-agents](https://www.aikido.dev/blog/promptpwnd-github-actions-ai-agents)
-* \[DARPA2016\] DARPA, 2016-08-05, “DARPA Celebrates Cyber Grand Challenge Winners”, [https://www.darpa.mil/news/2016/cyber-grand-challenge-winners](https://www.darpa.mil/news/2016/cyber-grand-challenge-winners)
-* \[Diecks2026\] Diecks, Jeff, 2026-04-02, “From AIxCC to OpenSSF: Welcoming OSS-CRS to Advance AI Driven”, [https://openssf.org/blog/2026/04/02/from-aixcc-to-openssf-welcoming-oss-crs-to-advance-ai-driven-open-source-security/](https://openssf.org/blog/2026/04/02/from-aixcc-to-openssf-welcoming-oss-crs-to-advance-ai-driven-open-source-security/)
-* \[Dinaburg2026\] Artem Dinaburg, 2026-08-26, VMs won't contain cyber-capable agents, Trail of Bits, [https://blog.trailofbits.com/2026/08/26/vms-wont-contain-cyber-capable-agents/](https://blog.trailofbits.com/2026/08/26/vms-wont-contain-cyber-capable-agents/)
-* \[Ding2025\] Yangruibo Ding, Yanjun Fu, Omniyyah Ibrahim, Chawin Sitawarin, Xinyun Chen, Basel Alomair, David Wagner, Baishakhi Ray, and Yizheng Chen, 2025, “Vulnerability Detection with Code Language Models: How Far Are We?”, 47th IEEE/ACM International Conference on Software Engineering (ICSE 2025), [https://arxiv.org/abs/2403.18624](https://arxiv.org/abs/2403.18624)
-* \[Dominus2026-03-05\] Mark Dominus, 2026-03-05, Documentation is a message in a bottle, [https://blog.plover.com/tech/gpt/documentation-wins.html](https://blog.plover.com/tech/gpt/documentation-wins.html)
-* \[Dominus2026-03-09\] Mark Dominus, 2026-03-09, “Programmers will document for Claude, but not for each other”, Blog post, [https://blog.plover.com/tech/gpt/documentation-wins-2.html](https://blog.plover.com/tech/gpt/documentation-wins-2.html)
-* \[Donnelly2026\] Donnelly, Tommy, 2026-04-15, “AI Is Finding Vulnerabilities Faster Than You Can Patch Them. Now What?” [https://www.amplifiersecurity.com/blog/ai-vulnerability-management-mythos](https://www.amplifiersecurity.com/blog/ai-vulnerability-management-mythos)
-* \[FiveEyes2026\] Five Eyes, 2026-06-22, Five Eyes cyber security agencies statement, [https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf](https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf)
-* \[Gerstenhaber2026\] Michael Gerstenhaber and Clemens Viernickel, 2026-07-21, “Now in preview: Find and fix software vulnerabilities with CodeMender”, Google Cloud Blog, [https://cloud.google.com/blog/products/identity-security/find-and-fix-software-vulnerabilities-with-codemender](https://cloud.google.com/blog/products/identity-security/find-and-fix-software-vulnerabilities-with-codemender)
-* \[Google-CodeMender-Docs\] Google Cloud, “CodeMender overview”, Gemini Enterprise Agent Platform documentation (accessed 2026-09-29), [https://docs.cloud.google.com/gemini-enterprise-agent-platform/codemender](https://docs.cloud.google.com/gemini-enterprise-agent-platform/codemender)
-* \[Grinstead2026-03\] Grinstead, Brian, Christian Holler, 2026-03-06, “Hardening Firefox with Anthropic’s Red Team” [https://blog.mozilla.org/en/firefox/hardening-firefox-anthropic-red-team/](https://blog.mozilla.org/en/firefox/hardening-firefox-anthropic-red-team/)
-* \[Grinstead2026-05\] Grinstead, Brian, Christian Holler, Frederik Braun, 2026-05-07, “Behind the Scenes Hardening Firefox with Claude Mythos Preview”, [https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/](https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/)
-* \[Guan2026\] Aonan Guan, with Zhengyu Liu and Gavin Zhong, 2026-04-15, “Comment and Control: Prompt Injection to Credential Theft in Claude Code, Gemini CLI, and GitHub Copilot Agent”, [https://oddguan.com/blog/comment-and-control-prompt-injection-credential-theft-claude-code-gemini-cli-github-copilot/](https://oddguan.com/blog/comment-and-control-prompt-injection-credential-theft-claude-code-gemini-cli-github-copilot/)
-* \[Hart2026\] Robert Hart, 2026-09-25, One company is at the center of a wave of rogue AI attacks: ﻿Mistakes at Israeli startup Irregular sent Anthropic, OpenAI, Meta, and Google agents after real-world targets, [https://www.theverge.com/ai-artificial-intelligence/1000644/irregular-rogue-ai-cyberattacks-hacking-openai-meta-anthropic-google](https://www.theverge.com/ai-artificial-intelligence/1000644/irregular-rogue-ai-cyberattacks-hacking-openai-meta-anthropic-google)
-* \[Harzevili2024\] Nima Shiri Harzevili, Alvine Boaye Belle, Junjie Wang, Song Wang, Zhen Ming (Jack) Jiang, and Nachiappan Nagappan. 2024\. “A Systematic Literature Review on Automated Software Vulnerability Detection Using Machine Learning.” ACM Comput. Surv. 57, 3, Article 55 (Nov. 2024), 36 pages. [https://doi.org/10.1145/3699711](https://doi.org/10.1145/3699711)
-* \[Hellekson2026\] Gunnar Hellekson et al, 2026-04-08, “Navigating the Mythos-haunted world of platform security”, [https://www.redhat.com/en/blog/navigating-mythos-haunted-world-platform-security](https://www.redhat.com/en/blog/navigating-mythos-haunted-world-platform-security)
-* \[Hillah2026\] Lom M. Hillah, Jean-Marc Richard, and Ryan Hasnaoui, 2026-06-11, "Bayesian-Calibrated Detection of Hallucinated Package Imports in AI-Assisted Code", [https://arxiv.org/abs/2606.13918](https://arxiv.org/abs/2606.13918)
-* \[Holterhoff2026\] Holterhoff, Kate, 2026-05-05, “AI Slop & the Vulnerability Treadmill”, [https://redmonk.com/kholterhoff/2026/05/05/ai-slop-vulnerability-treadmill/](https://redmonk.com/kholterhoff/2026/05/05/ai-slop-vulnerability-treadmill/)
-* \[Holley2026\] Bobby Holley, 2026-04-21, “The zero-days are numbered”, [https://blog.mozilla.org/en/privacy-security/ai-security-zero-day-vulnerabilities/](https://blog.mozilla.org/en/privacy-security/ai-security-zero-day-vulnerabilities/)
-* \[Hoodlet2026\] Keith Hoodlet, 2026-08-06, Vulnerability patches still require expert human review, [https://1password.com/blog/why-ai-generated-patches-still-require-human-review](https://1password.com/blog/why-ai-generated-patches-still-require-human-review)
-* \[HuggingFace2026\] Hugging Face, 2026-07-16, Security incident disclosure — July 2026, [https://huggingface.co/blog/security-incident-july-2026](https://huggingface.co/blog/security-incident-july-2026)
-* \[Karbasi2026\] Amin Karbasi, Supriti Vijay, Aman Priyanshu, Didier Chapoteau, Arthur Goldblatt, Kimia Majd, Fraser Burch, Jianliang He, Baturay Saglam, Takahiro Matsumoto, Zhuoran Yang, 2026-06-21, Introducing Antares: Highly Efficient Open Weight AI Models for Vulnerability Localization, [https://blogs.cisco.com/ai/introducing-antares-the-most-efficient-open-weight-ai-models-for-vulnerability-localization](https://blogs.cisco.com/ai/introducing-antares-the-most-efficient-open-weight-ai-models-for-vulnerability-localization)
-* \[Kholoosi2025\] M. Mehdi Kholoosi, Triet Huynh Minh Le, M. Ali Babar, 2025-12-23, “Software Vulnerability Management in the Era of Artificial Intelligence: An Industry Perspective”, [https://arxiv.org/abs/2512.18261v2](https://arxiv.org/abs/2512.18261v2)
-* \[Kim2026\] Kim Taesoo (VP, Agentic Security, Microsoft), 2026-05-12, “Defense at AI speed: Microsoft’s new multi-model agentic security system tops leading industry benchmark”, [https://www.microsoft.com/en-us/security/blog/2026/05/12/defense-at-ai-speed-microsofts-new-multi-model-agentic-security-system-tops-leading-industry-benchmark/](https://www.microsoft.com/en-us/security/blog/2026/05/12/defense-at-ai-speed-microsofts-new-multi-model-agentic-security-system-tops-leading-industry-benchmark/)
-* \[Korda2026\] Nahum Korda and Gadi Evron, 2026-06-17, “OpenAnt: LLM-Powered Vulnerability Discovery Through Code Decomposition, Adversarial Verification, and Dynamic Testing”, [https://arxiv.org/abs/2606.19149](https://arxiv.org/abs/2606.19149)
-* \[Kovacs2026-08-24\] Eduard Kovacs, 2026-08-24, Anthropic Expands Mythos 5 Access to More Defenders, Unveils \$35M Open Source Fund, [https://www.securityweek.com/anthropic-expands-mythos-5-access-to-more-defenders-unveils-35m-open-source-fund/](https://www.securityweek.com/anthropic-expands-mythos-5-access-to-more-defenders-unveils-35m-open-source-fund/)
-* \[Kurmi2025\] Ashish Kurmi, 2025-08-27, “s1ngularity: Popular Nx Build System Package Compromised with Data-Stealing Malware”, StepSecurity, [https://www.stepsecurity.io/blog/supply-chain-security-alert-popular-nx-build-system-package-compromised-with-data-stealing-malware](https://www.stepsecurity.io/blog/supply-chain-security-alert-popular-nx-build-system-package-compromised-with-data-stealing-malware)
-* \[Kwa2025\] Thomas Kwa, Ben West, Joel Becker, Amy Deng, Katharyn Garcia, Max Hasin, Sami Jawhar, Megan Kinniment, Nate Rush, Sydney Von Arx, Ryan Bloom, Thomas Broadley, Haoxing Du, Brian Goodrich, Nikola Jurkovic, Luke Harold Miles, Seraphina Nix, Tao Lin, Neev Parikh, David Rein, Lucas Jun Koba Sato, Hjalmar Wijk, Daniel M. Ziegler, Elizabeth Barnes, Lawrence Chan, 2026-02-25, “Measuring AI Ability to Complete Long Software Tasks”, [https://arxiv.org/abs/2503.14499](https://arxiv.org/abs/2503.14499)
-* \[Kwa2025-blog\] Thomas Kwa, Ben West, Joel Becker, et al., 2025-03-19, [https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/](https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/)
-* \[Lakshmanan2026\] Ravie Lakshmanan, 2026-05-12, “OpenAI Launches Daybreak for AI-Powered Vulnerability Detection and Patch Validation”, The Hacker News, [https://thehackernews.com/2026/05/openai-launches-daybreak-for-ai-powered.html](https://thehackernews.com/2026/05/openai-launches-daybreak-for-ai-powered.html)
-* \[Larson2026\] Seth Larsen, 2026-02-24, Respecting maintainer time should be in security policies, [https://sethmlarson.dev/respecting-maintainer-time-should-be-in-security-policies](https://sethmlarson.dev/respecting-maintainer-time-should-be-in-security-policies)
-* \[Li2026\] Fengjie Li, Jiajun Jiang, Dongchi Chen, and Yingfei Xiong, 2026-01-27 (revised 2026-09-25), “LLM-based Vulnerability Detection at Project Scale: An Empirical Study”, [https://arxiv.org/abs/2601.19239](https://arxiv.org/abs/2601.19239)
-* \[Licklider1960\] J. C. R. “Lick” Licklider, 1960-03, Man-Computer Symbiosis, IRE Transactions on Human Factors in Electronics, volume HFE-1, pages 4-11, [https://groups.csail.mit.edu/medg/people/psz/Licklider.html](https://groups.csail.mit.edu/medg/people/psz/Licklider.html)
-* \[Li2025\] Yue Li, Xiao Li, Hao Wu, Minghui Xu, Yue Zhang, Xiuzhen Cheng, Fengyuan Xu, Sheng Zhong, 2025-04-18, Everything You Wanted to Know About LLM-based Vulnerability Detection But Were Afraid to Ask, [https://arxiv.org/abs/2504.13474v1](https://arxiv.org/abs/2504.13474v1)
-* \[Linux-AI\] Linux kernel developers, “AI Coding Assistants”, The Linux Kernel documentation, [https://docs.kernel.org/process/coding-assistants.html](https://docs.kernel.org/process/coding-assistants.html)
-* \[Linux-SecurityBugs\] Linux kernel developers, “Security bugs”, The Linux Kernel documentation, [https://docs.kernel.org/process/security-bugs.html](https://docs.kernel.org/process/security-bugs.html)
-* \[LowLevel2026\] Low Level, 2026, “Mythos has been unleashed (we have results)” \[video\], [https://www.youtube.com/watch?v=IS4OgH74gY4](https://www.youtube.com/watch?v=IS4OgH74gY4)
-* \[Microsoft2026-07\] Microsoft, 2026-07-24, Open Weights and American AI Leadership, [https://www.microsoft.com/en-us/corporate-responsibility/topics/open-weight/](https://www.microsoft.com/en-us/corporate-responsibility/topics/open-weight/)
-* \[Mierczuk2026\] Axel Mierczuk, Spencer Michaels, and Keith Hoodlet, 2026, Frontier Models’ Vulnerability Patches are Often F.L.A.W.E.D.: Fix-Like Artifacts With Embedded Defects: Common failure modes of LLM-generated security patches, [https://1password.com/files/resources/frontier-models-vulnerability-patches-flawed.pdf](https://1password.com/files/resources/frontier-models-vulnerability-patches-flawed.pdf)
-* \[Naik2026\] Anish Naik et al., 2026-09-15, 1Password's AI patching benchmark is misleading, Trail of Bits Blog, [https://blog.trailofbits.com/2026/09/15/1passwords-ai-patching-benchmark-is-misleading/](https://blog.trailofbits.com/2026/09/15/1passwords-ai-patching-benchmark-is-misleading/)
-* \[Nesbitt2026-06\] Andrew Nesbitt, 2026-06-25, Scrutineer: scanning open source without flooding maintainers, [https://nesbitt.io/2026/06/25/scrutineer.html](https://nesbitt.io/2026/06/25/scrutineer.html)
-* \[NIST-AgentIdentity2026\] NIST NCCoE, 2026-02-05, “Accelerating the Adoption of Software and Artificial Intelligence Agent Identity and Authorization”, [https://www.nccoe.nist.gov/projects/software-and-ai-agent-identity-and-authorization](https://www.nccoe.nist.gov/projects/software-and-ai-agent-identity-and-authorization)
-* \[NPR2026\] Huo Jingnan, 2026-04-11, How AI is getting better at finding security holes, [https://www.npr.org/2026/04/11/nx-s1-5778508/anthropic-project-glasswing-ai-cybersecurity-mythos-preview](https://www.npr.org/2026/04/11/nx-s1-5778508/anthropic-project-glasswing-ai-cybersecurity-mythos-preview)
-* \[NVIDIA2026\] NVIDIA, 2026, Industry Leaders Unite in Open Secure AI Alliance for AI Safety and Security, [https://blogs.nvidia.com/blog/open-secure-ai-alliance/](https://blogs.nvidia.com/blog/open-secure-ai-alliance/)
-* \[OpenAI2026-07\] OpenAI, 2026-07-21, OpenAI and Hugging Face partner to address security incident during model evaluation, [https://openai.com/index/hugging-face-model-evaluation-security-incident/](https://openai.com/index/hugging-face-model-evaluation-security-incident/)
-* \[OpenSSF2025-AIInstructions\] OpenSSF Best Practices and AI/ML Working Groups (led by Avishay Balter), 2025-08-01, “Security-Focused Guide for AI Code Assistant Instructions”, [https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions.html](https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions.html)
-* \[OpenSSF2026-06\] Open Source Security Foundation (OpenSSF) Best Practices Working Group, 2026-06-30, Compiler Options Hardening Guide for C and C++, [https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html)
-* \[Oshungboye\] Oshungboye, Damilola, UNK-04-22, “How to use AI to identify and fix security vulnerabilities in your codebase”, CodeRabbit, [https://dev.to/coderabbitai/how-to-use-ai-to-identify-and-fix-security-vulnerabilities-in-your-codebase-4na2](https://dev.to/coderabbitai/how-to-use-ai-to-identify-and-fix-security-vulnerabilities-in-your-codebase-4na2)
-* \[Ottenheimer2026-05-26\] David Ottenheimer, 2026-05-26, Mythos Grading Mythos: Got Patches Yet?, [https://www.flyingpenguin.com/mythos-grading-mythos-got-patches-yet/](https://www.flyingpenguin.com/mythos-grading-mythos-got-patches-yet/)
-* \[OWASP2025-AITesting\] OWASP, 2025-11-26, OWASP AI Testing Guide, [https://owasp.org/www-project-ai-testing-guide/](https://owasp.org/www-project-ai-testing-guide/)
-* \[OWASP-Agentic2026\] OWASP GenAI Security Project, 2025-12-09, “OWASP Top 10 for Agentic Applications for 2026”, [https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/)
-* \[OWASP-ASI06\] Idan Habler, OWASP GenAI Security Project, 2026-05-13, “Memory Is a Feature. It Is Also an Attack Surface”, [https://genai.owasp.org/2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/](https://genai.owasp.org/2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/)
-* \[OWASP-ASVS5\] OWASP, 2025, “OWASP Application Security Verification Standard 5.0.0”, (especially V2.2.2 and V8.3.1), [https://owasp.org/www-project-application-security-verification-standard/](https://owasp.org/www-project-application-security-verification-standard/)
-* \[OWASP-LLM01\] OWASP GenAI Security Project, “LLM01: Prompt Injection”, [https://genai.owasp.org/llmrisk/llm01-prompt-injection/](https://genai.owasp.org/llmrisk/llm01-prompt-injection/)
-* \[OWASP-LLM06\] OWASP GenAI Security Project, “LLM06:2025 Excessive Agency”, [https://genai.owasp.org/llmrisk/llm062025-excessive-agency](https://genai.owasp.org/llmrisk/llm062025-excessive-agency)
-* \[OWASP-ASVS5-V7\] OWASP, 2025, “OWASP Application Security Verification Standard 5.0.0”, particularly V7 Session Management, [https://github.com/OWASP/ASVS/blob/master/5.0/en/0x16-V7-Session-Management.md](https://github.com/OWASP/ASVS/blob/master/5.0/en/0x16-V7-Session-Management.md)
-* \[OWASP-GenAI\] OWASP GenAI Security Project, [https://genai.owasp.org/](https://genai.owasp.org/)
-* \[OWASP-LLM10\] OWASP GenAI Security Project, “LLM10:2025 Unbounded Consumption”, [https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption](https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption)
-* \[Pardesi2026-08-05\] Rajveer Pardesi and Mrinmay Dey, 2026-08-05, Meta AI model hacks another company during testing, Reuters, [https://www.reuters.com/technology/metas-ai-model-hacked-another-company-during-testing-information-reports-2026-08-05/](https://www.reuters.com/technology/metas-ai-model-hacked-another-company-during-testing-information-reports-2026-08-05/)
-* \[Perry2023\] Neil Perry, Megha Srivastava, Deepak Kumar, and Dan Boneh, 2023-11, “Do Users Write More Insecure Code with AI Assistants?”, Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications Security (CCS ’23), [https://arxiv.org/abs/2211.03622](https://arxiv.org/abs/2211.03622)
-* \[PSF2026\] Python Software Foundation (PSF), 2026-06-17, “Everything Security at PyCon US 2026”, [https://pyfound.blogspot.com/2026/06/everything-security-at-pycon-us-2026.html](https://pyfound.blogspot.com/2026/06/everything-security-at-pycon-us-2026.html)
-* \[Reuters2026-08-07\] Reuters, 2026-08-07, Chinese startup Moonshot's AI model breaks out of testing environment, researchers say, [https://www.reuters.com/legal/litigation/chinese-startup-moonshots-ai-model-breaks-out-testing-environment-researchers-2026-08-07/](https://www.reuters.com/legal/litigation/chinese-startup-moonshots-ai-model-breaks-out-testing-environment-researchers-2026-08-07/)
-* \[Risse2025\] Niklas Risse, Jing Liu, and Marcel Böhme, 2025, “Top Score on the Wrong Exam: On Benchmarking in Machine Learning for Vulnerability Detection”, Proceedings of the ACM on Software Engineering (ISSTA 2025), [https://arxiv.org/abs/2408.12986](https://arxiv.org/abs/2408.12986)
-* \[Rohlf2025\] Rohlf, Chris, 2025-08-04, AI and the Software Vulnerability Lifecycle, [https://cset.georgetown.edu/article/ai-and-the-software-vulnerability-lifecycle/](https://cset.georgetown.edu/article/ai-and-the-software-vulnerability-lifecycle/)
-* \[Rogers2025\] Rogers, Joshua, 2025, “Hacking with AI SASTs: An overview of 'AI Security Engineers' / 'LLM Security Scanners' for Penetration Testers and Security Teams”, [https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters](https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters)
-* \[Safdar2025\] Rijha Safdar, Danyail Mateen, Syed Taha Ali, Umer Ashfaq and Wajahat Hussain, 2025, “Data and Context Matter: Towards Generalizing AI-based Software Vulnerability Detection”, [https://arxiv.org/abs/2508.16625v2](https://arxiv.org/abs/2508.16625v2)
-* \[SARIF2.1\] OASIS, 2020, “Static Analysis Results Interchange Format (SARIF) Version 2.1.0”, [https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html)
-* \[Shakevsky2026\] Alon Shakevsky, Corban Villa, Ion Stoica, and Raluca Ada Popa, 2026-07-14, “Antiproof: Synthesizing Vulnerability Detectors and Proofs of Exploitability”, [https://arxiv.org/abs/2607.12316](https://arxiv.org/abs/2607.12316)
-* \[Shimmi2025\] Shimmi, Samiha, Hamed Okhravi, Mona Rahimi, 2025-06-12, “AI-Based Software Vulnerability Detection: A Systematic Literature Review”, [https://arxiv.org/abs/2506.10280](https://arxiv.org/abs/2506.10280)
-* \[Shein2026\] Esther Shein, 2026-06-03, Investing in Workers to Work with AI: Training encourages workers to utilize AI tools to their fullest and allays fears AI will replace them, [https://cacm.acm.org/news/investing-in-workers-to-work-with-ai/](https://cacm.acm.org/news/investing-in-workers-to-work-with-ai/)
-* \[Shen2026-09\] Chihao Shen, Jiacheng Li, Aastha Mahajan, Jeffery Siyuan Tian, Yonghwi Kwon, Yizheng Chen, 2026-09-03, PatchBench: Evaluating AI Agents for Vulnerability Patching, [https://arxiv.org/abs/2609.04075](https://arxiv.org/abs/2609.04075)
+* \[0xkato2024\] 0xkato, 2024-12-01, Get ready for an audit, [https\://www\.0xkato.xyz/Get-ready-for-an-audit/](https://www.0xkato.xyz/Get-ready-for-an-audit/)
+* \[0xkato2026\] 0xkato, 2026-06-01, “How LLMs Actually Work”, [https\://www\.0xkato.xyz/how-llms-actually-work/](https://www.0xkato.xyz/how-llms-actually-work/)
+* \[Agarwal2026\] Abhinav Agarwal, 2026-04-21, “Refute-or-Promote: An Adversarial Stage-Gated Multi-Agent Review Methodology for High-Precision LLM-Assisted Defect Discovery”, [https\://arxiv.org/abs/2604.19049](https://arxiv.org/abs/2604.19049)
+* \[Chen2026\] Bo Chen, 2026-08-10, “From Runnable to Verifiable: An Independent Reproducibility Study of LLM/Agent-Driven Vulnerability Validation Artifacts”, [https\://arxiv.org/abs/2608.09567](https://arxiv.org/abs/2608.09567)
+* \[Agyekum2026\] Benjamin Agyekum and Fabio Santos, 2026-08-13, “Does Fixing Break Security? An Empirical Study of Security Degradation in Iterative LLM-Driven Infrastructure-as-Code Repair”, 20th International Symposium on Empirical Software Engineering and Measurement (ESEM 2026), [https\://arxiv.org/abs/2608.13404](https://arxiv.org/abs/2608.13404)
+* \[Ahmad2026\] Ahmad Osman, 2026, Anthropic's War on Opensource AI, [https\://x.com/TheAhmadOsman/status/2065307070044234186](https://x.com/TheAhmadOsman/status/2065307070044234186)
+* \[Alibaba2026\] Alibaba, open-code-review README, [https\://github.com/alibaba/open-code-review](https://github.com/alibaba/open-code-review)
+* \[Aniszczyk2026\] Aniszczyk, Chris (CNCF), David A. Wheeler (OpenSSF), Christopher “CRob” Robinson (OpenSSF), 2026-05, “Securing Open Source in the Age of AI”, [https\://openssf.org/resources/securing-open-source-in-the-age-of-ai-a-practical-guide/](https://openssf.org/resources/securing-open-source-in-the-age-of-ai-a-practical-guide/)
+* \[Anthropic2026-04g\] Anthropic, 2026-04, “Project Glasswing: Securing critical software for the AI era”, [https\://www\.anthropic.com/glasswing](https://www.anthropic.com/glasswing)
+* \[Anthropic2026-03\] Anthropic, 2026-03-06, “Partnering with Mozilla to improve Firefox’s security”, [https\://www\.anthropic.com/news/mozilla-firefox-security](https://www.anthropic.com/news/mozilla-firefox-security)
+* \[Anthropic2026-04s\] Anthropic, 2026-04-07 (actually 2026-04-08), “System Card: Claude Mythos Preview”, [https\://www-cdn.anthropic.com/08ab9158070959f88f296514c21b7facce6f52bc.pdf](https://www-cdn.anthropic.com/08ab9158070959f88f296514c21b7facce6f52bc.pdf)
+* \[Anthropic2026-06-12-Export-Control\] Anthropic, 2026-06-12, Statement on the US government directive to suspend access to Fable 5 and Mythos 5, [https\://www\.anthropic.com/news/fable-mythos-access](https://www.anthropic.com/news/fable-mythos-access)
+* \[Anthropic2026-05\] Anthropic, “Project Glasswing: An initial update”, 2026-05-22, [https\://www\.anthropic.com/research/glasswing-initial-update](https://www.anthropic.com/research/glasswing-initial-update)
+* \[Anthropic-07-27\] Anthropic, 2026-07-27, Our position on open-weights models, [https\://www\.anthropic.com/news/position-open-weights-models](https://www.anthropic.com/news/position-open-weights-models)
+* \[Anthropic2026-08-21\] Anthropic, 2026-08-21, Bringing the cybersecurity capabilities of Claude Mythos 5 to more defenders, [https\://claude.com/blog/bringing-claude-mythos-5-to-more-defenders](https://claude.com/blog/bringing-claude-mythos-5-to-more-defenders)
+* \[Berkeley\] Berkeley Vulnerability Initiative, [https\://vuln.cs.berkeley.edu/](https://vuln.cs.berkeley.edu/)
+* \[Bishop2026\] Bishop, Todd, 2026-05-13, “Microsoft’s multi-agent AI system tops Anthropic’s Mythos on cybersecurity benchmark”, [https\://www\.geekwire.com/2026/microsofts-multi-agent-ai-system-tops-anthropics-mythos-on-cybersecurity-benchmark/](https://www.geekwire.com/2026/microsofts-multi-agent-ai-system-tops-anthropics-mythos-on-cybersecurity-benchmark/)
+* \[Bourzikas2026\] Bourzikas, Grant, 2026-05-18, “Project Glasswing: what Mythos showed us” [https\://blog.cloudflare.com/cyber-frontier-models/](https://blog.cloudflare.com/cyber-frontier-models/)
+* \[Bressers2025\] Bressers, Josh, and Joshua Rogers, 2025-10-13, “Actually finding vulnerabilities using AI with Joshua Rogers”, Open Source Security Podcast, [https\://opensourcesecurity.io/2025/2025-10-ai-joshua-rogers/](https://opensourcesecurity.io/2025/2025-10-ai-joshua-rogers/)
+* \[Brown2026\] Jarom Brown, 2026-05-15, “Raising the bar: Quality, shared responsibility, and the future of GitHub’s bug bounty program”, The GitHub Blog, [https\://github.blog/security/raising-the-bar-quality-shared-responsibility-and-the-future-of-githubs-bug-bounty-program/](https://github.blog/security/raising-the-bar-quality-shared-responsibility-and-the-future-of-githubs-bug-bounty-program/)
+* \[Buttell2026\] Amy Buttell, 2026-04-04, AI Code Risks Escalate: The use of AI coding tools continues to accelerate even as trust declines and risks proliferate, [https\://cacm.acm.org/news/ai-code-risks-escalate/](https://cacm.acm.org/news/ai-code-risks-escalate/)
+* \[Capoot2026\] Ashley Capoot, 2026-06-30, “Anthropic says Trump admin has lifted export controls on Claude Fable 5 and Mythos 5”, CNBC, [https\://www\.cnbc.com/2026/06/30/anthropic-says-trump-admin-has-lifted-export-controls-on-claude-fable-5-and-mythos-5.html](https://www.cnbc.com/2026/06/30/anthropic-says-trump-admin-has-lifted-export-controls-on-claude-fable-5-and-mythos-5.html)
+* \[Carlini2026\] Nicholas Carlini, Newton Cheng, Keane Lucas, Michael Moore, Milad Nasr, Vinay Prabhushankar, Winnie Xiao, et al., 2026-04-07, “Assessing Claude Mythos Preview’s cybersecurity capabilities”, [https\://red.anthropic.com/2026/mythos-preview/](https://red.anthropic.com/2026/mythos-preview/)
+* \[Carlini2026-youtube\] Nicholas Carlini, 2026, “Black-hat LLMs”, \[un\]prompted 2026” [https\://www\.youtube.com/watch?v=1sd26pWhfmg\&t=316s](https://www.youtube.com/watch?v=1sd26pWhfmg&t=316s)
+* \[Carlini2026-02\] Carlini et al., 2026-02-05, “Evaluating and mitigating the growing risk of LLM-discovered 0-days”, [https\://red.anthropic.com/2026/zero-days/](https://red.anthropic.com/2026/zero-days/)
+* \[Chin2026\] Andrew Chin, Dongkwan Kim, Yu-Fu Fu, Fabian Fleischer, Youngjoon Kim, HyungSeok Han, Cen Zhang, Brian Junekyu Lee, Hanqing Zhao, Taesoo Kim, 2026-03-25, “OSS-CRS: Liberating AIxCC Cyber Reasoning Systems for Real-World Open-Source Security”, [https\://arxiv.org/abs/2603.08566](https://arxiv.org/abs/2603.08566)
+* \[Chin2026-slides\] Andrew Chin, Brian Lee, 2026, OSS-CRS Tutorial: Bug-Finding and Patching for the LLM Era (slides), Systems Software & Security Lab (Georgia Tech)  /  Team Atlanta, [https\://github.com/ossf/oss-crs/blob/main/docs/slides/svcc-2026.pptx](https://github.com/ossf/oss-crs/blob/main/docs/slides/svcc-2026.pptx)
+* \[Chrome2026\] Chrome Security Team, 2026-07-30, Stronger with every update: How we’re making Chrome and the web safer in the AI Era, [https\://blog.google/security/chrome-stronger-with-every-update/](https://blog.google/security/chrome-stronger-with-every-update/)
+* \[Catanzaro2026\] Michael Catanzaro, 2026-06-08, [https\://blogs.gnome.org/mcatanzaro/2026/06/08/please-do-not-ban-ai-assisted-issue-reports/](https://blogs.gnome.org/mcatanzaro/2026/06/08/please-do-not-ban-ai-assisted-issue-reports/)
+* \[Chia2026\] Osmond Chia and Laura Cress, 2026-07-31, Anthropic's Claude AI escapes to hack into three organisations, BBC, [https\://www\.bbc.com/news/articles/cz7dl7w8y7po](https://www.bbc.com/news/articles/cz7dl7w8y7po)
+* \[Churilov2026\] Aleksandr Churilov, 2026-05-16 (revised 2026-08-09), "The Range Shrinks, the Threat Remains: Re-evaluating LLM Package Hallucinations on the 2026 Frontier-Model Cohort", [https\://arxiv.org/abs/2605.17062](https://arxiv.org/abs/2605.17062)
+* \[CISA2026-CVD\] CISA, NSA, JPCERT/CC, NCSC-NL, and NCSC-UK, 2026-07-15, “Establishing a Coordinated Vulnerability Disclosure Program to Work With Security Researchers”, [https\://www\.cisa.gov/resources-tools/resources/establishing-coordinated-vulnerability-disclosure-program-work-security-researchers](https://www.cisa.gov/resources-tools/resources/establishing-coordinated-vulnerability-disclosure-program-work-security-researchers)
+* \[CloudFlare\] CloudFlare, “Can AI find vulnerabilities?”, [https\://www\.cloudflare.com/the-net/ai-vulnerabilities/](https://www.cloudflare.com/the-net/ai-vulnerabilities/)
+* \[CrowdStrike2026-Global\] CrowdStrike, 2026, “CrowdStrike 2026: Global Threat Report: Year of the Evasive Adversary”, [https\://go.crowdstrike.com/2026-global-threat-report.html](https://go.crowdstrike.com/2026-global-threat-report.html)
+* \[Cooter2026\] Maxwell Cooter, 2026-04-03, “Internet Bug Bounty program hits pause on payouts”, InfoWorld, [https\://www\.infoworld.com/article/4154210/internet-bug-bounty-program-hits-pause-on-payouts.html](https://www.infoworld.com/article/4154210/internet-bug-bounty-program-hits-pause-on-payouts.html)
+* \[CrowdStrike2026-FiveSteps\] CrowdStrike. 2026\. Five Steps for Frontier AI Security Readiness. [https\://www\.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/](https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/)
+* \[CRA-AnnexI\] Cyber Resilience Act (CRA), [https\://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng\#anx\_I](https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng#anx_I)
+* \[crs-bug-finding-template\] crs-bug-finding-template \[for OSS-CRS\], [https\://github.com/Team-Atlanta/crs-bug-finding-template/](https://github.com/Team-Atlanta/crs-bug-finding-template/)
+* \[CSA2026\] CSA CISO Community, SANS, \[un\]prompted, OWASP Gen AI Security Project and the wider community (and many contributing authors), 2026, “The “AI Vulnerability Storm”: Building a “Mythos-ready” Security Program”, [https\://labs.cloudsecurityalliance.org/mythos-ciso/](https://labs.cloudsecurityalliance.org/mythos-ciso/)
+* \[Cycode2026\] Cycode Team, 6 Steps to be Mythos Ready: How to Prepare for the AI Vulnerability Storm, 2026-05-20, [https\://cycode.com/blog/claude-mythos-security-readiness/](https://cycode.com/blog/claude-mythos-security-readiness/)
+* \[Daelman2025\] Rein Daelman, 2025-12-04 (last updated 2026-03-17), “PromptPwnd: Prompt Injection Vulnerabilities in GitHub Actions Using AI Agents”, Aikido Security, [https\://www\.aikido.dev/blog/promptpwnd-github-actions-ai-agents](https://www.aikido.dev/blog/promptpwnd-github-actions-ai-agents)
+* \[DARPA2016\] DARPA, 2016-08-05, “DARPA Celebrates Cyber Grand Challenge Winners”, [https\://www\.darpa.mil/news/2016/cyber-grand-challenge-winners](https://www.darpa.mil/news/2016/cyber-grand-challenge-winners)
+* \[Diecks2026\] Diecks, Jeff, 2026-04-02, “From AIxCC to OpenSSF: Welcoming OSS-CRS to Advance AI Driven”, [https\://openssf.org/blog/2026/04/02/from-aixcc-to-openssf-welcoming-oss-crs-to-advance-ai-driven-open-source-security/](https://openssf.org/blog/2026/04/02/from-aixcc-to-openssf-welcoming-oss-crs-to-advance-ai-driven-open-source-security/)
+* \[Dinaburg2026\] Artem Dinaburg, 2026-08-26, VMs won't contain cyber-capable agents, Trail of Bits, [https\://blog.trailofbits.com/2026/08/26/vms-wont-contain-cyber-capable-agents/](https://blog.trailofbits.com/2026/08/26/vms-wont-contain-cyber-capable-agents/)
+* \[Ding2025\] Yangruibo Ding, Yanjun Fu, Omniyyah Ibrahim, Chawin Sitawarin, Xinyun Chen, Basel Alomair, David Wagner, Baishakhi Ray, and Yizheng Chen, 2025, “Vulnerability Detection with Code Language Models: How Far Are We?”, 47th IEEE/ACM International Conference on Software Engineering (ICSE 2025), [https\://arxiv.org/abs/2403.18624](https://arxiv.org/abs/2403.18624)
+* \[Dominus2026-03-05\] Mark Dominus, 2026-03-05, Documentation is a message in a bottle, [https\://blog.plover.com/tech/gpt/documentation-wins.html](https://blog.plover.com/tech/gpt/documentation-wins.html)
+* \[Dominus2026-03-09\] Mark Dominus, 2026-03-09, “Programmers will document for Claude, but not for each other”, Blog post, [https\://blog.plover.com/tech/gpt/documentation-wins-2.html](https://blog.plover.com/tech/gpt/documentation-wins-2.html)
+* \[Donnelly2026\] Donnelly, Tommy, 2026-04-15, “AI Is Finding Vulnerabilities Faster Than You Can Patch Them. Now What?” [https\://www\.amplifiersecurity.com/blog/ai-vulnerability-management-mythos](https://www.amplifiersecurity.com/blog/ai-vulnerability-management-mythos)
+* \[FiveEyes2026\] Five Eyes, 2026-06-22, Five Eyes cyber security agencies statement, [https\://www\.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf](https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf)
+* \[Gerstenhaber2026\] Michael Gerstenhaber and Clemens Viernickel, 2026-07-21, “Now in preview: Find and fix software vulnerabilities with CodeMender”, Google Cloud Blog, [https\://cloud.google.com/blog/products/identity-security/find-and-fix-software-vulnerabilities-with-codemender](https://cloud.google.com/blog/products/identity-security/find-and-fix-software-vulnerabilities-with-codemender)
+* \[Google-CodeMender-Docs\] Google Cloud, “CodeMender overview”, Gemini Enterprise Agent Platform documentation (accessed 2026-09-29), [https\://docs.cloud.google.com/gemini-enterprise-agent-platform/codemender](https://docs.cloud.google.com/gemini-enterprise-agent-platform/codemender)
+* \[Grinstead2026-03\] Grinstead, Brian, Christian Holler, 2026-03-06, “Hardening Firefox with Anthropic’s Red Team” [https\://blog.mozilla.org/en/firefox/hardening-firefox-anthropic-red-team/](https://blog.mozilla.org/en/firefox/hardening-firefox-anthropic-red-team/)
+* \[Grinstead2026-05\] Grinstead, Brian, Christian Holler, Frederik Braun, 2026-05-07, “Behind the Scenes Hardening Firefox with Claude Mythos Preview”, [https\://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/](https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/)
+* \[Guan2026\] Aonan Guan, with Zhengyu Liu and Gavin Zhong, 2026-04-15, “Comment and Control: Prompt Injection to Credential Theft in Claude Code, Gemini CLI, and GitHub Copilot Agent”, [https\://oddguan.com/blog/comment-and-control-prompt-injection-credential-theft-claude-code-gemini-cli-github-copilot/](https://oddguan.com/blog/comment-and-control-prompt-injection-credential-theft-claude-code-gemini-cli-github-copilot/)
+* \[Hart2026\] Robert Hart, 2026-09-25, One company is at the center of a wave of rogue AI attacks: ﻿Mistakes at Israeli startup Irregular sent Anthropic, OpenAI, Meta, and Google agents after real-world targets, [https\://www\.theverge.com/ai-artificial-intelligence/1000644/irregular-rogue-ai-cyberattacks-hacking-openai-meta-anthropic-google](https://www.theverge.com/ai-artificial-intelligence/1000644/irregular-rogue-ai-cyberattacks-hacking-openai-meta-anthropic-google)
+* \[Harzevili2024\] Nima Shiri Harzevili, Alvine Boaye Belle, Junjie Wang, Song Wang, Zhen Ming (Jack) Jiang, and Nachiappan Nagappan. 2024\. “A Systematic Literature Review on Automated Software Vulnerability Detection Using Machine Learning.” ACM Comput. Surv. 57, 3, Article 55 (Nov. 2024), 36 pages. [https\://doi.org/10.1145/3699711](https://doi.org/10.1145/3699711)
+* \[Hellekson2026\] Gunnar Hellekson et al, 2026-04-08, “Navigating the Mythos-haunted world of platform security”, [https\://www\.redhat.com/en/blog/navigating-mythos-haunted-world-platform-security](https://www.redhat.com/en/blog/navigating-mythos-haunted-world-platform-security)
+* \[Hillah2026\] Lom M. Hillah, Jean-Marc Richard, and Ryan Hasnaoui, 2026-06-11, "Bayesian-Calibrated Detection of Hallucinated Package Imports in AI-Assisted Code", [https\://arxiv.org/abs/2606.13918](https://arxiv.org/abs/2606.13918)
+* \[Holterhoff2026\] Holterhoff, Kate, 2026-05-05, “AI Slop & the Vulnerability Treadmill”, [https\://redmonk.com/kholterhoff/2026/05/05/ai-slop-vulnerability-treadmill/](https://redmonk.com/kholterhoff/2026/05/05/ai-slop-vulnerability-treadmill/)
+* \[Holley2026\] Bobby Holley, 2026-04-21, “The zero-days are numbered”, [https\://blog.mozilla.org/en/privacy-security/ai-security-zero-day-vulnerabilities/](https://blog.mozilla.org/en/privacy-security/ai-security-zero-day-vulnerabilities/)
+* \[Hoodlet2026\] Keith Hoodlet, 2026-08-06, Vulnerability patches still require expert human review, [https\://1password.com/blog/why-ai-generated-patches-still-require-human-review](https://1password.com/blog/why-ai-generated-patches-still-require-human-review)
+* \[HuggingFace2026\] Hugging Face, 2026-07-16, Security incident disclosure — July 2026, [https\://huggingface.co/blog/security-incident-july-2026](https://huggingface.co/blog/security-incident-july-2026)
+* \[Karbasi2026\] Amin Karbasi, Supriti Vijay, Aman Priyanshu, Didier Chapoteau, Arthur Goldblatt, Kimia Majd, Fraser Burch, Jianliang He, Baturay Saglam, Takahiro Matsumoto, Zhuoran Yang, 2026-06-21, Introducing Antares: Highly Efficient Open Weight AI Models for Vulnerability Localization, [https\://blogs.cisco.com/ai/introducing-antares-the-most-efficient-open-weight-ai-models-for-vulnerability-localization](https://blogs.cisco.com/ai/introducing-antares-the-most-efficient-open-weight-ai-models-for-vulnerability-localization)
+* \[Kholoosi2025\] M. Mehdi Kholoosi, Triet Huynh Minh Le, M. Ali Babar, 2025-12-23, “Software Vulnerability Management in the Era of Artificial Intelligence: An Industry Perspective”, [https\://arxiv.org/abs/2512.18261v2](https://arxiv.org/abs/2512.18261v2)
+* \[Kim2026\] Kim Taesoo (VP, Agentic Security, Microsoft), 2026-05-12, “Defense at AI speed: Microsoft’s new multi-model agentic security system tops leading industry benchmark”, [https\://www\.microsoft.com/en-us/security/blog/2026/05/12/defense-at-ai-speed-microsofts-new-multi-model-agentic-security-system-tops-leading-industry-benchmark/](https://www.microsoft.com/en-us/security/blog/2026/05/12/defense-at-ai-speed-microsofts-new-multi-model-agentic-security-system-tops-leading-industry-benchmark/)
+* \[Korda2026\] Nahum Korda and Gadi Evron, 2026-06-17, “OpenAnt: LLM-Powered Vulnerability Discovery Through Code Decomposition, Adversarial Verification, and Dynamic Testing”, [https\://arxiv.org/abs/2606.19149](https://arxiv.org/abs/2606.19149)
+* \[Kovacs2026-08-24\] Eduard Kovacs, 2026-08-24, Anthropic Expands Mythos 5 Access to More Defenders, Unveils \$35M Open Source Fund, [https\://www\.securityweek.com/anthropic-expands-mythos-5-access-to-more-defenders-unveils-35m-open-source-fund/](https://www.securityweek.com/anthropic-expands-mythos-5-access-to-more-defenders-unveils-35m-open-source-fund/)
+* \[Kurmi2025\] Ashish Kurmi, 2025-08-27, “s1ngularity: Popular Nx Build System Package Compromised with Data-Stealing Malware”, StepSecurity, [https\://www\.stepsecurity.io/blog/supply-chain-security-alert-popular-nx-build-system-package-compromised-with-data-stealing-malware](https://www.stepsecurity.io/blog/supply-chain-security-alert-popular-nx-build-system-package-compromised-with-data-stealing-malware)
+* \[Kwa2025\] Thomas Kwa, Ben West, Joel Becker, Amy Deng, Katharyn Garcia, Max Hasin, Sami Jawhar, Megan Kinniment, Nate Rush, Sydney Von Arx, Ryan Bloom, Thomas Broadley, Haoxing Du, Brian Goodrich, Nikola Jurkovic, Luke Harold Miles, Seraphina Nix, Tao Lin, Neev Parikh, David Rein, Lucas Jun Koba Sato, Hjalmar Wijk, Daniel M. Ziegler, Elizabeth Barnes, Lawrence Chan, 2026-02-25, “Measuring AI Ability to Complete Long Software Tasks”, [https\://arxiv.org/abs/2503.14499](https://arxiv.org/abs/2503.14499)
+* \[Kwa2025-blog\] Thomas Kwa, Ben West, Joel Becker, et al., 2025-03-19, [https\://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/](https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/)
+* \[Lakshmanan2026\] Ravie Lakshmanan, 2026-05-12, “OpenAI Launches Daybreak for AI-Powered Vulnerability Detection and Patch Validation”, The Hacker News, [https\://thehackernews.com/2026/05/openai-launches-daybreak-for-ai-powered.html](https://thehackernews.com/2026/05/openai-launches-daybreak-for-ai-powered.html)
+* \[Larson2026\] Seth Larsen, 2026-02-24, Respecting maintainer time should be in security policies, [https\://sethmlarson.dev/respecting-maintainer-time-should-be-in-security-policies](https://sethmlarson.dev/respecting-maintainer-time-should-be-in-security-policies)
+* \[Li2026\] Fengjie Li, Jiajun Jiang, Dongchi Chen, and Yingfei Xiong, 2026-01-27 (revised 2026-09-25), “LLM-based Vulnerability Detection at Project Scale: An Empirical Study”, [https\://arxiv.org/abs/2601.19239](https://arxiv.org/abs/2601.19239)
+* \[Licklider1960\] J. C. R. “Lick” Licklider, 1960-03, Man-Computer Symbiosis, IRE Transactions on Human Factors in Electronics, volume HFE-1, pages 4-11, [https\://groups.csail.mit.edu/medg/people/psz/Licklider.html](https://groups.csail.mit.edu/medg/people/psz/Licklider.html)
+* \[Li2025\] Yue Li, Xiao Li, Hao Wu, Minghui Xu, Yue Zhang, Xiuzhen Cheng, Fengyuan Xu, Sheng Zhong, 2025-04-18, Everything You Wanted to Know About LLM-based Vulnerability Detection But Were Afraid to Ask, [https\://arxiv.org/abs/2504.13474v1](https://arxiv.org/abs/2504.13474v1)
+* \[Linux-AI\] Linux kernel developers, “AI Coding Assistants”, The Linux Kernel documentation, [https\://docs.kernel.org/process/coding-assistants.html](https://docs.kernel.org/process/coding-assistants.html)
+* \[Linux-SecurityBugs\] Linux kernel developers, “Security bugs”, The Linux Kernel documentation, [https\://docs.kernel.org/process/security-bugs.html](https://docs.kernel.org/process/security-bugs.html)
+* \[LowLevel2026\] Low Level, 2026, “Mythos has been unleashed (we have results)” \[video\], [https\://www\.youtube.com/watch?v=IS4OgH74gY4](https://www.youtube.com/watch?v=IS4OgH74gY4)
+* \[Microsoft2026-07\] Microsoft, 2026-07-24, Open Weights and American AI Leadership, [https\://www\.microsoft.com/en-us/corporate-responsibility/topics/open-weight/](https://www.microsoft.com/en-us/corporate-responsibility/topics/open-weight/)
+* \[Mierczuk2026\] Axel Mierczuk, Spencer Michaels, and Keith Hoodlet, 2026, Frontier Models’ Vulnerability Patches are Often F.L.A.W.E.D.: Fix-Like Artifacts With Embedded Defects: Common failure modes of LLM-generated security patches, [https\://1password.com/files/resources/frontier-models-vulnerability-patches-flawed.pdf](https://1password.com/files/resources/frontier-models-vulnerability-patches-flawed.pdf)
+* \[Naik2026\] Anish Naik et al., 2026-09-15, 1Password's AI patching benchmark is misleading, Trail of Bits Blog, [https\://blog.trailofbits.com/2026/09/15/1passwords-ai-patching-benchmark-is-misleading/](https://blog.trailofbits.com/2026/09/15/1passwords-ai-patching-benchmark-is-misleading/)
+* \[Nesbitt2026-06\] Andrew Nesbitt, 2026-06-25, Scrutineer: scanning open source without flooding maintainers, [https\://nesbitt.io/2026/06/25/scrutineer.html](https://nesbitt.io/2026/06/25/scrutineer.html)
+* \[NIST-AgentIdentity2026\] NIST NCCoE, 2026-02-05, “Accelerating the Adoption of Software and Artificial Intelligence Agent Identity and Authorization”, [https\://www\.nccoe.nist.gov/projects/software-and-ai-agent-identity-and-authorization](https://www.nccoe.nist.gov/projects/software-and-ai-agent-identity-and-authorization)
+* \[NPR2026\] Huo Jingnan, 2026-04-11, How AI is getting better at finding security holes, [https\://www\.npr.org/2026/04/11/nx-s1-5778508/anthropic-project-glasswing-ai-cybersecurity-mythos-preview](https://www.npr.org/2026/04/11/nx-s1-5778508/anthropic-project-glasswing-ai-cybersecurity-mythos-preview)
+* \[NVIDIA2026\] NVIDIA, 2026, Industry Leaders Unite in Open Secure AI Alliance for AI Safety and Security, [https\://blogs.nvidia.com/blog/open-secure-ai-alliance/](https://blogs.nvidia.com/blog/open-secure-ai-alliance/)
+* \[OpenAI2026-07\] OpenAI, 2026-07-21, OpenAI and Hugging Face partner to address security incident during model evaluation, [https\://openai.com/index/hugging-face-model-evaluation-security-incident/](https://openai.com/index/hugging-face-model-evaluation-security-incident/)
+* \[OpenSSF2025-AIInstructions\] OpenSSF Best Practices and AI/ML Working Groups (led by Avishay Balter), 2025-08-01, “Security-Focused Guide for AI Code Assistant Instructions”, [https\://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions.html](https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions.html)
+* \[OpenSSF2026-06\] Open Source Security Foundation (OpenSSF) Best Practices Working Group, 2026-06-30, Compiler Options Hardening Guide for C and C++, [https\://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html)
+* \[Oshungboye\] Oshungboye, Damilola, UNK-04-22, “How to use AI to identify and fix security vulnerabilities in your codebase”, CodeRabbit, [https\://dev.to/coderabbitai/how-to-use-ai-to-identify-and-fix-security-vulnerabilities-in-your-codebase-4na2](https://dev.to/coderabbitai/how-to-use-ai-to-identify-and-fix-security-vulnerabilities-in-your-codebase-4na2)
+* \[Ottenheimer2026-05-26\] David Ottenheimer, 2026-05-26, Mythos Grading Mythos: Got Patches Yet?, [https\://www\.flyingpenguin.com/mythos-grading-mythos-got-patches-yet/](https://www.flyingpenguin.com/mythos-grading-mythos-got-patches-yet/)
+* \[OWASP2025-AITesting\] OWASP, 2025-11-26, OWASP AI Testing Guide, [https\://owasp.org/www-project-ai-testing-guide/](https://owasp.org/www-project-ai-testing-guide/)
+* \[OWASP-Agentic2026\] OWASP GenAI Security Project, 2025-12-09, “OWASP Top 10 for Agentic Applications for 2026”, [https\://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/)
+* \[OWASP-ASI06\] Idan Habler, OWASP GenAI Security Project, 2026-05-13, “Memory Is a Feature. It Is Also an Attack Surface”, [https\://genai.owasp.org/2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/](https://genai.owasp.org/2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/)
+* \[OWASP-ASVS5\] OWASP, 2025, “OWASP Application Security Verification Standard 5.0.0”, (especially V2.2.2 and V8.3.1), [https\://owasp.org/www-project-application-security-verification-standard/](https://owasp.org/www-project-application-security-verification-standard/)
+* \[OWASP-LLM01\] OWASP GenAI Security Project, “LLM01: Prompt Injection”, [https\://genai.owasp.org/llmrisk/llm01-prompt-injection/](https://genai.owasp.org/llmrisk/llm01-prompt-injection/)
+* \[OWASP-LLM06\] OWASP GenAI Security Project, “LLM06:2025 Excessive Agency”, [https\://genai.owasp.org/llmrisk/llm062025-excessive-agency](https://genai.owasp.org/llmrisk/llm062025-excessive-agency)
+* \[OWASP-ASVS5-V7\] OWASP, 2025, “OWASP Application Security Verification Standard 5.0.0”, particularly V7 Session Management, [https\://github.com/OWASP/ASVS/blob/master/5.0/en/0x16-V7-Session-Management.md](https://github.com/OWASP/ASVS/blob/master/5.0/en/0x16-V7-Session-Management.md)
+* \[OWASP-GenAI\] OWASP GenAI Security Project, [https\://genai.owasp.org/](https://genai.owasp.org/)
+* \[OWASP-LLM10\] OWASP GenAI Security Project, “LLM10:2025 Unbounded Consumption”, [https\://genai.owasp.org/llmrisk/llm102025-unbounded-consumption](https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption)
+* \[Pardesi2026-08-05\] Rajveer Pardesi and Mrinmay Dey, 2026-08-05, Meta AI model hacks another company during testing, Reuters, [https\://www\.reuters.com/technology/metas-ai-model-hacked-another-company-during-testing-information-reports-2026-08-05/](https://www.reuters.com/technology/metas-ai-model-hacked-another-company-during-testing-information-reports-2026-08-05/)
+* \[Perry2023\] Neil Perry, Megha Srivastava, Deepak Kumar, and Dan Boneh, 2023-11, “Do Users Write More Insecure Code with AI Assistants?”, Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications Security (CCS ’23), [https\://arxiv.org/abs/2211.03622](https://arxiv.org/abs/2211.03622)
+* \[PSF2026\] Python Software Foundation (PSF), 2026-06-17, “Everything Security at PyCon US 2026”, [https\://pyfound.blogspot.com/2026/06/everything-security-at-pycon-us-2026.html](https://pyfound.blogspot.com/2026/06/everything-security-at-pycon-us-2026.html)
+* \[Reuters2026-08-07\] Reuters, 2026-08-07, Chinese startup Moonshot's AI model breaks out of testing environment, researchers say, [https\://www\.reuters.com/legal/litigation/chinese-startup-moonshots-ai-model-breaks-out-testing-environment-researchers-2026-08-07/](https://www.reuters.com/legal/litigation/chinese-startup-moonshots-ai-model-breaks-out-testing-environment-researchers-2026-08-07/)
+* \[Risse2025\] Niklas Risse, Jing Liu, and Marcel Böhme, 2025, “Top Score on the Wrong Exam: On Benchmarking in Machine Learning for Vulnerability Detection”, Proceedings of the ACM on Software Engineering (ISSTA 2025), [https\://arxiv.org/abs/2408.12986](https://arxiv.org/abs/2408.12986)
+* \[Rohlf2025\] Rohlf, Chris, 2025-08-04, AI and the Software Vulnerability Lifecycle, [https\://cset.georgetown.edu/article/ai-and-the-software-vulnerability-lifecycle/](https://cset.georgetown.edu/article/ai-and-the-software-vulnerability-lifecycle/)
+* \[Rogers2025\] Rogers, Joshua, 2025, “Hacking with AI SASTs: An overview of 'AI Security Engineers' / 'LLM Security Scanners' for Penetration Testers and Security Teams”, [https\://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters](https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters)
+* \[Safdar2025\] Rijha Safdar, Danyail Mateen, Syed Taha Ali, Umer Ashfaq and Wajahat Hussain, 2025, “Data and Context Matter: Towards Generalizing AI-based Software Vulnerability Detection”, [https\://arxiv.org/abs/2508.16625v2](https://arxiv.org/abs/2508.16625v2)
+* \[SARIF2.1\] OASIS, 2020, “Static Analysis Results Interchange Format (SARIF) Version 2.1.0”, [https\://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html)
+* \[Shakevsky2026\] Alon Shakevsky, Corban Villa, Ion Stoica, and Raluca Ada Popa, 2026-07-14, “Antiproof: Synthesizing Vulnerability Detectors and Proofs of Exploitability”, [https\://arxiv.org/abs/2607.12316](https://arxiv.org/abs/2607.12316)
+* \[Shimmi2025\] Shimmi, Samiha, Hamed Okhravi, Mona Rahimi, 2025-06-12, “AI-Based Software Vulnerability Detection: A Systematic Literature Review”, [https\://arxiv.org/abs/2506.10280](https://arxiv.org/abs/2506.10280)
+* \[Shein2026\] Esther Shein, 2026-06-03, Investing in Workers to Work with AI: Training encourages workers to utilize AI tools to their fullest and allays fears AI will replace them, [https\://cacm.acm.org/news/investing-in-workers-to-work-with-ai/](https://cacm.acm.org/news/investing-in-workers-to-work-with-ai/)
+* \[Shen2026-09\] Chihao Shen, Jiacheng Li, Aastha Mahajan, Jeffery Siyuan Tian, Yonghwi Kwon, Yizheng Chen, 2026-09-03, PatchBench: Evaluating AI Agents for Vulnerability Patching, [https\://arxiv.org/abs/2609.04075](https://arxiv.org/abs/2609.04075)
 * \[Shostack2014\] Adam Shostack, 2014, Threat Modeling: Designing for Security.
-* \[Shukla2025\] Shivani Shukla, Himanshu Joshi, and Romilla Syed, 2025-05-19 (revised 2025-09-26), “Security Degradation in Iterative AI Code Generation: A Systematic Analysis of the Paradox”, [https://arxiv.org/abs/2506.11022](https://arxiv.org/abs/2506.11022)
-* \[Silverman2024\] Silverman, Micah, 2024-10-14, “Automatically fix code vulnerabilities with AI” [https://snyk.io/blog/automatically-fix-code-vulnerabilities-ai/](https://snyk.io/blog/automatically-fix-code-vulnerabilities-ai/)
-* \[Spracklen2025\] Joseph Spracklen, Raveen Wijewickrama, A H M Nazmus Sakib, Anindya Maiti, Bimal Viswanath, and Murtuza Jadliwala, 2025-08, “We Have a Package for You\! A Comprehensive Analysis of Package Hallucinations by Code Generating LLMs”, 34th USENIX Security Symposium (USENIX Security 25), [https://www.usenix.org/conference/usenixsecurity25/presentation/spracklen](https://www.usenix.org/conference/usenixsecurity25/presentation/spracklen)
-* \[Steenhoek2025\] Benjamin Steenhoek, Kalpathy Sivaraman, Renata Saldivar Gonzalez, Yevhen Mohylevskyy, Roshanak Zilouchian Moghaddam, Wei Le, 2025-04-25, “Closing the Gap: A User Study on the Real-world Usefulness of AI-powered Vulnerability Detection & Repair in the IDE”, [https://arxiv.org/abs/2412.14306v3](https://arxiv.org/abs/2412.14306v3)
-* \[Stenberg2026-01\] Daniel Stenberg, 2026-01-26, “The end of the curl bug-bounty”, [https://daniel.haxx.se/blog/2026/01/26/the-end-of-the-curl-bug-bounty/](https://daniel.haxx.se/blog/2026/01/26/the-end-of-the-curl-bug-bounty/)
-* \[Stenberg2026-04\] Daniel Stenberg, 2026-04-22, “High-Quality Chaos”, [https://daniel.haxx.se/blog/2026/04/22/high-quality-chaos/](https://daniel.haxx.se/blog/2026/04/22/high-quality-chaos/)
-* \[Stenberg2026-05a\] Stenberg, Daniel, 2026-05-11, “Mythos finds a curl vulnerability”, [https://daniel.haxx.se/blog/2026/05/11/mythos-finds-a-curl-vulnerability/](https://daniel.haxx.se/blog/2026/05/11/mythos-finds-a-curl-vulnerability/)
-* \[Stenberg2026-05b\] Stenberg, Daniel, 2026-05, LinkedIn post, “Not even half-way through this \#curl release cycle we are already at 11 confirmed vulnerabilities”, [https://www.linkedin.com/posts/danielstenberg\_curl-curl-share-7463481423543414786-sJew/](https://www.linkedin.com/posts/danielstenberg_curl-curl-share-7463481423543414786-sJew/)
-* \[TesseractedLabs2026\] Tesseracted Labs, 2026-09-15, “Enforcing coding-agent guardrails in the runtime instead of the prompt”, [https://tesseracted-labs-blog.vercel.app/enforcing-coding-agent-guardrails-in-the-runtime-instead-of-the-prompt](https://tesseracted-labs-blog.vercel.app/enforcing-coding-agent-guardrails-in-the-runtime-instead-of-the-prompt)
-* \[TrailofBits2026-06\] Trail of Bits, 2026-06-22, Introducing Patch the Planet, [https://blog.trailofbits.com/2026/06/22/introducing-patch-the-planet/](https://blog.trailofbits.com/2026/06/22/introducing-patch-the-planet/)
-* \[Vaughan-Nichols2026-02\] Vaughan-Nichols, Stephen J., 2026-02-15, “cURL’s Daniel Stenberg: AI slop is DDoSing open source: For open source software, AI is very much a mixed blessing in his view.” [https://thenewstack.io/curls-daniel-stenberg-ai-is-ddosing-open-source-and-fixing-its-bugs/](https://thenewstack.io/curls-daniel-stenberg-ai-is-ddosing-open-source-and-fixing-its-bugs/)
-* \[Vanian2026\] Jonathan Vanian, 2026-08-09, How a small Israeli startup was linked to rogue AI hacks at OpenAI, Anthropic and Meta, AI Age, [https://www.cnbc.com/2026/08/09/israeli-startup-irregular-linked-to-ai-hacks-openai-anthropic-meta.html](https://www.cnbc.com/2026/08/09/israeli-startup-irregular-linked-to-ai-hacks-openai-anthropic-meta.html)
-* \[vanZyl\] van Zyl, Leon, “Claude Code: Build an AI Agent That Finds Vulnerabilities” (video), [https://www.youtube.com/watch?v=VFLieg8JjLA](https://www.youtube.com/watch?v=VFLieg8JjLA)
-* \[Walsh2026\] Joe Walsh, 2026-08-02, CEO of AI firm Hugging Face calls last month's hack by OpenAI model "very weird and unprecedented", CBS News, [https://www.cbsnews.com/news/hugging-face-hack-openai-rogue-model/](https://www.cbsnews.com/news/hugging-face-hack-openai-rogue-model/)
-* \[Wheeler2025\] David A. Wheeler, 2025, Secure AI/ML-Driven Software Development (LFEL1012), [https://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/](https://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/)
-* \[Wheeler2026\] David A. Wheeler, 2026-01-05, AI, Software Development, Security, Tips, and the Future (Part 2), OpenSSF Blog, [https://openssf.org/blog/2026/01/05/ai-software-development-security-tips-and-the-future-part-2/](https://openssf.org/blog/2026/01/05/ai-software-development-security-tips-and-the-future-part-2/)
-* \[Whitehouse2026\] Ollie Whitehouse (NCSC CTO), 2026-05-01, “Preparing for a ‘vulnerability patch wave’”, UK National Cyber Security Centre (NCSC), [https://www.ncsc.gov.uk/blogs/prepare-for-vulnerability-patch-wave](https://www.ncsc.gov.uk/blogs/prepare-for-vulnerability-patch-wave)
-* \[Wolff2026\] Dylan Wolff, Martin Mirchev, and Abhik Roychoudhury, 2026-05-12, Large Language Models in Software Security Analysis: LLMs can help tame the complexity at the root of many of today's software security challenges, Communications of the ACM (CACM) June 2026 Vol 69 No. 6, pp 60-67, [https://cacm.acm.org/research/large-language-models-in-software-security-analysis/](https://cacm.acm.org/research/large-language-models-in-software-security-analysis/)
-* \[Xiao2026\] Winnie Xiao, Tim Abbott, Nicholas Carlini, Newton Cheng, David Forsythe, Keane Lucas, Milad Nasr, and Shikhar Sakhuja, 2026-06-08, “Measuring LLMs’ impact on N-day exploits”, Anthropic, [https://www.anthropic.com/research/n-days](https://www.anthropic.com/research/n-days)
-* \[Xiong2026\] Yunpeng Xiong and Ting Zhang, 2026-01-30 (revised 2026-07-23), “Sifting the Noise: A Comparative Study of LLM Agents in Vulnerability False Positive Filtering”, 35th ACM SIGSOFT International Symposium on Software Testing and Analysis (ISSTA 2026), [https://arxiv.org/abs/2601.22952](https://arxiv.org/abs/2601.22952)
-* \[Veracode\] Veracode, “What is AI Code Remediation?” [https://www.veracode.com/security/what-is-ai-code-remediation/](https://www.veracode.com/security/what-is-ai-code-remediation/)
-* \[Yan2026\] Written by Eugene Yan and Henna Dattani, et al., 2026-05-27, “Using LLMs to secure source code”, Claude (Anthropic) Blog, [https://claude.com/blog/using-llms-to-secure-source-code](https://claude.com/blog/using-llms-to-secure-source-code)
-* \[ZeroDayClock\] Zero Day Clock (website). [https://zerodayclock.com/](https://zerodayclock.com/) especially <https://zerodayclock.com/collapse>
-* \[Zhang2024\] Yuntong Zhang, Haifeng Ruan, Zhiyu Fan, Abhik Roychoudhury, 2024, AutoCodeRover: Autonomous Program Improvement, [https://arxiv.org/abs/2404.05427](https://arxiv.org/abs/2404.05427)
-* \[Zhang2026\] Cen Zhang, Younggi Park, Fabian Fleischer, Yu-Fu Fu, Jiho Kim, Dongkwan Kim, Youngjoon Kim, Qingxiao Xu, Andrew Chin, Ze Sheng, Hanqing Zhao, Michael Pelican, David J. Musliner, Jeff Huang, Jon Silliman, Mikel Mcdaniel, Jefferson Casavant, Isaac Goldthwaite, Nicholas Vidovich, Matthew Lehman, Taesoo Kim, 2026-05-29, “SoK: DARPA's AI Cyber Challenge (AIxCC): Competition Design, Architectures, and Lessons Learned”, [https://arxiv.org/abs/2602.07666](https://arxiv.org/abs/2602.07666)
-* \[Ziegler2026\] Ziegler, Albert, 2026-05-12, “Mythos for Offensive Security: XBOW's Evaluation” [https://xbow.com/blog/mythos-offensive-security-xbow-evaluation](https://xbow.com/blog/mythos-offensive-security-xbow-evaluation)
+* \[Shukla2025\] Shivani Shukla, Himanshu Joshi, and Romilla Syed, 2025-05-19 (revised 2025-09-26), “Security Degradation in Iterative AI Code Generation: A Systematic Analysis of the Paradox”, [https\://arxiv.org/abs/2506.11022](https://arxiv.org/abs/2506.11022)
+* \[Silverman2024\] Silverman, Micah, 2024-10-14, “Automatically fix code vulnerabilities with AI” [https\://snyk.io/blog/automatically-fix-code-vulnerabilities-ai/](https://snyk.io/blog/automatically-fix-code-vulnerabilities-ai/)
+* \[Spracklen2025\] Joseph Spracklen, Raveen Wijewickrama, A H M Nazmus Sakib, Anindya Maiti, Bimal Viswanath, and Murtuza Jadliwala, 2025-08, “We Have a Package for You\! A Comprehensive Analysis of Package Hallucinations by Code Generating LLMs”, 34th USENIX Security Symposium (USENIX Security 25), [https\://www\.usenix.org/conference/usenixsecurity25/presentation/spracklen](https://www.usenix.org/conference/usenixsecurity25/presentation/spracklen)
+* \[Steenhoek2025\] Benjamin Steenhoek, Kalpathy Sivaraman, Renata Saldivar Gonzalez, Yevhen Mohylevskyy, Roshanak Zilouchian Moghaddam, Wei Le, 2025-04-25, “Closing the Gap: A User Study on the Real-world Usefulness of AI-powered Vulnerability Detection & Repair in the IDE”, [https\://arxiv.org/abs/2412.14306v3](https://arxiv.org/abs/2412.14306v3)
+* \[Stenberg2026-01\] Daniel Stenberg, 2026-01-26, “The end of the curl bug-bounty”, [https\://daniel.haxx.se/blog/2026/01/26/the-end-of-the-curl-bug-bounty/](https://daniel.haxx.se/blog/2026/01/26/the-end-of-the-curl-bug-bounty/)
+* \[Stenberg2026-04\] Daniel Stenberg, 2026-04-22, “High-Quality Chaos”, [https\://daniel.haxx.se/blog/2026/04/22/high-quality-chaos/](https://daniel.haxx.se/blog/2026/04/22/high-quality-chaos/)
+* \[Stenberg2026-05a\] Stenberg, Daniel, 2026-05-11, “Mythos finds a curl vulnerability”, [https\://daniel.haxx.se/blog/2026/05/11/mythos-finds-a-curl-vulnerability/](https://daniel.haxx.se/blog/2026/05/11/mythos-finds-a-curl-vulnerability/)
+* \[Stenberg2026-05b\] Stenberg, Daniel, 2026-05, LinkedIn post, “Not even half-way through this \#curl release cycle we are already at 11 confirmed vulnerabilities”, [https\://www\.linkedin.com/posts/danielstenberg\_curl-curl-share-7463481423543414786-sJew/](https://www.linkedin.com/posts/danielstenberg_curl-curl-share-7463481423543414786-sJew/)
+* \[TesseractedLabs2026\] Tesseracted Labs, 2026-09-15, “Enforcing coding-agent guardrails in the runtime instead of the prompt”, [https\://tesseracted-labs-blog.vercel.app/enforcing-coding-agent-guardrails-in-the-runtime-instead-of-the-prompt](https://tesseracted-labs-blog.vercel.app/enforcing-coding-agent-guardrails-in-the-runtime-instead-of-the-prompt)
+* \[TrailofBits2026-06\] Trail of Bits, 2026-06-22, Introducing Patch the Planet, [https\://blog.trailofbits.com/2026/06/22/introducing-patch-the-planet/](https://blog.trailofbits.com/2026/06/22/introducing-patch-the-planet/)
+* \[Vaughan-Nichols2026-02\] Vaughan-Nichols, Stephen J., 2026-02-15, “cURL’s Daniel Stenberg: AI slop is DDoSing open source: For open source software, AI is very much a mixed blessing in his view.” [https\://thenewstack.io/curls-daniel-stenberg-ai-is-ddosing-open-source-and-fixing-its-bugs/](https://thenewstack.io/curls-daniel-stenberg-ai-is-ddosing-open-source-and-fixing-its-bugs/)
+* \[Vanian2026\] Jonathan Vanian, 2026-08-09, How a small Israeli startup was linked to rogue AI hacks at OpenAI, Anthropic and Meta, AI Age, [https\://www\.cnbc.com/2026/08/09/israeli-startup-irregular-linked-to-ai-hacks-openai-anthropic-meta.html](https://www.cnbc.com/2026/08/09/israeli-startup-irregular-linked-to-ai-hacks-openai-anthropic-meta.html)
+* \[vanZyl\] van Zyl, Leon, “Claude Code: Build an AI Agent That Finds Vulnerabilities” (video), [https\://www\.youtube.com/watch?v=VFLieg8JjLA](https://www.youtube.com/watch?v=VFLieg8JjLA)
+* \[Walsh2026\] Joe Walsh, 2026-08-02, CEO of AI firm Hugging Face calls last month's hack by OpenAI model "very weird and unprecedented", CBS News, [https\://www\.cbsnews.com/news/hugging-face-hack-openai-rogue-model/](https://www.cbsnews.com/news/hugging-face-hack-openai-rogue-model/)
+* \[Wheeler2025\] David A. Wheeler, 2025, Secure AI/ML-Driven Software Development (LFEL1012), [https\://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/](https://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/)
+* \[Wheeler2026\] David A. Wheeler, 2026-01-05, AI, Software Development, Security, Tips, and the Future (Part 2), OpenSSF Blog, [https\://openssf.org/blog/2026/01/05/ai-software-development-security-tips-and-the-future-part-2/](https://openssf.org/blog/2026/01/05/ai-software-development-security-tips-and-the-future-part-2/)
+* \[Whitehouse2026\] Ollie Whitehouse (NCSC CTO), 2026-05-01, “Preparing for a ‘vulnerability patch wave’”, UK National Cyber Security Centre (NCSC), [https\://www\.ncsc.gov.uk/blogs/prepare-for-vulnerability-patch-wave](https://www.ncsc.gov.uk/blogs/prepare-for-vulnerability-patch-wave)
+* \[Wolff2026\] Dylan Wolff, Martin Mirchev, and Abhik Roychoudhury, 2026-05-12, Large Language Models in Software Security Analysis: LLMs can help tame the complexity at the root of many of today's software security challenges, Communications of the ACM (CACM) June 2026 Vol 69 No. 6, pp 60-67, [https\://cacm.acm.org/research/large-language-models-in-software-security-analysis/](https://cacm.acm.org/research/large-language-models-in-software-security-analysis/)
+* \[Xiao2026\] Winnie Xiao, Tim Abbott, Nicholas Carlini, Newton Cheng, David Forsythe, Keane Lucas, Milad Nasr, and Shikhar Sakhuja, 2026-06-08, “Measuring LLMs’ impact on N-day exploits”, Anthropic, [https\://www\.anthropic.com/research/n-days](https://www.anthropic.com/research/n-days)
+* \[Xiong2026\] Yunpeng Xiong and Ting Zhang, 2026-01-30 (revised 2026-07-23), “Sifting the Noise: A Comparative Study of LLM Agents in Vulnerability False Positive Filtering”, 35th ACM SIGSOFT International Symposium on Software Testing and Analysis (ISSTA 2026), [https\://arxiv.org/abs/2601.22952](https://arxiv.org/abs/2601.22952)
+* \[Veracode\] Veracode, “What is AI Code Remediation?” [https\://www\.veracode.com/security/what-is-ai-code-remediation/](https://www.veracode.com/security/what-is-ai-code-remediation/)
+* \[Yan2026\] Written by Eugene Yan and Henna Dattani, et al., 2026-05-27, “Using LLMs to secure source code”, Claude (Anthropic) Blog, [https\://claude.com/blog/using-llms-to-secure-source-code](https://claude.com/blog/using-llms-to-secure-source-code)
+* \[ZeroDayClock\] Zero Day Clock (website). [https\://zerodayclock.com/](https://zerodayclock.com/) especially <https://zerodayclock.com/collapse>
+* \[Zhang2024\] Yuntong Zhang, Haifeng Ruan, Zhiyu Fan, Abhik Roychoudhury, 2024, AutoCodeRover: Autonomous Program Improvement, [https\://arxiv.org/abs/2404.05427](https://arxiv.org/abs/2404.05427)
+* \[Zhang2026\] Cen Zhang, Younggi Park, Fabian Fleischer, Yu-Fu Fu, Jiho Kim, Dongkwan Kim, Youngjoon Kim, Qingxiao Xu, Andrew Chin, Ze Sheng, Hanqing Zhao, Michael Pelican, David J. Musliner, Jeff Huang, Jon Silliman, Mikel Mcdaniel, Jefferson Casavant, Isaac Goldthwaite, Nicholas Vidovich, Matthew Lehman, Taesoo Kim, 2026-05-29, “SoK: DARPA's AI Cyber Challenge (AIxCC): Competition Design, Architectures, and Lessons Learned”, [https\://arxiv.org/abs/2602.07666](https://arxiv.org/abs/2602.07666)
+* \[Ziegler2026\] Ziegler, Albert, 2026-05-12, “Mythos for Offensive Security: XBOW's Evaluation” [https\://xbow.com/blog/mythos-offensive-security-xbow-evaluation](https://xbow.com/blog/mythos-offensive-security-xbow-evaluation)
 * \[Zimmer2026\] Derek Zimmer, 2026-06-16, Private Interview of Derek Zimmer by David A. Wheeler
-* \[Zorz2026\] Zeljka Zorz, 2026-05-18, “AI is drowning software maintainers in junk security reports”, Help Net Security, [https://www.helpnetsecurity.com/2026/05/18/problems-with-ai-assisted-vulnerability-research/](https://www.helpnetsecurity.com/2026/05/18/problems-with-ai-assisted-vulnerability-research/)
+* \[Zorz2026\] Zeljka Zorz, 2026-05-18, “AI is drowning software maintainers in junk security reports”, Help Net Security, [https\://www\.helpnetsecurity.com/2026/05/18/problems-with-ai-assisted-vulnerability-research/](https://www.helpnetsecurity.com/2026/05/18/problems-with-ai-assisted-vulnerability-research/)

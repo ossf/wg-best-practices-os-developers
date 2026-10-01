@@ -9,7 +9,19 @@
   <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Validate findings</title>
+  <link rel="stylesheet" href="simple.min.css" />
+  <!-- This <style> comes after the stylesheets above so it overrides them. -->
   <style>
+    /* Smaller headings than simple.css's (h1-h4: 3rem, 2.6rem, 2rem,
+       and 1.44rem; less on narrow screens), each still larger than
+       the next level down, ending at the 1.15rem body text (h6, which
+       is still bold). */
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.45rem; }
+    h4 { font-size: 1.3rem; }
+    h5 { font-size: 1.2rem; }
+    h6 { font-size: 1.15rem; }
     div.sitenav {
       display: flex;
       flex-direction: row;
@@ -27,7 +39,57 @@
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
-    figure { text-align: center; }
+    /* Center images that are alone in their paragraph. */
+    p > img:only-child { display: block; margin-inline: auto; }
+    /* Overview diagram (see wrap-overview.awk): a box per top-level
+       list item, with arrows between them; stacked on narrow screens.
+       The "/ ''" gives the arrows empty alt text for screen readers. */
+    .overview > ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.2rem;
+    }
+    .overview > ul > li {
+      position: relative;
+      margin: 0;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--standard-border-radius);
+      background: var(--accent-bg);
+    }
+    .overview > ul > li:not(:last-child)::after {
+      content: "→";
+      content: "→" / "";
+      position: absolute;
+      right: -1.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: var(--text-light);
+    }
+    .overview > ul > li > a:first-child {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .overview ul ul { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
+    .overview ul ul li { margin: 0.25rem 0; }
+    .overview a[href$="#repeated-application"]::before { content: "↻ "; content: "↻ " / ""; }
+    @media (max-width: 720px) {
+      .overview > ul { grid-template-columns: 1fr; }
+      .overview > ul > li:not(:last-child)::after {
+        content: "↓";
+        content: "↓" / "";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -2rem;
+        transform: translateX(-50%);
+      }
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -44,7 +106,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 
@@ -68,10 +129,7 @@
 <h2 data-number="5.4" id="validate-findings"><span class="header-section-number">5.4</span> Validate findings</h2>
 <p>A vulnerability is a defect that an attacker can exploit to violate some security requirement. By contrast, a finding is only a <em>potential</em> vulnerability. Not all findings from AIs (or humans) are real vulnerabilities [<a href="https://www.flyingpenguin.com/mythos-grading-mythos-got-patches-yet/">Ottenheimer2026-05-26</a>]. Thus, once you have a finding, you need to <em>validate</em> it to independently determine whether it is a vulnerability, a defect but not a vulnerability, or neither.</p>
 <p>Even when a finding isn’t a defect, it might suggest improvements for the future. However, here we’ll focus on validating if a finding is a vulnerability.</p>
-<figure>
-<img src="images/human-ai-working-together-validate-findings.png" width="489" height="266" alt="Human and AI working together to validate findings of potential vulnerabilities, rejecting some and accepting others." />
-<figcaption aria-hidden="true">Human and AI working together to validate findings of potential vulnerabilities, rejecting some and accepting others.</figcaption>
-</figure>
+<p><img src="images/human-ai-working-together-validate-findings.png" title="Human and AI working together to validate findings of potential vulnerabilities, rejecting some and accepting others." width="489" height="266" alt="Human and AI working together to validate findings of potential vulnerabilities, rejecting some and accepting others." /></p>
 <h3 data-number="5.4.1" id="defining-what-a-vulnerability-is"><span class="header-section-number">5.4.1</span> Defining what a vulnerability is</h3>
 <p>A <em>key</em> to validating findings is having a threat model and/or security requirements. Otherwise, there’s no way to tell whether something is security-related, making it difficult to determine whether it’s a vulnerability. It’s also vital to have a validation infrastructure, that is, a way to run tests to confirm or refute claims [<a href="https://xbow.com/blog/mythos-offensive-security-xbow-evaluation">Ziegler2026</a>].</p>
 <p>An important decision is whether defense-in-depth countermeasures should be disabled or ignored during validation. An example of a countermeasure is its own process sandboxing, which is different from the sandbox around the AI used during development. A mechanism is only a defense-in-depth measure if it’s an <em>additional</em> security measure, not a <em>required</em> one. Thus, from a security perspective, it’s better to consider something a vulnerability <em>even if</em> another countermeasure would have prevented it. For example, the Mozilla Firefox project considers a finding as a vulnerability even if a sandbox would have prevented its exploitation. Their rationale is that “Real-world attackers generally need to chain multiple exploits together to escalate privileges through one or more layers [of mitigations like sandboxing] [<a href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>]. Of course, vulnerabilities that can penetrate existing countermeasures should be prioritized.</p>
