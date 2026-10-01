@@ -9,7 +9,19 @@
   <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Bibliography</title>
+  <link rel="stylesheet" href="simple.min.css" />
+  <!-- This <style> comes after the stylesheets above so it overrides them. -->
   <style>
+    /* Smaller headings than simple.css's (h1-h4: 3rem, 2.6rem, 2rem,
+       and 1.44rem; less on narrow screens), each still larger than
+       the next level down, ending at the 1.15rem body text (h6, which
+       is still bold). */
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.45rem; }
+    h4 { font-size: 1.3rem; }
+    h5 { font-size: 1.2rem; }
+    h6 { font-size: 1.15rem; }
     div.sitenav {
       display: flex;
       flex-direction: row;
@@ -27,7 +39,8 @@
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
-    figure { text-align: center; }
+    /* Center images that are alone in their paragraph. */
+    p > img:only-child { display: block; margin-inline: auto; }
     /* Overview diagram (see wrap-overview.awk): a box per top-level
        list item, with arrows between them; stacked on narrow screens.
        The "/ ''" gives the arrows empty alt text for screen readers. */
@@ -93,7 +106,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 

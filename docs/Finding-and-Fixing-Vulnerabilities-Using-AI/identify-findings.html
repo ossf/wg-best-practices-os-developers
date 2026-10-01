@@ -9,7 +9,19 @@
   <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Identify findings</title>
+  <link rel="stylesheet" href="simple.min.css" />
+  <!-- This <style> comes after the stylesheets above so it overrides them. -->
   <style>
+    /* Smaller headings than simple.css's (h1-h4: 3rem, 2.6rem, 2rem,
+       and 1.44rem; less on narrow screens), each still larger than
+       the next level down, ending at the 1.15rem body text (h6, which
+       is still bold). */
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.45rem; }
+    h4 { font-size: 1.3rem; }
+    h5 { font-size: 1.2rem; }
+    h6 { font-size: 1.15rem; }
     div.sitenav {
       display: flex;
       flex-direction: row;
@@ -27,7 +39,8 @@
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
-    figure { text-align: center; }
+    /* Center images that are alone in their paragraph. */
+    p > img:only-child { display: block; margin-inline: auto; }
     /* Overview diagram (see wrap-overview.awk): a box per top-level
        list item, with arrows between them; stacked on narrow screens.
        The "/ ''" gives the arrows empty alt text for screen readers. */
@@ -93,7 +106,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 
@@ -124,10 +136,7 @@
 </ul>
 <p>In short, coverage is better when “many agents work on tightly scoped questions and we deduplicate the results afterward, rather than asking one agent to be exhaustive” [<a href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>].</p>
 <h3 data-number="5.1.1" id="separate-identifying-findings-from-validation"><span class="header-section-number">5.1.1</span> Separate identifying findings from validation</h3>
-<figure>
-<img src="images/robot-human-working-together-analyze-disk.png" width="481" height="262" alt="A robot and human are working together to analyze a disk representing software, before their results go to deduplication and verification." />
-<figcaption aria-hidden="true">A robot and human are working together to analyze a disk representing software, before their results go to deduplication and verification.</figcaption>
-</figure>
+<p><img src="images/robot-human-working-together-analyze-disk.png" title="A robot and human are working together to analyze a disk representing software, before their results go to deduplication and verification." width="481" height="262" alt="A robot and human are working together to analyze a disk representing software, before their results go to deduplication and verification." /></p>
 <p>One excellent way to improve results is to separate <em>identifying</em> findings from <em>validating</em> findings. A “finding” is simply a report that <em>might</em> be a vulnerability, but it’s not necessarily one because it’s not clear whether it’s exploitable.</p>
 <p>Separating identifying findings from validating them makes finding vulnerabilities more likely:</p>
 <ul>

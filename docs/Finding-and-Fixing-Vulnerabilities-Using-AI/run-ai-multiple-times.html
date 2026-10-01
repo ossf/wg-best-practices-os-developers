@@ -9,7 +9,19 @@
   <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Run AI multiple times</title>
+  <link rel="stylesheet" href="simple.min.css" />
+  <!-- This <style> comes after the stylesheets above so it overrides them. -->
   <style>
+    /* Smaller headings than simple.css's (h1-h4: 3rem, 2.6rem, 2rem,
+       and 1.44rem; less on narrow screens), each still larger than
+       the next level down, ending at the 1.15rem body text (h6, which
+       is still bold). */
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.45rem; }
+    h4 { font-size: 1.3rem; }
+    h5 { font-size: 1.2rem; }
+    h6 { font-size: 1.15rem; }
     div.sitenav {
       display: flex;
       flex-direction: row;
@@ -27,7 +39,8 @@
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
-    figure { text-align: center; }
+    /* Center images that are alone in their paragraph. */
+    p > img:only-child { display: block; margin-inline: auto; }
     /* Overview diagram (see wrap-overview.awk): a box per top-level
        list item, with arrows between them; stacked on narrow screens.
        The "/ ''" gives the arrows empty alt text for screen readers. */
@@ -93,7 +106,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 
@@ -119,10 +131,7 @@
 <p>Yan reports that “the first run on a codebase typically has the highest number of findings. Subsequent runs tend to have fewer—though often more complex—vulnerabilities, as the simpler ones were patched in prior runs. However, don’t expect the nth run to have zero new findings. Models are stochastic, and a large codebase can have a long tail of vulnerabilities that continue to trickle in even when the code is unchanged.” [<a href="https://claude.com/blog/using-llms-to-secure-source-code">Yan2026</a>]</p>
 <p>As a result, once you’ve gone through the process of finding and fixing vulnerabilities for a project for the first time, you’ll need to repeat it several times until it reliably fails to produce useful results across multiple approaches and systems.</p>
 <p>One question is whether you should provide past findings as context, so it is more likely to consider different areas. For now, we suggest that you provide past results for <em>some</em> runs so that, on those runs, it doesn’t need to rediscover them. There is a risk that incorrect past results may lead the AI astray, so we expect it’s better to provide that data in only some cases. We hope future research will make this clearer.</p>
-<figure>
-<img src="images/robot-glowing-circuit-forest-sits-next.png" width="483" height="262" alt="A robot in a glowing circuit forest sits next to jars labeled “Run 1”, “Run 2”, and “Run 3” with caught glowing bugs, illustrating how repeatedly running AI can catch additional obvious vulnerabilities." />
-<figcaption aria-hidden="true">A robot in a glowing circuit forest sits next to jars labeled “Run 1”, “Run 2”, and “Run 3” with caught glowing bugs, illustrating how repeatedly running AI can catch additional obvious vulnerabilities.</figcaption>
-</figure>
+<p><img src="images/robot-glowing-circuit-forest-sits-next.png" title="A robot in a glowing circuit forest sits next to jars labeled “Run 1”, “Run 2”, and “Run 3” with caught glowing bugs, illustrating how repeatedly running AI can catch additional obvious vulnerabilities." width="483" height="262" alt="A robot in a glowing circuit forest sits next to jars labeled “Run 1”, “Run 2”, and “Run 3” with caught glowing bugs, illustrating how repeatedly running AI can catch additional obvious vulnerabilities." /></p>
 <details class="quiz">
 <summary>
 Quiz

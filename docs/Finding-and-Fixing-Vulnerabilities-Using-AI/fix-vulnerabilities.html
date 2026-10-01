@@ -9,7 +9,19 @@
   <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Fix vulnerabilities</title>
+  <link rel="stylesheet" href="simple.min.css" />
+  <!-- This <style> comes after the stylesheets above so it overrides them. -->
   <style>
+    /* Smaller headings than simple.css's (h1-h4: 3rem, 2.6rem, 2rem,
+       and 1.44rem; less on narrow screens), each still larger than
+       the next level down, ending at the 1.15rem body text (h6, which
+       is still bold). */
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.45rem; }
+    h4 { font-size: 1.3rem; }
+    h5 { font-size: 1.2rem; }
+    h6 { font-size: 1.15rem; }
     div.sitenav {
       display: flex;
       flex-direction: row;
@@ -27,7 +39,8 @@
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
-    figure { text-align: center; }
+    /* Center images that are alone in their paragraph. */
+    p > img:only-child { display: block; margin-inline: auto; }
     /* Overview diagram (see wrap-overview.awk): a box per top-level
        list item, with arrows between them; stacked on narrow screens.
        The "/ ''" gives the arrows empty alt text for screen readers. */
@@ -93,7 +106,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 
@@ -117,10 +129,7 @@
 <h2 data-number="5.6" id="fix-vulnerabilities"><span class="header-section-number">5.6</span> Fix vulnerabilities</h2>
 <p>Once vulnerabilities are found, those vulnerabilities need to be <em>fixed</em>.</p>
 <p>Finding vulnerabilities is useless for a defender unless those vulnerabilities are fixed. If vulnerabilities are not fixed efficiently, it can become completely overwhelming. For example, here is the number of bug fixes in the Chrome browser, showing a huge rise in 2026 (compared to 2024-2025) caused by AI-discovered defect reports [<a href="https://blog.google/security/chrome-stronger-with-every-update/">Chrome2026</a>]:</p>
-<figure>
-<img src="images/chrome-bug-fixes-by-milestone-showing.png" width="517" height="291" alt="Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports" />
-<figcaption aria-hidden="true">Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports</figcaption>
-</figure>
+<p><img src="images/chrome-bug-fixes-by-milestone-showing.png" title="Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports" width="517" height="291" alt="Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports" /></p>
 <p>Firefox had a similar experience. Mozilla reported, “We fixed a total of 423 security bugs in releases in April. In addition to the 271 bugs announced two weeks ago, there were 41 externally reported bugs, with the remaining 111 discovered internally” [<a href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>].</p>
 <p>In many ways, a web browser is a worst case, since it has a massive amount of functionality and must directly interact with potentially malicious websites. Still, this experience demonstrates that AI can identify many vulnerabilities not found otherwise, and that you need to be ready to fix far more vulnerabilities than before.</p>
 <h3 data-number="5.6.1" id="fixing-may-be-necessary-for-sending-reports-to-external-organizations"><span class="header-section-number">5.6.1</span> Fixing may be necessary for sending reports to external organizations</h3>

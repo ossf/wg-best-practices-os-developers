@@ -9,7 +9,19 @@
   <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Preparing the sandbox</title>
+  <link rel="stylesheet" href="simple.min.css" />
+  <!-- This <style> comes after the stylesheets above so it overrides them. -->
   <style>
+    /* Smaller headings than simple.css's (h1-h4: 3rem, 2.6rem, 2rem,
+       and 1.44rem; less on narrow screens), each still larger than
+       the next level down, ending at the 1.15rem body text (h6, which
+       is still bold). */
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.45rem; }
+    h4 { font-size: 1.3rem; }
+    h5 { font-size: 1.2rem; }
+    h6 { font-size: 1.15rem; }
     div.sitenav {
       display: flex;
       flex-direction: row;
@@ -27,7 +39,8 @@
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
-    figure { text-align: center; }
+    /* Center images that are alone in their paragraph. */
+    p > img:only-child { display: block; margin-inline: auto; }
     /* Overview diagram (see wrap-overview.awk): a box per top-level
        list item, with arrows between them; stacked on narrow screens.
        The "/ ''" gives the arrows empty alt text for screen readers. */
@@ -93,7 +106,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 
@@ -162,10 +174,7 @@
 <p>More generally: <em>separate preferences from invariants</em>. Preferences requiring judgment, such as “Prefer the simplest implementation”, would typically go in the AI’s instructions where the AI can weigh them. Invariants are rules that must <em>always</em> hold. Invariants should be enforced <em>outside</em> the AI, since “an invariant should not live inside the probabilistic system it is meant to constrain, because the model can ignore it” [<a href="https://tesseracted-labs-blog.vercel.app/enforcing-coding-agent-guardrails-in-the-runtime-instead-of-the-prompt">TesseractedLabs2026</a>]. Many agent harnesses and agent frameworks let you run your own code at specific points in the agent’s loop, e.g., to block a push to the main branch unless the tests pass; depending on the tool. These are often called “hooks”, “callbacks”, or “middleware”; here we’ll call them “hooks”. Use hooks to <em>enforce</em> invariants where you can. Hooks check what the agent asks to do or has done, not what the resulting code can reach, so hooks don’t replace a sandbox.</p>
 <p>Ensure that the agent cannot modify or bypass these controls. As one article puts it, “the policy should live above the thing it governs.” Additionally, audit your workflow for indirect bypasses: for instance, one team found that two AI agents with repository permissions could simply approve each other’s pull requests, silently undermining the human approval gate [<a href="https://tesseracted-labs-blog.vercel.app/enforcing-coding-agent-guardrails-in-the-runtime-instead-of-the-prompt">TesseractedLabs2026</a>].</p>
 <p>In addition, always have a “kill switch”, that is, a way to immediately halt the AI system. It needs to be <em>simple</em> and <em>foolproof</em>. For example, if you run agents within a virtual machine, you could implement the kill switch by “powering off” the virtual machine.</p>
-<figure>
-<img src="images/woman-presses-large-red-emergency-stop.png" width="422" height="230" alt="A woman presses a large red “Emergency Stop” button, acting as a kill switch for a distressed robot who’s losing his balance within a cluttered ceramic shop." />
-<figcaption aria-hidden="true">A woman presses a large red “Emergency Stop” button, acting as a kill switch for a distressed robot who’s losing his balance within a cluttered ceramic shop.</figcaption>
-</figure>
+<p><img src="images/woman-presses-large-red-emergency-stop.png" title="A woman presses a large red “Emergency Stop” button, acting as a kill switch for a distressed robot who’s losing his balance within a cluttered ceramic shop." width="422" height="230" alt="A woman presses a large red “Emergency Stop” button, acting as a kill switch for a distressed robot who’s losing his balance within a cluttered ceramic shop." /></p>
 <details class="quiz">
 <summary>
 Quiz

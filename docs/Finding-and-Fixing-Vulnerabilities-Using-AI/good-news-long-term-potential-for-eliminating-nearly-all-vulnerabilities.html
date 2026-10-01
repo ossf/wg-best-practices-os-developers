@@ -9,7 +9,19 @@
   <meta name="author" content="David A. Wheeler and OpenSSF Contributors" />
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Good news: Long-term potential for eliminating nearly all vulnerabilities</title>
+  <link rel="stylesheet" href="simple.min.css" />
+  <!-- This <style> comes after the stylesheets above so it overrides them. -->
   <style>
+    /* Smaller headings than simple.css's (h1-h4: 3rem, 2.6rem, 2rem,
+       and 1.44rem; less on narrow screens), each still larger than
+       the next level down, ending at the 1.15rem body text (h6, which
+       is still bold). */
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.45rem; }
+    h4 { font-size: 1.3rem; }
+    h5 { font-size: 1.2rem; }
+    h6 { font-size: 1.15rem; }
     div.sitenav {
       display: flex;
       flex-direction: row;
@@ -27,7 +39,8 @@
     span.nav-next { text-align: right; }
     span.navlink-label { display: inline-block; }
     .quiz { display: none; }
-    figure { text-align: center; }
+    /* Center images that are alone in their paragraph. */
+    p > img:only-child { display: block; margin-inline: auto; }
     /* Overview diagram (see wrap-overview.awk): a box per top-level
        list item, with arrows between them; stacked on narrow screens.
        The "/ ''" gives the arrows empty alt text for screen readers. */
@@ -93,7 +106,6 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="simple.min.css" />
 </head>
 <body>
 
@@ -119,10 +131,7 @@
 <p>Holley explains, “security to date has been offensively-dominant: the attack surface isn’t infinite, but it’s large enough to be difficult to defend comprehensively with the tools we’ve had available. This gives attackers an asymmetric advantage, since they only need to find one chink in the armor…. So far we’ve found no category or complexity of vulnerability that humans can find that [Mythos Preview] can’t. This can feel terrifying in the immediate term, but it’s ultimately great news for defenders. A gap between machine-discoverable and human-discoverable bugs favors the attacker, who can concentrate many months of costly human effort to find a single bug. Closing this gap erodes the attacker’s long-term advantage by making all discoveries cheap” [<a href="https://blog.mozilla.org/en/privacy-security/ai-security-zero-day-vulnerabilities/">Holley2026</a>].</p>
 <p>There’s strong evidence that if a project works hard to find and fix vulnerabilities, it becomes increasingly difficult to find any more, <em>even with AI</em>. For example, the curl project is well-known for working hard to prevent security vulnerabilities. Even the best AI models, when focused on it, have tended to find few vulnerabilities in it [<a href="https://www.youtube.com/watch?v=IS4OgH74gY4">LowLevel2026</a>] [<a href="https://daniel.haxx.se/blog/2026/05/11/mythos-finds-a-curl-vulnerability/">Stenberg2026-05a</a>]. This is not magic; it’s the result of prior efforts to make it secure. Other projects can do the same. Once AI systems are aggressively used to find vulnerabilities, and those are fixed, there’s good reason to believe the resulting system tends to be extremely hard to attack. Since actual software is finite, “there’s a finite number [of vulnerabilities] in a program; once fixed, attackers can’t exploit vulnerabilities that don’t exist.” [<a href="https://openssf.org/blog/2026/01/05/ai-software-development-security-tips-and-the-future-part-2/">Wheeler2026</a>]</p>
 <p>Of course, this doesn’t make this <em>easy</em> or pleasant to go through. “You may need to [briefly] reprioritize everything else to bring relentless and single-minded focus to the task” [<a href="https://blog.mozilla.org/en/privacy-security/ai-security-zero-day-vulnerabilities/">Holley2026</a>]. Still, there’s reason to believe that once you do this, the resulting software will be far more secure than it’s ever been.</p>
-<figure>
-<img src="images/human-his-robot-companion-relax-drinks.png" width="566" height="308" alt="A human and his robot companion relax with drinks on a high fortified wall, as its glowing shield easily deflects laser fire from attackers below" />
-<figcaption aria-hidden="true">A human and his robot companion relax with drinks on a high fortified wall, as its glowing shield easily deflects laser fire from attackers below</figcaption>
-</figure>
+<p><img src="images/human-his-robot-companion-relax-drinks.png" title="A human and his robot companion relax with drinks on a high fortified wall, as its glowing shield easily deflects laser fire from attackers below" width="566" height="308" alt="A human and his robot companion relax with drinks on a high fortified wall, as its glowing shield easily deflects laser fire from attackers below" /></p>
 
 <nav class="sitenav-container">
   <div class="sitenav">

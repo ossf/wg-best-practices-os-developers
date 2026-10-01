@@ -152,7 +152,7 @@ OVERVIEW
   * [Preparing the code and documentation](#preparing-the-code-and-documentation)
   * [Preparing CI/CD](#preparing-cicd)
   * [Preparing dependency updates](#preparing-dependency-updates)
-* Fi[nding and fixing vulnerabilities](#core-tasks-for-finding-and-fixing-vulnerabilities)
+* [Finding and fixing vulnerabilities](#core-tasks-for-finding-and-fixing-vulnerabilities)
   * [Identify findings](#identify-findings)
   * [Handle external findings](#handle-external-findings)
   * [Deduplicate](#deduplicate)
