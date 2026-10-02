@@ -17,6 +17,7 @@ This is a list of materials (documents, services, and so on) released by the
 * [The Memory Safety Continuum](https://memorysafety.openssf.org/memory-safety-continuum)
 * [Cyber Resilience Act (CRA) Brief Guide for Open Source Software (OSS) Developers](https://best.openssf.org/CRA-Brief-Guide-for-OSS-Developers)
 * [Security Focused Guide for AI Code Assistant Instructions](https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions)
+* [Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers](https://best.openssf.org/Finding-and-Fixing-Vulnerabilities-Using-AI/)
 * [Secure Coding One Stop Shop for Python](https://best.openssf.org/Secure-Coding-Guide-for-Python/)
 
 Note: You can also see the larger list of
