@@ -164,4 +164,4 @@ This guide is a collaborative effort of the OpenSSF community. The following peo
 * Dave Russo, Red Hat
 * Georg Kunz, Ericsson
 * Roman Zhukov, Red Hat
-* Tuomo Tanskanen, Ericsson Sotfware Technology
+* Tuomo Tanskanen, Ericsson Software Technology
