@@ -37,7 +37,7 @@ Unmaintained software is a risk; most software needs continuous maintenance. If 
 | **Security Response** | Assess whether the project fixes bugs (especially security bugs) in a timely manner, if they release security fixes for older releases, and if they have an LTS (Long Term Support) version. |   |
 | **Security Scores** | Examine information on [https://deps.dev](https://deps.dev/), including its [OpenSSF Scorecards](https://github.com/ossf/scorecard) score and any known vulnerabilities. |   |
 | **Testing Practices** | Evaluate if there are automated tests included in its CI pipeline and what is its test coverage. |   |
-| **Vulnerability Status** | Confirm if the current version is free of known important vulnerabilities (especially long-known ones). Organizations may want to implement the [OpenChain](https://www.openchainproject.org/) [Security Assurance Specification 1.1](https://github.com/OpenChain-Project/Security-Assurance-Specification/tree/main/Security-Assurance-Specification/1.1/en) to systemically check for known vulnerabilities on ingest and as new vulnerabilities are publicly revealed. |   |
+| **Vulnerability Status** | Confirm if the current version is free of known important vulnerabilities (especially long-known ones). Organizations may want to implement the [OpenChain](https://www.openchainproject.org/) [Security Assurance Specification 1.1](https://github.com/OpenChain-Project/Security-Assurance-Specification/tree/main/Security-Assurance-Specification/1.1/en) to systematically check for known vulnerabilities on ingest and as new vulnerabilities are publicly revealed. |   |
 
 ## Usability & Security
 
