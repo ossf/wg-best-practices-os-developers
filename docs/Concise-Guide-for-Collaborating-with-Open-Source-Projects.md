@@ -199,4 +199,9 @@ More information is available
 
 This guide is a collaborative effort of the OpenSSF community. The following people have contributed to this guide (in alphabetical order):
 
-* TBD
+* Avishay Balter, Microsoft
+* Daniel Appelquist, Samsung
+* Dave Russo, Red Hat
+* Georg Kunz, Ericsson
+* Roman Zhukov, Red Hat
+* Tuomo Tanskanen, Ericsson Software Technology
