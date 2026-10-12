@@ -570,8 +570,12 @@ dtls1_retrieve_buffered_fragment(SSL *s, long max, int *ok)
 		if (al==0) /* no alert */
 			{
 			unsigned char *p = (unsigned char *)s->init_buf->data+DTLS1_HM_HEADER_LENGTH;
-			memcpy(&p[frag->msg_header.frag_off],
-				frag->fragment,frag->msg_header.frag_len);
+			if (frag->msg_header.frag_off + frag->msg_header.frag_len >
+				s->init_buf->length - DTLS1_HM_HEADER_LENGTH)
+				al = SSL_AD_ILLEGAL_PARAMETER;
+			else
+				memcpy(&p[frag->msg_header.frag_off],
+					frag->fragment,frag->msg_header.frag_len);
 			}
 
 		dtls1_hm_fragment_free(frag);
