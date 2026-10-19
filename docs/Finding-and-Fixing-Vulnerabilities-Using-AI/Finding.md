@@ -8,7 +8,7 @@ This is a guide for software developers and vulnerability researchers on finding
 
 # Introduction
 
-Welcome to “Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers”. This is a guidance document; we intend to eventually turn this material into an online course (LFD126).
+Welcome to “Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers”. This is a guidance document; we intend to eventually turn this material into an online course (LFD126). You can retrieve its contents as a [markdown file](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Finding-and-Fixing-Vulnerabilities-Using-AI/Finding.md) and see its [overview](#overview).
 
 ## Scope of this material
 
@@ -140,7 +140,7 @@ Here are a few security terms we use throughout this material:
 
 ## Overview
 
-Here is an overview of this material. We’ll first cover AI concepts. This will be followed by a guide for selecting approaches for finding and fixing vulnerabilities using AI. After that, we’ll discuss how to:
+Here is an overview of this material. We’ll first cover [AI concepts](#ai-concepts) and [deciding on approaches](#decide-on-approaches). After that, we’ll discuss how to:
 
 OVERVIEW
 
@@ -170,6 +170,8 @@ OVERVIEW
   * [Harden](#harden)
 
 ENDOVERVIEW
+
+We conclude with a [call to action](#call-to-action), [acknowledgements](#acknowledgements), [bibliography](#bibliography), and [license information](#license).
 
 # AI concepts
 
@@ -533,7 +535,7 @@ It may seem surprising that AI systems can struggle to produce an accurate fix. 
 
 Of course, AI *can* help generate many fixes. Many vulnerabilities are relatively easy to fix, where the fix is localized to a specific line or set of adjacent lines. AI can be *especially* good at fixing these once it’s told what needs fixing. AI *can* sometimes successfully fix more complex vulnerabilities, too. Perhaps most importantly, this information only applies to AI models as of 2026\. We do not know how much better the AI models and underlying tools will become. That said, this limitation is unlikely to disappear instantly, and not everyone can use the best available systems.
 
-As a result, it’s important to be aware that AI systems don’t always generate complete fixes. They may fix a special case but not the full vulnerability; they may introduce new vulnerabilities; and their fixes may interfere with correct operation. There’s some evidence that they especially struggle with more complex vulnerabilities. Plan accordingly.
+As a result, it’s important to be aware that AI systems don’t always generate complete fixes. They may fix a special case but not the full vulnerability; they may introduce new vulnerabilities; and their fixes may interfere with correct operation. There’s some evidence that they especially struggle with more complex vulnerabilities. This material provides tips on [fixing vulnerabilities](#fix-vulnerabilities) and [verifying fixes](#verify-fixes), to increase your likelihood of success. However, these are not guarantees. Plan accordingly.
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. What does the material conclude about AI-generated fixes for vulnerabilities, especially complex ones?
@@ -922,7 +924,7 @@ A key task when using an AI agent, *especially* when using AI to find and fix vu
 
 ### Need for sandboxes
 
-When running an AI chatbot there’s no need for sandboxes, since the chatbot can’t *do* anything; it can only provide replies. However, when running an AI agent, it’s important to run it inside a sandbox.
+When running an AI chatbot there’s no need for sandboxes, since typically a chatbot can’t *do* anything dangerous; it can only retrieve data and provide replies. However, when running an AI agent, it’s important to run it inside a sandbox.
 
 Do *not* depend on text commands alone to limit an AI. You can tell your AI to do things or not do things. You can give the AI commands such as “obey the law”, “don’t attack our infrastructure”, and “don’t attack external systems”. All of that *might* help sometimes. However, all inputs to an AI are simply suggestions. An AI does *not* always follow any particular text instruction.
 
@@ -1139,7 +1141,7 @@ D) Wait for the dependency's next major, possibly breaking release
 
 Now that we’ve [prepared to find and fix vulnerabilities](#prepare-to-find-and-fix-vulnerabilities), we can begin the main task.
 
-The core tasks are: [identify findings](#identify-findings) (including handling findings reported by others), [deduplicate them](#deduplicate), [validate them](#validate-findings), [triage them](#triage), [fix the vulnerabilities](#fix-vulnerabilities), [verify the fixes](#verify-fixes), [report vulnerabilities in others’ components](#report-vulnerabilities), and [release and deploy the fixes](#release-and-deploy). In practice these overlap and loop; for example, you’ll deduplicate again after validation, and you’ll [repeat the whole process](#repeated-application).
+The core tasks are: [identify findings](#identify-findings) (including [handling findings reported by others](#handle-external-findings)), [deduplicate them](#deduplicate), [validate them](#validate-findings), [triage them](#triage), [fix the vulnerabilities](#fix-vulnerabilities), [verify the fixes](#verify-fixes), [report vulnerabilities in others’ components](#report-vulnerabilities), and [release and deploy the fixes](#release-and-deploy). In practice these overlap and loop; for example, you’ll deduplicate again after validation, and you’ll [repeat the whole process](#repeated-application).
 
 ## Identify findings
 
@@ -1300,7 +1302,7 @@ Even when a finding isn’t a defect, it might suggest improvements for the futu
 
 ### Defining what a vulnerability is
 
-A *key* to validating findings is having a threat model and/or security requirements. Otherwise, there’s no way to tell whether something is security-related, making it difficult to determine whether it's a vulnerability. It’s also vital to have a validation infrastructure, that is, a way to run tests to confirm or refute claims \[[Ziegler2026](https://xbow.com/blog/mythos-offensive-security-xbow-evaluation)\].
+A *key* to validating findings is having a [threat model and/or security requirements](#preparing-threat-models), as we discussed as part of [preparing](#prepare-to-find-and-fix-vulnerabilities). Otherwise, there’s no way to tell whether something is security-related, making it difficult to determine whether it's a vulnerability. It’s also vital to have a validation infrastructure, that is, a way to run tests to confirm or refute claims \[[Ziegler2026](https://xbow.com/blog/mythos-offensive-security-xbow-evaluation)\].
 
 An important decision is whether defense-in-depth countermeasures should be disabled or ignored during validation. An example of a countermeasure is its own process sandboxing, which is different from the sandbox around the AI used during development. A mechanism is only a defense-in-depth measure if it’s an *additional* security measure, not a *required* one. Thus, from a security perspective, it’s better to consider something a vulnerability *even if* another countermeasure would have prevented it. For example, the Mozilla Firefox project considers a finding as a vulnerability even if a sandbox would have prevented its exploitation. Their rationale is that “Real-world attackers generally need to chain multiple exploits together to escalate privileges through one or more layers \[of mitigations like sandboxing\] \[[Grinstead2026-05](https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/)\]. Of course, vulnerabilities that can penetrate existing countermeasures should be prioritized.
 
@@ -1311,7 +1313,8 @@ Here are some key considerations:
 
 1. The gold standard for validating a finding is to generate a PoC, that is, a demonstration using a specific input to the program that an adversary *could* supply that causes the system to fail its security requirements.
    1. In practice, many projects consider being able to trigger abnormal execution (such as a crash, memory error, or sanitizer violation) sufficient to prove that a discovered defect is real and reachable. For example, Firefox classifies findings as high security vulnerabilities “based on predictable crash symptoms such as use-after-free or out-of-bounds memory issues being reported by AddressSanitizer, and our threat model assumes that any of them could be exploitable with sufficient effort. This reduces the risk of a false negative during exploitability analysis, and more importantly it allows us to focus our resources on finding and fixing more vulnerabilities.” \[[Grinstead2026-05](https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/)\]
-   2. Some AI systems incorporate guardrails that prevent the creation of a PoC (since it can also be used for an attack), making them useless for creating PoCs.
+   2. Some AI systems incorporate guardrails that prevent it from creating PoCs (since POCs can also be used for an attack), making them useless for creating PoCs.
+   3. If you create a PoC, be sure that you sandbox that process to prevent it from attacking external systems; we briefly discuss this in our material on [sandboxing](#preparing-the-sandbox).
 2. A project may decide that more general information describing how to exploit the vulnerability, without details, is adequate evidence.
 3. In the long term, it’s often worthwhile to fix defects even if a PoC isn’t found, since, even if a PoC isn’t found, a different AI system might find a way to exploit it. Typically, later triage focuses on findings *known* to be exploitable first.
 4. It helps to say explicitly what level of evidence you require. From weakest to strongest, a PoC may show that: an input triggers abnormal behavior, such as a crash or a sanitizer error; the input violates a specific security property, as shown by a test that checks for that violation; an attacker can gain a specific capability against a realistically deployed system (e.g., code execution, reading or writing files, or bypassing authentication), possibly by chaining several defects; or an attacker can do so reliably, that is, there’s a working exploit. Some researchers use separate terms for these levels. For example, Antiproof defines a “proof of vulnerability” as “an executable test that uses a bug oracle, such as a test harness with assertions, to demonstrate a violation of a security property in isolation”, and a “proof of exploitability” as “an end-to-end test that demonstrates an attacker capability against a deployed system” \[[Shakevsky2026](https://arxiv.org/abs/2607.12316)\]. As noted above, Firefox treats even the first level (a sanitizer-detected memory error) as enough to call a finding a high-severity vulnerability. Whatever level you choose, the inverse doesn’t hold: “failure to produce a working PoC is not proof of a false positive” \[[Yan2026](https://claude.com/blog/using-llms-to-secure-source-code)\].
@@ -1898,7 +1901,7 @@ Let’s get started.
 
 # Acknowledgements
 
-We wish to thank all contributors and reviewers, including Georg Kunz, Laura Guazzelli, Ryan Jennings, and Santosh Kumar Puppala.
+We wish to thank all contributors and reviewers, including Georg Kunz, Jeff Diecks, Laura Guazzelli, Ryan Jennings, and Santosh Kumar Puppala.
 
 # Bibliography
 
