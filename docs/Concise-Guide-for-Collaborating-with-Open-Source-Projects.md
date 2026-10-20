@@ -1,6 +1,6 @@
 # Concise Guide for Collaborating with Open Source Projects
 
-_by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), work in progress_
+_by the [Open Source Security Foundation (OpenSSF)](https://openssf.org) [Best Practices Working Group](https://best.openssf.org/), 2026-10-20_
 
 ## Why This Guide Exists: The Impact of the Cyber Resilience Act
 
