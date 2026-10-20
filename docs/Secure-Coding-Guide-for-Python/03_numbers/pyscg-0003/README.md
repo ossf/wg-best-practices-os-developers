@@ -26,7 +26,7 @@ Bitwise operations are fine when data is actually a bit collection: flags/masks,
 
 ## Non-compliant Code Example (Left Shift)
 
-Multiplication by `4` can be archived by a `2x` left shift. The `noncompliant01.py` code demonstrates an attempt to calculate `8 * 4 + 10` in one line.
+Multiplication by `4` can be achieved by a `2x` left shift. The `noncompliant01.py` code demonstrates an attempt to calculate `8 * 4 + 10` in one line.
 
 *[noncompliant01.py](noncompliant01.py):*
 
