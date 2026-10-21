@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- Pandoc template for the single HTML document gen-html turns into
+     Finding.pdf (via WeasyPrint). It's a pared-down version of
+     pandoc's default html5 template, mainly to leave out that
+     template's built-in <style> block, which WeasyPrint warns about.
+     All styling is in guide.css. It also adds Honk the Goose (the
+     OpenSSF mascot), which guide.css floats beside the title on the
+     first page.
+
+     SPDX-FileCopyrightText: OpenSSF project contributors
+     SPDX-License-Identifier: MIT -->
+<html lang="$lang$">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+$for(author-meta)$
+  <meta name="author" content="$author-meta$" />
+$endfor$
+$if(description-meta)$
+  <meta name="description" content="$description-meta$" />
+$endif$
+  <title>$pagetitle$</title>
+$for(css)$
+  <link rel="stylesheet" href="$css$" />
+$endfor$
+</head>
+<body>
+<header id="title-block-header">
+<img class="goose" src="../../img/ossf-best-goose.png" alt="Honk the Goose, the OpenSSF mascot" />
+<h1 class="title">$title$</h1>
+$for(author)$
+<p class="author">$author$</p>
+$endfor$
+$if(abstract)$
+<div class="abstract">
+<div class="abstract-title">$abstract-title$</div>
+$abstract$
+</div>
+$endif$
+</header>
+$if(toc)$
+<nav id="TOC" role="doc-toc">
+<h2 id="toc-title">$toc-title$</h2>
+$table-of-contents$
+</nav>
+$endif$
+$body$
+</body>
+</html>

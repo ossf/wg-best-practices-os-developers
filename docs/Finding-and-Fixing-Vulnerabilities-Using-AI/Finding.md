@@ -92,7 +92,7 @@ Traditional approaches relied on manual analysis, took months to respond, and so
 * *Traditional slow security measures are becoming ineffective.*
   * “As AI speeds up both discovery and exploitation, organizations need to move from periodic assessment to continuous, intelligence-driven exposure management… They must also prepare for a surge in vulnerability discovery and patch activity that many organizations are not operationally prepared to absorb… As vulnerabilities are discovered and exploited on shorter timelines, traditional security approaches built on periodic assessments, severity scores, and human-paced response are becoming less effective.” \[[CrowdStrike2026-FiveSteps](https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/)\]
   * “When a software vendor releases a security patch, AI can now reverse-engineer that patch, identify the vulnerability it fixes, and generate a working weaponized exploit in minutes. Attacks can begin propagating across the world within hours. But organizations need an average of 20 days to test and deploy that same patch.” \[[ZeroDayClock](https://zerodayclock.com/)\]
-* *Deployment delays become real-world harm*.
+* *Delayed patching leaves systems exposed*
   * “A large fraction of real-world harm comes from N-days: vulnerabilities that have been publicly disclosed and patched, but which remain exploitable on the many systems that haven't yet applied the fix. … the patch itself is a roadmap to the bug, and the only thing standing between disclosure and mass exploitation is the time it takes an attacker to turn that patch into a working exploit.” \[[Carlini2026](https://red.anthropic.com/2026/mythos-preview/)\]
 * *Hiding source code doesn’t help*.
   * “We have also found the model to be extremely capable of reverse engineering: taking a closed-source, stripped binary and reconstructing (plausible) source code for what it does. From there, we provide Mythos Preview both the reconstructed source code and the original binary \[and it succeeds\] …” \[[Carlini2026](https://red.anthropic.com/2026/mythos-preview/)\]
@@ -113,7 +113,7 @@ Despite these large increases in the speed of finding and exploiting vulnerabili
 
 In short, the “normal” security tasks are *still* important with AI \[[Oshungboye](https://dev.to/coderabbitai/how-to-use-ai-to-identify-and-fix-security-vulnerabilities-in-your-codebase-4na2)\]. AI generally isn’t finding entirely new *kinds* of vulnerabilities in software \[[Holley2026](https://blog.mozilla.org/en/privacy-security/ai-security-zero-day-vulnerabilities/)\]; it is finding the same old kinds of vulnerabilities caused by sloppy practices and failure to apply best practices. By applying already-known best practices, and using AI defensively to speed up their implementation, it’s possible to address the problem of AI-amplified attacks. The following material details how to adopt those principles using AI.
 
-![Woman directs robot to build a wall while applying security principles](images/woman-directs-robot-build-wall-while.png){width=394 height=215}
+![Woman directs robot to build a wall while applying security principles](images/woman-directs-robot-build-wall-while.jpg){width=394 height=215}
 
 ## Good news: Long-term potential for eliminating nearly all vulnerabilities
 
@@ -125,7 +125,7 @@ There’s strong evidence that if a project works hard to find and fix vulnerabi
 
 Of course, this doesn’t make this *easy* or pleasant to go through. “You may need to \[briefly\] reprioritize everything else to bring relentless and single-minded focus to the task” \[[Holley2026](https://blog.mozilla.org/en/privacy-security/ai-security-zero-day-vulnerabilities/)\]. Still, there’s reason to believe that once you do this, the resulting software will be far more secure than it’s ever been.
 
-![A human and his robot companion relax with drinks on a high fortified wall, as its glowing shield easily deflects laser fire from attackers below](images/human-his-robot-companion-relax-drinks.png){width=566 height=308}
+![A human and his robot companion relax with drinks on a high fortified wall, as its glowing shield easily deflects laser fire from attackers below](images/human-his-robot-companion-relax-drinks.jpg){width=566 height=308}
 
 ## Key security terms
 
@@ -423,7 +423,7 @@ Attackers *prefer* developers who ignore vulnerability reports or who fail to fi
 
 You *need* to use AI to help find vulnerabilities, and then fix those vulnerabilities, if the software must be secure. Do not bring a knife to a gunfight.
 
-![A robot tries to warn a human about a fire, but the human is ignoring the robot](images/robot-tries-warn-human-about-fire.png){width=457 height=249}
+![A robot tries to warn a human about a fire, but the human is ignoring the robot](images/robot-tries-warn-human-about-fire.jpg){width=457 height=249}
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. What’s a risk if a project bans all AI-assisted vulnerability reports?
@@ -502,7 +502,7 @@ Similarly, \[[Grinstead2026-05](https://hacks.mozilla.org/2026/05/behind-the-sce
 
 Start by focusing on your most important projects, then address the next in turn.
 
-![A woman gives a robot AI a simple checklist to start, with more sophisticated plans to come](images/woman-gives-robot-ai-simple-checklist.png){width=374 height=204}
+![A woman gives a robot AI a simple checklist to start, with more sophisticated plans to come](images/woman-gives-robot-ai-simple-checklist.jpg){width=374 height=204}
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. What was the essence of Carlini's simple and successful capture-the-flag (CTF) sample prompt?
@@ -521,7 +521,7 @@ Do not presume that AI systems can always correctly fix all vulnerabilities.
 
 It’s challenging to determine exactly how good AI systems are at creating fixes that fully fix the vulnerability, don’t introduce other vulnerabilities, and don’t interfere with system functionality. As of 2026, there’s evidence that even the ***best*** AI systems can struggle, especially when trying to correctly fix ***complex*** vulnerabilities.
 
-![A robot has tightened a pipe and shows a thumbs-up to a horrified human who can see all the other pipes bursting.](images/robot-tightened-pipe-shows-thumbs-up.png){width=472 height=257}
+![A robot has tightened a pipe and shows a thumbs-up to a horrified human who can see all the other pipes bursting.](images/robot-tightened-pipe-shows-thumbs-up.jpg){width=472 height=257}
 
 A study by 1Password found that when the fix “had to touch multiple files, functions, or code paths, and introduce non-trivial changes” an AI would succeed only *26.0%* of the time at generating a fix that fully resolved the vulnerability without materially changing application behavior. AI systems did not resolve the vulnerability, added a new vulnerability, or both, on average, 53.9% of the time \[[Hoodlet2026](https://1password.com/blog/why-ai-generated-patches-still-require-human-review)\] \[[Mierczuk2026](https://1password.com/files/resources/frontier-models-vulnerability-patches-flawed.pdf)\].
 
@@ -595,7 +595,7 @@ Of course, once findings (potential vulnerabilities) are found, and then validat
 
 There is a risk that overprescribing an approach to an AI may overconstrain it, causing it to ignore problems it would otherwise find. It’s also possible that future AI models will be so good that aiding them with processes won’t help. However, since many analysts report that aiding AI models does help, we’ll discuss doing that combination in this material.
 
-![A robot is working down a checklist, with the first few items checked off.](images/robot-working-down-checklist-first-few.png){width=435 height=237}
+![A robot is working down a checklist, with the first few items checked off.](images/robot-working-down-checklist-first-few.jpg){width=435 height=237}
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. Per the material, what can happen when you simply ask a generic coding agent to "find bugs" in a large repository by reading all of its code?
@@ -793,7 +793,7 @@ As a result, once you’ve gone through the process of finding and fixing vulner
 
 One question is whether you should provide past findings as context, so it is more likely to consider different areas. For now, we suggest that you provide past results for *some* runs so that, on those runs, it doesn’t need to rediscover them. There is a risk that incorrect past results may lead the AI astray, so we expect it’s better to provide that data in only some cases. We hope future research will make this clearer.
 
-![A robot in a glowing circuit forest sits next to jars labeled "Run 1", "Run 2", and "Run 3" with caught glowing bugs, illustrating how repeatedly running AI can catch additional obvious vulnerabilities.](images/robot-glowing-circuit-forest-sits-next.png){width=483 height=262}
+![A robot in a glowing circuit forest sits next to jars labeled "Run 1", "Run 2", and "Run 3" with caught glowing bugs, illustrating how repeatedly running AI can catch additional obvious vulnerabilities.](images/robot-glowing-circuit-forest-sits-next.jpg){width=483 height=262}
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. Why does the material recommend repeating the vulnerability-finding process multiple times on an unchanged codebase?
@@ -812,7 +812,7 @@ AI is far more effective at finding and fixing vulnerabilities if you prepare fo
 
 In this chapter we’ll focus on the key preparatory tasks that make using AI to find and fix vulnerabilities far more effective. This means preparing the [AI](#preparing-ai), the [threat models](#preparing-threat-models), the [sandbox](#preparing-the-sandbox), [AI logging](#preparing-ai-logging), [code & documentation](#preparing-the-code-and-documentation), [CI/CD](#preparing-cicd), and [dependency updates](#preparing-dependency-updates).
 
-![Robots preparing to work by exercising and gathering information](images/robots-preparing-work-by-exercising-gathering.png){width=493 height=268}
+![Robots preparing to work by exercising and gathering information](images/robots-preparing-work-by-exercising-gathering.jpg){width=493 height=268}
 
 ## Preparing AI
 
@@ -990,7 +990,7 @@ Ensure that the agent cannot modify or bypass these controls. As one article put
 
 In addition, always have a “kill switch”, that is, a way to immediately halt the AI system. It needs to be *simple* and *foolproof*. For example, if you run agents within a virtual machine, you could implement the kill switch by “powering off” the virtual machine.
 
-![A woman presses a large red "Emergency Stop" button, acting as a kill switch for a distressed robot who's losing his balance within a cluttered ceramic shop.](images/woman-presses-large-red-emergency-stop.png){width=422 height=230}
+![A woman presses a large red "Emergency Stop" button, acting as a kill switch for a distressed robot who's losing his balance within a cluttered ceramic shop.](images/woman-presses-large-red-emergency-stop.jpg){width=422 height=230}
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. What "useful rule" does the material give for matching sandbox isolation to an AI agent's capability?
@@ -1158,7 +1158,7 @@ In short, coverage is better when “many agents work on tightly scoped question
 
 ### Separate identifying findings from validation
 
-![A robot and human are working together to analyze a disk representing software, before their results go to deduplication and verification.](images/robot-human-working-together-analyze-disk.png){width=481 height=262}
+![A robot and human are working together to analyze a disk representing software, before their results go to deduplication and verification.](images/robot-human-working-together-analyze-disk.jpg){width=481 height=262}
 
 One excellent way to improve results is to separate *identifying* findings from *validating* findings. A “finding” is simply a report that *might* be a vulnerability, but it's not necessarily one because it’s not clear whether it’s exploitable.
 
@@ -1298,7 +1298,7 @@ A vulnerability is a defect that an attacker can exploit to violate some securit
 
 Even when a finding isn’t a defect, it might suggest improvements for the future. However, here we’ll focus on validating if a finding is a vulnerability.
 
-![Human and AI working together to validate findings of potential vulnerabilities, rejecting some and accepting others.](images/human-ai-working-together-validate-findings.png){width=489 height=266}
+![Human and AI working together to validate findings of potential vulnerabilities, rejecting some and accepting others.](images/human-ai-working-together-validate-findings.jpg){width=489 height=266}
 
 ### Defining what a vulnerability is
 
@@ -1383,7 +1383,7 @@ Modern AI systems have become increasingly good at chaining many defects *togeth
 
 Don’t assume an AI-found vulnerability will stay unknown for long. When many people use similar AI tools on the same code, they often find the same bugs around the same time. The Linux kernel security team reports that bugs found with AI assistance “systematically surface simultaneously across multiple researchers, often on the same day” \[[Linux-SecurityBugs](https://docs.kernel.org/process/security-bugs.html)\].
 
-![A robot and woman categorize bugs into red (dangerous) and green (not dangerous); the woman overrides the robot's categorization](images/robot-woman-categorize-bugs-into-red.png){width=480 height=261}
+![A robot and woman categorize bugs into red (dangerous) and green (not dangerous); the woman overrides the robot's categorization](images/robot-woman-categorize-bugs-into-red.jpg){width=480 height=261}
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. We warned that AI systems tend to be especially unreliable when estimating one particular aspect of a vulnerability report. What is it, and what do we recommend as a result?
@@ -1402,7 +1402,7 @@ Once vulnerabilities are found, those vulnerabilities need to be *fixed*.
 
 Finding vulnerabilities is useless for a defender unless those vulnerabilities are fixed. If vulnerabilities are not fixed efficiently, it can become completely overwhelming. For example, here is the number of bug fixes in the Chrome browser, showing a huge rise in 2026 (compared to 2024-2025) caused by AI-discovered defect reports \[[Chrome2026](https://blog.google/security/chrome-stronger-with-every-update/)\]:
 
-![Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports](images/chrome-bug-fixes-by-milestone-showing.png){width=517 height=291}
+![Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports](images/chrome-bug-fixes-by-milestone-showing.jpg){width=517 height=291}
 
 Firefox had a similar experience. Mozilla reported, “We fixed a total of 423 security bugs in releases in April. In addition to the 271 bugs announced two weeks ago, there were 41 externally reported bugs, with the remaining 111 discovered internally” \[[Grinstead2026-05](https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/)\].
 
@@ -1527,6 +1527,7 @@ At the least, modify the test suite to [add the regression test you created earl
 
 AI can often help implement all of these. The general principle is that if something is important, enforce it with deterministic mechanisms *instead* of relying on an AI to notice it every time.
 
+<details class="quiz"><summary>Quiz</summary>
 Q1. You’ve applied a proposed fix, and the validated proof of concept (PoC) no longer succeeds against the fixed code. What should you do next?
 
 A) Close the finding, since the PoC no longer succeeding shows the vulnerability is fixed.
@@ -1665,7 +1666,7 @@ The good news is that improved hardening and fixing vulnerabilities will eventua
 
 In practice, software changes over time. Deterministic checks, including those [created from earlier findings](#turn-findings-into-durable-checks), should run on every change. An AI system should also analyze each proposed change (pull request or merge request) toidentify vulnerabilities *before* a change is accepted.
 
-![A robot and human repeatedly wash a car to clean out a car, the pass count is 5 and the car is sparkling with dirty bugs draining away](images/robot-human-repeatedly-wash-car-clean.png){width=459 height=250}
+![A robot and human repeatedly wash a car to clean out a car, the pass count is 5 and the car is sparkling with dirty bugs draining away](images/robot-human-repeatedly-wash-car-clean.jpg){width=459 height=250}
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. Why does this material recommend repeatedly rerunning AI systems against the same codebase to look for vulnerabilities, rather than treating a single pass as sufficient?
@@ -1736,9 +1737,7 @@ If you run an AI agent on untrusted proposed changes:
 4. *Treat the agent’s output as untrusted data*. Don’t let it automatically trigger privileged actions; put a human gate in front of them (see “Establish a human gate and kill switch”).
 5. *Separate analysis from action*. A low-privilege agent can analyze and report, while a *different*, trusted process (or a human) should decide what to do with that report.
 
-![A robot is in a sandbox and is passing an approved set of pages to a man outside the sandbox](images/robot-sandbox-passing-approved-set-pages.png){width=414 height=225}
-
-<details class="quiz"><summary>Quiz</summary>
+![A robot is in a sandbox and is passing an approved set of pages to a man outside the sandbox](images/robot-sandbox-passing-approved-set-pages.jpg){width=414 height=225}
 
 <details class="quiz"><summary>Quiz</summary>
 Q1. Why is it risky to run an AI review agent that has repository secrets on pull requests from untrusted contributors?
@@ -1784,7 +1783,7 @@ A key aspect of secure-by-design is *hardening*, that is, modifying the system/s
 
 Defects are inevitable, but they do *not* necessarily need to be vulnerabilities. If vulnerabilities *do* exist, it’s best to constrain the likelihood of their exploitation and their impact as much as practical. The goal is to make it difficult for an attacker to *exploit* a defect, preventing defects from becoming serious vulnerabilities.
 
-![A central castle with a human and robot surrounded by multiple, concentric layers of fortified stone walls and moats, visualizing the system hardening.](images/central-castle-human-robot-surrounded-by.png){width=413 height=225}
+![A central castle with a human and robot surrounded by multiple, concentric layers of fortified stone walls and moats, visualizing the system hardening.](images/central-castle-human-robot-surrounded-by.jpg){width=413 height=225}
 
 ### Applying hardening
 

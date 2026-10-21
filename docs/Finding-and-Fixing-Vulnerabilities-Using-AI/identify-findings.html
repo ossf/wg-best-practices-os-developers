@@ -10,130 +10,8 @@
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Identify findings</title>
   <link rel="stylesheet" href="simple.min.css" />
-  <!-- This <style> comes after the stylesheets above so it overrides them. -->
-  <style>
-    /* Smaller headings than simple.css's (h1-h4: 3rem, 2.6rem, 2rem,
-       and 1.44rem; less on narrow screens), each still larger than
-       the next level down, ending at the 1.15rem body text (h6, which
-       is still bold). */
-    h1 { font-size: 2.2rem; }
-    h2 { font-size: 1.8rem; }
-    h3 { font-size: 1.45rem; }
-    h4 { font-size: 1.3rem; }
-    h5 { font-size: 1.2rem; }
-    h6 { font-size: 1.15rem; }
-    div.sitenav {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: center;
-      margin: 1em 0;
-      padding: 0.5em 0;
-      border-top: 1px solid #ccc;
-      border-bottom: 1px solid #ccc;
-    }
-    /* Top bar (masthead). The logo's dark text needs a light
-       background in dark mode. On narrow screens, drop the guide's
-       name so the bar stays one line. */
-    .masthead {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: 1rem 0;
-      padding-bottom: 0.6rem;
-      border-bottom: 1px solid #ccc;
-    }
-    .masthead .brand { flex: none; line-height: 0; }
-    .masthead .brand img { display: block; height: 1.75rem; width: auto; border-radius: 4px; }
-    @media (prefers-color-scheme: dark) {
-      .masthead .brand img { background: #fff; padding: 2px 4px; }
-    }
-    .masthead .guide-name {
-      flex: 1;
-      min-width: 0;
-      text-wrap: balance;  /* If it needs two lines, make them even. */
-      color: var(--text);
-      text-decoration: none;
-    }
-    .masthead .quicknav { display: flex; gap: 1rem; margin-left: auto; white-space: nowrap; }
-    @media (max-width: 600px) {
-      .masthead .guide-name { display: none; }
-    }
-    body > footer p { margin: 0.5rem 0; }
-    span.navlink { flex: 1; }
-    span.nav-prev { text-align: left; }
-    span.nav-up, span.nav-top { text-align: center; }
-    span.nav-next { text-align: right; }
-    span.navlink-label { display: inline-block; }
-    .quiz { display: none; }
-    /* Center images that are alone in their paragraph. */
-    p > img:only-child { display: block; margin-inline: auto; }
-    /* Overview diagram (see wrap-overview.awk): a box per top-level
-       list item, with arrows between them; stacked on narrow screens.
-       The "/ ''" gives the arrows empty alt text for screen readers. */
-    .overview > ul {
-      list-style: none;
-      padding: 0;
-      margin: 1.5rem 0;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 2.2rem;
-    }
-    .overview > ul > li {
-      position: relative;
-      margin: 0;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: var(--standard-border-radius);
-      background: var(--accent-bg);
-    }
-    .overview > ul > li:not(:last-child)::after {
-      content: "→";
-      content: "→" / "";
-      position: absolute;
-      right: -1.75rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.4rem;
-      color: var(--text-light);
-    }
-    .overview > ul > li > a:first-child {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
-    .overview ul ul { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
-    .overview ul ul li { margin: 0.25rem 0; }
-    .overview a[href$="#repeated-application"]::before { content: "↻ "; content: "↻ " / ""; }
-    @media (max-width: 720px) {
-      .overview > ul { grid-template-columns: 1fr; }
-      .overview > ul > li:not(:last-child)::after {
-        content: "↓";
-        content: "↓" / "";
-        right: auto;
-        left: 50%;
-        top: auto;
-        bottom: -2rem;
-        transform: translateX(-50%);
-      }
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-  </style>
+  <link rel="stylesheet" href="guide.css" />
+  <link rel="stylesheet" href="site.css" />
 </head>
 <body>
 
@@ -163,7 +41,7 @@
 </ul>
 <p>In short, coverage is better when “many agents work on tightly scoped questions and we deduplicate the results afterward, rather than asking one agent to be exhaustive” [<a href="https://blog.cloudflare.com/cyber-frontier-models/">Bourzikas2026</a>].</p>
 <h3 data-number="5.1.1" id="separate-identifying-findings-from-validation"><span class="header-section-number">5.1.1</span> Separate identifying findings from validation</h3>
-<p><img src="images/robot-human-working-together-analyze-disk.png" title="A robot and human are working together to analyze a disk representing software, before their results go to deduplication and verification." width="481" height="262" alt="A robot and human are working together to analyze a disk representing software, before their results go to deduplication and verification." /></p>
+<p><img src="images/robot-human-working-together-analyze-disk.jpg" title="A robot and human are working together to analyze a disk representing software, before their results go to deduplication and verification." width="481" height="262" alt="A robot and human are working together to analyze a disk representing software, before their results go to deduplication and verification." /></p>
 <p>One excellent way to improve results is to separate <em>identifying</em> findings from <em>validating</em> findings. A “finding” is simply a report that <em>might</em> be a vulnerability, but it’s not necessarily one because it’s not clear whether it’s exploitable.</p>
 <p>Separating identifying findings from validating them makes finding vulnerabilities more likely:</p>
 <ul>
@@ -206,42 +84,6 @@
 <p>Remember, <em>not</em> all findings are actual vulnerabilities, and that’s okay. Unfortunately, finding counts can sometimes mislead others. As [<a href="https://www.flyingpenguin.com/mythos-grading-mythos-got-patches-yet/">Ottenheimer2026-05-26</a>] notes, “Glasswing is NOT confidently reporting tens of thousands of real bugs… like any tool, they are reporting tens of thousands of findings, of which a confident count of real bugs is much smaller.” That doesn’t mean AI is useless; far from it. It’s just that findings need to be validated after they’re found. Repeatedly make it clear that a finding is <em>not</em> a confirmed vulnerability; a finding is a <em>possible</em> vulnerability.</p>
 <p>Don’t assume a single run found everything. As we noted <a href="run-ai-multiple-times.html#run-ai-multiple-times">earlier</a>, modern AI systems are generally “non-deterministic” (also called “probabilistic”) [<a href="https://joshua.hu/llm-engineer-review-sast-security-ai-tools-pentesters">Rogers2025</a>]. Re-running may yield additional findings, even if all findings from a previous run were examined. In addition, discovering potential vulnerabilities (and later validating them) can be challenging, since this process involves mathematically undecidable problems in computer science [<a href="https://cset.georgetown.edu/article/ai-and-the-software-vulnerability-lifecycle/">Rohlf2025</a>]. If done well, this should be a case of diminishing returns. The best way to see how quickly the number of findings is diminishing is to keep re-running finding efforts until the process increasingly comes up empty-handed.</p>
 <p>Also, distinguish a successful analysis that produced no findings from an analysis that did not complete. A timeout, model or tool failure, environment failure, insufficient permission, policy denial, or similar interruption is not evidence that no vulnerabilities were found. Automated workflows should record these outcomes separately so that an incomplete analysis cannot silently become a “no findings” result [<a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html">SARIF2.1</a>].</p>
-<details class="quiz">
-<summary>
-Quiz
-</summary>
-<p>Q1. According to this material, why is it better to separate the task of identifying findings from the task of validating them, rather than asking a single AI agent to do both at once?</p>
-<ol type="A">
-<li>Because an agent’s context window would typically fill up trying to hold both tasks at once, even though combining them would otherwise maximize its results.</li>
-<li>Because this avoids stopping analysis too soon, since a combined agent may filter out true positives too early that a separate verifier would confirm.</li>
-<li>Because separating the two tasks makes it easier to fan agents out in parallel for throughput, which is the main reason results improve.</li>
-<li>Because AI guardrails block an agent from producing a working proof of concept, so a second, unrestricted agent must always be applied to verify it separately from finding.</li>
-</ol>
-<details>
-<summary>
-Show answer
-</summary>
-Answer: B
-</details>
-</details>
-<details class="quiz">
-<summary>
-Quiz
-</summary>
-<p>Q1. This material recommends using different “top” vulnerability lists depending on what kind of system you’re examining. Which list does it recommend for a general system that’s neither a web application nor an agentic application, such as an IoT device?</p>
-<ol type="A">
-<li>OWASP Top 10 (for web applications)</li>
-<li>OWASP Top 10 for Agentic Applications</li>
-<li>CWE Top 25</li>
-<li>NIST SP 800-53 control catalog</li>
-</ol>
-<details>
-<summary>
-Show answer
-</summary>
-Answer: C
-</details>
-</details>
 
 <nav class="sitenav-container">
   <div class="sitenav">

@@ -1,0 +1,9 @@
+# Metadata for gen-html's Finding.epub only (on top of metadata.yaml).
+# pandoc already lists the EPUB's other accessibility features (such
+# as alternativeText); this adds "visual", since the book has images,
+# and a summary for readers who check before getting the book.
+#
+# SPDX-FileCopyrightText: OpenSSF project contributors
+# SPDX-License-Identifier: MIT
+accessModes: [textual, visual]
+accessibilitySummary: "Every image has a text description (alt text), and the headings and table of contents support navigation."

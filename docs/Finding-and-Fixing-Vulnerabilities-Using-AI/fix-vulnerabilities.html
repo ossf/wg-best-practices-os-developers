@@ -10,130 +10,8 @@
   <meta name="description" content="A guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using AI." />
   <title>Finding and Fixing Vulnerabilities Using AI – Fix vulnerabilities</title>
   <link rel="stylesheet" href="simple.min.css" />
-  <!-- This <style> comes after the stylesheets above so it overrides them. -->
-  <style>
-    /* Smaller headings than simple.css's (h1-h4: 3rem, 2.6rem, 2rem,
-       and 1.44rem; less on narrow screens), each still larger than
-       the next level down, ending at the 1.15rem body text (h6, which
-       is still bold). */
-    h1 { font-size: 2.2rem; }
-    h2 { font-size: 1.8rem; }
-    h3 { font-size: 1.45rem; }
-    h4 { font-size: 1.3rem; }
-    h5 { font-size: 1.2rem; }
-    h6 { font-size: 1.15rem; }
-    div.sitenav {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: center;
-      margin: 1em 0;
-      padding: 0.5em 0;
-      border-top: 1px solid #ccc;
-      border-bottom: 1px solid #ccc;
-    }
-    /* Top bar (masthead). The logo's dark text needs a light
-       background in dark mode. On narrow screens, drop the guide's
-       name so the bar stays one line. */
-    .masthead {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: 1rem 0;
-      padding-bottom: 0.6rem;
-      border-bottom: 1px solid #ccc;
-    }
-    .masthead .brand { flex: none; line-height: 0; }
-    .masthead .brand img { display: block; height: 1.75rem; width: auto; border-radius: 4px; }
-    @media (prefers-color-scheme: dark) {
-      .masthead .brand img { background: #fff; padding: 2px 4px; }
-    }
-    .masthead .guide-name {
-      flex: 1;
-      min-width: 0;
-      text-wrap: balance;  /* If it needs two lines, make them even. */
-      color: var(--text);
-      text-decoration: none;
-    }
-    .masthead .quicknav { display: flex; gap: 1rem; margin-left: auto; white-space: nowrap; }
-    @media (max-width: 600px) {
-      .masthead .guide-name { display: none; }
-    }
-    body > footer p { margin: 0.5rem 0; }
-    span.navlink { flex: 1; }
-    span.nav-prev { text-align: left; }
-    span.nav-up, span.nav-top { text-align: center; }
-    span.nav-next { text-align: right; }
-    span.navlink-label { display: inline-block; }
-    .quiz { display: none; }
-    /* Center images that are alone in their paragraph. */
-    p > img:only-child { display: block; margin-inline: auto; }
-    /* Overview diagram (see wrap-overview.awk): a box per top-level
-       list item, with arrows between them; stacked on narrow screens.
-       The "/ ''" gives the arrows empty alt text for screen readers. */
-    .overview > ul {
-      list-style: none;
-      padding: 0;
-      margin: 1.5rem 0;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 2.2rem;
-    }
-    .overview > ul > li {
-      position: relative;
-      margin: 0;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: var(--standard-border-radius);
-      background: var(--accent-bg);
-    }
-    .overview > ul > li:not(:last-child)::after {
-      content: "→";
-      content: "→" / "";
-      position: absolute;
-      right: -1.75rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.4rem;
-      color: var(--text-light);
-    }
-    .overview > ul > li > a:first-child {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
-    .overview ul ul { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
-    .overview ul ul li { margin: 0.25rem 0; }
-    .overview a[href$="#repeated-application"]::before { content: "↻ "; content: "↻ " / ""; }
-    @media (max-width: 720px) {
-      .overview > ul { grid-template-columns: 1fr; }
-      .overview > ul > li:not(:last-child)::after {
-        content: "↓";
-        content: "↓" / "";
-        right: auto;
-        left: 50%;
-        top: auto;
-        bottom: -2rem;
-        transform: translateX(-50%);
-      }
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-  </style>
+  <link rel="stylesheet" href="guide.css" />
+  <link rel="stylesheet" href="site.css" />
 </head>
 <body>
 
@@ -156,7 +34,7 @@
 <h2 data-number="5.6" id="fix-vulnerabilities"><span class="header-section-number">5.6</span> Fix vulnerabilities</h2>
 <p>Once vulnerabilities are found, those vulnerabilities need to be <em>fixed</em>.</p>
 <p>Finding vulnerabilities is useless for a defender unless those vulnerabilities are fixed. If vulnerabilities are not fixed efficiently, it can become completely overwhelming. For example, here is the number of bug fixes in the Chrome browser, showing a huge rise in 2026 (compared to 2024-2025) caused by AI-discovered defect reports [<a href="https://blog.google/security/chrome-stronger-with-every-update/">Chrome2026</a>]:</p>
-<p><img src="images/chrome-bug-fixes-by-milestone-showing.png" title="Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports" width="517" height="291" alt="Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports" /></p>
+<p><img src="images/chrome-bug-fixes-by-milestone-showing.jpg" title="Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports" width="517" height="291" alt="Chrome bug fixes by milestone, showing that bug fixes dramatically grew in 2026 due to AI-generated reports" /></p>
 <p>Firefox had a similar experience. Mozilla reported, “We fixed a total of 423 security bugs in releases in April. In addition to the 271 bugs announced two weeks ago, there were 41 externally reported bugs, with the remaining 111 discovered internally” [<a href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/">Grinstead2026-05</a>].</p>
 <p>In many ways, a web browser is a worst case, since it has a massive amount of functionality and must directly interact with potentially malicious websites. Still, this experience demonstrates that AI can identify many vulnerabilities not found otherwise, and that you need to be ready to fix far more vulnerabilities than before.</p>
 <h3 data-number="5.6.1" id="fixing-may-be-necessary-for-sending-reports-to-external-organizations"><span class="header-section-number">5.6.1</span> Fixing may be necessary for sending reports to external organizations</h3>
@@ -190,24 +68,6 @@
 <li>A 2026 study of AI repair of infrastructure-as-code (Terraform), where validator errors were fed back to the model over up to five iterations, found that in 13.8% of scenarios a previously passing security check later failed. Only 3.3% were unambiguous, but the authors believe this is an under-count. Regressions were strongly associated with large rewrites, and compliance stopped improving after about three iterations: “Three iterations capture most of the compliance improvement while keeping regression risk manageable” [<a href="https://arxiv.org/abs/2608.13404">Agyekum2026</a>].</li>
 <li>Limit the number of iterations, prefer small changes, and bring in a human when the AI doesn’t converge quickly.</li>
 </ul>
-<details class="quiz">
-<summary>
-Quiz
-</summary>
-<p>Q1. This material recommends a test-driven approach before writing a fix. What should you do first?</p>
-<ol type="A">
-<li>Write a new test that fails against the existing (buggy) code, then implement the fix and confirm the test now passes without breaking anything else.</li>
-<li>Ask the AI to generate three candidate fixes immediately, then write tests afterward to see which candidate passes the most tests.</li>
-<li>Disable the project’s existing test suite temporarily so the fix can be validated in isolation from unrelated failures.</li>
-<li>Have a human developer manually reproduce the vulnerability in production before any test code is written.</li>
-</ol>
-<details>
-<summary>
-Show answer
-</summary>
-Answer: A
-</details>
-</details>
 
 <nav class="sitenav-container">
   <div class="sitenav">

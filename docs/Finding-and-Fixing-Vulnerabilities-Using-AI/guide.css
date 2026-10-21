@@ -1,0 +1,165 @@
+/* Styles for this guide, shared by its web pages, PDF, and EPUB. The
+   web pages link this after the vendored simple.min.css (see
+   README.md), so these rules override it, and then site.css, which
+   has web-only rules. The PDF uses this file alone (WeasyPrint warns
+   about many things in simple.min.css), so the print rules at the end
+   supply the basics simple.min.css would. Avoid media queries with
+   features here, like "(max-width: 720px)": WeasyPrint warns about
+   those too.
+
+   SPDX-FileCopyrightText: OpenSSF project contributors
+   SPDX-License-Identifier: MIT */
+
+/* simple.css's light-mode colors and fonts, as defaults for when
+   simple.css isn't loaded (the PDF and EPUB); the overview diagram
+   and print rules use them. ":where" gives this rule no specificity,
+   so on the web pages, simple.css's own (including dark mode) win. */
+:where(:root) {
+  --sans-font: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Nimbus Sans L", Roboto, "Noto Sans", "Segoe UI", Arial, Helvetica, "Helvetica Neue", sans-serif;
+  --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  --standard-border-radius: 5px;
+  --bg: #fff;
+  --accent-bg: #f5f7ff;
+  --text: #212121;
+  --text-light: #585858;
+  --border: #898EA4;
+  --accent: #0d47a1;
+  --code: #d81b60;
+  --preformatted: #444;
+}
+
+/* Smaller headings than simple.css's (h1-h4: 3rem, 2.6rem, 2rem,
+   and 1.44rem; less on narrow screens), each still larger than
+   the next level down, ending at the 1.15rem body text (h6, which
+   is still bold). */
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.45rem; }
+h4 { font-size: 1.3rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1.15rem; }
+/* Let long inline code wrap (from pandoc's default styles, which the
+   templates leave out). */
+code { white-space: pre-wrap; }
+/* Center images that are alone in their paragraph. */
+p > img:only-child { display: block; margin-inline: auto; }
+/* Overview diagram (see wrap-overview.awk): a box per top-level
+   list item, with arrows between them; stacked on narrow screens.
+   The "/ ''" gives the arrows empty alt text for screen readers. */
+.overview > ul {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.2rem;
+}
+.overview > ul > li {
+  position: relative;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--standard-border-radius);
+  background: var(--accent-bg);
+}
+.overview > ul > li:not(:last-child)::after {
+  content: "→";
+  content: "→" / "";
+  position: absolute;
+  right: -1.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  color: var(--text-light);
+}
+.overview > ul > li > a:first-child {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.overview ul ul { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
+.overview ul ul li { margin: 0.25rem 0; }
+.overview a[href$="#repeated-application"]::before { content: "↻ "; content: "↻ " / ""; }
+
+/* Paged media: the PDF (made by WeasyPrint) and printed pages.
+   The page size is a "Least Common Denominator" of 210mm x 279mm:
+   A4's width and Letter's height, so it prints on either paper
+   without scaling. Number every page but the first. Browsers that
+   don't support page-margin boxes just skip them. */
+@page {
+  size: 210mm 279mm;
+  margin: 20mm 18mm;
+  @bottom-center {
+    content: counter(page);
+    font-family: sans-serif;
+    font-size: 9pt;
+    color: #666;
+  }
+}
+@page :first {
+  @bottom-center { content: none; }
+}
+
+@media print {
+  /* The basics, as simple.css does them. On paper, the body just
+     fills the page (simple.css makes it a centered grid column). */
+  body {
+    display: block;
+    margin: 0;
+    font-family: var(--sans-font);
+    font-size: 11pt;
+    line-height: 1.4;
+    color: var(--text);
+    background: var(--bg);
+  }
+  a, a:visited { color: var(--accent); }
+  img { max-width: 100%; height: auto; }
+  code, kbd, pre, samp { font-family: var(--mono-font); color: var(--code); }
+  pre {
+    padding: 0.7rem 1rem;
+    background: var(--accent-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--standard-border-radius);
+    color: var(--preformatted);
+    white-space: pre-wrap;
+  }
+  pre code { color: var(--preformatted); }
+  blockquote {
+    margin: 1rem 0 1rem 1.5rem;
+    padding: 0.2rem 0.8rem;
+    border-left: 0.3rem solid var(--accent);
+    color: var(--text-light);
+    font-style: italic;
+  }
+  table { border-collapse: collapse; margin: 1rem 0; }
+  th, td { border: 1px solid var(--border); padding: 0.3rem 0.6rem; text-align: left; vertical-align: top; }
+  th { background: var(--accent-bg); }
+  .abstract-title { font-weight: bold; }
+  /* The title block: no screen-style banner (as simple.css draws it
+     when printing the web pages), and a floated goose (PDF only; see
+     PDF-TEMPLATE.htm) beside it. */
+  body > header {
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
+  }
+  img.goose { float: left; width: 30mm; margin: 0 6mm 4mm 0; }
+  /* Start each chapter on a new page, and keep headings with what
+     follows them. */
+  h1 { break-before: page; }
+  h1.title { break-before: auto; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid; }
+  img, pre, tr, blockquote, .overview > ul > li { break-inside: avoid; }
+  /* Don't let images take over whole pages. */
+  p > img:only-child { max-height: 90mm; width: auto; }
+  /* Page numbers in the table of contents (WeasyPrint supports
+     target-counter(); browsers ignore it). */
+  nav#TOC { break-after: page; }
+  nav#TOC ul { list-style: none; padding-left: 0; }
+  nav#TOC ul ul { padding-left: 1.5em; }
+  nav#TOC a::after {
+    content: leader(".") target-counter(attr(href), page);
+  }
+  nav#TOC a { color: inherit; text-decoration: none; }
+}

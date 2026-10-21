@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- Pandoc template for Finding.epub's cover image. gen-html renders
+     this with WeasyPrint, then turns that into a JPEG with pdftoppm.
+     It's never served, so it has its own styles. The page is
+     1600 x 2560 px (a common e-book cover size) at 96 px per inch.
+
+     SPDX-FileCopyrightText: OpenSSF project contributors
+     SPDX-License-Identifier: MIT -->
+<html lang="$lang$">
+<head>
+  <meta charset="utf-8" />
+  <title>$pagetitle$</title>
+  <style>
+    @page { size: 1600px 2560px; margin: 0; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      height: 2560px;
+      padding: 160px 140px 140px;
+      font-family: "Avenir Next", Avenir, "Nimbus Sans L", Roboto, "Noto Sans", Arial, Helvetica, sans-serif;
+      color: #212121;
+      background: #fff;
+      border-top: 60px solid #0d47a1;
+      text-align: center;
+    }
+    h1 { margin: 0; font-size: 130px; line-height: 1.15; }
+    img.goose { width: 900px; }
+    p.author { margin: 0; font-size: 64px; color: #585858; }
+    img.logo { width: 520px; margin-top: 50px; }
+  </style>
+</head>
+<body>
+<h1>$title$</h1>
+<img class="goose" src="../../img/ossf-best-goose.png" alt="Honk the Goose, the OpenSSF mascot" />
+<div>
+$for(author)$
+<p class="author">$author$</p>
+$endfor$
+<img class="logo" src="../assets/logo.svg" alt="OpenSSF" />
+</div>
+</body>
+</html>

@@ -3,9 +3,10 @@
 ## How to update the content
 
 Update [Finding.md](./Finding.md).
-Currently, this is done by updating the corresponding Google document
+
+Currently, this is done by first updating the corresponding Google document
 and running save as markdown. Eventually we expect the markdown will be
-the final version.
+the final version (below we discuss how we'll implement that).
 
 Then run `cleanup-markdown` in this directory after downloading/exporting
 `Finding.md` from Google Docs and before committing it.
@@ -33,12 +34,24 @@ scanners. So also download the document as "Web Page (.html, zipped)",
 and save it in this directory as `Finding.zip`.
 When `Finding.zip` exists, `cleanup-markdown`:
 
-* Replaces `images/` with the zip's `images/` (the full-quality files).
-* Renames each image from its alt text (see below).
+* Replaces `images-originals/` with the zip's `images/` (the
+  full-quality files), renaming each image from its alt text (see
+  below).
+* Replaces `images/` with the copies the guide serves (on the web, and
+  in the PDF and EPUB), made by `compress-images.py`: JPEGs at quality
+  90. The originals are lossless PNGs, mostly photo-like
+  illustrations, so the JPEGs are about 6x smaller (2MB instead of
+  12MB) with no difference you can see. Images that are already JPEGs,
+  or have transparency, or aren't raster images (e.g., SVG) are served
+  as-is.
 * Deletes the `[imageN]: data:...` lines.
 * Rewrites each image reference to
-  `![alt text](images/NAME.png){width=W height=H}`, using the size the
+  `![alt text](images/NAME.jpg){width=W height=H}`, using the size the
   document gives the image (the pixel size would display too large).
+
+`compress-images.py` needs Pillow. On Debian or Ubuntu, install it with
+`sudo apt install python3-pil`; elsewhere, use your system's package
+manager, or `pip install pillow` in a Python virtual environment.
 
 Google numbers the images differently in the markdown (`[image2]`)
 and in the zip (`images/image4.png`), so `cleanup-markdown` matches
@@ -46,7 +59,8 @@ them by alt text, taken from the `<img>` tags in the zip's HTML.
 It also names each file from its alt text: the first 6 words, ignoring
 a few filler words such as "a" and "the", lowercased and joined by
 "-". For example, "A robot tries to warn a human about a fire, ..."
-becomes `images/robot-tries-warn-human-about-fire.png`.
+becomes `images-originals/robot-tries-warn-human-about-fire.png`
+(served as `images/robot-tries-warn-human-about-fire.jpg`).
 The name depends only on the alt text, so it's the same on every run,
 and it's the same whatever numbers Google gives the images.
 Editing the start of an image's alt text renames its file (`git`
@@ -55,16 +69,76 @@ shows it as a rename).
 Every image needs alt text that's the same in both places, and the
 first words must be distinct: if an image has none, no image in the
 zip has the same alt text, or two images would get the same name,
-`cleanup-markdown` reports the error and leaves `Finding.md` and
-`images/` unchanged.
+`cleanup-markdown` reports the error and leaves `Finding.md`,
+`images/`, and `images-originals/` unchanged.
 Running it again with a newer `Finding.zip` follows any renumbering.
 Without `Finding.zip`, images are left alone.
-Commit `images/` along with `Finding.md`, but not `Finding.zip`.
+Commit `images/` and `images-originals/` along with `Finding.md`, but
+not `Finding.zip`.
+
+### Switching to the markdown as the canonical version
+
+We plan to make `Finding.md` the canonical version, instead of the
+Google document. When we do, people should propose improvements on
+GitHub instead of in the Google document. To do that, change the
+"You may propose improvements" link in the footer of `TEMPLATE.htm`
+(see the comment there), then rerun `gen-html`. Change this:
+
+```html
+<a href="https://docs.google.com/document/d/1fji3SlBDDpdGfh46Hs3r7kCv30RYzgSXrLu8eVDoLrM/edit">You may propose improvements</a>
+```
+
+to this, which opens `Finding.md` in GitHub's web editor:
+
+```html
+<a href="https://github.com/ossf/wg-best-practices-os-developers/edit/main/docs/Finding-and-Fixing-Vulnerabilities-Using-AI/Finding.md">You may propose improvements</a>
+```
+
+People without write access to the repository (most readers) need a
+GitHub account but don't need to know git: when they save, GitHub
+forks the repository for them and walks them through opening a pull
+request.
+
+After the switch, `Finding.md` is no longer exported from Google Docs,
+so `cleanup-markdown` and `Finding.zip` are no longer needed. Edit
+`Finding.md` directly instead, and update this README to match. To add
+an image, put the original in `images-originals/`, run
+`python3 compress-images.py images-originals images` to make its
+served copy in `images/`, and refer to that served copy from
+`Finding.md`.
+
+We'll probably have a script for importing markdown changes back into
+Google docs, in case that's needed, once the Markdown file is the
+canonical version.
 
 ## How to regenerate pages
 
 When you're ready (`Finding.md` updated and cleaned), generate the
-site's HTML by running `gen-html` in this directory.
+site's HTML, `Finding.pdf`, and `Finding.epub` by running `gen-html` in
+this directory. Note that `gen-html` is misnomer, it generates more than HTML.
+
+The EPUB is for e-book readers (such as Apple Books, Google Play Books,
+Kobo, Send to Kindle, Thorium, Calibre, and Foliate), which reflow it
+for any screen size. Its images keep their alt text. pandoc makes it directly;
+its cover image
+(made from `COVER-TEMPLATE.htm`) also needs WeasyPrint and `pdftoppm`
+(on Debian or Ubuntu, `sudo apt install poppler-utils`). Without them,
+`gen-html` warns and makes the EPUB without a cover image.
+`epub-metadata.yaml` adds EPUB-only accessibility metadata.
+
+The PDF is made with [WeasyPrint](https://weasyprint.org/), which turns
+pandoc's HTML into a PDF using the print rules in `guide.css` (page
+size, page numbers, chapter page breaks, and so on). If WeasyPrint
+isn't installed, `gen-html` warns and skips the PDF; to install it, use
+`pipx install weasyprint`. The PDF's template (`PDF-TEMPLATE.htm`)
+puts Honk the Goose on its first page. Its page size is a "Least Common
+Denominator" of 210mm x 279mm: A4's width and Letter's height, so it
+prints on either paper without scaling. Keep `gen-html` free of
+WeasyPrint warnings, so new ones (like a missing image) stand out;
+that's why the PDF doesn't use `simple.min.css`, and why web-only
+rules (site navigation, and media queries for screens) live in
+`site.css` rather than `guide.css`. The web pages link all three
+stylesheets, in that order, and embed no styles of their own.
 
 The `gen-html` script assumes
 `Finding.md` is already clean (a committed one always is; run
@@ -80,7 +154,7 @@ files in this directory (generated pages are named from heading IDs,
 which start that way; the template is named `TEMPLATE.htm`, and
 `,`-prefixed scratch files are left alone), so new chunk files show up
 as untracked, not modified. Commit with
-`git add -A -- '[a-z0-9]*.html' images/`
+`git add -A -- '[a-z0-9]*.html' images/ images-originals/ Finding.pdf Finding.epub`
 (not `-u` or `git commit -a`), or a new file can end
 up linked from the TOC but never actually committed, producing a
 broken link on the live site. Scoping the pathspec this way also
@@ -111,11 +185,16 @@ ENDQUIZ
 ```
 
 `cleanup-markdown` turns this into a native, click-to-expand HTML
-widget (no JavaScript) via `clean-finding.awk`, currently hidden
-entirely by the `.quiz { display: none; }` rule in `TEMPLATE.htm`. To
-reveal quizzes, delete (or no-op) that one CSS rule; nothing else
-needs to change, since the widget is already closed by default on its
-own.
+widget (no JavaScript) via `clean-finding.awk`. For now, `gen-html`
+leaves quizzes out of the HTML, PDF, and EPUB, by running
+`drop-quizzes.awk` separately for each. To show quizzes in one of
+them, stop running `drop-quizzes.awk` for that one; nothing else
+needs to change, since the widget is already closed by default.
+
+`drop-quizzes.awk` makes `gen-html` fail, naming the quiz, if a quiz
+runs into a heading, another quiz, or the end of the document. That
+means a missing `ENDQUIZ` (or an extra `QUIZ`) in the Google Doc,
+which would otherwise silently drop the text after it.
 
 Keep each quiz block entirely within one subsection; don't let it span
 a heading, since `gen-html` chunks pages at both H1 and H2 headings,
@@ -132,8 +211,8 @@ the Google Doc it's just a nested bulleted list, so edit it normally;
 make each item a link to its heading (Insert › Link › Headings).
 `gen-html` runs `wrap-overview.awk`, which turns the markers into
 `<div class="overview">` and `</div>` only in what it passes to pandoc
-(`Finding.md` itself isn't changed), and CSS in `TEMPLATE.htm` does
-the drawing. The CSS assumes three top-level items; change
+(`Finding.md` itself isn't changed), and CSS in `guide.css` does
+the drawing (`site.css` stacks the boxes on narrow screens). The CSS assumes three top-level items; change
 `grid-template-columns` there if that changes.
 
 ## Vendored CSS
@@ -176,9 +255,10 @@ so we can move directories and so users can use a local copy easily.
    ```
 
 4. Update the version and any changed terms in this section.
-5. Run `gen-html` and check a few pages in a browser (the `.quiz`
-   CSS rule and other class names this site depends on could
-   theoretically change or disappear upstream).
+5. Run `gen-html` and check a few pages in a browser (class names and
+   CSS variables this site depends on could theoretically change or
+   disappear upstream). `guide.css` copies simple.css's light-mode
+   CSS variables, for the PDF and EPUB; update them if they changed.
 6. Commit `simple.min.css`, `simple.min.css.LICENSE`, this README,
    and the regenerated `*.html` files together.
 

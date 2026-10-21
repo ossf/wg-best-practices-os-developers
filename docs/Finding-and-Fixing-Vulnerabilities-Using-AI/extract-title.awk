@@ -40,12 +40,15 @@ state == "frontmatter" && /^<!--.*-->$/ { next }
 # YAML front matter, then fall through to print this heading (and
 # everything after it) unchanged.
 #
-# The real title becomes the subtitle, not the title: "title" comes
-# from metadata.yaml instead (see there for why), and is what other
-# pages' Up/Previous/Top links reuse as their link text.
+# For the chunked HTML, the real title becomes the subtitle, not the
+# title: "title" comes from metadata.yaml instead (see there for why),
+# and is what other pages' Up/Previous/Top links reuse as their link
+# text. The PDF has no such links, so gen-html runs this with
+# "-v title_key=title" to make it the real title there (the document's
+# own metadata overrides metadata.yaml's).
 state == "frontmatter" && /^#[^#]/ {
     print "---"
-    print "subtitle: " yaml_squote(title)
+    print (title_key == "" ? "subtitle" : title_key) ": " yaml_squote(title)
     if (author != "") print "author: " yaml_squote(author)
     if (abstract != "") {
         print "abstract: |"

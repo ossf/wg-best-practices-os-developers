@@ -1,5 +1,6 @@
 #!/bin/bash
-# Generate this website's HTML pages from the current Finding.md.
+# Generate this website's HTML pages, Finding.pdf, and Finding.epub
+# from the current Finding.md.
 # Finding.md should already be clean (run cleanup-markdown first if
 # you just downloaded it from Google Docs; a committed Finding.md
 # already is). Long-term, this is meant to run only when the website
@@ -28,19 +29,15 @@ rm -f [a-z0-9]*.html
 # scratch directory instead, then move the chunks up into place.
 rm -fr chunks-tmp
 #
-# extract-title.awk feeds pandoc via stdin instead of a filename
-# argument: it turns the leading title/byline/abstract block into
+# pandoc_input prints what both the HTML and the PDF feed pandoc; any
+# arguments go to extract-title.awk. Each awk script is a transient
+# transform: none of them ever touches Finding.md itself.
+# extract-title.awk turns the leading title/byline/abstract block into
 # YAML front matter (so it lands on index.html next to the table of
-# contents, instead of becoming its own separate page), but only in
-# what's piped to pandoc here; it never touches Finding.md itself.
-#
-# simple.min.css is vendored (not loaded from a CDN at page-load
-# time): see README.md for why, its source/version, and how to check
-# for and apply updates.
-#
-# wrap-overview.awk marks the overview list so TEMPLATE.htm's CSS can
-# draw it as a diagram, and add-image-titles.awk gives images their alt
-# text as a hover tooltip; they're also transient.
+# contents, instead of becoming its own separate page).
+# wrap-overview.awk marks the overview list so guide.css can draw it
+# as a diagram, and add-image-titles.awk gives images their alt text
+# as a hover tooltip.
 #
 # gfm_auto_identifiers makes pandoc compute heading IDs (and so page
 # names) the way GitHub does, matching the in-document links that
@@ -49,13 +46,28 @@ rm -fr chunks-tmp
 #
 # -implicit_figures stops pandoc from turning each image that's alone
 # in a paragraph into a <figure> whose caption repeats its alt text.
-awk -f extract-title.awk Finding.md | awk -f wrap-overview.awk | \
-  awk -f add-image-titles.awk | \
-pandoc -f markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout+gfm_auto_identifiers-implicit_figures \
+pandoc_input() {
+  awk "$@" -f extract-title.awk Finding.md | awk -f wrap-overview.awk | \
+    awk -f add-image-titles.awk
+}
+input_format=markdown+raw_html+pipe_tables+autolink_bare_uris+strikeout+gfm_auto_identifiers-implicit_figures
+
+# simple.min.css is vendored (not loaded from a CDN at page-load
+# time): see README.md for why, its source/version, and how to check
+# for and apply updates. guide.css has this guide's own styles (shared
+# with the PDF), and site.css has web-only ones; each overrides the
+# ones before it. TEMPLATE.htm embeds no styles of its own, so every
+# page just links these.
+#
+# Each output runs drop-quizzes.awk itself (not in pandoc_input), so
+# showing quizzes in any one of them later just means not running it
+# there; clean-finding.awk already makes them closed (click to open).
+pandoc_input | awk -f drop-quizzes.awk | \
+pandoc -f "$input_format" \
   - \
   -t chunkedhtml --split-level=2 --toc -o chunks-tmp \
   --template=TEMPLATE.htm --chunk-template="%i.html" \
-  --css="simple.min.css" \
+  --css="simple.min.css" --css="guide.css" --css="site.css" \
   --metadata-file=metadata.yaml \
   --wrap=none \
   --number-sections \
@@ -92,8 +104,86 @@ for f in *.html; do
   mv "$f.new" "$f"
 done
 
+# Generate Finding.pdf: the same input as the HTML, but as one
+# standalone HTML document (using PDF-TEMPLATE.htm, which also adds
+# Honk the Goose), turned into a PDF by WeasyPrint. guide.css's print
+# rules handle page size, page numbers, chapter page breaks, and the
+# table of contents' page numbers. The PDF uses guide.css alone, not
+# simple.min.css or site.css: WeasyPrint warns about every CSS
+# feature it doesn't support, and those have many. Keep it
+# warning-free, so any warning (like a missing image) stands out.
+#
+# The real title is the PDF's title (see extract-title.awk).
+# pdf/ua-1 makes a tagged (accessible) PDF, which some readers can
+# reflow for small screens. -D 150 (enough for print) and
+# --optimize-images keep the file size down; without -D, the
+# 2000x2000 goose alone is about 1MB. The base URL (-u) lets
+# WeasyPrint find the images and CSS relative to this directory,
+# since it reads from stdin.
+if command -v weasyprint >/dev/null 2>&1; then
+  pandoc_input -v title_key=title | awk -f drop-quizzes.awk | \
+  pandoc -f "$input_format" \
+    - \
+    -t html5 --standalone --toc \
+    --css="guide.css" \
+    --template=PDF-TEMPLATE.htm \
+    --metadata-file=metadata.yaml \
+    --wrap=none \
+    --number-sections | \
+  weasyprint --pdf-variant pdf/ua-1 -D 150 --optimize-images \
+    -u "$PWD/" - Finding.pdf
+else
+  echo >&2
+  echo 'Warning: weasyprint not found, so Finding.pdf was not regenerated.' >&2
+  echo 'To install it, use "pipx install weasyprint".' >&2
+fi
+
+# Generate Finding.epub, for e-book readers, which reflow it for any
+# screen size. pandoc's default EPUB stylesheet is good for e-book
+# readers, but --css replaces it, so add it back (from pandoc's own
+# copy, so it always matches this pandoc version) before guide.css,
+# which adds the overview diagram and such. As with the PDF, the real
+# title is the title. pandoc splits it into
+# a file per chapter (H1), and fixes up links between them.
+# epub-metadata.yaml adds EPUB-only accessibility metadata.
+#
+# The cover image (with the title and Honk the Goose) is rendered
+# from COVER-TEMPLATE.htm by WeasyPrint, then made a JPEG by
+# pdftoppm; without both, the EPUB has no cover image (e-book readers
+# then make a plain one).
+pandoc --print-default-data-file epub.css > pandoc-epub.css
+cover_opts=()
+if command -v weasyprint >/dev/null 2>&1 && \
+   command -v pdftoppm >/dev/null 2>&1; then
+  pandoc_input -v title_key=title | \
+  pandoc -f "$input_format" \
+    - \
+    -t html5 --standalone \
+    --template=COVER-TEMPLATE.htm \
+    --metadata-file=metadata.yaml | \
+  weasyprint -u "$PWD/" - epub-cover-tmp.pdf
+  pdftoppm -jpeg -jpegopt quality=90 -singlefile \
+    -scale-to-x 1600 -scale-to-y 2560 epub-cover-tmp.pdf epub-cover-tmp
+  cover_opts=(--epub-cover-image=epub-cover-tmp.jpg)
+else
+  echo >&2
+  echo 'Warning: weasyprint or pdftoppm not found, so Finding.epub has no' >&2
+  echo 'cover image. pdftoppm is in the poppler-utils package.' >&2
+fi
+pandoc_input -v title_key=title | awk -f drop-quizzes.awk | \
+pandoc -f "$input_format" \
+  - \
+  -t epub3 --toc -o Finding.epub \
+  --css="pandoc-epub.css" --css="guide.css" \
+  "${cover_opts[@]}" \
+  --metadata-file=metadata.yaml \
+  --metadata-file=epub-metadata.yaml \
+  --wrap=none \
+  --number-sections
+rm -f pandoc-epub.css epub-cover-tmp.pdf epub-cover-tmp.jpg
+
 echo
-echo "Commit with \"git add -A -- '[a-z0-9]*.html' images/\""
+echo "Commit with \"git add -A -- '[a-z0-9]*.html' images/ images-originals/ Finding.pdf Finding.epub\""
 echo 'or a new file can end up linked from the document but'
 echo 'never actually committed. The quotes let git (not the shell)'
 echo 'match the pattern, so it also stages deleted pages. The'
