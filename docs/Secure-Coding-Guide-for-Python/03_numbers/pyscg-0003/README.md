@@ -24,7 +24,7 @@ The `example01.py` code demonstrates bit-wise operators available in Python.
 foo = 50
 bar = 42
 print(f"foo = {foo} = {foo:08b}") # :08b is just for pretty print
-print(f"foo = {bar} = {bar:08b}\n")
+print(f"bar = {bar} = {bar:08b}\n")
 
 # bit wise operations in Python:
 print(f"foo << 2 = {(foo << 2):08b}")   # binary shift left
@@ -39,7 +39,7 @@ Output from above example01.py:
 
 ```bash
 foo = 50 = 00110010
-foo = 42 = 00101010
+bar = 42 = 00101010
 
 foo << 2 = 11001000
 foo >> 2 = 00001100
@@ -57,8 +57,9 @@ The `example02.py` code demonstrates how Python 2 changes an `int` to `long` to 
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
 """example code"""
+foo = 5225
 for shift in [16, 32, 64]:
-    bar = 5225 << shift
+    bar = foo << shift
     print("foo << " + str(shift) + ": type " + str(type(bar)) + " " + str(bin(bar)))
 ```
 
