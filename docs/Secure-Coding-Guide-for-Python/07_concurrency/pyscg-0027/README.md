@@ -161,7 +161,7 @@ _[compliant01.py](compliant01.py):_
 ```python
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-""" Non-compliant Code Example """
+""" Compliant Code Example """
 import logging
 import sys
 import threading
