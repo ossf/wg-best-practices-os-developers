@@ -5,9 +5,10 @@
 # before committing it.
 #
 # If Finding.zip (Google Docs' "Web Page (.html, zipped)" download,
-# saved here) exists, this also replaces images/ with the zip's
-# images/ and points Finding.md's images at those files, sized as in
-# the Google document. Google's markdown export embeds lossy copies of
+# saved here) exists, this also replaces images-originals/ with the
+# zip's images, and images/ with the copies we serve (compressed by
+# compress-images.py, which needs Pillow), and points Finding.md's
+# images at those served copies, sized as in the Google document. Google's markdown export embeds lossy copies of
 # the images as base64 "[imageN]: data:..." lines; those get dropped,
 # except for images that aren't in the zip (because they have no alt
 # text, or Google's HTML export left them out): for those, the
@@ -27,6 +28,11 @@ mkdir "$work"
 
 awk_opts=()
 if [ -f "$zip" ]; then
+  if ! python3 -c 'import PIL' 2>/dev/null; then
+    echo 'cleanup-markdown: compress-images.py needs Pillow; on Debian or' >&2
+    echo 'Ubuntu, install it with "sudo apt install python3-pil"' >&2
+    exit 1
+  fi
   # Extract into a scratch directory first, so a bad zip doesn't
   # leave images/ half replaced. Replacing (not merging) images/ keeps
   # old images from lingering when Google renumbers them.
@@ -55,7 +61,7 @@ if [ -f "$zip" ]; then
 
   # Images that aren't in the zip (clean-finding.awk warned about each
   # one): decode the copies embedded in Finding.md, and keep the
-  # existing images/ files that earlier runs made that way.
+  # originals of existing images that earlier runs made that way.
   for f in "$work"/embedded/*.b64; do
     [ -e "$f" ] || continue
     b="${f##*/}"
@@ -63,19 +69,52 @@ if [ -f "$zip" ]; then
   done
   if [ -f "$work/keeps" ]; then
     while read -r f; do
-      if [ -f "$f" ]; then cp "$f" "$work/renamed/${f#images/}"; fi
+      # f is a served copy, images/NAME.EXT; its original is
+      # images-originals/NAME.* (or f itself, if it predates
+      # images-originals/).
+      name="${f#images/}"
+      found=
+      for o in images-originals/"${name%.*}".*; do
+        if [ -f "$o" ]; then cp "$o" "$work/renamed/"; found=1; fi
+      done
+      if [ -z "$found" ] && [ -f "$f" ]; then cp "$f" "$work/renamed/$name"; fi
     done < "$work/keeps"
   fi
 
+  # Make the served copies, and point Finding.md at them. Each
+  # "(images/ORIGINAL)" becomes "(images/SERVED)"; a reference to a
+  # kept image already names its served copy, so it stays as is.
+  mkdir "$work/served"
+  python3 -I compress-images.py "$work/renamed" "$work/served" > "$work/served-names"
+  awk -v names="$work/served-names" '
+    BEGIN {
+      while ((getline line < names) > 0) {
+        split(line, f, "\t")
+        served["images/" f[1]] = "images/" f[2]
+      }
+    }
+    {
+      out = ""
+      while (match($0, /\(images\/[^)]*\)/)) {
+        path = substr($0, RSTART + 1, RLENGTH - 2)
+        if (path in served) path = served[path]
+        out = out substr($0, 1, RSTART) path ")"
+        $0 = substr($0, RSTART + RLENGTH)
+      }
+      print out $0
+    }' Finding.md.new > "$work/Finding.md.served"
+  mv "$work/Finding.md.served" Finding.md.new
+
   # Every image Finding.md now uses must exist in the new images/.
   grep -o '(images/[^)]*)' Finding.md.new | tr -d '()' | while read -r f; do
-    if [ ! -f "$work/renamed/${f#images/}" ]; then
+    if [ ! -f "$work/served/${f#images/}" ]; then
       echo "cleanup-markdown: $f is in Finding.md but not in $zip" >&2
       exit 1
     fi
   done
-  rm -rf images
-  mv "$work/renamed" images
+  rm -rf images images-originals
+  mv "$work/renamed" images-originals
+  mv "$work/served" images
 fi
 
 mv Finding.md.new Finding.md
