@@ -12,7 +12,7 @@ class TruncateableString:
             If ncharacters is not provided, or if it is equal or higher than
             the length of the text, the text won't be truncated.
             Raises ValueError if ncharacters is not a positive value."""
-        if not ncharacters:
+        if ncharacters is None:
             return self
         if ncharacters <= 0:
             raise ValueError("The minimal number of characters must be greater than 0. "
