@@ -1,9 +1,13 @@
 # Metadata for gen-html's Finding.epub only (on top of metadata.yaml).
 # pandoc already lists the EPUB's other accessibility features (such
 # as alternativeText); this adds "visual", since the book has images,
-# and a summary for readers who check before getting the book.
+# and a summary for readers who check before getting the book. A fixed
+# identifier (pandoc would otherwise make up a random one on every
+# build) lets e-readers recognize updates as the same book, and keeps
+# the EPUB the same when its content is.
 #
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
+identifier: "https://best.openssf.org/Finding-and-Fixing-Vulnerabilities-Using-AI/"
 accessModes: [textual, visual]
 accessibilitySummary: "Every image has a text description (alt text), and the headings and table of contents support navigation."

@@ -205,7 +205,14 @@ B) It can only run on local, organizational hardware\
 C) It has no trainable parameters\
 D) It is among the best currently-available models
 
-Answer: D\
+Answer: D
+
+Feedback:
+
+A) Incorrect. Frontier models are machine learning models built on neural networks (LLMs are deep learning models), not symbolic logic.\
+B) Incorrect. Where a model runs doesn’t make it a frontier model; many frontier models are only available as external services.\
+C) Incorrect. Models are trained, and they’re sized by their number of parameters; larger models tend to be better.\
+D) Correct. A frontier model is one that’s among the best currently available. The term is about how capable the model is now, not how it works or where it runs.\
 ENDQUIZ\
 QUIZ\
 Q1. What is the key difference between an “AI agent” and an “AI chatbot”?
