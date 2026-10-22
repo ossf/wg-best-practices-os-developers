@@ -18,9 +18,15 @@ already-clean `Finding.md`) is a no-op.
 A few conventions in the Google document matter because of this:
 
 * To make a block quote, start the paragraph with ">".
-* Don't use Shift+Enter for a line break inside a paragraph; `cleanup-markdown`
-  removes trailing whitespace, which is how the export represents those
-  breaks. Use Enter for a new paragraph instead.
+* Don't use Shift+Enter for a line break inside a paragraph; use
+  Enter for a new paragraph instead. Google's Markdown export writes
+  both the same way (a line ending in two spaces, followed by the next
+  line), so `Finding.md` can't tell them apart.
+* The doc separates paragraphs with an empty paragraph, which the
+  export writes as a blank line. Where one paragraph follows another
+  directly, `cleanup-markdown` ends the first line with `\` (a hard
+  line break), so the published pages keep them on separate lines;
+  elsewhere, it drops the export's trailing whitespace.
 * In-document links are rewritten to use GitHub's heading IDs, which
   markdownlint checks. `gen-html` has pandoc compute IDs the same way
   (its `gfm_auto_identifiers` extension), so they work in the HTML too.
@@ -184,12 +190,16 @@ Answer: B
 ENDQUIZ
 ```
 
-`cleanup-markdown` turns this into a native, click-to-expand HTML
-widget (no JavaScript) via `clean-finding.awk`. For now, `gen-html`
-leaves quizzes out of the HTML, PDF, and EPUB, by running
-`drop-quizzes.awk` separately for each. To show quizzes in one of
-them, stop running `drop-quizzes.awk` for that one; nothing else
-needs to change, since the widget is already closed by default.
+Quizzes stay in this plain-text form in `Finding.md`, matching the
+Google Doc (each line is its own paragraph there). `cleanup-markdown`
+ends each line that runs directly into the next with `\` (e.g.,
+`QUIZ\` and `A) ...\`), so GitHub shows the lines separately; you
+needn't type those yourself. `gen-html` leaves
+them out of the HTML, PDF, and EPUB, by running `drop-quizzes.awk`
+separately for each. To show quizzes in one of them, replace
+`drop-quizzes.awk` for that one with a transform that formats them,
+e.g., as click-to-expand `<details>` widgets (`clean-finding.awk`
+made those before October 2026; see its git history).
 
 `drop-quizzes.awk` makes `gen-html` fail, naming the quiz, if a quiz
 runs into a heading, another quiz, or the end of the document. That

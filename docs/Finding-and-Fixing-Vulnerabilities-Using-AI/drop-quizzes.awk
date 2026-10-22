@@ -1,11 +1,12 @@
 #!/usr/bin/awk -f
 # Transient transform for pandoc's benefit only: never written back to
 # Finding.md. gen-html runs it separately for each output (HTML, PDF,
-# and EPUB), so any one of them can show quizzes later just by not
-# running it. Drops each quiz block (as clean-finding.awk writes
-# them): from a line starting <details class="quiz"> through the next
-# line that's exactly </details>. The nested answer's own </details>
-# is mid-line, so it doesn't end the block early.
+# and EPUB), so any one of them can show quizzes later by replacing
+# it with something that formats them. Drops each quiz block, from a
+# line that's just QUIZ through the next line that's just ENDQUIZ
+# (either may end in a "\" hard line break), and puts a blank line in
+# its place, so the text on either side can't run together into one
+# paragraph.
 #
 # It also checks that QUIZ and ENDQUIZ pair up in the Google Doc. A
 # quiz with no ENDQUIZ would silently drop everything after it, so
@@ -33,14 +34,14 @@ function no_start() {
     exit 1
 }
 
-skip && /^<details class="quiz">/ { unterminated("the next quiz (or it has an extra QUIZ)") }
-/^<details class="quiz">/ { skip = 1; question = ""; next }
+skip && /^ *QUIZ\\?$/ { unterminated("the next quiz (or it has an extra QUIZ)") }
+/^ *QUIZ\\?$/ { skip = 1; question = ""; next }
 skip && /^#/ { unterminated("heading \"" $0 "\"") }
-skip && question == "" && /[^ \t]/ { question = substr($0, 1, 60) }
+skip && question == "" && /[^ \t]/ { question = substr($0, 1, 60); sub(/\\$/, "", question) }
 !skip && /^#/ { heading = $0; qline = "" }
-!skip && /^Q[0-9]+\. / { qline = substr($0, 1, 60) }
-!skip && /^<\/details>$/ { no_start() }
+!skip && /^Q[0-9]+\. / { qline = substr($0, 1, 60); sub(/\\$/, "", qline) }
+!skip && /^ *ENDQUIZ\\?$/ { no_start() }
 !skip { print }
-skip && /^<\/details>$/ { skip = 0 }
+skip && /^ *ENDQUIZ\\?$/ { skip = 0; print "" }
 
 END { if (skip && !failed) unterminated("the end of the document") }
