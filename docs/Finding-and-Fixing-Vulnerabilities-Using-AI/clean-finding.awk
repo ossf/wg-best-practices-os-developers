@@ -238,6 +238,14 @@ function fix_images(s,    out, m, alt, key, ref) {
     return out s
 }
 
+# Print the held line (see "Hard line breaks" below) with suffix
+# appended, if there is one.
+function flush_held(suffix) {
+    if (held == "") return
+    print held suffix
+    held = ""
+}
+
 BEGIN {
     looking_for_toc = 1
     # Image file names: this many words of the alt text, minus filler.
@@ -273,33 +281,19 @@ in_toc {
 # Drop pandoc/kramdown heading-id attributes like "{#some-id}".
 { gsub(/[ \t]*\{#[^}]*\}/, "") }
 
-# MD009: drop trailing whitespace. Google Docs' export leaves it on
-# many lines, nearly always where a hard line break is pointless: ends
-# of list items (including the quiz's "A)" choices, where pandoc
-# turned it into stray <br />s), before blank lines, and on QUIZ/ENDQUIZ
-# markers. If you need a line break inside a paragraph (a Shift+Enter
-# in the Google Doc), use a new paragraph (Enter) instead.
-{ sub(/[ \t]+$/, "") }
+# MD009: drop trailing whitespace, but note whether there was any.
+# Google Docs' export ends a line with two spaces when the next
+# paragraph follows directly, with no empty paragraph between them
+# (and for a Shift+Enter, which this doc doesn't use). That's nearly
+# always where a hard line break is pointless: ends of list items and
+# before blank lines. Where it isn't, the output section below turns
+# it into a visible "\" instead.
+{ trail = sub(/[ \t]+$/, "") }
 
 # Block quotes: Google's export escapes a paragraph's leading ">" as
 # "\>", so it shows as a literal ">". A paragraph you start with ">" in
 # the Google Doc is meant as a block quote, so unescape it.
 { sub(/^\\>/, ">") }
-
-# Turn the fixed "QUIZ" ... "Answer: ..." ... "ENDQUIZ" quiz
-# template into native, click-to-expand disclosure widgets: no JS, and
-# closed by default on their own. Hidden entirely for now via the
-# "quiz" CSS class in TEMPLATE.htm; delete that one rule later to
-# reveal them.
-/^[ \t]*QUIZ[ \t]*$/ { $0 = "<details class=\"quiz\"><summary>Quiz</summary>" }
-/^\**Answer:\** / { $0 = "<details><summary>Show answer</summary>" $0 "</details>" }
-/^[ \t]*ENDQUIZ[ \t]*$/ { $0 = "</details>" }
-
-# Put a blank line before each quiz. Without one, pandoc treats the
-# paragraph before the quiz as part of the HTML block, so it loses its
-# <p> (and paragraph styling). "blanks" counts the blank lines seen
-# since the last line printed (see MD047 below).
-/^<details class="quiz">/ && !blanks { blanks = 1 }
 
 # Images: when cleanup-markdown found Finding.zip (imgtags is set),
 # point each image at its file under images/ and drop Google's
@@ -332,11 +326,24 @@ match($0, /^[ \t]*(-|\*|\+|[0-9]+[.)])[ \t][ \t]+/) {
 # MD051: in-document links must use GitHub's heading IDs.
 { $0 = fix_fragments($0) }
 
+# Hard line breaks: a line that had trailing whitespace and is
+# followed directly by more text of the same Markdown paragraph gets a
+# "\" (a visible hard line break), so the published pages (and GitHub's
+# view of Finding.md, e.g., of a quiz's lines) keep the two Google Doc
+# paragraphs on separate lines instead of joining them. So the output
+# holds back each line that might need one ("held") until the next
+# line shows whether it does. Never on headings and table rows, nor
+# before a line that starts a new block, where it would do nothing.
+/^$/ { flush_held(""); blanks++; next }
+held != "" {
+    flush_held(/^ *(([*+-]|[0-9]+[.)]) |#|\||>|```|~~~)/ ? "" : "\\")
+}
+
 # MD047: buffer blank lines and only emit them once we know more
 # content follows, so trailing blank lines at EOF are dropped.
-/^$/ { blanks++; next }
 {
     while (blanks > 0) { print ""; blanks-- }
+    if (trail && !/^ *(#|\|)/) { held = $0; next }
     print
     # Each chapter here is intentionally its own H1 (`gen-html` chunks
     # pages on both H1 and H2), so tell markdownlint not to flag that
@@ -347,4 +354,4 @@ match($0, /^[ \t]*(-|\*|\+|[0-9]+[.)])[ \t][ \t]+/) {
     }
 }
 
-END { if (failed) exit 1 }
+END { flush_held(""); if (failed) exit 1 }
