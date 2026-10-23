@@ -192,9 +192,32 @@ The guide follows a `MAJOR.MINOR.PATCH` scheme such as `pyscg-v1.0.0`.
 * __MINOR__: content changes that preserve structure (new rules, title renames, updated code examples).
 * __PATCH__: bugs, typo fixes, bibliography corrections, minor wording improvements.
 
+#### Release channels
+
+Releases are cut as annotated git tags on `main` and published as GitHub Releases.
+Pre-release stages use CPython-style qualifiers appended to the version:
+
+* `pyscg-v1.1.0a1` — alpha (serial `a1`, `a2`, ...), unstable, everything can change
+* `pyscg-v1.1.0b1` — beta (feature freeze), stablize pyscg-id's, titles and parent section relations
+* `pyscg-v1.1.0rc1` — release, only cosmetics, typo and code fixing remain
+* `pyscg-v1.1.0` — final release
+
+Pre-release tags are published as GitHub "Pre-release" (not marked "Latest").
+Only a final tag is marked "Latest".
+
+#### Rule ID Stability Contract
+
+The `pyscg-XXXX` rule IDs are intended as stable references within a **released** version. Re-use of pyscg-XXXX id's is therefore not permitted and withdrawn instead.
+Any `alpha` or `beta` can have `pyscg-XXXX` ids, titles and chapter relations changed.
+
+A withdrawn rule keeps its id forever (never reused), has its `README.md` title prefixed `WITHDRAWN:`, names a replacement id if one exists, and is listed in the `whatsnew/` entry.
+
+See [RELEASING.md](RELEASING.md) for the release procedure and
+[whatsnew/](whatsnew/index.md) for per-release change notes.
+
 ### Submitting Your Contribution
 
-1. __Create a new branch:__ Use descriptive names for branches, e.g., `pyscg-issue-123` or  `pyscg-add-logging-feature` using `git checkout -b branch-name`
+1. __Create a new branch:__ Use descriptive names for branches, e.g., `issue-123` or  `add-logging-feature` using `git checkout -b branch-name`
 
 2. __Make your changes:__ Commit your changes with clear and concise commit messages.
 
