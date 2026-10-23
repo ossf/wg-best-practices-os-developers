@@ -377,6 +377,12 @@ It is __not production code__ and requires code-style or python best practices t
 </tr>
 
 <tr>
+<td><a href="08_coding_standards/pyscg-0056/README.md">pyscg-0056: Verify Downloaded Code Before Running It</a></td>
+<td></td>
+<td><a href="https://cwe.mitre.org/data/definitions/494.html">CWE-494</a></td>
+</tr>
+
+<tr>
 <th>09 Cryptography</th>
 <th>Prominent CVE</th>
 <th>MITRE</th>
