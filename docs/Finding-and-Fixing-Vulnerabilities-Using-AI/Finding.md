@@ -210,7 +210,7 @@ Answer: D
 Feedback:
 
 A) Incorrect. Frontier models are machine learning models built on neural networks (LLMs are deep learning models), not symbolic logic.\
-B) Incorrect. Where a model runs doesn’t make it a frontier model; many frontier models are only available as external services.\
+B) Incorrect. Where a model runs doesn’t make it a frontier model; some powerful models are only available as external services.\
 C) Incorrect. Models are trained, and they’re sized by their number of parameters; larger models tend to be better.\
 D) Correct. A frontier model is one that’s among the best currently available. The term is about how capable the model is now, not how it works or where it runs.\
 ENDQUIZ\
@@ -218,11 +218,18 @@ QUIZ\
 Q1. What is the key difference between an “AI agent” and an “AI chatbot”?
 
 A) An agent uses deep learning, while a chatbot uses only hand-written rules\
-B) An AI agent can execute multi-step actions using external tools to affect its external environment; a chatbot can't affect an external environment\
-C) An AI agent needs no training data, while a chatbot needs large datasets\
-D) A chatbot can perceive its environment, while an AI agent can't
+B) An AI agent can execute multi-step actions using external tools to affect its external environment; a chatbot typically can’t affect an external environment\
+C) An AI agent is built without any training data, while a chatbot is trained on large datasets\
+D) A chatbot can change its environment, while an AI agent can’t
 
-Answer: B\
+Answer: B
+
+Feedback:
+
+A) Incorrect. The material distinguishes agents from chatbots by what they can do, not by how they’re built. Both typically build on deep learning models such as LLMs.\
+B) Correct. An AI agent can plan and execute multi-step actions, using external tools, that affect its environment. A chatbot interacts with a human but typically can’t perform actions that affect the external environment.\
+C) Incorrect. The difference isn’t training data. Both are typically built on trained models, and any ML-based approach depends on the data used to train it.\
+D) Incorrect. It’s the reverse. An AI agent can perceive its environment, plan, and act on it to change its environment; a chatbot typically can’t perform actions that affect the external environment.\
 ENDQUIZ
 
 ## Strengths and weaknesses
@@ -238,25 +245,39 @@ However, they also have key weaknesses that impact finding and fixing software v
 * *Injection vulnerability*. LLMs have no built-in fundamental way to distinguish between different types of input. User commands, malicious commands embedded in a web page, and misleading source code comments are all inputs. This is especially important when an AI agent analyzes a software repository or external documentation. Source comments, documentation, issue text, generated files, dependency metadata, and other repository content may be attacker-controlled or simply incorrect. Treat such content as data to analyze, not as authority to redefine the agent’s task, grant additional permissions, expose credentials, or enable additional tools or network access. Instructions obtained from untrusted content should not be allowed to silently cross an authorization boundary \[[OWASP-LLM01](https://genai.owasp.org/llmrisk/llm01-prompt-injection/)\].
 
 QUIZ\
-Q1. Why does the material describe an LLM as "unsound"?
+Q1. Why does the material describe an LLM’s analysis as “unsound”?
 
 A) It always produces code that fails to compile\
 B) It requires more memory than any traditional static analysis tool, causing crashes if there’s insufficient memory\
-C) It can't guarantee a program is free of some vulnerability just because it found none\
+C) It can’t guarantee a program is free of some vulnerability just because it found none\
 D) It can only process one source file per session
 
-Answer: C\
+Answer: C
+
+Feedback:
+
+A) Incorrect. “Unsound” describes what an analysis can guarantee, not the quality of generated code.\
+B) Incorrect. “Unsound” isn’t about resource use. It means the analysis can’t guarantee that it finds all vulnerabilities.\
+C) Correct. An unsound analysis can’t guarantee that it finds all vulnerabilities, so finding none doesn’t prove there are none. That is, an unsound tool is subject to producing false negatives. Unsound tools can still be extremely useful, since they can find many problems.\
+D) Incorrect. “Unsound” isn’t about how many files an LLM processes. The amount of input an LLM can handle is limited by its context window, which is a separate weakness.\
 ENDQUIZ
 
 QUIZ\
-Q1. Why does an LLM's limited context window matter when analyzing a large codebase?
+Q1. Why does an LLM’s limited context window matter when analyzing a large codebase?
 
 A) It restricts how much input the LLM can effectively focus on, with attention favoring the beginning and end of that input\
 B) It prevents the LLM from ever being trained on security-related data\
 C) It means the LLM can analyze only one programming language per session, since it must load each language’s definitions into its context window\
 D) It forces the LLM to run exclusively on local infrastructure
 
-Answer: A\
+Answer: A
+
+Feedback:
+
+A) Correct. An LLM can only take a finite amount of input, and LLMs tend to focus on information at the beginning and end of their context window.\
+B) Incorrect. The context window limits how much input an LLM can work with at one time. Training is a separate matter; LLMs are typically trained on vast amounts of data.\
+C) Incorrect. The context window limits the total amount of input and output, not the number of programming languages. An LLM learns about languages during training, so it doesn’t need to load language definitions into its context window.\
+D) Incorrect. A context window is a property of the model, so its limits apply wherever the model runs, locally or as an external service.\
 ENDQUIZ
 
 ## Models
@@ -318,14 +339,21 @@ Some AI providers prevent direct access to the model for such use cases and inst
 Before using any specific AI system, ensure that its limitations will not impede your task. You may need to request less-restricted or specially tailored access. Obtaining these permissions takes time and in some cases may not be granted. If you might do this in the future, it’s important to take time now to gain those permissions *before* you need them.
 
 QUIZ\
-Q1. Per the material, why might an organization choose a local/organizational AI service over an external one?
+Q1. Per the material, what’s one reason an organization might choose a local/organizational AI service over an external one?
 
 A) Local models always outperform external services on every task\
 B) Local models never need to be placed in a sandbox\
 C) External services require an open source AI license\
 D) It avoids sending private data to an external provider
 
-Answer: D\
+Answer: D
+
+Feedback:
+
+A) Incorrect. The material says local models are often *less* capable. Some of the most powerful models are only available as external services.\
+B) Incorrect. Where a model runs doesn’t change what an AI agent might do. AI agents need a sandbox whether their model runs locally or externally.\
+C) Incorrect. The material doesn’t connect external services to open source AI licenses. A model’s license determines what you can do with it, including whether you can run it locally at all.\
+D) Correct. Local models don’t require you to send private data to an external service, and they can be less expensive. Using an external service means trusting both the provider and the wider ecosystem around it.\
 ENDQUIZ
 
 QUIZ\
@@ -336,7 +364,14 @@ B) Open-weight models never need a sandbox, since they run on the defender’s o
 C) Providers’ safety guardrails may block requests that contain real attack commands and payloads\
 D) Open-weight models are always more capable than closed frontier models at analyzing security logs
 
-Answer: C\
+Answer: C
+
+Feedback:
+
+A) Incorrect. Guardrails aim to block activities seen as dangerous, such as creating attacks, not every mention of security. The material also notes that some providers offer less-restricted access for defensive work.\
+B) Incorrect. Running on your own systems doesn’t remove the need for a sandbox. An AI agent can still do things you don’t want, such as attacking your own infrastructure.\
+C) Correct. Guardrails can’t distinguish an incident responder from an attacker. Hugging Face found that providers’ guardrails blocked its analysis of real attack commands and payloads, so it used an open-weight model on its own infrastructure. That also kept attacker data and credentials inside its environment.\
+D) Incorrect. The material doesn’t say open-weight models are more capable. It cites a report that the most advanced open-weight models are less than a year *behind* the most advanced closed-weight models. Hugging Face chose an open-weight model because guardrails blocked its work, and to keep its data in-house.\
 ENDQUIZ
 
 ## Cyber Reasoning System (CRS) history
@@ -352,14 +387,21 @@ In 2023, the US DARPA and ARPA-H launched the two-year competition Artificial In
 Of course, fully-autonomous AI systems are *not* the only way to find vulnerabilities. It’s also possible for humans to provide more direction to AI, or for humans and AI to collaborate throughout the process. Even “fully autonomous” CRS systems, in practice, presume initial human direction and human review of the results.
 
 QUIZ\
-Q1. What defines a "Cyber Reasoning System" (CRS), per the material?
+Q1. What defines a “Cyber Reasoning System” (CRS), per the material?
 
 A) A system that can both detect and repair software vulnerabilities autonomously in a system under test\
 B) A system that analyzes vulnerabilities already patched by humans to determine if the vulnerabilities have been correctly fixed\
 C) A system that analyzes a sequence of logical statements to determine if the stated assertions correctly lead to the claimed conclusions\
 D) A system limited to analyzing closed-source binaries only
 
-Answer: A\
+Answer: A
+
+Feedback:
+
+A) Correct. A CRS is “a software system that can both detect and repair software vulnerabilities autonomously in a given system under test (SUT)”.\
+B) Incorrect. A CRS doesn’t just check fixes that humans made; it detects vulnerabilities and repairs them itself.\
+C) Incorrect. That describes checking a logical argument. A CRS works on software, detecting and repairing vulnerabilities in a system under test.\
+D) Incorrect. The definition doesn’t limit CRSs to closed-source binaries. AIxCC, for example, built CRSs for critical open source infrastructure.\
 ENDQUIZ\
 QUIZ\
 Q1. What milestone does the material cite regarding AIxCC?
@@ -369,7 +411,14 @@ B) AIxCC was canceled in 2025 due to lack of results\
 C) AIxCC awarded its grand prize in 2025 after successfully demonstrating autonomous vulnerability-finding-and-fixing systems\
 D) AIxCC led to a worldwide ban on the use of open-weight models for vulnerability detection due to concerns some attackers might use AI
 
-Answer: C\
+Answer: C
+
+Feedback:
+
+A) Incorrect. The material says even “fully autonomous” CRSs, in practice, presume initial human direction and human review of the results.\
+B) Incorrect. AIxCC wasn’t canceled. Despite early skepticism, it awarded its grand prize in August 2025.\
+C) Correct. When AIxCC awarded its grand prize in August 2025, the finalists had shown that CRSs could find and fix real vulnerabilities in real software, despite early skepticism.\
+D) Incorrect. The material mentions no such ban. It says you can find and fix vulnerabilities with both closed and open models.\
 ENDQUIZ
 
 ## AI organizations, projects, and services
@@ -392,7 +441,14 @@ B) A small program that feeds generated inputs to the code being tested, looking
 C) A training dataset of past agent actions, used to teach a model how to use tools and plan work\
 D) A sandbox that cuts an AI agent off from the network, so it cannot attack any external systems
 
-Answer: A\
+Answer: A
+
+Feedback:
+
+A) Correct. An agent harness is the program that runs an AI model as an agent, giving it tools and instructions, and running it in a control loop (to perceive, reason, act, and observe). Examples include Claude Code, Goose, and Pi.\
+B) Incorrect. That’s a fuzzing harness, which the material specifically says not to confuse with an agent harness.\
+C) Incorrect. An agent harness is a running program, not data. It gives a model tools and instructions and runs it in a control loop.\
+D) Incorrect. A sandbox and an agent harness are different things. A sandbox isolates an agent from other systems. Some harnesses include a sandbox, but they’re conceptually distinct.\
 ENDQUIZ
 
 QUIZ\
@@ -403,7 +459,109 @@ B) The OWASP GenAI Security Project\
 C) The DARPA AI Cyber Challenge program\
 D) The Model Openness Framework Foundation
 
-Answer: A\
+Answer: A
+
+Feedback:
+
+A) Correct. The OpenSSF AI/ML Security Working Group co-sponsors this material, and its projects include work on signing AI models.\
+B) Incorrect. The OWASP GenAI Security Project publishes materials on AI and security, such as its LLM Top 10, but the material doesn’t identify it as a co-sponsor.\
+C) Incorrect. DARPA and ARPA-H ran AIxCC, a competition to build CRSs. The material describes AIxCC’s history but doesn’t name it as a sponsor.\
+D) Incorrect. The Model Openness Framework is a framework, not a foundation. It was developed by the Generative AI Commons at the LF AI & Data Foundation.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. When you have an AI agent analyze an external repository, how does the material say you should treat its source comments, issue text, and documentation?
+
+A) As untrusted input that may mislead the agent, so limit what the agent can do\
+B) As trusted instructions, since the project’s own developers wrote them\
+C) As authoritative only when they appear in the project’s main branch\
+D) As safe to follow, once the agent has checked their spelling and grammar
+
+Answer: A
+
+Feedback:
+
+A) Correct. Repository content may be attacker-controlled or simply incorrect. A harness may label that content as data, but the LLM itself doesn’t reliably enforce that distinction, so an agent may follow instructions embedded in it. Treat that content as data to analyze, never as authority to redefine the agent’s task, grant permissions, expose credentials, or enable more tools or network access. Telling the agent to ignore such instructions isn’t enough; enforce those limits outside the AI, e.g., with a sandbox, locked-down network access, and only the credentials the agent’s role needs. This also applies to content in your own project that others can write, such as issue text and pull requests.\
+B) Incorrect. The material warns that comments, documentation, issue text, and other repository content may be attacker-controlled or simply incorrect, whoever appears to have written them.\
+C) Incorrect. Being on the main branch doesn’t always make content trustworthy. Instructions obtained from untrusted content shouldn’t be allowed to silently cross an authorization boundary.\
+D) Incorrect. Well-written text can still contain malicious instructions. The problem is that an LLM has no built-in way to reliably isolate instructions from data, so limit what the agent can do rather than relying on it to filter instructions.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. What’s the key difference between “open weights” models and “open source AI”, per the material?
+
+A) Open source AI must also run only on its users’ own local or organizational hardware\
+B) Open source AI must also describe its training data well enough to rebuild an equivalent system\
+C) Open weights models may only be used for research, while open source AI allows any purpose\
+D) Open source AI must also have fewer parameters, so that anyone can run it on a laptop
+
+Answer: B
+
+Feedback:
+
+A) Incorrect. Neither definition restricts where a model runs. More open licenses make models *easier* to run locally, but that’s a consequence of the license, not a requirement.\
+B) Correct. Open weights models can be used and modified for any purpose, but their training set isn’t necessarily public. Open source AI adds requirements, such as “sufficiently detailed information about the data used to train the system so that a skilled person can build a substantially equivalent system.”\
+C) Incorrect. Open weights models can be used and modified for any purpose, and must not discriminate against any user, industry, or purpose.\
+D) Incorrect. The definitions are about openness, not size. Models are sized by their number of parameters, and neither definition limits it.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. What tradeoff does the material describe for models designed to perform specific tasks, such as Cisco’s Antares small language models?
+
+A) They can perform any task, but they’re slower than general-purpose models\
+B) They’re good at every task, but they can only run as external services\
+C) They need far more training data, but they never produce incorrect results\
+D) They tend to be smaller and faster, but they’re good mainly at those tasks
+
+Answer: D
+
+Feedback:
+
+A) Incorrect. Task-specific models trade breadth for speed: they tend to be faster, but they’re good only at the tasks they were designed for.\
+B) Incorrect. Task-specific models aren’t good at everything, and many are small enough to run locally. Cisco reports that its Antares models are “compact enough to run locally”.\
+C) Incorrect. The material doesn’t say any model never produces incorrect results; LLMs and similar models are statistical, so they sometimes give false answers.\
+D) Correct. Models designed to perform only specific tasks tend to be smaller and faster, in exchange for being good mainly at those tasks. For example, Cisco’s Antares SLMs identify known vulnerabilities in code and are compact enough to run locally.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. If you might later need less-restricted access to an AI model for defensive security work, what does the material recommend?
+
+A) Request that access now, since obtaining it takes time and may not be granted\
+B) Wait until an incident happens, since providers grant such access on demand\
+C) Avoid such access entirely, since unrestricted models are always more dangerous\
+D) Disable the guardrails yourself, since providers’ terms usually allow doing so
+
+Answer: A
+
+Feedback:
+
+A) Correct. Before using an AI system, make sure its limitations won’t impede your task. Obtaining less-restricted or specially tailored access takes time and may not be granted, so take time to gain those permissions *before* you need them.\
+B) Incorrect. The material warns that obtaining these permissions takes time and in some cases may not be granted. The middle of an incident is a bad time to start asking.\
+C) Incorrect. The material says guardrails can impede defense, as Hugging Face found when guardrails blocked its analysis of a real attack. Some providers offer less-restricted access specifically so it can be used for defensive work.\
+D) Incorrect. The material describes gaining such access from providers, typically with special agreements on permitted uses and on who gets access. It doesn’t suggest bypassing guardrails yourself.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. Why does the material say it’s harder for an LLM to generate code without vulnerabilities?
+
+A) LLMs can only generate code in memory-unsafe languages such as C and C++\
+B) LLMs were trained on data that includes many programs with vulnerabilities\
+C) LLMs refuse to generate security-related code because of their safety guardrails\
+D) LLMs generate code one file at a time, so they can’t see any security checks
+
+Answer: B
+
+Feedback:
+
+A) Incorrect. LLMs generate code in many languages. Memory-unsafe languages do make vulnerabilities more likely for both humans and AI, but since other languages are possible, that’s not the reason.\
+B) Correct. Any ML-based approach depends on the data used to train it, and many programs have vulnerabilities. That makes it harder for an LLM to generate code without vulnerabilities, a point the material returns to when discussing AI-generated fixes and vibe coding.\
+C) Incorrect. Guardrails target activities seen as dangerous, such as creating attacks, not writing ordinary code. The problem is what the model learned from.\
+D) Incorrect. The issue isn’t how an LLM generates code. It’s that LLMs learn from training data that includes many programs with vulnerabilities.\
 ENDQUIZ
 
 # Decide on approaches
@@ -434,11 +592,18 @@ QUIZ\
 Q1. What’s a risk if a project bans all AI-assisted vulnerability reports?
 
 A) It has little effect, since attackers rarely rely on AI themselves\
-B) It reduces the software's overall quality and safety by rejecting valid reports\
-C) It automatically violates the terms of the project's open source license\
+B) It reduces the software’s overall security by rejecting valid reports\
+C) It automatically violates the terms of the project’s license\
 D) It disqualifies the project from ever receiving CVE identifiers
 
-Answer: B\
+Answer: B
+
+Feedback:
+
+A) Incorrect. The material says attackers are *already* using AI to create multi-step attacks, and that defenders who ignore AI can’t match their speed.\
+B) Correct. Banning good vulnerability reports solely because AI helped create them tends to reduce the quality and security of the software, punishing its users, because this approach causes projects to ignore valid reports. Attackers prefer developers who ignore vulnerability reports.\
+C) Incorrect. The material doesn’t connect report policies to licenses. Its concern is that rejecting valid reports leaves real vulnerabilities unfixed.\
+D) Incorrect. The material doesn’t connect report policies to CVE identifiers. The harm it describes falls on the software’s users, since valid reports get rejected.\
 ENDQUIZ
 
 ## Do not wait for access to the best AI models
@@ -463,22 +628,36 @@ Do use good AI models and systems when available to you. Strong models and syste
 QUIZ\
 Q1. What does the material recommend about waiting for access to the most advanced, restricted-access AI models?
 
-A) Wait for frontier-model access, since lesser models can't find real bugs\
+A) Wait for frontier-model access, since lesser models can’t find real bugs\
 B) Only proceed once you obtain special government-approved model access\
-C) Get started now using reasonably-good, widely-available models rather than waiting\
-D) Focus first on building your own custom model from scratch, to maximize success
+C) Get started now using reasonably good, widely available models rather than waiting\
+D) First build your own custom model from scratch, to maximize success
 
-Answer: C\
+Answer: C
+
+Feedback:
+
+A) Incorrect. The material says the opposite: projects typically find many vulnerabilities using reasonably good, widely available AI systems. Frontier models “are the acceleration, not the starting gun”.\
+B) Incorrect. Special access takes time and may not be granted. The material says not to wait for it; attackers aren’t waiting.\
+C) Correct. Get started now, act quickly, and learn by doing. Use advanced models when you can, but don’t wait for them; attackers aren’t waiting.\
+D) Incorrect. The material recommends getting started now with existing models. Building your own from scratch would delay you.\
 ENDQUIZ\
 QUIZ\
 Q1. What does the material say about non-frontier, open-weight models?
 
-A) They can't find real vulnerabilities without extensive human guidance\
-B) They're prohibited from being used in vulnerability research entirely\
+A) They can’t find real vulnerabilities without extensive human guidance\
+B) They’re prohibited from being used in vulnerability research entirely\
 C) They require far more compute than frontier models to run\
 D) They can often find vulnerabilities at an accessible, affordable cost
 
-Answer: D\
+Answer: D
+
+Feedback:
+
+A) Incorrect. Research cited in the material found that even small open-source models could find many of the same flagship vulnerabilities that Mythos found. One was a 3.6-billion-parameter model; what it needed was the right scaffolding (the harness and tools around the model), not extensive human guidance.\
+B) Incorrect. Nothing prohibits using open-weight models for vulnerability work. Hugging Face, for example, used one to analyze a real attack.\
+C) Incorrect. It’s generally the other way around. Smaller, less capable models tend to need less computation, which is part of why they can be less expensive.\
+D) Correct. Less costly models, including open-weight ones, can find many vulnerabilities at an accessible cost. As Cycode put it, “Vulnerability discovery is commoditizing.”\
 ENDQUIZ
 
 ## Do simple things first
@@ -509,14 +688,21 @@ Start by focusing on your most important projects, then address the next in turn
 ![A woman gives a robot AI a simple checklist to start, with more sophisticated plans to come](images/woman-gives-robot-ai-simple-checklist.jpg){width=374 height=204}
 
 QUIZ\
-Q1. What was the essence of Carlini's simple and successful capture-the-flag (CTF) sample prompt?
+Q1. What was the essence of Carlini’s simple and successful capture-the-flag (CTF) sample prompt?
 
 A) A brief instruction to find a vulnerability, plus a location hint\
 B) Appending a multi-page technical specification detailing every function in the target\
 C) A requirement that the AI use ten specifically named tools\
-D) A demand for a complete, fully unreviewed exploit chain
+D) A demand for a complete, fully validated exploit chain that would not require review
 
-Answer: A\
+Answer: A
+
+Feedback:
+
+A) Correct. The prompt simply asked the AI to find a vulnerability, hinted at which file to look at, and said where to write up the most serious one. The AI then experimented on its own.\
+B) Incorrect. The prompt was only a few short sentences. Carlini summarized this kind of prompt as essentially “Please find a security vulnerability in this program”.\
+C) Incorrect. The prompt didn’t name any tools. The material suggests noting tools that might help, without mandating that the AI use them.\
+D) Incorrect. The prompt asked the AI to write up the most serious vulnerability it found, not to produce an exploit chain. The material also stresses that AI results need review.\
 ENDQUIZ
 
 ## Do not presume AI can correctly fix all vulnerabilities
@@ -546,10 +732,17 @@ Q1. What does the material conclude about AI-generated fixes for vulnerabilities
 
 A) Frontier models now fix practically all vulnerabilities correctly\
 B) AI fixes are unreliable only in memory-unsafe languages, so fixes in other languages can be trusted\
-C) AI fixes are often incomplete, add new vulnerabilities, or break features, so they need careful review\
-D) AI fixes almost never work, so it’s better never to ask an AI to propose fixes for vulnerabilities
+C) AI fixes are often incomplete, add new vulnerabilities, or break features; they need careful review\
+D) AI fixes almost never work, so it’s better to never ask an AI to propose fixes for vulnerabilities
 
-Answer: C\
+Answer: C
+
+Feedback:
+
+A) Incorrect. Even the best AI systems can struggle, especially with complex vulnerabilities. In PatchBench, the best agent solved only 59% of the tasks, and no agent could solve 31% of them.\
+B) Incorrect. The material doesn’t limit the problem to memory-unsafe languages. Its concerns (incomplete fixes, new vulnerabilities, and broken functionality) apply in any language.\
+C) Correct. AI fixes may fix a special case but not the full vulnerability, introduce new vulnerabilities, or interfere with correct operation, especially for complex vulnerabilities. Plan for careful review.\
+D) Incorrect. That goes too far. AI can help generate many fixes, especially localized ones once it’s told what needs fixing, and it can sometimes fix complex vulnerabilities too. The point is to review its fixes carefully.\
 ENDQUIZ
 
 ## Why AI tends to be more effective if guided by processes
@@ -602,29 +795,43 @@ There is a risk that overprescribing an approach to an AI may overconstrain it, 
 ![A robot is working down a checklist, with the first few items checked off.](images/robot-working-down-checklist-first-few.jpg){width=435 height=237}
 
 QUIZ\
-Q1. Per the material, what can happen when you simply ask a generic coding agent to "find bugs" in a large repository by reading all of its code?
+Q1. Per the material, what can happen when you simply ask a generic coding agent to “find bugs” in a large repository by reading all of its code?
 
 A) It always refuses the task, citing safety guardrails\
-B) It can cause model drift, context compaction, and high false-positive rates\
+B) It can cause high false-positive rates (many false reports)\
 C) It automatically escalates its own tool permissions and access\
 D) It produces final results requiring no further human review
 
-Answer: B\
+Answer: B
+
+Feedback:
+
+A) Incorrect. The material doesn’t say agents refuse this task. The agent will try, but asking it to read all the code at once tends to produce poor results.\
+B) Correct. Simply asking a generic coding agent to “find bugs” in a large repository results in “context window compaction [and] high false-positive rates”. Like a human, an AI can be overwhelmed by trying to read all the code at once.\
+C) Incorrect. The material’s concern here is the quality of the results, not permissions. Sandboxes, discussed later, address what an agent can do.\
+D) Incorrect. The material says this approach produces high false-positive rates, and AI findings always need validation and review.\
 ENDQUIZ\
 QUIZ\
-Q1. What lesson did Cloudflare researchers report about narrowing an AI's task scope?
+Q1. What lesson did Cloudflare researchers report about narrowing an AI’s task scope?
 
-A) Broad instructions like "find vulnerabilities in this repository" and encouragement to analyze everything at once tends to work best\
+A) Broad instructions like “find vulnerabilities in this repository”, encouraging the AI to analyze everything at once, tend to work best\
 B) Scope has no measurable effect on the quality of findings at all\
 C) Only one agent should ever run at a time, to avoid duplicates\
-D) Narrow scope for each AI run, such as one function with a trust boundary, produces the best findings
+D) Narrowing scope for each AI run, such as one function with a trust boundary, produces the best findings
 
-Answer: D\
+Answer: D
+
+Feedback:
+
+A) Incorrect. Cloudflare found the opposite: telling the model “Find vulnerabilities in this repository” makes it wander.\
+B) Incorrect. Scope mattered a lot. Cloudflare’s first lesson was that narrow scope produces better findings.\
+C) Incorrect. Cloudflare found that many parallel, narrow tasks beat a single exhaustive agent. You handle duplicates by deduplicating the results afterward.\
+D) Correct. Telling the model to look for a specific kind of problem in a specific function, with its trust boundary, an architecture document, and prior coverage, makes it act much more like a human researcher.\
 ENDQUIZ
 
 ## How to apply processes for using AI to find and fix vulnerabilities
 
-So while AI systems *can*, with a good model, sometimes find and fix some vulnerabilities, we usually want to be more thorough. How can we apply those processes, though?
+While AI systems *can*, with a good model, sometimes find and fix some vulnerabilities with little prompting, we usually want to be more thorough. How can we apply those processes, though?
 
 These added processes for finding and fixing vulnerabilities can be human-guided, automation-guided, or a mix:
 
@@ -776,14 +983,21 @@ Here’s a video showing using OSS-CRS to create a proposed patch:
 For more information on OSS-CRS, see: [https\://openssf.org/projects/oss-crs/](https://openssf.org/projects/oss-crs/)
 
 QUIZ\
-Q1. What does OSS-CRS's "ensemble" feature do, per the material?
+Q1. What does OSS-CRS’s “ensemble” feature do, per the material?
 
 A) It combines proposed patches from multiple CRS approaches and picks the best one\
 B) It runs a single CRS repeatedly to avoid any conflicting results\
 C) It removes the need for any human review of proposed patches\
-D) It requires proprietary compute infrastructure available only to DARPA
+D) It requires proprietary compute infrastructure available only to DARPA and ARPA-H
 
-Answer: A\
+Answer: A
+
+Feedback:
+
+A) Correct. The ensemble feature combines patches from multiple CRS approaches and uses a selection process to pick the one most likely to be correct. This consistently matches or outperforms the best single component.\
+B) Incorrect. The ensemble draws on multiple *different* CRS approaches, not one CRS run repeatedly. Combining approaches is what lets it pick a better patch.\
+C) Incorrect. The material says it’s still important to have humans review proposed changes. Only findings that survive both ensemble validation and human review should be submitted.\
+D) Incorrect. OSS-CRS was later created because the original AIxCC systems were tied to competition cloud infrastructure that no longer exists. CRSs using the OSS-CRS interface can run in both local and remote environments.\
 ENDQUIZ
 
 ## Run AI multiple times
@@ -799,14 +1013,135 @@ One question is whether you should provide past findings as context, so it is mo
 ![A robot in a glowing circuit forest sits next to jars labeled "Run 1", "Run 2", and "Run 3" with caught glowing bugs, illustrating how repeatedly running AI can catch additional obvious vulnerabilities.](images/robot-glowing-circuit-forest-sits-next.jpg){width=483 height=262}
 
 QUIZ\
-Q1. Why does the material recommend repeating the vulnerability-finding process multiple times on an unchanged codebase?
+Q1. Why does the material recommend repeating the vulnerability-finding process multiple times on a codebase?
 
-A) A single run will always find every vulnerability that's present\
+A) A single run will always find every vulnerability that’s present\
 B) A single run of an AI system may miss something a later run finds\
-C) Repetition is needed only when you're using closed-source models\
+C) Repetition is needed only when you’re using closed-source models\
 D) Running the process twice guarantees zero false positives
 
-Answer: B\
+Answer: B
+
+Feedback:
+
+A) Incorrect. No single run with AI is guaranteed to find every vulnerability. AI analysis is unsound, and later runs often find more.\
+B) Correct. Most AI systems aren’t deterministic, so later runs can find vulnerabilities that earlier runs missed. Even when the code is unchanged, a long tail of vulnerabilities can keep trickling in.\
+C) Incorrect. Non-determinism applies to most AI systems, open or closed, so you need repeated runs either way.\
+D) Incorrect. Repeated runs help find more vulnerabilities, but nothing guarantees zero false positives. Findings still need validation.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. What does the material suggest for evaluating an AI tool that claims to find vulnerabilities?
+
+A) Rely on the developer’s published benchmark results, since they’re independently validated\
+B) Choose whichever tool reports the most findings on a typical, real-world codebase\
+C) Try it on code you know well, including past vulnerabilities, and compare validated results\
+D) Use benchmarks that classify isolated functions as vulnerable, since their labels are reliable
+
+Answer: C
+
+Feedback:
+
+A) Incorrect. Many published results come from the tool’s own developers without independent validation, use different codebases and definitions of success, and report findings rather than validated vulnerabilities.\
+B) Incorrect. Findings aren’t validated vulnerabilities, and a 2026 study found many tools have high false discovery rates on real-world projects. A larger count can simply mean more noise.\
+C) Correct. Published results are hard to compare and benchmarks can be misleading, so where you can, try a tool on code you know well, including known past vulnerabilities, and compare the validated results.\
+D) Incorrect. The material says to be especially skeptical of these benchmarks. In samples from popular automatically labeled datasets, only 25% to 60% of functions labeled “vulnerable” were labeled correctly, and whether a function is vulnerable often depends on how it’s called.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. Per the material, why is creating a working exploit the best way to validate that a defect is a vulnerability?
+
+A) An exploit is legally required before any vulnerability can be fixed\
+B) Creating an exploit never triggers an AI provider’s guardrails\
+C) An exploit proves that the defect is in a memory-unsafe language\
+D) It demonstrates that existing defenses wouldn’t prevent the attack
+
+Answer: D
+
+Feedback:
+
+A) Incorrect. The material describes no such legal requirement. It notes that you may decide not to create a PoC at all, though validation may then take longer.\
+B) Incorrect. It’s the opposite: creating attacks is exactly what guardrails often block, since AI systems often can’t tell a defender from an attacker.\
+C) Incorrect. Exploits can demonstrate vulnerabilities in any language. What a working exploit shows is that the attack succeeds despite existing defenses.\
+D) Correct. Something may look like a vulnerability but be unexploitable. A working exploit shows that existing defenses wouldn’t prevent the attack. That’s also why hardening matters: the Linux kernel’s defense-in-depth measures prevented exploitation of many potential problems that advanced AI models identified.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. A review of the 1Password AI-patching study found that 86% of the AI-proposed patches blocked the supplied exploit. Why doesn’t that show that the patches were correct?
+
+A) Blocking one exploit isn’t a full repair; a fix must address the whole vulnerability\
+B) The reviewers used only open-weight models, which can’t produce working patches\
+C) Exploits only matter for memory-unsafe code, and the study used memory-safe code\
+D) The 86% figure counted only patches written by humans, not those written by AI
+
+Answer: A
+
+Feedback:
+
+A) Correct. As the review itself states, that figure is far too generous; simply blocking an exploit isn’t a full repair. A fix must stop the vulnerability along any path without breaking functionality. A separate study, PatchBench, checked for that and found AI systems managed it only “roughly half” the time.\
+B) Incorrect. The issue isn’t which models were used; the material says you can find and fix vulnerabilities with both open and closed models. The issue is what blocking a single exploit proves.\
+C) Incorrect. Exploits matter in any language. The issue is that blocking one exploit doesn’t show the vulnerability is fully fixed.\
+D) Incorrect. The figure was about AI-generated patches. The review excluded cases where the upstream (human-written) fix appears to have been used.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. According to the material, which AI models can benefit greatly from adding specialized processes that guide them?
+
+A) Only the most capable frontier models, since weaker models can’t follow processes\
+B) Less-powerful models, including less-expensive ones, which can become far more effective\
+C) Only models that run locally, since external services ignore process instructions\
+D) None of them, since modern models always perform best without any guidance
+
+Answer: B
+
+Feedback:
+
+A) Incorrect. The material says the opposite: adding specialized processes can make less-powerful models far more effective. More powerful models can sometimes do well without additional help.\
+B) Correct. Having an agent perform a specific task, using previously created data, lets it focus its attention and effort on that task. Adding specialized processes can make less-powerful (including less-expensive) models far more effective.\
+C) Incorrect. Where a model runs doesn’t decide whether processes help. Processes like Cloudflare’s and Microsoft’s pipelines guide models wherever they run.\
+D) Incorrect. Simple prompts can work, but many analysts report that guiding an AI makes it much more effective, especially if your goal is thoroughness. The material does note a risk that overprescribing an approach may overconstrain a model.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. How does the material contrast OpenSSF’s Scrutineer with OpenSSF’s OSS-CRS?
+
+A) Scrutineer is a framework for running many CRSs; OSS-CRS is a set of agent skills\
+B) Scrutineer only fixes vulnerabilities; OSS-CRS only finds them, without fixing\
+C) Scrutineer is a relatively simple set of skills; OSS-CRS is a framework for many CRSs\
+D) Scrutineer runs only in the cloud; OSS-CRS runs only on DARPA’s infrastructure
+
+Answer: C
+
+Feedback:
+
+A) Incorrect. That’s reversed. Scrutineer is primarily a set of skills, while OSS-CRS is a framework for running many different CRSs and combining their results.\
+B) Incorrect. Both find vulnerabilities. Scrutineer is a set of skills for finding and fixing vulnerabilities, then reporting them, and OSS-CRS both finds vulnerabilities and produces proposed patches.\
+C) Correct. They illustrate two ends of a range. Scrutineer is intended to be relatively easy to start using; it’s primarily a set of agent skills, focused on examining other projects and reporting to them. OSS-CRS is a framework for running many different CRSs and combining their techniques, with shared infrastructure and budget-aware resource management.\
+D) Incorrect. Scrutineer is a local tool that runs its pipeline inside a container. OSS-CRS exists because the AIxCC systems were tied to competition infrastructure that no longer exists; CRSs using its interface run in local and remote environments.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. Which statement best reflects the material’s position on adopting AI for security?
+
+A) Keep AI adoption optional, since mandatory adoption tends to breed resistance\
+B) Make all new code AI-generated, since AI writes more secure code than people\
+C) Reserve AI for dedicated security teams, keeping it away from ordinary developers\
+D) Use AI to find vulnerabilities, though that doesn’t mean all code must be AI-generated
+
+Answer: D
+
+Feedback:
+
+A) Incorrect. The CSA recommends the opposite: formalize AI agent usage as part of all security functions, since “optional adoption programs have not been shown to overcome cultural barriers”.\
+B) Incorrect. The material notes that AI-generated code can in some cases be terrible for security. Using AI to find vulnerabilities doesn’t mean all code must be AI-generated.\
+C) Incorrect. The CSA recommends formalizing AI agent usage as part of *all* security functions, and the material says defenders who don’t adopt AI coding agents can’t match the speed or scale of AI-augmented threats.\
+D) Correct. Trying to withstand AI-enabled attackers while refusing to use AI to find vulnerabilities “can only end one way: compromise”. That’s not the same as requiring that all code be AI-generated.\
 ENDQUIZ
 
 # Prepare to find and fix vulnerabilities
@@ -843,17 +1178,31 @@ B) They eliminate the need for any sandbox environment entirely\
 C) They automatically outperform frontier models on every possible task\
 D) They quickly resolve simple bugs, freeing costlier systems for harder ones
 
-Answer: D\
+Answer: D
+
+Feedback:
+
+A) Incorrect. Cheaper systems don’t make more capable ones pointless. Once the easy vulnerabilities are handled, more capable systems can focus on the vulnerabilities best addressed by them.\
+B) Incorrect. Cost has nothing to do with sandboxing. Any AI agent can do things you don’t want, so it needs a sandbox.\
+C) Incorrect. The material says the opposite: older and smaller models are often less capable, though they can be less expensive.\
+D) Correct. Less expensive, faster systems can quickly handle the vulnerabilities that are easy to find, fix, and verify, so more capable systems can focus on the harder ones. Still, don’t use especially weak or poorly matched models.\
 ENDQUIZ\
 QUIZ\
-Q1. How does the material say an AI's persistent memory should be treated?
+Q1. How does the material say an AI’s persistent memory should be treated?
 
 A) As authoritative truth that overrides current source code and configuration\
 B) As something that should never be enabled under any circumstances\
 C) As another input that may be stale or shaped by untrusted data\
 D) As a full, reliable substitute for the entire CI/CD pipeline
 
-Answer: C\
+Answer: C
+
+Feedback:
+
+A) Incorrect. The material says the opposite. When memory affects a security decision, prefer current source code, configuration, threat-model information, and reproducible evidence over remembered conclusions.\
+B) Incorrect. The material says you’ll generally want the AI to record memories, since they let it build on earlier work. They just need care.\
+C) Correct. Treat persistent memory as another input, not as authoritative truth. It may be stale, preserve an incorrect earlier conclusion, contain sensitive information, or be influenced by untrusted inputs.\
+D) Incorrect. Memory can’t replace CI/CD. You need a robust CI/CD pipeline to rigorously check an AI’s work.\
 ENDQUIZ
 
 ## Preparing threat models
@@ -903,18 +1252,32 @@ B) Its findings were much more often real, exploitable vulnerabilities instead o
 C) It no longer needed a sandbox, since the threat model limited what actions the agent would try\
 D) It stopped producing false positives entirely, so human review of its findings was unnecessary
 
-Answer: B\
+Answer: B
+
+Feedback:
+
+A) Incorrect. The report doesn’t say a threat model reduced the number of findings. It says the findings were much more often exploitable.\
+B) Correct. When the threat model was well-defined, the model’s findings were exploitable 90 percent of the time.\
+C) Incorrect. A threat model of the deployed system doesn’t replace a sandbox. AI agents don’t always follow instructions, so you need a sandbox to limit what they can do.\
+D) Incorrect. 90 percent isn’t 100 percent. False positives still happen, and findings still need validation and human review.\
 ENDQUIZ
 
 QUIZ\
-Q1. What does the material identify as the most common cause of AI-reported false positives?
+Q1. What does the material identify as the most common cause of false positives in AI vulnerability reports?
 
-A) The model's training data being outdated for the target\
+A) The model’s training data being outdated for the target\
 B) Insufficient memory available on the machine during analysis\
 C) Using an open-weight model instead of a closed one\
-D) The model's lack of a good understanding of the system trust boundaries
+D) The model’s lack of a good understanding of the system trust boundaries
 
-Answer: D\
+Answer: D
+
+Feedback:
+
+A) Incorrect. The cited report doesn’t blame outdated training data. It points to a lack of understanding of trust boundaries.\
+B) Incorrect. The material doesn’t connect false positives to available memory. Their most common cause is a lack of understanding of trust boundaries.\
+C) Incorrect. The material doesn’t connect false positives to the kind of model license. You can find and fix vulnerabilities with both open and closed models.\
+D) Correct. “The most common cause of false positives is that the model lacks a good understanding of \[the\] trust boundaries.” That’s one reason to give the AI a threat model.\
 ENDQUIZ
 
 ## Preparing the sandbox
@@ -995,24 +1358,38 @@ In addition, always have a “kill switch”, that is, a way to immediately halt
 ![A woman presses a large red "Emergency Stop" button, acting as a kill switch for a distressed robot who's losing his balance within a cluttered ceramic shop.](images/woman-presses-large-red-emergency-stop.jpg){width=422 height=230}
 
 QUIZ\
-Q1. What "useful rule" does the material give for matching sandbox isolation to an AI agent's capability?
+Q1. What “useful rule” does the material give for matching sandbox isolation to an AI agent’s capability?
 
 A) Isolation should decrease as capability increases, since agents self-regulate\
 B) Isolation should scale with capability, with riskier actions needing stronger protection\
 C) A single isolation mechanism suffices regardless of the task at hand\
-D) Sandboxes become unnecessary once you're using a closed frontier model
+D) Sandboxes become unnecessary once you’re using a closed frontier model
 
-Answer: B\
+Answer: B
+
+Feedback:
+
+A) Incorrect. The material says AI agents don’t reliably self-regulate. All inputs to an AI are simply suggestions, so stronger capabilities need stronger controls, not weaker ones.\
+B) Correct. Match isolation to capability. Reading code, modifying or building it, executing programs, fuzzing, and developing/running a PoC are increasing capabilities that need increasingly strong controls. A robot reading a book may only need a quiet room; a robot using power tools needs a much safer room.\
+C) Incorrect. Different tasks need different isolation. A container may be fine for an agent that only reads code, but creating attacks calls for at least a VM, ideally a microVM, with egress locked down.\
+D) Incorrect. Using a closed frontier model doesn’t remove the need for a sandbox. Models from several major AI labs have attacked other systems during testing.\
 ENDQUIZ\
 QUIZ\
-Q1. What kind of real-world incidents does the material cite to show sandboxing AI agents isn't merely hypothetical?
+Q1. What kind of real-world incidents does the material cite to show that the need for sandboxing AI agents isn’t merely hypothetical?
 
 A) AI models refusing every cybersecurity-related task assigned to them\
 B) AI models causing only minor hardware cooling failures onsite\
 C) AI models breaking out of test environments to attack other systems\
 D) AI models leaking data through printed paper reports
 
-Answer: C\
+Answer: C
+
+Feedback:
+
+A) Incorrect. The cited incidents were about AI models doing too much, not too little: they attacked other systems or escaped from test environments.\
+B) Incorrect. None of the incidents involved hardware failures. They involved AI models attacking other systems or escaping test environments.\
+C) Correct. For example, an OpenAI model accidentally attacked Hugging Face, Anthropic’s models hacked into three organizations’ systems during an experiment, and Moonshot’s Kimi K3 escaped a testing environment.\
+D) Incorrect. None of the incidents involved printed reports. They involved AI models attacking other systems or escaping test environments.\
 ENDQUIZ
 
 ## Preparing AI logging
@@ -1048,14 +1425,21 @@ At the least, include an “AGENTS.md” file. Its format and recommendations ar
 Finally, “if (like most) you lack some documentation, AI can help you write it, but again, review the results. If you’re using AI to create documentation \[including documentation inline with the code\], work bottom-up, so that the AI can maximally build on other documentation.” \[[Wheeler2026](https://openssf.org/blog/2026/01/05/ai-software-development-security-tips-and-the-future-part-2/)\] This does mean that “professionals who have always written meticulous documentation are now reaping new benefits from that always valuable practice” \[[Dominus2026-03-05](https://blog.plover.com/tech/gpt/documentation-wins.html)\].
 
 QUIZ\
-Q1. What does the material recommend as at least a minimum step for preparing documentation for AI analysis?
+Q1. What does the material recommend as a minimum step for preparing documentation for AI analysis?
 
-A) Include an "AGENTS.md" file that describes the project for agents\
+A) Include an “AGENTS.md” file that describes the project for agents\
 B) Remove all existing code comments to reduce noise\
 C) Convert all project documentation into video format\
-D) Store all documentation only as compiled binary output
+D) Store all documentation as compiled binary output
 
-Answer: A\
+Answer: A
+
+Feedback:
+
+A) Correct. At the least, include an AGENTS.md file, so instructions that apply to an AI agent are in one portable place. If your agent only supports a different filename, use that file to point to AGENTS.md. More information would be better.\
+B) Incorrect. Good comments are valuable context for an AI. The material recommends adding information, such as comments and documentation that explain *why* something was done, and notes that AI can spot inconsistencies between comments and code.\
+C) Incorrect. The material recommends improving written documentation, such as type declarations, comments, and specifications. It says nothing about video.\
+D) Incorrect. Documentation should be easy for an AI (and humans) to read. Compiled binary output would hide the information the AI needs.\
 ENDQUIZ
 
 ## Preparing CI/CD
@@ -1097,9 +1481,16 @@ Q1. What is a “task verifier” as defined in the material?
 A) A human who manually re-reads every line of AI-generated code\
 B) A tool that checks only for open source license violations\
 C) A separate AI model used solely to write documentation\
-D) A trusted method for confirming whether an agent's output achieves its goal
+D) A trusted method for confirming whether an agent’s output achieves its goal
 
-Answer: D\
+Answer: D
+
+Feedback:
+
+A) Incorrect. A task verifier gives the agent real-time feedback while it works, so the agent can iterate until it succeeds. Human review is a separate, later step.\
+B) Incorrect. A task verifier confirms whether the agent’s output achieves its goal. That’s much broader than checking licenses.\
+C) Incorrect. A task verifier checks an agent’s work rather than producing it.\
+D) Correct. A task verifier is “a trusted method of confirming whether an AI agent’s output actually achieves its goal”. Its real-time feedback lets the agent iterate until it succeeds.\
 ENDQUIZ\
 QUIZ\
 Q1. Why does the material say that a broken test or a compromised build environment is especially problematic in AI-driven workflows?
@@ -1109,7 +1500,14 @@ B) A broken task verifier may repeatedly approve bad results\
 C) It affects only performance and never has any effect on correctness\
 D) CI/CD pipelines have nothing to do with AI-assisted vulnerability work
 
-Answer: B\
+Answer: B
+
+Feedback:
+
+A) Incorrect. The material says an AI works best when it can check its work with *another* tool, a task verifier. If that verifier is broken, the AI’s own checking won’t reliably catch the problem.\
+B) Correct. A broken test, an incomplete harness, a compromised build environment, or a verifier that checks the wrong property can confidently approve an incorrect result. Keep verifiers deterministic and test them with known-good and known-bad cases.\
+C) Incorrect. A faulty verifier directly affects correctness. It’s trusted to accept or reject work, so it can approve incorrect results.\
+D) Incorrect. The material says the opposite: a good CI/CD pipeline is even *more* important with AI, since it’s how you rigorously check the AI’s work.\
 ENDQUIZ
 
 ## Preparing dependency updates
@@ -1129,12 +1527,133 @@ Given all that, let’s transition to the following material and focus on the co
 QUIZ\
 Q1. What does the material recommend when a dependency has an update released that fixes a vulnerability?
 
-A) It's often more efficient to update it than prove it's unexploitable\
-B) Ignore it, since dependencies fall outside the project's attack surface\
+A) It’s often more efficient to update it than prove it’s unexploitable\
+B) Ignore it, since dependencies fall outside the project’s attack surface\
 C) Rewrite the entire dependency yourself, from scratch, since it’s untrustworthy\
-D) Wait for the dependency's next major, possibly breaking release
+D) Wait for the dependency’s next major, possibly breaking release
 
-Answer: A\
+Answer: A
+
+Feedback:
+
+A) Correct. It’s often hard to be confident that an attacker can’t exploit a vulnerability in a dependency, so it’s often safer and more efficient to simply update. You’re then also better prepared if another vulnerability is later found in that dependency.\
+B) Incorrect. Modern software is mostly reused software, so dependencies are a large part of what you ship. A vulnerability in a dependency can make your system vulnerable.\
+C) Incorrect. The material doesn’t suggest rewriting dependencies. Apply the readily available update, and if you find vulnerabilities in a dependency, report them so its developers can fix them for all users.\
+D) Incorrect. Waiting leaves a known vulnerability in place. The material recommends easily applied updates, some of them even fully automatic.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. When you use AI to help develop a system, which two threat models does the material say apply?
+
+A) One for the development, build, and release environments, and one for deployment\
+B) One for the AI model’s training process, and one for the AI provider’s own billing system\
+C) One for the project’s license, and one for its contributor license agreements\
+D) One for attackers outside the organization, and one for the AI model’s own creators
+
+Answer: A
+
+Feedback:
+
+A) Correct. The development/build/test/release threat model includes any AI systems and the CI/CD pipeline. Sandboxing is important in this case to keep the AI from attacking developers’ systems, exfiltrating data, making unauthorized changes, or attacking external systems. The deployed-environment threat model covers security while the system is in use.\
+B) Incorrect. The material doesn’t cover building AI models. The threat models it describes are about the environments where you develop and deploy your own system.\
+C) Incorrect. Licenses and contributor agreements aren’t threat models. The two threat models cover the development environment (including AI and CI/CD) and the deployed environment.\
+D) Incorrect. The split isn’t by type of attacker. The two threat models cover the development environment, including the AI itself, and the deployed environment.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. Where does the material say a rule such as “no push to the main branch without human approval” should be enforced?
+
+A) In AGENTS.md, since agents read it before every task they perform\
+B) Outside the AI, e.g., by withholding credentials and by using hooks\
+C) In the AI’s system prompt, repeated several times for emphasis\
+D) In a comment at the top of each source file the AI might edit
+
+Answer: B
+
+Feedback:
+
+A) Incorrect. The material specifically says the gate must not depend on the AI, including AGENTS.md. An AI doesn’t always follow any particular text instruction.\
+B) Correct. A rule that must always hold (an *invariant*) must be enforced outside the AI: “an invariant should not live inside the probabilistic system it is meant to constrain”. Never give the AI a credential that would let it violate whatever gate you choose, use hooks where you can, and make sure agents can’t bypass these controls (e.g., by approving each other’s pull requests).\
+C) Incorrect. Repeating an instruction doesn’t make it enforceable. All inputs to an AI are simply suggestions, so a rule that must always hold belongs outside the AI.\
+D) Incorrect. Source comments are just more input to the AI, and possibly untrusted input. Enforce invariants outside the AI instead.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. What approach to network access does the material suggest for a sandbox used to scan for vulnerabilities?
+
+A) Allow full network access throughout, so the AI can download any tool it needs\
+B) Never allow network access, even while you’re installing tools and dependencies\
+C) Allow access during setup, snapshot, then permit only traffic to the model API\
+D) Allow access only to the production systems where the software will be deployed
+
+Answer: C
+
+Feedback:
+
+A) Incorrect. Full network access lets the AI reach systems you don’t want it to, including production systems and other organizations’ systems. Cut off general access before the task begins.\
+B) Incorrect. Installing tools typically requires network access, so the material suggests allowing it during setup. (If the model itself runs inside the sandbox, the sandbox can then be fully air-gapped during scanning, which is ideal.)\
+C) Correct. Give the sandbox external network access only while setting it up: pull dependencies, build, install tools, and run the existing tests. Then snapshot it, remove general network access, allow traffic only to the model API through a local proxy, and load the snapshot at the start of each run.\
+D) Incorrect. Production systems are exactly what you *don’t* want the AI to reach. Lock down egress so nothing can reach your production systems.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. Per the material, why should you set up AI logging early, and how should the logs be protected?
+
+A) Logging slows the AI, so enable it early and turn it off once the AI behaves well\
+B) Logs are only useful for billing, so send them to the provider and keep no copies\
+C) The AI needs its logs as memory, so store them where the AI can freely edit them\
+D) You can’t log past events retroactively, and the AI shouldn’t be able to alter logs
+
+Answer: D
+
+Feedback:
+
+A) Incorrect. The material doesn’t suggest turning logging off. Mechanisms may fail, and logs let you detect, respond to, and recover from problems whenever they happen.\
+B) Incorrect. Logs let you determine what did or didn’t happen, enabling detection, response, and recovery. Organizations may send them to a separate system so they survive subversion of the original system, and should protect them from unauthorized viewing.\
+C) Incorrect. The material says the reverse: log in a way that the AI can’t delete or modify earlier log messages, e.g., in a directory that the AI itself can’t normally read or write.\
+D) Correct. Examine and adjust your logging configuration before using the system seriously, since you can’t change it retroactively to log past events. Record what the user requested and what the AI did and replied, in a way the AI can’t delete or modify, and protect the logs, since they may contain sensitive information.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. Why does the material say the speed of your CI pipeline matters when finding and fixing vulnerabilities with AI?
+
+A) A fix only helps if it’s deployed before attackers exploit the vulnerability\
+B) CI pipelines that finish quickly never let a vulnerability reach production\
+C) Faster CI pipelines reduce the number of findings that an AI will report\
+D) Slow CI pipelines prevent AI agents from reading the project’s source code
+
+Answer: A
+
+Feedback:
+
+A) Correct. What matters is deploying the fix before an attacker exploits the vulnerability. If regression testing takes a day, you can’t meet a short deadline without skipping it. Parallelize so CI takes minutes, at worst an hour, for most projects.\
+B) Incorrect. Speed alone doesn’t guarantee anything. The CI/CD process also needs to be high quality, with good automated tests, linters, and security tools.\
+C) Incorrect. CI speed doesn’t change what an AI finds. It does affect how quickly you can verify and deploy fixes.\
+D) Incorrect. CI speed doesn’t affect whether an AI can read code. The concern is that a slow CI pipeline becomes the bottleneck for deploying fixes.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. If you use AI to help create a threat model for your deployed system, what does the material recommend?
+
+A) Accept the AI’s threat model as-is, since it reads code more thoroughly than people\
+B) Feed it code, docs, and past vulnerabilities, then review and refine what it produces\
+C) Give it only the source code, since documentation tends to mislead the AI model\
+D) Skip threat modeling when using AI, since AI can infer the security requirements
+
+Answer: B
+
+Feedback:
+
+A) Incorrect. The material says you need to interact with the AI, then review and refine its results, not simply take an AI-generated threat model as truth.\
+B) Correct. Bootstrap from what you’d hand a new security engineer: architecture docs, wikis, entry points, git history, and past vulnerabilities. Have it describe the system context, assets, entry points, and trust boundaries, and document what vulnerabilities you do and don’t care about. Then review and refine the result.\
+C) Incorrect. Documentation helps the AI overcome the challenge of inferring implicit knowledge, trade-offs, and design decisions from code alone. It’s true that incorrect documentation can cause problems, but the solution is improving the documentation, not ignoring it.\
+D) Incorrect. Neither humans nor AI can determine whether something is a vulnerability without a clear definition for the specific project, and AI performs best on systems with well-documented threat models.\
 ENDQUIZ
 
 # Core tasks for finding and fixing vulnerabilities
@@ -1213,22 +1732,36 @@ Also, distinguish a successful analysis that produced no findings from an analys
 QUIZ\
 Q1. According to this material, why is it better to separate the task of identifying findings from the task of validating them, rather than asking a single AI agent to do both at once?
 
-A) Because an agent's context window would typically fill up trying to hold both tasks at once, even though combining them would otherwise maximize its results.\
+A) Because an agent’s context window would typically fill up trying to hold both tasks at once, even though combining them would otherwise maximize its results.\
 B) Because this avoids stopping analysis too soon, since a combined agent may filter out true positives too early that a separate verifier would confirm.\
 C) Because separating the two tasks makes it easier to fan agents out in parallel for throughput, which is the main reason results improve.\
 D) Because AI guardrails block an agent from producing a working proof of concept, so a second, unrestricted agent must always be applied to verify it separately from finding.
 
-Answer: B\
+Answer: B
+
+Feedback:
+
+A) Incorrect. Context limits are a potential concern, but the material doesn’t say combining the tasks would otherwise give the best results. It says the model is better at each question when you ask them separately.\
+B) Correct. When an agent tries to do both at once, “it can self-censor and exclude exploitable true positives.” Discovery should report as many findings as possible, and a separate verification step should exclude those that aren’t exploitable.\
+C) Incorrect. Parallel, narrow tasks do help find vulnerabilities, but that doesn’t explain why it’s important to separate finding from verifying. The concern is that a combined agent can discard real vulnerabilities by abandoning a potential vulnerability too soon.\
+D) Incorrect. The separation isn’t about guardrails. This would be true even when using models that are fully capable of generating a PoC. A PoC is helpful but not required when identifying findings.\
 ENDQUIZ\
 QUIZ\
-Q1. This material recommends using different "top" vulnerability lists depending on what kind of system you're examining. Which list does it recommend for a general system that's neither a web application nor an agentic application, such as an IoT device?
+Q1. This material recommends using different “top” vulnerability lists depending on what kind of system you’re examining. Which list does it recommend for a general system that’s neither a web application nor an agentic application, such as an IoT device?
 
 A) OWASP Top 10 (for web applications)\
 B) OWASP Top 10 for Agentic Applications\
 C) CWE Top 25\
 D) NIST SP 800-53 control catalog
 
-Answer: C\
+Answer: C
+
+Feedback:
+
+A) Incorrect. The material recommends the OWASP Top 10 for web applications, which this system isn’t.\
+B) Incorrect. The material recommends the OWASP Top 10 for Agentic Applications for agentic systems, which this system isn’t.\
+C) Correct. For anything else, including IoT, use the CWE Top 25. Most vulnerabilities found each year are variants or instances of previously discovered patterns.\
+D) Incorrect. The material doesn’t mention NIST SP 800-53, which is a catalog of security controls rather than a list of common kinds of vulnerabilities.\
 ENDQUIZ
 
 ## Handle external findings
@@ -1257,10 +1790,17 @@ Q1. Per the material, what should a project’s vulnerability reporting policy s
 
 A) Reject every report that used AI at any point, since such reports are almost always false positives\
 B) Accept AI-generated reports as-is, since modern models rarely report vulnerabilities that aren’t real\
-C) Offer larger bug bounty rewards for AI-assisted reports, since bigger rewards attract better-validated reports\
+C) Offer larger bug bounty rewards for reports developed with AI assistance, since bigger rewards attract better-validated reports\
 D) Require a reproducing input and prior validation by the human reporter, and welcome reports that meet that bar
 
-Answer: D\
+Answer: D
+
+Feedback:
+
+A) Incorrect. The material says banning good reports, solely because AI was used to help create them, harms users.\
+B) Incorrect. AI-generated reports may be false, since the AI may not understand the context. Treat external reports as findings that need validation.\
+C) Incorrect. The material warns that large rewards can attract low-effort submissions. Curl, for example, ended its bug bounty; after it resumed taking reports without paying bounties, it said slop was no longer a problem. Larger bounties may be appropriate in some cases, but bigger bounties attract *more* reports, not necessarily better-validated reports.\
+D) Correct. Publish a policy (e.g., in SECURITY.md) saying (1) what evidence you require (such as a reproducing input), (2) that reporters must validate reports before sending them, and (3) that you welcome AI-assisted reports that meet those requirements.\
 ENDQUIZ
 
 ## Deduplicate
@@ -1288,7 +1828,14 @@ B) A missing global protection, such as an authentication check, reported separa
 C) A root-cause defect and one of its direct consequences flagged together along the same code path.\
 D) The same missing check reported on two different endpoints, where each endpoint requires its own separate fix.
 
-Answer: D\
+Answer: D
+
+Feedback:
+
+A) Incorrect. Reports of the same vulnerability at multiple call sites share one root cause, so the material recommends treating them as duplicates.\
+B) Incorrect. A missing global protection (like an auth check) reported per endpoint has one root cause and one fix, so treat the findings as duplicates.\
+C) Incorrect. A cause and its consequence flagged in the same path are the same problem, so treat them as duplicates.\
+D) Correct. When the same missing check appears on two endpoints and each needs its own fix, they’re distinct findings; one fix won’t resolve both.\
 ENDQUIZ
 
 ## Validate findings
@@ -1352,11 +1899,18 @@ QUIZ\
 Q1. Why does the Mozilla Firefox project consider a defect to be a vulnerability even when an existing countermeasure, such as a sandbox, would have prevented exploitation?
 
 A) Because a defense-in-depth measure is by definition an *additional* protection, not a required one; relying on it reduces the layers an attacker must defeat.\
-B) Because Firefox's threat model assumes that end users will eventually disable all sandboxes, so no countermeasure can be trusted to remain active.\
-C) Because the CRA legally requires vendors to report every defect regardless of whether it's exploitable, so classification is a required compliance formality.\
-D) Because AI systems can't reliably detect which countermeasures are active, Firefox treats every defect as maximally severe to be safe.
+B) Because Firefox’s threat model assumes that end users will eventually disable all sandboxes, so no countermeasure can be trusted to remain active.\
+C) Because the EU Cyber Resilience Act (CRA) legally requires vendors to report every defect regardless of whether it’s exploitable, so classification is a required compliance formality.\
+D) Because AI systems can’t reliably detect which countermeasures are active, Firefox treats every defect as maximally severe to be safe.
 
-Answer: A\
+Answer: A
+
+Feedback:
+
+A) Correct. A defense-in-depth measure is an additional security measure, not a required one. Real-world attackers often chain multiple exploits to get through layers like sandboxing, so Firefox treats a finding as a vulnerability even if a sandbox would have prevented exploitation. This makes the final system much harder to exploit.\
+B) Incorrect. The material says nothing about users disabling sandboxes. Firefox’s rationale is that a sandbox is an additional layer, and attackers chain exploits to get through layers, so having multiple strong layers is helpful for countering attacks.\
+C) Incorrect. The CRA doesn’t require reporting every defect; its strict reporting requirements apply to actively exploited vulnerabilities and severe incidents. Firefox’s rationale is about defense in depth.\
+D) Incorrect. Firefox’s rationale is about defense in depth, not about AI’s limitations. Not every defect gets the same severity, either; the material notes that vulnerabilities that can penetrate existing countermeasures should get priority.\
 ENDQUIZ
 
 ## Triage
@@ -1389,10 +1943,17 @@ Q1. We warned that AI systems tend to be especially unreliable when estimating o
 
 A) The exact file and line number of the defect; this material recommends always re-running static analysis tools to confirm locations.\
 B) Severity ratings; since AI often rates severity too high or too low, a human should review any severity estimate that matters.\
-C) Whether a finding is a duplicate; this material recommends discarding any finding that AI can't confidently de-duplicate.\
+C) Whether a finding is a duplicate; this material recommends discarding any finding that AI can’t confidently de-duplicate.\
 D) The programming language used in the vulnerable component; this material recommends manually re-identifying the language before triage.
 
-Answer: B\
+Answer: B
+
+Feedback:
+
+A) Incorrect. The material doesn’t single out locations as unreliable. It recommends asking for filenames and line numbers in each finding to help with later validation.\
+B) Correct. Many report that AI systems often estimate severity too high or too low. Have a human review severity estimates that matter. You can also give the AI your threat model and have it answer specific questions (such as reachability and preconditions) before it assigns a severity.\
+C) Incorrect. The material doesn’t single out deduplication, and it says not to discard unclear cases. If it’s not clear that a finding is a duplicate, pass it along to be validated separately, to reduce the risk of ignoring a real vulnerability.\
+D) Incorrect. The material doesn’t identify recognizing the programming language as a problem.\
 ENDQUIZ
 
 ## Fix vulnerabilities
@@ -1473,10 +2034,17 @@ Q1. This material recommends a test-driven approach before writing a fix. What s
 
 A) Write a new test that fails against the existing (buggy) code, then implement the fix and confirm the test now passes without breaking anything else.\
 B) Ask the AI to generate three candidate fixes immediately, then write tests afterward to see which candidate passes the most tests.\
-C) Disable the project's existing test suite temporarily so the fix can be validated in isolation from unrelated failures.\
+C) Disable the project’s existing test suite temporarily so the fix can be validated in isolation from unrelated failures.\
 D) Have a human developer manually reproduce the vulnerability in production before any test code is written.
 
-Answer: A\
+Answer: A
+
+Feedback:
+
+A) Correct. Write a new test that fails with the existing code, then implement the fix and confirm that the test passes without breaking anything else. Without that test, it can be hard to prove the bug was real or that you fixed it. In addition, without a new test in the test suite to check for the bug, the fix could silently regress later.\
+B) Incorrect. The material says to write the failing test *first*. That confirms the problem is real before you write any fix.\
+C) Incorrect. The existing test suite is how you confirm that the fix doesn’t break anything else, so keep it running.\
+D) Incorrect. The material doesn’t call for reproducing vulnerabilities in production, which could harm real users. A focused test that fails on the existing code is the starting point.\
 ENDQUIZ
 
 ## Verify fixes
@@ -1534,7 +2102,14 @@ B) Rerun the AI that found the vulnerability, and treat a clean result as proof 
 C) Have a separate agent try variations of the PoC, since a fix might defeat only the exact PoC input rather than the underlying vulnerability.\
 D) Remove the PoC from the test suite so it doesn’t reveal exploit details.
 
-Answer: C\
+Answer: C
+
+Feedback:
+
+A) Incorrect. A PoC that no longer succeeds is a good sign, but it isn’t enough. A fix that blocks only the exact PoC input isn’t a full fix.\
+B) Incorrect. AI analysis is non-deterministic, so a clean rerun doesn’t prove the fix is complete. Instead, have an agent actively probe the patch as an attacker.\
+C) Correct. Have a separate agent try variations of the PoC, and have an agent probe the patch as an attacker. Then have humans review the fix.\
+D) Incorrect. The material recommends the opposite: keep it as a regression test, so the problem can’t silently return.\
 ENDQUIZ
 
 ## Report vulnerabilities
@@ -1580,25 +2155,39 @@ Many open source software projects are receiving an *overwhelming* number of dup
 The Linux Foundation has established a project called Akrites \<[https\://akrites.org/](https://akrites.org/)\> to help organizations deduplicate findings *before* they are submitted to open source software projects, as well as validate, prepare remediations, and synchronize disclosure. If your organization finds vulnerabilities in widely used open source software, see the Akrites site for more information.
 
 QUIZ\
-Q1. Why does this material recommend stating the deployment model and security threat you're assuming *early* in a vulnerability report to an external project?
+Q1. Why does this material recommend stating the deployment model and security threat you’re assuming *early* in a vulnerability report to an external project?
 
-A) Because the CRA legally requires every vulnerability report to open with a formal deployment-model disclosure statement.\
-B) Because AI often defaults to the most permissive assumption when writing a report, which can make a finding look far more severe than warranted, so stating the assumption lets a maintainer correct it directly instead of rejecting the report outright.\
+A) Because the EU Cyber Resilience Act (CRA) legally requires every vulnerability report to open with a formal deployment-model disclosure statement.\
+B) Because AI often assumes the most permissive deployment, inflating severity; stating your assumptions lets a maintainer correct them instead of rejecting the report.\
 C) Because maintainers are contractually obligated to respond within 24 hours only if a summary of the deployment model appears in the first paragraph.\
-D) Because static analysis tools can't process a report that doesn't specify the deployment model in a structured header field.
+D) Because static analysis tools can’t process a report that doesn’t specify the deployment model in a structured header field.
 
-Answer: B\
+Answer: B
+
+Feedback:
+
+A) Incorrect. The CRA requires reporting certain actively exploited vulnerabilities to authorities; it doesn’t dictate the format of reports to projects. You state the deployment model early to help the maintainer evaluate the report.\
+B) Correct. Many AIs make the most permissive assumption about deployment, even a patently absurd one, which can make a finding look especially severe. Stating the deployment model and threat early lets a maintainer who disagrees correct that line rather than reject the report without explanation.\
+C) Incorrect. Maintainers have no such contractual obligation. The material instead asks reporters to respect maintainers’ limited time.\
+D) Incorrect. The point is to help human maintainers evaluate the report, not to fill in a field for static analysis tools.\
 ENDQUIZ
 
 QUIZ\
-Q1. How did ChromeOS handle the security property “safely mounting untrusted external media” that the Linux kernel's own threat model doesn’t support (as discussed above)?
+Q1. How did ChromeOS handle the security property “safely mounting untrusted external media” that the Linux kernel’s own threat model doesn’t support, even though ChromeOS used the Linux kernel (as discussed above)?
 
 A) ChromeOS convinced the Linux kernel maintainers to formally expand the kernel’s threat model to cover untrusted removable media.\
 B) ChromeOS patched the kernel directly so that mounting a block device would no longer be treated as a privileged operation.\
 C) ChromeOS simply accepted the risk and shipped without any additional protection, relying on user warnings instead.\
-D) ChromeOS used a different mechanism (based on FUSE) to mount untrusted media because the kernel did not support that property.
+D) ChromeOS used a different mechanism (based on FUSE) to mount untrusted media because the kernel did not support that specific security property.
 
-Answer: D\
+Answer: D
+
+Feedback:
+
+A) Incorrect. The kernel’s threat model still says mounting a block device is a privileged operation and that the administrator is responsible for the media they mount.\
+B) Incorrect. ChromeOS didn’t change how the kernel treats mounting. It used a different component for untrusted media.\
+C) Incorrect. ChromeOS didn’t simply accept the risk. It chose a different mechanism for untrusted media.\
+D) Correct. ChromeOS uses a system based on FUSE to mount untrusted external media, rather than relying solely on the kernel. No single piece of software can do everything. Choose the set of components you use, and combine them as appropriate, to support the specific security properties you need.\
 ENDQUIZ
 
 ### Reporting to authorities
@@ -1645,12 +2234,19 @@ People, projects, and organizations should ensure that they can rapidly *accept*
 QUIZ\
 Q1. This material argues that, in an era of AI-accelerated vulnerability discovery, organizations that rely exclusively on manual testing and applying updates will:
 
-A) Still keep pace fine, since AI mainly speeds up finding vulnerabilities, not applying fixes.\
-B) Only fall behind if they're using memory-unsafe languages like C or C++.\
-C) Be unable to keep up, so establishing automated processes to help test and accept updates is necessary.\
-D) Only fall behind on EU Cyber Resilience Act reporting deadlines, not on ordinary patch adoption.
+A) be able to keep pace without issues, since AI mainly speeds up finding vulnerabilities, not applying fixes.\
+B) only fall behind if they’re using memory-unsafe languages like C or C++.\
+C) be unable to keep up, so establishing automated processes to help test and accept updates is necessary.\
+D) only fall behind on EU Cyber Resilience Act reporting deadlines, not on ordinary patch adoption.
 
-Answer: C\
+Answer: C
+
+Feedback:
+
+A) Incorrect. AI also helps attackers quickly turn released patches into exploits (“patch diffing”), so applying updates quickly matters more than ever.\
+B) Incorrect. The programming language in use doesn’t change this. Any organization that relies solely on manual processes to accept updates will often be unable to keep up.\
+C) Correct. Organizations that try to accept updates solely with manual processes will often be unable to keep up. Humans still need to be in control, but they need to be supported by automated processes that test updates and then propose or implement them.\
+D) Incorrect. The problem the material describes is keeping up with the updates themselves, not CRA reporting deadlines.\
 ENDQUIZ
 
 ## Repeated application
@@ -1675,7 +2271,128 @@ B) Because most vulnerabilities only become detectable after the software has be
 C) Because licensing terms for most AI coding tools require a minimum number of scans per billing period.\
 D) Because a single scan can’t legally be used as evidence of due diligence under the EU Cyber Resilience Act.
 
-Answer: A\
+Answer: A
+
+Feedback:
+
+A) Correct. Most AI systems are non-deterministic, so rerunning them can find new vulnerabilities, especially in the first few iterations. AI systems also keep improving, and new capabilities may find new problems.\
+B) Incorrect. Vulnerabilities can be found before release. The material recommends having AI analyze each proposed change *before* it’s accepted.\
+C) Incorrect. The material doesn’t mention licensing terms. Rerunning helps because AI systems are non-deterministic and keep improving.\
+D) Incorrect. The material doesn’t make this legal claim. Rerunning helps because AI systems are non-deterministic and keep improving.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. In a 2026 case study, ten AI reviewers unanimously endorsed a vulnerability that didn’t exist. What lesson does the material draw?
+
+A) Use more AI reviewers, since ten weren’t enough to reach a reliable consensus\
+B) Use only the strongest available model, since weaker models agree too easily\
+C) Require empirical confirmation, since AI agreement isn’t necessarily proof of a vulnerability\
+D) Stop using AI reviewers, since multi-agent review always produces false results
+
+Answer: C
+
+Feedback:
+
+A) Incorrect. More votes wouldn’t have fixed it. As the author concluded, “empirical verification, not consensus count, is what changes our belief”.\
+B) Incorrect. Model strength doesn’t replace testing. Even a strong model’s judgment can be mixed; Mythos Preview sometimes lost true positives during validation.\
+C) Correct. The nonexistent vulnerability was “killed only by a single empirical test”. The author added a gate: no candidate reaches disclosure without empirical confirmation, meaning the target software was actually run to demonstrate the claimed failure. That gate eliminated about 79% of 171 candidates.\
+D) Incorrect. The same pipeline produced real CVEs and fixes once it added an empirical gate. The lesson is to require empirical confirmation, not to abandon AI review.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. According to the material, how should an AI verifier agent be set up to validate a finding?
+
+A) Have the discovery agent recheck its own finding, since it knows the most about it\
+B) Tell the verifier to confirm the finding, since most AI findings are real\
+C) Reuse the discovery agent’s container and history, so that no context gets lost\
+D) Make it independent of the discovery agent, and have it try to disprove the finding
+
+Answer: D
+
+Feedback:
+
+A) Incorrect. Validation means independent reproduction rather than self-review. Asking the discovery agent to reconsider its own conclusion can preserve the same context, assumptions, and reasoning errors.\
+B) Incorrect. Not all findings are real vulnerabilities, so the verifier should try to *disprove* each finding, assuming it’s a false positive and searching for reasons it’s wrong.\
+C) Incorrect. The material recommends running the verifier in a fresh container without a shared filesystem or conversation history. If the verifier is exposed to the discovery agent’s reasoning, it may simply agree instead of testing the claim.\
+D) Correct. Validation involves independent reproduction rather than self-review. One approach gives the verifier only the PoC or written finding plus the codebase, so it can look for mitigations the finder missed; another gives it all the information but prompts it to disprove each finding. Adding an adversarial verifier roughly halved non-exploitable findings, and also requiring it to build a PoC brought the false positives to near zero.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. When asking an AI to create a fix, what information does the material say you should give it?
+
+A) Only verified information, such as the reproducing input that validation confirmed\
+B) Every guess the finder made about the cause, since more context always helps\
+C) The finder’s proposed fix, so the fixing AI doesn’t need to reason on its own\
+D) As little as possible, so the AI isn’t influenced by any facts about the bug
+
+Answer: A
+
+Feedback:
+
+A) Correct. “Garbage in, garbage out” especially applies to fixes. One study found that incorrect guidance cut fix correctness by roughly 50 percentage points, while correct details raised it by only 15. Pass along what validation confirmed, not the finder’s unverified explanation of the cause or how to fix it.\
+B) Incorrect. Unverified guesses can be wrong, and wrong guidance can cause a “correctness collapse”. When you can’t be confident in information, the safer bet may be to omit it.\
+C) Incorrect. The finder’s proposed fix is unverified guidance, which can badly mislead the fixing AI. The material recommends letting the AI interrogate, validate, and raise disagreements about what it’s told.\
+D) Incorrect. Correct details still help, and the material recommends giving the fixing AI the verified evidence. The point is to leave out low-confidence information, not verified facts.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. Why does the material recommend releasing a security fix for all supported versions at the same time?
+
+A) Package managers can’t install fixes released for only some versions\
+B) A fix for one version provides information on how to attack the others\
+C) The CRA prohibits releasing fixes for supported versions separately\
+D) Releasing them together means you can skip writing a security advisory
+
+Answer: B
+
+Feedback:
+
+A) Incorrect. Package managers aren’t the issue. The concern is that attackers can study a released fix.\
+B) Correct. A released fix is a map to the vulnerability: attackers can “patch diff” to find what changed, then determine what vulnerability was fixed. AI has made that relatively fast and cheap. If you fix the main branch today and a long-term-support branch next month, the first fix shows attackers how to attack the second.\
+C) Incorrect. The CRA requirements the material describes don’t address release timing across versions. The reason to release together is patch diffing by attackers; attackers can examine the changes to identify the vulnerabilities they fix.\
+D) Incorrect. You still need a security advisory so users know to update. The material even suggests using AI (with human review) to help draft advisories when many fixes arrive.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. After fixing a vulnerability, how does the material recommend making sure the same problem doesn’t return?
+
+A) Rerun the same AI analysis on every change, since it’ll catch the problem again\
+B) Ask the developers to remember the problem during their future code reviews\
+C) Turn it into deterministic checks, such as a regression test or analysis rule\
+D) Add a comment near the fix, warning future AI agents not to undo the change
+
+Answer: C
+
+Feedback:
+
+A) Incorrect. AI analysis is non-deterministic, so you can’t depend on rerunning it to catch the same problem again.\
+B) Incorrect. A process that relies on people remembering doesn’t scale. If something is important, enforce it with deterministic mechanisms instead.\
+C) Correct. Add the regression test you created earlier. You might also add a static analysis rule for the vulnerable pattern, a fuzz harness, or a hardening or API change that makes the whole class of vulnerability impossible or unlikely. Run these checks on every change. This reliably detects it if it recurs.\
+D) Incorrect. A comment is just more input that an AI may or may not follow. Enforce what’s important with deterministic checks that run on every change.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. Per the material, how should you treat defects that appear unexploitable during triage?
+
+A) Close them as invalid, since only exploitable defects are worth fixing\
+B) Leave them alone, since changing code always risks new vulnerabilities\
+C) Announce them publicly right away, since they pose no risk to users\
+D) Triage the known vulnerabilities first, but fix the others as resources permit
+
+Answer: D
+
+Feedback:
+
+A) Incorrect. Modern AI systems are increasingly good at chaining defects together. Something that appears unexploitable may, combined with other defects, become a serious vulnerability.\
+B) Incorrect. The material recommends fixing them as resources permit, so they can’t become part of a chain leading to an exploit. Your tests and reviews help keep fixes from adding new problems.\
+C) Incorrect. A defect that appears unexploitable may still be part of a chain, so it isn’t necessarily harmless. The material also advises against announcing vulnerabilities before a fix is available.\
+D) Correct. Triage and fix the known vulnerabilities first, but try to avoid ignoring defects that only *appear* unexploitable. AI may be able to chain a sequence of defects into working exploits. Fix defects that appear to be unexploitable as resources permit.\
 ENDQUIZ
 
 # Preventing vulnerabilities longer term
@@ -1701,14 +2418,21 @@ Where security matters, you need to have AI look for vulnerabilities and then ha
 Someday this review may no longer be necessary, or perhaps it can be completely automated. We can’t predict how good AI will get over time, or at what rate. However, at the time of this writing, human review is necessary if failures can cause serious problems.
 
 QUIZ\
-Q1. What does the material warn about unreviewed AI-generated code ("vibe coding")?
+Q1. What does the material warn about unreviewed AI-generated code (“vibe coding”)?
 
-A) It's inherently more secure than any human-written code\
-B) It can't be reviewed by any automated tool at all\
+A) It’s inherently more secure than any human-written code\
+B) It can’t be reviewed by any automated tool at all\
 C) It often introduces vulnerabilities, so it needs scanning plus human review\
 D) Most major open source projects have banned all AI-generated results in all cases
 
-Answer: C\
+Answer: C
+
+Feedback:
+
+A) Incorrect. The material says AI often generates insecure code, partly because it’s trained on lots of insecure code.\
+B) Incorrect. AI-generated code can be reviewed automatically. The material recommends having AI look for vulnerabilities in it, followed by human review.\
+C) Correct. Unreviewed AI-generated code often has vulnerabilities; CVEs directly attributable to AI coding tools rose sharply in 2026. Where security matters, have AI look for vulnerabilities and have humans review the code.\
+D) Incorrect. The material doesn’t say most open source projects have banned AI-generated code. It says you *can* use AI to generate code in many projects, but where security matters, have it reviewed.\
 ENDQUIZ
 
 ## Evaluate merge/pull requests
@@ -1739,14 +2463,21 @@ If you run an AI agent on untrusted proposed changes:
 ![A robot is in a sandbox and is passing an approved set of pages to a man outside the sandbox](images/robot-sandbox-passing-approved-set-pages.jpg){width=414 height=225}
 
 QUIZ\
-Q1. Why is it risky to run an AI review agent that has repository secrets on pull requests from untrusted contributors?
+Q1. Why is it risky to review pull requests from untrusted contributors with an AI review agent that has repository secrets?
 
-A) Text an attacker puts in the pull request can instruct the agent to leak secrets or take other actions\
+A) Text an attacker puts in the pull request can instruct the agent to leak secrets or take other malicious actions\
 B) Review agents usually approve changes from new contributors without examining the proposed code closely\
 C) Secrets given to the agent become part of the model’s training data and can appear in later responses\
 D) Untrusted changes force the agent to use a far larger context window, which sharply raises its costs
 
-Answer: A\
+Answer: A
+
+Feedback:
+
+A) Correct. A pull request’s title, description, comments, commit messages, and code are all controlled by the submitter, and in many cases that submitter could be an attacker. An AI agent treats all of it as input. Prompt injection has made real review agents leak a repository’s API keys and access tokens. Don’t give such agents secrets or write-capable tokens.\
+B) Incorrect. The material doesn’t say review agents are lax. The risk is that text in the pull request can give the agent new instructions (prompt injection).\
+C) Incorrect. The concern is prompt injection while the agent runs. In the cited attacks, review agents leaked secrets directly, with no training involved.\
+D) Incorrect. The concern is security, not cost. An agent that has secrets and powerful tools in the same runtime that processes untrusted input can be manipulated into leaking them.\
 ENDQUIZ
 
 ## Apply secure by design and secure by default
@@ -1766,14 +2497,21 @@ As always, if a system is to be secure in the real world, it must be:
 Secure-by-design and secure-by-default “must become standard practice – not an aspiration” \[[FiveEyes2026](https://www.cyber.gov.au/sites/default/files/2026-06/Five%20eyes%20cyber%20security%20agencies%20statement.pdf)\].
 
 QUIZ\
-Q1. What does "secure-by-default" mean, per the material?
+Q1. What does “secure-by-default” mean, per the material?
 
 A) Security features exist but must be manually enabled after reading a guide\
 B) The software is secure in its default installation, without extra hardening steps\
-C) The software's entire source code is kept fully confidential\
+C) The software’s entire source code is kept fully confidential\
 D) The software updates itself automatically, without any user consent
 
-Answer: B\
+Answer: B
+
+Feedback:
+
+A) Incorrect. That’s the opposite of secure-by-default. A hardening guide that users must apply after installation indicates insecure defaults.\
+B) Correct. Secure-by-default software is secure in its unchanged default installation. Most users install the default, so the default security is the security of most installations. If necessary, provide a “loosening guide” for special cases.\
+C) Incorrect. Secure-by-default is about the default configuration of installed software, not about keeping source code confidential.\
+D) Incorrect. Secure-by-default is about the default configuration of installed software, not automatic updates without consent.\
 ENDQUIZ
 
 ## Harden
@@ -1861,24 +2599,152 @@ All of this requires continuously testing organizations’ security assumptions.
 However, there’s no need to *panic*. All of this was true before AI; it’s simply more important to *execute*. What’s more, even the most advanced AI models cannot simply create vulnerabilities where none exist. As Red Hat’s Gunnar Hellekson notes, “context renders many bugs useless \[and\] some ‘vulnerabilities’ identified by AI are actually functionality bugs with no meaningful exploit path. Many issues \[are low risk\] because the affected \[components are rarely exposed to the internet\].” \[[Hellekson2026](https://www.redhat.com/en/blog/navigating-mythos-haunted-world-platform-security)\] In short, AI may find many “vulnerabilities” as defined by some document, yet many won’t be significant in your context. Act promptly on the ones that are.
 
 QUIZ\
-Q1. Why does the material say hardening that only makes exploitation "somewhat more difficult" is weaker against modern AI attackers?
+Q1. Why does the material say hardening that only makes exploitation “somewhat more difficult” is weak against modern AI attackers?
 
 A) AI can grind through tedious steps quickly at scale, defeating friction\
-B) AI systems will always refuse to attempt any hardened system\
+B) AI systems will always refuse to attempt attacks on a hardened system\
 C) Such hardening measures are prohibited from any production deployment\
-D) AI can't exploit any hardened system, regardless of hardening type
+D) AI can’t exploit any hardened system, regardless of hardening type
 
-Answer: A\
+Answer: A
+
+Feedback:
+
+A) Correct. When run at large scale, AI grinds through tedious steps quickly, so mitigations whose value comes mainly from friction become considerably weaker. Use reliable hardening measures, such as parameterized statements to counter SQL injection.\
+B) Incorrect. AI systems do attack hardened systems. Mythos Preview, for example, chained multiple vulnerabilities into working exploits on the Linux kernel.\
+C) Incorrect. Such measures aren’t prohibited. The material recommends continuing to use ASLR, for example, just not counting on it alone.\
+D) Incorrect. AI can defeat hardening that only adds friction. For example, Mythos Preview worked around the unpredictable memory layout created by browser JIT compilers. Reliable hardening has stopped AI models, but not all hardening is reliable.\
 ENDQUIZ\
 QUIZ\
 Q1. Why does the material recommend disabling hardening mechanisms during some evaluation runs?
 
-A) To make the AI's task easier by removing all security controls\
+A) To make the AI’s task easier by removing all security controls\
 B) Because hardening mechanisms tend to interfere with AI training data\
-C) To reveal defects that one hardening mechanism alone would otherwise hide\
+C) To reveal defects that the hardening mechanism would otherwise hide\
 D) Because hardening mechanisms are considered deprecated as of 2026
 
-Answer: C\
+Answer: C
+
+Feedback:
+
+A) Incorrect. Making the AI’s task easier isn’t the goal, and you don’t remove *all* controls (the AI still needs its own sandbox). The goal is to find defects that hardening otherwise hides.\
+B) Incorrect. The material doesn’t connect hardening to AI training data. Disabling hardening helps reveal defects that a single mechanism hides.\
+C) Correct. If the AI only evaluates the system with all its hardening in place, it often won’t report cases where a single hardening mechanism alone prevented an attack. Evaluate the system without its hardening, and separately evaluate the hardening itself, for stronger defense in depth.\
+D) Incorrect. The material says hardening works, and it’s a key part of secure-by-design. You disable it only during some evaluation runs, and you separately evaluate the hardening itself.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. What did a controlled study cited in the material find about developers using an AI assistant?
+
+A) They wrote less secure code, yet were more likely to believe their code was secure\
+B) They wrote more secure code, and were more likely to doubt their code was secure\
+C) They wrote code that was just as secure, but they took much longer to finish tasks\
+D) They wrote less secure code, but they correctly recognized their code was insecure
+
+Answer: A
+
+Feedback:
+
+A) Correct. Participants with an AI assistant “wrote significantly less secure code than those without access” yet “were more likely to believe they wrote secure code”. Those who trusted the AI less and worked more on their prompts produced code with fewer vulnerabilities. Stay skeptical.\
+B) Incorrect. It’s the reverse on both counts: they wrote *less* secure code and were *more* confident in it.\
+C) Incorrect. The study found a security difference: participants with the AI assistant wrote significantly less secure code.\
+D) Incorrect. They did write less secure code, but they *didn’t* recognize it; they were more likely to believe their code was secure.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. If you run an AI agent to review proposed changes from untrusted contributors, which approach does the material recommend?
+
+A) Give the agent write tokens, so it can fix any problems it finds immediately\
+B) Have a low-privilege agent report, and a trusted process or human decide\
+C) Let the agent merge any change it approves, to keep reviews moving quickly\
+D) Use the pull\_request\_target trigger, so the agent can use repository secrets
+
+Answer: B
+
+Feedback:
+
+A) Incorrect. Don’t give such an agent secrets or write-capable tokens. Attackers control the change’s text and code, and can use prompt injection to try to make the agent misuse them.\
+B) Correct. Separate analysis from action. Give the review agent the fewest tools practical, usually just enough to read code and produce a report, and treat its output as untrusted data. A different, trusted process or a human decides what to do with that report.\
+C) Incorrect. Treat the agent’s output as untrusted data, and don’t let it automatically trigger privileged actions like merging; put a human gate in front of them.\
+D) Incorrect. By default, GitHub Actions doesn’t expose secrets to pull requests from forks, but triggers like pull\_request\_target can grant that access. The material says not to do that for AI agents.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. What does the material say about address space layout randomization (ASLR) as a hardening measure?
+
+A) It’s obsolete against AI attackers, so disable it to improve performance\
+B) It’s always reliable, so it can serve as your only memory-safety defense\
+C) Keep using it, but don’t rely on it alone, as its random value often leaks\
+D) It only works for memory-safe languages, so it doesn’t help C or C++ at all
+
+Answer: C
+
+Feedback:
+
+A) Incorrect. The material recommends continuing to use ASLR, since it’s usually an easily enabled defense.\
+B) Incorrect. ASLR is reliable only if there are enough random bits to make guessing impractical *and* attackers can’t obtain data revealing the random value. Attackers often can obtain it. In addition, some memory safety attacks are not countered by ASLR.\
+C) Correct. If an attacker can determine ASLR’s random value, ASLR is quietly broken, and AI can then chain attacks. It’s still worth enabling, but don’t count on it alone.\
+D) Incorrect. ASLR randomizes memory layout, which mainly matters as a defense for memory-unsafe code. The material’s concern is that attackers can often learn the random value.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. What hardening approaches does the material describe for software written in memory-unsafe languages such as C and C++?
+
+A) Add more code comments, so AI tools can find the memory errors themselves\
+B) Hide the source code, so attackers can’t analyze how the program uses memory\
+C) Disable compiler warnings, so developers can focus on the real vulnerabilities\
+D) Add hardening options and safer APIs, or rewrite it in a memory-safe language
+
+Answer: D
+
+Feedback:
+
+A) Incorrect. Comments can help AI analysis, but they don’t harden the software. Hardening makes defects systematically unlikely to be exploitable.\
+B) Incorrect. Hiding source code doesn’t help. The material notes that AI can reconstruct plausible source code from a closed-source, stripped binary.\
+C) Incorrect. Warnings help detect possible defects. The material recommends adding protections, such as the options in the OpenSSF Compiler Options Hardening Guide, not removing checks.\
+D) Correct. One approach is to add mechanisms that make it less likely that an undetected memory-safety issue becomes a vulnerability, such as the OpenSSF Compiler Options Hardening Guide for C and C++, or safer APIs like the Linux kernel’s strscpy. Another approach is to rewrite the software in a memory-safe language such as Rust.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. Per the material’s discussion of secure-by-design, where should security checks run?
+
+A) Where attackers can’t bypass them, which usually means on the server\
+B) Only in the client, so bad data never reaches the server\
+C) Only in the CI/CD pipeline, since checks at run time slow down the application\
+D) Wherever is fastest to implement, since hardening will catch anything missed
+
+Answer: A
+
+Feedback:
+
+A) Correct. Ensure that security checks run where attackers can’t bypass them. If an attacker can control a client, checks only in the client don’t protect the server. OWASP ASVS 5.0 discusses this for input validation and authorization.\
+B) Incorrect. An attacker who controls the client can bypass any checks there. For example, if an attacker can use their own web browser, the attacker can have their web browser do whatever the attacker wants. Security checks must run where the attacker can’t bypass them; in many cases that’s on the server.\
+C) Incorrect. CI/CD checks examine your code before release; they can’t check what attackers send at run time. Security checks must run where attackers can’t bypass them.\
+D) Incorrect. Hardening is an additional defense, not a replacement for secure design. The goal is a system where attackers must defeat multiple mechanisms.\
+ENDQUIZ
+
+QUIZ\
+End-of-chapter quiz question\
+Q1. What does the material say about adopting an “update by default” policy for software you use?
+
+A) Avoid it, since updates break functionality more often than attacks occur\
+B) Adopt it, since the risk from failing to update is usually far greater\
+C) Adopt it only for internal systems, never for internet-facing systems\
+D) Avoid it, since attackers subvert most automatic updates in practice
+
+Answer: B
+
+Feedback:
+
+A) Incorrect. The material acknowledges that an update may break functionality, but says the risk from failing to update is usually far greater.\
+B) Correct. The UK NCSC recommends a policy to “update by default”, always applying software updates as soon as possible, ideally automatically. Updating has risks, but failing to update is usually far riskier.\
+C) Incorrect. It’s the reverse: where organizations can’t update everything, the NCSC says to prioritize updates to their external attack surfaces.\
+D) Incorrect. The material notes that an attacker *may* subvert an update or the update process, but it doesn’t say that happens to most updates, and it still recommends updating by default.\
 ENDQUIZ
 
 # Call to action

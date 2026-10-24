@@ -175,27 +175,65 @@ To see the results, view
 ## Quiz content
 
 Quiz questions for the eventual course go in the same document, using
-this exact template:
+this exact template. Here's how a quiz looks in `Finding.md`; in the
+Google Doc, type the same lines without the trailing `\` markers (see
+below):
 
 ```text
-QUIZ
+QUIZ\
 Q1. <question text>
 
-A) <option>
-B) <option>
-C) <option>
+A) <option>\
+B) <option>\
+C) <option>\
 D) <option>
 
 Answer: B
+
+Feedback:
+
+A) Incorrect. <why it's wrong, per the material>\
+B) Correct. <summary of the relevant material>\
+C) Incorrect. <why it's wrong, per the material>\
+D) Incorrect. <why it's wrong, per the material>\
 ENDQUIZ
 ```
 
+Every question is numbered `Q1.`. Each quiz has exactly one correct
+answer, and the feedback has one line per option, starting with
+`Correct.` or `Incorrect.`. For an incorrect option, the feedback
+explains why it's wrong according to the material, so learners
+understand their mistake. Keep the options similar in length and form,
+so the correct answer isn't given away by its format.
+
+Normal quizzes go right after the material they cover. At the end of
+each chapter (H1 heading) with substantive instructional material, just
+before the next H1 heading, we also add six end-of-chapter quizzes that
+sample the whole chapter. Each has the extra line
+`End-of-chapter quiz question` right after `QUIZ`:
+
+```text
+QUIZ\
+End-of-chapter quiz question\
+Q1. <question text>
+...
+```
+
 Quizzes stay in this plain-text form in `Finding.md`, matching the
-Google Doc (each line is its own paragraph there). `cleanup-markdown`
-ends each line that runs directly into the next with `\` (e.g.,
-`QUIZ\` and `A) ...\`), so GitHub shows the lines separately; you
-needn't type those yourself. `gen-html` leaves
-them out of the HTML, PDF, and EPUB, by running `drop-quizzes.awk`
+Google Doc (each line is its own paragraph there). In markdown,
+consecutive lines join into one paragraph, so a line followed directly
+by more text of the same paragraph needs a trailing `\` (a hard line
+break) to show separately, e.g., `QUIZ\`, `A) ...\` through `C) ...\`,
+and each feedback line. Don't add `\` where the paragraph ends anyway:
+before a blank line (e.g., after the question, the `D)` option,
+`Answer: B`, and `Feedback:`), or before a line that starts a new
+block, such as a heading, list item, block quote, table row, or code
+fence. There it does nothing useful, and it may show up as a literal
+backslash. `ENDQUIZ` needs `\` only when another quiz follows it with
+no blank line between them. `cleanup-markdown` adds these `\` markers
+when it cleans up the Google Docs export, so you needn't type them
+yourself. `gen-html` leaves
+quizzes out of the HTML, PDF, and EPUB, by running `drop-quizzes.awk`
 separately for each. To show quizzes in one of them, replace
 `drop-quizzes.awk` for that one with a transform that formats them,
 e.g., as click-to-expand `<details>` widgets (`clean-finding.awk`

@@ -108,3 +108,6 @@ jspm_packages/
 _site
 docs/.jekyll-metadata
 docs/.sass-cache/
+
+# Local temporary files (names starting with ",")
+,*
