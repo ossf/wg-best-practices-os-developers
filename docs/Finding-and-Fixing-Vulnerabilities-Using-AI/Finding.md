@@ -448,7 +448,7 @@ Feedback:
 A) Correct. An agent harness is the program that runs an AI model as an agent, giving it tools and instructions, and running it in a control loop (to perceive, reason, act, and observe). Examples include Claude Code, Goose, and Pi.\
 B) Incorrect. That’s a fuzzing harness, which the material specifically says not to confuse with an agent harness.\
 C) Incorrect. An agent harness is a running program, not data. It gives a model tools and instructions and runs it in a control loop.\
-D) Incorrect. A sandbox and an agent harness are different things. A sandbox isolates an agent from other systems. Some harnesses include a sandbox, but they are conceptually distinct.\
+D) Incorrect. A sandbox and an agent harness are different things. A sandbox isolates an agent from other systems. Some harnesses include a sandbox, but they’re conceptually distinct.\
 ENDQUIZ
 
 QUIZ\
@@ -1652,7 +1652,7 @@ Feedback:
 
 A) Incorrect. The material says you need to interact with the AI, then review and refine its results, not simply take an AI-generated threat model as truth.\
 B) Correct. Bootstrap from what you’d hand a new security engineer: architecture docs, wikis, entry points, git history, and past vulnerabilities. Have it describe the system context, assets, entry points, and trust boundaries, and document what vulnerabilities you do and don’t care about. Then review and refine the result.\
-C) Incorrect. Documentation helps the AI overcome the challenge of inferring implicit knowledge, trade-offs, and design decisions from code alone. It’s true that incorrect documentation can cause problems, but the solution is improving the documentation not ignoring it.\
+C) Incorrect. Documentation helps the AI overcome the challenge of inferring implicit knowledge, trade-offs, and design decisions from code alone. It’s true that incorrect documentation can cause problems, but the solution is improving the documentation, not ignoring it.\
 D) Incorrect. Neither humans nor AI can determine whether something is a vulnerability without a clear definition for the specific project, and AI performs best on systems with well-documented threat models.\
 ENDQUIZ
 
@@ -1743,7 +1743,7 @@ Feedback:
 
 A) Incorrect. Context limits are a potential concern, but the material doesn’t say combining the tasks would otherwise give the best results. It says the model is better at each question when you ask them separately.\
 B) Correct. When an agent tries to do both at once, “it can self-censor and exclude exploitable true positives.” Discovery should report as many findings as possible, and a separate verification step should exclude those that aren’t exploitable.\
-C) Incorrect. Parallel, narrow tasks do help find vulnerabilities, but that does not explain why it is important to separate finding from verifying. The concern is that a combined agent can discard real vulnerabilities by abandoning a potential vulnerability issue too soon.\
+C) Incorrect. Parallel, narrow tasks do help find vulnerabilities, but that doesn’t explain why it’s important to separate finding from verifying. The concern is that a combined agent can discard real vulnerabilities by abandoning a potential vulnerability too soon.\
 D) Incorrect. The separation isn’t about guardrails. This would be true even when using models that are fully capable of generating a PoC. A PoC is helpful but not required when identifying findings.\
 ENDQUIZ\
 QUIZ\
@@ -1790,7 +1790,7 @@ Q1. Per the material, what should a project’s vulnerability reporting policy s
 
 A) Reject every report that used AI at any point, since such reports are almost always false positives\
 B) Accept AI-generated reports as-is, since modern models rarely report vulnerabilities that aren’t real\
-C) Offer larger bug bounty rewards if they were developed with AI assistance, since bigger rewards attract better-validated reports\
+C) Offer larger bug bounty rewards for reports developed with AI assistance, since bigger rewards attract better-validated reports\
 D) Require a reproducing input and prior validation by the human reporter, and welcome reports that meet that bar
 
 Answer: D
@@ -2041,7 +2041,7 @@ Answer: A
 
 Feedback:
 
-A) Correct. Write a new test that fails with the existing code, then implement the fix and confirm that the test passes without breaking anything else. Without that test, it can be hard to prove the bug was real, and it can be hard to show that the bug was at least partially fixed. In addition, without a new test in the test suite to check for the bug, the fix could silently regress later.\
+A) Correct. Write a new test that fails with the existing code, then implement the fix and confirm that the test passes without breaking anything else. Without that test, it can be hard to prove the bug was real or that you fixed it. In addition, without a new test in the test suite to check for the bug, the fix could silently regress later.\
 B) Incorrect. The material says to write the failing test *first*. That confirms the problem is real before you write any fix.\
 C) Incorrect. The existing test suite is how you confirm that the fix doesn’t break anything else, so keep it running.\
 D) Incorrect. The material doesn’t call for reproducing vulnerabilities in production, which could harm real users. A focused test that fails on the existing code is the starting point.\
@@ -2158,7 +2158,7 @@ QUIZ\
 Q1. Why does this material recommend stating the deployment model and security threat you’re assuming *early* in a vulnerability report to an external project?
 
 A) Because the EU Cyber Resilience Act (CRA) legally requires every vulnerability report to open with a formal deployment-model disclosure statement.\
-B) Because AI often assumes the most permissive deployment, inflating severity; stating your assumptions lets a maintainer correct it instead of rejecting the report.\
+B) Because AI often assumes the most permissive deployment, inflating severity; stating your assumptions lets a maintainer correct them instead of rejecting the report.\
 C) Because maintainers are contractually obligated to respond within 24 hours only if a summary of the deployment model appears in the first paragraph.\
 D) Because static analysis tools can’t process a report that doesn’t specify the deployment model in a structured header field.
 
@@ -2234,7 +2234,7 @@ People, projects, and organizations should ensure that they can rapidly *accept*
 QUIZ\
 Q1. This material argues that, in an era of AI-accelerated vulnerability discovery, organizations that rely exclusively on manual testing and applying updates will:
 
-A) be able to keep pace without issues, since AI mainly speeds up finding vulnerabilities and not when applying fixes.\
+A) be able to keep pace without issues, since AI mainly speeds up finding vulnerabilities, not applying fixes.\
 B) only fall behind if they’re using memory-unsafe languages like C or C++.\
 C) be unable to keep up, so establishing automated processes to help test and accept updates is necessary.\
 D) only fall behind on EU Cyber Resilience Act reporting deadlines, not on ordinary patch adoption.
@@ -2287,7 +2287,7 @@ Q1. In a 2026 case study, ten AI reviewers unanimously endorsed a vulnerability 
 
 A) Use more AI reviewers, since ten weren’t enough to reach a reliable consensus\
 B) Use only the strongest available model, since weaker models agree too easily\
-C) Require empirical confirmation, since AI agreement isn’t necessarily a proof of a vulnerability\
+C) Require empirical confirmation, since AI agreement isn’t necessarily proof of a vulnerability\
 D) Stop using AI reviewers, since multi-agent review always produces false results
 
 Answer: C
@@ -2353,7 +2353,7 @@ Feedback:
 
 A) Incorrect. Package managers aren’t the issue. The concern is that attackers can study a released fix.\
 B) Correct. A released fix is a map to the vulnerability: attackers can “patch diff” to find what changed, then determine what vulnerability was fixed. AI has made that relatively fast and cheap. If you fix the main branch today and a long-term-support branch next month, the first fix shows attackers how to attack the second.\
-C) Incorrect. The CRA requirements the material describes don’t address release timing across versions. The reason to release together is patch diffing by attackers; attackers can examine the changes to identify the vulnerabilities it fixes.\
+C) Incorrect. The CRA requirements the material describes don’t address release timing across versions. The reason to release together is patch diffing by attackers; attackers can examine the changes to identify the vulnerabilities they fix.\
 D) Incorrect. You still need a security advisory so users know to update. The material even suggests using AI (with human review) to help draft advisories when many fixes arrive.\
 ENDQUIZ
 
@@ -2372,7 +2372,7 @@ Feedback:
 
 A) Incorrect. AI analysis is non-deterministic, so you can’t depend on rerunning it to catch the same problem again.\
 B) Incorrect. A process that relies on people remembering doesn’t scale. If something is important, enforce it with deterministic mechanisms instead.\
-C) Correct. Add the regression test you created earlier. You might also add a static analysis rule for the vulnerable pattern, a fuzz harness, or a hardening or API change that makes the whole class of vulnerability impossible or unlikely. Run these checks on every change. This deterministically prevents its recurrence.\
+C) Correct. Add the regression test you created earlier. You might also add a static analysis rule for the vulnerable pattern, a fuzz harness, or a hardening or API change that makes the whole class of vulnerability impossible or unlikely. Run these checks on every change. This reliably detects it if it recurs.\
 D) Incorrect. A comment is just more input that an AI may or may not follow. Enforce what’s important with deterministic checks that run on every change.\
 ENDQUIZ
 
@@ -2432,7 +2432,7 @@ Feedback:
 A) Incorrect. The material says AI often generates insecure code, partly because it’s trained on lots of insecure code.\
 B) Incorrect. AI-generated code can be reviewed automatically. The material recommends having AI look for vulnerabilities in it, followed by human review.\
 C) Correct. Unreviewed AI-generated code often has vulnerabilities; CVEs directly attributable to AI coding tools rose sharply in 2026. Where security matters, have AI look for vulnerabilities and have humans review the code.\
-D) Incorrect. The material doesn’t say most open source projects have banned AI-generated code. It says you often *can* use AI to generate code in many projects, but where security matters, have it reviewed.\
+D) Incorrect. The material doesn’t say most open source projects have banned AI-generated code. It says you *can* use AI to generate code in many projects, but where security matters, have it reviewed.\
 ENDQUIZ
 
 ## Evaluate merge/pull requests
@@ -2474,7 +2474,7 @@ Answer: A
 
 Feedback:
 
-A) Correct. A pull request’s title, description, comments, commit messages, and code are all controlled by the submitter, and in many cases that submitter could be an attacker. An AI agent treats all of it as input. Prompt injection has made real review agents leak a repository’s API keys and access tokens. Don’t give such agents useful secrets or write-capable tokens.\
+A) Correct. A pull request’s title, description, comments, commit messages, and code are all controlled by the submitter, and in many cases that submitter could be an attacker. An AI agent treats all of it as input. Prompt injection has made real review agents leak a repository’s API keys and access tokens. Don’t give such agents secrets or write-capable tokens.\
 B) Incorrect. The material doesn’t say review agents are lax. The risk is that text in the pull request can give the agent new instructions (prompt injection).\
 C) Incorrect. The concern is prompt injection while the agent runs. In the cited attacks, review agents leaked secrets directly, with no training involved.\
 D) Incorrect. The concern is security, not cost. An agent that has secrets and powerful tools in the same runtime that processes untrusted input can be manipulated into leaking them.\
@@ -2713,8 +2713,8 @@ QUIZ\
 End-of-chapter quiz question\
 Q1. Per the material’s discussion of secure-by-design, where should security checks run?
 
-A) Where attackers can’t bypass them, so in most cases, run them on the server and not only in the client\
-B) Only in the client, since that’s where users first enter any data they provide so the data canot reach the server\
+A) Where attackers can’t bypass them, which usually means on the server\
+B) Only in the client, so bad data never reaches the server\
 C) Only in the CI/CD pipeline, since checks at run time slow down the application\
 D) Wherever is fastest to implement, since hardening will catch anything missed
 
@@ -2742,7 +2742,7 @@ Answer: B
 Feedback:
 
 A) Incorrect. The material acknowledges that an update may break functionality, but says the risk from failing to update is usually far greater.\
-B) Correct. The UK NCSC recommends a policy to “update by default”, always applying software updates as soon as possible, ideally automatically. Updating has risks, but failing to update is usually riskier because it has far more likely negative impacts.\
+B) Correct. The UK NCSC recommends a policy to “update by default”, always applying software updates as soon as possible, ideally automatically. Updating has risks, but failing to update is usually far riskier.\
 C) Incorrect. It’s the reverse: where organizations can’t update everything, the NCSC says to prioritize updates to their external attack surfaces.\
 D) Incorrect. The material notes that an attacker *may* subvert an update or the update process, but it doesn’t say that happens to most updates, and it still recommends updating by default.\
 ENDQUIZ
