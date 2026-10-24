@@ -416,7 +416,7 @@ Answer: C
 Feedback:
 
 A) Incorrect. The material says even “fully autonomous” CRSs, in practice, presume initial human direction and human review of the results.\
-B) Incorrect. AIxCC wasn’t canceled. Despite early skepticism, it awarded its grand prize in August 2025.\
+B) Incorrect. AIxCC wasn’t canceled. Despite early skepticism, it awarded its grand prize in August 2025\.\
 C) Correct. When AIxCC awarded its grand prize in August 2025, the finalists had shown that CRSs could find and fix real vulnerabilities in real software, despite early skepticism.\
 D) Incorrect. The material mentions no such ban. It says you can find and fix vulnerabilities with both closed and open models.\
 ENDQUIZ
@@ -807,7 +807,7 @@ Answer: B
 Feedback:
 
 A) Incorrect. The material doesn’t say agents refuse this task. The agent will try, but asking it to read all the code at once tends to produce poor results.\
-B) Correct. Simply asking a generic coding agent to “find bugs” in a large repository results in “context window compaction [and] high false-positive rates”. Like a human, an AI can be overwhelmed by trying to read all the code at once.\
+B) Correct. Simply asking a generic coding agent to “find bugs” in a large repository results in “context window compaction \[and\] high false-positive rates”. Like a human, an AI can be overwhelmed by trying to read all the code at once.\
 C) Incorrect. The material’s concern here is the quality of the results, not permissions. Sandboxes, discussed later, address what an agent can do.\
 D) Incorrect. The material says this approach produces high false-positive rates, and AI findings always need validation and review.\
 ENDQUIZ\
@@ -1760,7 +1760,7 @@ Feedback:
 
 A) Incorrect. The material recommends the OWASP Top 10 for web applications, which this system isn’t.\
 B) Incorrect. The material recommends the OWASP Top 10 for Agentic Applications for agentic systems, which this system isn’t.\
-C) Correct. For anything else, including IoT, use the CWE Top 25. Most vulnerabilities found each year are variants or instances of previously discovered patterns.\
+C) Correct. For anything else, including IoT, use the CWE Top 25\. Most vulnerabilities found each year are variants or instances of previously discovered patterns.\
 D) Incorrect. The material doesn’t mention NIST SP 800-53, which is a catalog of security controls rather than a list of common kinds of vulnerabilities.\
 ENDQUIZ
 
@@ -2332,7 +2332,7 @@ Answer: A
 
 Feedback:
 
-A) Correct. “Garbage in, garbage out” especially applies to fixes. One study found that incorrect guidance cut fix correctness by roughly 50 percentage points, while correct details raised it by only 15. Pass along what validation confirmed, not the finder’s unverified explanation of the cause or how to fix it.\
+A) Correct. “Garbage in, garbage out” especially applies to fixes. One study found that incorrect guidance cut fix correctness by roughly 50 percentage points, while correct details raised it by only 15\. Pass along what validation confirmed, not the finder’s unverified explanation of the cause or how to fix it.\
 B) Incorrect. Unverified guesses can be wrong, and wrong guidance can cause a “correctness collapse”. When you can’t be confident in information, the safer bet may be to omit it.\
 C) Incorrect. The finder’s proposed fix is unverified guidance, which can badly mislead the fixing AI. The material recommends letting the AI interrogate, validate, and raise disagreements about what it’s told.\
 D) Incorrect. Correct details still help, and the material recommends giving the fixing AI the verified evidence. The point is to leave out low-confidence information, not verified facts.\
@@ -2431,7 +2431,7 @@ Feedback:
 
 A) Incorrect. The material says AI often generates insecure code, partly because it’s trained on lots of insecure code.\
 B) Incorrect. AI-generated code can be reviewed automatically. The material recommends having AI look for vulnerabilities in it, followed by human review.\
-C) Correct. Unreviewed AI-generated code often has vulnerabilities; CVEs directly attributable to AI coding tools rose sharply in 2026. Where security matters, have AI look for vulnerabilities and have humans review the code.\
+C) Correct. Unreviewed AI-generated code often has vulnerabilities; CVEs directly attributable to AI coding tools rose sharply in 2026\. Where security matters, have AI look for vulnerabilities and have humans review the code.\
 D) Incorrect. The material doesn’t say most open source projects have banned AI-generated code. It says you *can* use AI to generate code in many projects, but where security matters, have it reviewed.\
 ENDQUIZ
 
