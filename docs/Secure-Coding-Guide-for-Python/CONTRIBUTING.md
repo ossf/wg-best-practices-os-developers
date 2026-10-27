@@ -197,20 +197,20 @@ The guide follows a `MAJOR.MINOR.PATCH` scheme such as `pyscg-v1.0.0`.
 Releases are cut as annotated git tags on `main` and published as GitHub Releases.
 Pre-release stages use CPython-style qualifiers appended to the version:
 
-* `pyscg-v1.1.0a1` — alpha (serial `a1`, `a2`, ...), unstable, everything can change
-* `pyscg-v1.1.0b1` — beta (feature freeze), stablize pyscg-id's, titles and parent section relations
-* `pyscg-v1.1.0rc1` — release, only cosmetics, typo and code fixing remain
-* `pyscg-v1.1.0` — final release
+* `v1.1.0a1` — alpha (serial `a1`, `a2`, ...), unstable, everything can change
+* `v1.1.0b1` — beta (feature freeze), stabilize pyscg-id's, titles and parent section relations
+* `v1.1.0rc1` — release, only cosmetics, typo and code fixing remain
+* `v1.1.0` — final release
 
 Pre-release tags are published as GitHub "Pre-release" (not marked "Latest").
 Only a final tag is marked "Latest".
 
 #### Rule ID Stability Contract
 
-The `pyscg-XXXX` rule IDs are intended as stable references within a **released** version. Re-use of pyscg-XXXX id's is therefore not permitted and withdrawn instead.
+The `pyscg-XXXX` rule IDs are intended as stable references within a __released__ version. Re-use of pyscg-XXXX id's is therefore not permitted and withdrawn instead.
 Any `alpha` or `beta` can have `pyscg-XXXX` ids, titles and chapter relations changed.
 
-A withdrawn rule keeps its id forever (never reused), has its `README.md` title prefixed `WITHDRAWN:`, names a replacement id if one exists, and is listed in the `whatsnew/` entry.
+A withdrawn rule keeps its id forever (never reused) and is clearly marked as withdrawn.
 
 See [RELEASING.md](RELEASING.md) for the release procedure and
 [whatsnew/](whatsnew/index.md) for per-release change notes.
