@@ -11,11 +11,11 @@ stability contract.
 
 | Stage | Tag example | GitHub Release flag |
 |-------|-------------|---------------------|
-| alpha | `pyscg-v1.1.0a1` | `--prerelease` |
-| beta | `pyscg-v1.1.0b1` | `--prerelease` |
-| release candidate | `pyscg-v1.1.0rc1` | `--prerelease` |
-| final | `pyscg-v1.1.0` | (none) → marked "Latest", IDs frozen |
-| patch | `pyscg-v1.1.1` | (none) |
+| alpha | `v1.1.0a1` | `--prerelease` |
+| beta | `v1.1.0b1` | `--prerelease` |
+| release candidate | `v1.1.0rc1` | `--prerelease` |
+| final | `v1.1.0` | (none) → marked "Latest", IDs frozen |
+| patch | `v1.1.1` | (none) |
 
 Rules:
 
@@ -34,9 +34,9 @@ Rules:
 
 ```bash
 git checkout main && git pull
-git tag -s pyscg-v1.1.0a1 -m "PySCG 1.1.0 alpha 1"
-git push origin pyscg-v1.1.0a1
-gh release create pyscg-v1.1.0a1 \
+git tag -s v1.1.0a1 -m "PySCG 1.1.0 alpha 1"
+git push origin v1.1.0a1
+gh release create v1.1.0a1 \
   --title "PySCG 1.1.0 alpha 1" \
   --notes-file whatsnew/unreleased.md \
   --prerelease
@@ -47,9 +47,9 @@ gh release create pyscg-v1.1.0a1 \
 ```bash
 git checkout main && git pull
 # rename unreleased.md -> whatsnew/1.1.0.md, set date, update index.md, commit via PR first
-git tag -s pyscg-v1.1.0 -m "PySCG 1.1.0"
-git push origin pyscg-v1.1.0
-gh release create pyscg-v1.1.0 \
+git tag -s v1.1.0 -m "PySCG 1.1.0"
+git push origin v1.1.0
+gh release create v1.1.0 \
   --title "PySCG 1.1.0" \
   --notes-file whatsnew/1.1.0.md
 # no --prerelease: becomes "Latest", rule IDs now permanently frozen
