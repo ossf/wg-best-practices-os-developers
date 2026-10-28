@@ -11,8 +11,6 @@ Python libraries and frameworks evolve over time and their maintainers phase out
 * The replacement API often has clearer or safer behaviour, and only the replacement continues to receive bug and security fixes.
 * A security patch is often only released for current versions, so code pinned to an old interpreter or a removed feature can be left unable to take the fix.
 
-See also [pyscg-0023: Secure Deserialization](../../04_neutralization/pyscg-0023/README.md) for a deprecated function that is also unsafe.
-
 ## Non-Compliant Code Example (Removed Import Location)
 
 The `noncompliant01.py` example imports the abstract base class `Mapping` straight from `collections`. That import path was deprecated back in Python 3.3 and removed for good in Python 3.10 [[docs.python.org collections.abc 2026](https://docs.python.org/3.9/library/collections.abc.html)]. So the same three lines behave differently depending on the interpreter: a `DeprecationWarning` on Python 3.9, an `ImportError` on Python 3.10 and later.
