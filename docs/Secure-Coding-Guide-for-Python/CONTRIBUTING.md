@@ -192,6 +192,15 @@ The guide follows a `MAJOR.MINOR.PATCH` scheme such as `v1.0.0`.
 * __MINOR__: content changes that preserve structure (new rules, title renames, updated code examples).
 * __PATCH__: bugs, typo fixes, bibliography corrections, minor wording improvements.
 
+#### Branch model
+
+`main` is the development (pre-alpha) branch — the in-development line for the
+next release. Design and draft work happens here, and all contributions target
+`main` via pull request. Nothing on the tip of `main` is a stable reference;
+content only becomes stable when a final release tag freezes it. Tagging `a1`
+begins the alpha stage. There are no long-lived alpha, beta, or maintenance
+branches — those are release stages published as tags on `main`, not branches.
+
 #### Release channels
 
 Releases are cut as annotated git tags on `main` and published as GitHub Releases.
