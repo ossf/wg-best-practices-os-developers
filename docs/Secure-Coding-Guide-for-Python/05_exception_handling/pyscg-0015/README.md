@@ -10,7 +10,7 @@ Both modules use the same OS exceptions for file-related errors. Here are some o
 |:----|:----|
 |`OSError`|Base exception for all OS-related error.|
 |`FileExistsError`|Raised when trying to create a file or directory which already exists.|
-|`FileNotFoundError`| Raised when a file or directory is requested but doesn’t exist.|
+|`FileNotFoundError`|Raised when a file or directory is requested but doesn’t exist.|
 |`IsADirectoryError`|Raised when a file operation is requested on a directory.|
 |`NotADirectoryError`|Raised when a directory operation is requested on something which is not a directory.|
 |`PermissionError`|Raised when trying to run an operation without adequate access rights - for example, filesystem permissions.|
@@ -142,7 +142,7 @@ Since the `pathlib` module uses the same exceptions as the `os` module, error ha
 *[compliant02.py](compliant02.py):*
 
 ```py
-""" Non-compliant Code Example """
+""" Compliant Code Example """
  
 import uuid
 from pathlib import Path

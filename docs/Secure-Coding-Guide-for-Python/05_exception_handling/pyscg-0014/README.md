@@ -13,7 +13,7 @@ _[noncompliant01.py](noncompliant01.py):_
 ```python
 # SPDX-FileCopyrightText: OpenSSF project contributors
 # SPDX-License-Identifier: MIT
-"""Compliant Code Example"""
+"""Non-Compliant Code Example"""
 
 
 def divide(divided: int, divisor: int) -> float:
