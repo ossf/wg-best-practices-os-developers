@@ -36,7 +36,7 @@ def count_keys(mapping):
 print(count_keys({"a": 1, "b": 2}))
 ```
 
-On Python 3.9 this runs but prints `DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated`. On Python 3.10+ the import fails outright with `ImportError: cannot import name 'Mapping' from 'collections'`.
+On Python 3.9 this runs but prints `DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working`. On Python 3.10+ the import fails outright with `ImportError: cannot import name 'Mapping' from 'collections'`.
 
 Try running `noncompliant01.py` on more than one interpreter. You can watch the whole lifecycle of an obsolete feature play out:
 
