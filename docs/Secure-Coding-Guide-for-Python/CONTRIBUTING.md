@@ -192,28 +192,6 @@ The guide follows a `MAJOR.MINOR.PATCH` scheme such as `v1.0.0`.
 * __MINOR__: content changes that preserve structure (new rules, title renames, updated code examples).
 * __PATCH__: bugs, typo fixes, bibliography corrections, minor wording improvements.
 
-#### Branch model
-
-`main` is the development (pre-alpha) branch — the in-development line for the
-next release. Design and draft work happens here, and all contributions target
-`main` via pull request. Nothing on the tip of `main` is a stable reference;
-content only becomes stable when a final release tag freezes it. Tagging `a1`
-begins the alpha stage. There are no long-lived alpha, beta, or maintenance
-branches — those are release stages published as tags on `main`, not branches.
-
-#### Release channels
-
-Releases are cut as annotated git tags on `main` and published as GitHub Releases.
-Pre-release stages use CPython-style qualifiers appended to the version:
-
-* `v1.1.0a1` — alpha (serial `a1`, `a2`, ...), unstable, everything can change
-* `v1.1.0b1` — beta (feature freeze), stabilize pyscg-id's, titles and parent section relations
-* `v1.1.0rc1` — release, only cosmetics, typo and code fixing remain
-* `v1.1.0` — final release
-
-Pre-release tags are published as GitHub "Pre-release" (not marked "Latest").
-Only a final tag is marked "Latest".
-
 #### Rule ID Stability Contract
 
 The `pyscg-XXXX` rule IDs are intended as stable references within a __released__ version. Re-use of pyscg-XXXX id's is therefore not permitted and withdrawn instead.
@@ -224,20 +202,40 @@ A withdrawn rule keeps its id forever (never reused) and is clearly marked as wi
 See [RELEASING.md](RELEASING.md) for the release procedure and
 [whatsnew/](whatsnew/index.md) for per-release change notes.
 
+#### Branch model
+
+The `main` is the development branch for future releases and a released version gets its own release branch such as `1.x` tagged as `Latest` and published as GitHub Release.
+
+  main ──●──●──●──●──●──●──▶   (v2 development)
+    (v1.0.0)
+          \
+           ●─────●─────●──────▶   1.x  (maintenance branch)
+           │     │     │
+         v1.0.1 v1.0.2 v1.0.3    ← tags along the branch
+
+
+#### Release channels via tags
+
+Pre-release stages use CPython-style qualifiers appended to the version:
+
+* `v1.1.0a1` — alpha (serial `a1`, `a2`, ...), unstable, everything can change
+* `v1.1.0b1` — beta (feature freeze), stabilize pyscg-id's, titles and parent section relations
+* `v1.1.0rc1` — release, only cosmetics, typo and code fixing remain
+* `v1.1.0` — final release
+
+Pre-release tags are published as GitHub `Pre-release` (not marked `Latest`).
+
 ### Submitting Your Contribution
 
-1. __Create a new branch:__ Use descriptive names for branches, e.g., `issue-123` or  `add-logging-feature` using `git checkout -b branch-name`
-
-2. __Make your changes:__ Commit your changes with clear and concise commit messages.
-
-3. __Push your changes:__ Push your branch to your forked repository.
-`git push origin branch-name`
-
-4. __Submit a pull request:__ Go to the original repository and click on "New Pull Request". Fill out the template provided, detailing your changes and their purpose.
+1. __Fork the project into your own github space__: cllick on the Fork option while viewing the top level of the project.
+2. __Create a new branch:__ Use descriptive names for branches, e.g., `issue-123` or  `add-logging-feature` using `git checkout -b branch-name`
+3. __Make your changes:__ Commit your changes with clear and concise commit messages.
+4. __Push your changes:__ Push your branch to your forked repository. `git push origin branch-name`
+5. __Submit a pull request:__ Go to the original repository and click on "New Pull Request". Fill out the template provided, detailing your changes and their purpose.
 
 ### Review Process
 
-A Pull Request is expected to have approval of at least 2 reviewers. One reviewer must be part of the core team for this Python project. The second can be anyone feeling brave enough who has a GitHub account.
+A Pull Request is expected to have approval of at least 2 reviewers. One reviewer must be part of the core team for this Python project. The second can be anyone feeling bra1ve enough who has a GitHub account.
 
 Once you submit a pull request:
 
