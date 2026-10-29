@@ -3,10 +3,13 @@
 """Compliant Code Example"""
 
 
-def print_number_of_students(classroom: list[str]):
+from typing import Optional
+
+
+def print_number_of_students(classroom: Optional[list[str]]):
     """Print the number of students in a classroom"""
     if not isinstance(classroom, list):
-        raise ValueError("classroom is not a list")
+        raise TypeError("classroom is not a list")
     # TODO: also check each entry
     print(f"The classroom has {len(classroom)} students.")
 
