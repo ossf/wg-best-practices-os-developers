@@ -10,7 +10,7 @@ stability contract.
 ## Tag format
 
 | Stage | Tag example | GitHub Release flag |
-||-------||-------------||---------------------||
+| ----- | ----------- | ------------------- |
 | alpha | `v1.1.0a1` | `--prerelease` |
 | beta | `v1.1.0b1` | `--prerelease` |
 | release candidate | `v1.1.0rc1` | `--prerelease` |
