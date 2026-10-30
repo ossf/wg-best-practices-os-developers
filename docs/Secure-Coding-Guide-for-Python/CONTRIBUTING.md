@@ -213,7 +213,6 @@ The `main` is the development branch for future releases and a released version 
            │     │     │
          v1.0.1 v1.0.2 v1.0.3    ← tags along the branch
 
-
 #### Release channels via tags
 
 Pre-release stages use CPython-style qualifiers appended to the version:
