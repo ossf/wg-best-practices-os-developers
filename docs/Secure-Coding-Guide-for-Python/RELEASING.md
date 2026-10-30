@@ -10,7 +10,7 @@ stability contract.
 ## Tag format
 
 | Stage | Tag example | GitHub Release flag |
-|-------|-------------|---------------------|
+||-------||-------------||---------------------||
 | alpha | `v1.1.0a1` | `--prerelease` |
 | beta | `v1.1.0b1` | `--prerelease` |
 | release candidate | `v1.1.0rc1` | `--prerelease` |
@@ -34,10 +34,12 @@ Rules:
 
 ```bash
 git checkout main && git pull
-git tag -s v1.1.0a1 -m "PySCG 1.1.0 alpha 1"
-git push origin v1.1.0a1
-gh release create v1.1.0a1 \
-  --title "PySCG 1.1.0 alpha 1" \
+VERSION="1.1.0a1"
+TITLE="PySCG 1.1.0 alpha 1"
+git tag -s "$TAG" -m "$TITLE"
+git push origin "v$VERSION"
+gh release create "v$VERSION" \
+  --title  "$TITLE" \
   --notes-file whatsnew/unreleased.md \
   --prerelease
 ```
@@ -47,11 +49,13 @@ gh release create v1.1.0a1 \
 ```bash
 git checkout main && git pull
 # rename unreleased.md -> whatsnew/1.1.0.md, set date, update index.md, commit via PR first
-git tag -s v1.1.0 -m "PySCG 1.1.0"
-git push origin v1.1.0
-gh release create v1.1.0 \
-  --title "PySCG 1.1.0" \
-  --notes-file whatsnew/1.1.0.md
+VERSION="1.1.0"
+TITLE="PySCG $VERSION"
+git tag -s "v$VERSION" -m "$TITLE"
+git push origin "v$VERSION"
+gh release create "v$VERSION" \
+  --title "$TITLE" \
+  --notes-file whatsnew/$VERSION.md
 # no --prerelease: becomes "Latest", rule IDs now permanently frozen
 ```
 
