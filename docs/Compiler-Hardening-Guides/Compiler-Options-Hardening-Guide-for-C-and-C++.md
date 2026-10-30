@@ -128,6 +128,12 @@ Compiler options hardening is not a silver bullet; it is not sufficient to rely 
 
 In most cases hardened compiler options only take effect in code that is compiled with the hardened options. Consequently, most compiler options hardening does not benefit software that has been pre-built before hardened options have been adopted. This is particularly a concern for projects that incorporate pre-built (possibly third-party) libraries or other components. In such cases, it is important to understand what components a project is being linked against, and how they in turn are built, to determine which components benefit from compiler options hardening.
 
+### Why are general static analysis flags out-of-scope?
+
+This guide identifies compiler *hardening* flags for generating instrumented test code and production code. We include flags that help identify constructs that are likely to lead to vulnerabilities, if they have few false positives and those are easily systemically silenced.
+
+Many compilers can also act as a general static analysis tool that heuristically identifies suspicious constructs that may lead to bugs or vulnerabilities. However, these heuristics may often have false positives (reporting problems where none exist) and/or be difficult to silence to generate executable code. Using a compiler as a general static analysis tool, where a human is expected to read the reports instead of using the generated code, can be valuable but is outside the scope of this document.
+
 ### What is our threat model, goal, and objective?
 
 Our threat model is that all software developers make mistakes, and sometimes those mistakes lead to vulnerabilities. In addition, some malicious developers may intentionally create code that *appears* to be an unintentional vulnerability, or *appears* correct but is intentionally deceiving to reviewers (aka underhanded code[^Wheeler2020]).
