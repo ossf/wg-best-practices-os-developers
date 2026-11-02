@@ -3,7 +3,10 @@
 """ Non-compliant Code Example """
 
 
-def is_valid_name(s: str) -> bool:
+from typing import Optional
+
+
+def is_valid_name(s: Optional[str]) -> bool:
     """ Check if the input is a name with 2 capitalised Strings """
     names = s.split()
     if len(names) != 2:
@@ -18,3 +21,4 @@ name = is_valid_name(None)
 
 
 print(name)
+
