@@ -115,7 +115,7 @@ In short, the “normal” security tasks are *still* important with AI \[[Oshun
 
 ![Woman directs robot to build a wall while applying security principles](images/woman-directs-robot-build-wall-while.jpg){width=394 height=215}
 
-## Good news: Long-term potential for eliminating nearly all vulnerabilities
+## Good news: A Path to Near-Zero Vulnerabilities
 
 In the longer term, there is *great* news for defenders. As Bobby Holley of Mozilla put it, “**Defenders finally have a chance to win, decisively**…. **the defects are finite, and we are entering a world where we can finally find them all**” \[[Holley2026](https://blog.mozilla.org/en/privacy-security/ai-security-zero-day-vulnerabilities/)\].
 
@@ -175,7 +175,17 @@ We conclude with a [call to action](#call-to-action), [acknowledgements](#acknow
 
 # AI concepts
 
+## Overview & Learning Objectives
+
 Before we discuss using AI to find and fix vulnerabilities, we need to first understand some basic AI concepts. This section will focus only on the basics of current AI necessary for our topic.
+
+By the end of this section, you should be able to:
+
+* Define core AI concepts including LLMs, AI agents, agent harnesses, and agent skills.
+* Understand AI capabilities and limitations, including limited context windows, unsound outputs, and susceptibility to prompt injection.
+* Compare local versus external hosting and evaluate open weights, open source, and closed models.
+* Examine specialized small language models, safety guardrails, and the history of Cyber Reasoning Systems (CRSs).
+* Identify key frontier labs, agent frameworks, and security organizations.
 
 ## Basic AI terminology
 
@@ -213,9 +223,10 @@ A) Incorrect. Frontier models are machine learning models built on neural networ
 B) Incorrect. Where a model runs doesn’t make it a frontier model; some powerful models are only available as external services.\
 C) Incorrect. Models are trained, and they’re sized by their number of parameters; larger models tend to be better.\
 D) Correct. A frontier model is one that’s among the best currently available. The term is about how capable the model is now, not how it works or where it runs.\
-ENDQUIZ\
+ENDQUIZ
+
 QUIZ\
-Q1. What is the key difference between an “AI agent” and an “AI chatbot”?
+Q2. What is the key difference between an “AI agent” and an “AI chatbot”?
 
 A) An agent uses deep learning, while a chatbot uses only hand-written rules\
 B) An AI agent can execute multi-step actions using external tools to affect its external environment; a chatbot typically can’t affect an external environment\
@@ -245,7 +256,7 @@ However, they also have key weaknesses that impact finding and fixing software v
 * *Injection vulnerability*. LLMs have no built-in fundamental way to distinguish between different types of input. User commands, malicious commands embedded in a web page, and misleading source code comments are all inputs. This is especially important when an AI agent analyzes a software repository or external documentation. Source comments, documentation, issue text, generated files, dependency metadata, and other repository content may be attacker-controlled or simply incorrect. Treat such content as data to analyze, not as authority to redefine the agent’s task, grant additional permissions, expose credentials, or enable additional tools or network access. Instructions obtained from untrusted content should not be allowed to silently cross an authorization boundary \[[OWASP-LLM01](https://genai.owasp.org/llmrisk/llm01-prompt-injection/)\].
 
 QUIZ\
-Q1. Why does the material describe an LLM’s analysis as “unsound”?
+Q3. Why does the material describe an LLM’s analysis as “unsound”?
 
 A) It always produces code that fails to compile\
 B) It requires more memory than any traditional static analysis tool, causing crashes if there’s insufficient memory\
@@ -263,7 +274,7 @@ D) Incorrect. “Unsound” isn’t about how many files an LLM processes. The a
 ENDQUIZ
 
 QUIZ\
-Q1. Why does an LLM’s limited context window matter when analyzing a large codebase?
+Q4. Why does an LLM’s limited context window matter when analyzing a large codebase?
 
 A) It restricts how much input the LLM can effectively focus on, with attention favoring the beginning and end of that input\
 B) It prevents the LLM from ever being trained on security-related data\
