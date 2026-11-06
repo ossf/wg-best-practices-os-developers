@@ -52,7 +52,7 @@
 </ul></li>
 <li>Use linters to detect possible defects (some of which may be vulnerabilities)</li>
 <li>Include tools to detect likely vulnerabilities, such as static application security testing (SAST) tools</li>
-<li>Take steps to minimize false positives, and especially work to counter <em>repeat</em> false positives. E.g., mark confirmed false positives in the source code, such as with suppression comments, so tools don’t report them again</li>
+<li>Take steps to minimize false positives, and especially work to counter <em>repeat</em> false positives. E.g., mark confirmed false positives in the source code, such as with suppression comments, so tools don’t report them again. AI can help triage these warnings and draft each suppression with a comment justifying it, but have a human review each suppression</li>
 </ul>
 <p><em>Speed matters</em> in these processes. It doesn’t matter if a vulnerability is known; what matters is deploying the fix before an attacker exploits it:</p>
 <ul>
