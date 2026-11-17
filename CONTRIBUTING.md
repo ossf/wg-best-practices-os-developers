@@ -28,10 +28,10 @@ We value all contributions, from improving documentation to participating in dis
 
 ### 3. Submit Pull Requests
 
-- Fork the repository.
+- Fork the repository (`git clone git@github.com:ossf/wg-best-practices-os-developers.git`).
 - Create a feature branch (`git checkout -b feature/your-feature-name`).
-- Commit changes (`git commit -m 'Add your message here'`).
-- See here for more information on [signing your commit](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits).
+- Modify files as needed and mark your changes for inclusion in the next git commit (`git add [modified files]`)
+- Commit changes and sign-off the commit with a Developer Certificate of Origin (DCO) (`git commit -m 'Add your message here' --signoff`).
 - Push your branch (`git push origin feature/your-feature-name`).
 - Open a Pull Request (PR) with a detailed description.
 
