@@ -56,7 +56,7 @@ guidance about memory safety through our memory safety SIG, and so on.
 The OpenSSF Best Practices Working Group is collaborating with groups inside and outside of the OpenSSF.
 We are currently collaborating with the following external groups:
 
-* The [Security Web Application Guidelines (SWAG) Community Group](https://www.w3.org/community/swag/) has published the following security guidelines for web developers:
+* The [Secure Web Application Guidelines (SWAG) Community Group](https://www.w3.org/community/swag/) has published the following security guidelines for web developers:
   * [Guidelines for developing more secure web applications](https://www.w3.org/community/reports/swag/CG-FINAL-secure-webapp-guidelines-20261005/)
 
 ## Get involved
