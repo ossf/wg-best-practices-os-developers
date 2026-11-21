@@ -59,6 +59,8 @@ Licensing frameworks, while not directly security-related, significantly impact 
 | **Name Verification** | Check if a similar name is more popular - that could indicate a typosquatting attack. |   |
 | **Adoption** | Assess if the software has significant use. Widely-used software is more likely to offer useful information on how to use it securely and more people will care about its security. |   |
 | **Suitability** | Choose software that is a good solution for your problem. Avoid [Hype Driven Development](https://blog.daftcode.pl/hype-driven-development-3469fc2e9b22): Don't choose it merely because it's used by large companies or because it's the latest fad. |   |
+| **Governance** | Check if the project is governed by a single company. While such projects often have a good security posture due to being the foundation for the company's products, be aware of the risk of limited influence on the technical direction of the project.  |
+| **Copyright** | Check if the project uses a Contributor License Agreement (CLA) which assigns a copyright license to a single controlling entity. Be aware of the risk of a uni-lateral change of the project's license to a non-OSI-compatible license and the resulting business implications. Remaining on the old open source licensed version in this situation is neither a secure nor a sustainable option. |
 
 ## Practical Testing
 
