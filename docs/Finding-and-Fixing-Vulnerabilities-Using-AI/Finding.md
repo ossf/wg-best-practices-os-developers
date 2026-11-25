@@ -4,11 +4,11 @@
 
 David A. Wheeler and OpenSSF Contributors
 
-This is a guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using artificial intelligence (AI). We intend to create a course using this guide. This material is a joint effort between the OpenSSF Best Practices working group (WG) and the OpenSSF AI/ML WG.
+This is a guide for software developers and vulnerability researchers on finding and fixing vulnerabilities using artificial intelligence (AI) that is the basis of the course [“Finding and Fixing Vulnerabilities Using AI” (LFD126)](https://training.linuxfoundation.org/training/finding-and-fixing-vulnerabilities-using-ai-lfd126/). This material is a joint effort between the OpenSSF Best Practices working group (WG) and the OpenSSF AI/ML WG.
 
 # Introduction
 
-Welcome to “Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers”. This is a guidance document; we intend to eventually turn this material into an online course (LFD126). You can retrieve its contents as a [markdown file](https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Finding-and-Fixing-Vulnerabilities-Using-AI/Finding.md) and see its [overview](#overview).
+Welcome to “[Finding and Fixing Software Vulnerabilities Using AI: A Guide for Developers](https://best.openssf.org/Finding-and-Fixing-Vulnerabilities-Using-AI/)”. This is a guidance document that is also the basis of our course [“Finding and Fixing Vulnerabilities Using AI” (LFD126)](https://training.linuxfoundation.org/training/finding-and-fixing-vulnerabilities-using-ai-lfd126/). You can retrieve its contents in [markdown](https://best.openssf.org/Finding-and-Fixing-Vulnerabilities-Using-AI/Finding.md), [PDF](https://best.openssf.org/Finding-and-Fixing-Vulnerabilities-Using-AI/Finding.pdf), and [EPUB](https://best.openssf.org/Finding-and-Fixing-Vulnerabilities-Using-AI/Finding.epub) formats. You can also see its [overview](#overview).
 
 ## Scope of this material
 
@@ -21,7 +21,7 @@ It includes the process of finding, validating, and generating fixes, as well as
 
 We don’t focus on any one *specific* system to do this. Many systems can help with this, more are being released, using multiple systems can be helpful, and the industry is rapidly changing. We instead focus on general principles that we believe are more timeless and will help you regardless of the systems you use to find and fix vulnerabilities. Once you understand the general issues, you’ll be more effective when using any particular system.
 
-For a more general introduction on applying AI/ML to software development and security, see our course *Secure AI/ML-Driven Software Development (LFEL1012)* at [https\://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/](https://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/).
+For a more general introduction on applying AI/ML to software development and security, see our course *Secure AI/ML-Driven Software Development (LFEL1012)* at [https\://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/](https://training.linuxfoundation.org/express-learning/secure-ai-ml-driven-software-development-lfel1012/). More general information about developing secure software in general is available in our course [*Developing Secure Software (LFD121)*](https://training.linuxfoundation.org/training/developing-secure-software-lfd121/).
 
 Please note that this material does NOT focus on the following topics:
 
@@ -981,16 +981,16 @@ OSS-CRS is already capable. “Using OSS-CRS, Team Atlanta discovered twenty-fiv
 
 Here is a set of short videos demonstrating finding bugs using OSS-CRS combined with LibFuzzer:
 
-1. 🎬 [Set up OSS-CRS](https://drive.google.com/file/d/1vv00WXeZusyi2lu-uT2dOiG6KkwMAt4C/view?usp=sharing)
-2. 🎬 [Set Variables for CRS Libfuzzer](https://drive.google.com/file/d/1A9f-PONiA0nJifLkp5dNORxNNEITwCI-/view?usp=sharing)
-3. 🎬 [Prepare the CRS Libfuzzer](https://drive.google.com/file/d/1cwD0DAkMp_XV8J-AdLQZTI3gmRrhxiV-/view?usp=sharing)
-4. 🎬 [Build a target for the Libfuzzer](https://drive.google.com/file/d/19TdoLfwjFEmpOcItrwGHkVyMPwhtFV7y/view?usp=sharing)
-5. 🎬 [Run the CRS Libfuzzer](https://drive.google.com/file/d/1Yt630PBO1B78JCbiMVXBeu_Qq3FVF9N8/view?usp=sharing)
-6. 🎬 L[ibfuzzer outputs: seeds and Proof of Vulnerabilities](https://drive.google.com/file/d/1ztRPyF443w35dzEePWuwjKq_Jz29VfPj/view?usp=sharing)
+1. 🎬 [Set up OSS-CRS](https://github.com/ossf/oss-crs/pull/535/changes#diff-3f51f3964296440405c41288425aa27e66ff9c5e074b6be6b3efb4339107a691)
+2. 🎬 [Set Variables for CRS Libfuzzer](https://github.com/ossf/oss-crs/pull/535/changes#diff-be5b8d43f75185fcd0db74af9b76d6a65990458704c9f2fc5eb9423c2a8ef462)
+3. 🎬 [Prepare the CRS Libfuzzer](https://github.com/ossf/oss-crs/pull/535/changes#diff-49210f1065c444dc2d269d26946927c0033a914b033e20c56b6e1f187a68ad4a)
+4. 🎬 [Build a target for the Libfuzzer](https://github.com/ossf/oss-crs/pull/535/changes#diff-a903c9889482235031c3685388900ef199444bc2b70eb7c37950a3df6d2b589c)
+5. 🎬 [Run the CRS Libfuzzer](https://github.com/ossf/oss-crs/pull/535/changes#diff-4013f6fc4a8b920b648f84524d087fd9781396d9ffb473464ec6d189ba973640)
+6. 🎬 L[ibfuzzer outputs: seeds and Proof of Vulnerabilities](https://github.com/ossf/oss-crs/pull/535/changes#diff-f9d84d5e991b1216b8044023c31472a4a956e3c13806360ecfac66c07e16a471)
 
 Here’s a video showing using OSS-CRS to create a proposed patch:
 
-🎬 [Running a patching CRS](https://drive.google.com/file/d/1kC4rsM3cnX7wf55_QqWl3k0EZbRvfbqA/view?usp=sharing)
+🎬 [Running a patching CRS](https://github.com/ossf/oss-crs/pull/535/changes#diff-245fa6553c96a103bf702aacb3dc96f09ccf8ef6f060c022108d835f1a5b7c64)
 
 For more information on OSS-CRS, see: [https\://openssf.org/projects/oss-crs/](https://openssf.org/projects/oss-crs/)
 
@@ -1234,7 +1234,7 @@ Unsurprisingly, “AI (and external contributors) are more successful if the pro
 
 Having a threat model for a system’s deployed environment is *important* when using AI:
 
-* One report stated that an AI model “performed best on systems with well-documented threat models, system design docs, requirements, and constraints. When the threat model was well-defined, the model's findings were exploitable 90 percent of the time.” In addition, “The most common cause of false positives is that the model lacks a good understanding of \[the\] trust boundaries.” \[[Yan2026](https://claude.com/blog/using-llms-to-secure-source-code)\].
+* One collection of best practices, “Using LLMs to secure source code”, stated that an AI model “performed best on systems with well-documented threat models, system design docs, requirements, and constraints. When the threat model was well-defined, the model's findings were exploitable 90 percent of the time.” In addition, “The most common cause of false positives is that the model lacks a good understanding of \[the\] trust boundaries.” \[[Yan2026](https://claude.com/blog/using-llms-to-secure-source-code)\].
 * A Mythos Preview user reported that it was valuable, but it “needs precise prompts, explicit threat models, and validation infrastructure to turn strong reasoning into reliable security outcomes” \[[Ziegler2026](https://xbow.com/blog/mythos-offensive-security-xbow-evaluation)\].
 * If the AI is not given enough information on the specific context and structure of your system’s environment, its recommendations may fail to align with requirements, including regulatory requirements \[[Kholoosi2025](https://arxiv.org/abs/2512.18261v2)\].
 
@@ -1257,7 +1257,7 @@ When creating or updating a threat model for a world with AI, consider the follo
 8. Implement resiliency and rapid recovery \[[CrowdStrike2026-FiveSteps](https://www.crowdstrike.com/en-us/resources/white-papers/five-steps-for-frontier-ai-security-readiness/)\]
 
 QUIZ\
-Q1. Per the report the material cites, what happened when an AI model analyzed systems with well-defined threat models?
+Q1. Per the collection of best practices “Using LLMs to secure source code”,  what happened when an AI model analyzed systems with well-defined threat models?
 
 A) It found fewer vulnerabilities overall, since the threat model told it to skip most of the code\
 B) Its findings were much more often real, exploitable vulnerabilities instead of false positives\
@@ -2265,7 +2265,7 @@ So you need to repeatedly apply AI systems, especially improved ones, to find vu
 
 The good news is that improved hardening and fixing vulnerabilities will eventually eliminate all “easy vulnerabilities” and make the system increasingly difficult to attack. Software is finite, and so are defects. Take heart: as it gets harder for software developers to find vulnerabilities, it also gets harder for attackers to find them.
 
-In practice, software changes over time. Deterministic checks, including those [created from earlier findings](#turn-findings-into-durable-checks), should run on every change. An AI system should also analyze each proposed change (pull request or merge request) toidentify vulnerabilities *before* a change is accepted.
+In practice, software changes over time. Deterministic checks, including those [created from earlier findings](#turn-findings-into-durable-checks), should run on every change. An AI system should also analyze each proposed change (pull request or merge request) to identify vulnerabilities *before* a change is accepted.
 
 ![A robot and human repeatedly wash a car to clean out a car, the pass count is 5 and the car is sparkling with dirty bugs draining away](images/robot-human-repeatedly-wash-car-clean.jpg){width=459 height=250}
 
