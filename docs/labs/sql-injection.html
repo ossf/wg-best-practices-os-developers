@@ -62,15 +62,16 @@ a collection of results.
 
 <form id="lab">
 <pre><code
-> // Prepare to execute a query.
+>  // Prepare to execute a query.
 <textarea id="attempt0" rows="4" cols="60" spellcheck="false"
 >  String QueryString =
-     "select * from authors where lastname = '" +
-     search_lastname + "';";
+    "select * from authors where lastname = ' " +
+    search_lastname + " '; ";
+  Statement stmt = connection.createStatement();
 </textarea>
   // Execute the query.
 <textarea id="attempt1" rows="3" cols="60" spellcheck="false"
->  rs = statement.executeQuery(QueryString);
+>  ResultSet results = stmt.executeQuery(QueryString);
 </textarea>
 </code></pre>
 <button type="button" class="hintButton">Hint</button>
