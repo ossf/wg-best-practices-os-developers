@@ -46,12 +46,15 @@ Use the “hint” and “give up” buttons if necessary.
 <p>
 Looking at the following example code in Java, we can see that this is an
 example of vulnerable code. (This example was taken directly from
-the <a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/secure_software_development_fundamentals.md">Secure
+the <a href="https://github.com/ossf/secure-sw-dev-fundamentals/blob/main/docs/lfd121.md">Secure
 Software Development Fundamentals</a> course content.)
 Rewrite these statements so this sequence uses a prepared statement
 (a kind of parameterized statement).
-In the first part, create variable named <tt>pstmt</tt> of type
-<tt>PreparedStatement</tt>.
+<p>
+In the first part, adjust the value of the <tt>QueryString</tt> variable to prepared statement syntax.
+Then use it to create variable named <tt>pstmt</tt> of type <tt>PreparedStatement</tt>.
+An instance of type <tt>Connection</tt> is available in a variable named <tt>connection</tt>.
+<p>
 In the second part, use <tt>setString</tt> to set what we're searching for,
 and put the results in a variable named <tt>results</tt> with type <tt>ResultSet</tt>.
 Use <tt>executeQuery</tt> to execute the query, since in this case we want
@@ -62,8 +65,8 @@ a collection of results.
 > // Prepare to execute a query.
 <textarea id="attempt0" rows="4" cols="60" spellcheck="false"
 >  String QueryString =
-     "select * from authors where lastname = ' " +
-     search_lastname + " '; ";
+     "select * from authors where lastname = '" +
+     search_lastname + "';";
 </textarea>
   // Execute the query.
 <textarea id="attempt1" rows="3" cols="60" spellcheck="false"
