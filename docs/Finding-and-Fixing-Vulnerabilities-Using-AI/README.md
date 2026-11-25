@@ -1,5 +1,7 @@
 # README for Finding and Fixing Vulnerabilities Using AI
 
+If you're looking for the *course*, please look instead at [Finding and Fixing Vulnerabilities Using AI (LFD126)](https://training.linuxfoundation.org/training/finding-and-fixing-vulnerabilities-using-ai-lfd126/).
+
 ## How to update the content
 
 Update [Finding.md](./Finding.md).
